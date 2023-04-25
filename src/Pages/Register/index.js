@@ -54,7 +54,7 @@ const RegisterBtn = styled.button`
 	height: 40px;
 	border: none;
 	border-radius: 5px;
-	color: white;
+	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	background-color: ${({ theme }) => theme.color.primary};

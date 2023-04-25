@@ -55,7 +55,7 @@ const Btn = styled.button`
 	border: none;
 	border-radius: 10px;
 	background: ${({ theme }) => theme.color.primary};
-	color: white;
+	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

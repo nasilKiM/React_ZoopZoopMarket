@@ -71,6 +71,7 @@ const Error = styled.span`
 const Btn = styled.button`
 	width: 120px;
 	height: 40px;
+	color: ${({ theme }) => theme.color.white};
 	border: 1px solid ${({ theme }) => theme.color.primary};
 	border-radius: 10px;
 	background: none;

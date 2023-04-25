@@ -3,6 +3,7 @@ const color = {
 	subBeige: '#E0D4C6',
 	subLightGreen: '#9EC284',
 	subBeigeGreen: '#BECAA2',
+	white: '#FFFFFF',
 };
 
 // 폰트 크기
