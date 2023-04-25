@@ -1,3 +1,10 @@
+const color = {
+	primary: '#FF3647',
+	subBeige: '#E0D4C6',
+	subLightGreen: '#9EC284',
+	subBeigeGreen: '#BECAA2',
+};
+
 // 폰트 크기
 const fontSize = {
 	xs: '12px',
@@ -16,6 +23,7 @@ const fontWeight = {
 };
 
 export const theme = {
+	color,
 	fontSize,
 	fontWeight,
 };
