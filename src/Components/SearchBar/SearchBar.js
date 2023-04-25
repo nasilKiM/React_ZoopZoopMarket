@@ -4,25 +4,47 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = () => {
 	return (
-		<Wrap>
-			<SearchInput placeholder="검색어를 입력해주세요" />
-			<div>
-				<FontAwesomeIcon icon={faMagnifyingGlass} color="gray" />
-			</div>
-		</Wrap>
+		<S.Wrap>
+			<S.SearchInput placeholder="검색어를 입력해주세요" />
+			<S.GlassBtn>
+				<FontAwesomeIcon
+					icon={faMagnifyingGlass}
+					color="gray"
+					cursor="pointer"
+					fontSize="20px"
+				/>
+			</S.GlassBtn>
+		</S.Wrap>
 	);
 };
 export default SearchBar;
 
 const Wrap = styled.div`
+	display: flex;
 	border: 1px solid gray;
 	border-radius: 20px;
 	width: 500px;
 	height: 40px;
+	position: relative;
+	/* margin: 0 auto; */
 `;
 const SearchInput = styled.input`
-	border: 1px solid #f1f1f1;
-	border-radius: 50px;
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 95%;
+	border: 0px;
+	font-size: 16px;
+	outline: none;
+	margin-left: 20px;
 `;
+
+const GlassBtn = styled.div`
+	position: absolute;
+	right: 5%;
+	top: 25%;
+`;
+
+const S = {
+	Wrap,
+	SearchInput,
+	GlassBtn,
+};
