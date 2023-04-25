@@ -26,6 +26,9 @@ const GlobalStyles = createGlobalStyle`
 		src: url('/Assets/Font/NanumSquareNeo-eHv.ttf');
 	    }
     }
+	body{
+		font-family: 'Nanum_regular';
+	}
 
 `;
 export default GlobalStyles;
