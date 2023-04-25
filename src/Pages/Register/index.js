@@ -1,5 +1,11 @@
+import UploadFiles from './Components/uploadFiles';
+
 const RegisterPage = () => {
-	return <div>😁</div>;
+	return (
+		<>
+			<UploadFiles />
+		</>
+	);
 };
 
 export default RegisterPage;

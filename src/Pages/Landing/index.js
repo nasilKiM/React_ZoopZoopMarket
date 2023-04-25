@@ -1,10 +1,10 @@
-import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
+import RegisterPage from 'Pages/Register';
 
 const LandingPage = () => {
 	return (
 		<div>
 			LANDING PAGE
-			<MyUserEdit />
+			<RegisterPage></RegisterPage>
 		</div>
 	);
 };
