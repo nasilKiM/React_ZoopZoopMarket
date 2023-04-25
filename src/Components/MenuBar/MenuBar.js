@@ -18,7 +18,7 @@ const MenuBar = () => {
 			</S.LeftMenu>
 			<S.RightMenu>
 				<S.Menu to="/chat">
-					<S.MyChat onChat={onChat}>MY CHAT</S.MyChat>
+					<S.MyChat props={onChat}>MY CHAT</S.MyChat>
 				</S.Menu>
 
 				<S.Menu to="/mypage">MY PAGE</S.Menu>
@@ -57,7 +57,7 @@ const RightMenu = styled.div`
 	width: 40%;
 `;
 const MyChat = styled.div`
-	color: ${props => (props.onChat === 1 ? 'red' : 'black')};
+	color: ${props => (props.props === 1 ? 'red' : 'black')};
 `;
 const S = {
 	Bar,
