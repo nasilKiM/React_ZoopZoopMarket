@@ -1,3 +1,4 @@
+import ItemCard from 'Components/Card/Card';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 
 const LandingPage = () => {
@@ -5,6 +6,7 @@ const LandingPage = () => {
 		<div>
 			LANDING PAGE
 			<MyUserEdit />
+			<ItemCard />
 		</div>
 	);
 };
