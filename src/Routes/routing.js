@@ -5,7 +5,7 @@ import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
 import ItemDetailPage from '../Pages/ItemDetail';
 import SignUpPage from '../Pages/Form/SignUp';
-import LoginPage from '../Pages/Form/Login';
+import LoginPage from '../Pages/Form/Login/LoginPage';
 import MainPage from '../Pages/Main';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
