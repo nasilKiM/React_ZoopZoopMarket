@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 	margin: 0 auto;
 	width: 80vw;
 	height: 100%;
+	font-family: 'Nanum_extraBold';
 `;
 
 const S = {
