@@ -22,7 +22,6 @@ const UploadFiles = () => {
 
 		for (let i = 0; i < filesLength; i++) {
 			const reader = new FileReader();
-			console.log(reader);
 			reader.readAsDataURL(fileArr[i]);
 			reader.onload = () => {
 				fileURLs[i] = reader.result;
@@ -30,7 +29,6 @@ const UploadFiles = () => {
 		}
 		setImgSrc(fileURLs);
 	};
-	console.log(imgSrc);
 
 	const onClickUpload = e => {
 		imgRef.current.click();
@@ -52,9 +50,6 @@ const UploadFiles = () => {
 					onClick={onClickUpload}
 				/>
 				<S.SmallImgContainer>
-					{/* {imgSrc.map(item => (
-						<S.ImgSection src={item} onClick={onClickUpload}></S.ImgSection>
-					))} */}
 					<S.ImgSection
 						src={imgSrc[1] || '/Assets/임시로고.png'}
 						onClick={onClickUpload}
@@ -93,6 +88,7 @@ const UploadFiles = () => {
 					/>
 				</S.SmallImgContainer>
 			</S.ImgContainer>
+			<S.Count>{imgSrc.length} / 10</S.Count>
 		</S.Wrapper>
 	);
 };
@@ -100,10 +96,10 @@ const UploadFiles = () => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 70%;
+	width: 50%;
 	max-width: 1000px;
 	min-width: 700px;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	margin: 0 auto;
 `;
 
@@ -116,9 +112,11 @@ const ImgContainer = styled.div`
 `;
 
 const MainImgSection = styled.img`
-	width: 300px;
-	height: 300px;
+	width: 290px;
+	height: 290px;
 	cursor: pointer;
+	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	object-fit: cover;
 `;
 
 const SmallImgContainer = styled.div`
@@ -135,6 +133,8 @@ const ImgSection = styled.img`
 	height: 90px;
 	margin: 4px;
 	cursor: pointer;
+	object-fit: cover;
+	border: 1px solid ${({ theme }) => theme.color.subBeige};
 `;
 
 const delBtn = styled.div`
@@ -144,6 +144,13 @@ const delBtn = styled.div`
 	border: none;
 	background-color: ${({ theme }) => theme.color.primary};
 `;
+
+const Count = styled.span`
+	margin: 20px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
 const S = {
 	Wrapper,
 	ImgContainer,
@@ -151,4 +158,5 @@ const S = {
 	SmallImgContainer,
 	ImgSection,
 	delBtn,
+	Count,
 };
