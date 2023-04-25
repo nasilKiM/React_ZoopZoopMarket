@@ -1,10 +1,16 @@
-import RegisterPage from 'Pages/Register';
+
+import ItemCard from 'Components/Card/Card';
+import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
+
 
 const LandingPage = () => {
 	return (
 		<div>
 			LANDING PAGE
-			<RegisterPage></RegisterPage>
+
+			<MyUserEdit />
+			<ItemCard />
+
 		</div>
 	);
 };
