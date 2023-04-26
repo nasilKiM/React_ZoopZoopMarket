@@ -17,7 +17,7 @@ const NewChatWrap = styled.div`
     display: flex;
     width: 100vw;
     height: 100vh;
-    /* background-color: rgba(255, 255, 255, 0.5); */
+    /* background-color: rgba(255, 255, 255, 0.5); */ // 배경화면 딤드처리 논의 필요
 `
 
 const Message = styled.div`
@@ -34,6 +34,7 @@ const Message = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: ${({ theme }) => theme.fontSize.sm};;
 `
 
 const OffBtn = styled.button`
