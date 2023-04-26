@@ -3,10 +3,6 @@ import styled from "styled-components";
 
 const NewChatNotice = () => {
 
-    const onExitMessage = () => {
-        
-    }
-
     return (
         <S.NewChatWrap>
             <S.Message>[상품명]에 대한 새 메시지가 도착했습니다.</S.Message>

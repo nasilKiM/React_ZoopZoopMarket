@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import AccountBookSelector from "./Components/selector";
 import AccountBookDetailInfo from "./Components/detailInfo";
-import NewChatNotice from "Components/NewChatMessage/NewChatMessage";
 
 const AccountBookPage = () => {
 	
@@ -9,7 +8,6 @@ const AccountBookPage = () => {
 	  <S.Wrapper>
 		<AccountBookSelector/>
 		<AccountBookDetailInfo/>
-		<NewChatNotice/>
 	  </S.Wrapper>
 	) 
 };

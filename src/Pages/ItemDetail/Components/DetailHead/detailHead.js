@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const DetailHead = () => {
 	return (
-		<>
+		<S.Wrapper>
 			<div>상품이미지</div>
 			<S.ProductWrapper>
 				<S.Profile>
@@ -22,11 +22,23 @@ const DetailHead = () => {
 					</ul>
 				</S.ProfileDetail>
 			</S.ProductWrapper>
-		</>
+		</S.Wrapper>
 	);
 };
 
 export default DetailHead;
+
+const Wrapper = styled.div`
+	& > * {
+		margin: 20px 0;
+	}
+	& > div:first-child {
+		border: 1px solid;
+		height: 400px;
+		${flexAllCenter}
+		background-color: #d9d9d9;
+	}
+`;
 
 const ProductWrapper = styled.div`
 	border: 1px solid;
@@ -64,6 +76,7 @@ const ProfileDetail = styled.div`
 `;
 
 const S = {
+	Wrapper,
 	ProductWrapper,
 	Profile,
 	ProfileDetail,
