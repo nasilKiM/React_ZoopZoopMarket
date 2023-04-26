@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-
 import LandingPage from '../Pages/Landing';
 import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
@@ -19,10 +18,12 @@ import ErrorPage from '../Error';
 
 const router = createBrowserRouter([
 	{
+		path: '',
+		element: <LandingPage />,
+	},
+	{
 		element: <LayOut />,
 		children: [
-			{ path: '/', element: <LandingPage /> },
-
 			{
 				path: 'chat',
 				element: <ChattingPage />,

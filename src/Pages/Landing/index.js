@@ -1,53 +1,115 @@
-import ItemCard from 'Components/Card/Card';
-import ChattingPage from 'Pages/Chat';
+import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LandingPage = () => {
 	return (
 		<>
-			<ChattingPage />
-			<S.LandingHeader>로고들어가는곳</S.LandingHeader>
-			<S.Section1>
-				<div>상품 아이콘이미지 애니메이션</div>
-				<p>
-					이미 회원이시라면?&nbsp;&nbsp;
-					<Link to="/login">
-						<S.GoToLogin>회원가입</S.GoToLogin>
-					</Link>
-				</p>
-				<p>
-					서비스를 이용하고싶다면?&nbsp;&nbsp;
-					<Link to="/signup">
-						<S.GoToSignup>회원가입</S.GoToSignup>
-					</Link>
-				</p>
-			</S.Section1>
-			<S.Section2> 줍줍마켓 서비스설명1+이미지</S.Section2>
-			<S.Section2> 줍줍마켓 서비스설명2+이미지</S.Section2>
-
-			<div>
-				LANDING PAGE
-				<ItemCard />
-			</div>
+			<S.Wrapper>
+				<S.LandingHeader>로고들어가는곳</S.LandingHeader>
+				<S.Section1>
+					<div>상품 아이콘이미지 애니메이션</div>
+					<p>
+						이미 회원이시라면?&nbsp;&nbsp;
+						<Link to="/form/login">
+							<S.GoToLogin>회원가입</S.GoToLogin>
+						</Link>
+					</p>
+					<p>
+						서비스를 이용하고싶다면?&nbsp;&nbsp;
+						<Link to="/form/signup">
+							<S.GoToSignup>회원가입</S.GoToSignup>
+						</Link>
+					</p>
+				</S.Section1>
+				<S.Section2> 줍줍마켓 서비스설명1+이미지</S.Section2>
+				<S.Section2> 줍줍마켓 서비스설명2+이미지</S.Section2>
+			</S.Wrapper>
+			<BasicFooter />
 		</>
 	);
 };
 
 export default LandingPage;
 
+const Wrapper = styled.div`
+	width: 60%;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+`;
+
 const LandingHeader = styled.div`
 	width: 100%;
 	height: 150px;
 	padding-top: 50px;
 `;
-const Section1 = styled.div``;
-const GoToLogin = styled.div``;
-const GoToSignup = styled.div``;
-const Section2 = styled.div``;
+
+const Section1 = styled.section`
+	height: 500px;
+	background-color: #f2f2f2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	line-height: 1.5;
+
+	& > div {
+		width: 250px;
+		height: 40px;
+		background-color: #fff;
+		margin-bottom: 15px;
+		animation: slide 4s ease-in-out infinite;
+	}
+	& > p {
+		font-size: ${({ theme }) => theme.fontSize.base};
+		margin-top: 10px;
+	}
+
+	@keyframes slide {
+		0% {
+			transform: translateX(-100%);
+		}
+		100% {
+			transform: translateX(100%);
+		}
+	}
+`;
+
+const GoToLogin = styled.span`
+	color: #0077c2;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+`;
+
+const GoToSignup = styled.span`
+	color: #0077c2;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+`;
+
+const Section2 = styled.section`
+	height: 500px;
+	margin-top: 50px;
+	background-color: #f2f2f2;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	line-height: 1.5;
+`;
 const Section3 = styled.div``;
 
 const S = {
+	Wrapper,
 	LandingHeader,
 	Section1,
 	GoToLogin,
