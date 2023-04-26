@@ -1,3 +1,4 @@
+import MobileCard from 'Components/Card/Mobile/MobileCard';
 import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,9 +7,13 @@ const LandingPage = () => {
 	return (
 		<>
 			<S.Wrapper>
+				<MobileCard />
 				<S.LandingHeader>로고들어가는곳</S.LandingHeader>
 				<S.Section1>
-					<div>상품 아이콘이미지 애니메이션</div>
+					<marquee>
+						- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
+						MARKET- ZOOP ZOOP MARKET
+					</marquee>
 					<p>
 						이미 회원이시라면?&nbsp;&nbsp;
 						<Link to="/form/login">
@@ -57,12 +62,12 @@ const Section1 = styled.section`
 	font-size: 18px;
 	line-height: 1.5;
 
-	& > div {
-		width: 250px;
+	& > marquee {
+		width: 350px;
 		height: 40px;
 		background-color: #fff;
 		margin-bottom: 15px;
-		animation: slide 4s ease-in-out infinite;
+		/* animation: slide 4s ease-in-out infinite; */
 	}
 	& > p {
 		font-size: ${({ theme }) => theme.fontSize.base};
