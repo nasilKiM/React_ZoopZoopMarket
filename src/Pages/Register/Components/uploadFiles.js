@@ -25,9 +25,9 @@ const UploadFiles = () => {
 			reader.readAsDataURL(fileArr[i]);
 			reader.onload = () => {
 				fileURLs[i] = reader.result;
+				setImgSrc(fileURLs);
 			};
 		}
-		setImgSrc(fileURLs);
 	};
 
 	const onClickUpload = e => {
