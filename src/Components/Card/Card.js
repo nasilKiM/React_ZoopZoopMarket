@@ -27,15 +27,15 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
 	min-width: 250px;
-	max-height: 500px;
+	max-height: 400px;
 	background-color: lightgray;
 `;
 
 const ItemImg = styled.img`
 	width: 100%;
 	padding: 15px;
-	max-height: 350px;
-	object-fit: fill;
+	max-height: 285px;
+	object-fit: cover;
 	margin: auto;
 `;
 
