@@ -45,48 +45,78 @@ const UploadFiles = () => {
 				style={{ display: 'none' }}
 			/>
 			<S.ImgContainer>
-				<S.MainImgSection
-					src={imgSrc[0] || '/Assets/임시로고.png'}
-					onClick={onClickUpload}
-				/>
-				<S.SmallImgContainer>
-					<S.ImgSection
-						src={imgSrc[1] || '/Assets/임시로고.png'}
+				<S.MainImgContainer>
+					<S.MainImgSection
+						src={imgSrc[0] || '/Assets/임시로고.png'}
 						onClick={onClickUpload}
 					/>
-					<S.ImgSection
-						src={imgSrc[2] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[3] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[4] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[5] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[6] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[7] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[8] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-					<S.ImgSection
-						src={imgSrc[9] || '/Assets/임시로고.png'}
-						onClick={onClickUpload}
-					/>
-				</S.SmallImgContainer>
+					<S.DelBtn>-</S.DelBtn>
+				</S.MainImgContainer>
+				<S.SmallImgBox>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[1] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[2] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[3] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[4] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[5] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[6] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[7] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[8] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+					<S.SmallImgContainer>
+						<S.SmallImgSection
+							src={imgSrc[9] || '/Assets/임시로고.png'}
+							onClick={onClickUpload}
+						/>
+						<S.DelBtn>-</S.DelBtn>
+					</S.SmallImgContainer>
+				</S.SmallImgBox>
 			</S.ImgContainer>
 			<S.Count>{imgSrc.length} / 10</S.Count>
 		</S.Wrapper>
@@ -96,10 +126,9 @@ const UploadFiles = () => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 50%;
+	width: 60%;
 	max-width: 1000px;
 	min-width: 700px;
-	/* border: 1px solid red; */
 	margin: 0 auto;
 `;
 
@@ -108,41 +137,61 @@ const ImgContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0 50px;
+`;
+
+const MainImgContainer = styled.div`
+	width: 365px;
+	height: 365px;
+	position: relative;
 `;
 
 const MainImgSection = styled.img`
-	width: 290px;
-	height: 290px;
+	width: 365px;
+	height: 365px;
 	cursor: pointer;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
 	object-fit: cover;
 `;
 
-const SmallImgContainer = styled.div`
-	width: 300px;
-	height: 300px;
+const SmallImgBox = styled.div`
+	width: 400px;
+	height: 400px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
+	position: relative;
 `;
 
-const ImgSection = styled.img`
-	width: 90px;
-	height: 90px;
-	margin: 4px;
+const SmallImgContainer = styled.div`
+	width: 100px;
+	height: 100px;
+	position: relative;
+	margin: 0 4px;
+`;
+
+const SmallImgSection = styled.img`
+	width: 100px;
+	height: 100px;
 	cursor: pointer;
 	object-fit: cover;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
 `;
 
-const delBtn = styled.div`
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
+const DelBtn = styled.div`
+	width: 30px;
+	height: 30px;
+	top: 5px;
+	right: 5px;
+	border-radius: 15px;
 	border: none;
 	background-color: ${({ theme }) => theme.color.primary};
+	position: absolute;
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Count = styled.span`
@@ -154,9 +203,11 @@ const Count = styled.span`
 const S = {
 	Wrapper,
 	ImgContainer,
+	MainImgContainer,
 	MainImgSection,
+	SmallImgBox,
 	SmallImgContainer,
-	ImgSection,
-	delBtn,
+	SmallImgSection,
+	DelBtn,
 	Count,
 };
