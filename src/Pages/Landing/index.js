@@ -34,6 +34,8 @@ export default LandingPage;
 
 const Wrapper = styled.div`
 	width: 60%;
+	max-width: 1000px;
+	min-width: 700px;
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
