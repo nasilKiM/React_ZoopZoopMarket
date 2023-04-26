@@ -2,17 +2,19 @@ import styled from 'styled-components';
 
 const LoginPage = () => {
 	return (
-		<Div>
-			<Wrap>
-				<Logo>Zoop Zoop</Logo>
-				<Form>
+		<S.Div>
+			<S.Wrap>
+				<S.Logo>Zoop Zoop</S.Logo>
+				<img src="Assets/임시로고.png" />
+				<S.Form>
+					<p>Login</p>
 					<input placeholder="E-mail" />
-					<input placeholder="PW" />
-					<Button>로그인</Button>
-					<SignUpBtn>신규회원이신가요?</SignUpBtn>
-				</Form>
-			</Wrap>
-		</Div>
+					<input placeholder="PW" type="password" />
+					<S.Button>로그인</S.Button>
+					<S.SignUpBtn>신규회원이신가요?</S.SignUpBtn>
+				</S.Form>
+			</S.Wrap>
+		</S.Div>
 	);
 };
 
@@ -25,7 +27,7 @@ const Div = styled.div`
 
 const Wrap = styled.div`
 	height: 800px;
-	width: 80%;
+	width: 60%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -33,40 +35,45 @@ const Wrap = styled.div`
 `;
 
 const Form = styled.form`
-	border: 1px solid gray;
+	border: 1px solid ${({ theme }) => theme.color.subBeige};
 	border-radius: 10px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 50%;
+	width: 60%;
 	height: 45%;
-	padding-top: 60px;
+	padding: 40px 30px;
+	max-width: 700px;
+	min-width: 600px;
 
 	& > input {
 		width: 80%;
-		height: 20px;
-		border: 1px solid gray;
+		height: 40px;
+		border: 1px solid ${({ theme }) => theme.color.subBeige};
 		border-radius: 10px;
 		margin: 10px 0px;
 		display: flex;
 		padding: 20px;
-		font-size: 16px;
+	}
+	& > p {
+		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		margin-bottom: 20px;
 	}
 `;
 
 const Button = styled.button`
-	/* width: 140px; */
-	/* height: 40px; */
-	height: 50px;
-	width: 86%;
-	font-size: 16px;
+	height: 40px;
+	width: 80%;
 	border-radius: 10px;
 	border: none;
 	margin-top: 20px;
-	color: white;
-	background-color: #ff3647;
+	background: ${({ theme }) => theme.color.primary};
 	cursor: pointer;
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Logo = styled.div`
@@ -76,10 +83,19 @@ const Logo = styled.div`
 const SignUpBtn = styled.span`
 	display: flex;
 	position: absolute;
-	top: 75%;
-	right: 7%;
+	top: 78%;
+	right: 14%;
 	color: #357aff;
-	font-size: 12px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
 	border-bottom: 1px solid #357aff;
 	cursor: pointer;
 `;
+
+const S = {
+	Div,
+	Wrap,
+	Form,
+	Button,
+	Logo,
+	SignUpBtn,
+};
