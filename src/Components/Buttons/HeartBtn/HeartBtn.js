@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function HeartBtn() {
+const HeartBtn = () => {
 	const [active, setActive] = useState(false);
 
 	const handleClick = () => {
@@ -9,7 +9,7 @@ function HeartBtn() {
 	};
 
 	return <S.Button className={active ? 'active' : ''} onClick={handleClick} />;
-}
+};
 
 export default HeartBtn;
 

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-function RegisterBtn() {
+const RegisterBtn = () => {
 	return <S.Button />;
-}
+};
 
 export default RegisterBtn;
 

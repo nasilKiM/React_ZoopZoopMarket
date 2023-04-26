@@ -8,7 +8,7 @@ const MessageDetail = () => {
 				<S.DateDivide>메세지 일자</S.DateDivide>
 			</S.DateDivideContainer>
 			<>
-				{/*메세지 쌍방향이라서... 내가보내는거 / 아닌거 기준으로 
+				{/*메세지 컴포넌트로 구별하기
 				MessageContainer 에서 align-items 를 flex-start & end 구분해야할듯 */}
 				<S.MessageContainer>
 					<S.MessageTimeUnreadContainer>
@@ -16,7 +16,6 @@ const MessageDetail = () => {
 						<S.MessageTime>메세지시간</S.MessageTime>
 					</S.MessageTimeUnreadContainer>
 					<S.Message>내가보내는 메세지입니다</S.Message>
-					<Profile />
 				</S.MessageContainer>
 			</>
 			<>

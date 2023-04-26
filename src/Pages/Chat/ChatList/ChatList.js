@@ -9,6 +9,7 @@ const ChatList = () => {
 			<S.ListContainer>
 				<S.ChatContent>
 					<img src="Assets/Images/bicycle.jpg" />
+					{/*컴포넌트로 뺴기? */}
 					<div>
 						<S.ChatContentUpper>
 							<span>닉네임</span>
@@ -21,6 +22,7 @@ const ChatList = () => {
 				</S.ChatContent>
 			</S.ListContainer>
 			<S.LeftLowerBar>
+				{/* 조건에 따라서 더보기버튼 보이기 +숨기기 */}
 				<S.MoreButton>더보기</S.MoreButton>
 			</S.LeftLowerBar>
 		</>
@@ -34,7 +36,7 @@ const LeftUpperBar = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 10%;
-	background-color: ${({ theme }) => theme.themeColor.primary};
+	background-color: ${({ theme }) => theme.color.primary};
 	color: white;
 `;
 

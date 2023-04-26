@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function ItemCard() {
+const ItemCard = () => {
 	// const navigate = useNavigate();
 
 	return (
@@ -17,7 +17,7 @@ function ItemCard() {
 			</S.Container>
 		</S.Wrapper>
 	);
-}
+};
 
 export default ItemCard;
 
