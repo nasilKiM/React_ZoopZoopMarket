@@ -35,7 +35,7 @@ const MyUserEdit = () => {
 export default MyUserEdit;
 
 const Wrapper = styled.div`
-	width: 50%;
+	width: 60%;
 	max-width: 700px;
 	min-width: 600px;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
