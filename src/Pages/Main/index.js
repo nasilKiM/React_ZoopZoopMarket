@@ -1,6 +1,6 @@
 import MenuBar from 'Components/MenuBar/MenuBar';
-import Search from './Components/search';
 import Preview from './Components/preview';
+import Search from './Components/search';
 
 const MainPage = () => {
 	return (
