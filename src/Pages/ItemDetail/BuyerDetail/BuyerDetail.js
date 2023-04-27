@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
-import KaMap from 'Components/Map/Map';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
+import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state }) => {
 	return (
