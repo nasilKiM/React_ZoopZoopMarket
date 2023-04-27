@@ -26,23 +26,23 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-	min-width: 250px;
+	min-width: 200px;
 	max-height: 400px;
-	background-color: lightgray;
 	cursor: pointer;
+	margin: 10px;
 `;
 
 const ItemImg = styled.img`
 	width: 100%;
 	padding: 15px;
-	max-height: 285px;
+	max-height: 250px;
 	object-fit: cover;
 	margin: auto;
 `;
 
 const ItemInfo = styled.div`
 	padding-top: 15px;
-	max-height: 100px;
+	max-height: 150px;
 	display: flex;
 	flex-direction: column;
 	padding: 0 15px;
