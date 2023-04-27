@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const Line = ({ txt, placeholder, err }) => {
+const Line = ({ txt, placeholder, err, max }) => {
 	return (
 		<S.Wrapper>
 			<S.Mark>*</S.Mark>
 			<S.Txt>{txt}</S.Txt>
 			<S.Container>
-				<S.InputBox placeholder={placeholder}></S.InputBox>
+				<S.InputBox maxLength={max} placeholder={placeholder}></S.InputBox>
 				<S.Error>{err}</S.Error>
 			</S.Container>
 		</S.Wrapper>

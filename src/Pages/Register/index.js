@@ -12,6 +12,7 @@ const RegisterPage = () => {
 				txt={'글 제목'}
 				placeholder={'최대 20자까지 입력 가능합니다.'}
 				err={'20자 이하로 입력해주세요 :)'}
+				max={'19'}
 			/>
 			<Line
 				txt={'가격'}
