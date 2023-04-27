@@ -199,6 +199,7 @@ const Count = styled.span`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 const S = {
 	Wrapper,

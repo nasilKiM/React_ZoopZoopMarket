@@ -5,8 +5,10 @@ const Line = ({ txt, placeholder, err }) => {
 		<S.Wrapper>
 			<S.Mark>*</S.Mark>
 			<S.Txt>{txt}</S.Txt>
-			<S.InputBox placeholder={placeholder}></S.InputBox>
-			<S.Error>{err}</S.Error>
+			<S.Container>
+				<S.InputBox placeholder={placeholder}></S.InputBox>
+				<S.Error>{err}</S.Error>
+			</S.Container>
 		</S.Wrapper>
 	);
 };
@@ -14,12 +16,17 @@ const Line = ({ txt, placeholder, err }) => {
 export default Line;
 
 const Wrapper = styled.div`
-	width: 600px;
+	width: 700px;
 	display: flex;
 	align-items: center;
 	padding: 0 10px 30px 10px;
 	position: relative;
 	margin: 0 auto;
+`;
+
+const Container = styled.div`
+	width: 600px;
+	position: relative;
 `;
 
 const Mark = styled.span`
@@ -31,33 +38,36 @@ const Mark = styled.span`
 `;
 
 const Txt = styled.span`
-	width: 100px;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	width: 80px;
+	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const InputBox = styled.input`
-	width: 300px;
+	width: 600px;
 	border: none;
 	border-bottom: 1px solid ${({ theme }) => theme.color.subBeige};
-	padding-left: 10px;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	padding: 10px;
+	font-size: ${({ theme }) => theme.fontSize.md};
 	:focus {
 		outline: none;
 	}
 `;
 
 const Error = styled.div`
-	/* font-size: ${({ theme }) => theme.fontSize.xs}; */
-	font-size: 10px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.primary};
 	margin-left: 30px;
 	margin-top: 5px;
+	position: absolute;
+	left: 400px;
+	top: 10px;
 `;
 
 const S = {
 	Wrapper,
+	Container,
 	Mark,
 	Txt,
 	InputBox,

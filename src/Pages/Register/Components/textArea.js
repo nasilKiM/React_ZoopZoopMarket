@@ -13,7 +13,7 @@ const TextArea = ({ txt }) => {
 export default TextArea;
 
 const Wrapper = styled.div`
-	width: 600px;
+	width: 700px;
 	display: flex;
 	flex-direction: column;
 	padding: 0 10px 20px 10px;
@@ -32,15 +32,15 @@ const Mark = styled.span`
 const Txt = styled.span`
 	width: 100px;
 	margin-bottom: 20px;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const TxtArea = styled.textarea`
 	width: 100%;
 	height: 400px;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	padding: 15px;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	padding: 20px;
 
 	:focus {
 		outline: none;

@@ -43,22 +43,26 @@ const Blank = styled.div`
 `;
 
 const Container = styled.div`
-	width: 600px;
+	width: 700px;
 	margin: 0 auto;
 	padding: 10px;
 	display: flex;
 `;
 
 const RegisterBtn = styled.button`
-	width: 140px;
-	height: 40px;
+	width: 340px;
+	height: 54px;
 	border: none;
 	border-radius: 5px;
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.big};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.subBeige};
 	margin-left: auto;
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary};
+		color: ${({ theme }) => theme.color.white};
+	}
 `;
 
 const S = {
