@@ -30,7 +30,6 @@ const Container = styled.div`
 	display: flex;
 	min-width: 400px;
 	max-height: 100px;
-	background-color: lightgray;
 	border-radius: 5px;
 	cursor: pointer;
 `;

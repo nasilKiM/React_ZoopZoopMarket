@@ -7,8 +7,9 @@ const RegisterBtn = () => {
 export default RegisterBtn;
 
 const Button = styled.button`
-	height: 60px;
-	width: 60px;
+	height: 100%;
+	width: 100%;
+	max-width: 60px;
 	border: none;
 	cursor: pointer;
 	display: inline-block;
