@@ -8,13 +8,13 @@ import MyPage from '../Pages/MyPage';
 import AccountBookPage from '../Pages/MyPage/MyAccountBook';
 import MyInterestPage from '../Pages/MyPage/MyInterest';
 import MyItemPage from '../Pages/MyPage/MyItem';
-import RegisterPage from '../Pages/Register';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
 import ErrorPage from '../Error';
 import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
+import RegisterPage from 'Pages/Register/Desktop';
 
 const router = createBrowserRouter([
 	{
