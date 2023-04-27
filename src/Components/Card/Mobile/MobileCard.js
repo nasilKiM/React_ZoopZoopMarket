@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ItemCard = () => {
+const MobileCard = () => {
 	// const navigate = useNavigate();
 
 	return (
@@ -13,53 +13,56 @@ const ItemCard = () => {
 					<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
 					<S.ItemPrice>130,000 원</S.ItemPrice>
 					<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
+					<div></div>
 				</S.ItemInfo>
 			</S.Container>
 		</S.Wrapper>
 	);
 };
 
-export default ItemCard;
+export default MobileCard;
 
 const Wrapper = styled.div`
 	display: flex;
 `;
 
 const Container = styled.div`
-	min-width: 250px;
-	max-height: 400px;
+	display: flex;
+	min-width: 400px;
+	max-height: 100px;
 	background-color: lightgray;
+	border-radius: 5px;
+	cursor: pointer;
 `;
 
 const ItemImg = styled.img`
-	width: 100%;
-	padding: 15px;
-	max-height: 285px;
+	min-width: 90px;
+	max-height: 90px;
+	padding: 10px;
 	object-fit: cover;
-	margin: auto;
 `;
 
 const ItemInfo = styled.div`
-	padding-top: 15px;
+	padding-top: 10px;
+	padding-left: 10px;
 	max-height: 100px;
 	display: flex;
 	flex-direction: column;
-	padding: 0 15px;
 `;
 
 const ItemTitle = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-bottom: 10px;
 `;
 
 const ItemPrice = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-bottom: 15px;
 `;
 
 const ItemTag = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-size: ${({ theme }) => theme.fontSize.xs};
 	overflow: hidden;
 	margin-bottom: 10px;
 `;

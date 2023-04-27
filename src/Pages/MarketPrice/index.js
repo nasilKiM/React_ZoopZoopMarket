@@ -1,4 +1,4 @@
-import ItemCard from 'Components/Card/Card';
+import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/SearchBar';
 
 import {

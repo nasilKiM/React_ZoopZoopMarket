@@ -1,4 +1,4 @@
-import ItemCard from 'Components/Card/Card';
+import ItemCard from 'Components/Card/Desktop/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
 
