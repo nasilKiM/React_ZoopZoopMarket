@@ -20,7 +20,6 @@ const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
 	align-items: center;
-	/* justify-content: space-between; */
 	padding: 0 10px;
 	position: relative;
 	margin-bottom: 30px;
@@ -71,7 +70,6 @@ const Error = styled.span`
 const Btn = styled.button`
 	width: 120px;
 	height: 40px;
-	color: ${({ theme }) => theme.color.white};
 	border: 1px solid ${({ theme }) => theme.color.primary};
 	border-radius: 10px;
 	background: none;
