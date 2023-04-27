@@ -4,6 +4,7 @@ import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
 import ChattingPage from 'Pages/Chat';
+import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
 const SellerDetailPage = ({ state }) => {
 	const [detailState, setDetailState] = useState(true);
@@ -27,6 +28,7 @@ const SellerDetailPage = ({ state }) => {
 				<div onClick={() => setDetailState(false)}>채팅 내역</div>
 			</S.DetailAndChatBar>
 			{detailState ? <DetailContent state={state} /> : <ChattingPage />}
+			<AnotherProduct />
 		</S.Wrapper>
 	);
 };

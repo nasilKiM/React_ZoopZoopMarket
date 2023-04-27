@@ -1,11 +1,12 @@
 import MannerMeter from 'Components/Icon/Icon';
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import ProductImg from './ProductImg/productImg';
 
 const DetailHead = () => {
 	return (
 		<S.Wrapper>
-			<div>상품이미지</div>
+			<ProductImg />
 			<S.ProductWrapper>
 				<S.Profile>
 					<div>이미지</div>
