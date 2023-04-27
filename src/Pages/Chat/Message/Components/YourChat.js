@@ -1,4 +1,5 @@
-import Profile from 'Components/Profile/Profile';
+
+import Profile from 'Components/Profile/Desktop/profile';
 import styled from 'styled-components';
 
 const YourMessage = () => {

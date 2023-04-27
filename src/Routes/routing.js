@@ -2,9 +2,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../Pages/Landing';
 import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
-import ItemDetailPage from '../Pages/ItemDetail';
-import SignUpPage from '../Pages/Form/SignUp/SignUpPage';
-import LoginPage from '../Pages/Form/Login/LoginPage';
 import MainPage from '../Pages/Main';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
@@ -15,6 +12,9 @@ import RegisterPage from '../Pages/Register';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
 import ErrorPage from '../Error';
+import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
+import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
+import ItemDetailPage from 'Pages/ItemDetail';
 
 const router = createBrowserRouter([
 	{
