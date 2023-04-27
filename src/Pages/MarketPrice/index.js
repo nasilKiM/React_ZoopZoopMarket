@@ -1,5 +1,6 @@
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/SearchBar';
+import { theme } from 'Styles/theme';
 
 import {
 	LineChart,
@@ -43,7 +44,7 @@ const MarketPricePage = () => {
 			<SearchBar></SearchBar>
 			<S.ChartContainer>
 				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
-				<LineChart width={900} height={600} data={data}>
+				<LineChart width={700} height={500} data={data}>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis dataKey="day" />
 					<YAxis />
@@ -52,8 +53,8 @@ const MarketPricePage = () => {
 					<Line
 						type="monotone"
 						dataKey="price"
-						stroke="#8884d8"
-						activeDot={{ r: 10 }}
+						stroke={theme.color.primary}
+						activeDot={{ r: 7 }}
 					/>
 				</LineChart>
 			</S.ChartContainer>
@@ -72,44 +73,45 @@ const MarketPricePage = () => {
 export default MarketPricePage;
 
 const Wrapper = styled.div`
+	max-width: 1000px;
+	min-width: 1000px;
+	width: 60%;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 `;
 const Title = styled.div`
-	font-size: 28px;
-	font-weight: 900;
+	text-align: center;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-top: 80px;
 	margin-bottom: 80px;
 `;
 const SubTitle = styled.div`
-	font-size: 16px;
+	margin-top: 10px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 `;
 const ChartContainer = styled.div`
 	margin-top: 80px;
 	display: flex;
 `;
 const Average = styled.div`
-	font-size: 16px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 	margin-top: 80px;
 	margin-right: 18px;
 `;
 
 const RecentlyClosed = styled.div`
 	margin-top: 80px;
-	font-size: 28px;
-	padding-left: 5%;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 const ItemList = styled.div`
-	margin-left: 10%;
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 80px;
-	> * {
-		margin-left: 18px;
-		margin-top: 18px;
-		padding-left: 5%;
-	}
+	justify-content: space-evenly;
 `;
 const S = {
 	Wrapper,
