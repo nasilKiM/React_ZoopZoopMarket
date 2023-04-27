@@ -6,18 +6,6 @@ const Profile = () => {
 			<S.Circle>
 				<S.Img src="Assets/Images/1.jpg"></S.Img>
 			</S.Circle>
-			{/* <S.Circle>
-				<S.Img src="Assets/Images/2.jpeg"></S.Img>
-			</S.Circle>
-			<S.Circle>
-				<S.Img src="Assets/Images/3.jpg"></S.Img>
-			</S.Circle>
-			<S.Circle>
-				<S.Img src="Assets/Images/4.jpeg"></S.Img>
-			</S.Circle>
-			<S.Circle>
-				<S.Img src="Assets/Images/5.jpg"></S.Img>
-			</S.Circle> */}
 		</>
 	);
 };
