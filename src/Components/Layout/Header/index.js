@@ -1,9 +1,11 @@
+import MenuBar from 'Components/MenuBar/MenuBar';
 import styled from 'styled-components';
 
 const BasicHeader = () => {
 	return (
 		<S.Wrapper>
 			<S.Logo src="Assets/임시로고.png"></S.Logo>
+			<MenuBar />
 		</S.Wrapper>
 	);
 };
@@ -18,6 +20,7 @@ const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 `;
 
 const Logo = styled.img`
