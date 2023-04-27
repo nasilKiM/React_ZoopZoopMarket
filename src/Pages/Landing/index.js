@@ -1,3 +1,4 @@
+import MobileCard from 'Components/Card/Mobile/MobileCard';
 import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,7 +7,8 @@ const LandingPage = () => {
 	return (
 		<>
 			<S.Wrapper>
-				<S.LandingHeader>줍줍마켓</S.LandingHeader>
+				<MobileCard />
+				<S.LandingHeader>로고들어가는곳</S.LandingHeader>
 				<S.Section1>
 					<marquee>
 						- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
@@ -48,11 +50,6 @@ const LandingHeader = styled.div`
 	width: 100%;
 	height: 150px;
 	padding-top: 50px;
-	font-size: 50px;
-	justify-content: center;
-	text-align: center;
-	align-items: center;
-	margin: 0 auto;
 `;
 
 const Section1 = styled.section`
@@ -66,7 +63,7 @@ const Section1 = styled.section`
 	line-height: 1.5;
 
 	& > marquee {
-		max-width: 400px;
+		width: 350px;
 		height: 40px;
 		background-color: #fff;
 		margin-bottom: 15px;
