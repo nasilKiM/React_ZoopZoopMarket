@@ -80,14 +80,14 @@ const Month = styled.div`
     align-items : center;
     margin-left: 80px;
     color: white;
-    font-size: 2rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `
 
 const Text = styled.div`
     margin-left: 100px;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
     line-height: 2.5rem;
-    font-weight: 700;
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
 `
 
 const SummaryContent1 = styled.div`
@@ -100,12 +100,12 @@ const SummaryContent1 = styled.div`
 const SummaryContent2 = styled.div`
     margin-top: 20px;
     margin-left: 600px;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
     line-height: 3rem;
     text-align: right;
     & > div {
         margin-top: 40px;
-        font-size: 2rem;
+        font-size: ${({ theme }) => theme.fontSize.lg};
         color: #ff3647;
     }
 `
@@ -136,7 +136,7 @@ const MonthButton = styled.button`
     :hover {
         color: red;
     }
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
 `
 
 const Graph = styled.div`

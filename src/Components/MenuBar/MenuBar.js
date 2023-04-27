@@ -30,17 +30,19 @@ const MenuBar = () => {
 export default MenuBar;
 
 const Bar = styled.div`
+	width: 60%;
+	max-width: 1000px;
+	min-width: 1000px;
+	margin: 0 auto;
 	display: flex;
-
-	font-size: 28px;
-	font-weight: 900;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontWeight.bold};
 	color: black;
 `;
 
 const Menu = styled(Link)`
-	color: black;
+	color: ${({ theme }) => theme.color.black};
 	text-decoration: none;
-
 	margin-left: 5%;
 `;
 const LeftMenu = styled.div`
@@ -57,7 +59,10 @@ const RightMenu = styled.div`
 	width: 40%;
 `;
 const MyChat = styled.div`
-	color: ${props => (props.props === 1 ? 'red' : 'black')};
+	color: ${props =>
+		props.props === 1
+			? ({ theme }) => theme.color.primary
+			: ({ theme }) => theme.color.black};
 `;
 const S = {
 	Bar,

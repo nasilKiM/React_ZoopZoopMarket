@@ -31,16 +31,16 @@ const FooterText = styled.div`
 `
 
 const Text1 = styled.div`
-	font-size: 20px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 `
 
 const Text2 = styled.div`
-	font-size: 30px;
-	font-weight: 900;
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `
 
 const Text3= styled.div`
-	font-size: 10px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
 `
 
 const S = {

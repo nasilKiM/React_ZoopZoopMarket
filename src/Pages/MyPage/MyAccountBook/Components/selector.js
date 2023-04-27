@@ -64,8 +64,8 @@ const LargeSelect = styled.select`
   	appearance: none;
 	width: 340px;
 	height: 54px;
-	font-size: 1.5rem;
-	font-weight: 400;
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;
 	text-align-last: center;
 	border: 2.5px solid #d9d9d9;

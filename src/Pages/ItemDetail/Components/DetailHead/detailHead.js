@@ -1,10 +1,12 @@
+import MannerMeter from 'Components/Icon/Icon';
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import ProductImg from './ProductImg/productImg';
 
 const DetailHead = () => {
 	return (
 		<S.Wrapper>
-			<div>상품이미지</div>
+			<ProductImg />
 			<S.ProductWrapper>
 				<S.Profile>
 					<div>이미지</div>
@@ -16,7 +18,7 @@ const DetailHead = () => {
 				</S.Profile>
 				<S.ProfileDetail>
 					<ul>
-						<li>85점</li>
+						<MannerMeter />
 						<li>매너점수</li>
 						<li>총 거래건수 : OO건</li>
 					</ul>
@@ -58,20 +60,20 @@ const Profile = styled.div`
 	& > ul {
 		margin-left: 20px;
 		& > li:first-child {
-			font-size: ${({ theme }) => theme.fontSize.lg};
+			font-size: ${({ theme }) => theme.fontSize.md};
 			font-weight: ${({ theme }) => theme.fontWeight.bold};
-			margin-bottom: 20px;
+			margin-bottom: 5px;
+		}
+		& > li {
+			margin: 5px 0;
 		}
 	}
 `;
 
 const ProfileDetail = styled.div`
 	text-align: right;
-	& > ul > li {
+	& > ul > * {
 		margin: 10px 0;
-	}
-	& > ul > li:first-child {
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 
