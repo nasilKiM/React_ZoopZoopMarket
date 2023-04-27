@@ -7,7 +7,7 @@ import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
 import AccountBookPage from '../Pages/MyPage/MyAccountBook';
 import MyInterestPage from '../Pages/MyPage/MyInterest';
-import MyItemPage from '../Pages/MyPage/MyItem';
+import MyItemPage from '../Pages/MyPage/MyItem/Desktop/myItem';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
 import ErrorPage from '../Error';
