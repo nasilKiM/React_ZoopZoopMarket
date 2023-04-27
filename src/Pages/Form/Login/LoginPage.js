@@ -4,10 +4,9 @@ const LoginPage = () => {
 	return (
 		<S.Div>
 			<S.Wrap>
-				<S.Logo>Zoop Zoop</S.Logo>
-				<img src="Assets/임시로고.png" />
+				<img src="/Assets/임시로고.png" />
 				<S.Form>
-					<p>Login</p>
+					<p>로그인</p>
 					<input placeholder="E-mail" />
 					<input placeholder="PW" type="password" />
 					<S.Button>로그인</S.Button>
@@ -76,10 +75,6 @@ const Button = styled.button`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
-const Logo = styled.div`
-	font-size: 100px;
-`;
-
 const SignUpBtn = styled.span`
 	display: flex;
 	position: absolute;
@@ -96,6 +91,5 @@ const S = {
 	Wrap,
 	Form,
 	Button,
-	Logo,
 	SignUpBtn,
 };
