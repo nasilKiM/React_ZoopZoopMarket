@@ -2,12 +2,12 @@ import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LandingPage = () => {
+const MobileLandingPage = () => {
 	return (
 		<>
 			<S.Wrapper>
 				<S.LandingHeader>
-					<S.LogoImage src="Assets/web_logo.png" />
+					<S.LogoImage src="Assets/mob_logo.png" />
 				</S.LandingHeader>
 				<S.Section1>
 					<marquee>
@@ -35,22 +35,21 @@ const LandingPage = () => {
 	);
 };
 
-export default LandingPage;
+export default MobileLandingPage;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
-	min-width: 700px;
+	width: 90%;
+	max-width: 400px;
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
+	border: 1px solid red;
 `;
 
 const LandingHeader = styled.div`
 	width: 100%;
-	height: 150px;
-	padding-top: 50px;
-	margin-bottom: 30px;
+	height: 100px;
+	padding-top: 20px;
 	display: flex;
 	justify-content: center;
 `;

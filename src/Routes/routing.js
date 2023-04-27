@@ -15,11 +15,16 @@ import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
 import RegisterPage from 'Pages/Register/Desktop';
+import MobileLandingPage from 'Pages/Landing/Mobile';
 
 const router = createBrowserRouter([
 	{
 		path: '',
 		element: <LandingPage />,
+	},
+	{
+		path: 'm-landing',
+		element: <MobileLandingPage />,
 	},
 	{
 		path: 'form/login',
