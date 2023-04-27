@@ -4,9 +4,9 @@ const SignUpPage = () => {
 	return (
 		<S.Div>
 			<S.Wrap>
-				<S.Logo>Zoop Zoop</S.Logo>
-				<img src="Assets/임시로고.png" />
+				<img src="/Assets/임시로고.png" />
 				<S.Form>
+					<p>회원가입</p>
 					<S.InputWrapBtn>
 						<S.Mark>*</S.Mark>
 						<span>아이디</span>
@@ -40,7 +40,9 @@ const SignUpPage = () => {
 						<input placeholder="Address" />
 						<button>주소찾기</button>
 					</S.InputWrapBtn>
-					<S.Button>회원가입</S.Button>
+					<BtnWrap>
+						<S.Button>회원가입</S.Button>
+					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
 		</S.Div>
@@ -57,15 +59,11 @@ const Div = styled.div`
 
 const Wrap = styled.div`
 	height: 800px;
-	width: 80%;
+	width: 60%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-`;
-
-const Logo = styled.div`
-	font-size: 100px;
 `;
 
 const Form = styled.form`
@@ -75,15 +73,20 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 60%;
+	width: 100%;
 	padding: 40px 30px;
 	max-width: 700px;
 	min-width: 600px;
+	& > p {
+		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		margin-bottom: 20px;
+	}
 `;
 
 const Button = styled.button`
 	height: 40px;
-	width: 77%;
+	width: 80%;
 	border-radius: 10px;
 	border: none;
 	margin-top: 20px;
@@ -93,6 +96,12 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
+
+const BtnWrap = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
 `;
 
 const InputWrap = styled.div`
@@ -125,7 +134,7 @@ const InputWrapBtn = styled.div`
 	align-items: center;
 
 	& > input {
-		width: 60%;
+		width: 59.5%;
 		height: 40px;
 		border: 1px solid ${({ theme }) => theme.color.subBeige};
 		border-radius: 10px;
@@ -158,7 +167,6 @@ const Mark = styled.span`
 const S = {
 	Div,
 	Wrap,
-	Logo,
 	Form,
 	Button,
 	InputWrap,
