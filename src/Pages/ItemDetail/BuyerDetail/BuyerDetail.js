@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
+import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state }) => {
 	return (
@@ -9,10 +10,10 @@ const BuyerDetailPage = ({ state }) => {
 			<div>구매자페이지</div>
 			<DetailHead />
 			<DetailContent state={state} />
-			<S.Map>
+			<S.MapContent>
 				<div>거래장소</div>
-				<div>지도</div>
-			</S.Map>
+				<KaMap />
+			</S.MapContent>
 			<S.AnotherProduct>
 				<div>연관상품</div>
 				<div></div>
@@ -31,7 +32,7 @@ const Wrapper = styled.div`
 	margin: 0 auto;
 `;
 
-const Map = styled.div`
+const MapContent = styled.div`
 	margin: 50px 0;
 	& > div:first-child {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -56,6 +57,6 @@ const AnotherProduct = styled.div`
 
 const S = {
 	Wrapper,
-	Map,
+	MapContent,
 	AnotherProduct,
 };
