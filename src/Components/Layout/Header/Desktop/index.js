@@ -1,7 +1,7 @@
 import MenuBar from 'Components/MenuBar/MenuBar';
 import styled from 'styled-components';
 
-const BasicHeader = () => {
+const WebHeader = () => {
 	return (
 		<S.Wrapper>
 			<S.Logo src="Assets/임시로고.png"></S.Logo>
@@ -10,10 +10,9 @@ const BasicHeader = () => {
 	);
 };
 
-export default BasicHeader;
+export default WebHeader;
 
 const Wrapper = styled.div`
-	border: 1px solid blue;
 	width: 100%;
 	height: 100px;
 	font-family: 'Nanum_extraBold';
