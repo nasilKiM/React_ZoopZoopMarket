@@ -1,8 +1,5 @@
 import MobileCard from 'Components/Card/Mobile/MobileCard';
 import BasicFooter from 'Components/Layout/Footer';
-import SignUpPage from 'Pages/Form/SignUp/SignUpPage';
-import Search from 'Pages/Main/Components/search';
-import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,9 +9,6 @@ const LandingPage = () => {
 			<S.Wrapper>
 				<MobileCard />
 				<S.LandingHeader>로고들어가는곳</S.LandingHeader>
-				<Search />
-				<MyUserEdit />
-				<SignUpPage />
 				<S.Section1>
 					<marquee>
 						- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
