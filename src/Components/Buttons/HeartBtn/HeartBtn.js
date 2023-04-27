@@ -14,8 +14,8 @@ const HeartBtn = () => {
 export default HeartBtn;
 
 const Button = styled.button`
-	height: 20px;
-	width: 20px;
+	height: 100%;
+	width: 100%;
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
