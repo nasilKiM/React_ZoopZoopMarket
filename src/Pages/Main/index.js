@@ -1,10 +1,9 @@
-import MenuBar from 'Components/MenuBar/MenuBar';
+import SearchBar from 'Components/SearchBar/SearchBar';
 
 const MainPage = () => {
 	return (
 		<div>
-			MainPage
-			<MenuBar></MenuBar>
+			<SearchBar />
 		</div>
 	);
 };
