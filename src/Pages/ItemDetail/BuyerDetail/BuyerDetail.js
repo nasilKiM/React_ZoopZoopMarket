@@ -3,6 +3,7 @@ import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
+import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
 const BuyerDetailPage = ({ state }) => {
 	return (
@@ -14,10 +15,7 @@ const BuyerDetailPage = ({ state }) => {
 				<div>거래장소</div>
 				<KaMap />
 			</S.MapContent>
-			<S.AnotherProduct>
-				<div>연관상품</div>
-				<div></div>
-			</S.AnotherProduct>
+			<AnotherProduct />
 		</S.Wrapper>
 	);
 };
@@ -48,15 +46,7 @@ const MapContent = styled.div`
 	}
 `;
 
-const AnotherProduct = styled.div`
-	& > div:first-child {
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		font-size: ${({ theme }) => theme.fontSize.md};
-	}
-`;
-
 const S = {
 	Wrapper,
 	MapContent,
-	AnotherProduct,
 };
