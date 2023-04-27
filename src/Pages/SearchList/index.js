@@ -66,18 +66,15 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-	border: 1px solid darkblue;
 	margin: 0 auto;
 `;
 const SearchBarContainer = styled.div`
-	border: 1px solid blueviolet;
 	display: flex;
 	justify-content: center;
 `;
 const ResultText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	margin-top: 80px;
-	border: 1px solid green;
 `;
 const CategoryBox = styled.div`
 	cursor: pointer;
@@ -95,7 +92,6 @@ const Wall = styled.div`
 `;
 
 const ItemList = styled.div`
-	border: 1px solid salmon;
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 30px;
