@@ -20,19 +20,25 @@ const ChattingPage = () => {
 export default ChattingPage;
 
 const ChatContainer = styled.div`
-	display: inline-flex;
-	min-width: 800px;
-	min-height: 600px;
-	max-height: 700px;
-	width: 60vw;
+	display: flex;
+	width: 60%;
 	height: 70vh;
+	min-width: 800px;
+	max-width: 1000px;
+	min-height: 700px;
+	max-height: 800px;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
 	border-radius: 10px;
-	border: solid 1px;
-	margin: 15px;
+	border: solid lightgrey 1px;
+	margin-top: 50px;
 `;
 
 const ChatLeftContainer = styled.div`
 	display: inline-block;
+	justify-content: center;
+	align-items: center;
 	width: 50%;
 	height: 100%;
 `;

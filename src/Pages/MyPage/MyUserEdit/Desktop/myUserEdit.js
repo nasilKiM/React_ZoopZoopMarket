@@ -6,7 +6,7 @@ const MyUserEdit = () => {
 	return (
 		<S.Wrapper>
 			<Line
-				txt={'비밀번호 수정'}
+				txt={'비밀번호'}
 				placeholder={'특수문자, 영어, 숫자 포함 6자 이상'}
 				err={'비밀번호 조건이 맞지 않습니다'}
 			/>
@@ -16,17 +16,13 @@ const MyUserEdit = () => {
 				err={'비밀번호가 일치하지 않습니다'}
 			/>
 			<LineWithBtn
-				txt={'닉네임 수정'}
+				txt={'닉네임'}
 				placeholder={'Nickname'}
 				err={'사용중인 닉네임입니다'}
 				btnTxt={'중복확인'}
 			/>
-			<Line txt={'전화번호 수정'} placeholder={'010-0000-0000'} />
-			<LineWithBtn
-				txt={'주소 수정'}
-				placeholder={'Address'}
-				btnTxt={'주소찾기'}
-			/>
+			<Line txt={'전화번호'} placeholder={'010-0000-0000'} />
+			<LineWithBtn txt={'주소'} placeholder={'Address'} btnTxt={'주소찾기'} />
 			<S.Btn>저장하기</S.Btn>
 		</S.Wrapper>
 	);

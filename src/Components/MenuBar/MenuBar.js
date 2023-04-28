@@ -43,7 +43,6 @@ const Bar = styled.div`
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
 	text-decoration: none;
-
 	margin-left: 5%;
 `;
 const LeftMenu = styled.div`

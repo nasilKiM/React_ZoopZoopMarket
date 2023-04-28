@@ -37,7 +37,7 @@ const ChattingTitle = styled.div`
 	display: inline-flex;
 	align-items: center;
 	padding: 0 2rem;
-	background-color: ${({ theme }) => theme.color.LightGreen};
+	background-color: ${({ theme }) => theme.color.subLightGreen};
 	img {
 		min-width: 50px;
 		max-height: 50px;
@@ -63,8 +63,20 @@ const ChattingContent = styled.div`
 	width: 100%;
 	padding: 1rem;
 	flex: 8 0;
+	background-color: ${({ theme }) => theme.color.subBeigeGreen};
 	overflow-y: scroll;
-	background-color: ${({ theme }) => theme.color.subBeige};
+	::-webkit-scrollbar {
+		width: 8px;
+		background-color: #f5f5f5;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background-color: #aaa;
+		&:hover {
+			background-color: #999;
+		}
+	}
 `;
 
 const ChattingFormContainer = styled.div`

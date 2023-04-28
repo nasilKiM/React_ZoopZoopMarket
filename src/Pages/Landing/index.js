@@ -1,4 +1,3 @@
-import MobileCard from 'Components/Card/Mobile/MobileCard';
 import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,12 +6,13 @@ const LandingPage = () => {
 	return (
 		<>
 			<S.Wrapper>
-				<MobileCard />
-				<S.LandingHeader>로고들어가는곳</S.LandingHeader>
+				<S.LandingHeader>
+					<S.LogoImage src="Assets/web_logo.png" />
+				</S.LandingHeader>
 				<S.Section1>
 					<marquee>
 						- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
-						MARKET- ZOOP ZOOP MARKET
+						MARKET- ZOOP ZOOP MARKET -
 					</marquee>
 					<p>
 						이미 회원이시라면?&nbsp;&nbsp;
@@ -50,6 +50,14 @@ const LandingHeader = styled.div`
 	width: 100%;
 	height: 150px;
 	padding-top: 50px;
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+`;
+
+const LogoImage = styled.img`
+	max-width: 100%;
+	max-height: 100%;
 `;
 
 const Section1 = styled.section`
@@ -67,7 +75,6 @@ const Section1 = styled.section`
 		height: 40px;
 		background-color: #fff;
 		margin-bottom: 15px;
-		/* animation: slide 4s ease-in-out infinite; */
 	}
 	& > p {
 		font-size: ${({ theme }) => theme.fontSize.base};
@@ -113,14 +120,13 @@ const Section2 = styled.section`
 	font-size: 18px;
 	line-height: 1.5;
 `;
-const Section3 = styled.div``;
 
 const S = {
 	Wrapper,
 	LandingHeader,
+	LogoImage,
 	Section1,
 	GoToLogin,
 	GoToSignup,
 	Section2,
-	Section3,
 };
