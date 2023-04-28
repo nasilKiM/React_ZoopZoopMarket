@@ -8,8 +8,7 @@ const MobileAccountBookPage = () => {
 			<S.Wrapper>
 				<MobileAccountBookSelector/>
 				<MobileAccountBookDetailInfo/>
-			</S.Wrapper>
-	) 
+			</S.Wrapper>)
 };
 
 export default MobileAccountBookPage;
