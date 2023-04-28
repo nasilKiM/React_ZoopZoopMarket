@@ -4,10 +4,12 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MobileHeader from 'Components/Layout/Header/Mobile';
 import { flexAllCenter } from 'Styles/common';
+import CompletedBtn from 'Components/Buttons/CompletedBtn/completedBtn';
+import EditBtns from 'Components/Buttons/EditBtns/editBtns';
 
 const MobileMyItemPage = () => {
 	// const navigate = useNavigate();
-
+	const item = new Array(4).fill(0);
 	return (
 		<S.Wrapper>
 			<MobileHeader />
@@ -20,23 +22,20 @@ const MobileMyItemPage = () => {
 				</S.Head>
 				{/*onClick={() => navigate(`/detail/${item.id}`)} */}
 				<MainWrap>
-					<S.Container>
-						<S.ItemImg src="Assets/Images/bicycle.jpg" />
-						<S.ItemInfo>
-							<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
-							<S.ItemPrice>130,000 원</S.ItemPrice>
-							<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
-							<S.EditBtns>
-								<div>
-									<button>판매 완료 변경</button>
-								</div>
-								<div>
-									<button>수정</button>
-									<button>삭제</button>
-								</div>
-							</S.EditBtns>
-						</S.ItemInfo>
-					</S.Container>
+					{item.map(() => (
+						<S.Container>
+							<S.ItemImg src="Assets/Images/bicycle.jpg" />
+							<S.ItemInfo>
+								<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
+								<S.ItemPrice>130,000 원</S.ItemPrice>
+								<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
+								<S.WrapEditBtns>
+									<CompletedBtn />
+									<EditBtns />
+								</S.WrapEditBtns>
+							</S.ItemInfo>
+						</S.Container>
+					))}
 				</MainWrap>
 			</S.Wrap>
 		</S.Wrapper>
@@ -82,7 +81,7 @@ const MainWrap = styled.div`
 
 const Container = styled.div`
 	display: flex;
-	/* min-width: 400px; */ // 이거 때문에 이상해짐
+	flex-wrap: wrap;
 	width: 100%;
 	max-height: 120px;
 	border-radius: 5px;
@@ -92,8 +91,8 @@ const Container = styled.div`
 `;
 
 const ItemImg = styled.img`
-	min-width: 120px; // 이미지 크기를 수정 안하면 버튼들이 들어갈 공간이 없음.
-	max-height: 120px; // 그랫 + 30px 더했음.
+	min-width: 120px;
+	max-height: 120px;
 	padding: 10px;
 	object-fit: cover;
 `;
@@ -120,11 +119,10 @@ const ItemPrice = styled.span`
 const ItemTag = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	overflow: hidden;
-	/* margin-bottom: 10px; */
-	padding-bottom: 20px; // 이부분은 마진이 아닌 패딩을 줘야 해시태그들과 버튼이 안겹쳐짐..
+	padding-bottom: 20px;
 `;
 
-const EditBtns = styled.div`
+const WrapEditBtns = styled.div`
 	display: flex;
 	width: 130%;
 	justify-content: space-between;
@@ -140,5 +138,5 @@ const S = {
 	ItemTag,
 	Head,
 	Wrap,
-	EditBtns,
+	WrapEditBtns,
 };
