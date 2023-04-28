@@ -75,7 +75,6 @@ const Month = styled.div`
     display : flex;
     justify-content : center;
     align-items : center;
-
     font-size: ${({ theme }) => theme.fontSize.big};
     color: ${({ theme }) => theme.color.white};
 `
@@ -83,7 +82,7 @@ const Month = styled.div`
 const Text = styled.div`
     margin-left: 90px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    line-height: 2.5rem;
+    line-height: 2.5rem;  
 `
 
 const SummaryContent1 = styled.div`

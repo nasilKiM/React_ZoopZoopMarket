@@ -62,15 +62,9 @@ const LargeSelect = styled.select`
  	-moz-appearance: none;
   	-webkit-appearance: none;
   	appearance: none;
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/Components/selector.js
 	width: 140px;
 	height: 40px;
 	font-size: ${({ theme }) => theme.fontSize.md};
-=======
-	width: 340px;
-	height: 54px;
-	font-size: ${({ theme }) => theme.fontSize.lg};
->>>>>>> main:src/Pages/MyPage/MyAccountBook/Components/selector.js
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;
 	text-align-last: center;
