@@ -6,16 +6,13 @@ import { useState } from 'react';
 const MobileSearchBar = () => {
 	const [click, setClick] = useState(false);
 
-	const searchClick = () => {
-		setClick(true);
-	};
-	// style={{ background: click && 'gray' }}
 	return (
-		<Wrapper state={click}>
+		<S.Wrapper state={click}>
 			<S.Wrap>
 				<S.SearchInput
 					placeholder="검색어를 입력해주세요"
-					onClick={searchClick}
+					onClick={() => setClick(true)}
+					onBlur={() => setClick(false)}
 				/>
 				<S.GlassBtn>
 					<FontAwesomeIcon
@@ -26,7 +23,7 @@ const MobileSearchBar = () => {
 					/>
 				</S.GlassBtn>
 			</S.Wrap>
-		</Wrapper>
+		</S.Wrapper>
 	);
 };
 export default MobileSearchBar;
@@ -35,7 +32,8 @@ const Wrapper = styled.div`
 	width: 414px;
 	height: 736px;
 	border: 1px solid black;
-	background-color: ${({ state }) => (state ? 'red' : 'gray')};
+	background-color: ${({ state }) => (state ? 'gray' : 'white')};
+	opacity: ${({ state }) => (state ? 0.5 : 1)};
 `;
 
 const Wrap = styled.div`
@@ -63,6 +61,7 @@ const GlassBtn = styled.div`
 
 const S = {
 	Wrap,
+	Wrapper,
 	SearchInput,
 	GlassBtn,
 };
