@@ -1,5 +1,8 @@
+import DesktopError from './Desktop';
+
 const ErrorPage = () => {
-	return <div>ERROR!</div>;
+	// return <MobileError></MobileError>;
+	return <DesktopError></DesktopError>;
 };
 
 export default ErrorPage;

@@ -3,6 +3,8 @@ import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
+import ChattingPage from 'Pages/Chat';
+import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
 const SellerDetailPage = ({ state }) => {
 	const [detailState, setDetailState] = useState(true);
@@ -25,7 +27,8 @@ const SellerDetailPage = ({ state }) => {
 				<div onClick={() => setDetailState(true)}>상세정보</div>
 				<div onClick={() => setDetailState(false)}>채팅 내역</div>
 			</S.DetailAndChatBar>
-			{detailState ? <DetailContent state={state} /> : <div>채팅</div>}
+			{detailState ? <DetailContent state={state} /> : <ChattingPage />}
+			<AnotherProduct />
 		</S.Wrapper>
 	);
 };
@@ -33,18 +36,19 @@ const SellerDetailPage = ({ state }) => {
 export default SellerDetailPage;
 
 const Wrapper = styled.div`
-	width: 80%;
+	width: 60%;
+	max-width: 1000px;
+	min-width: 700px;
 	border: 1px solid;
 	margin: 0 auto;
 `;
 
 const EditBar = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-size: ${({ theme }) => theme.fontSize.md};
 	${flexAllCenter}
 	justify-content: space-between;
 	& > select {
-		font-size: ${({ theme }) => theme.fontSize.lg};
-		padding: 10px;
+		padding: 5px;
 	}
 	& > ul {
 		${flexAllCenter}

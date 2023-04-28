@@ -1,11 +1,11 @@
-import BasicHeader from './Header';
-import BasicFooter from './Footer';
 import { Outlet } from 'react-router-dom';
+import WebHeader from './Header/Desktop';
+import BasicFooter from './Footer';
 
 const LayOut = () => {
 	return (
 		<>
-			<BasicHeader />
+			<WebHeader />
 			<Outlet />
 			<BasicFooter />
 		</>

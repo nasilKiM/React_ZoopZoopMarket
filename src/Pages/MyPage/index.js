@@ -1,5 +1,7 @@
+import ToggleBar from 'Components/Toggle/Toggle';
+
 const MyPage = () => {
-	return <div>😁MY PAGE</div>;
+	return <ToggleBar />;
 };
 
 export default MyPage;
