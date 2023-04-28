@@ -9,7 +9,6 @@ import MyPage from '../Pages/MyPage';
 import MyItemPage from '../Pages/MyPage/MyItem/Desktop/myItem';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
-import ErrorPage from '../Error';
 import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
@@ -19,6 +18,7 @@ import MobileChattingPage from 'Pages/Chat/Mobile/MobileChattingPage';
 import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
+import ErrorPage from 'Error';
 
 const router = createBrowserRouter([
 	{

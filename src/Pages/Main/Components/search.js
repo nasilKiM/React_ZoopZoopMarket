@@ -21,7 +21,7 @@ const Search = () => {
 export default Search;
 
 const Wrapper = styled.div`
-	width: 60%;
+	width: 100%;
 	min-width: 700px;
 	max-width: 1000px;
 	background-color: ${({ theme }) => theme.color.subLightGreen};
@@ -52,7 +52,7 @@ const Magnifier = styled.img`
 `;
 
 const History = styled.div`
-	width: 600px;
+	width: 83%;
 	padding: 20px;
 	background-color: ${({ theme }) => theme.color.white};
 	position: absolute;
