@@ -9,13 +9,13 @@ import AccountBookPage from '../Pages/MyPage/MyAccountBook';
 import MyItemPage from '../Pages/MyPage/MyItem/Desktop/myItem';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
-import ErrorPage from '../Error';
 import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
 import RegisterPage from 'Pages/Register/Desktop';
 import MobileLandingPage from 'Pages/Landing/Mobile';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
+import ErrorPage from 'Error';
 
 const router = createBrowserRouter([
 	{
