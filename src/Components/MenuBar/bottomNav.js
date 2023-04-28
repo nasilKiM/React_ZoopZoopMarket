@@ -8,6 +8,7 @@ import {
 	faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BottomNav = () => {
 	const [checked, setChecked] = useState(1);
@@ -23,7 +24,12 @@ const BottomNav = () => {
 
 	return (
 		<S.Wrapper>
-			<S.NavBtn id="1" ref={currentRef} onClick={e => onClickNav(e.target.id)}>
+			<S.NavBtn
+				to="/main"
+				id="1"
+				ref={currentRef}
+				onClick={e => onClickNav(e.target.id)}
+			>
 				<FontAwesomeIcon
 					icon={faHouse}
 					// color="white"
@@ -32,7 +38,7 @@ const BottomNav = () => {
 				/>
 				홈
 			</S.NavBtn>
-			<S.NavBtn id="2" ref={currentRef}>
+			<S.NavBtn to="/market_price" id="2" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faChartLine}
 					// color="white"
@@ -42,7 +48,7 @@ const BottomNav = () => {
 				시세조회
 			</S.NavBtn>
 			<S.AddContainer>
-				<S.AddBtn>
+				<S.AddBtn to="/register">
 					<FontAwesomeIcon
 						icon={faPlus}
 						color="white"
@@ -51,7 +57,7 @@ const BottomNav = () => {
 					/>
 				</S.AddBtn>
 			</S.AddContainer>
-			<S.NavBtn id="3" ref={currentRef}>
+			<S.NavBtn to="/m-chat" id="3" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faCommentDots}
 					// color="white"
@@ -60,7 +66,7 @@ const BottomNav = () => {
 				/>
 				채팅
 			</S.NavBtn>
-			<S.NavBtn id="4" ref={currentRef}>
+			<S.NavBtn to="/mypage" id="4" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faUser}
 					// color="white"
@@ -76,15 +82,18 @@ const BottomNav = () => {
 export default BottomNav;
 
 const Wrapper = styled.div`
-	width: 414px;
+	width: 410px;
 	height: 70px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	border-top: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
+	margin: 0 auto;
+	margin-top: 14%;
 `;
 
-const NavBtn = styled.div`
+const NavBtn = styled(Link)`
+	text-decoration: none;
 	width: 70px;
 	height: 70px;
 	padding: 12px 0;
@@ -93,6 +102,7 @@ const NavBtn = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	font-size: ${({ theme }) => theme.fontSize.sm};
+	color: ${({ theme }) => theme.color.black};
 	:checked {
 		background-color: yellow;
 	}
@@ -107,11 +117,13 @@ const AddContainer = styled.div`
 	justify-content: center;
 `;
 
-const AddBtn = styled.div`
+const AddBtn = styled(Link)`
 	width: 70px;
 	height: 70px;
 	border-radius: 35px;
 	background-color: ${({ theme }) => theme.color.primary};
+
+	text-decoration: none;
 	display: flex;
 	align-items: center;
 	justify-content: center;
