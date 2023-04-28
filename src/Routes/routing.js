@@ -5,7 +5,7 @@ import FormPage from '../Pages/Form';
 import MainPage from '../Pages/Main';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
-import AccountBookPage from '../Pages/MyPage/MyAccountBook';
+
 import MyItemPage from '../Pages/MyPage/MyItem/Desktop/myItem';
 import SearchListPage from '../Pages/SearchList';
 import LayOut from '../Components/Layout';
@@ -18,6 +18,7 @@ import MobileLandingPage from 'Pages/Landing/Mobile';
 import MobileChattingPage from 'Pages/Chat/Mobile/MobileChattingPage';
 import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
+import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 
 const router = createBrowserRouter([
 	{
