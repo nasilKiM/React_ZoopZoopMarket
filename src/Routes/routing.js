@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../Pages/Landing';
 import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
-import MainPage from '../Pages/Main/Desktop';
+import MainPage from '../Pages/Main';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
 
@@ -17,8 +17,11 @@ import MobileLandingPage from 'Pages/Landing/Mobile';
 import MobileChattingPage from 'Pages/Chat/Mobile/MobileChattingPage';
 import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
-import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
+<<<<<<< HEAD
 import ErrorPage from 'Error';
+=======
+import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
+>>>>>>> 0f16bfe4a955deb288d0a82b9574b4ed83e50683
 
 const router = createBrowserRouter([
 	{

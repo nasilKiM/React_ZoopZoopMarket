@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import Preview from './Components/preview';
-import Search from './Components/search';
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 const MainPage = () => {
 	return (
 		<S.Wrapper>
-			<Search />
+			<S.SearchSection>
+				<SearchBar />
+			</S.SearchSection>
 			<Preview
 				categoryData={1}
 				userLocation={'도곡동'}
@@ -31,6 +33,16 @@ const Wrapper = styled.div`
 	padding-top: 50px;
 `;
 
+const SearchSection = styled.div`
+	width: 100%;
+	border-top: 3px double ${({ theme }) => theme.color.subBeigeGreen};
+	border-bottom: 3px double ${({ theme }) => theme.color.subBeigeGreen};
+	padding: 40px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
 const S = {
 	Wrapper,
+	SearchSection,
 };
