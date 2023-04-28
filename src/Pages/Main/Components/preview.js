@@ -48,9 +48,9 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 export default Preview;
 
 const Wrapper = styled.div`
-	width: 60%;
+	width: 100%;
 	max-width: 1000px;
-	min-width: 1000px;
+	min-width: 700px;
 	margin: 0 auto;
 	margin-top: 20px;
 `;
@@ -58,11 +58,16 @@ const UpperSwiper = styled.div`
 	width: 100%;
 	height: 50px;
 	display: flex;
+	align-items: center;
+	margin-top: 50px;
+	padding: 0 50px;
+	position: relative;
 `;
 const CategoryBox = styled.div`
-	width: 20%;
+	width: 150px;
 	text-align: center;
-	padding-top: 15px;
+	padding: 10px;
+	margin-left: 30px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	background-color: ${({ theme }) => theme.color.primary};
@@ -70,21 +75,27 @@ const CategoryBox = styled.div`
 	border-radius: 10px;
 `;
 const CategoryText = styled.div`
-	padding-top: 15px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	margin: 0 5%;
+	width: 300px;
 `;
-const More = styled.div`
-	padding-top: 15px;
-	width: 55%;
-	font-size: ${({ theme }) => theme.fontSize.base};
 
+const More = styled.div`
+	width: 100px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	position: absolute;
 	text-align: end;
+	right: 10%;
+	cursor: pointer;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	}
 `;
 const SwiperWrapper = styled.div`
-	padding: 10px 30px;
+	width: 100%;
+	padding: 10px;
 	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
-	margin-top: 10px;
+	margin-top: 30px;
 	display: flex;
 	align-items: center;
 `;
