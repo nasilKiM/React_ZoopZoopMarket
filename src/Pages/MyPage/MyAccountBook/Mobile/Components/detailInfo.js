@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AccountBookDetailInfo = () => {
+const MobileAccountBookDetailInfo = () => {
 
     return (
         <>
@@ -13,18 +13,16 @@ const AccountBookDetailInfo = () => {
             </S.PreviewContent>
             <S.PreviewContent>
                 <S.SummaryContent1>
-                    * 판매 _ 건<br/>
-                    * 구매 _ 건<br/>
-                    * 무료 나눔<br/>
+                    판매 _ 건<br/>
+                    구매 _ 건<br/>
+                    무료 나눔<br/>
                 </S.SummaryContent1>
                 <S.SummaryContent2>
-                    XXX 원<br/>
-                    XXX 원<br/>
-                    _ 건<br/>
-                    <div>총 XXX 원</div>
+                    원<br/>
+                    원<br/>
+                    건<br/>
+                    <div>총 원</div>
                 </S.SummaryContent2>
-                <S.Text>
-                </S.Text>
             </S.PreviewContent>
           </S.PreviewWrap>
             <S.MonthButtonsZone>
@@ -41,72 +39,68 @@ const AccountBookDetailInfo = () => {
     )
 };
 
-export default AccountBookDetailInfo;
+export default MobileAccountBookDetailInfo;
 
 // 거래내역 박스
 const PreviewWrap = styled.div`
     width: 100%;
-    height: 500px;
-    background-color: #d9d9d9;
+    height: 450px;
+    background-color: ${({ theme }) => theme.color.subBeige};
     padding-top: 30px;
     & > div:nth-child(1) {
-            border-bottom: dashed 3px #a9a9a9;
+            border-bottom: dashed 3px white;
             align-items: center;
     }
     & > div:nth-child(2) {
             margin-top: 30px;
+            width: 40%;
             height: 250px;
-    }
-    & > div:nth-child(3) {
-            margin-top: 15px;
-            height: 50px;
+            justify-content: space-between;
     }
 `
 
 const PreviewContent= styled.div`
     width: 90%;
-    height: 170px;
+    height: 110px;
     margin: 0 auto;
     display: flex;
+    justify-content: center;
 `
 
 const Month = styled.div`
-    width: 110px;
-    height: 110px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background-color: gray;
+    background-color: ${({ theme }) => theme.color.primary};
     display : flex;
     justify-content : center;
     align-items : center;
-    margin-left: 80px;
-    color: white;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    color: ${({ theme }) => theme.color.white};
 `
 
 const Text = styled.div`
-    margin-left: 100px;
-    font-size: ${({ theme }) => theme.fontSize.lg};
-    line-height: 2.5rem;
-    font-weight: ${({ theme }) => theme.fontWeight.regular};
+    margin-left: 30px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    line-height: 2rem;  
 `
 
 const SummaryContent1 = styled.div`
     margin-top: 20px;
-    margin-left: 80px;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
     line-height: 3rem;
 `
 
 const SummaryContent2 = styled.div`
     margin-top: 20px;
-    margin-left: 600px;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
     line-height: 3rem;
     text-align: right;
     & > div {
         margin-top: 40px;
-        font-size: ${({ theme }) => theme.fontSize.lg};
-        color: #ff3647;
+        font-size: ${({ theme }) => theme.fontSize.md};
+        color: ${({ theme }) => theme.color.primary};
     }
 `
 
@@ -125,7 +119,7 @@ const MonthButtonsZone = styled.div`
 `
 
 const MonthButton = styled.button`
-    width: 140px;
+    width: 65px;
     height: 40px;
     margin-left: 10px;
     border: 2.5px solid #d9d9d9;
@@ -136,14 +130,14 @@ const MonthButton = styled.button`
     :hover {
         color: red;
     }
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: ${({ theme }) => theme.fontSize.sm};
 `
 
 const Graph = styled.div`
     margin-top: 110px;
     width: 100%;
     height: 500px;
-    background-color: #d9d9d9;
+    background-color: ${({ theme }) => theme.color.subBeige};
 `
 
 const S = {

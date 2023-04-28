@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AccountBookSelector = () => {
+const MobileAccountBookSelector = () => {
 
 	return(
 		<S.SelectorsZone>
@@ -41,12 +41,12 @@ const AccountBookSelector = () => {
 	) 
 };
 
-export default AccountBookSelector;
+export default MobileAccountBookSelector;
 
 const SelectorsZone = styled.div`
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0 30px;
+	margin: 50px 0 10px;
 	form {
 		&:nth-child(1) {
 			margin-right: 15px;
@@ -62,9 +62,9 @@ const LargeSelect = styled.select`
  	-moz-appearance: none;
   	-webkit-appearance: none;
   	appearance: none;
-	width: 340px;
-	height: 54px;
-	font-size: ${({ theme }) => theme.fontSize.lg};
+	width: 65px;
+	height: 40px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;
 	text-align-last: center;
