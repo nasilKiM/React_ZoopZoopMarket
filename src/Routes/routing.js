@@ -16,6 +16,8 @@ import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
 import RegisterPage from 'Pages/Register/Desktop';
 import MobileLandingPage from 'Pages/Landing/Mobile';
+import MobileChattingPage from 'Pages/Chat/Mobile/MobileChattingPage';
+import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
 	{
 		path: 'm-landing',
 		element: <MobileLandingPage />,
+	},
+	{
+		path: 'm-chat/:id',
+		element: <MobileChatDetail />,
 	},
 	{
 		path: 'form/login',
@@ -40,6 +46,10 @@ const router = createBrowserRouter([
 			{
 				path: 'chat',
 				element: <ChattingPage />,
+			},
+			{
+				path: 'm-chat',
+				element: <MobileChattingPage />,
 			},
 			{
 				path: 'form',
