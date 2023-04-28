@@ -1,5 +1,5 @@
 import MobileCard from 'Components/Card/Mobile/MobileCard';
-import SearchBar from 'Components/SearchBar/SearchBar';
+import MobileSearchBar from 'Components/SearchBar/Mobile/MobileSearchBar';
 import { theme } from 'Styles/theme';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ const MobileSearchList = () => {
 			<S.Wrapper>
 				<S.Container>
 					<S.SearchBarContainer>
-						<SearchBar></SearchBar>
+						<MobileSearchBar></MobileSearchBar>
 					</S.SearchBarContainer>
 					<S.CategoryBox>
 						<S.Category
