@@ -16,7 +16,7 @@ const MobilePreview = (user, categoryData) => {
 	let categoryText =
 		categoryData === 1
 			? `${userLocation} 인기 줍줍템!`
-			: `${userName}님 주변의 무료나눔 물품들 이에요!`;
+			: `${userName}님 주변의 무료나눔 물품들이에요!`;
 
 	// const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -42,9 +42,7 @@ const MobilePreview = (user, categoryData) => {
 				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={1}>
 					{itemList.map(item => (
 						<SwiperSlide>
-							<ItemContainer>
-								<MobileCard key={item} />
-							</ItemContainer>
+							<MobileCard key={item} />
 						</SwiperSlide>
 					))}
 				</Swiper>
@@ -62,57 +60,59 @@ const Wrapper = styled.div`
 	margin-top: 25px;
 	margin-bottom: 30px;
 `;
+
 const UpperSwiper = styled.div`
 	width: 100%;
-	height: 50px;
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
 `;
+
 const CategoryBox = styled.div`
-	width: 20%;
-	text-align: center;
-	padding-top: 15px;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	width: 80px;
+	height: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: ${({ theme }) => theme.fontSize.es};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	background-color: ${({ theme }) => theme.color.primary};
 	color: ${({ theme }) => theme.color.white};
 	border-radius: 10px;
 `;
-const CategoryText = styled.div`
-	padding-top: 15px;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	margin: 0 5%;
-`;
-const More = styled.div`
-	padding-top: 15px;
-	width: 55%;
-	font-size: ${({ theme }) => theme.fontSize.xs};
 
-	text-align: end;
+const CategoryText = styled.div`
+	width: 350px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	margin: 0 10px;
 `;
+
+const More = styled.div`
+	width: 80px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	text-align: end;
+	cursor: pointer;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+`;
+
 const SwiperWrapper = styled.div`
-	padding: 10px 30px;
+	padding: 10px;
 	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin-top: 10px;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 `;
 
-const ItemContainer = styled.div`
-	border: 1px solid red;
-	width: 10px;
-	> ItemCard {
-		width: 100%;
-		margin-bottom: 15px;
-		border: 2px solid black;
-		border-color: ${({ theme }) => theme.color.subBeigeGreen};
-		border-radius: 10px;
-	}
-`;
 const Btn = styled.button`
 	border: none;
 	font-size: ${({ theme }) => theme.fontSize.big};
 	background: none;
 	width: 70px;
+	cursor: pointer;
 	:hover {
 		color: ${({ theme }) => theme.color.primary};
 	}

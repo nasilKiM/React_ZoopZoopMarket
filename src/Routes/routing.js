@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../Pages/Landing';
 import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
-import MainPage from '../Pages/Main';
+import MainPage from '../Pages/Main/Desktop';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
 

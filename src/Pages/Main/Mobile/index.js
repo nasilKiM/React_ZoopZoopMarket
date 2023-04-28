@@ -1,8 +1,9 @@
 import { useSetRecoilState } from 'recoil';
 import { itemListState } from 'Atoms/main.atom';
 import { useEffect } from 'react';
-import MobilePreview from './preview';
+import MobilePreview from './Components/preview';
 import styled from 'styled-components';
+import MobileSearch from './Components/search';
 
 const MobileMain = () => {
 	const setItemList = useSetRecoilState(itemListState); //  itemListState 상태의 값을 업데이트하는 함수
@@ -23,8 +24,17 @@ const MobileMain = () => {
 
 	return (
 		<S.MobileWrapper>
-			<MobilePreview user={user} category={0}></MobilePreview>
-			<MobilePreview user={user} category={0}></MobilePreview>
+			<MobileSearch />
+			<MobilePreview
+				categoryData={1}
+				userLocation={'도곡동'}
+				userName={'이재훈'}
+			></MobilePreview>
+			<MobilePreview
+				categoryData={0}
+				userLocation={'도곡동'}
+				userName={'이재훈'}
+			></MobilePreview>
 		</S.MobileWrapper>
 	);
 };

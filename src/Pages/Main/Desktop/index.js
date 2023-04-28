@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Preview from './Components/preview';
 import Search from './Components/search';
+import MobileMain from '../Mobile';
 
 const MainPage = () => {
 	return (
@@ -16,6 +17,7 @@ const MainPage = () => {
 				userLocation={'도곡동'}
 				userName={'이재훈'}
 			></Preview>
+			<MobileMain />
 		</S.Wrapper>
 	);
 };
