@@ -1,5 +1,7 @@
+import MobileSearchList from './Mobile';
+
 const SearchListPage = () => {
-	return <div>😁</div>;
+	return <MobileSearchList></MobileSearchList>;
 };
 
 export default SearchListPage;

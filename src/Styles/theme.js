@@ -4,13 +4,18 @@ const color = {
 	subLightGreen: '#9EC284',
 	subBeigeGreen: '#BECAA2',
 	white: '#FFFFFF',
+	black: '#000000',
 };
 
 // 폰트 크기
 const fontSize = {
+	micro: '6px',
+	es: '10px',
 	xs: '12px',
 	sm: '14px',
 	base: '16px',
+	md: '20px',
+	big: '24px',
 	lg: '28px',
 	xl: '32px',
 };
