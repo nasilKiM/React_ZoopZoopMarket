@@ -5,20 +5,10 @@ const UploadFiles = () => {
 	const [imgSrc, setImgSrc] = useState([]);
 	const imgRef = useRef();
 
-	// const onUpload = e => {
-	// 	const file = e.target.files[0];
-	// 	const reader = new FileReader();
-	// 	reader.readAsDataURL(file);
-
-	// 	reader.onloadend = () => {
-	// 		setImgSrc(reader.result);
-	// 	};
-	// };
-
 	const onUpload = e => {
 		const fileArr = e.target.files;
 		let fileURLs = [];
-		let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+		let filesLength = fileArr.length > 5 ? 5 : fileArr.length;
 
 		for (let i = 0; i < filesLength; i++) {
 			const reader = new FileReader();
@@ -29,9 +19,17 @@ const UploadFiles = () => {
 			};
 		}
 	};
+	console.log(imgSrc);
 
 	const onClickUpload = e => {
 		imgRef.current.click();
+	};
+
+	const onClickDelete = idx => {
+		// e.preventDefault();
+		if (imgSrc.length === 0) return;
+		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
+		console.log(newFileURLs);
 	};
 
 	return (
@@ -47,78 +45,43 @@ const UploadFiles = () => {
 			<S.ImgContainer>
 				<S.MainImgContainer>
 					<S.MainImgSection
-						src={imgSrc[0] || '/Assets/임시로고.png'}
+						src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
 						onClick={onClickUpload}
 					/>
-					<S.DelBtn>-</S.DelBtn>
+					<S.DelBtn onClick={onClickDelete(0)}>-</S.DelBtn>
 				</S.MainImgContainer>
 				<S.SmallImgBox>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[1] || '/Assets/임시로고.png'}
+							src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[2] || '/Assets/임시로고.png'}
+							src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[3] || '/Assets/임시로고.png'}
+							src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[4] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[5] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[6] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[7] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[8] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[9] || '/Assets/임시로고.png'}
+							src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 				</S.SmallImgBox>
 			</S.ImgContainer>
-			<S.Count>{imgSrc.length} / 10</S.Count>
+			<S.Count>{imgSrc.length} / 5</S.Count>
 		</S.Wrapper>
 	);
 };
@@ -140,39 +103,38 @@ const ImgContainer = styled.div`
 `;
 
 const MainImgContainer = styled.div`
-	width: 365px;
-	height: 365px;
+	width: 360px;
+	height: 360px;
 	position: relative;
 `;
 
 const MainImgSection = styled.img`
-	width: 365px;
-	height: 365px;
+	width: 360px;
+	height: 360px;
 	cursor: pointer;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
 	object-fit: cover;
 `;
 
 const SmallImgBox = styled.div`
-	width: 400px;
-	height: 400px;
+	width: 376px;
+	height: 376px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
-	position: relative;
 `;
 
 const SmallImgContainer = styled.div`
-	width: 100px;
-	height: 100px;
+	width: 171px;
+	height: 171px;
 	position: relative;
 	margin: 0 4px;
 `;
 
 const SmallImgSection = styled.img`
-	width: 100px;
-	height: 100px;
+	width: 171px;
+	height: 171px;
 	cursor: pointer;
 	object-fit: cover;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
