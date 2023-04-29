@@ -5,12 +5,12 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const MobilePreview = (user, categoryData) => {
+const MobilePreview = ({ categoryData, userLocation, userName }) => {
 	const itemList = useRecoilValue(itemListState);
 
-	let itemCategory = itemList.category;
-	let userLocation = user.userLocation;
-	let userName = user.userName;
+	//let itemCategory = itemList.category;
+	// let userLocation = user.userLocation;
+	// let userName = user.userName;
 	// console.log(categoryData);
 	let category = categoryData === 1 ? '중고 물품' : '무료나눔';
 	let categoryText =
@@ -58,7 +58,7 @@ export default MobilePreview;
 const Wrapper = styled.div`
 	margin: 0 auto;
 	margin-top: 25px;
-	margin-bottom: 30px;
+	margin-bottom: 60px;
 `;
 
 const UpperSwiper = styled.div`
