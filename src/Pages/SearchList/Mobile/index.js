@@ -5,18 +5,19 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 
 const MobileSearchList = () => {
-	const [selected, setSelected] = useState(0);
-
+	const location = useLocation();
+	// const categoryData = location.state?.categoryData;
+	const categoryData = new URLSearchParams(location.search).get('categoryData');
+	//console.log(categoryData);
+	const [selected, setSelected] = useState(parseInt(categoryData));
 	let selectedItem = '';
 	const itemList = [1, 2, 3, 4];
 
-	if (selected === 0) {
+	if (selected === 1) {
 		selectedItem = '중고물품';
-	} else if (selected === 1) {
+	} else {
 		selectedItem = '무료나눔';
 	}
-	const location = useLocation();
-	const categoryData = location.state?.categoryData;
 
 	return (
 		<S.MobileWrapper>
@@ -29,7 +30,7 @@ const MobileSearchList = () => {
 						<S.Category
 							onClick={() => setSelected(0)}
 							style={
-								selected === 0
+								selected === 1
 									? {
 											fontWeight: 700,
 											borderBottom: `2px solid ${theme.color.black}`,
@@ -43,7 +44,7 @@ const MobileSearchList = () => {
 						<S.Category
 							onClick={() => setSelected(1)}
 							style={
-								selected === 1
+								selected === 0
 									? {
 											fontWeight: 700,
 											borderBottom: `2px solid ${theme.color.black}`,

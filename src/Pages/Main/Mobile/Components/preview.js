@@ -17,7 +17,7 @@ const MobilePreview = ({ categoryData, userLocation, userName }) => {
 			? `${userLocation} 인기 줍줍템!`
 			: `${userName}님 주변의 무료나눔 물품들이에요!`;
 
-	// const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
+	const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -34,7 +34,7 @@ const MobilePreview = ({ categoryData, userLocation, userName }) => {
 			<S.UpperSwiper>
 				<S.CategoryBox>{category}</S.CategoryBox>
 				{userLocation && <S.CategoryText>{categoryText}</S.CategoryText>}
-				<S.More key={categoryData} to="/search_list">
+				<S.More to={`/search_list?categoryData=${categoryData}`}>
 					{' '}
 					더보기 &gt;{' '}
 				</S.More>
