@@ -12,6 +12,10 @@ const ChatDetail = () => {
 						<div> 판매중</div>
 					</S.CurrentChatting>
 					<span>가격</span>
+					{/* 판매자가 구매자를 구매확정했을경우에 보여야함
+					+ 후기남긴경우에는 후기수정하기가 떠야함. */}
+					<button>후기 남기기</button>
+					<button>후기 수정하기</button>
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>

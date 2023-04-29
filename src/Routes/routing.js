@@ -29,6 +29,10 @@ const router = createBrowserRouter([
 		element: <MobileLandingPage />,
 	},
 	{
+		path: 'm-chat',
+		element: <MobileChattingPage />,
+	},
+	{
 		path: 'm-chat/:id',
 		element: <MobileChatDetail />,
 	},
@@ -47,10 +51,7 @@ const router = createBrowserRouter([
 				path: 'chat',
 				element: <ChattingPage />,
 			},
-			{
-				path: 'm-chat',
-				element: <MobileChattingPage />,
-			},
+
 			{
 				path: 'form',
 				element: <FormPage />,
