@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import Line from './Components/line';
 import UploadFiles from './Components/uploadFiles';
 import TextArea from './Components/textArea';
 import { useForm } from 'react-hook-form';
@@ -8,43 +7,13 @@ const RegisterPage = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { isSubmitting, errors },
+		formState: { errors },
 	} = useForm();
-
-	const numberOnly = {
-		required: '필수 입력사항입니다.',
-		pattern: {
-			value: /^[0-9]+$/,
-			message: '숫자만 입력해주세요',
-		},
-	};
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(data => console.log(data))}>
 			<UploadFiles />
 			<S.Blank></S.Blank>
-			{/* <Line
-				txt={'제목'}
-				placeholder={'최대 20자까지 입력 가능합니다.'}
-				max={'19'}
-				name={'title'}
-				type={'string'}
-			/>
-			<Line
-				txt={'가격'}
-				placeholder={'0원 기입시 무료 나눔템으로 분류됩니다.'}
-				err={'필수 입력 사항입니다.'}
-				name={'price'}
-				type={'number'}
-				obj={numberOnly}
-			/>
-			<Line
-				txt={'태그'}
-				placeholder={'#재훈이네  #금쪽이  #이재훈'}
-				err={'최소 1개 이상 입력해주세요.'}
-				name={'tag'}
-				type={'string'}
-			/> */}
 			<S.Line>
 				<S.Mark>*</S.Mark>
 				<S.Title>제목</S.Title>
