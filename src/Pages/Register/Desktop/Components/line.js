@@ -1,13 +1,25 @@
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 
-const Line = ({ txt, placeholder, err, max }) => {
+const Line = ({ txt, placeholder, err, max, type, name, obj }) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { isSubmitting, errors },
+	} = useForm();
+
 	return (
 		<S.Wrapper>
 			<S.Mark>*</S.Mark>
 			<S.Txt>{txt}</S.Txt>
 			<S.Container>
-				<S.InputBox maxLength={max} placeholder={placeholder}></S.InputBox>
-				<S.Error>{err}</S.Error>
+				<S.InputBox
+					type={type}
+					maxLength={max}
+					placeholder={placeholder}
+					{...register(name, { ...obj })}
+				></S.InputBox>
+				{errors.price && <S.Error>{errors.price.message}</S.Error>}
 			</S.Container>
 		</S.Wrapper>
 	);
