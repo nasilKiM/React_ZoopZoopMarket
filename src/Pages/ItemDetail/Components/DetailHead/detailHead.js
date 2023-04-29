@@ -1,26 +1,31 @@
+import MannerMeter from 'Components/Icon/Icon';
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import ProductImg from './ProductImg/productImg';
+import Profile from 'Components/Profile/Desktop/profile';
+import { useNavigate } from 'react-router';
 
 const DetailHead = () => {
+	const navigate = useNavigate();
+
 	return (
 		<S.Wrapper>
-			<div>상품이미지</div>
+			<ProductImg />
 			<S.ProductWrapper>
-				<S.Profile>
-					<div>이미지</div>
+				<S.UserProfile>
+					<Profile />
 					<ul>
 						<li>판매자 닉네임</li>
 						<li>위치 (동까지)</li>
-						<li>위도 경도</li>
 					</ul>
-				</S.Profile>
-				<S.ProfileDetail>
+				</S.UserProfile>
+				<S.UserProfileDetail>
 					<ul>
-						<li>85점</li>
+						<MannerMeter />
 						<li>매너점수</li>
 						<li>총 거래건수 : OO건</li>
 					</ul>
-				</S.ProfileDetail>
+				</S.UserProfileDetail>
 			</S.ProductWrapper>
 		</S.Wrapper>
 	);
@@ -30,7 +35,7 @@ export default DetailHead;
 
 const Wrapper = styled.div`
 	& > * {
-		margin: 20px 0;
+		margin-bottom: 20px 0;
 	}
 	& > div:first-child {
 		border: 1px solid;
@@ -46,38 +51,31 @@ const ProductWrapper = styled.div`
 	justify-content: space-between;
 `;
 
-const Profile = styled.div`
+const UserProfile = styled.div`
 	${flexAllCenter}
-	& > div {
-		width: 100px;
-		height: 100px;
-		${flexAllCenter}
-		background-color: #b9b9b9;
-		border-radius: 50%;
-	}
 	& > ul {
 		margin-left: 20px;
 		& > li:first-child {
-			font-size: ${({ theme }) => theme.fontSize.lg};
+			font-size: ${({ theme }) => theme.fontSize.md};
 			font-weight: ${({ theme }) => theme.fontWeight.bold};
-			margin-bottom: 20px;
+			margin-bottom: 5px;
+		}
+		& > li {
+			margin: 5px 0;
 		}
 	}
 `;
 
-const ProfileDetail = styled.div`
+const UserProfileDetail = styled.div`
 	text-align: right;
-	& > ul > li {
+	& > ul > * {
 		margin: 10px 0;
-	}
-	& > ul > li:first-child {
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 
 const S = {
 	Wrapper,
 	ProductWrapper,
-	Profile,
-	ProfileDetail,
+	UserProfile,
+	UserProfileDetail,
 };
