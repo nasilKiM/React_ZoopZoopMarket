@@ -1,0 +1,64 @@
+{
+	"itemList": [
+		{
+			"id": 1,
+			"popularity": 80,
+			"category": 0,
+			"location": "a"
+		},
+		{
+			"id": 2,
+			"popularity": 65,
+			"category": 1,
+			"location": "b"
+		},
+		{
+			"id": 3,
+			"popularity": 50,
+			"category": 0,
+			"location": "c"
+		},
+		{
+			"id": 4,
+			"popularity": 90,
+			"category": 1,
+			"location": "a"
+		},
+		{
+			"id": 5,
+			"popularity": 70,
+			"category": 0,
+			"location": "b"
+		},
+		{
+			"id": 6,
+			"popularity": 45,
+			"category": 1,
+			"location": "c"
+		},
+		{
+			"id": 7,
+			"popularity": 85,
+			"category": 0,
+			"location": "a"
+		},
+		{
+			"id": 8,
+			"popularity": 60,
+			"category": 1,
+			"location": "b"
+		},
+		{
+			"id": 9,
+			"popularity": 55,
+			"category": 0,
+			"location": "c"
+		},
+		{
+			"id": 10,
+			"popularity": 75,
+			"category": 1,
+			"location": "a"
+		}
+	]
+}

@@ -2,15 +2,14 @@ import styled from "styled-components";
 import MobileAccountBookDetailInfo from "./Components/detailInfo";
 import MobileAccountBookSelector from "./Components/selector";
 
-
 const MobileAccountBookPage = () => {
 	
 	return(
-	  <S.Wrapper>
-		<MobileAccountBookSelector/>
-		<MobileAccountBookDetailInfo/>
-	  </S.Wrapper>
-	) 
+			<S.Wrapper>
+				<MobileAccountBookSelector/>
+				<MobileAccountBookDetailInfo/>
+			</S.Wrapper>
+      )
 };
 
 export default MobileAccountBookPage;

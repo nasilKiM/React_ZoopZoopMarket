@@ -22,8 +22,7 @@ export default SearchBar;
 const Wrap = styled.div`
 	display: flex;
 	border: 1px solid gray;
-	border-radius: 20px;
-	width: 500px;
+	width: 700px;
 	height: 40px;
 	position: relative;
 	/* margin: 0 auto; */

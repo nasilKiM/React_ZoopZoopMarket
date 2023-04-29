@@ -1,15 +1,12 @@
-import MenuBar from 'Components/MenuBar/MenuBar';
-import Preview from './Components/preview';
+import { isDesktop, isMobile } from 'react-device-detect';
+import DesktopMainPage from './Desktop';
+import MobileMain from './Mobile';
 
 const MainPage = () => {
 	return (
 		<div>
-			<MenuBar></MenuBar>
-			<Preview
-				categoryData={1}
-				userLocation={'도곡동'}
-				userName={'이재훈'}
-			></Preview>
+			{isMobile ? <MobileMain></MobileMain> : null}
+			{isDesktop ? <DesktopMainPage></DesktopMainPage> : null}
 		</div>
 	);
 };
