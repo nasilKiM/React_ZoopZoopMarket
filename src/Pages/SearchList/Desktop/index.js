@@ -1,20 +1,49 @@
+import { itemListState } from 'Atoms/search.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
-import SearchBar from 'Components/SearchBar/SearchBar';
-import { useState } from 'react';
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useLocation } from 'react-router';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const DesktopSearchList = () => {
+	const [itemList, setItemList] = useRecoilState(itemListState);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const response = await fetch('Mock/ItemData/items.json'); //Mock/mock.json 경로에서 데이터를 가져옴
+			const data = await response.json();
+			setItemList(data.itemList); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
+		};
+		fetchData();
+	}, [setItemList]);
+	//console.log(itemList);
 	const [selected, setSelected] = useState(0);
 
 	let selectedItem = '';
 	let searchKeyword = '벤츠 자전거';
-	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	if (selected === 0) {
 		selectedItem = '중고물품';
 	} else if (selected === 1) {
 		selectedItem = '무료나눔';
 	}
+	const [ref, inView] = useInView();
+
+	//
+
+	const mockItem = [];
+	const location = useLocation();
+	const categoryData = location.state?.categoryData;
+
+	console.log(location);
+	// useEffect(() => {
+	// 	if (!inView) {
+	// 		return;
+	// 	}
+	// }, [inView]);
 	return (
 		<S.Wrapper>
 			<S.Container>
@@ -52,6 +81,7 @@ const DesktopSearchList = () => {
 					))}
 				</S.ItemList>
 			</S.Container>
+			<div ref={ref}></div>
 		</S.Wrapper>
 	);
 };

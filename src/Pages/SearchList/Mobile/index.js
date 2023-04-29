@@ -1,7 +1,7 @@
 import MobileCard from 'Components/Card/Mobile/MobileCard';
-import MobileSearchBar from 'Components/SearchBar/Mobile/MobileSearchBar';
 import { theme } from 'Styles/theme';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 
 const MobileSearchList = () => {
@@ -15,13 +15,15 @@ const MobileSearchList = () => {
 	} else if (selected === 1) {
 		selectedItem = '무료나눔';
 	}
+	const location = useLocation();
+	const categoryData = location.state?.categoryData;
 
 	return (
 		<S.MobileWrapper>
 			<S.Wrapper>
 				<S.Container>
 					<S.SearchBarContainer>
-						<MobileSearchBar></MobileSearchBar>
+						{/* <MobileSearchBar></MobileSearchBar> */}
 					</S.SearchBarContainer>
 					<S.CategoryBox>
 						<S.Category
@@ -66,9 +68,8 @@ const MobileSearchList = () => {
 export default MobileSearchList;
 
 const MobileWrapper = styled.div`
-	border: 2px solid magenta;
 	width: 414px;
-	height: 736px;
+	height: 660px;
 	margin: 0 auto;
 `;
 
