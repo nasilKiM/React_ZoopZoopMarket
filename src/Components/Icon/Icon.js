@@ -1,5 +1,6 @@
 import {
 	faFaceDizzy,
+	faFaceMeh,
 	faFaceSmileWink,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +9,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const MannerMeter = () => {
-	const score = Math.floor(Math.random() * 100);
+	const score = (Math.random() * 50).toFixed(1);
 	const [state, setState] = useState(false);
 	return (
 		<S.Wrapper>
 			<div>{score}점</div>
-			{score >= 80 && (
+			{score >= 36.5 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceSmileWink}
@@ -30,10 +31,10 @@ const MannerMeter = () => {
 					)}
 				</>
 			)}
-			{score < 80 && score >= 40 && (
+			{score < 36.5 && score >= 30 && (
 				<>
 					<FontAwesomeIcon
-						icon={faFaceSmileWink}
+						icon={faFaceMeh}
 						size="xl"
 						color="orange"
 						onMouseOver={() => setState(true)}
@@ -47,7 +48,7 @@ const MannerMeter = () => {
 					)}
 				</>
 			)}
-			{score < 40 && (
+			{score < 30 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceDizzy}

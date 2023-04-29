@@ -5,7 +5,9 @@ const SignUpPage = () => {
 	return (
 		<S.Div>
 			<S.Wrap>
-				<img src="/Assets/임시로고.png" />
+				<S.Header>
+					<S.LogoImage src="/Assets/web_logo.png" />
+				</S.Header>
 				<S.Form>
 					<p>회원가입</p>
 					<S.InputWrapBtn>
@@ -91,6 +93,20 @@ const Wrap = styled.div`
 	width: 60%;
 	flex-direction: column;
 	${flexAllCenter}
+`;
+
+const Header = styled.div`
+	width: 100%;
+	height: 150px;
+	padding-top: 50px;
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+`;
+
+const LogoImage = styled.img`
+	max-width: 100%;
+	max-height: 100%;
 `;
 
 const Form = styled.form`
@@ -185,6 +201,8 @@ const Mark = styled.span`
 const S = {
 	Div,
 	Wrap,
+	Header,
+	LogoImage,
 	Form,
 	Button,
 	InputWrap,

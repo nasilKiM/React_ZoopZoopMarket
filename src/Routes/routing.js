@@ -17,7 +17,8 @@ import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
 import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
-import MainPage from 'Pages/Main/Desktop';
+import MainPage from 'Pages/Main';
+import MobileItemDetailPage from 'Pages/ItemDetail/Mobile';
 
 const router = createBrowserRouter([
 	{
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
 	{
 		path: 'form/signup',
 		element: <SignUpPage />,
+	},
+	{
+		path: 'm-item_Detail',
+		element: <MobileItemDetailPage />,
 	},
 	{
 		element: <LayOut />,
