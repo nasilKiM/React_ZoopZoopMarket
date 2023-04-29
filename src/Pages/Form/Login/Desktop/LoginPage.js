@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -12,7 +15,9 @@ const LoginPage = () => {
 					<input placeholder="E-mail" />
 					<input placeholder="PW" type="password" />
 					<S.Button>로그인</S.Button>
-					<S.SignUpBtn>신규회원이신가요?</S.SignUpBtn>
+					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
+						신규회원이신가요?
+					</S.SignUpBtn>
 				</S.Form>
 			</S.Wrap>
 		</S.Div>
