@@ -4,22 +4,40 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery } from 'react-query';
 import { useLocation } from 'react-router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const DesktopSearchList = () => {
 	const [itemList, setItemList] = useRecoilState(itemListState);
+	const PAGE_LIMIT = 10;
+	const fetchItems = async (page = 0) => {
+		const response = await fetch('Mock/ItemData/items.json'); //Mock/mock.json 경로에서 데이터를 가져옴
+		const data = await response.json();
+		const startIndex = page * PAGE_LIMIT;
+		const endIndex = (page + 1) * PAGE_LIMIT;
+		const items = data.itemList.slice(startIndex, endIndex);
+		const hasNextPage = data.itemList.length > endIndex;
+		setItemList(data.itemList); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
+		return { items, hasNextPage };
+	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const response = await fetch('Mock/ItemData/items.json'); //Mock/mock.json 경로에서 데이터를 가져옴
-			const data = await response.json();
-			setItemList(data.itemList); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
-		};
-		fetchData();
-	}, [setItemList]);
-	//console.log(itemList);
+	const temList = () => {
+		const res = useInfiniteQuery(
+			['items'],
+			({ pageParam = 0 }) => fetchItems(pageParam),
+			{
+				getNextPageParam: (lastPage, pages) => {
+					return pages.length;
+				},
+			},
+		);
+		return res;
+	};
+	const res = temList();
+	const { data } = res;
+
 	const [selected, setSelected] = useState(0);
 
 	let selectedItem = '';
@@ -38,12 +56,13 @@ const DesktopSearchList = () => {
 	const location = useLocation();
 	const categoryData = location.state?.categoryData;
 
-	console.log(location);
-	// useEffect(() => {
-	// 	if (!inView) {
-	// 		return;
-	// 	}
-	// }, [inView]);
+	useEffect(() => {
+		if (!inView) {
+			res.fetchNextPage();
+		}
+	}, [inView]);
+
+	console.log(data);
 	return (
 		<S.Wrapper>
 			<S.Container>
