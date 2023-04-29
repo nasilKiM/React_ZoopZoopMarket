@@ -26,7 +26,6 @@ const UploadFiles = () => {
 	};
 
 	const onClickDelete = idx => {
-		// e.preventDefault();
 		if (imgSrc.length === 0) return;
 		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
 		console.log(newFileURLs);

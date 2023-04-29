@@ -8,7 +8,6 @@ import KaMap from 'Components/Map/Map';
 const BuyerDetailPage = ({ state }) => {
 	return (
 		<S.Wrapper>
-			<div>구매자페이지</div>
 			<DetailHead />
 			<DetailContent state={state} />
 			<S.MapContent>

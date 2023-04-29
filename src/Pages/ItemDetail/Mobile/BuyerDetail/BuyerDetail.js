@@ -26,7 +26,7 @@ export default MobileBuyerDetailPage;
 
 const Wrapper = styled.div`
 	border: 1px solid;
-	width: 414px;
+	/* width: 414px; */
 	/* height: 736px; */
 `;
 

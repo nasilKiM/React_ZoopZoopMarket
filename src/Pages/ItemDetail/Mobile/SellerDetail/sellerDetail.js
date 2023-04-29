@@ -4,8 +4,8 @@ import DetailHead from 'Pages/ItemDetail/Components/DetailHead/detailHead';
 import DetailContent from 'Pages/ItemDetail/Components/DetailContent/detailContent';
 import AnotherProduct from 'Pages/ItemDetail/Components/AnotherProduct/anotherProduct';
 import { useState } from 'react';
-import ChattingPage from 'Pages/Chat';
 import { flexAllCenter } from 'Styles/common';
+import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 
 const MobileSellerDetail = ({ state }) => {
 	const [detailState, setDetailState] = useState(true);
@@ -17,7 +17,7 @@ const MobileSellerDetail = ({ state }) => {
 				<div onClick={() => setDetailState(true)}>상세정보</div>
 				<div onClick={() => setDetailState(false)}>채팅 내역</div>
 			</S.DetailAndChatBar>
-			{detailState ? <DetailContent state={state} /> : <ChattingPage />}
+			{detailState ? <DetailContent state={state} /> : <MobileChatDetail />}
 			<AnotherProduct />
 		</S.Wrapper>
 	);
@@ -27,7 +27,7 @@ export default MobileSellerDetail;
 
 const Wrapper = styled.div`
 	border: 1px solid;
-	width: 414px;
+	/* width: 414px; */
 	/* height: 736px; */
 `;
 
