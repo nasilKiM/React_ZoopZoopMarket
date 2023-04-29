@@ -19,7 +19,7 @@ const MobileDetailTop = ({ state }) => {
 export default MobileDetailTop;
 
 const Wrapper = styled.div`
-	margin-top: 20px;
+	margin: 20px;
 	${flexAllCenter}
 	justify-content: space-between;
 `;

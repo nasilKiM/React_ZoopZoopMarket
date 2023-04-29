@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import ChatList from '../ChatList/ChatList';
 import { Link } from 'react-router-dom';
+import MobileHeader from 'Components/Layout/Header/Mobile';
 
 const MobileChattingPage = () => {
 	return (
+		<>
+		<MobileHeader/>
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
 				<Link to="/m-chat/${chat.id}">
@@ -11,6 +14,7 @@ const MobileChattingPage = () => {
 				</Link>
 			</S.ChatLeftContainer>
 		</S.ChatContainer>
+		</>
 	);
 };
 
