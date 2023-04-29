@@ -1,13 +1,13 @@
-import BasicHeader from './Header';
 import BasicFooter from './Footer';
 import { Outlet } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 const LayOut = () => {
 	return (
 		<>
-			<BasicHeader />
+			{isMobile ? <MobileHeader /> : <WebHeader />}
 			<Outlet />
-			<BasicFooter />
+			{isMobile ? <BottomNav /> : <BasicFooter />}
 		</>
 	);
 };
