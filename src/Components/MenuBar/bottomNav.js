@@ -89,7 +89,7 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	border-top: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin: 0 auto;
-	margin-top: 14%;
+	margin-top: 10px;
 `;
 
 const NavBtn = styled(Link)`
