@@ -1,4 +1,3 @@
-import SoldoutCard from 'Components/Card/Desktop/CardSoldout';
 import BasicFooter from 'Components/Layout/Footer';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,7 +9,6 @@ const LandingPage = () => {
 				<S.LandingHeader>
 					<S.LogoImage src="Assets/web_logo.png" />
 				</S.LandingHeader>
-				<SoldoutCard />
 				<S.Section1>
 					<marquee>
 						- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
