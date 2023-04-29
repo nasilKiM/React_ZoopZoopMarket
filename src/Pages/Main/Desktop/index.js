@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Preview from './Components/preview';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
-const MainPage = () => {
+const DesktopMainPage = () => {
 	return (
 		<S.Wrapper>
 			<S.SearchSection>
@@ -18,12 +18,11 @@ const MainPage = () => {
 				userLocation={'도곡동'}
 				userName={'이재훈'}
 			></Preview>
-			{/* <MobileMain /> */}
 		</S.Wrapper>
 	);
 };
 
-export default MainPage;
+export default DesktopMainPage;
 
 const Wrapper = styled.div`
 	width: 60%;
