@@ -17,7 +17,7 @@ const LandingPage = () => {
 					<p>
 						이미 회원이시라면?&nbsp;&nbsp;
 						<Link to="/form/login">
-							<S.GoToLogin>회원가입</S.GoToLogin>
+							<S.GoToLogin>로그인</S.GoToLogin>
 						</Link>
 					</p>
 					<p>
