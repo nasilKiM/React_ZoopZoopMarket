@@ -33,7 +33,7 @@ const MobileMarketPrice = () => {
 						원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
 					</S.SubTitle>
 				</S.Title>
-				{/* <SearchBar></SearchBar> */}
+				{/* <MobileSearchBar></MobileSearchBar> */}
 				<S.ChartContainer>
 					{data.length > 0 ? (
 						<S.Average>평균 시세는 {average}원 입니다. </S.Average>
@@ -89,12 +89,12 @@ const MobileMarketPrice = () => {
 export default MobileMarketPrice;
 
 const MobileWrapper = styled.div`
-	border: 2px solid magenta;
 	width: 414px;
+
 	margin: 0 auto;
+	margin-bottom: 80px;
 `;
 const Wrapper = styled.div`
-	width: 60%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -131,10 +131,14 @@ const RecentlyClosed = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 const ItemList = styled.div`
+	width: 390px;
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 10px;
 	justify-content: space-evenly;
+	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
+	height: 180px;
+	overflow: scroll;
 `;
 const S = {
 	Wrapper,

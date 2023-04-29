@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Line from './Components/line';
 import UploadFiles from './Components/uploadFiles';
 import TextArea from './Components/textArea';
+import Address from './Components/address';
 
 const RegisterPage = () => {
 	return (
@@ -9,7 +10,7 @@ const RegisterPage = () => {
 			<UploadFiles />
 			<S.Blank></S.Blank>
 			<Line
-				txt={'글 제목'}
+				txt={'제목'}
 				placeholder={'최대 20자까지 입력 가능합니다.'}
 				err={'20자 이하로 입력해주세요 :)'}
 				max={'19'}
@@ -24,6 +25,7 @@ const RegisterPage = () => {
 				placeholder={'#재훈이네  #금쪽이  #이재훈'}
 				err={'최소 1개 이상 입력해주세요.'}
 			/>
+			<Address txt={'거래장소'} />
 			<TextArea txt={'본문 내용'} />
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
@@ -34,7 +36,7 @@ const RegisterPage = () => {
 
 export default RegisterPage;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
 	margin: 50px 0;
 `;
 

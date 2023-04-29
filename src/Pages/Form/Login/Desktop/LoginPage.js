@@ -4,7 +4,9 @@ const LoginPage = () => {
 	return (
 		<S.Div>
 			<S.Wrap>
-				<img src="/Assets/임시로고.png" />
+				<S.Header>
+					<S.LogoImage src="/Assets/web_logo.png" />
+				</S.Header>
 				<S.Form>
 					<p>로그인</p>
 					<input placeholder="E-mail" />
@@ -31,6 +33,20 @@ const Wrap = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+`;
+
+const Header = styled.div`
+	width: 100%;
+	height: 150px;
+	padding-top: 50px;
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+`;
+
+const LogoImage = styled.img`
+	max-width: 100%;
+	max-height: 100%;
 `;
 
 const Form = styled.form`
@@ -89,6 +105,8 @@ const SignUpBtn = styled.span`
 const S = {
 	Div,
 	Wrap,
+	Header,
+	LogoImage,
 	Form,
 	Button,
 	SignUpBtn,

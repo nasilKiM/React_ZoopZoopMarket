@@ -1,10 +1,12 @@
-import MenuBar from 'Components/MenuBar/MenuBar';
+import { isDesktop, isMobile } from 'react-device-detect';
+import DesktopMainPage from './Desktop';
+import MobileMain from './Mobile';
 
 const MainPage = () => {
 	return (
 		<div>
-			MainPage
-			<MenuBar></MenuBar>
+			{isMobile ? <MobileMain></MobileMain> : null}
+			{isDesktop ? <DesktopMainPage></DesktopMainPage> : null}
 		</div>
 	);
 };

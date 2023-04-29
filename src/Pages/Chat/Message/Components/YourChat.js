@@ -1,5 +1,4 @@
-
-import Profile from 'Components/Profile/Desktop/profile';
+import ChatProfile from 'Components/Profile/Desktop/chatProfile';
 import styled from 'styled-components';
 
 const YourMessage = () => {
@@ -7,7 +6,7 @@ const YourMessage = () => {
 		<>
 			<S.MessageContainer>
 				<div>
-					<Profile />
+					<ChatProfile />
 				</div>
 				<S.Message>상대방이 보내는 메세지입니다.</S.Message>
 				<S.MessageTimeUnreadContainer>

@@ -1,5 +1,6 @@
 import ItemCard from 'Components/Card/Desktop/Card';
-import SearchBar from 'Components/SearchBar/SearchBar';
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+
 import { theme } from 'Styles/theme';
 
 import {
