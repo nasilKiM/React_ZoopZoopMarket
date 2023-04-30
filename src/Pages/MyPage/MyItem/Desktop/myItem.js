@@ -1,5 +1,5 @@
-import CompletedBtn from 'Components/Buttons/CompletedBtn/completedBtn';
 import EditBtns from 'Components/Buttons/EditBtns/editBtns';
+import { flexJustifyCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const MyItemPage = () => {
@@ -17,7 +17,6 @@ const MyItemPage = () => {
 							<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
 							<S.WrapEditBtns>
 								<EditBtns />
-								<CompletedBtn />
 							</S.WrapEditBtns>
 						</S.ItemInfo>
 					</S.Container>
@@ -30,8 +29,7 @@ const MyItemPage = () => {
 export default MyItemPage;
 const Div = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 `;
 
 const Wrapper = styled.div`

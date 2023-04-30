@@ -15,6 +15,7 @@ const Wrap = styled.div`
 		background-color: ${({ theme }) => theme.color.white};
 		margin-right: 5px;
 		border-radius: 5px;
+		cursor: pointer;
 	}
 	& > button:first-child {
 		border: 2px solid ${({ theme }) => theme.color.subLightGreen};
