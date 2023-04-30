@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
 import TextArea from './Components/textArea';
 import { useForm } from 'react-hook-form';
+import FindAddress from 'Components/Address/address';
 
 const RegisterPage = () => {
 	const {
@@ -12,6 +13,7 @@ const RegisterPage = () => {
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(data => console.log(data))}>
+			<FindAddress />
 			<UploadFiles />
 			<S.Blank></S.Blank>
 			<S.Line>
