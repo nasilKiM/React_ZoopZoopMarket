@@ -45,7 +45,7 @@
 	],
 	"chatDetail": [
 		{
-			"id": 1,
+			"id": 3,
 			"product": {
 				"title": "삼성 갤럭시 S21 울트라",
 				"status": "판매 중",
@@ -87,7 +87,7 @@
 			]
 		},
 		{
-			"id": 2,
+			"id": 1,
 			"product": {
 				"title": "삼성 갤럭시 S21 울트라",
 				"status": "판매 중",
@@ -129,7 +129,7 @@
 			]
 		},
 		{
-			"id": 3,
+			"id": 2,
 			"product": {
 				"title": "삼성 갤럭시 S21 울트라",
 				"status": "판매 중",
