@@ -1,15 +1,43 @@
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 
 const MobileLoginPage = () => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
+
+	const onSubmit = data => alert(JSON.stringify(data));
 	return (
 		<S.Div>
 			<S.Wrap>
 				<S.Img src="/Assets/임시로고.png" />
-				<S.Form>
+				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<p>로그인</p>
-					<input placeholder="E-mail" />
-					<input placeholder="PW" type="password" />
+					<input
+						{...register('email', {
+							required: 'email을 입력해주세요',
+							maxLength: 20,
+							pattern: {
+								value:
+									/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+								message: 'email 형식에 맞지 않습니다',
+							},
+						})}
+						placeholder="E-mail"
+					/>
+					{errors.email && <S.Error>{errors.email.message}</S.Error>}
+					<input
+						{...register('password', {
+							required: '비밀번호를 입력해주세요',
+							maxLength: 18,
+						})}
+						placeholder="PW"
+						type="password"
+					/>
+					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.Button>로그인</S.Button>
 					<S.SignUpBtn>신규회원이신가요?</S.SignUpBtn>
 				</S.Form>
@@ -88,6 +116,12 @@ const Img = styled.img`
 	margin-bottom: 30px;
 `;
 
+const Error = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const S = {
 	Div,
 	Wrap,
@@ -95,4 +129,5 @@ const S = {
 	Button,
 	SignUpBtn,
 	Img,
+	Error,
 };
