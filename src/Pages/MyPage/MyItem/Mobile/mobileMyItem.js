@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MobileHeader from 'Components/Layout/Header/Mobile';
 import { flexAllCenter } from 'Styles/common';
-import CompletedBtn from 'Components/Buttons/CompletedBtn/completedBtn';
+import MobileHeader from 'Components/Layout/Header/Mobile';
 import EditBtns from 'Components/Buttons/EditBtns/editBtns';
 
 const MobileMyItemPage = () => {
@@ -30,7 +29,6 @@ const MobileMyItemPage = () => {
 								<S.ItemPrice>130,000 원</S.ItemPrice>
 								<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
 								<S.WrapEditBtns>
-									<CompletedBtn />
 									<EditBtns />
 								</S.WrapEditBtns>
 							</S.ItemInfo>
@@ -83,11 +81,12 @@ const Container = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	max-height: 120px;
+	min-height: 110px;
 	border-radius: 5px;
 	cursor: pointer;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
 	margin-bottom: 10px;
+	position: relative;
 `;
 
 const ItemImg = styled.img`
@@ -126,6 +125,8 @@ const WrapEditBtns = styled.div`
 	display: flex;
 	width: 130%;
 	justify-content: space-between;
+	position: absolute;
+	padding-top: 71px;
 `;
 
 const S = {
