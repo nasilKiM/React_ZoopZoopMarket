@@ -46,9 +46,9 @@ const Wrapper = styled.div`
 `;
 
 const ProductWrapper = styled.div`
-	border: 1px solid;
 	${flexAllCenter}
 	justify-content: space-between;
+	margin: 20px 20px;
 `;
 
 const UserProfile = styled.div`
