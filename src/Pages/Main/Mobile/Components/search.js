@@ -7,13 +7,13 @@ const MobileSearch = () => {
 		<S.Wrapper>
 			<S.Input></S.Input>
 			<S.Magnifier src="/Assets/Icon/Magnifier.png"></S.Magnifier>
-			<S.History>
+			{/* <S.History>
 				{temp.map(() => (
 					<S.HistoryItem>
 						TEST<S.DelBtn>X</S.DelBtn>
 					</S.HistoryItem>
 				))}
-			</S.History>
+			</S.History> */}
 		</S.Wrapper>
 	);
 };

@@ -59,6 +59,10 @@ const Wrapper = styled.div`
 	border: 1px solid sandybrown;
 	background-color: ${({ theme }) => theme.color.primary};
 	padding: 0 40px;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
 `;
 
 const Logo = styled.img`

@@ -22,18 +22,16 @@ const MobileMain = () => {
 	return (
 		<S.MobileWrapper>
 			<MobileSearch />
-			<S.PreviewContainer>
-				<MobilePreview
-					categoryData={1}
-					userLocation={'도곡동'}
-					userName={'이재훈'}
-				></MobilePreview>
-				<MobilePreview
-					categoryData={0}
-					userLocation={'도곡동'}
-					userName={'이재훈'}
-				></MobilePreview>
-			</S.PreviewContainer>
+			<MobilePreview
+				categoryData={1}
+				userLocation={'도곡동'}
+				userName={'이재훈'}
+			></MobilePreview>
+			<MobilePreview
+				categoryData={0}
+				userLocation={'도곡동'}
+				userName={'이재훈'}
+			></MobilePreview>
 		</S.MobileWrapper>
 	);
 };
@@ -46,11 +44,6 @@ const MobileWrapper = styled.div`
 	margin: 0 auto;
 `;
 
-const PreviewContainer = styled.div`
-	margin-top: 120px;
-`;
-
 const S = {
 	MobileWrapper,
-	PreviewContainer,
 };
