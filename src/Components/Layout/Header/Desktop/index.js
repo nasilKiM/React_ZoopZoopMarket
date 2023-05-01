@@ -14,16 +14,21 @@ export default WebHeader;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 130px;
+	min-width: 700px;
+	max-width: 1000px;
+	height: 200px;
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	margin-top: 30px;
+	margin: 0 auto;
+	border: 1px solid blanchedalmond;
 `;
 
 const Logo = styled.img`
+	border: 1px solid red;
+	padding-top: 50px;
 	margin-bottom: 50px;
 	width: 300px;
 `;

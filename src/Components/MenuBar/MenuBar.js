@@ -32,7 +32,7 @@ export default MenuBar;
 const Bar = styled.div`
 	width: 60%;
 	max-width: 1000px;
-	min-width: 1000px;
+	min-width: 700px;
 	margin: 0 auto;
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
