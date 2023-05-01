@@ -66,6 +66,7 @@ const InfoContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 const Info = styled.div`
@@ -103,15 +104,17 @@ const Section = styled.div`
 	width: 700px;
 	display: flex;
 	flex-direction: column;
-	margin-top: 100px;
+	margin: 0 auto;
+	padding-top: 50px;
 	> span {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		font-size: ${({ theme }) => theme.fontSize.md};
 	}
 	> div {
+		border: 1px solid red;
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: start;
 	}
 `;
 
