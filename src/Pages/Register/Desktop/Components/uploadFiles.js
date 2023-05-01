@@ -19,7 +19,6 @@ const UploadFiles = () => {
 			};
 		}
 	};
-	console.log(imgSrc);
 
 	const onClickUpload = e => {
 		imgRef.current.click();
@@ -88,9 +87,7 @@ const UploadFiles = () => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
-	min-width: 700px;
+	width: 800px;
 	margin: 0 auto;
 `;
 
