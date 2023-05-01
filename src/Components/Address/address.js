@@ -1,107 +1,31 @@
 import { useState } from 'react';
 import Post from './post';
+import styled from 'styled-components';
 
-// const FindAddress = () => {
-// 	const [address, setAddress] = useState(''); // 우편번호
-// 	const [addressDetail, setAddressDetail] = useState(''); // 주소
+const FindAddress = ({ setter }) => {
+	/*
+	현재 주소찾기 컴포넌트는 
+	'주소찾기'버튼이 눌리면 검색 결과가 S.Box라는 태그에 적히도록 되어 있습니다. (현재는 주석처리)
+	따로 적혀야하는 위치가 있다면 해당 S.Box를 완전 지우고 랜더링이 필요한 파일에서 state 생성 후
+	'setter'라는 이름으로 set함수를 props로 전달 후 'address'에 담겨있는 값을 할당하면 됩니다.
 
-// 	const [isOpenPost, setIsOpenPost] = useState(false); // 모달창
-
-// 	console.log(isOpenPost);
-// 	const onChangeOpenPost = () => {
-// 		setIsOpenPost(!isOpenPost);
-// 	};
-
-// 	const onCompletePost = data => {
-// 		console.log(data);
-// 		let fullAddr = data.address;
-// 		let extraAddr = '';
-
-// 		if (data.addressType === 'R') {
-// 			if (data.bname !== '') {
-// 				extraAddr += data.bname;
-// 			}
-// 			if (data.buildingName !== '') {
-// 				extraAddr +=
-// 					extraAddr !== '' ? `, ${data.buildingName}` : data.buildingName;
-// 			}
-// 			fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
-// 		} // 전체 주소 반환
-
-// 		setAddress(data.zonecode);
-// 		console.log(fullAddr);
-// 		setAddressDetail(fullAddr);
-// 		setIsOpenPost(false);
-// 	};
-
-// 	const handleInput = e => {
-// 		setAddress({
-// 			...address,
-// 			[e.target.name]: e.target.value,
-// 		});
-// 	};
-
-// 	const postCodeStyle = {
-// 		display: 'block',
-// 		position: 'relative',
-// 		top: '0%',
-// 		width: '400px',
-// 		height: '400px',
-// 		padding: '7px',
-// 	};
-
-// 	return (
-// 		<>
-// 			<button onClick={onChangeOpenPost}>change!</button>
-// 			{isOpenPost && (
-// 				<DaumPostcode
-// 					style={postCodeStyle}
-// 					autoClose
-// 					onComplete={onCompletePost}
-// 				/>
-// 			)}
-// 			<div>
-// 				<input type="text" value={address} onChange={handleInput}></input>
-// 				<input type="text" value={addressDetail}></input>
-// 			</div>
-// 			{/* <div>{address}</div>
-// 			<div>{addressDetail}</div> */}
-// 		</>
-// 	);
-// };
-// export default FindAddress;
-
-const FindAddress = () => {
-	const [address, setAddress] = useState({
-		address: '',
-	});
+	주소의 결과는 아무 설정을 변경하지 않았다면 동까지 나오도록 설정해두었습니다.
+	ex. 서울 강남구 역삼동 || 경기 의정부시 가능동
+	*/
+	const [address, setAddress] = useState('');
 
 	const [popup, setPopup] = useState(false);
 
-	const handleInput = e => {
-		setAddress({
-			...address,
-			[e.target.name]: e.target.value,
-		});
-	};
-
-	const handleComplete = data => {
+	const handleComplete = () => {
 		setPopup(!popup);
 	};
 
+	console.log('주소 찾기 결과 ----->', address);
+	setter(address);
 	return (
 		<div className="address_search">
-			address
-			<input
-				// className="user_enroll_text"
-				placeholder="주소"
-				type="text"
-				required={true}
-				name="address"
-				onChange={handleInput}
-				value={address.address}
-			/>
-			<button onClick={handleComplete}>우편번호 찾기</button>
+			{/* <S.Box>{address}</S.Box> */}
+			<S.SearchBtn onClick={handleComplete}>주소 찾기</S.SearchBtn>
 			{popup && (
 				<Post
 					address={address}
@@ -114,3 +38,22 @@ const FindAddress = () => {
 };
 
 export default FindAddress;
+
+const Box = styled.div`
+	width: 300px;
+	height: 20px;
+`;
+
+const SearchBtn = styled.button`
+	width: 120px;
+	height: 40px;
+	border: 1px solid ${({ theme }) => theme.color.primary};
+	border-radius: 10px;
+	background: none;
+	cursor: pointer;
+`;
+
+const S = {
+	Box,
+	SearchBtn,
+};
