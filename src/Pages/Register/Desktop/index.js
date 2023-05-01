@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
-import TextArea from './Components/textArea';
 import { useForm } from 'react-hook-form';
-import FindAddress from 'Components/Address/address';
 import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
+import FindAddress from 'Components/Address/Desktop/address';
 
 const RegisterPage = () => {
 	const {
@@ -72,7 +71,25 @@ const RegisterPage = () => {
 				</S.AddressTitleContainer>
 				<KaMap />
 			</S.AddressWrapper>
-			<TextArea txt={'본문 내용'} />
+			<S.Line>
+				<S.Mark>*</S.Mark>
+				<S.Title style={{ width: '100px' }}>본문 내용</S.Title>
+				<S.InputContainer>
+					{errors.content && (
+						<S.Error role="alert" style={{ left: '20px', top: '-10px' }}>
+							{errors.content.message}
+						</S.Error>
+					)}
+				</S.InputContainer>
+			</S.Line>
+			<S.ContentBox>
+				<S.TxtArea
+					placeholder="본문 내용을 입력해주세요."
+					{...register('content', {
+						required: '본문 내용은 필수 사항입니다.',
+					})}
+				></S.TxtArea>
+			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
 			</S.Container>
@@ -186,12 +203,34 @@ const SearchBtn = styled.button`
 	cursor: pointer;
 `;
 
+const ContentBox = styled.div`
+	width: 700px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 10px 30px 10px;
+	position: relative;
+	margin: 0 auto;
+`;
+
+const TxtArea = styled.textarea`
+	width: 700px;
+	margin-top: -15px;
+	height: 400px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	padding: 20px;
+
+	:focus {
+		outline: none;
+	}
+`;
+
 const RegisterBtn = styled.button`
-	width: 340px;
+	width: 240px;
 	height: 54px;
 	border: 2px solid ${({ theme }) => theme.color.primary};
 	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.big};
+	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: auto;
 	cursor: pointer;
@@ -216,5 +255,7 @@ const S = {
 	AddressTitleContainer,
 	Address,
 	AddressMap,
+	ContentBox,
+	TxtArea,
 	SearchBtn,
 };
