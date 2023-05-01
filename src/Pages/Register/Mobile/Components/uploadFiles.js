@@ -8,7 +8,7 @@ const UploadFiles = () => {
 	const onUpload = e => {
 		const fileArr = e.target.files;
 		let fileURLs = [];
-		let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+		let filesLength = fileArr.length > 5 ? 5 : fileArr.length;
 
 		for (let i = 0; i < filesLength; i++) {
 			const reader = new FileReader();
@@ -24,6 +24,12 @@ const UploadFiles = () => {
 		imgRef.current.click();
 	};
 
+	const onClickDelete = idx => {
+		if (imgSrc.length === 0) return;
+		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
+		console.log(newFileURLs);
+	};
+
 	return (
 		<S.Wrapper>
 			<input
@@ -37,78 +43,43 @@ const UploadFiles = () => {
 			<S.ImgContainer>
 				<S.MainImgContainer>
 					<S.MainImgSection
-						src={imgSrc[0] || '/Assets/임시로고.png'}
+						src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
 						onClick={onClickUpload}
 					/>
-					<S.DelBtn>-</S.DelBtn>
+					<S.DelBtn onClick={onClickDelete(0)}>-</S.DelBtn>
 				</S.MainImgContainer>
 				<S.SmallImgBox>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[1] || '/Assets/임시로고.png'}
+							src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[2] || '/Assets/임시로고.png'}
+							src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[3] || '/Assets/임시로고.png'}
+							src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<S.SmallImgSection
-							src={imgSrc[4] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[5] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[6] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[7] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[8] || '/Assets/임시로고.png'}
-							onClick={onClickUpload}
-						/>
-						<S.DelBtn>-</S.DelBtn>
-					</S.SmallImgContainer>
-					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[9] || '/Assets/임시로고.png'}
+							src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
 							onClick={onClickUpload}
 						/>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 				</S.SmallImgBox>
 			</S.ImgContainer>
-			<S.Count>{imgSrc.length} / 10</S.Count>
+			<S.Count>{imgSrc.length} / 5</S.Count>
 		</S.Wrapper>
 	);
 };
@@ -116,9 +87,8 @@ const UploadFiles = () => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 414px;
+	width: 380px;
 	margin: 0 auto;
-	border: 1px solid seagreen;
 `;
 
 const ImgContainer = styled.div`
@@ -143,26 +113,24 @@ const MainImgSection = styled.img`
 `;
 
 const SmallImgBox = styled.div`
-	width: 200px;
+	width: 190px;
 	height: 200px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
-	position: relative;
-	border: 1px solid red;
 `;
 
 const SmallImgContainer = styled.div`
-	width: 60px;
-	height: 60px;
+	width: 90px;
+	height: 90px;
 	position: relative;
 	margin: 0 2px;
 `;
 
 const SmallImgSection = styled.img`
-	width: 60px;
-	height: 60px;
+	width: 90px;
+	height: 90px;
 	cursor: pointer;
 	object-fit: cover;
 	border: 1px solid ${({ theme }) => theme.color.subBeige};
@@ -178,19 +146,19 @@ const DelBtn = styled.div`
 	background-color: ${({ theme }) => theme.color.primary};
 	position: absolute;
 	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-size: ${({ theme }) => theme.fontSize.lg};
 	display: flex;
 	align-items: center;
 	justify-content: center;
 `;
 
 const Count = styled.span`
-	margin: 20px 0;
+	margin: 10px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 `;
 const S = {
 	Wrapper,
