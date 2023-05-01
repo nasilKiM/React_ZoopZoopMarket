@@ -5,6 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './Styles/theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { isDesktop } from 'react-device-detect';
+import m_router from 'Routes/routing-m';
 
 function App() {
 	const queryClient = new QueryClient({});
@@ -13,7 +15,11 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<ThemeProvider theme={theme}>
 					<GlobalStyles />
-					<RouterProvider router={router} />
+					{isDesktop ? (
+						<RouterProvider router={router} />
+					) : (
+						<RouterProvider router={m_router} />
+					)}
 				</ThemeProvider>
 			</QueryClientProvider>
 		</RecoilRoot>
