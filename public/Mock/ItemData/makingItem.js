@@ -12,16 +12,25 @@ const generateRandomItems = count => {
 	const randomCategory = () => {
 		return Math.floor(Math.random() * 2);
 	};
-
 	const randomPrice = () => {
 		return Math.floor(Math.random() * 100000);
 	};
 
+	const randomDate = (start, end) => {
+		return new Date(
+			start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+		).toISOString();
+	};
+	const randomBoolean = () => {
+		return Math.random() < 0.5;
+	};
 	for (let i = 1; i <= count; i++) {
 		const item = {
 			id: i,
 			category: randomCategory(),
 			location: randomLocation(),
+			createdAt: randomDate(new Date(2022, 0, 1), new Date()),
+			isSold: randomBoolean(),
 		};
 
 		if (item.category === 1) {
@@ -34,7 +43,7 @@ const generateRandomItems = count => {
 	return { itemList: items }; // itemList라는 키값으로 객체를 저장
 };
 
-const randomItems = generateRandomItems(50);
+const randomItems = generateRandomItems(600);
 
 fs.writeFile('items.json', JSON.stringify(randomItems), err => {
 	if (err) {
