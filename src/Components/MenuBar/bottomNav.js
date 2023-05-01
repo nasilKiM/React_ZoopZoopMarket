@@ -57,7 +57,7 @@ const BottomNav = () => {
 					/>
 				</S.AddBtn>
 			</S.AddContainer>
-			<S.NavBtn to="/m-chat" id="3" ref={currentRef}>
+			<S.NavBtn to="/chat" id="3" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faCommentDots}
 					// color="white"
