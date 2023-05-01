@@ -1,17 +1,15 @@
-import {
-	faAngleLeft,
-	faEllipsisVertical,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import HeaderMenu from './HeaderMenu/headerMenu';
 
 const MobileDetailTop = ({ state }) => {
 	return (
 		<S.Wrapper>
 			<FontAwesomeIcon icon={faAngleLeft} />
 			<div>상세페이지</div>
-			{state ? <div></div> : <FontAwesomeIcon icon={faEllipsisVertical} />}
+			{state ? <div></div> : <HeaderMenu />}
 		</S.Wrapper>
 	);
 };

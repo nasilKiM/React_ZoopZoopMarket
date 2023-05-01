@@ -1,0 +1,174 @@
+{
+	"chatList": [
+		{
+			"isSeller": true,
+			"user": {
+				"userid": 1,
+				"nickname": "최승현",
+				"profile_img": "[https://i.pravatar.cc/150?img=1](https://i.pravatar.cc/150?img=1)"
+			},
+			"roomIdx": 1,
+			"msg": {
+				"content": "안녕하세요. 이 상품 구매 가능한가요?",
+				"isRead": true,
+				"createdAt": "2023-04-28T12:00:00.000Z"
+			}
+		},
+		{
+			"isSeller": false,
+			"user": {
+				"userid": 2,
+				"nickname": "김명수",
+				"profile_img": "[https://i.pravatar.cc/150?img=2](https://i.pravatar.cc/150?img=2)"
+			},
+			"roomIdx": 2,
+			"msg": {
+				"content": "안녕하세요. 이 상품의 크기가 어떻게 되나요?",
+				"isRead": false,
+				"createdAt": "2023-04-27T15:30:00.000Z"
+			}
+		},
+		{
+			"isSeller": true,
+			"user": {
+				"userid": 3,
+				"nickname": "장영수",
+				"profile_img": "[https://i.pravatar.cc/150?img=3](https://i.pravatar.cc/150?img=3)"
+			},
+			"roomIdx": 3,
+			"msg": {
+				"content": "안녕하세요. 예약 가능한 시간을 알려주세요.",
+				"isRead": true,
+				"createdAt": "2023-04-26T09:15:00.000Z"
+			}
+		}
+	],
+	"chatDetail": [
+		{
+			"id": 3,
+			"product": {
+				"title": "삼성 갤럭시 S21 울트라",
+				"status": "판매 중",
+				"price": "1,200,000",
+				"product_img_url": "[https://via.placeholder.com/150](https://via.placeholder.com/150)"
+			},
+			"user": {
+				"userid": 2,
+				"profile_img_url": "[https://i.pravatar.cc/150?img=2](https://i.pravatar.cc/150?img=2)"
+			},
+			"isSelected": true,
+			"isRead": false,
+			"messageDate": "2023-04-28",
+			"messages": [
+				{
+					"id": 1,
+					"sender": "장영수",
+					"message": "안녕하세요. 예약가능한 시간을 알려주세요.",
+					"timestamp": "2023-04-28T12:00:00.000Z"
+				},
+				{
+					"id": 2,
+					"sender": "김영수",
+					"message": "네",
+					"timestamp": "2023-04-28T12:01:00.000Z"
+				},
+				{
+					"id": 3,
+					"sender": "김영수",
+					"message": "내일예약가능합니다.",
+					"timestamp": "2023-04-28T12:02:00.000Z"
+				},
+				{
+					"id": 4,
+					"sender": "장영수",
+					"message": "알겠습니다. 구매하겠습니다.",
+					"timestamp": "2023-04-28T12:03:00.000Z"
+				}
+			]
+		},
+		{
+			"id": 1,
+			"product": {
+				"title": "삼성 갤럭시 S21 울트라",
+				"status": "판매 중",
+				"price": "1,200,000",
+				"product_img_url": "[https://via.placeholder.com/150](https://via.placeholder.com/150)"
+			},
+			"user": {
+				"userid": 2,
+				"profile_img_url": "[https://i.pravatar.cc/150?img=2](https://i.pravatar.cc/150?img=2)"
+			},
+			"isSelected": true,
+			"isRead": false,
+			"messageDate": "2023-04-28",
+			"messages": [
+				{
+					"id": 1,
+					"sender": "최승현",
+					"message": "안녕하세요. 이 상품 구매 가능한가요?",
+					"timestamp": "2023-04-28T12:00:00.000Z"
+				},
+				{
+					"id": 2,
+					"sender": "김영수",
+					"message": "네, 구매 가능합니다.",
+					"timestamp": "2023-04-28T12:01:00.000Z"
+				},
+				{
+					"id": 3,
+					"sender": "김영수",
+					"message": "크기는 가로 10cm, 세로 15cm 입니다.",
+					"timestamp": "2023-04-28T12:02:00.000Z"
+				},
+				{
+					"id": 4,
+					"sender": "최승현",
+					"message": "알겠습니다. 구매하겠습니다.",
+					"timestamp": "2023-04-28T12:03:00.000Z"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"product": {
+				"title": "삼성 갤럭시 S21 울트라",
+				"status": "판매 중",
+				"price": "1,200,000",
+				"product_img_url": "[https://via.placeholder.com/150](https://via.placeholder.com/150)"
+			},
+			"user": {
+				"userid": 2,
+				"profile_img_url": "[https://i.pravatar.cc/150?img=2](https://i.pravatar.cc/150?img=2)"
+			},
+			"isSelected": true,
+			"isRead": false,
+			"messageDate": "2023-04-28",
+			"messages": [
+				{
+					"id": 1,
+					"sender": "김명수",
+					"message": "안녕하세요. 이 상품의 크기가 어떻게되나요?",
+					"timestamp": "2023-04-28T12:00:00.000Z"
+				},
+				{
+					"id": 2,
+					"sender": "김영수",
+					"message": "네.",
+					"timestamp": "2023-04-28T12:01:00.000Z"
+				},
+				{
+					"id": 3,
+					"sender": "김영수",
+					"message": "크기는 가로 10cm, 세로 15cm 입니다.",
+					"timestamp": "2023-04-28T12:02:00.000Z"
+				},
+				{
+					"id": 4,
+					"sender": "김명수",
+					"message": "구매하겠습니다.",
+					"timestamp": "2023-04-28T12:03:00.000Z"
+				}
+			]
+		}
+	]
+}

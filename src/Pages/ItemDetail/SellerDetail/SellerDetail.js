@@ -78,8 +78,8 @@ const DetailAndChatBar = styled.div`
 	${flexAllCenter}
 	&>div {
 		${flexAllCenter}
-		border-top: 1px solid;
-		border-bottom: 1px solid;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
 		padding: 20px;
 		font-size: ${({ theme }) => theme.fontSize.lg};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -87,7 +87,7 @@ const DetailAndChatBar = styled.div`
 		width: 100%;
 	}
 	& > div:first-child {
-		border-right: 1px solid;
+		border-right: 1px solid black;
 	}
 `;
 

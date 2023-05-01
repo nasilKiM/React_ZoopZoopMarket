@@ -1,7 +1,13 @@
 import ToggleBar from 'Components/Toggle/Toggle';
+import MyProfile from './Components/MyPofile/myProfile';
 
 const MyPage = () => {
-	return <ToggleBar />;
+	return (
+		<>
+			<MyProfile />
+			<ToggleBar />
+		</>
+	);
 };
 
 export default MyPage;

@@ -43,6 +43,7 @@ const DetailContent = ({ state }) => {
 
 export default DetailContent;
 const BuyerWrapper = styled.div`
+	margin: 20px 20px;
 	& > div {
 		margin: 20px 0;
 	}
@@ -75,6 +76,7 @@ const BuyerWrapper = styled.div`
 `;
 
 const SellerWrapper = styled.div`
+	margin: 20px 20px;
 	& > div {
 		margin: 20px 0;
 	}
