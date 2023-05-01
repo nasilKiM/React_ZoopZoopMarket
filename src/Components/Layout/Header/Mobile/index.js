@@ -20,20 +20,30 @@ const MobileHeader = () => {
 
 	return (
 		<S.Wrapper>
-			<S.Button onClick={onShowSidebar}>{isOpen? '<' :<FontAwesomeIcon
-				icon={faBars}
-				color="white"
-				cursor="pointer"
-				fontSize="30px"
-			/>}</S.Button>
-			<S.Logo src="Assets/임시로고.png"></S.Logo>
+			<S.Button onClick={onShowSidebar}>
+				{isOpen ? (
+					'<'
+				) : (
+					<FontAwesomeIcon
+						icon={faBars}
+						color="white"
+						cursor="pointer"
+						fontSize="30px"
+					/>
+				)}
+			</S.Button>
+			<S.Logo src="Assets/web_logo.png"></S.Logo>
 			<FontAwesomeIcon
 				icon={faMagnifyingGlass}
 				color="white"
 				cursor="pointer"
 				fontSize="30px"
 			/>
-			<MobileSideBar xPosition={xPosition} setXposition={setXposition} setIsOpen={setIsOpen}/>
+			<MobileSideBar
+				xPosition={xPosition}
+				setXposition={setXposition}
+				setIsOpen={setIsOpen}
+			/>
 		</S.Wrapper>
 	);
 };
