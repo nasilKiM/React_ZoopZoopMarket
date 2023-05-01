@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Line from './Components/line';
 import LineWithBtn from './Components/lineWithBtn';
 
-const MMyUserEdit = () => {
+const MobileMyUserEdit = () => {
 	return (
 		<S.Wrapper>
 			<Line
@@ -28,7 +28,7 @@ const MMyUserEdit = () => {
 	);
 };
 
-export default MMyUserEdit;
+export default MobileMyUserEdit;
 
 const Wrapper = styled.div`
 	width: 414px;

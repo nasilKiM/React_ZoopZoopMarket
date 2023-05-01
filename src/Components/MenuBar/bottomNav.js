@@ -89,7 +89,10 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	border-top: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin: 0 auto;
-	margin-top: 10px;
+	position: fixed;
+	bottom: 0;
+	z-index: 999;
+	background-color: ${({ theme }) => theme.color.white};
 `;
 
 const NavBtn = styled(Link)`
@@ -129,6 +132,9 @@ const AddBtn = styled(Link)`
 	justify-content: center;
 	position: absolute;
 	top: -35px;
+	> * {
+		border: 1px solid lime;
+	}
 `;
 
 const S = {
