@@ -2,27 +2,20 @@ import styled from 'styled-components';
 import YourMessage from './Components/YourChat';
 import MyMessage from './Components/MyChat';
 
-const MessageDetail = () => {
+const MessageDetail = ({ chatDetail }) => {
 	return (
 		<div>
 			<S.DateDivideContainer>
-				<S.DateDivide>메세지 일자</S.DateDivide>
+				<S.DateDivide>{chatDetail.messageDate}</S.DateDivide>
 			</S.DateDivideContainer>
-			{/*메세지 컴포넌트로 구별하기
-				MessageContainer 에서 align-items 를 flex-start & end 구분해야할듯 */}
 
-			<MyMessage />
-			<YourMessage />
-			<MyMessage />
-			<YourMessage />
-			<MyMessage />
-			<YourMessage />
-			<MyMessage />
-			<YourMessage />
-			<MyMessage />
-			<YourMessage />
-			<MyMessage />
-			<YourMessage />
+			{chatDetail.messages.map(msg => {
+				return msg.sender === '김영수' ? (
+					<MyMessage msg={msg} isRead={chatDetail.isRead} />
+				) : (
+					<YourMessage msg={msg} isRead={chatDetail.isRead} />
+				);
+			})}
 		</div>
 	);
 };
