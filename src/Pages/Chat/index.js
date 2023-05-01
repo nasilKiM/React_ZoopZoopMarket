@@ -1,16 +1,41 @@
 import styled from 'styled-components';
 import ChatDetail from './ChatDetail/ChatDetail';
 import ChatList from './ChatList/ChatList';
+import { useQuery } from 'react-query';
+import axios from '../../Apis/@core';
+import { useState } from 'react';
 
 const ChattingPage = () => {
+	const [chatroomIdx, setChatroomIdx] = useState();
+
+	const { data } = useQuery(['chatList'], () => {
+		return axios.get('/chatList').then(res => {
+			return res.data;
+		});
+	});
+	// console.log('----->', data);
+
+	const { data: message } = useQuery(['chatDetail', chatroomIdx], () => {
+		return axios.get(`/chatDetail/${chatroomIdx}`).then(res => {
+			return res.data;
+		});
+	});
+	// console.log('message', message);
+	// console.log('chatroomIdx', chatroomIdx);
+
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
-				<ChatList />
+				{data && (
+					<ChatList
+						chatList={data}
+						chatroomIdx={chatroomIdx}
+						setChatroomIdx={setChatroomIdx}
+					/>
+				)}
 			</S.ChatLeftContainer>
 			<S.ChatRightContainer>
-				{/*삼항연산자 */}
-				<ChatDetail />
+				{message && <ChatDetail chatDetail={message} />}
 				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div>
 			</S.ChatRightContainer>
 		</S.ChatContainer>
