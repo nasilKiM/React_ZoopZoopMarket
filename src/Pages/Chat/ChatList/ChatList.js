@@ -34,7 +34,9 @@ const LeftUpperBar = styled.div`
 	align-items: center;
 	height: 10%;
 	background-color: ${({ theme }) => theme.color.primary};
+	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
 	color: white;
+	cursor: pointer;
 	border-radius: 5px 0 0 0;
 `;
 
