@@ -45,12 +45,18 @@ const Box = styled.div`
 `;
 
 const SearchBtn = styled.button`
-	width: 120px;
-	height: 40px;
+	width: 80px;
+	height: 30px;
 	border: 1px solid ${({ theme }) => theme.color.primary};
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	border-radius: 10px;
 	background: none;
 	cursor: pointer;
+	:hover {
+		background: ${({ theme }) => theme.color.primary};
+		color: ${({ theme }) => theme.color.white};
+	}
 `;
 
 const S = {
