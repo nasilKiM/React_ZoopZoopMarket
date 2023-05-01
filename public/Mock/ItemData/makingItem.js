@@ -5,6 +5,38 @@ const randomLocation = () => {
 	const randomIndex = Math.floor(Math.random() * locations.length);
 	return locations[randomIndex];
 };
+const randomName = () => {
+	const names = [
+		'alpha',
+		'bravo',
+		'charlie',
+		'delta',
+		'echo',
+		'foxtrot',
+		'golf',
+		'hotel',
+		'india',
+		'juliet',
+		'kilo',
+		'lima',
+		'mike',
+		'november',
+		'oscar',
+		'papa',
+		'quebec',
+		'romeo',
+		'sierra',
+		'tango',
+		'uniform',
+		'victor',
+		'whiskey',
+		'xray',
+		'yankee',
+		'zulu',
+	];
+	const randomIndex = Math.floor(Math.random() * names.length);
+	return names[randomIndex];
+};
 
 const generateRandomItems = count => {
 	const items = [];
@@ -52,3 +84,14 @@ fs.writeFile('items.json', JSON.stringify(randomItems), err => {
 	}
 	console.log('Random items saved to items.json');
 });
+
+/*
+터미널에서 cd로 경로를 맞춘 후
+
+node 파일명.js로 파일을 실행.
+
+이 파일은 
+cd로 경로를 public/Mock/ItemData 까지 맞춘 후
+node makingItem.js 를 하면 items.json 파일이 생김.
+
+*/
