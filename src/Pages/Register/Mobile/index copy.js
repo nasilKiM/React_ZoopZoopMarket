@@ -3,20 +3,17 @@ import UploadFiles from './Components/uploadFiles';
 import TextArea from './Components/textArea';
 import { useForm } from 'react-hook-form';
 import FindAddress from 'Components/Address/address';
-import { useState } from 'react';
-import KaMap from 'Components/Map/Map';
 
-const RegisterPage = () => {
+const MobileRegisterPage = () => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
 
-	const [searchResult, setSearchResult] = useState('');
-
 	return (
 		<S.Wrapper onSubmit={handleSubmit(data => console.log(data))}>
+			<FindAddress />
 			<UploadFiles />
 			<S.Blank></S.Blank>
 			<S.Line>
@@ -67,10 +64,9 @@ const RegisterPage = () => {
 				<S.AddressTitleContainer>
 					<S.Mark>*</S.Mark>
 					<S.Title>거래장소</S.Title>
-					<S.Address>{searchResult}</S.Address>
-					<FindAddress setter={setSearchResult} />
+					<S.Address>GS25 S청담역점</S.Address>
+					<S.SearchBtn>주소 찾기</S.SearchBtn>
 				</S.AddressTitleContainer>
-				<KaMap />
 			</S.AddressWrapper>
 			<TextArea txt={'본문 내용'} />
 			<S.Container>
@@ -80,7 +76,7 @@ const RegisterPage = () => {
 	);
 };
 
-export default RegisterPage;
+export default MobileRegisterPage;
 
 const Wrapper = styled.form`
 	margin: 50px 0;
@@ -189,10 +185,11 @@ const SearchBtn = styled.button`
 const RegisterBtn = styled.button`
 	width: 340px;
 	height: 54px;
-	border: 2px solid ${({ theme }) => theme.color.primary};
+	border: none;
 	border-radius: 5px;
 	font-size: ${({ theme }) => theme.fontSize.big};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	background-color: ${({ theme }) => theme.color.subBeige};
 	margin-left: auto;
 	cursor: pointer;
 	:hover {
