@@ -1,17 +1,17 @@
 import ChatProfile from 'Components/Profile/Desktop/chatProfile';
 import styled from 'styled-components';
 
-const YourMessage = () => {
+const YourMessage = ({ msg, isRead }) => {
 	return (
 		<>
 			<S.MessageContainer>
 				<div>
 					<ChatProfile />
 				</div>
-				<S.Message>상대방이 보내는 메세지입니다.</S.Message>
+				<S.Message>{msg.message}</S.Message>
 				<S.MessageTimeUnreadContainer>
-					<S.Unread>1</S.Unread>
-					<S.MessageTime>메세지시간</S.MessageTime>
+					<S.Unread>{isRead ? 0 : 1}</S.Unread>
+					<S.MessageTime>{msg.timestamp}</S.MessageTime>
 				</S.MessageTimeUnreadContainer>
 			</S.MessageContainer>
 		</>

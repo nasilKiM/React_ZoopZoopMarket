@@ -1,26 +1,74 @@
-import ChatMessage from 'Components/ChatMessage/ChatMessage';
+import ReviewMessage from 'Components/Review/Review';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { styled as mui } from '@mui/material/styles';
+import Rating from '@mui/material/Rating';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
 const ReviewPage = () => {
+	const StyledRating = mui(Rating)(({ theme }) => ({
+		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+			color: theme.palette.action.disabled,
+		},
+	}));
+
+	const customIcons = {
+		1: {
+			icon: (
+				<SentimentVeryDissatisfiedIcon color="error" sx={{ fontSize: 40 }} />
+			),
+			label: 'Very Dissatisfied',
+		},
+		2: {
+			icon: <SentimentDissatisfiedIcon color="error" sx={{ fontSize: 40 }} />,
+			label: 'Dissatisfied',
+		},
+		3: {
+			icon: <SentimentSatisfiedIcon color="warning" sx={{ fontSize: 40 }} />,
+			label: 'Neutral',
+		},
+		4: {
+			icon: <SentimentSatisfiedAltIcon color="success" sx={{ fontSize: 40 }} />,
+			label: 'Satisfied',
+		},
+		5: {
+			icon: (
+				<SentimentVerySatisfiedIcon color="success" sx={{ fontSize: 40 }} />
+			),
+			label: 'Very Satisfied',
+		},
+	};
+
+	function IconContainer(props) {
+		const { value, ...other } = props;
+		return <span {...other}>{customIcons[value].icon}</span>;
+	}
+
+	IconContainer.propTypes = {
+		value: PropTypes.number.isRequired,
+	};
+
 	return (
 		<StyledReviewPage>
-			<label>거래한 아이템 후기남기기</label>
-			<ChatMessage />
+			<ReviewTitle>거래한 아이템 후기남기기</ReviewTitle>
+			<ReviewMessage />
 
 			<ReviewTitle>판매자 님과의 거래 후기</ReviewTitle>
-
 			<RatingWrapper>
-				<label>평점</label>
-				<select>
-					<option value="0">선택하세요</option>
-					<option value="1">⭐️</option>
-					<option value="2">⭐️⭐️</option>
-					<option value="3">⭐️⭐️⭐️</option>
-					<option value="4">⭐️⭐️⭐️⭐️</option>
-					<option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-				</select>
+				<StyledRating
+					name="highlight-selected-only"
+					defaultValue={3}
+					IconContainerComponent={IconContainer}
+					getLabelText={value => customIcons[value].label}
+					highlightSelectedOnly
+				/>
 			</RatingWrapper>
 
+			<ReviewTitle>판매자 님과의 거래 후기를 남겨주세요.</ReviewTitle>
 			<S.TxtArea placeholder="본문 내용을 입력해주세요."></S.TxtArea>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
@@ -36,27 +84,25 @@ const StyledReviewPage = styled.div`
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 `;
 
 const ReviewTitle = styled.h2`
-	font-size: 24px;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-bottom: 16px;
+	margin-top: 30px;
+	text-align: left;
 `;
 
 const RatingWrapper = styled.div`
 	display: flex;
-	align-items: center;
-	margin-bottom: 16px;
+	margin: 0 auto;
+	position: relative;
+	margin-bottom: 20px;
 
-	& > label {
-		font-size: 20px;
-		margin-right: 16px;
-	}
-
-	& > select {
-		font-size: 20px;
-		padding: 8px;
+	div {
+		position: absolute;
+		width: 100%;
 	}
 `;
 
@@ -69,8 +115,8 @@ const Container = styled.div`
 
 const TxtArea = styled.textarea`
 	width: 700px;
-	height: 400px;
-	font-size: ${({ theme }) => theme.fontSize.md};
+	height: 200px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 	padding: 20px;
 
 	:focus {
@@ -79,11 +125,11 @@ const TxtArea = styled.textarea`
 `;
 
 const RegisterBtn = styled.button`
-	width: 340px;
-	height: 54px;
+	width: 250px;
+	height: 50px;
 	border: none;
 	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.big};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	background-color: ${({ theme }) => theme.color.subBeige};
 	margin-left: auto;

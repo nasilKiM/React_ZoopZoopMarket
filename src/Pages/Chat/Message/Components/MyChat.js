@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const MyMessage = () => {
+const MyMessage = ({ msg, isRead }) => {
 	return (
 		<>
 			<S.MessageContainer>
 				<S.MessageTimeUnreadContainer>
-					<S.Unread>1</S.Unread>
-					<S.MessageTime>메세지시간</S.MessageTime>
+					<S.Unread>{isRead ? 0 : 1}</S.Unread>
+					<S.MessageTime>{msg.timestamp}</S.MessageTime>
 				</S.MessageTimeUnreadContainer>
-				<S.Message>내가보내는 메세지입니다</S.Message>
+				<S.Message>{msg.message}</S.Message>
 			</S.MessageContainer>
 		</>
 	);

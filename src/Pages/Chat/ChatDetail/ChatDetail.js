@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 import MessageDetail from '../Message/Message';
 
-const ChatDetail = () => {
+const ChatDetail = ({ chatDetail }) => {
 	return (
 		<>
 			<S.ChattingTitle>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
 					<S.CurrentChatting>
-						<div>게시글제목</div>
-						<div> 판매중</div>
+						<div>{chatDetail.product.title}</div>
+						<div> {chatDetail.product.status}</div>
 					</S.CurrentChatting>
 					<S.Price>
-						<span>가격</span>
+						<span>{chatDetail.product.price}</span>
 						{/* 판매자가 구매자를 구매확정했을경우에 보여야함
 					+ 후기남긴경우에는 후기수정하기가 떠야함. */}
 						<button>후기 남기기</button>
@@ -21,7 +21,7 @@ const ChatDetail = () => {
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
-				<MessageDetail />
+				<MessageDetail chatDetail={chatDetail} />
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>
