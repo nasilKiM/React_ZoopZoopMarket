@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 	max-width: 1000px;
 	min-width: 700px;
 	margin: 0 auto;
-	padding-top: 50px;
+	padding-top: 30px;
 `;
 
 const SearchSection = styled.div`

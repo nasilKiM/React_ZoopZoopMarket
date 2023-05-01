@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const BasicFooter = () => {
 	return (
@@ -19,34 +19,36 @@ const FooterWrap = styled.div`
 	width: 100vw;
 	height: 200px;
 	position: relative;
-	transform: translateY(120%); // 페이지마다 하단고정 여부가 달라지는 이슈 발생. 수정 필요 (ex. mypage)
-	background-color: #BECAA2;
+	transform: translateY(
+		120%
+	); // 페이지마다 하단고정 여부가 달라지는 이슈 발생. 수정 필요 (ex. mypage)
+	background-color: #becaa2;
 	padding-top: 30px;
 	font-family: 'Nanum_extraBold';
-`
+`;
 
 const FooterText = styled.div`
 	margin-left: 300px;
 	line-height: 2.5rem;
-`
+`;
 
 const Text1 = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
-`
+`;
 
 const Text2 = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.lg};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-`
+`;
 
-const Text3= styled.div`
+const Text3 = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
-`
+`;
 
 const S = {
 	FooterWrap,
 	FooterText,
 	Text1,
 	Text2,
-	Text3
-}
+	Text3,
+};

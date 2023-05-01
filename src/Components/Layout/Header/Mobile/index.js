@@ -9,14 +9,14 @@ const MobileHeader = () => {
 	const [xPosition, setXposition] = useState(-300);
 
 	const onShowSidebar = () => {
-		if(xPosition < 0) {
+		if (xPosition < 0) {
 			setXposition(0);
 			setIsOpen(true);
 		} else {
 			setXposition(-300);
 			setIsOpen(false);
 		}
-	}
+	};
 
 	return (
 		<S.Wrapper>
@@ -62,17 +62,19 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-	width: 100px;
+	width: 180px;
 `;
 
 const Button = styled.button`
 	all: unset;
 	font-size: ${({ theme }) => theme.fontSize.big};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	color: ${({ theme }) => theme.color.white};
-`
+	width: 30px;
+`;
 
 const S = {
 	Wrapper,
 	Logo,
-	Button
+	Button,
 };
