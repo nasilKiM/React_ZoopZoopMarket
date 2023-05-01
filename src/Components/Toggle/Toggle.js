@@ -16,8 +16,9 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Wrapper = styled.div`
+	border: 1px solid red;
 	${flexAllCenter}
-	&>div {
+	& > div {
 		margin: 0 20px;
 	}
 `;

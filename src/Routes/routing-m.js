@@ -16,6 +16,7 @@ import MobileLoginPage from 'Pages/Form/Login/Mobile/MobileLoginPage';
 import MobileMain from 'Pages/Main/Mobile';
 import MobileMyUserEdit from 'Pages/MyPage/MyUserEdit/Mobile';
 import MobileRegisterPage from 'Pages/Register/Mobile';
+import MobileSignUpPage from 'Pages/Form/SignUp/Mobile/MobileSignUpPage';
 
 const m_router = createBrowserRouter([
 	{

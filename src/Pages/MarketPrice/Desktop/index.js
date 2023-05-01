@@ -1,7 +1,10 @@
+import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 import { theme } from 'Styles/theme';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 import {
 	LineChart,
@@ -12,9 +15,47 @@ import {
 	Tooltip,
 	Legend,
 } from 'recharts';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const DesktopMarketPrice = () => {
+	const [priceList, setItemList] = useRecoilState(itemPriceState);
+
+	useEffect(() => {
+		const fetchItems = async () => {
+			try {
+				const response = await axios.get('Mock/ItemData/items.json');
+				const items = response.data.itemList.filter(
+					item => item.category === 1 && item.isSold === true,
+				);
+				const sortedItems = items.sort((a, b) => {
+					return new Date(a.createdAt) - new Date(b.createdAt);
+				});
+				setItemList(sortedItems);
+				//
+				const itemsByMonth = {};
+				sortedItems.forEach(item => {
+					const month = new Date(item.createdAt).getMonth();
+					if (!itemsByMonth[month]) {
+						itemsByMonth[month] = [];
+					}
+					itemsByMonth[month].push(item);
+				});
+				for (let month in itemsByMonth) {
+					const monthItems = itemsByMonth[month];
+					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
+					const average = total / monthItems.length;
+					console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchItems();
+	}, []);
+
+	console.log(priceList);
+
 	const data = [
 		{ day: 'Mon', price: 3000 },
 		{ day: 'Tue', price: 3500 },
