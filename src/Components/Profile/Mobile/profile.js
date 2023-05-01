@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MProfile = () => {
+const MobileProfile = () => {
 	return (
 		<>
 			<S.Circle>
@@ -10,7 +10,7 @@ const MProfile = () => {
 	);
 };
 
-export default MProfile;
+export default MobileProfile;
 
 const Circle = styled.div`
 	width: 60px;
