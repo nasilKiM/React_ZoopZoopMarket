@@ -5,6 +5,7 @@ const color = {
 	subBeigeGreen: '#BECAA2',
 	white: '#FFFFFF',
 	black: '#000000',
+	gray: '#D9D9D9',
 };
 
 // 폰트 크기
