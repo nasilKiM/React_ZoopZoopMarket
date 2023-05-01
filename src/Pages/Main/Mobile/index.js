@@ -1,6 +1,5 @@
 import MobilePreview from './Components/preview';
 import styled from 'styled-components';
-import MobileSearch from './Components/search';
 
 const MobileMain = () => {
 	// const setItemList = useSetRecoilState(itemListState); //  itemListState 상태의 값을 업데이트하는 함수
@@ -21,7 +20,6 @@ const MobileMain = () => {
 
 	return (
 		<S.MobileWrapper>
-			<MobileSearch />
 			<MobilePreview
 				categoryData={1}
 				userLocation={'도곡동'}

@@ -3,7 +3,7 @@ import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
-import FindAddress from 'Components/Address/address';
+import FindAddress from 'Components/Address/Desktop/address';
 
 const RegisterPage = () => {
 	const {

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
-import FindAddress from 'Components/Address/address';
 import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
+import MobileFindAddress from 'Components/Address/Mobile/address';
 
 const MobileRegisterPage = () => {
 	const {
@@ -71,13 +71,13 @@ const MobileRegisterPage = () => {
 					<S.Mark>*</S.Mark>
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
-					<FindAddress setter={setSearchResult} />
+					<MobileFindAddress setter={setSearchResult} />
 				</S.AddressTitleContainer>
 				<KaMap />
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>
-				<S.Title style={{ width: '70px' }}>본문 내용</S.Title>
+				<S.Title style={{ width: '80px' }}>본문 내용</S.Title>
 				<S.InputContainer>
 					{errors.content && (
 						<S.Error role="alert" style={{ left: '20px', top: '-10px' }}>
@@ -105,6 +105,7 @@ export default MobileRegisterPage;
 
 const Wrapper = styled.form`
 	margin: 50px 0;
+	padding: 0 20px;
 `;
 
 const Blank = styled.div`
@@ -113,14 +114,14 @@ const Blank = styled.div`
 `;
 
 const Container = styled.div`
-	width: 414px;
+	width: 380px;
 	margin: 0 auto;
 	padding: 10px;
 	display: flex;
 `;
 
 const Line = styled.div`
-	width: 414px;
+	width: 380px;
 	display: flex;
 	align-items: center;
 	padding: 0 10px 30px 10px;
@@ -170,7 +171,7 @@ const Error = styled.div`
 `;
 
 const AddressWrapper = styled.div`
-	width: 414px;
+	width: 380px;
 	height: 300px;
 	display: flex;
 	flex-direction: column;
@@ -180,7 +181,7 @@ const AddressWrapper = styled.div`
 `;
 
 const AddressTitleContainer = styled.div`
-	width: 394px;
+	width: 364px;
 	display: flex;
 	margin-bottom: 10px;
 	align-items: center;
@@ -188,7 +189,7 @@ const AddressTitleContainer = styled.div`
 `;
 
 const AddressMap = styled.div`
-	width: 680px;
+	width: 380px;
 	position: relative;
 	margin: 0 auto;
 `;
@@ -200,7 +201,7 @@ const Address = styled.div`
 `;
 
 const ContentBox = styled.div`
-	width: 414px;
+	width: 380px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -210,12 +211,11 @@ const ContentBox = styled.div`
 `;
 
 const TxtArea = styled.textarea`
-	width: 400px;
+	width: 370px;
 	margin-top: -15px;
 	height: 300px;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	padding: 20px;
-
 	:focus {
 		outline: none;
 	}

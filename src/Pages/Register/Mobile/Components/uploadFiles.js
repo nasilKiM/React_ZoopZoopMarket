@@ -87,7 +87,7 @@ const UploadFiles = () => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 414px;
+	width: 380px;
 	margin: 0 auto;
 `;
 
