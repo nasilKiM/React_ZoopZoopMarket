@@ -8,6 +8,7 @@ const ToggleBar = () => {
 			<div>유저 정보 수정</div>
 			<div>내 관심템</div>
 			<div>가계부</div>
+			<div>내 후기</div>
 		</S.Wrapper>
 	);
 };

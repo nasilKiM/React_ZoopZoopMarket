@@ -11,7 +11,13 @@ const ChatDetail = () => {
 						<div>게시글제목</div>
 						<div> 판매중</div>
 					</S.CurrentChatting>
-					<span>가격</span>
+					<S.Price>
+						<span>가격</span>
+						{/* 판매자가 구매자를 구매확정했을경우에 보여야함
+					+ 후기남긴경우에는 후기수정하기가 떠야함. */}
+						<button>후기 남기기</button>
+						<button>후기 수정하기</button>
+					</S.Price>
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
@@ -55,10 +61,16 @@ const CurrentChatting = styled.div`
 	width: 100%;
 	margin-bottom: 10px;
 	display: flex;
-	div {
+	justify-content: space-between;
+	/* div {
 		margin-right: 15px;
-	}
+	} */
 `;
+
+const Price = styled.div`
+	justify-content: space-between;
+`;
+
 const ChattingContent = styled.div`
 	width: 100%;
 	padding: 1rem;
@@ -123,6 +135,7 @@ const SubmitButton = styled.button`
 const S = {
 	ChattingTitle,
 	CurrentChatting,
+	Price,
 	ChattingContent,
 	ChattingFormContainer,
 	ChattingForm,

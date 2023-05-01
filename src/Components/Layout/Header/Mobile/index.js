@@ -6,14 +6,14 @@ import MobileSideBar from './Components/sidebar';
 
 const MobileHeader = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [xPosition, setXposition] = useState(-200);
+	const [xPosition, setXposition] = useState(-300);
 
 	const onShowSidebar = () => {
 		if(xPosition < 0) {
 			setXposition(0);
 			setIsOpen(true);
 		} else {
-			setXposition(-200);
+			setXposition(-300);
 			setIsOpen(false);
 		}
 	}
@@ -53,7 +53,6 @@ export default MobileHeader;
 const Wrapper = styled.div`
 	width: 414px;
 	height: 80px;
-	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

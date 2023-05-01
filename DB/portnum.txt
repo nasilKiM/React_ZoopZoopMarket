@@ -1,0 +1,7 @@
+https://www.npmjs.com/package/json-server
+위 json-server로 mock data 테스트 진행
+
+3004/chatList
+3004/ChatDetail
+3004/chatDetail/${id}
+

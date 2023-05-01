@@ -1,12 +1,11 @@
-import { itemListState } from 'Atoms/main.atom';
 import MobileCard from 'Components/Card/Mobile/MobileCard';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const MobilePreview = ({ categoryData, userLocation, userName }) => {
-	const itemList = useRecoilValue(itemListState);
+	// const itemList = useRecoilValue(itemListState);
 
 	//let itemCategory = itemList.category;
 	// let userLocation = user.userLocation;
@@ -18,7 +17,7 @@ const MobilePreview = ({ categoryData, userLocation, userName }) => {
 			? `${userLocation} 인기 줍줍템!`
 			: `${userName}님 주변의 무료나눔 물품들이에요!`;
 
-	// const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
+	const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -35,7 +34,10 @@ const MobilePreview = ({ categoryData, userLocation, userName }) => {
 			<S.UpperSwiper>
 				<S.CategoryBox>{category}</S.CategoryBox>
 				{userLocation && <S.CategoryText>{categoryText}</S.CategoryText>}
-				<S.More> 더보기 &gt; </S.More>
+				<S.More to={`/search_list?categoryData=${categoryData}`}>
+					{' '}
+					더보기 &gt;{' '}
+				</S.More>
 			</S.UpperSwiper>
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
@@ -88,7 +90,7 @@ const CategoryText = styled.div`
 	margin: 0 10px;
 `;
 
-const More = styled.div`
+const More = styled(Link)`
 	width: 80px;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	text-align: end;
