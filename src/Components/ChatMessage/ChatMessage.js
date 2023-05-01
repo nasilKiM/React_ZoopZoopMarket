@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-const ChatMessage = () => {
+const ChatMessage = ({ chat, onClick }) => {
 	return (
 		<>
-			<S.ChatContent>
+			<S.ChatContent onClick={onClick}>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
 					<S.ChatContentUpper>
-						<S.NickName>닉네임</S.NickName>
-						<span>채팅시간</span>
+						<S.NickName>{chat.user.nickname}</S.NickName>
+						<span>{chat.msg.createdAt}</span>
 					</S.ChatContentUpper>
 					<S.ChatContentdown>
-						<span>마지막 채팅 내용</span>
+						<span>{chat.msg.content}</span>
 					</S.ChatContentdown>
 				</div>
 			</S.ChatContent>
