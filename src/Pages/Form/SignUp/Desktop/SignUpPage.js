@@ -39,15 +39,13 @@ const SignUpPage = () => {
 							/>
 							<button>중복확인</button>
 						</S.InputBoxWrap>
-						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					</S.InputWrapBtn>
-
+					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>비밀번호</span>
 						</S.ItemWrap>
-
 						<S.InputBoxWrap>
 							<input
 								{...register('password', {
@@ -68,9 +66,8 @@ const SignUpPage = () => {
 								type="password"
 							/>
 						</S.InputBoxWrap>
-						{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					</S.InputWrap>
-
+					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -90,8 +87,8 @@ const SignUpPage = () => {
 								type="password"
 							/>
 						</S.InputBoxWrap>
-						{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
 					</S.InputWrap>
+					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -246,6 +243,12 @@ const Mark = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
+const Error = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const S = {
 	Div,
 	Wrap,
@@ -258,4 +261,5 @@ const S = {
 	Mark,
 	ItemWrap,
 	InputBoxWrap,
+	Error,
 };
