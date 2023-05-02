@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const ChatMessage = ({ chat, onClick }) => {
+const ChatMessage = ({ chat, onClick, isNewMessage }) => {
 	return (
 		<>
 			<S.ChatContent onClick={onClick}>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
-					<S.ChatContentUpper>
+					<S.ChatContentUpper isNewMessage={isNewMessage}>
 						<S.NickName>{chat.user.nickname}</S.NickName>
 						<span>{chat.msg.createdAt}</span>
 					</S.ChatContentUpper>
@@ -45,6 +45,29 @@ const ChatContentUpper = styled.div`
 	margin-top: 5px;
 	margin-bottom: 10px;
 	font-size: ${({ theme }) => theme.fontSize.xs};
+
+	${({ isNewMessage }) =>
+		isNewMessage &&
+		`
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: ${({ theme }) => theme.color.red};
+      margin-right: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    &::after {
+      content: 'new!';
+      font-size: ${({ theme }) => theme.fontSize.xs};
+      color: ${({ theme }) => theme.color.red};
+      margin-left: 10px;
+    }
+  `}
 `;
 
 const NickName = styled.span`
