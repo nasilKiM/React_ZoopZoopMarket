@@ -10,7 +10,7 @@ const MobileBuyerDetailPage = ({ state }) => {
 	return (
 		<S.Wrapper>
 			<MobileDetailTop state={state} />
-			<DetailHead />
+			<DetailHead size={'small'} />
 			<DetailContent state={state} />
 			<S.MapContent>
 				<div>거래장소</div>

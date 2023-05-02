@@ -1,12 +1,13 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { flexAllCenter } from 'Styles/common';
+import { isDesktop } from 'react-device-detect';
 import styled from 'styled-components';
 
 const DetailContent = ({ state }) => {
 	return (
 		<>
 			{state ? (
-				<S.BuyerWrapper>
+				<S.BuyerWrapper isDesktop={isDesktop}>
 					<div>#제목 : 브라운 그레이 자켓 팝니다.</div>
 					<div># 카테고리(여성의류) | 2일전</div>
 					<div>120,000 원</div>
@@ -22,7 +23,7 @@ const DetailContent = ({ state }) => {
 					</div>
 				</S.BuyerWrapper>
 			) : (
-				<S.SellerWrapper>
+				<S.SellerWrapper isDesktop={isDesktop}>
 					<div>
 						<div>#제목 : 브라운 그레이 자켓 팝니다.</div>
 						<div>
@@ -48,15 +49,15 @@ const BuyerWrapper = styled.div`
 		margin: 20px 0;
 	}
 	& > div:nth-of-type(1) {
-		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
 	& > div:nth-of-type(3) {
-		font-size: ${({ theme }) => theme.fontSize.big};
+		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	& > div:nth-of-type(4) {
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
 	& > div:nth-of-type(5) {
@@ -81,7 +82,7 @@ const SellerWrapper = styled.div`
 		margin: 20px 0;
 	}
 	& > div:nth-of-type(1) {
-		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 		${flexAllCenter}
 		justify-content: space-between;
@@ -91,11 +92,11 @@ const SellerWrapper = styled.div`
 		}
 	}
 	& > div:nth-of-type(3) {
-		font-size: ${({ theme }) => theme.fontSize.big};
+		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	& > div:nth-of-type(4) {
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
 	& > div:nth-of-type(5) {

@@ -12,7 +12,7 @@ const MobileSellerDetail = ({ state }) => {
 	return (
 		<S.Wrapper>
 			<MobileDetailTop state={state} />
-			<DetailHead />
+			<DetailHead size={'small'} />
 			<S.DetailAndChatBar>
 				<div onClick={() => setDetailState(true)}>상세정보</div>
 				<div onClick={() => setDetailState(false)}>채팅 내역</div>
@@ -27,7 +27,7 @@ export default MobileSellerDetail;
 
 const Wrapper = styled.div`
 	border: 1px solid;
-	/* width: 414px; */
+	width: 100%;
 	/* height: 736px; */
 `;
 

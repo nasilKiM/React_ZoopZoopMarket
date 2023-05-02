@@ -5,27 +5,36 @@ import styled from 'styled-components';
 
 const MyProfile = () => {
 	return (
-		<>
-			<div>
-				<Profile />
-			</div>
+		<S.Wrapper>
 			<div>
 				<div>
-					<div>닉네임</div>
-					<S.Icon>
-						<MannerMeter />
-					</S.Icon>
+					<Profile />
 				</div>
+				<div>닉네임</div>
+				<S.Icon>
+					<MannerMeter />
+				</S.Icon>
 				<div>내 지역</div>
 			</div>
-			<div>로그아웃</div>
-		</>
+			<div>
+				<div>로그아웃</div>
+			</div>
+		</S.Wrapper>
 	);
 };
 
 export default MyProfile;
 
-const Wrapper = {};
+const Wrapper = styled.div`
+	${flexAllCenter}
+	justify-content: space-between;
+	& > div:first-child {
+		${flexAllCenter}
+		&>div>* {
+			margin: 0 20px;
+		}
+	}
+`;
 
 const Icon = styled.div`
 	${flexAllCenter}

@@ -16,10 +16,11 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Wrapper = styled.div`
-	border: 1px solid red;
+	margin: 50px 0;
 	${flexAllCenter}
 	& > div {
-		margin: 0 20px;
+		margin: 0 30px;
+		font-size: ${({ theme }) => theme.fontSize.lg};
 	}
 `;
 
