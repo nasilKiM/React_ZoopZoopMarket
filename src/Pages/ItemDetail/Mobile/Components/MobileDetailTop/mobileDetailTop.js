@@ -18,6 +18,7 @@ export default MobileDetailTop;
 
 const Wrapper = styled.div`
 	margin: 20px;
+	height: 25px;
 	${flexAllCenter}
 	justify-content: space-between;
 `;

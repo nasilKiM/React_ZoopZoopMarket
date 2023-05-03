@@ -1,14 +1,23 @@
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
 
 const SignUpPage = () => {
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
+
+	const onSubmit = data => alert(JSON.stringify(data));
 	return (
 		<S.Div>
 			<S.Wrap>
 				<S.Header>
 					<S.LogoImage src="/Assets/web_logo.png" />
 				</S.Header>
-				<S.Form>
+				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<p>회원가입</p>
 					<S.InputWrapBtn>
 						<S.ItemWrap>
@@ -16,34 +25,70 @@ const SignUpPage = () => {
 							<span>아이디</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="E-mail" />
+							<input
+								{...register('email', {
+									required: 'email을 입력해주세요',
+									maxLength: 20,
+									pattern: {
+										value:
+											/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+										message: 'email 형식에 맞지 않습니다',
+									},
+								})}
+								placeholder="E-mail"
+							/>
 							<button>중복확인</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
-
+					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>비밀번호</span>
 						</S.ItemWrap>
-
 						<S.InputBoxWrap>
 							<input
+								{...register('password', {
+									required: '비밀번호를 입력해주세요',
+									maxLength: { value: 18, message: '최대 18글자입니다' },
+									minLength: {
+										value: 8,
+										message: '최소 8글자 이상 비밀번호를 사용하세요.',
+									},
+									pattern: {
+										value:
+											/^.*(?=^.{8,18}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+										message:
+											'특수문자, 문자, 숫자를 포함한 형태의 암호를 입력해 주세요',
+									},
+								})}
 								placeholder="특수문자, 영어, 숫자 포함 6자이상"
 								type="password"
 							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>
-
+					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>비밀번호 확인</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="PW check" type="password" />
+							<input
+								{...register('confirmPW', {
+									required: true,
+									validate: value => {
+										if (watch('password') !== value) {
+											return '비밀번호를 다시 확인해 주세요';
+										}
+									},
+								})}
+								placeholder="PW check"
+								type="password"
+							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>
+					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -198,6 +243,12 @@ const Mark = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
+const Error = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const S = {
 	Div,
 	Wrap,
@@ -210,4 +261,5 @@ const S = {
 	Mark,
 	ItemWrap,
 	InputBoxWrap,
+	Error,
 };
