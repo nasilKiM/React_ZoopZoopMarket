@@ -23,11 +23,9 @@ const Wrapper = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	margin: 0 auto;
-	border: 1px solid blanchedalmond;
 `;
 
 const Logo = styled.img`
-	border: 1px solid red;
 	padding-top: 50px;
 	margin-bottom: 50px;
 	width: 300px;

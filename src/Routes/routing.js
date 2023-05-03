@@ -19,6 +19,8 @@ import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
+import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
+import YourProfile from 'Pages/YourProfile/Desktop';
 
 const router = createBrowserRouter([
 	{
@@ -33,6 +35,7 @@ const router = createBrowserRouter([
 		path: 'm-chat/:id',
 		element: <MobileChatDetail />,
 	},
+
 	{
 		path: 'form/login',
 		element: <LoginPage />,
@@ -90,7 +93,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'mypage/user_edit',
-				element: <MyPage />,
+				element: <MyUserEdit />,
+			},
+			{
+				path: 'profile',
+				element: <YourProfile />,
 			},
 			{
 				path: 'register',
