@@ -1,6 +1,8 @@
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { Axios } from 'Apis/@core';
+import { Navigate } from 'react-router-dom';
 
 const SignUpPage = () => {
 	const {
@@ -10,7 +12,17 @@ const SignUpPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data => alert(JSON.stringify(data));
+	// const onSubmit = data => console.log(data);
+
+	const onSubmit = data =>
+		Axios.post('/api/user', {
+			email: data.email,
+			pw: data.password,
+			nickName: 'nasil2',
+			phone: '010-1234-5678',
+			region: '서울시 강남구',
+		});
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -119,7 +131,9 @@ const SignUpPage = () => {
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button>회원가입</S.Button>
+						<S.Button onClick={() => Navigate(`/form/login`)}>
+							회원가입
+						</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>

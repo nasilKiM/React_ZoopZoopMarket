@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Axios } from 'Apis/@core';
+import TokenService from 'Repository/TokenService';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -10,7 +13,20 @@ const LoginPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data => alert(JSON.stringify(data));
+	useEffect(() => {
+		if (TokenService.getToken()) {
+			navigate('/main');
+		}
+	}, []);
+
+	const onSubmit = async data => {
+		const res = await Axios.post('/api/user/login', {
+			email: data.email,
+			pw: data.password,
+		});
+		TokenService.setToken(res.data.tokenForHeader);
+		navigate('/main');
+	};
 
 	return (
 		<S.Div>
@@ -36,7 +52,7 @@ const LoginPage = () => {
 					<input
 						{...register('password', {
 							required: '비밀번호를 입력해주세요',
-							maxLength: 18,
+							minLength: 8,
 						})}
 						placeholder="PW"
 						type="password"
