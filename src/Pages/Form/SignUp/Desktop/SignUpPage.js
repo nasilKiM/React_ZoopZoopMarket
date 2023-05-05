@@ -2,8 +2,10 @@ import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'Apis/@core';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -11,14 +13,16 @@ const SignUpPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data =>
+	const onSubmit = data => {
 		Axios.post('/api/user', {
 			email: data.email,
 			pw: data.password,
 			nickName: data.nick,
 			phone: data.phone,
-			region: '서울시 강남구',
+			region: '서울시 광진구',
 		});
+		navigate('/login');
+	};
 
 	return (
 		<S.Div>
