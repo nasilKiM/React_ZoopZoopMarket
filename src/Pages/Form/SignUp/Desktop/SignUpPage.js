@@ -11,19 +11,14 @@ const SignUpPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	// const onSubmit = data => console.log(data);
-
 	const onSubmit = data =>
 		Axios.post('/api/user', {
 			email: data.email,
 			pw: data.password,
-			nickName: 'nasilkimkim',
+			nickName: data.nick,
 			phone: data.phone,
 			region: '서울시 강남구',
 		});
-
-	// 회원가입 데이터 백엔드에 저장하기
-	// Axios.post('/', data)
 
 	return (
 		<S.Div>
@@ -42,7 +37,6 @@ const SignUpPage = () => {
 							<input
 								{...register('email', {
 									required: 'email을 입력해주세요',
-									maxLength: 20,
 									pattern: {
 										value:
 											/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
@@ -64,19 +58,19 @@ const SignUpPage = () => {
 							<input
 								{...register('password', {
 									required: '비밀번호를 입력해주세요',
-									maxLength: { value: 18, message: '최대 18글자입니다' },
+									maxLength: { value: 20, message: '최대 20글자입니다' },
 									minLength: {
 										value: 8,
 										message: '최소 8글자 이상 비밀번호를 사용하세요.',
 									},
 									pattern: {
 										value:
-											/^.*(?=^.{8,18}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+											/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
 										message:
 											'특수문자, 문자, 숫자를 포함한 형태의 암호를 입력해 주세요',
 									},
 								})}
-								placeholder="특수문자, 영어, 숫자 포함 6자이상"
+								placeholder="특수문자, 영어, 숫자 포함 8자이상"
 								type="password"
 							/>
 						</S.InputBoxWrap>
@@ -109,7 +103,15 @@ const SignUpPage = () => {
 							<span>닉네임</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="Nick_Name" />
+							<input
+								{...register('nick', {
+									required: true,
+									pattern: {
+										message: '닉네임을 입력해주세요',
+									},
+								})}
+								placeholder="Nick_Name"
+							/>
 							<button>중복확인</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
@@ -124,7 +126,7 @@ const SignUpPage = () => {
 									required: '전화번호를 입력해주세요',
 									pattern: {
 										value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
-										message: '숫자만 입력해주세요',
+										message: '000-0000-0000 형태로 입력해주세요',
 									},
 								})}
 								placeholder="010-0000-0000"
