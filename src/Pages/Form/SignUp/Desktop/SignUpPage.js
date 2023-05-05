@@ -21,15 +21,19 @@ const SignUpPage = () => {
 	} = useForm({ mode: 'onChange' });
 
 	const onSubmit = data => {
-		Axios.post('/api/user', {
-			email: data.email,
-			pw: data.password,
-			nickName: data.nick,
-			phone: data.phone,
-			region: '서울시 광진구',
-		});
-		alert('회원가입이 완료되었습니다.');
-		navigate('/form/login');
+		try {
+			Axios.post('/api/user', {
+				email: data.email,
+				pw: data.password,
+				nickName: data.nick,
+				phone: data.phone,
+				region: address,
+			});
+			alert('회원가입이 완료되었습니다.');
+			navigate('/form/login');
+		} catch (err) {
+			return;
+		}
 	};
 
 	const onCheckId = async e => {
@@ -47,6 +51,7 @@ const SignUpPage = () => {
 		}
 	};
 
+	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
 	}, [watch('email')]);
@@ -67,14 +72,14 @@ const SignUpPage = () => {
 	};
 
 	useEffect(() => {
-		setNickMsg('');
+		setNickMsg();
 	}, [watch('nick')]);
 
 	const full =
-		errors.email &&
-		errors.password &&
-		errors.confirmPW &&
-		errors.phone &&
+		!errors.email &&
+		!errors.password &&
+		!errors.confirmPW &&
+		!errors.phone &&
 		address;
 
 	return (
@@ -175,7 +180,10 @@ const SignUpPage = () => {
 								})}
 								placeholder="Nick_Name"
 							/>
-							<button onClick={onCheckNick} disabled={!watch('nick')}>
+							<button
+								onClick={onCheckNick}
+								disabled={errors.nick || !watch('nick')}
+							>
 								중복확인
 							</button>
 						</S.InputBoxWrap>

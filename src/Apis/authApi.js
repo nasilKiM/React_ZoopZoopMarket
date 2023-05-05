@@ -12,10 +12,10 @@ const AuthApi = {
 		return Axios.post(PATH + '/sign', { email, password });
 	},
 
-	async jwtRefresh() {
-		const res = await Axios.post(PATH + '/jwtRefresh');
-		return res.data;
-	},
+	// async jwtRefresh() {
+	// 	const res = await Axios.post(PATH + '/jwtRefresh');
+	// 	return res.data;
+	// },
 
 	async logout() {
 		const res = await Axios.post(PATH + '/logout');

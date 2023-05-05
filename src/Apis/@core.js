@@ -31,7 +31,7 @@ Axios.interceptors.request.use(
 	},
 );
 
-// 토큰만료되었을때
+// 토큰만료되었을때 (아직 사용x)
 Axios.interceptors.response.use(
 	response => {
 		return response;
