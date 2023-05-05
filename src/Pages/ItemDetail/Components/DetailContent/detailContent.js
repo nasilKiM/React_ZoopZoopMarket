@@ -48,18 +48,22 @@ const BuyerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
+	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
+	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
+	//본문내용
 	& > div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
+	// 카테고리
 	& > div:nth-of-type(5) {
 		${flexAllCenter}
 		justify-content: space-between;
@@ -69,6 +73,7 @@ const BuyerWrapper = styled.div`
 			padding: 15px 30px;
 			border-radius: 10px;
 		}
+		//heart
 		& > div:last-child {
 			width: 40px;
 			height: 40px;

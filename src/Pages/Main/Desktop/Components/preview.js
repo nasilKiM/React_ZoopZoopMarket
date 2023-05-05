@@ -1,3 +1,4 @@
+import { Axios } from 'Apis/@core';
 import ItemCard from 'Components/Card/Desktop/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -22,12 +23,17 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 		swiper.slidePrev();
 	};
 
+	const cardList = async () => {
+		const res = await Axios.get('/api/product');
+		console.log(res);
+	};
+
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
 				<S.CategoryBox>{category}</S.CategoryBox>
 				<S.CategoryText>{categoryText}</S.CategoryText>
-				<S.More> 더보기 &gt; </S.More>
+				<S.More onClick={cardList}> 더보기 &gt; </S.More>
 			</S.UpperSwiper>
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
@@ -60,14 +66,12 @@ const UpperSwiper = styled.div`
 	display: flex;
 	align-items: center;
 	margin-top: 50px;
-	padding: 0 50px;
 	position: relative;
 `;
 const CategoryBox = styled.div`
 	width: 150px;
 	text-align: center;
 	padding: 10px;
-	margin-left: 30px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	background-color: ${({ theme }) => theme.color.primary};
@@ -76,16 +80,15 @@ const CategoryBox = styled.div`
 `;
 const CategoryText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
-	margin: 0 5%;
-	width: 300px;
+	margin-left: 15px;
+	width: 350px;
 `;
 
 const More = styled.div`
-	width: 100px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	position: absolute;
-	text-align: end;
-	right: 10%;
+	justify-content: flex-end;
+	right: 0%;
 	cursor: pointer;
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
@@ -93,7 +96,7 @@ const More = styled.div`
 `;
 const SwiperWrapper = styled.div`
 	width: 100%;
-	padding: 10px;
+	margin: 10px;
 	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin-top: 30px;
 	display: flex;
@@ -102,8 +105,9 @@ const SwiperWrapper = styled.div`
 const Btn = styled.button`
 	border: none;
 	font-size: ${({ theme }) => theme.fontSize.xl};
+	margin-left: 10px;
+	margin-right: 10px;
 	background: none;
-	width: 70px;
 	:hover {
 		color: ${({ theme }) => theme.color.primary};
 	}

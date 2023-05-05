@@ -20,16 +20,8 @@ const DesktopMainPage = () => {
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
-			<Preview
-				categoryData={1}
-				userLocation={'도곡동'}
-				userName={'이재훈'}
-			></Preview>
-			<Preview
-				categoryData={0}
-				userLocation={'도곡동'}
-				userName={'이재훈'}
-			></Preview>
+			<Preview></Preview>
+			<Preview></Preview>
 		</S.Wrapper>
 	);
 };
