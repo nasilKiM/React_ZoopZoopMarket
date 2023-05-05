@@ -3,17 +3,19 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
+	const [idMsg, setIdMsg] = useState('');
 
 	const {
 		register,
 		handleSubmit,
 		watch,
+		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -28,6 +30,25 @@ const SignUpPage = () => {
 		alert('회원가입이 완료되었습니다.');
 		navigate('form/login');
 	};
+
+	const onCheckId = async e => {
+		e.preventDefault();
+		const value = getValues('email');
+		try {
+			const res = await Axios.get('/api/user/check/email', {
+				params: {
+					email: value,
+				},
+			});
+			setIdMsg(res.data.message);
+		} catch (err) {
+			setIdMsg(err.response.data.message);
+		}
+	};
+
+	useEffect(() => {
+		setIdMsg('');
+	}, [watch('email')]);
 
 	return (
 		<S.Div>
@@ -54,10 +75,16 @@ const SignUpPage = () => {
 								})}
 								placeholder="E-mail"
 							/>
-							<button>중복확인</button>
+							<button
+								onClick={onCheckId}
+								disabled={errors.email || !watch('email')}
+							>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
+					{<S.Error>{idMsg}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
