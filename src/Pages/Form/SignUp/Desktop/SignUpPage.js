@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import FindAddress from 'Components/Address/Desktop/address';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
+	const [address, setAddress] = useState();
+
 	const {
 		register,
 		handleSubmit,
@@ -21,7 +25,8 @@ const SignUpPage = () => {
 			phone: data.phone,
 			region: '서울시 광진구',
 		});
-		navigate('/login');
+		alert('회원가입이 완료되었습니다.');
+		navigate('form/login');
 	};
 
 	return (
@@ -144,8 +149,8 @@ const SignUpPage = () => {
 							<span>주소</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="Address" />
-							<button>주소찾기</button>
+							<S.Address>{address}</S.Address>
+							<FindAddress setter={setAddress} />
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
@@ -279,6 +284,15 @@ const Error = styled.div`
 	color: ${({ theme }) => theme.color.primary};
 `;
 
+const Address = styled.div`
+	display: flex;
+	height: 40px;
+	margin: 10px 0px;
+	padding-left: 10px;
+	margin-right: 5px;
+	align-items: center;
+`;
+
 const S = {
 	Div,
 	Wrap,
@@ -292,4 +306,5 @@ const S = {
 	ItemWrap,
 	InputBoxWrap,
 	Error,
+	Address,
 };
