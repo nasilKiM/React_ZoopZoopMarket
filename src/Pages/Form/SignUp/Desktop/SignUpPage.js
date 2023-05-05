@@ -9,24 +9,45 @@ import FindAddress from 'Components/Address/Desktop/address';
 const SignUpPage = () => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
+	const [idMsg, setIdMsg] = useState('');
 
 	const {
 		register,
+		getValues,
 		handleSubmit,
 		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
 	const onSubmit = data => {
-		Axios.post('/api/user', {
-			email: data.email,
-			pw: data.password,
-			nickName: data.nick,
-			phone: data.phone,
-			region: '서울시 광진구',
-		});
-		alert('회원가입이 완료되었습니다.');
-		navigate('form/login');
+		try {
+			Axios.post('/api/user', {
+				email: data.email,
+				pw: data.password,
+				nickName: data.nick,
+				phone: data.phone,
+				region: address,
+			});
+			alert('회원가입이 완료되었습니다.');
+			navigate('/form/login');
+		} catch (err) {
+			return;
+		}
+	};
+
+	const onCheckId = async e => {
+		e.preventDefault();
+		const value = getValues('email');
+		try {
+			const res = await Axios.get('/api/user/check/email', {
+				params: {
+					email: value,
+				},
+			});
+			setIdMsg(res.data.message);
+		} catch (err) {
+			setIdMsg(err.response.data.message);
+		}
 	};
 
 	return (
@@ -54,10 +75,13 @@ const SignUpPage = () => {
 								})}
 								placeholder="E-mail"
 							/>
-							<button>중복확인</button>
+							<button onClick={onCheckId} disabled={errors.email}>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
+					<S.Error>{idMsg}</S.Error>
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -154,7 +178,17 @@ const SignUpPage = () => {
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button>회원가입</S.Button>
+						<S.Button
+							disabled={
+								errors.email ||
+								errors.password ||
+								errors.confirmPW ||
+								errors.phone ||
+								!address
+							}
+						>
+							회원가입
+						</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
