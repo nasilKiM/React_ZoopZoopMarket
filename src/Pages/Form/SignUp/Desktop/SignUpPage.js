@@ -10,6 +10,7 @@ const SignUpPage = () => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
+	const [nickMsg, setNickMsg] = useState('');
 
 	const {
 		register,
@@ -28,7 +29,7 @@ const SignUpPage = () => {
 			region: '서울시 광진구',
 		});
 		alert('회원가입이 완료되었습니다.');
-		navigate('form/login');
+		navigate('/form/login');
 	};
 
 	const onCheckId = async e => {
@@ -49,6 +50,32 @@ const SignUpPage = () => {
 	useEffect(() => {
 		setIdMsg('');
 	}, [watch('email')]);
+
+	const onCheckNick = async e => {
+		e.preventDefault();
+		const value = getValues('nick');
+		try {
+			const res = await Axios.get('/api/user/check/nickname', {
+				params: {
+					nickname: value,
+				},
+			});
+			setNickMsg(res.data.message);
+		} catch (err) {
+			setNickMsg(err.response.data.message);
+		}
+	};
+
+	useEffect(() => {
+		setNickMsg('');
+	}, [watch('nick')]);
+
+	const full =
+		errors.email &&
+		errors.password &&
+		errors.confirmPW &&
+		errors.phone &&
+		address;
 
 	return (
 		<S.Div>
@@ -148,9 +175,12 @@ const SignUpPage = () => {
 								})}
 								placeholder="Nick_Name"
 							/>
-							<button>중복확인</button>
+							<button onClick={onCheckNick} disabled={!watch('nick')}>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
+					{<S.Error>{nickMsg}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -165,7 +195,7 @@ const SignUpPage = () => {
 										message: '000-0000-0000 형태로 입력해주세요',
 									},
 								})}
-								placeholder="010-0000-0000"
+								placeholder="010-0000-0000 ('-'포함해서 입력해주세요)"
 							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>
@@ -181,7 +211,7 @@ const SignUpPage = () => {
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button>회원가입</S.Button>
+						<S.Button disabled={!full}>회원가입</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
@@ -244,6 +274,9 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	:disabled {
+		background: ${({ theme }) => theme.color.gray};
+	}
 `;
 
 const BtnWrap = styled.div`

@@ -7,9 +7,11 @@ import { useEffect } from 'react';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -20,12 +22,20 @@ const LoginPage = () => {
 	}, []);
 
 	const onSubmit = async data => {
-		const res = await Axios.post('/api/user/login', {
-			email: data.email,
-			pw: data.password,
-		});
-		TokenService.setToken(res.data.tokenForHeader);
-		navigate('/main');
+		try {
+			const res = await Axios.post('/api/user/login', {
+				email: data.email,
+				pw: data.password,
+			});
+			TokenService.setToken(res.data.tokenForHeader);
+			// console.log(res);
+			alert(`${res.data.user.nickName}님 안녕하세요.`);
+			navigate('/main');
+		} catch (err) {
+			alert(
+				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
+			);
+		}
 	};
 
 	return (
@@ -39,7 +49,6 @@ const LoginPage = () => {
 					<input
 						{...register('email', {
 							required: 'email을 입력해주세요',
-							maxLength: 20,
 							pattern: {
 								value:
 									/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
@@ -51,13 +60,14 @@ const LoginPage = () => {
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<input
 						{...register('password', {
-							required: '비밀번호를 입력해주세요',
-							minLength: 8,
+							required: true,
+							pattern: {
+								message: '비밀번호가 일치하지 않습니다.',
+							},
 						})}
 						placeholder="PW"
 						type="password"
 					/>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.Button>로그인</S.Button>
 					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
 						신규회원이신가요?
