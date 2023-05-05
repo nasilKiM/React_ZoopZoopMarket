@@ -43,20 +43,17 @@ const Bar = styled.div`
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
 	text-decoration: none;
-	margin-left: 5%;
+	padding-right: 10px;
 `;
 const LeftMenu = styled.div`
+	width: 100%;
 	display: flex;
-	width: 50%;
 `;
 
 const RightMenu = styled.div`
 	display: flex;
+	width: 100%;
 	justify-content: flex-end;
-	margin-left: 5%;
-	margin-right: 5%;
-	display: flex;
-	width: 40%;
 `;
 const MyChat = styled.div`
 	color: ${props =>
