@@ -70,7 +70,7 @@ const DesktopSearchList = () => {
 		}
 	}, [inView]);
 
-	console.log(data);
+	//console.log(data);
 
 	const userLocation = 'a';
 
