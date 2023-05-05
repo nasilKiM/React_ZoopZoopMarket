@@ -2,7 +2,6 @@ import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'Apis/@core';
-import { Navigate } from 'react-router-dom';
 
 const SignUpPage = () => {
 	const {
@@ -18,10 +17,13 @@ const SignUpPage = () => {
 		Axios.post('/api/user', {
 			email: data.email,
 			pw: data.password,
-			nickName: 'nasil2',
-			phone: '010-1234-5678',
+			nickName: 'nasilkimkim',
+			phone: data.phone,
 			region: '서울시 강남구',
 		});
+
+	// 회원가입 데이터 백엔드에 저장하기
+	// Axios.post('/', data)
 
 	return (
 		<S.Div>
@@ -117,9 +119,19 @@ const SignUpPage = () => {
 							<span>전화번호</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="010-0000-0000" />
+							<input
+								{...register('phone', {
+									required: '전화번호를 입력해주세요',
+									pattern: {
+										value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
+										message: '숫자만 입력해주세요',
+									},
+								})}
+								placeholder="010-0000-0000"
+							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>
+					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -131,9 +143,7 @@ const SignUpPage = () => {
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button onClick={() => Navigate(`/form/login`)}>
-							회원가입
-						</S.Button>
+						<S.Button>회원가입</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
