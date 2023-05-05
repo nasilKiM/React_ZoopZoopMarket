@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
+	const [nickMsg, setNickMsg] = useState('');
 
 	const {
 		register,
@@ -50,6 +51,30 @@ const SignUpPage = () => {
 		}
 	};
 
+	const onCheckNick = async e => {
+		e.preventDefault();
+		const value = getValues('nick');
+		try {
+			const res = await Axios.get('/api/user/check/nickname?re', {
+				params: {
+					nickname: value,
+				},
+			});
+			setNickMsg(res.data.message);
+		} catch (err) {
+			setNickMsg(err.response.data.message);
+		}
+	};
+
+	// input 값에 변화가 생길때 msg 칸을 비워주는
+	useEffect(() => {
+		setIdMsg();
+	}, [watch('email')]);
+
+	useEffect(() => {
+		setNickMsg();
+	}, [watch('nick')]);
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -75,7 +100,10 @@ const SignUpPage = () => {
 								})}
 								placeholder="E-mail"
 							/>
-							<button onClick={onCheckId} disabled={errors.email}>
+							<button
+								onClick={onCheckId}
+								disabled={errors.email || !watch('email')}
+							>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
@@ -145,9 +173,15 @@ const SignUpPage = () => {
 								})}
 								placeholder="Nick_Name"
 							/>
-							<button>중복확인</button>
+							<button
+								onClick={onCheckNick}
+								disabled={!errors || !watch('nick')}
+							>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
+					<S.Error>{nickMsg}</S.Error>
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
