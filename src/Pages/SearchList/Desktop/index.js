@@ -4,12 +4,15 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const DesktopSearchList = () => {
 	/*
+
+	지금 데이터 주소 변경하면 됨.
+
+	
 	로직 변경 목표 : 지금은 데이터를 가져온 후 필터링 없이  itemListState에 저장.
 	저장된걸 필터링 해서 출력하는 방식. 
 	근데 지역을 기준으로 필터링 해보니 생기는 문제점이 1페이지에서 해당 조건에 맞는 아이템이 없거나 적으면 inView가 안닿아서 작동을 안함.
@@ -23,7 +26,11 @@ const DesktopSearchList = () => {
 	2) inView를 더 알아보고 세세하게 설정하기.(아이템이 적을 때도 동작하게)
 	*/
 	const [itemList, setItemList] = useRecoilState(itemListState);
+	const response = fetch('Mock/ItemData/items.json');
+	const dataa = response;
+	console.log(dataa);
 	const PAGE_LIMIT = 10;
+
 	const fetchItems = async (page = 0) => {
 		const response = await fetch('Mock/ItemData/items.json'); //Mock/mock.json 경로에서 데이터를 가져옴
 		const data = await response.json();
@@ -32,10 +39,10 @@ const DesktopSearchList = () => {
 		const items = data.itemList.slice(startIndex, endIndex); //data 객체에서 itemList 배열에서 startIndex부터 endIndex 직전까지의 요소들을 추출하여 items 변수에 할당
 		const hasNextPage = data.itemList.length > endIndex; //endIndex보다 큰 경우, 즉 다음 페이지에 더 많은 아이템이 있다는 것을 의미,그렇지 않은 경우, 즉 현재 페이지가 마지막 페이지인 경우 hasNextPage는 false
 		setItemList(data.itemList); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
+		console.log('!');
 		return { items, hasNextPage };
 	};
 
-	const location = useLocation();
 	//console.log('로케이션', location.state.searchWord);
 
 	const temList = () => {
@@ -57,7 +64,7 @@ const DesktopSearchList = () => {
 
 	let selectedItem = '';
 
-	let searchKeyword = '1';
+	let searchKeyword = '벤츠';
 
 	if (selected === 0) {
 		selectedItem = '중고물품';
@@ -73,7 +80,6 @@ const DesktopSearchList = () => {
 			res.fetchNextPage();
 		}
 	}, [inView]);
-	console.log(location);
 
 	const userLocation = 'a';
 

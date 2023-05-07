@@ -11,6 +11,33 @@ const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const navigate = useNavigate();
 
+	const [price, setPrice] = useState('');
+	const [tags, setTags] = useState([]);
+
+	const handleKeyDown = e => {
+		if (e.keyCode === 13) {
+			// 엔터키 눌림.
+			e.preventDefault();
+			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			if (newTag) {
+				setTags([...tags, newTag]);
+				e.target.value = ''; // 입력창 초기화
+			}
+		}
+	};
+	const handleDelete = e => {
+		console.log('!!!!!!', e);
+		//setTags(prevTags => prevTags.filter(tag => tag !== tagToRemove)); //tagToRemove와 일치하지 않는 모든 요소를 포함하는 새로운 배열을 반환
+		//() => handleDelete(tag)와 같이 콜백 함수 형태로 작성하여, 클릭 이벤트가 발생했을 때에만 함수가 실행되도록
+	};
+
+	const handlePriceChange = e => {
+		const value = e.target.value;
+		const num = parseInt(value.replace(/[^0-9]/g, ''), 10);
+		const priceValue = isNaN(num) ? 0 : num;
+		const formattedPrice = priceValue.toLocaleString();
+		setPrice(formattedPrice);
+	};
 	const {
 		register,
 		handleSubmit,
@@ -26,7 +53,7 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', [data.tag]);
-			formData.append('images', [data.mainImg]);
+			formData.append('images', data.mainImg);
 			Axios.post('/api/product', formData);
 			alert('물품등록이 완료되었습니다.');
 			navigate('/form/login');
@@ -66,6 +93,9 @@ const RegisterPage = () => {
 								message: '숫자만 입력해주세요',
 							},
 						})}
+						value={price}
+						type="text"
+						onChange={handlePriceChange}
 					></S.InputBox>
 					{errors.price && <Error role="alert">{errors.price.message}</Error>}
 				</S.InputContainer>
@@ -77,10 +107,24 @@ const RegisterPage = () => {
 					<S.InputBox
 						placeholder="#재훈이네 #금쪽이 #이재훈"
 						{...register('tag', {
-							required: '최소 1개 이상 입력해주세요.',
+							required: '1개이상 꼭 입력해주세요.',
 						})}
+						value={tags}
+					></S.InputBox>
+					<S.InputBox
+						placeholder="이곳에 입력해주세요."
+						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
+					<S.TagWrapper>
+						{tags &&
+							tags.map((tag, index) => (
+								<S.TagBox key={index}>
+									{tag}
+									<button onClick={e => handleDelete(e)}>x</button>
+								</S.TagBox>
+							))}
+					</S.TagWrapper>
 				</S.InputContainer>
 			</S.Line>
 			<S.AddressWrapper>
@@ -261,6 +305,14 @@ const RegisterBtn = styled.button`
 	}
 `;
 
+const TagWrapper = styled.div`
+	border: 2px solid green;
+`;
+
+const TagBox = styled.div`
+	border: 1px solid green;
+`;
+
 const S = {
 	Wrapper,
 	Blank,
@@ -279,4 +331,6 @@ const S = {
 	ContentBox,
 	TxtArea,
 	SearchBtn,
+	TagWrapper,
+	TagBox,
 };
