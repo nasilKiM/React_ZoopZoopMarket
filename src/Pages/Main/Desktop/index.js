@@ -4,6 +4,8 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import TokenService from 'Repository/TokenService';
 import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
+import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
+import { Link } from 'react-router-dom';
 
 const DesktopMainPage = () => {
 	const navigate = useNavigate();
@@ -14,9 +16,18 @@ const DesktopMainPage = () => {
 		navigate('/');
 	};
 
+	const goToRegister = () => {
+		return navigate('register');
+	};
+
 	return (
 		<S.Wrapper>
 			<button onClick={logout}>로그아웃</button>
+			<Link to={'/register'}>
+				<S.BtnSection>
+					<RegisterBtn />
+				</S.BtnSection>
+			</Link>
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
@@ -45,7 +56,13 @@ const SearchSection = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
+
+const BtnSection = styled.div`
+	width: 50px;
+	height: 50px;
+`;
 const S = {
 	Wrapper,
 	SearchSection,
+	BtnSection,
 };

@@ -5,9 +5,12 @@ import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
+	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
@@ -23,9 +26,10 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', '서울시 강남구');
 			formData.append('tag', [data.tag]);
-			formData.append('images', data.mainImg);
+			formData.append('images', [data.mainImg]);
 			Axios.post('/api/product', formData);
 			alert('물품등록이 완료되었습니다.');
+			navigate('/form/login');
 		} catch (err) {
 			return console.log(err);
 		}
