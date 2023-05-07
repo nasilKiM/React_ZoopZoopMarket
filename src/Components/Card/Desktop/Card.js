@@ -2,7 +2,7 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import styled from 'styled-components';
 
-const ItemCard = () => {
+const ItemCard = ({ product }) => {
 	// const navigate = useNavigate();
 
 	return (
@@ -14,9 +14,9 @@ const ItemCard = () => {
 				</S.Heart>
 				<S.ItemImg src="Assets/Images/bicycle.jpg" />
 				<S.ItemInfo>
-					<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
-					<S.ItemPrice>130,000 원</S.ItemPrice>
-					<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
+					<S.ItemTitle>{product.title}</S.ItemTitle>
+					<S.ItemPrice>{product.ItemPrice}원</S.ItemPrice>
+					<S.ItemTag>#{product.ProductsTags}</S.ItemTag>
 				</S.ItemInfo>
 			</S.Container>
 		</S.Wrapper>
