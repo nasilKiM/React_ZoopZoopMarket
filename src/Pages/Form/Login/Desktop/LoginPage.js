@@ -68,7 +68,7 @@ const LoginPage = () => {
 						type="password"
 					/>
 					<S.Button>로그인</S.Button>
-					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
+					<S.SignUpBtn onClick={() => navigate(`${USER_API_PATH}/signup`)}>
 						신규회원이신가요?
 					</S.SignUpBtn>
 				</S.Form>

@@ -1,10 +1,10 @@
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
+import UserApi from 'Apis/userApi';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -22,7 +22,7 @@ const SignUpPage = () => {
 
 	const onSubmit = data => {
 		try {
-			Axios.post('/api/user', {
+			UserApi.signup({
 				email: data.email,
 				pw: data.password,
 				nickName: data.nick,
@@ -40,11 +40,7 @@ const SignUpPage = () => {
 		e.preventDefault();
 		const value = getValues('email');
 		try {
-			const res = await Axios.get('/api/user/check/email', {
-				params: {
-					email: value,
-				},
-			});
+			const res = await UserApi.checkEmail({ email: value });
 			setIdMsg(res.data.message);
 		} catch (err) {
 			setIdMsg(err.response.data.message);
@@ -60,11 +56,7 @@ const SignUpPage = () => {
 		e.preventDefault();
 		const value = getValues('nick');
 		try {
-			const res = await Axios.get('/api/user/check/nickname', {
-				params: {
-					nickname: value,
-				},
-			});
+			const res = await UserApi.checkNickname({ nickname: value });
 			setNickMsg(res.data.message);
 		} catch (err) {
 			setNickMsg(err.response.data.message);
