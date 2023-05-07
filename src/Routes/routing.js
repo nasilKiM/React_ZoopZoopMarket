@@ -96,7 +96,7 @@ const router = createBrowserRouter([
 				element: <RegisterPage />,
 			},
 			{
-				path: 'search_list',
+				path: 'search_list/:word',
 				element: <SearchListPage />,
 			},
 			{

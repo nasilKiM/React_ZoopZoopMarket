@@ -43,7 +43,7 @@ const UploadFiles = ({ register }) => {
 			/>
 			<S.ImgContainer>
 				<S.MainImgContainer>
-					<label for="mainImg">
+					<label htmlFor="mainImg">
 						<S.MainImgSection
 							src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
 						/>
@@ -52,7 +52,7 @@ const UploadFiles = ({ register }) => {
 				</S.MainImgContainer>
 				<S.SmallImgBox>
 					<S.SmallImgContainer>
-						<label for="mainImg">
+						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
 							/>
@@ -60,7 +60,7 @@ const UploadFiles = ({ register }) => {
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<label for="mainImg">
+						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
 							/>
@@ -68,7 +68,7 @@ const UploadFiles = ({ register }) => {
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<label for="mainImg">
+						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
 							/>
@@ -76,7 +76,7 @@ const UploadFiles = ({ register }) => {
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<label for="mainImg">
+						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
 							/>

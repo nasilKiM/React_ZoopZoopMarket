@@ -3,37 +3,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 const SearchBar = () => {
 	const navigate = useNavigate();
-
-	const [word, setWord] = useState('');
 
 	const onSearch = async e => {
 		e.preventDefault();
 
 		try {
-			let sample = e.target.searchKey.value;
-			setWord(sample);
-			console.log('!!!!!!!!!!!!!!!!!!!!!', word);
+			let searchWord = e.target.searchKey.value;
+
 			const res = await Axios.get('/api/product/search', {
 				params: {
-					keyword: word,
+					keyword: searchWord,
 					page: 1,
 				},
 			});
 
-			//console.log('>>>>>>>>>>>>>>>>>>', res.config.params.keyword);
 			console.log(res);
-			navigate('/search_list');
+			navigate(`/search_list/${searchWord}`);
 		} catch (err) {
 			console.log(err);
-			//setSearchKey(err);
 		}
 	};
-
-	// console.log(searchKey);
 
 	return (
 		<S.Wrap onSubmit={onSearch}>

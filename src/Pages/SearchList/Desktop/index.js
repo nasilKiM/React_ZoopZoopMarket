@@ -4,6 +4,7 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -28,11 +29,14 @@ const DesktopSearchList = () => {
 		const data = await response.json();
 		const startIndex = page * PAGE_LIMIT;
 		const endIndex = (page + 1) * PAGE_LIMIT;
-		const items = data.itemList.slice(startIndex, endIndex);
-		const hasNextPage = data.itemList.length > endIndex;
+		const items = data.itemList.slice(startIndex, endIndex); //data 객체에서 itemList 배열에서 startIndex부터 endIndex 직전까지의 요소들을 추출하여 items 변수에 할당
+		const hasNextPage = data.itemList.length > endIndex; //endIndex보다 큰 경우, 즉 다음 페이지에 더 많은 아이템이 있다는 것을 의미,그렇지 않은 경우, 즉 현재 페이지가 마지막 페이지인 경우 hasNextPage는 false
 		setItemList(data.itemList); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
 		return { items, hasNextPage };
 	};
+
+	const location = useLocation();
+	//console.log('로케이션', location.state.searchWord);
 
 	const temList = () => {
 		const res = useInfiniteQuery(
@@ -53,24 +57,23 @@ const DesktopSearchList = () => {
 
 	let selectedItem = '';
 
-	let searchKeyword = '벤츠 자전거';
+	let searchKeyword = '1';
 
 	if (selected === 0) {
 		selectedItem = '중고물품';
 	} else if (selected === 1) {
 		selectedItem = '무료나눔';
 	}
-	const [ref, inView] = useInView();
+	const [ref, inView] = useInView({ threshold: 0.5 });
 
 	//
 
 	useEffect(() => {
-		if (!inView) {
+		if (inView) {
 			res.fetchNextPage();
 		}
 	}, [inView]);
-
-	//console.log(data);
+	console.log(location);
 
 	const userLocation = 'a';
 
@@ -126,12 +129,18 @@ const DesktopSearchList = () => {
 						)}
 				</S.ItemList>
 			</S.Container>
-			<div ref={ref}></div>
+			<S.refDiv>
+				<div ref={ref}></div>
+			</S.refDiv>
 		</S.Wrapper>
 	);
 };
 
 export default DesktopSearchList;
+
+const refDiv = styled.div`
+	border: 4px solid red;
+`;
 
 const Wrapper = styled.div`
 	width: 60%;
@@ -186,4 +195,5 @@ const S = {
 	ItemList,
 	SearchBarContainer,
 	SampleCard,
+	refDiv,
 };
