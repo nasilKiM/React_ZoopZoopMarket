@@ -25,8 +25,8 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 
 	const cardList = async () => {
 		const res = await Axios.get('/api/product');
-		console.log('!!!');
 		console.log(res);
+		return res.data;
 	};
 
 	return (
@@ -41,7 +41,7 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={4}>
 					{itemList.map(item => (
 						<SwiperSlide>
-							<ItemCard key={item} />
+							<ItemCard key={item} product={cardList} />
 						</SwiperSlide>
 					))}
 				</Swiper>

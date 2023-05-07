@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Axios } from 'Apis/@core';
 import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
+import UserApi from 'Apis/userApi';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -23,12 +23,11 @@ const LoginPage = () => {
 
 	const onSubmit = async data => {
 		try {
-			const res = await Axios.post('/api/user/login', {
+			const res = await UserApi.login({
 				email: data.email,
 				pw: data.password,
 			});
 			TokenService.setToken(res.data.tokenForHeader);
-			// console.log(res);
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			navigate('/main');
 		} catch (err) {

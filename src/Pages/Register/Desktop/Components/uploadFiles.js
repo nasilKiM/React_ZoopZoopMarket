@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const UploadFiles = ({ register }) => {
 	const [imgSrc, setImgSrc] = useState([]);
+	const [selectedImgIndex, setSelectedImgIndex] = useState(null);
 
 	const onUpload = e => {
 		const fileArr = e.target.files;
@@ -19,11 +20,10 @@ const UploadFiles = ({ register }) => {
 		}
 	};
 
-	// ref 와 register 같이 쓰면 안됨
-
 	const onClickDelete = idx => {
 		if (imgSrc.length === 0) return;
 		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
+		setImgSrc(newFileURLs);
 		console.log(newFileURLs);
 	};
 
@@ -46,42 +46,47 @@ const UploadFiles = ({ register }) => {
 					<label htmlFor="mainImg">
 						<S.MainImgSection
 							src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
+							onClick={() => setSelectedImgIndex(0)}
 						/>
 					</label>
-					<S.DelBtn onClick={onClickDelete(0)}>-</S.DelBtn>
+					<S.DelBtn onClick={() => onClickDelete(0)}>-</S.DelBtn>
 				</S.MainImgContainer>
 				<S.SmallImgBox>
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
+								onClick={() => setSelectedImgIndex(1)}
 							/>
 						</label>
-						<S.DelBtn>-</S.DelBtn>
+						<S.DelBtn onClick={() => onClickDelete(1)}>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
+								onClick={() => setSelectedImgIndex(2)}
 							/>
 						</label>
-						<S.DelBtn>-</S.DelBtn>
+						<S.DelBtn onClick={() => onClickDelete(2)}>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
+								onClick={() => setSelectedImgIndex(3)}
 							/>
 						</label>
-						<S.DelBtn>-</S.DelBtn>
+						<S.DelBtn onClick={() => onClickDelete(3)}>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
+								onClick={() => setSelectedImgIndex(4)}
 							/>
 						</label>
-						<S.DelBtn>-</S.DelBtn>
+						<S.DelBtn onClick={() => onClickDelete(4)}>-</S.DelBtn>
 					</S.SmallImgContainer>
 				</S.SmallImgBox>
 			</S.ImgContainer>
