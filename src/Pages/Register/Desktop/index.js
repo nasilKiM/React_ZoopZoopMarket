@@ -21,7 +21,7 @@ const RegisterPage = () => {
 			formData.append('price', Number(data.price));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
-			formData.append('region', '서울시 강남구');
+			formData.append('region', searchResult);
 			formData.append('tag', [data.tag]);
 			formData.append('images', data.mainImg);
 			Axios.post('/api/product', formData);

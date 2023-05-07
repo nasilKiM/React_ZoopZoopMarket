@@ -25,6 +25,7 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 
 	const cardList = async () => {
 		const res = await Axios.get('/api/product');
+		console.log('!!!');
 		console.log(res);
 	};
 
