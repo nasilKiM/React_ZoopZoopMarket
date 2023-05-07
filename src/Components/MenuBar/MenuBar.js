@@ -30,7 +30,7 @@ const MenuBar = () => {
 export default MenuBar;
 
 const Bar = styled.div`
-	width: 60%;
+	width: 70%;
 	max-width: 1000px;
 	min-width: 700px;
 	margin: 0 auto;

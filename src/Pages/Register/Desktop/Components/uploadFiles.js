@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const UploadFiles = () => {
+const UploadFiles = ({ register }) => {
 	const [imgSrc, setImgSrc] = useState([]);
-	const imgRef = useRef();
 
 	const onUpload = e => {
 		const fileArr = e.target.files;
@@ -20,9 +19,7 @@ const UploadFiles = () => {
 		}
 	};
 
-	const onClickUpload = e => {
-		imgRef.current.click();
-	};
+	// ref 와 register 같이 쓰면 안됨
 
 	const onClickDelete = idx => {
 		if (imgSrc.length === 0) return;
@@ -33,48 +30,57 @@ const UploadFiles = () => {
 	return (
 		<S.Wrapper>
 			<input
+				id="mainImg"
 				type="file"
 				accept="image/*"
 				multiple
-				onChange={e => onUpload(e)}
-				ref={imgRef}
 				style={{ display: 'none' }}
+				{...register('mainImg')}
+				onChange={e => {
+					register('mainImg').onChange(e);
+					onUpload(e);
+				}}
 			/>
 			<S.ImgContainer>
 				<S.MainImgContainer>
-					<S.MainImgSection
-						src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
-						onClick={onClickUpload}
-					/>
+					<label for="mainImg">
+						<S.MainImgSection
+							src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
+						/>
+					</label>
 					<S.DelBtn onClick={onClickDelete(0)}>-</S.DelBtn>
 				</S.MainImgContainer>
 				<S.SmallImgBox>
 					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
-							onClick={onClickUpload}
-						/>
+						<label for="mainImg">
+							<S.SmallImgSection
+								src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
+							/>
+						</label>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
-							onClick={onClickUpload}
-						/>
+						<label for="mainImg">
+							<S.SmallImgSection
+								src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
+							/>
+						</label>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
-							onClick={onClickUpload}
-						/>
+						<label for="mainImg">
+							<S.SmallImgSection
+								src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
+							/>
+						</label>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 					<S.SmallImgContainer>
-						<S.SmallImgSection
-							src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
-							onClick={onClickUpload}
-						/>
+						<label for="mainImg">
+							<S.SmallImgSection
+								src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
+							/>
+						</label>
 						<S.DelBtn>-</S.DelBtn>
 					</S.SmallImgContainer>
 				</S.SmallImgBox>

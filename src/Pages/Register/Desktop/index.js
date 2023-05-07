@@ -4,19 +4,36 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
+import { Axios } from 'Apis/@core';
 
 const RegisterPage = () => {
+	const [searchResult, setSearchResult] = useState('');
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
 
-	const [searchResult, setSearchResult] = useState('');
+	const onSubmit = data => {
+		try {
+			const formData = new FormData();
+			formData.append('title', data.title);
+			formData.append('price', Number(data.price));
+			formData.append('category', Number(data.price) === 0 ? 1 : 0);
+			formData.append('description', data.content);
+			formData.append('region', '서울시 강남구');
+			formData.append('tag', [data.tag]);
+			formData.append('images', data.mainImg);
+			Axios.post('/api/product', formData);
+			alert('물품등록이 완료되었습니다.');
+		} catch (err) {
+			return console.log(err);
+		}
+	};
 
 	return (
-		<S.Wrapper onSubmit={handleSubmit(data => console.log(data))}>
-			<UploadFiles />
+		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
+			<UploadFiles register={register} />
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>
