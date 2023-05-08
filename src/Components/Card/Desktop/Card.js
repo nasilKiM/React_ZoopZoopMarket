@@ -12,11 +12,11 @@ const ItemCard = ({ product }) => {
 				<S.Heart>
 					<HeartBtn />
 				</S.Heart>
-				<S.ItemImg src="Assets/Images/bicycle.jpg" />
+				<S.ItemImg src={product.img_url} />
 				<S.ItemInfo>
 					<S.ItemTitle>{product.title}</S.ItemTitle>
-					<S.ItemPrice>{product.ItemPrice}원</S.ItemPrice>
-					<S.ItemTag>#{product.ProductsTags}</S.ItemTag>
+					<S.ItemPrice>{product.price}원</S.ItemPrice>
+					{/* <S.ItemTag>#{product.ProductsTags}</S.ItemTag> */}
 				</S.ItemInfo>
 			</S.Container>
 		</S.Wrapper>
@@ -36,6 +36,7 @@ const Container = styled.div`
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border: 1px solid black;
 `;
 const Heart = styled.div`
 	position: absolute;
