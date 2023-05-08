@@ -38,6 +38,8 @@ const LoginPage = () => {
 		}
 	};
 
+	const full = !errors.email && !errors.password;
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -53,7 +55,7 @@ const LoginPage = () => {
 						placeholder="PW"
 						type="password"
 					/>
-					<S.Button>로그인</S.Button>
+					<S.Button disabled={!full}>로그인</S.Button>
 					<S.SignUpBtn onClick={() => navigate(`${USER_API_PATH}/signup`)}>
 						신규회원이신가요?
 					</S.SignUpBtn>
@@ -133,6 +135,9 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	:disabled {
+		background: ${({ theme }) => theme.color.gray};
+	}
 `;
 
 const SignUpBtn = styled.span`
