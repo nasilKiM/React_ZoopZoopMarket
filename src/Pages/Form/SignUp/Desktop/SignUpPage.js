@@ -1,16 +1,80 @@
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import FindAddress from 'Components/Address/Desktop/address';
+import UserApi from 'Apis/userApi';
+import { FORM_TYPE } from 'Consts/FormType';
 
 const SignUpPage = () => {
+	const navigate = useNavigate();
+	const [address, setAddress] = useState();
+	const [idMsg, setIdMsg] = useState('');
+	const [nickMsg, setNickMsg] = useState('');
+
 	const {
 		register,
 		handleSubmit,
 		watch,
+		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data => alert(JSON.stringify(data));
+	const onSubmit = data => {
+		try {
+			UserApi.signup({
+				email: data.email,
+				pw: data.password,
+				nickName: data.nick,
+				phone: data.phone,
+				region: address,
+			});
+			alert('회원가입이 완료되었습니다.');
+			navigate('/form/login');
+		} catch (err) {
+			return;
+		}
+	};
+
+	const onCheckId = async e => {
+		e.preventDefault();
+		const value = getValues('email');
+		try {
+			const res = await UserApi.checkEmail({ email: value });
+			setIdMsg(res.data.message);
+		} catch (err) {
+			setIdMsg(err.response.data.message);
+		}
+	};
+
+	// input 값에 변화가 생길때 msg 칸을 비워주는
+	useEffect(() => {
+		setIdMsg('');
+	}, [watch('email')]);
+
+	const onCheckNick = async e => {
+		e.preventDefault();
+		const value = getValues('nick');
+		try {
+			const res = await UserApi.checkNickname({ nickname: value });
+			setNickMsg(res.data.message);
+		} catch (err) {
+			setNickMsg(err.response.data.message);
+		}
+	};
+
+	useEffect(() => {
+		setNickMsg();
+	}, [watch('nick')]);
+
+	const full =
+		!errors.email &&
+		!errors.password &&
+		!errors.confirmPW &&
+		!errors.phone &&
+		address;
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -26,21 +90,19 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<input
-								{...register('email', {
-									required: 'email을 입력해주세요',
-									maxLength: 20,
-									pattern: {
-										value:
-											/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
-										message: 'email 형식에 맞지 않습니다',
-									},
-								})}
+								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button>중복확인</button>
+							<button
+								onClick={onCheckId}
+								disabled={errors.email || !watch('email')}
+							>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
+					{<S.Error>{idMsg}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -48,21 +110,8 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<input
-								{...register('password', {
-									required: '비밀번호를 입력해주세요',
-									maxLength: { value: 18, message: '최대 18글자입니다' },
-									minLength: {
-										value: 8,
-										message: '최소 8글자 이상 비밀번호를 사용하세요.',
-									},
-									pattern: {
-										value:
-											/^.*(?=^.{8,18}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-										message:
-											'특수문자, 문자, 숫자를 포함한 형태의 암호를 입력해 주세요',
-									},
-								})}
-								placeholder="특수문자, 영어, 숫자 포함 6자이상"
+								{...register('password', FORM_TYPE.PASSWORD)}
+								placeholder="특수문자, 영어, 숫자 포함 8자이상"
 								type="password"
 							/>
 						</S.InputBoxWrap>
@@ -95,31 +144,50 @@ const SignUpPage = () => {
 							<span>닉네임</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="Nick_Name" />
-							<button>중복확인</button>
+							<input
+								{...register('nick', FORM_TYPE.NICKNAME)}
+								placeholder="Nick_Name"
+							/>
+							<button
+								onClick={onCheckNick}
+								disabled={errors.nick || !watch('nick')}
+							>
+								중복확인
+							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
+					{<S.Error>{nickMsg}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>전화번호</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="010-0000-0000" />
+							<input
+								{...register('phone', {
+									required: '전화번호를 입력해주세요',
+									pattern: {
+										value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
+										message: '000-0000-0000 형태로 입력해주세요',
+									},
+								})}
+								placeholder="010-0000-0000 ('-'포함해서 입력해주세요)"
+							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>
+					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>주소</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input placeholder="Address" />
-							<button>주소찾기</button>
+							<S.Address>{address}</S.Address>
+							<FindAddress setter={setAddress} />
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button>회원가입</S.Button>
+						<S.Button disabled={!full}>회원가입</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
@@ -182,6 +250,9 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	:disabled {
+		background: ${({ theme }) => theme.color.gray};
+	}
 `;
 
 const BtnWrap = styled.div`
@@ -249,6 +320,15 @@ const Error = styled.div`
 	color: ${({ theme }) => theme.color.primary};
 `;
 
+const Address = styled.div`
+	display: flex;
+	height: 40px;
+	margin: 10px 0px;
+	padding-left: 10px;
+	margin-right: 5px;
+	align-items: center;
+`;
+
 const S = {
 	Div,
 	Wrap,
@@ -262,4 +342,5 @@ const S = {
 	ItemWrap,
 	InputBoxWrap,
 	Error,
+	Address,
 };

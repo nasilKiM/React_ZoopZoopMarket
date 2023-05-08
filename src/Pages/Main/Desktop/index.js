@@ -1,23 +1,27 @@
 import styled from 'styled-components';
 import Preview from './Components/preview';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+import TokenService from 'Repository/TokenService';
+import { Axios } from 'Apis/@core';
+import { useNavigate } from 'react-router-dom';
 
 const DesktopMainPage = () => {
+	const navigate = useNavigate();
+	const logout = async () => {
+		const res = await Axios.get('/api/user/logout');
+		console.log(res);
+		TokenService.removeToken();
+		navigate('/');
+	};
+
 	return (
 		<S.Wrapper>
+			<button onClick={logout}>로그아웃</button>
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
-			<Preview
-				categoryData={1}
-				userLocation={'도곡동'}
-				userName={'이재훈'}
-			></Preview>
-			<Preview
-				categoryData={0}
-				userLocation={'도곡동'}
-				userName={'이재훈'}
-			></Preview>
+			<Preview></Preview>
+			<Preview></Preview>
 		</S.Wrapper>
 	);
 };

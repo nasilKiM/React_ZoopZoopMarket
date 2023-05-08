@@ -1,10 +1,13 @@
 import MenuBar from 'Components/MenuBar/MenuBar';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const WebHeader = () => {
 	return (
 		<S.Wrapper>
-			<S.Logo src="Assets/web_logo.png"></S.Logo>
+			<Link to={'/main'}>
+				<S.Logo src="Assets/web_logo.png"></S.Logo>
+			</Link>
 			<MenuBar />
 		</S.Wrapper>
 	);
