@@ -11,9 +11,6 @@ import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
 import RegisterPage from 'Pages/Register/Desktop';
-import MobileLandingPage from 'Pages/Landing/Mobile';
-import MobileChattingPage from 'Pages/Chat/Mobile/MobileChattingPage';
-import MobileChatDetail from 'Pages/Chat/Mobile/MobileChatDetail';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
 import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
@@ -21,19 +18,12 @@ import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
+import PrivateRoute from './private';
 
 const router = createBrowserRouter([
 	{
 		path: '',
 		element: <LandingPage />,
-	},
-	{
-		path: 'm-landing',
-		element: <MobileLandingPage />,
-	},
-	{
-		path: 'm-chat/:id',
-		element: <MobileChatDetail />,
 	},
 
 	{
@@ -44,16 +34,17 @@ const router = createBrowserRouter([
 		path: 'form/signup',
 		element: <SignUpPage />,
 	},
+
 	{
-		element: <LayOut />,
+		element: (
+			<PrivateRoute>
+				<LayOut />
+			</PrivateRoute>
+		),
 		children: [
 			{
 				path: 'chat',
 				element: <ChattingPage />,
-			},
-			{
-				path: 'm-chat',
-				element: <MobileChattingPage />,
 			},
 			{
 				path: 'form',
@@ -104,7 +95,7 @@ const router = createBrowserRouter([
 				element: <RegisterPage />,
 			},
 			{
-				path: 'search_list',
+				path: 'search_list/:word',
 				element: <SearchListPage />,
 			},
 			{

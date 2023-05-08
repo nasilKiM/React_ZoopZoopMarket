@@ -1,16 +1,44 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import TokenService from 'Repository/TokenService';
+import { useEffect } from 'react';
+import UserApi from 'Apis/userApi';
+import { FORM_TYPE } from 'Consts/FormType';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
+		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data => alert(JSON.stringify(data));
+	useEffect(() => {
+		if (TokenService.getToken()) {
+			navigate('/main');
+		}
+	}, []);
+
+	const onSubmit = async data => {
+		try {
+			const res = await UserApi.login({
+				email: data.email,
+				pw: data.password,
+			});
+			TokenService.setToken(res.data.tokenForHeader);
+			alert(`${res.data.user.nickName}님 안녕하세요.`);
+			navigate('/main');
+		} catch (err) {
+			alert(
+				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
+			);
+		}
+	};
+
+	const full = !errors.email && !errors.password;
 
 	return (
 		<S.Div>
@@ -20,30 +48,15 @@ const LoginPage = () => {
 				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<p>로그인</p>
-					<input
-						{...register('email', {
-							required: 'email을 입력해주세요',
-							maxLength: 20,
-							pattern: {
-								value:
-									/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
-								message: 'email 형식에 맞지 않습니다',
-							},
-						})}
-						placeholder="E-mail"
-					/>
+					<input {...register('email', FORM_TYPE.EMAIL)} placeholder="E-mail" />
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<input
-						{...register('password', {
-							required: '비밀번호를 입력해주세요',
-							maxLength: 18,
-						})}
+						{...register('password', FORM_TYPE.PASSWORD_simple)}
 						placeholder="PW"
 						type="password"
 					/>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.Button>로그인</S.Button>
-					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
+					<S.Button disabled={!full}>로그인</S.Button>
+					<S.SignUpBtn onClick={() => navigate(`${USER_API_PATH}/signup`)}>
 						신규회원이신가요?
 					</S.SignUpBtn>
 				</S.Form>
@@ -122,6 +135,9 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	:disabled {
+		background: ${({ theme }) => theme.color.gray};
+	}
 `;
 
 const SignUpBtn = styled.span`
