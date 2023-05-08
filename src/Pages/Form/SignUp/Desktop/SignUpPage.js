@@ -124,7 +124,14 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<input
-								{...register('confirmPW', FORM_TYPE.PASSWORD_CHECK)}
+								{...register('confirmPW', {
+									required: true,
+									validate: value => {
+										if (watch('password') !== value) {
+											return '비밀번호를 다시 확인해 주세요';
+										}
+									},
+								})}
 								placeholder="PW check"
 								type="password"
 							/>
@@ -157,7 +164,13 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<input
-								{...register('phone', FORM_TYPE.PHONE)}
+								{...register('phone', {
+									required: '전화번호를 입력해주세요',
+									pattern: {
+										value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
+										message: '000-0000-0000 형태로 입력해주세요',
+									},
+								})}
 								placeholder="010-0000-0000 ('-'포함해서 입력해주세요)"
 							/>
 						</S.InputBoxWrap>

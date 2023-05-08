@@ -1,4 +1,5 @@
 // form type 설정
+
 export const FORM_TYPE = {
 	EMAIL: {
 		required: 'email을 입력해주세요',
@@ -29,27 +30,10 @@ export const FORM_TYPE = {
 		},
 	},
 
-	PASSWORD_CHECK: {
-		required: true,
-		validate: value => {
-			if (watch('password') !== value) {
-				return '비밀번호를 다시 확인해 주세요';
-			}
-		},
-	},
-
 	NICKNAME: {
 		required: true,
 		pattern: {
 			message: '닉네임을 입력해주세요',
-		},
-	},
-
-	PHONE: {
-		required: '전화번호를 입력해주세요',
-		pattern: {
-			value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
-			message: '000-0000-0000 형태로 입력해주세요',
 		},
 	},
 };
