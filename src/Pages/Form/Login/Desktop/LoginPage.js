@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import UserApi from 'Apis/userApi';
+import { FORM_TYPE } from 'Consts/FormType';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -45,25 +46,10 @@ const LoginPage = () => {
 				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<p>로그인</p>
-					<input
-						{...register('email', {
-							required: 'email을 입력해주세요',
-							pattern: {
-								value:
-									/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
-								message: 'email 형식에 맞지 않습니다',
-							},
-						})}
-						placeholder="E-mail"
-					/>
+					<input {...register('email', FORM_TYPE.EMAIL)} placeholder="E-mail" />
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<input
-						{...register('password', {
-							required: true,
-							pattern: {
-								message: '비밀번호가 일치하지 않습니다.',
-							},
-						})}
+						{...register('password', FORM_TYPE.PASSWORD_simple)}
 						placeholder="PW"
 						type="password"
 					/>
