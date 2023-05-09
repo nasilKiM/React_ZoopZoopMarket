@@ -37,8 +37,18 @@ const DesktopMainPage = () => {
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
-			<Preview products={data.freeProduct}></Preview>
-			<Preview products={data.usedProduct}></Preview>
+			<Preview
+				category={0}
+				location={data.region}
+				products={data.usedProduct}
+				userData={data}
+			></Preview>
+			<Preview
+				category={1}
+				location={data.region}
+				products={data.freeProduct}
+				userData={data}
+			></Preview>
 		</S.Wrapper>
 	);
 };

@@ -1,23 +1,38 @@
+import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ItemCard = ({ product }) => {
-	// const navigate = useNavigate();
+	console.log(product);
+	const navigate = useNavigate();
+
+	const onClickCard = async () => {
+		const id = product.idx;
+		try {
+			const res = await ProductApi.detail(id);
+			console.log(res);
+			// navigate('/item_detail');
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<S.Wrapper>
-			{/*onClick={() => navigate(`/detail/${item.id}`)} */}
 			<S.Container>
 				<S.Heart>
 					<HeartBtn />
 				</S.Heart>
-				<S.ItemImg src={product.img_url} />
-				<S.ItemInfo>
-					<S.ItemTitle>{product.title}</S.ItemTitle>
-					<S.ItemPrice>{product.price}원</S.ItemPrice>
-					<S.ItemTag>#태그</S.ItemTag>
-				</S.ItemInfo>
+				<div onClick={onClickCard}>
+					<S.ItemImg src={product.img_url} />
+					<S.ItemInfo>
+						<S.ItemTitle>{product.title}</S.ItemTitle>
+						<S.ItemPrice>{product.price}원</S.ItemPrice>
+						<S.ItemTag>#{product.ProductTags}</S.ItemTag>
+					</S.ItemInfo>
+				</div>
 			</S.Container>
 		</S.Wrapper>
 	);
@@ -36,8 +51,9 @@ const Container = styled.div`
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	border: 1px solid black;
+	border: 1px solid lightgray;
 `;
+
 const Heart = styled.div`
 	position: absolute;
 	width: 25px;
@@ -49,7 +65,6 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	position: relative;
-	border: 1px solid red;
 	max-width: 200px;
 	width: 100%;
 	height: 250px;
