@@ -9,18 +9,18 @@ import { FORM_TYPE } from 'Consts/FormType';
 const LoginPage = () => {
 	const navigate = useNavigate();
 
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors },
-	} = useForm({ mode: 'onChange' });
-
 	useEffect(() => {
 		if (TokenService.getToken()) {
+			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
 			navigate('/main');
 		}
 	}, []);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
 
 	const onSubmit = async data => {
 		try {
