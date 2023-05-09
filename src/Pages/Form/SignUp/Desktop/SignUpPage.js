@@ -17,23 +17,26 @@ const SignUpPage = () => {
 		register,
 		handleSubmit,
 		watch,
+		setValue,
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = data => {
+	const onSubmit = async data => {
+		const info = {
+			email: data.email,
+			pw: data.password,
+			nickName: data.nick,
+			phone: data.phone,
+			region: address,
+		};
+
 		try {
-			UserApi.signup({
-				email: data.email,
-				pw: data.password,
-				nickName: data.nick,
-				phone: data.phone,
-				region: address,
-			});
+			await UserApi.signup(info);
 			alert('회원가입이 완료되었습니다.');
 			navigate('/form/login');
 		} catch (err) {
-			return;
+			alert(err.response.data.message);
 		}
 	};
 
@@ -41,7 +44,7 @@ const SignUpPage = () => {
 		e.preventDefault();
 		const value = getValues('email');
 		try {
-			const res = await UserApi.checkEmail({ email: value });
+			const res = await UserApi.checkEmail(value);
 			setIdMsg(res.data.message);
 		} catch (err) {
 			setIdMsg(err.response.data.message);
@@ -57,7 +60,7 @@ const SignUpPage = () => {
 		e.preventDefault();
 		const value = getValues('nick');
 		try {
-			const res = await UserApi.checkNickname({ nickname: value });
+			const res = await UserApi.checkNickname(value);
 			setNickMsg(res.data.message);
 		} catch (err) {
 			setNickMsg(err.response.data.message);
@@ -164,14 +167,18 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<input
+								maxLength="13"
 								{...register('phone', {
-									required: '전화번호를 입력해주세요',
-									pattern: {
-										value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
-										message: '000-0000-0000 형태로 입력해주세요',
+									onChange: e => {
+										setValue(
+											'phone',
+											e.target.value
+												.replace(/[^0-9]/g, '')
+												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+										);
 									},
 								})}
-								placeholder="010-0000-0000 ('-'포함해서 입력해주세요)"
+								placeholder="010-0000-0000"
 							/>
 						</S.InputBoxWrap>
 					</S.InputWrap>

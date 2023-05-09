@@ -16,11 +16,11 @@ const FindAddress = ({ setter }) => {
 
 	const [popup, setPopup] = useState(false);
 
-	const handleComplete = () => {
+	const handleComplete = e => {
+		e.preventDefault();
 		setPopup(!popup);
 	};
 
-	console.log('주소 찾기 결과 ----->', address);
 	setter(address);
 	return (
 		<div className="address_search">
