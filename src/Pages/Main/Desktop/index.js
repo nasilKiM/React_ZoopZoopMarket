@@ -2,53 +2,33 @@ import styled from 'styled-components';
 import Preview from './Components/preview';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import TokenService from 'Repository/TokenService';
-import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
+import { Link } from 'react-router-dom';
+import UserApi from 'Apis/userApi';
 
 const DesktopMainPage = () => {
 	const navigate = useNavigate();
+
 	const logout = async () => {
-		const res = await Axios.get('/api/user/logout');
-		console.log(res);
+		await UserApi.logout();
 		TokenService.removeToken();
 		navigate('/');
 	};
 
-	const [data, setData] = useState({
-		freeProduct: [],
-		usedProduct: [],
-		region: '',
-	});
-
-	const cardList = async () => {
-		const res = await Axios.get('/api/product');
-		console.log('----->', res);
-		setData(res.data);
-	};
-
-	useEffect(() => {
-		cardList();
-	}, []);
-
 	return (
 		<S.Wrapper>
 			<button onClick={logout}>로그아웃</button>
+			<Link to={'/register'}>
+				<S.BtnSection>
+					<RegisterBtn />
+				</S.BtnSection>
+			</Link>
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
-			<Preview
-				category={0}
-				location={data.region}
-				products={data.usedProduct}
-				userData={data}
-			></Preview>
-			<Preview
-				category={1}
-				location={data.region}
-				products={data.freeProduct}
-				userData={data}
-			></Preview>
+			<Preview category={0}></Preview>
+			<Preview category={1}></Preview>
 		</S.Wrapper>
 	);
 };
@@ -72,7 +52,13 @@ const SearchSection = styled.div`
 	align-items: center;
 	justify-content: center;
 `;
+
+const BtnSection = styled.div`
+	width: 50px;
+	height: 50px;
+`;
 const S = {
 	Wrapper,
 	SearchSection,
+	BtnSection,
 };

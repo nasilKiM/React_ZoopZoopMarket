@@ -1,13 +1,18 @@
-import ItemCard from 'Components/Card/Desktop/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ProductApi from 'Apis/productApi';
+import { useEffect } from 'react';
+import ItemCard from 'Components/Card/Desktop/Card';
 
-const Preview = ({ category, location, products }) => {
+const Preview = ({ category }) => {
+	const [data, setData] = useState();
+	const products =
+		data && (category === 0 ? data.usedProduct : data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 물품' : '무료나눔';
 	let categoryText =
 		category === 0
-			? `${location} 인기 줍줍템!`
+			? `${data && data.region} 인기 줍줍템!`
 			: `회원님 주변의 무료나눔 물품들 이에요!`;
 
 	const [swiper, setSwiper] = useState(null);
@@ -20,6 +25,15 @@ const Preview = ({ category, location, products }) => {
 		swiper.slidePrev();
 	};
 
+	const List = async () => {
+		const res = await ProductApi.mainList();
+		setData(res.data);
+	};
+
+	useEffect(() => {
+		List();
+	}, []);
+
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
@@ -30,9 +44,9 @@ const Preview = ({ category, location, products }) => {
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
 				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={3}>
-					{products.map(item => (
+					{products?.map(item => (
 						<SwiperSlide>
-							<ItemCard key={item} product={item} isFree={true} />
+							<ItemCard key={item} index={item.idx} />
 						</SwiperSlide>
 					))}
 				</Swiper>

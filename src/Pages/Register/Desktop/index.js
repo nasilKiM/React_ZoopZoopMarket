@@ -5,9 +5,11 @@ import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
+	const navigate = useNavigate();
 
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
@@ -73,6 +75,7 @@ const RegisterPage = () => {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			alert('물품등록이 완료되었습니다.');
+			navigate('/form/login');
 		} catch (err) {
 			return console.log(err);
 		}
