@@ -23,5 +23,11 @@ const UserApi = {
 	refreshToken() {
 		return Axios.get(PATH + '/refreshToken');
 	},
+	userInfo() {
+		return Axios.get(PATH + '/info');
+	},
+	myPage() {
+		return Axios.get(PATH + '/my-page');
+	},
 };
 export default UserApi;

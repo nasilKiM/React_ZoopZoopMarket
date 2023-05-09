@@ -8,13 +8,13 @@ import { flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const MannerMeter = () => {
-	const score = (Math.random() * 50).toFixed(1);
+const MannerMeter = ({ ondo }) => {
+	// const score = (Math.random() * 50).toFixed(1);
 	const [state, setState] = useState(false);
 	return (
 		<S.Wrapper>
-			<div>{score}점</div>
-			{score >= 36.5 && (
+			<div>{ondo}점</div>
+			{ondo >= 36.5 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceSmileWink}
@@ -31,7 +31,7 @@ const MannerMeter = () => {
 					)}
 				</>
 			)}
-			{score < 36.5 && score >= 30 && (
+			{ondo < 36.5 && ondo >= 30 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceMeh}
@@ -48,7 +48,7 @@ const MannerMeter = () => {
 					)}
 				</>
 			)}
-			{score < 30 && (
+			{ondo < 30 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceDizzy}

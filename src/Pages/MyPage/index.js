@@ -1,12 +1,17 @@
 import ToggleBar from 'Components/Toggle/Toggle';
 import MyProfile from './Components/MyPofile/myProfile';
 import styled from 'styled-components';
+import { useState } from 'react';
+import MyUserEdit from './MyUserEdit/Desktop/myUserEdit';
 
 const MyPage = () => {
+	const [ToggleState, setToggleState] = useState();
+
 	return (
 		<S.Wrapper>
 			<MyProfile />
-			<ToggleBar />
+			<ToggleBar setToggleState={setToggleState} />
+			{ToggleState === '유저 정보 수정' && <MyUserEdit />}
 		</S.Wrapper>
 	);
 };

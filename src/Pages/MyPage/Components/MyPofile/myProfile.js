@@ -1,18 +1,30 @@
+import UserApi from 'Apis/userApi';
 import MannerMeter from 'Components/Icon/Icon';
 import Profile from 'Components/Profile/Desktop/profile';
 import { flexAllCenter } from 'Styles/common';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const MyProfile = () => {
+	const [myProfile, setMyProfile] = useState();
+	useEffect(() => {
+		const getProfile = async () => {
+			const res = await UserApi.myPage();
+			setMyProfile(res.data);
+			console.log(res.data);
+		};
+		getProfile();
+	}, []);
+
 	return (
 		<S.Wrapper>
 			<div>
 				<div>
 					<Profile />
 				</div>
-				<div>닉네임</div>
+				<div>{myProfile?.User.nickName}</div>
 				<S.Icon>
-					<MannerMeter />
+					<MannerMeter ondo={myProfile?.ondo} />
 				</S.Icon>
 				<div>내 지역</div>
 			</div>

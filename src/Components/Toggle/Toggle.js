@@ -1,14 +1,19 @@
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const ToggleBar = () => {
+const ToggleBar = ({ setToggleState }) => {
+	const onClickToggle = e => {
+		const { innerText } = e.target;
+		setToggleState(innerText);
+	};
+
 	return (
 		<S.Wrapper>
-			<div>내 등록템</div>
-			<div>유저 정보 수정</div>
-			<div>내 관심템</div>
-			<div>가계부</div>
-			<div>내 후기</div>
+			<div onClick={onClickToggle}>내 등록템</div>
+			<div onClick={onClickToggle}>유저 정보 수정</div>
+			<div onClick={onClickToggle}>내 관심템</div>
+			<div onClick={onClickToggle}>가계부</div>
+			<div onClick={onClickToggle}>내 후기</div>
 		</S.Wrapper>
 	);
 };
