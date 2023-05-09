@@ -14,7 +14,7 @@ const UserApi = {
 	},
 	checkNickname({ nickname }) {
 		return Axios.get(PATH + '/check/nickname', {
-			params: { re: nickname },
+			params: { nickname },
 		});
 	},
 	logout() {

@@ -16,7 +16,6 @@ const SignUpPage = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
@@ -51,7 +50,7 @@ const SignUpPage = () => {
 	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
-	}, [watch('email')]);
+	}, [getValues('email')]);
 
 	const onCheckNick = async e => {
 		e.preventDefault();
@@ -66,7 +65,7 @@ const SignUpPage = () => {
 
 	useEffect(() => {
 		setNickMsg();
-	}, [watch('nick')]);
+	}, [getValues('nick')]);
 
 	const full =
 		!errors.email &&
@@ -93,10 +92,7 @@ const SignUpPage = () => {
 								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button
-								onClick={onCheckId}
-								disabled={errors.email || !watch('email')}
-							>
+							<button onClick={onCheckId} disabled={errors.email || !'email'}>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
@@ -127,7 +123,7 @@ const SignUpPage = () => {
 								{...register('confirmPW', {
 									required: true,
 									validate: value => {
-										if (watch('password') !== value) {
+										if (getValues('password') !== value) {
 											return '비밀번호를 다시 확인해 주세요';
 										}
 									},
@@ -148,10 +144,7 @@ const SignUpPage = () => {
 								{...register('nick', FORM_TYPE.NICKNAME)}
 								placeholder="Nick_Name"
 							/>
-							<button
-								onClick={onCheckNick}
-								disabled={errors.nick || !watch('nick')}
-							>
+							<button onClick={onCheckNick} disabled={errors.nick || !'nick'}>
 								중복확인
 							</button>
 						</S.InputBoxWrap>

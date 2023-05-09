@@ -28,14 +28,14 @@ const RegisterPage = () => {
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			if (newTag) {
 				setTags([...tags, newTag]);
-				e.target.value = ''; // 입력창 초기화
+				e.target.value = ''; 
 			}
 		}
 	};
 	const handleDelete = deleteTag => e => {
 		console.log('!!!!!!', e);
 		e.preventDefault();
-		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag)); //tagToRemove와 일치하지 않는 모든 요소를 포함하는 새로운 배열을 반환
+		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
 	};
 
 	const handlePriceChange = e => {
