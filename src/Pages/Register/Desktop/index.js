@@ -61,7 +61,7 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
-			formData.append('price', Number(data.price));
+			formData.append('price', Number(data.price.replace(/,/g, '')));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
@@ -108,7 +108,7 @@ const RegisterPage = () => {
 						{...register('price', {
 							required: '가격은 필수 사항입니다.',
 							pattern: {
-								value: /^[0-9]+$/,
+								value: /^[0-9,]+$/,
 								message: '숫자만 입력해주세요',
 							},
 						})}

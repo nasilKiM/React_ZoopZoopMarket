@@ -5,20 +5,48 @@ const UploadFiles = ({ register }) => {
 	const [imgSrc, setImgSrc] = useState([]);
 	const [selectedImgIndex, setSelectedImgIndex] = useState(null);
 
-	const onUpload = e => {
+	const onUpload = async e => {
 		const fileArr = e.target.files;
-		let fileURLs = [];
-		let filesLength = fileArr.length > 5 ? 5 : fileArr.length;
+		const fileURLs = [];
 
-		for (let i = 0; i < filesLength; i++) {
-			const reader = new FileReader();
-			reader.readAsDataURL(fileArr[i]);
-			reader.onload = () => {
-				fileURLs[i] = reader.result;
-				setImgSrc(fileURLs);
-			};
+		for (let i = 0; i < fileArr.length && i < 5; i++) {
+			const file = fileArr[i];
+			const fileURL = await readFileAsync(file); // Promise로 파일을 읽음
+			fileURLs.push(fileURL);
 		}
+
+		setImgSrc(fileURLs);
 	};
+
+	const readFileAsync = file => {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = reject;
+			reader.readAsDataURL(file);
+		});
+	};
+
+	/*
+	(아래)
+	reader.onload 이벤트가 비동기적으로 발생하기 때문에, 이미지 URL이 fileURLs 배열에
+	순서대로 저장되지 않을 수 있습니다. 이는 이미지가 뒤늦게 미리보기에 나타나는 원인
+	*/
+
+	// const onUpload = e => {
+	// 	const fileArr = e.target.files;
+	// 	let fileURLs = [];
+	// 	let filesLength = fileArr.length > 5 ? 5 : fileArr.length;
+
+	// 	for (let i = 0; i < filesLength; i++) {
+	// 		const reader = new FileReader();
+	// 		reader.readAsDataURL(fileArr[i]);
+	// 		reader.onload = () => {
+	// 			fileURLs[i] = reader.result;
+	// 			setImgSrc(fileURLs);
+	// 		};
+	// 	}
+	// };
 
 	const onClickDelete = idx => {
 		if (imgSrc.length === 0) return;

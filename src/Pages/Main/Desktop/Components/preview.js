@@ -3,12 +3,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const Preview = ({ categoryData, userLocation, userName, products }) => {
-	let category = categoryData === 1 ? '중고 물품' : '무료나눔';
+const Preview = ({ category, location, products }) => {
+	let categoryDeclare = category === 0 ? '중고 물품' : '무료나눔';
 	let categoryText =
-		categoryData === 1
-			? `${userLocation} 인기 줍줍템!`
-			: `${userName}님 주변의 무료나눔 물품들 이에요!`;
+		category === 0
+			? `${location} 인기 줍줍템!`
+			: `회원님 주변의 무료나눔 물품들 이에요!`;
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -23,7 +23,7 @@ const Preview = ({ categoryData, userLocation, userName, products }) => {
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
-				<S.CategoryBox>{category}</S.CategoryBox>
+				<S.CategoryBox>{categoryDeclare}</S.CategoryBox>
 				<S.CategoryText>{categoryText}</S.CategoryText>
 				<S.More> 더보기 &gt; </S.More>
 			</S.UpperSwiper>
