@@ -14,9 +14,11 @@ const ProductApi = {
 			images,
 		});
 	},
-	mainList({ region, usedProduct, freeProduct }) {
-		return Axios.get(PATH, { region, usedProduct, freeProduct });
+
+	mainList() {
+		return Axios.get(PATH);
 	},
+
 	detail(id) {
 		return Axios.get(PATH + '/detail', {
 			params: { prod_idx: id },

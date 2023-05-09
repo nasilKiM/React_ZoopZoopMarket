@@ -1,22 +1,15 @@
-import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ItemCard = ({ product }) => {
-	console.log(product);
+const ItemCard = ({ index }) => {
 	const navigate = useNavigate();
 
 	const onClickCard = async () => {
-		const id = product.idx;
-		try {
-			const res = await ProductApi.detail(id);
-			console.log(res);
-			// navigate('/item_detail');
-		} catch (err) {
-			console.log(err);
-		}
+		console.log('dddddd');
+		console.log(index);
+		navigate(`/item_detail/${index}`);
 	};
 
 	return (
@@ -26,11 +19,11 @@ const ItemCard = ({ product }) => {
 					<HeartBtn />
 				</S.Heart>
 				<div onClick={onClickCard}>
-					<S.ItemImg src={product.img_url} />
+					<S.ItemImg />
 					<S.ItemInfo>
-						<S.ItemTitle>{product.title}</S.ItemTitle>
-						<S.ItemPrice>{product.price}원</S.ItemPrice>
-						<S.ItemTag>#{product.ProductTags}</S.ItemTag>
+						<S.ItemTitle></S.ItemTitle>
+						<S.ItemPrice>원</S.ItemPrice>
+						<S.ItemTag>#</S.ItemTag>
 					</S.ItemInfo>
 				</div>
 			</S.Container>
