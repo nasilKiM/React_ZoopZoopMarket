@@ -29,7 +29,7 @@ const Preview = ({ categoryData, userLocation, userName, products }) => {
 			</S.UpperSwiper>
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
-				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={4}>
+				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={3}>
 					{products.map(item => (
 						<SwiperSlide>
 							<ItemCard key={item} product={item} isFree={true} />

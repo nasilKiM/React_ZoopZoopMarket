@@ -16,14 +16,13 @@ const RegisterPage = () => {
 		register,
 		handleSubmit,
 		setError,
-		setValue,
 		clearErrors,
+		setValue,
 		formState: { errors },
 	} = useForm();
 
 	const handleKeyDown = e => {
 		if (e.keyCode === 13) {
-			// 엔터키 눌림.
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
@@ -65,11 +64,9 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
-			// console.log('>>>>>>>>>>>>>', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
-			// formData.append('images', data.mainImg);
 			// 참고 : https://pobsiz.tistory.com/12 (3번)
 			// 같은 키값에 코드를 여러번 실행시켜야함.?
 			Axios.post('/api/product', formData, {

@@ -16,7 +16,7 @@ const ItemCard = ({ product }) => {
 				<S.ItemInfo>
 					<S.ItemTitle>{product.title}</S.ItemTitle>
 					<S.ItemPrice>{product.price}원</S.ItemPrice>
-					{/* <S.ItemTag>#{product.ProductsTags}</S.ItemTag> */}
+					<S.ItemTag>#태그</S.ItemTag>
 				</S.ItemInfo>
 			</S.Container>
 		</S.Wrapper>
@@ -49,11 +49,12 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	position: relative;
+	border: 1px solid red;
+	max-width: 200px;
 	width: 100%;
-	padding: 15px;
-	max-height: 250px;
+	height: 250px;
 	object-fit: cover;
-	margin: auto;
+	padding: 10px;
 `;
 
 const ItemInfo = styled.div`
