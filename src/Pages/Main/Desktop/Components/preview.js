@@ -1,17 +1,14 @@
-import { Axios } from 'Apis/@core';
 import ItemCard from 'Components/Card/Desktop/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const Preview = ({ categoryData, userLocation, userName }) => {
+const Preview = ({ categoryData, userLocation, userName, products }) => {
 	let category = categoryData === 1 ? '중고 물품' : '무료나눔';
 	let categoryText =
 		categoryData === 1
 			? `${userLocation} 인기 줍줍템!`
 			: `${userName}님 주변의 무료나눔 물품들 이에요!`;
-
-	const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -23,25 +20,19 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 		swiper.slidePrev();
 	};
 
-	const cardList = async () => {
-		const res = await Axios.get('/api/product');
-		console.log(res);
-		return res.data;
-	};
-
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
 				<S.CategoryBox>{category}</S.CategoryBox>
 				<S.CategoryText>{categoryText}</S.CategoryText>
-				<S.More onClick={cardList}> 더보기 &gt; </S.More>
+				<S.More> 더보기 &gt; </S.More>
 			</S.UpperSwiper>
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
-				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={4}>
-					{itemList.map(item => (
+				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={3}>
+					{products.map(item => (
 						<SwiperSlide>
-							<ItemCard key={item} product={cardList} />
+							<ItemCard key={item} product={item} isFree={true} />
 						</SwiperSlide>
 					))}
 				</Swiper>

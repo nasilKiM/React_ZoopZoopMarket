@@ -14,9 +14,18 @@ const RegisterPage = () => {
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 
+	const {
+		register,
+		handleSubmit,
+		setError,
+		clearErrors,
+		setValue,
+		formState: { errors },
+	} = useForm();
+
 	const handleKeyDown = e => {
 		if (e.keyCode === 13) {
-			// 엔터키 눌림.
+			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			if (newTag) {
@@ -25,10 +34,10 @@ const RegisterPage = () => {
 			}
 		}
 	};
-	const handleDelete = e => {
+	const handleDelete = deleteTag => e => {
 		console.log('!!!!!!', e);
-		//setTags(prevTags => prevTags.filter(tag => tag !== tagToRemove)); //tagToRemove와 일치하지 않는 모든 요소를 포함하는 새로운 배열을 반환
-		//() => handleDelete(tag)와 같이 콜백 함수 형태로 작성하여, 클릭 이벤트가 발생했을 때에만 함수가 실행되도록
+		e.preventDefault();
+		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag)); //tagToRemove와 일치하지 않는 모든 요소를 포함하는 새로운 배열을 반환
 	};
 
 	const handlePriceChange = e => {
@@ -38,13 +47,17 @@ const RegisterPage = () => {
 		const formattedPrice = priceValue.toLocaleString();
 		setPrice(formattedPrice);
 	};
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
 
 	const onSubmit = data => {
+		if (tags.length === 0) {
+			//리액트 훅폼으로 에러메세지 셋팅
+			setError(
+				'tag', //에러 이름. 기존에 있는 것과 겹칠시 그쪽으로 에러 들어감
+				{ message: '1개이상 꼭 입력해주세요.' }, //errors에 넣을 에러 메시지
+				{ shouldFocus: true }, //에러 발생시 해당 구간에 포커스하게 하는 설정
+			);
+			return;
+		} else setValue('', ''); //값이 유효하면 set!
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
@@ -52,9 +65,15 @@ const RegisterPage = () => {
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
-			formData.append('tag', [data.tag]);
-			formData.append('images', data.mainImg);
-			Axios.post('/api/product', formData);
+			formData.append('tag', tags);
+			[...data.mainImg].forEach(element => {
+				formData.append('images', element);
+			});
+			// 참고 : https://pobsiz.tistory.com/12 (3번)
+			// 같은 키값에 코드를 여러번 실행시켜야함.?
+			Axios.post('/api/product', formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			});
 			alert('물품등록이 완료되었습니다.');
 			navigate('/form/login');
 		} catch (err) {
@@ -105,13 +124,6 @@ const RegisterPage = () => {
 				<S.Title>태그</S.Title>
 				<S.InputContainer>
 					<S.InputBox
-						placeholder="#재훈이네 #금쪽이 #이재훈"
-						{...register('tag', {
-							required: '1개이상 꼭 입력해주세요.',
-						})}
-						value={tags}
-					></S.InputBox>
-					<S.InputBox
 						placeholder="이곳에 입력해주세요."
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
@@ -121,7 +133,7 @@ const RegisterPage = () => {
 							tags.map((tag, index) => (
 								<S.TagBox key={index}>
 									{tag}
-									<button onClick={e => handleDelete(e)}>x</button>
+									<button onClick={e => handleDelete(tag)(e)}>x</button>
 								</S.TagBox>
 							))}
 					</S.TagWrapper>

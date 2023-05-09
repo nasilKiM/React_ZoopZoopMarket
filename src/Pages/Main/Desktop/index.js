@@ -6,6 +6,7 @@ import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const DesktopMainPage = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,22 @@ const DesktopMainPage = () => {
 		return navigate('register');
 	};
 
+	const [data, setData] = useState({
+		freeProduct: [],
+		usedProduct: [],
+		region: '',
+	});
+
+	const cardList = async () => {
+		const res = await Axios.get('/api/product');
+		console.log('----->', res);
+		setData(res.data);
+	};
+
+	useEffect(() => {
+		cardList();
+	}, []);
+
 	return (
 		<S.Wrapper>
 			<button onClick={logout}>로그아웃</button>
@@ -31,8 +48,8 @@ const DesktopMainPage = () => {
 			<S.SearchSection>
 				<SearchBar />
 			</S.SearchSection>
-			<Preview></Preview>
-			<Preview></Preview>
+			<Preview products={data.freeProduct}></Preview>
+			<Preview products={data.usedProduct}></Preview>
 		</S.Wrapper>
 	);
 };
