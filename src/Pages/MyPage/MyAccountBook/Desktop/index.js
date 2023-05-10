@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+import AccountBookSelector from "./Components/selector";
+import AccountBookDetailInfo from "./Components/detailInfo";
 
 const AccountBookPage = () => {
 
