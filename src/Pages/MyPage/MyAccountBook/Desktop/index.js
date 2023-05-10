@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 const AccountBookPage = () => {
 
 	// /api/user/my-page/account-book?category=seller&start=2023-04-01&end=2023-05-02&page=1
