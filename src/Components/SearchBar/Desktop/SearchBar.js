@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { Axios } from 'Apis/@core';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
@@ -12,15 +11,6 @@ const SearchBar = () => {
 
 		try {
 			let searchWord = e.target.searchKey.value;
-
-			const res = await Axios.get('/api/product/search', {
-				params: {
-					keyword: searchWord,
-					page: 1,
-				},
-			});
-
-			console.log(res);
 			navigate(`/search_list/${searchWord}`);
 		} catch (err) {
 			console.log(err);
