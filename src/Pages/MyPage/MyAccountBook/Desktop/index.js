@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import AccountBookSelector from "./Components/selector";
-import AccountBookDetailInfo from "./Components/detailInfo";
+import styled from 'styled-components';
+import AccountBookSelector from './Components/selector';
+import AccountBookDetailInfo from './Components/detailInfo';
 
 const AccountBookPage = () => {
-	
-	return(
-	  <S.Wrapper>
-		<AccountBookSelector/>
-		<AccountBookDetailInfo/>
-	  </S.Wrapper>
-	) 
+	return (
+		<S.Wrapper>
+			<AccountBookSelector />
+			<AccountBookDetailInfo />
+		</S.Wrapper>
+	);
 };
 
 export default AccountBookPage;
@@ -23,4 +22,4 @@ const Wrapper = styled.div`
 
 const S = {
 	Wrapper,
-}
+};

@@ -7,13 +7,20 @@ const ToggleBar = ({ setToggleState }) => {
 		setToggleState(innerText);
 	};
 
+	const ToggleMenu = [
+		'내 등록템',
+		'내 관심템',
+		'가계부',
+		'내 후기',
+		'유저 정보 수정',
+		'비밀번호 변경',
+	];
+
 	return (
 		<S.Wrapper>
-			<div onClick={onClickToggle}>내 등록템</div>
-			<div onClick={onClickToggle}>유저 정보 수정</div>
-			<div onClick={onClickToggle}>내 관심템</div>
-			<div onClick={onClickToggle}>가계부</div>
-			<div onClick={onClickToggle}>내 후기</div>
+			{ToggleMenu.map(menu => (
+				<div onClick={onClickToggle}>{menu}</div>
+			))}
 		</S.Wrapper>
 	);
 };
@@ -25,7 +32,8 @@ const Wrapper = styled.div`
 	${flexAllCenter}
 	& > div {
 		margin: 0 30px;
-		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-size: ${({ theme }) => theme.fontSize.md};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 

@@ -1,11 +1,12 @@
 import UserApi from 'Apis/userApi';
 import MannerMeter from 'Components/Icon/Icon';
 import Profile from 'Components/Profile/Desktop/profile';
+
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const MyProfile = () => {
+const MyProfile = ({ userInfo }) => {
 	const [myProfile, setMyProfile] = useState();
 	useEffect(() => {
 		const getProfile = async () => {
