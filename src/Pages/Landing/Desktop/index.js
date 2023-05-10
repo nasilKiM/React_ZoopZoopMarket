@@ -1,8 +1,18 @@
 import BasicFooter from 'Components/Layout/Footer';
-import { Link } from 'react-router-dom';
+import TokenService from 'Repository/TokenService';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LandingPage = () => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (TokenService.getToken()) {
+			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
+			navigate('/main');
+		}
+	}, []);
+
 	return (
 		<>
 			<S.Wrapper>
