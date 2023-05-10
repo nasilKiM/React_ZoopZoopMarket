@@ -12,7 +12,6 @@ const LoginPage = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -23,11 +22,12 @@ const LoginPage = () => {
 	}, []);
 
 	const onSubmit = async data => {
+		const loginInfo = {
+			email: data.email,
+			pw: data.password,
+		};
 		try {
-			const res = await UserApi.login({
-				email: data.email,
-				pw: data.password,
-			});
+			const res = await UserApi.login(loginInfo);
 			TokenService.setToken(res.data.tokenForHeader);
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			navigate('/main');
@@ -56,7 +56,7 @@ const LoginPage = () => {
 						type="password"
 					/>
 					<S.Button disabled={!full}>로그인</S.Button>
-					<S.SignUpBtn onClick={() => navigate(`${USER_API_PATH}/signup`)}>
+					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
 						신규회원이신가요?
 					</S.SignUpBtn>
 				</S.Form>

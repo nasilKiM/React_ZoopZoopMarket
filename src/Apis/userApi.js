@@ -9,10 +9,10 @@ const UserApi = {
 	signup({ email, pw, nickName, phone, region }) {
 		return Axios.post(PATH, { email, pw, nickName, phone, region });
 	},
-	checkEmail({ email }) {
+	checkEmail(email) {
 		return Axios.get(PATH + '/check/email', { params: { email } });
 	},
-	checkNickname({ nickname }) {
+	checkNickname(nickname) {
 		return Axios.get(PATH + '/check/nickname', {
 			params: { nickname },
 		});
