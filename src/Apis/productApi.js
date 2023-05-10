@@ -14,22 +14,15 @@ const ProductApi = {
 			images,
 		});
 	},
-	mainList({ region, usedProduct, freeProduct }) {
-		return Axios.get(PATH, { region, usedProduct, freeProduct });
+
+	mainList() {
+		return Axios.get(PATH);
 	},
 
-	signup(email, password) {
-		return Axios.post(PATH + '/sign', { email, password });
+	detail(id) {
+		return Axios.get(PATH + '/detail', {
+			params: { prod_idx: id },
+		});
 	},
-
-	async logout() {
-		const res = await Axios.post(PATH + '/logout');
-		return res.data;
-	},
-
-	// async jwtRefresh() {
-	// 	const res = await Axios.post(PATH + '/jwtRefresh');
-	// 	return res.data;
-	// },
 };
 export default ProductApi;

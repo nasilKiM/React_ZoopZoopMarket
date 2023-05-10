@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 				element: <FormPage />,
 			},
 			{
-				path: 'item_detail',
+				path: 'item_detail/:idx',
 				element: <ItemDetailPage />,
 			},
 			{

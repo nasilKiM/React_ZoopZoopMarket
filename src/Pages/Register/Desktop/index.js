@@ -5,9 +5,11 @@ import { useState } from 'react';
 import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
+	const navigate = useNavigate();
 
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
@@ -16,27 +18,26 @@ const RegisterPage = () => {
 		register,
 		handleSubmit,
 		setError,
-		setValue,
 		clearErrors,
+		setValue,
 		formState: { errors },
 	} = useForm();
 
 	const handleKeyDown = e => {
 		if (e.keyCode === 13) {
-			// 엔터키 눌림.
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			if (newTag) {
 				setTags([...tags, newTag]);
-				e.target.value = ''; // 입력창 초기화
+				e.target.value = ''; 
 			}
 		}
 	};
 	const handleDelete = deleteTag => e => {
 		console.log('!!!!!!', e);
 		e.preventDefault();
-		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag)); //tagToRemove와 일치하지 않는 모든 요소를 포함하는 새로운 배열을 반환
+		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
 	};
 
 	const handlePriceChange = e => {
@@ -60,22 +61,21 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
-			formData.append('price', Number(data.price));
+			formData.append('price', Number(data.price.replace(/,/g, '')));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
-			// console.log('>>>>>>>>>>>>>', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
-			// formData.append('images', data.mainImg);
 			// 참고 : https://pobsiz.tistory.com/12 (3번)
 			// 같은 키값에 코드를 여러번 실행시켜야함.?
 			Axios.post('/api/product', formData, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			alert('물품등록이 완료되었습니다.');
+			navigate('/form/login');
 		} catch (err) {
 			return console.log(err);
 		}
@@ -108,7 +108,7 @@ const RegisterPage = () => {
 						{...register('price', {
 							required: '가격은 필수 사항입니다.',
 							pattern: {
-								value: /^[0-9]+$/,
+								value: /^[0-9,]+$/,
 								message: '숫자만 입력해주세요',
 							},
 						})}
