@@ -5,13 +5,13 @@ import { flexAllCenter } from 'Styles/common';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import KaMap from 'Components/Map/Map';
 
-const BuyerDetailPage = ({ state }) => {
-	const item = state && state.data.searchProduct;
+const BuyerDetailPage = ({ state, product }) => {
+	const item = product && product.data.searchProduct;
 	console.log(item);
 	return (
 		<S.Wrapper>
 			<DetailHead item={item} />
-			<DetailContent state={state} />
+			<DetailContent state={state} item={item} />
 			<S.MapContent>
 				<div>거래장소</div>
 				<KaMap />

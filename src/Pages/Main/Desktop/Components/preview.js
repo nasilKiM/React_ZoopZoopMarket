@@ -28,7 +28,6 @@ const Preview = ({ category }) => {
 	const List = async () => {
 		const res = await ProductApi.mainList();
 		setData(res.data);
-		console.log(res.data);
 	};
 
 	useEffect(() => {

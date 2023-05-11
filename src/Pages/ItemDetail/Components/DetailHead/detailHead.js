@@ -13,7 +13,7 @@ const DetailHead = ({ item }) => {
 	return (
 		item && (
 			<S.Wrapper>
-				<ProductImg />
+				<ProductImg main={item.img_url} sub={item.ProductImages} />
 				<S.ProductWrapper>
 					<S.UserProfile>
 						<S.ProfileWrapper>
@@ -27,8 +27,6 @@ const DetailHead = ({ item }) => {
 					<S.UserProfileDetail>
 						<ul>
 							<MannerMeter ondo={item.User.Ondo.ondo} />
-							<li>매너점수</li>
-							<li>총 거래건수 : OO건</li>
 						</ul>
 					</S.UserProfileDetail>
 				</S.ProductWrapper>

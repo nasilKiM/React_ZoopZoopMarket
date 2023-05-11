@@ -1,28 +1,13 @@
-import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ItemCard = ({ index, products }) => {
-	const [liked, setLiked] = useState(products && products.liked);
 	const navigate = useNavigate();
 
 	const onClickCard = async () => {
-		console.log(index);
 		navigate(`/item_detail/${index}`);
-	};
-
-	const toggleLiked = async () => {
-		try {
-			const response = await ProductApi.likedBtn(index);
-			if (response.status === 200) {
-				setLiked(prev => (prev === 1 ? 0 : 1));
-				console.log('관심상품등록됨');
-			}
-		} catch (error) {
-			console.log('에러', error);
-		}
 	};
 
 	return (
@@ -30,13 +15,15 @@ const ItemCard = ({ index, products }) => {
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn active={liked === 1} onClick={toggleLiked} />
+						<HeartBtn like={products.liked} idx={products.idx} />
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
-							<S.ItemPrice>{products.price}원</S.ItemPrice>
+							<S.ItemPrice>
+								{products.price.toLocaleString('ko-KR')}원
+							</S.ItemPrice>
 							{products.ProductsTags.map(tagObj => (
 								<S.ItemTag key={tagObj.idx}>
 									<a className="tag-link">#{tagObj.Tag.tag}</a>
