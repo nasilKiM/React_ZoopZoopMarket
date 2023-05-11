@@ -5,6 +5,7 @@ import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
+import { io } from 'socket.io-client';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -22,17 +23,31 @@ const LoginPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
+	// react-query 활용 고려
 	const onSubmit = async data => {
 		const loginInfo = {
 			email: data.email,
 			pw: data.password,
 		};
-
 		try {
 			const res = await UserApi.login(loginInfo);
 			TokenService.setToken(res.data.tokenForHeader);
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			navigate('/main');
+
+			// chat 구현 [로그인 시 socket id 캐싱..]
+			console.log(res.data.user.socket);			// 확인용
+			const socketId = res.data.user.socket;
+			const so = io.connect(process.env.REACT_APP_BACKEND_URL)
+			// socket 연결 확인
+			so.on('connect', () => {
+				console.log('socket connected');
+			})
+			console.log(so);	// 확인용
+			so.emit('connect-user', {socket: socketId});
+
+			so.emit('join', {room_idx: 5} )
+
 		} catch (err) {
 			alert(
 				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,

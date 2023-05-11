@@ -24,6 +24,7 @@ const SignUpPage = () => {
 	const {
 		register,
 		handleSubmit,
+		setValue,
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
@@ -36,7 +37,6 @@ const SignUpPage = () => {
 			phone: data.phone,
 			region: address,
 		};
-
 		try {
 			await UserApi.signup(info);
 			alert('회원가입이 완료되었습니다.');
