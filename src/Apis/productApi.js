@@ -24,5 +24,11 @@ const ProductApi = {
 			params: { prod_idx: id },
 		});
 	},
+
+	likedBtn(prod_idx) {
+		return Axios.post(PATH + '/like', {
+			prod_idx,
+		});
+	},
 };
 export default ProductApi;

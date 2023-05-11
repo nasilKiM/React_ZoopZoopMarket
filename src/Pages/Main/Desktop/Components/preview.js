@@ -28,6 +28,7 @@ const Preview = ({ category }) => {
 	const List = async () => {
 		const res = await ProductApi.mainList();
 		setData(res.data);
+		console.log(res.data);
 	};
 
 	useEffect(() => {
@@ -46,7 +47,7 @@ const Preview = ({ category }) => {
 				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={3}>
 					{products?.map(item => (
 						<SwiperSlide>
-							<ItemCard key={item} index={item.idx} />
+							<ItemCard key={item} products={item} index={item.idx} />
 						</SwiperSlide>
 					))}
 				</Swiper>
