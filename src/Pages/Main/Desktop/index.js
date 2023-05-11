@@ -4,6 +4,8 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import TokenService from 'Repository/TokenService';
 import { useNavigate } from 'react-router-dom';
 import UserApi from 'Apis/userApi';
+import { io } from 'socket.io-client';
+import { useEffect } from 'react';
 
 const DesktopMainPage = () => {
 	const navigate = useNavigate();
