@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ItemCard = ({ index, products }) => {
-	const [liked, setLiked] = useState(products.liked);
+	const [liked, setLiked] = useState(products && products.liked);
 	const navigate = useNavigate();
 
 	const onClickCard = async () => {
@@ -26,25 +26,27 @@ const ItemCard = ({ index, products }) => {
 	};
 
 	return (
-		<S.Wrapper>
-			<S.Container>
-				<S.Heart>
-					<HeartBtn active={liked === 1} onClick={toggleLiked} />
-				</S.Heart>
-				<div onClick={onClickCard}>
-					<S.ItemImg src={products.img_url} />
-					<S.ItemInfo>
-						<S.ItemTitle>{products.title}</S.ItemTitle>
-						<S.ItemPrice>{products.price}원</S.ItemPrice>
-						{products.ProductsTags.map(tagObj => (
-							<S.ItemTag key={tagObj.idx}>
-								<a className="tag-link">#{tagObj.Tag.tag}</a>
-							</S.ItemTag>
-						))}
-					</S.ItemInfo>
-				</div>
-			</S.Container>
-		</S.Wrapper>
+		products && (
+			<S.Wrapper>
+				<S.Container>
+					<S.Heart>
+						<HeartBtn active={liked === 1} onClick={toggleLiked} />
+					</S.Heart>
+					<div onClick={onClickCard}>
+						<S.ItemImg src={products.img_url} />
+						<S.ItemInfo>
+							<S.ItemTitle>{products.title}</S.ItemTitle>
+							<S.ItemPrice>{products.price}원</S.ItemPrice>
+							{products.ProductsTags.map(tagObj => (
+								<S.ItemTag key={tagObj.idx}>
+									<a className="tag-link">#{tagObj.Tag.tag}</a>
+								</S.ItemTag>
+							))}
+						</S.ItemInfo>
+					</div>
+				</S.Container>
+			</S.Wrapper>
+		)
 	);
 };
 
