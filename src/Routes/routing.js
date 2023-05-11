@@ -69,22 +69,24 @@ const router = createBrowserRouter([
 			{
 				path: 'mypage',
 				element: <MyPage />,
-			},
-			{
-				path: 'mypage/account_book',
-				element: <AccountBookPage />,
-			},
-			{
-				path: 'mypage/interest',
-				element: <MyInterestPage />,
-			},
-			{
-				path: 'mypage/item',
-				element: <MyItemPage />,
-			},
-			{
-				path: 'mypage/user_edit',
-				element: <MyUserEdit />,
+				children: [
+					{
+						path: 'mypage/account_book',
+						element: <AccountBookPage />,
+					},
+					{
+						path: 'mypage/interest',
+						element: <MyInterestPage />,
+					},
+					{
+						path: 'mypage/item',
+						element: <MyItemPage />,
+					},
+					{
+						path: 'mypage/user_edit',
+						element: <MyUserEdit />,
+					},
+				],
 			},
 			{
 				path: 'profile',
