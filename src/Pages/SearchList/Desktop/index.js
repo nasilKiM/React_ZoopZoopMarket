@@ -67,22 +67,17 @@ const DesktopSearchList = () => {
 			<S.Wrapper>
 				<S.Container>
 					<S.SearchBarContainer>
-						<SearchBar></SearchBar>
+						<SearchBar />
 					</S.SearchBarContainer>
 					<S.ResultText>
-						찾으신 '{word}'에 대한 결과 입니다.(총
-						{} 개)
+						{/*삼항연산자로 검색키워드가 있을때 + 없을때 구별해서 보여줘야함 */}
+						<div>원하시는 키워드를 입력해주세요</div>
+						찾으신 '{word}'에 대한 결과 입니다.(총{} 개)
 					</S.ResultText>
 					<S.CategoryBox>
 						<S.Category
 							onClick={() => setSelected(0)}
-							style={
-								selected === 0
-									? {
-											fontWeight: 700,
-									  }
-									: {}
-							}
+							style={selected === 0 ? { fontWeight: 700 } : {}}
 						>
 							중고 물품
 						</S.Category>
@@ -103,7 +98,7 @@ const DesktopSearchList = () => {
 										<SearchList key={item.idx} product={item} />
 									)),
 							)}
-						<div ref={ref}></div>
+						<S.refDiv ref={ref}></S.refDiv>
 					</S.ItemList>
 				</S.Container>
 			</S.Wrapper>
@@ -127,14 +122,18 @@ const Wrapper = styled.div`
 const Container = styled.div`
 	margin: 0 auto;
 `;
+
 const SearchBarContainer = styled.div`
 	display: flex;
 	justify-content: center;
+	padding-top: 40px;
 `;
+
 const ResultText = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	margin-top: 80px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	margin-top: 40px;
 `;
+
 const CategoryBox = styled.div`
 	cursor: pointer;
 	display: flex;
@@ -142,8 +141,9 @@ const CategoryBox = styled.div`
 `;
 
 const Category = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 `;
+
 const Wall = styled.div`
 	border-right: 1px solid black;
 	border-color: ${({ theme }) => theme.color.primary};
@@ -160,6 +160,7 @@ const SampleCard = styled.div`
 	height: 400px;
 	border: 1px solid black;
 `;
+
 const S = {
 	Wrapper,
 	Container,
@@ -170,4 +171,5 @@ const S = {
 	ItemList,
 	SearchBarContainer,
 	SampleCard,
+	refDiv,
 };

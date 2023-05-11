@@ -30,7 +30,7 @@ const RegisterPage = () => {
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			if (newTag) {
 				setTags([...tags, newTag]);
-				e.target.value = ''; 
+				e.target.value = '';
 			}
 		}
 	};
@@ -75,7 +75,7 @@ const RegisterPage = () => {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			alert('물품등록이 완료되었습니다.');
-			navigate('/form/login');
+			navigate('/main');
 		} catch (err) {
 			return console.log(err);
 		}
