@@ -6,7 +6,7 @@ const WebHeader = () => {
 	return (
 		<S.Wrapper>
 			<Link to={'/main'}>
-				<S.Logo src="Assets/web_logo.png"></S.Logo>
+				<S.Logo src="/Assets/web_logo.png"></S.Logo>
 			</Link>
 			<MenuBar />
 		</S.Wrapper>
@@ -16,7 +16,7 @@ const WebHeader = () => {
 export default WebHeader;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 60%;
 	min-width: 700px;
 	max-width: 1000px;
 	height: 200px;
@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 const Logo = styled.img`
 	padding-top: 50px;
 	margin-bottom: 50px;
-	width: 300px;
+	width: 320px;
 `;
 
 const S = {
