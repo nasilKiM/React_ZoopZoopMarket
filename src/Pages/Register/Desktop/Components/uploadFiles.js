@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const UploadFiles = ({ register }) => {
+const UploadFiles = ({ register, images }) => {
 	const [imgSrc, setImgSrc] = useState([]);
 	const [selectedImgIndex, setSelectedImgIndex] = useState(null);
 
@@ -51,7 +51,7 @@ const UploadFiles = ({ register }) => {
 				<S.MainImgContainer>
 					<label htmlFor="mainImg">
 						<S.MainImgSection
-							src={imgSrc[0] || '/Assets/Images/defaultImage.png'}
+							src={imgSrc[0] || images[0] || '/Assets/Images/defaultImage.png'}
 							onClick={() => setSelectedImgIndex(0)}
 						/>
 					</label>
@@ -61,7 +61,9 @@ const UploadFiles = ({ register }) => {
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
-								src={imgSrc[1] || '/Assets/Images/defaultImage.png'}
+								src={
+									imgSrc[1] || images[1] || '/Assets/Images/defaultImage.png'
+								}
 								onClick={() => setSelectedImgIndex(1)}
 							/>
 						</label>
@@ -70,7 +72,9 @@ const UploadFiles = ({ register }) => {
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
-								src={imgSrc[2] || '/Assets/Images/defaultImage.png'}
+								src={
+									imgSrc[2] || images[2] || '/Assets/Images/defaultImage.png'
+								}
 								onClick={() => setSelectedImgIndex(2)}
 							/>
 						</label>
@@ -79,7 +83,9 @@ const UploadFiles = ({ register }) => {
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
-								src={imgSrc[3] || '/Assets/Images/defaultImage.png'}
+								src={
+									imgSrc[3] || images[3] || '/Assets/Images/defaultImage.png'
+								}
 								onClick={() => setSelectedImgIndex(3)}
 							/>
 						</label>
@@ -88,7 +94,9 @@ const UploadFiles = ({ register }) => {
 					<S.SmallImgContainer>
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
-								src={imgSrc[4] || '/Assets/Images/defaultImage.png'}
+								src={
+									imgSrc[4] || images[4] || '/Assets/Images/defaultImage.png'
+								}
 								onClick={() => setSelectedImgIndex(4)}
 							/>
 						</label>

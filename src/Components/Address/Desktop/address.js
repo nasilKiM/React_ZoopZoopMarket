@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Post from './post';
 import styled from 'styled-components';
 
@@ -22,7 +22,12 @@ const FindAddress = ({ setter }) => {
 	};
 
 	// console.log('주소 찾기 결과 ----->', address);
-	setter(address);
+	// 리랜더링이 될때마다 빈 주소값으로 리셋이 되는 문제가있음.
+	// 우선 useEffect로 변경해둠()
+	useEffect(() => {
+		setter(address);
+	}, [address]);
+
 	return (
 		<div className="address_search">
 			{/* <S.Box>{address}</S.Box> */}

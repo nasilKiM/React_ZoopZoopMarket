@@ -96,6 +96,10 @@ const router = createBrowserRouter([
 				element: <RegisterPage />,
 			},
 			{
+				path: 'register/:idx',
+				element: <RegisterPage />,
+			},
+			{
 				path: 'search_list/',
 				element: <SearchListPage />,
 			},
