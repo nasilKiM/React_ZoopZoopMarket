@@ -100,6 +100,14 @@ const router = createBrowserRouter([
 				element: <RegisterPage />,
 			},
 			{
+				path: 'register/:idx',
+				element: <RegisterPage />,
+			},
+			{
+				path: 'search_list/',
+				element: <SearchListPage />,
+			},
+			{
 				path: 'search_list/:word',
 				element: <SearchListPage />,
 			},

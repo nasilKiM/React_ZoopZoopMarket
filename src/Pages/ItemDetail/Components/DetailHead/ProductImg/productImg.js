@@ -3,18 +3,39 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Navigation } from 'swiper';
+import styled from 'styled-components';
 
-const ProductImg = () => {
+const ProductImg = ({ main, sub }) => {
 	return (
-		<>
-			<Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-				<SwiperSlide>Slide 1</SwiperSlide>
-				<SwiperSlide>Slide 2</SwiperSlide>
-				<SwiperSlide>Slide 3</SwiperSlide>
-				<SwiperSlide>Slide 4</SwiperSlide>
-			</Swiper>
-		</>
+		main && (
+			<>
+				<Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+					<SwiperSlide>
+						<ImgSection
+							src={main}
+							onClick={() => window.open(`${main}`, '_blank')}
+						/>
+					</SwiperSlide>
+					{sub.map(img => (
+						<SwiperSlide>
+							<ImgSection
+								src={img.img_url}
+								onClick={() => window.open(`${img.img_url}`, '_blank')}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper>
+			</>
+		)
 	);
 };
 
 export default ProductImg;
+
+const ImgSection = styled.img`
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	background: black;
+	margin: 0 auto;
+`;

@@ -1,37 +1,37 @@
-import { useState } from 'react';
-
-import SellerDetailPage from './SellerDetail/SellerDetail';
-import BuyerDetailPage from './BuyerDetail/BuyerDetail';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
+import SellerDetailPage from './SellerDetail/SellerDetail';
+import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
-	console.log('////////////////////', idx);
+	let state = '';
+	const [product, setProduct] = useState('');
 
 	const temp = async () => {
 		try {
 			const res = await ProductApi.detail(idx);
-			console.log(res);
+			setProduct(res);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	temp();
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		temp();
+	}, []);
 
-	const [state, setState] = useState(true);
+	const { isSeller } = product && product.data;
+	state = isSeller;
 
-	const onChangeState = () => {
-		setState(prev => !prev);
-	};
 	return (
 		<>
-			<button onClick={onChangeState}>버튼</button>
-			{state ? (
-				<BuyerDetailPage state={state} />
+			{!isSeller ? (
+				<BuyerDetailPage state={state} product={product} />
 			) : (
-				<SellerDetailPage state={state} />
+				<SellerDetailPage state={state} product={product} />
 			)}
 		</>
 	);

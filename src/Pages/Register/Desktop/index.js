@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import ProductApi from 'Apis/productApi';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
+	const [images, setImages] = useState([]);
 	const navigate = useNavigate();
 
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
+	const { idx } = useParams();
+	console.log('idx', idx);
 
 	const {
 		register,
@@ -23,6 +27,34 @@ const RegisterPage = () => {
 		formState: { errors },
 	} = useForm();
 
+	const productIdx = async () => {
+		try {
+			const res = await ProductApi.detail(idx);
+			console.log('res', res);
+			setPrice(res.data.searchProduct.price);
+			setTags(
+				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
+			);
+			setValue('title', res.data.searchProduct.title);
+			setValue('content', res.data.searchProduct.description);
+			setSearchResult(res.data.searchProduct.region);
+			setImages([
+				res.data.searchProduct.img_url,
+				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
+			]);
+			setValue(images);
+			// 수정할때는 url인데 어떻게 file로 보내는지?
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	console.log('images', images);
+
+	useEffect(() => {
+		idx && productIdx();
+	}, [idx]);
+
 	const handleKeyDown = e => {
 		if (e.keyCode === 13) {
 			clearErrors('tag'); // 에러초기화
@@ -30,12 +62,11 @@ const RegisterPage = () => {
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			if (newTag) {
 				setTags([...tags, newTag]);
-				e.target.value = ''; 
+				e.target.value = '';
 			}
 		}
 	};
 	const handleDelete = deleteTag => e => {
-		console.log('!!!!!!', e);
 		e.preventDefault();
 		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
 	};
@@ -71,11 +102,20 @@ const RegisterPage = () => {
 			});
 			// 참고 : https://pobsiz.tistory.com/12 (3번)
 			// 같은 키값에 코드를 여러번 실행시켜야함.?
-			Axios.post('/api/product', formData, {
-				headers: { 'Content-Type': 'multipart/form-data' },
-			});
-			alert('물품등록이 완료되었습니다.');
-			navigate('/form/login');
+			if (!idx) {
+				Axios.post('/api/product', formData, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				});
+				alert('물품등록이 완료되었습니다.');
+				navigate('/main');
+			} else {
+				formData.append('idx', idx);
+				Axios.patch('/api/product', formData, {
+					headers: { 'Content-Type': 'multipart/form-data' },
+				});
+				alert('물품수정이 완료되었습니다.');
+				navigate('/main');
+			}
 		} catch (err) {
 			return console.log(err);
 		}
@@ -83,7 +123,7 @@ const RegisterPage = () => {
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles register={register} />
+			<UploadFiles images={images} register={register} />
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>

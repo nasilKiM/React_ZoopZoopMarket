@@ -38,11 +38,13 @@ export default SearchBar;
 const Wrap = styled.form`
 	display: flex;
 	border: 1px solid gray;
-	width: 700px;
+	width: 100%;
+	min-width: 700px;
+	max-width: 1000px;
 	height: 40px;
 	position: relative;
-	/* margin: 0 auto; */
 `;
+
 const SearchInput = styled.input`
 	width: 90%;
 	height: 95%;
@@ -56,6 +58,14 @@ const GlassBtn = styled.button`
 	position: absolute;
 	right: 5%;
 	top: 25%;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	&:focus {
+		outline: none;
+	}
 `;
 
 const S = {
