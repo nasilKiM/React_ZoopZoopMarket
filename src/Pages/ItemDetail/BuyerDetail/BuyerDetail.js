@@ -6,9 +6,11 @@ import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state }) => {
+	const item = state && state.data.searchProduct;
+	console.log(item);
 	return (
 		<S.Wrapper>
-			<DetailHead />
+			<DetailHead item={item} />
 			<DetailContent state={state} />
 			<S.MapContent>
 				<div>거래장소</div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SellerDetailPage from './SellerDetail/SellerDetail';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
@@ -7,28 +7,27 @@ import ProductApi from 'Apis/productApi';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
-	console.log('////////////////////', idx);
+	const [state, setState] = useState('');
+	console.log('************', state);
 
 	const temp = async () => {
 		try {
 			const res = await ProductApi.detail(idx);
-			console.log(res);
+			setState(res);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	temp();
+	useEffect(() => {
+		temp();
+	}, []);
 
-	const [state, setState] = useState(true);
+	const { isSeller } = state && state.data;
 
-	const onChangeState = () => {
-		setState(prev => !prev);
-	};
 	return (
 		<>
-			<button onClick={onChangeState}>버튼</button>
-			{state ? (
+			{!isSeller ? (
 				<BuyerDetailPage state={state} />
 			) : (
 				<SellerDetailPage state={state} />
