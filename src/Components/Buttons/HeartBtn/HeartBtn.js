@@ -1,14 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const HeartBtn = () => {
-	const [active, setActive] = useState(false);
-
-	const handleClick = () => {
-		setActive(!active);
-	};
-
-	return <S.Button className={active ? 'active' : ''} onClick={handleClick} />;
+const HeartBtn = ({ active, onClick }) => {
+	return <S.Button className={active ? 'active' : ''} onClick={onClick} />;
 };
 
 export default HeartBtn;
