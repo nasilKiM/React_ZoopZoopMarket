@@ -1,9 +1,46 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { flexAllCenter } from 'Styles/common';
 import { isDesktop } from 'react-device-detect';
+import { io } from 'socket.io-client';
 import styled from 'styled-components';
 
 const DetailContent = ({ state }) => {
+	// const userSocket = useRecoilValue(userSocketAtom);
+	// console.log(userSocket);
+	const onClickChatBtn = async () => {
+		const so = io.connect(process.env.REACT_APP_BACKEND_URL);
+
+		const room_idx = 5;
+		so.emit('join', { room_idx });
+
+		const msg = {
+			title: '타이틀',
+			createdAt: '222222',
+			prod_idx: 1,
+			room_idx: 2,
+			nickName: '닉네임',
+			message: '안녕하세요',
+			socketId: 'b60e085f-ad17-4d88-87b7-9e870828b3bd',
+		};
+
+		so.emit('sendMessage', msg);
+		so.on('receiveMessage', msg);
+		// const message = '안녕';
+
+		// try {
+		// 	const res = await Axios.post('/api/chat/send', { room_idx, message });
+		// 	console.log(res.data);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
+
+		// try {
+		// 	const res = await Axios.get(`/api/chat/chat-log?room_idx=${room_idx}`);
+		// 	console.log(res);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
+	};
 	return (
 		<>
 			{state ? (
@@ -16,7 +53,7 @@ const DetailContent = ({ state }) => {
 						가능합니다.
 					</div>
 					<div>
-						<div>채팅하기</div>
+						<div onClick={onClickChatBtn}>채팅하기</div>
 						<div>
 							<HeartBtn />
 						</div>

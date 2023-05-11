@@ -36,18 +36,21 @@ const LoginPage = () => {
 			navigate('/main');
 
 			// chat 구현 [로그인 시 socket id 캐싱..]
-			console.log(res.data.user.socket);			// 확인용
+			console.log(res.data.user.socket); // 확인용
 			const socketId = res.data.user.socket;
-			const so = io.connect(process.env.REACT_APP_BACKEND_URL)
+			const so = io.connect(process.env.REACT_APP_BACKEND_URL);
 			// socket 연결 확인
 			so.on('connect', () => {
 				console.log('socket connected');
-			})
-			console.log(so);	// 확인용
-			so.emit('connect-user', {socket: socketId});
+			});
+			console.log(so); // 확인용
+			so.emit('connect-user', { socket: socketId });
 
-			so.emit('join', {room_idx: 5} )
+			// const [userSocket, setUserSocket] = useRecoilState(userSocketAtom);
+			// setUserSocket(socketId);
 
+			// console.log(userSocket);
+			// console.log(1);
 		} catch (err) {
 			alert(
 				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
