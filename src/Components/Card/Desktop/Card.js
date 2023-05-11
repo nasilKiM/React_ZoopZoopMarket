@@ -9,7 +9,7 @@ const ItemCard = ({ index, products }) => {
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
 	};
-
+	console.log(products);
 	return (
 		products && (
 			<S.Wrapper>
@@ -40,35 +40,34 @@ const ItemCard = ({ index, products }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	padding: 15px 0;
 `;
 
 const Container = styled.div`
-	min-width: 200px;
+	width: 250px;
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	border: 1px solid lightgray;
 `;
 
 const Heart = styled.div`
-	position: absolute;
-	width: 25px;
-	height: 25px;
-	top: 30px;
-	left: 152px;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	top: 40px;
+	left: 202px;
 	z-index: 1000000;
 `;
 
 const ItemImg = styled.img`
 	position: relative;
-	max-width: 200px;
+	max-width: 250px;
 	width: 100%;
 	height: 250px;
 	object-fit: cover;
-	padding: 10px;
+	padding-bottom: 15px;
+	/* padding: 10px; */
 `;
 
 const ItemInfo = styled.div`
@@ -76,7 +75,7 @@ const ItemInfo = styled.div`
 	max-height: 150px;
 	display: flex;
 	flex-wrap: wrap;
-\	padding: 0 15px;
+	padding: 0 15px;
 `;
 
 const ItemTitle = styled.div`

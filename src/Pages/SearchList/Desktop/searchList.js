@@ -1,30 +1,23 @@
+import ItemCard from 'Components/Card/Desktop/Card';
 import styled from 'styled-components';
 
-const SearchList = ({ key, product }) => {
+const SearchList = ({ products }) => {
 	return (
-		<S.SampleCard key={product.idx}>
-			<div> 물품 id: {product.idx}</div>
-			<div> 제목: {product.title}</div>
-			{product.ProductsTags.map(productTag => (
-				<div>{productTag.Tag.tag}</div>
+		<S.Wrapper>
+			{products.map(product => (
+				<ItemCard index={product.idx} products={product} />
 			))}
-			<div>{product.price && product.price.toLocaleString()}원</div>
-			<img
-				src={product.img_url}
-				alt="item"
-				style={{ width: '180px', maxHeight: '200px' }}
-			/>
-		</S.SampleCard>
+		</S.Wrapper>
 	);
 };
 
 export default SearchList;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
-	min-width: 700px;
-	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: space-around;
 `;
 
 const Container = styled.div`

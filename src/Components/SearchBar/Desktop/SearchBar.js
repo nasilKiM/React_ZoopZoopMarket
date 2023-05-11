@@ -11,8 +11,12 @@ const SearchBar = ({ props }) => {
 	const onSearch = async e => {
 		e.preventDefault();
 
+		if (!e.target.searchKey.value) {
+			return alert('검색어를 입력해주세요!');
+		}
 		try {
 			let searchWord = e.target.searchKey.value;
+
 			navigate(`/${props}/${searchWord}`);
 		} catch (err) {
 			console.log(err);

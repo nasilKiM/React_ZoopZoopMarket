@@ -16,6 +16,7 @@ const DesktopSearchList = () => {
 	const fetchItems = (page, searchWord) => {
 		return Axios.get('/api/product/search', {
 			params: {
+				category: selected,
 				keyword: searchWord,
 				page: page,
 			},
@@ -56,12 +57,15 @@ const DesktopSearchList = () => {
 	}
 
 	useEffect(() => {
+		res.refetch();
+	}, [selected]);
+
+	useEffect(() => {
 		if (!inView) {
 			return;
 		}
 		res.fetchNextPage();
-		data && console.log(data);
-	}, [inView, data && data.pages]);
+	}, [inView]);
 
 	return (
 		<>
@@ -92,13 +96,9 @@ const DesktopSearchList = () => {
 					</S.CategoryBox>
 					<S.ItemList>
 						{data &&
-							data.pages.map(
-								pageItems =>
-									pageItems &&
-									pageItems.data.product.map(item => (
-										<SearchList key={item.idx} product={item} />
-									)),
-							)}
+							data.pages.map(pageItems => (
+								<SearchList products={pageItems.data.product} />
+							))}
 						<S.refDiv ref={ref}></S.refDiv>
 					</S.ItemList>
 				</S.Container>
