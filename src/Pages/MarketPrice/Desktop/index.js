@@ -5,6 +5,7 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { theme } from 'Styles/theme';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
 	LineChart,
@@ -19,7 +20,10 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const DesktopMarketPrice = () => {
+	const props = 'market_price';
+	const { word } = useParams();
 	const [priceList, setItemList] = useRecoilState(itemPriceState);
+	console.log('시세 검색 단어: ', word);
 
 	useEffect(() => {
 		const fetchItems = async () => {
@@ -83,7 +87,7 @@ const DesktopMarketPrice = () => {
 					원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
 				</S.SubTitle>
 			</S.Title>
-			<SearchBar></SearchBar>
+			<SearchBar props={props} />
 			<S.ChartContainer>
 				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
 				<LineChart width={700} height={500} data={data}>

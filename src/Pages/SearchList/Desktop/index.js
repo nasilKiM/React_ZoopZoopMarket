@@ -11,6 +11,7 @@ const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(0);
 	const { word } = useParams();
 	const [ref, inView] = useInView({ threshold: 0.5 });
+	const props = 'search_list';
 
 	const fetchItems = (page, searchWord) => {
 		return Axios.get('/api/product/search', {
@@ -67,7 +68,7 @@ const DesktopSearchList = () => {
 			<S.Wrapper>
 				<S.Container>
 					<S.SearchBarContainer>
-						<SearchBar></SearchBar>
+						<SearchBar props={props} />
 					</S.SearchBarContainer>
 					<S.ResultText>
 						찾으신 '{word}'에 대한 결과 입니다.(총

@@ -15,6 +15,7 @@ const DesktopMainPage = () => {
 		TokenService.removeToken();
 		navigate('/');
 	};
+	const props = 'search_list';
 
 	return (
 		<S.Wrapper>
@@ -25,7 +26,7 @@ const DesktopMainPage = () => {
 				</S.BtnSection>
 			</Link>
 			<S.SearchSection>
-				<SearchBar />
+				<SearchBar props={props} />
 			</S.SearchSection>
 			<Preview category={0}></Preview>
 			<Preview category={1}></Preview>

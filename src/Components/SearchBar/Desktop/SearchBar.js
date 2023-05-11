@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
-const SearchBar = () => {
+const SearchBar = ({ props }) => {
+	// props가 search면 search_list페이지로,
+	//marketPrice면 market_price페이지로
 	const navigate = useNavigate();
 
 	const onSearch = async e => {
@@ -11,7 +13,7 @@ const SearchBar = () => {
 
 		try {
 			let searchWord = e.target.searchKey.value;
-			navigate(`/search_list/${searchWord}`);
+			navigate(`/${props}/${searchWord}`);
 		} catch (err) {
 			console.log(err);
 		}

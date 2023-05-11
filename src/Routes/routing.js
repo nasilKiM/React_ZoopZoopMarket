@@ -64,6 +64,10 @@ const router = createBrowserRouter([
 				element: <MainPage />,
 			},
 			{
+				path: 'market_price/:word',
+				element: <MarketPricePage />,
+			},
+			{
 				path: 'market_price',
 				element: <MarketPricePage />,
 			},
