@@ -44,21 +44,21 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-	width: 250px;
+	width: 200px;
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-// 	border: 1px solid lightgray;
+	border: 1px solid lightgray;
 `;
 
 const Heart = styled.div`
-	position: relative;
+	position: absolute;
 	width: 32px;
 	height: 32px;
 	top: 40px;
-	left: 202px;
+	left: 160px;
 	z-index: 1000000;
 `;
 
@@ -69,7 +69,6 @@ const ItemImg = styled.img`
 	height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
-	/* padding: 10px; */
 `;
 
 const ItemInfo = styled.div`

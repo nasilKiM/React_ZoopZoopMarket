@@ -46,6 +46,7 @@ const Wrapper = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	margin: 0 auto;
+	padding-bottom: 30px;
 `;
 
 const LogoutBar = styled.div`
@@ -76,7 +77,7 @@ const LogoutButton = styled.button`
 `;
 
 const Logo = styled.img`
-	padding-top: 50px;
+	padding-top: 30px;
 	margin-bottom: 50px;
 	width: 320px;
 `;
