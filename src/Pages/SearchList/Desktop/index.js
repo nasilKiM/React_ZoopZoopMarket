@@ -5,13 +5,14 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchList from './searchList';
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
+import { useQueryClient } from 'react-query';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(0);
 	const { word } = useParams();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const props = 'search_list';
-
+	const queryClient = useQueryClient();
 	const res = useInfiniteSearch(word, selected);
 
 	const { data } = res;
@@ -26,6 +27,7 @@ const DesktopSearchList = () => {
 
 	useEffect(() => {
 		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
+		queryClient.removeQueries('SEARCH_ITEMS'); //이전 검색 결과를 제거
 	}, [selected, word]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	useEffect(() => {
@@ -42,15 +44,17 @@ const DesktopSearchList = () => {
 					<S.SearchBarContainer>
 						<SearchBar props={props} />
 					</S.SearchBarContainer>
-					<S.ResultText>
-						{data.pages[0].data.product.length === 0 ? (
-							<div>{word}에 대한 검색 결과가 없습니다.</div>
-						) : (
-							<div>
-								찾으신 '{word}'에 대한 결과 입니다.(총{} 개)
-							</div>
-						)}
-					</S.ResultText>
+					{data && (
+						<S.ResultText>
+							{data.pages && data.pages[0].data.product.length === 0 ? (
+								<div>{word}에 대한 검색 결과가 없습니다.</div>
+							) : (
+								<div>
+									찾으신 '{word}'에 대한 결과 입니다.(총{} 개)
+								</div>
+							)}
+						</S.ResultText>
+					)}
 					<S.CategoryBox>
 						<S.Category
 							onClick={() => setSelected(0)}
