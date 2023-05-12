@@ -9,8 +9,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const MannerMeter = ({ ondo }) => {
-	// const score = (Math.random() * 50).toFixed(1);
 	const [state, setState] = useState(false);
+
 	return (
 		<S.Wrapper>
 			<div>{ondo}점</div>

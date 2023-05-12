@@ -7,14 +7,14 @@ import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
 
-const SellerDetailPage = ({ state }) => {
+const SellerDetailPage = ({ state, product }) => {
+	const item = product && product.data.searchProduct;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
 
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
-		console.log(detailState);
 	};
 	return (
 		<S.Wrapper>
@@ -25,7 +25,7 @@ const SellerDetailPage = ({ state }) => {
 					<li>Delete</li>
 				</ul>
 			</S.EditBar>
-			<DetailHead />
+			<DetailHead item={item} />
 			<S.DetailAndChatBar>
 				<S.Detail active={detailState} onClick={onClickDetailAndChatBar}>
 					상세정보
@@ -35,7 +35,7 @@ const SellerDetailPage = ({ state }) => {
 				</S.Chat>
 			</S.DetailAndChatBar>
 			{detailState === '상세정보' ? (
-				<DetailContent state={state} />
+				<DetailContent state={state} item={item} />
 			) : (
 				<ChattingPage />
 			)}
