@@ -19,6 +19,7 @@ import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
+// import PrivateRoute from './private';
 
 const router = createBrowserRouter([
 	{
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
 				element: <FormPage />,
 			},
 			{
-				path: 'item_detail',
+				path: 'item_detail/:idx',
 				element: <ItemDetailPage />,
 			},
 			{
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
 			{
 				path: 'main',
 				element: <MainPage />,
+			},
+			{
+				path: 'market_price/:word',
+				element: <MarketPricePage />,
 			},
 			{
 				path: 'market_price',
@@ -92,6 +97,10 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'register',
+				element: <RegisterPage />,
+			},
+			{
+				path: 'register/:idx',
 				element: <RegisterPage />,
 			},
 			{
