@@ -27,8 +27,7 @@ const DesktopSearchList = () => {
 
 	useEffect(() => {
 		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
-		queryClient.removeQueries('SEARCH_ITEMS'); //이전 검색 결과를 제거
-	}, [selected, word]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
+	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	useEffect(() => {
 		if (!inView) {

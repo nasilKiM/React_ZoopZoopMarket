@@ -3,7 +3,7 @@ const { useInfiniteQuery } = require('react-query');
 
 export const useInfiniteSearch = (word, selected) => {
 	const res = useInfiniteQuery(
-		['SEARCH_ITEMS'],
+		['SEARCH_ITEMS', word],
 		({ pageParam = 1 }) => ProductApi.searchItems(pageParam, word, selected),
 		{
 			getNextPageParam: lastPage => {
@@ -23,6 +23,8 @@ export const useInfiniteSearch = (word, selected) => {
 };
 
 /*
+word를 기반으로 캐싱되며, 같은 검색어로 요청이 이루어지면 캐시된 결과가 반환됩니다.
+
 
 리턴되는 res의 data를 console.log를 해보면 data는 pages와 pageParams로 이루어져 있습니다.
  이 pages(배열)안에 각 항목마다  data라는 객체가 있습니다. (ex: data.pages[0].data)
