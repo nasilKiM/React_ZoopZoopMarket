@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const UploadFiles = ({ register, images }) => {
+const UploadFiles = ({ register, images, setImages, setValue }) => {
 	const [imgSrc, setImgSrc] = useState([]);
 	const [selectedImgIndex, setSelectedImgIndex] = useState(null);
 
 	const onUpload = async e => {
+		setImages([]);
 		const fileArr = e.target.files;
 		const fileURLs = [];
 
@@ -27,11 +28,21 @@ const UploadFiles = ({ register, images }) => {
 	};
 
 	const onClickDelete = idx => {
-		if (imgSrc.length === 0) return;
-		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
+		if (imgSrc.length === 0 && images.length === 0) return;
+		const newFileURLs = !images
+			? imgSrc.filter(url => url !== imgSrc[idx])
+			: images.filter(url => url !== images[idx]);
 		setImgSrc(newFileURLs);
+		setImages(newFileURLs);
 		console.log(newFileURLs);
 	};
+
+	useEffect(() => {
+		if (images.length === 0) return;
+		const patchData = {};
+		images.forEach((value, key) => (patchData[key] = value));
+		setValue('mainImg', patchData);
+	}, [images]);
 
 	return (
 		<S.Wrapper>
@@ -51,7 +62,7 @@ const UploadFiles = ({ register, images }) => {
 				<S.MainImgContainer>
 					<label htmlFor="mainImg">
 						<S.MainImgSection
-							src={imgSrc[0] || images[0] || '/Assets/Images/defaultImage.png'}
+							src={images[0] || imgSrc[0] || '/Assets/Images/defaultImage.png'}
 							onClick={() => setSelectedImgIndex(0)}
 						/>
 					</label>
@@ -62,7 +73,7 @@ const UploadFiles = ({ register, images }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									imgSrc[1] || images[1] || '/Assets/Images/defaultImage.png'
+									images[1] || imgSrc[1] || '/Assets/Images/defaultImage.png'
 								}
 								onClick={() => setSelectedImgIndex(1)}
 							/>
@@ -73,7 +84,7 @@ const UploadFiles = ({ register, images }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									imgSrc[2] || images[2] || '/Assets/Images/defaultImage.png'
+									images[2] || imgSrc[2] || '/Assets/Images/defaultImage.png'
 								}
 								onClick={() => setSelectedImgIndex(2)}
 							/>
@@ -84,7 +95,7 @@ const UploadFiles = ({ register, images }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									imgSrc[3] || images[3] || '/Assets/Images/defaultImage.png'
+									images[3] || imgSrc[3] || '/Assets/Images/defaultImage.png'
 								}
 								onClick={() => setSelectedImgIndex(3)}
 							/>
@@ -95,7 +106,7 @@ const UploadFiles = ({ register, images }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									imgSrc[4] || images[4] || '/Assets/Images/defaultImage.png'
+									images[4] || imgSrc[4] || '/Assets/Images/defaultImage.png'
 								}
 								onClick={() => setSelectedImgIndex(4)}
 							/>

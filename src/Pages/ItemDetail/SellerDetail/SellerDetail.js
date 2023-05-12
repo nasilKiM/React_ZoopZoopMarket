@@ -21,7 +21,7 @@ const SellerDetailPage = ({ state, product }) => {
 			<S.EditBar>
 				<div>판매완료 변경</div>
 				<ul>
-					<li onClick={() => navigate('/register')}>Edit</li>
+					<li onClick={() => navigate(`/register/${item.idx}`)}>Edit</li>
 					<li>Delete</li>
 				</ul>
 			</S.EditBar>

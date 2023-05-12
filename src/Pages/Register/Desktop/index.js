@@ -24,6 +24,7 @@ const RegisterPage = () => {
 		setError,
 		clearErrors,
 		setValue,
+		getValues,
 		formState: { errors },
 	} = useForm();
 
@@ -35,6 +36,7 @@ const RegisterPage = () => {
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
+			setValue('price', price);
 			setValue('title', res.data.searchProduct.title);
 			setValue('content', res.data.searchProduct.description);
 			setSearchResult(res.data.searchProduct.region);
@@ -42,8 +44,7 @@ const RegisterPage = () => {
 				res.data.searchProduct.img_url,
 				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
 			]);
-			setValue(images);
-			// 수정할때는 url인데 어떻게 file로 보내는지?
+			setValue('mainImg', images);
 		} catch (err) {
 			console.log(err);
 		}
@@ -52,7 +53,8 @@ const RegisterPage = () => {
 	console.log('images', images);
 
 	useEffect(() => {
-		idx && productIdx();
+		if (!idx) return;
+		productIdx();
 	}, [idx]);
 
 	const handleKeyDown = e => {
@@ -81,14 +83,14 @@ const RegisterPage = () => {
 
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			//리액트 훅폼으로 에러메세지 셋팅
 			setError(
-				'tag', //에러 이름. 기존에 있는 것과 겹칠시 그쪽으로 에러 들어감
-				{ message: '1개이상 꼭 입력해주세요.' }, //errors에 넣을 에러 메시지
-				{ shouldFocus: true }, //에러 발생시 해당 구간에 포커스하게 하는 설정
+				'tag',
+				{ message: '1개이상 꼭 입력해주세요.' },
+				{ shouldFocus: true },
 			);
 			return;
-		} else setValue('', ''); //값이 유효하면 set!
+		} else setValue('', '');
+
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
@@ -97,20 +99,29 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
+			console.log('이미지 formdata', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
-			// 참고 : https://pobsiz.tistory.com/12 (3번)
-			// 같은 키값에 코드를 여러번 실행시켜야함.?
+
 			if (!idx) {
-				Axios.post('/api/product', formData, {
+				const res = Axios.post('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
-				alert('물품등록이 완료되었습니다.');
-				navigate('/main');
+				console.log(res);
+				// alert('물품등록이 완료되었습니다.');
+				// navigate('/main');
 			} else {
 				formData.append('idx', idx);
-				Axios.patch('/api/product', formData, {
+				formData.append('main_url', mainImg[0]);
+				[...data.mainImg].forEach(element => {
+					formData.append('img_url', element);
+				});
+				const patchData = {};
+				formData.forEach((value, key) => (patchData[key] = value));
+				console.log('patchData is', patchData);
+				// console.log('patchData is', formData);
+				Axios.patch('/api/product', patchData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
 				alert('물품수정이 완료되었습니다.');
@@ -123,7 +134,14 @@ const RegisterPage = () => {
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles images={images} register={register} />
+			<UploadFiles
+				images={images}
+				setImages={setImages}
+				register={register}
+				setValue={setValue}
+				getValues={getValues}
+				errors={errors}
+			/>
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>
@@ -152,7 +170,7 @@ const RegisterPage = () => {
 								message: '숫자만 입력해주세요',
 							},
 						})}
-						value={price}
+						value={price.toLocaleString('ko-KR')}
 						type="text"
 						onChange={handlePriceChange}
 					></S.InputBox>
