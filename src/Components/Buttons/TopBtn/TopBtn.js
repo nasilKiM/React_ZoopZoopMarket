@@ -3,8 +3,12 @@ import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const TopBtn = () => {
+	const handleClick = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	};
+
 	return (
-		<Wrap>
+		<Wrap onClick={handleClick}>
 			<div>
 				<FontAwesomeIcon icon={faAngleUp} />
 			</div>
@@ -15,9 +19,16 @@ const TopBtn = () => {
 export default TopBtn;
 
 const Wrap = styled.div`
+	width: 40px;
+	height: 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 40px;
-	height: 40px;
+	justify-content: center;
+	color: #000;
+	border-radius: 50%;
+	cursor: pointer;
+	position: fixed;
+	right: 35px;
+	bottom: 90px;
 `;

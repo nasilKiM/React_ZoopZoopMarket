@@ -19,7 +19,6 @@ import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
-// import PrivateRoute from './private';
 
 const router = createBrowserRouter([
 	{
