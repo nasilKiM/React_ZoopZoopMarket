@@ -9,7 +9,7 @@ const ItemCard = ({ index, products }) => {
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
 	};
-	console.log(products);
+
 	return (
 		products && (
 			<S.Wrapper>
@@ -48,7 +48,9 @@ const Container = styled.div`
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	border: 1px solid lightgray;
+	margin-top: 10px;
+	margin-bottom: 10px;
+// 	border: 1px solid lightgray;
 `;
 
 const Heart = styled.div`
