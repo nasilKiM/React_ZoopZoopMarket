@@ -51,7 +51,7 @@ const router = createBrowserRouter([
 				element: <FormPage />,
 			},
 			{
-				path: 'item_detail',
+				path: 'item_detail/:idx',
 				element: <ItemDetailPage />,
 			},
 			{
@@ -63,30 +63,32 @@ const router = createBrowserRouter([
 				element: <MainPage />,
 			},
 			{
+				path: 'market_price/:word',
+				element: <MarketPricePage />,
+			},
+			{
 				path: 'market_price',
 				element: <MarketPricePage />,
 			},
 			{
 				path: 'mypage',
 				element: <MyPage />,
-				children: [
-					{
-						path: 'mypage/account_book',
-						element: <AccountBookPage />,
-					},
-					{
-						path: 'mypage/interest',
-						element: <MyInterestPage />,
-					},
-					{
-						path: 'mypage/item',
-						element: <MyItemPage />,
-					},
-					{
-						path: 'mypage/user_edit',
-						element: <MyUserEdit />,
-					},
-				],
+			},
+			{
+				path: 'mypage/account_book',
+				element: <AccountBookPage />,
+			},
+			{
+				path: 'mypage/interest',
+				element: <MyInterestPage />,
+			},
+			{
+				path: 'mypage/item',
+				element: <MyItemPage />,
+			},
+			{
+				path: 'mypage/user_edit',
+				element: <MyUserEdit />,
 			},
 			{
 				path: 'profile',
@@ -94,6 +96,10 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'register',
+				element: <RegisterPage />,
+			},
+			{
+				path: 'register/:idx',
 				element: <RegisterPage />,
 			},
 			{

@@ -1,17 +1,19 @@
-import { Axios } from 'Apis/@core';
-import ItemCard from 'Components/Card/Desktop/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ProductApi from 'Apis/productApi';
+import { useEffect } from 'react';
+import ItemCard from 'Components/Card/Desktop/Card';
 
-const Preview = ({ categoryData, userLocation, userName }) => {
-	let category = categoryData === 1 ? '중고 물품' : '무료나눔';
+const Preview = ({ category }) => {
+	const [data, setData] = useState();
+	const products =
+		data && (category === 0 ? data.usedProduct : data.freeProduct);
+	let categoryDeclare = category === 0 ? '중고 물품' : '무료나눔';
 	let categoryText =
-		categoryData === 1
-			? `${userLocation} 인기 줍줍템!`
-			: `${userName}님 주변의 무료나눔 물품들 이에요!`;
-
-	const itemList = [1, 2, 3, 4, 5, 6, 7, 8];
+		category === 0
+			? `${data && data.region}에 있는 줍줍템을 확인하세요!`
+			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -23,24 +25,27 @@ const Preview = ({ categoryData, userLocation, userName }) => {
 		swiper.slidePrev();
 	};
 
-	const cardList = async () => {
-		const res = await Axios.get('/api/product');
-		console.log(res);
-	};
+	useEffect(() => {
+		const List = async () => {
+			const res = await ProductApi.mainList();
+			setData(res.data);
+		};
+		List();
+	}, []);
 
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
-				<S.CategoryBox>{category}</S.CategoryBox>
+				<S.CategoryBox>{categoryDeclare}</S.CategoryBox>
 				<S.CategoryText>{categoryText}</S.CategoryText>
-				<S.More onClick={cardList}> 더보기 &gt; </S.More>
+				<S.More> 더보기 &gt; </S.More>
 			</S.UpperSwiper>
 			<S.SwiperWrapper>
 				<S.Btn onClick={handlePrev}> &lt;</S.Btn>
-				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={4}>
-					{itemList.map(item => (
+				<Swiper onSwiper={setSwiper} spaceBetween={0} slidesPerView={3}>
+					{products?.map(item => (
 						<SwiperSlide>
-							<ItemCard key={item} />
+							<ItemCard key={item} products={item} index={item.idx} />
 						</SwiperSlide>
 					))}
 				</Swiper>
@@ -97,17 +102,18 @@ const More = styled.div`
 const SwiperWrapper = styled.div`
 	width: 100%;
 	margin: 10px;
-	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin-top: 30px;
 	display: flex;
 	align-items: center;
 `;
 const Btn = styled.button`
 	border: none;
-	font-size: ${({ theme }) => theme.fontSize.xl};
+	font-size: ${({ theme }) => theme.fontSize.md};
 	margin-left: 10px;
 	margin-right: 10px;
 	background: none;
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 	:hover {
 		color: ${({ theme }) => theme.color.primary};
 	}

@@ -1,43 +1,55 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { flexAllCenter } from 'Styles/common';
+import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
 import styled from 'styled-components';
 
-const DetailContent = ({ state }) => {
+const DetailContent = ({ state, item }) => {
+	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
+	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
+
+	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+
 	return (
 		<>
-			{state ? (
-				<S.BuyerWrapper isDesktop={isDesktop}>
-					<div>#제목 : 브라운 그레이 자켓 팝니다.</div>
-					<div># 카테고리(여성의류) | 2일전</div>
-					<div>120,000 원</div>
-					<div>
-						본문내용 : 택도 제거 안한 새 제품입니다! 직거래와 택배 모두
-						가능합니다.
-					</div>
-					<div>
-						<div>채팅하기</div>
-						<div>
-							<HeartBtn />
-						</div>
-					</div>
-				</S.BuyerWrapper>
-			) : (
-				<S.SellerWrapper isDesktop={isDesktop}>
-					<div>
-						<div>#제목 : 브라운 그레이 자켓 팝니다.</div>
-						<div>
-							<HeartBtn />
-						</div>
-					</div>
-					<div># 카테고리(여성의류) | 2일전</div>
-					<div>120,000 원</div>
-					<div>
-						본문내용 : 택도 제거 안한 새 제품입니다! 직거래와 택배 모두
-						가능합니다.
-					</div>
-				</S.SellerWrapper>
-			)}
+			{!state
+				? item && (
+						<S.BuyerWrapper isDesktop={isDesktop}>
+							<div>{item.title}</div>
+							<div>
+								{item.ProductsTags.map(item => (
+									<span>#{item.Tag.tag}</span>
+								))}
+								| {date}
+							</div>
+							<div>{item.price.toLocaleString('ko-KR')}원</div>
+							<div>{item.description}</div>
+							<div>
+								<div>채팅하기</div>
+								<div>
+									<HeartBtn like={item.liked} idx={item.idx} />
+								</div>
+							</div>
+						</S.BuyerWrapper>
+				  )
+				: item && (
+						<S.SellerWrapper isDesktop={isDesktop}>
+							<div>
+								<div>{item.title}</div>
+								<div>
+									<HeartBtn like={item.liked} idx={item.idx} />
+								</div>
+							</div>
+							<div>
+								{item.ProductsTags.map(item => (
+									<span>#{item.Tag.tag}</span>
+								))}
+								| {date}
+							</div>
+							<div>{item.price.toLocaleString('ko-KR')}원</div>
+							<div>{item.description}</div>
+						</S.SellerWrapper>
+				  )}
 		</>
 	);
 };
@@ -48,18 +60,27 @@ const BuyerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
+	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
+	//태그, 날짜
+	& > div:nth-of-type(2) {
+		display: flex;
+		gap: 5px;
+	}
+	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
+	//본문내용
 	& > div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
+	// 카테고리
 	& > div:nth-of-type(5) {
 		${flexAllCenter}
 		justify-content: space-between;
@@ -69,6 +90,7 @@ const BuyerWrapper = styled.div`
 			padding: 15px 30px;
 			border-radius: 10px;
 		}
+		//heart
 		& > div:last-child {
 			width: 40px;
 			height: 40px;
