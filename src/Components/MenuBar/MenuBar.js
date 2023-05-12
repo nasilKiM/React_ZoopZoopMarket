@@ -21,7 +21,7 @@ const MenuBar = () => {
 					<S.MyChat props={onChat}>MY CHAT</S.MyChat>
 				</S.Menu>
 
-				<S.Menu to="/mypage">MY PAGE</S.Menu>
+				<S.MyPageMenu to="/mypage">MY PAGE</S.MyPageMenu>
 			</S.RightMenu>
 		</S.Bar>
 	);
@@ -30,9 +30,7 @@ const MenuBar = () => {
 export default MenuBar;
 
 const Bar = styled.div`
-	width: 60%;
-	max-width: 1000px;
-	min-width: 700px;
+	width: 100%;
 	margin: 0 auto;
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
@@ -43,7 +41,7 @@ const Bar = styled.div`
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
 	text-decoration: none;
-	padding-right: 10px;
+	padding-right: 20px;
 `;
 const LeftMenu = styled.div`
 	width: 100%;
@@ -61,10 +59,17 @@ const MyChat = styled.div`
 			? ({ theme }) => theme.color.primary
 			: ({ theme }) => theme.color.black};
 `;
+
+const MyPageMenu = styled(Link)`
+	color: ${({ theme }) => theme.color.black};
+	text-decoration: none;
+`;
+
 const S = {
 	Bar,
 	Menu,
 	RightMenu,
 	LeftMenu,
 	MyChat,
+	MyPageMenu,
 };

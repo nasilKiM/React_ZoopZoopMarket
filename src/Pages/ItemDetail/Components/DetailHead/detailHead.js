@@ -5,31 +5,33 @@ import ProductImg from './ProductImg/productImg';
 import Profile from 'Components/Profile/Desktop/profile';
 import { useNavigate } from 'react-router';
 
-const DetailHead = props => {
+const DetailHead = ({ item }) => {
 	const navigate = useNavigate();
-	const { size } = props;
+
+	console.log(item);
+
 	return (
-		<S.Wrapper>
-			<ProductImg />
-			<S.ProductWrapper>
-				<S.UserProfile>
-					<S.ProfileWrapper size={size}>
-						<Profile />
-					</S.ProfileWrapper>
-					<ul>
-						<li>판매자 닉네임</li>
-						<li>위치 (동까지)</li>
-					</ul>
-				</S.UserProfile>
-				<S.UserProfileDetail>
-					<ul>
-						<MannerMeter />
-						<li>매너점수</li>
-						<li>총 거래건수 : OO건</li>
-					</ul>
-				</S.UserProfileDetail>
-			</S.ProductWrapper>
-		</S.Wrapper>
+		item && (
+			<S.Wrapper>
+				<ProductImg main={item.img_url} sub={item.ProductImages} />
+				<S.ProductWrapper>
+					<S.UserProfile>
+						<S.ProfileWrapper>
+							<Profile />
+						</S.ProfileWrapper>
+						<ul>
+							<li>{item.User.nick_name}</li>
+							<li>{item.region}</li>
+						</ul>
+					</S.UserProfile>
+					<S.UserProfileDetail>
+						<ul>
+							<MannerMeter ondo={item.User.Ondo.ondo} />
+						</ul>
+					</S.UserProfileDetail>
+				</S.ProductWrapper>
+			</S.Wrapper>
+		)
 	);
 };
 

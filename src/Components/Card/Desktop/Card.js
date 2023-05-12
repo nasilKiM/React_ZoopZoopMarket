@@ -1,25 +1,39 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ItemCard = () => {
-	// const navigate = useNavigate();
+const ItemCard = ({ index, products }) => {
+	const navigate = useNavigate();
+
+	const onClickCard = async () => {
+		navigate(`/item_detail/${index}`);
+	};
 
 	return (
-		<S.Wrapper>
-			{/*onClick={() => navigate(`/detail/${item.id}`)} */}
-			<S.Container>
-				<S.Heart>
-					<HeartBtn />
-				</S.Heart>
-				<S.ItemImg src="Assets/Images/bicycle.jpg" />
-				<S.ItemInfo>
-					<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
-					<S.ItemPrice>130,000 원</S.ItemPrice>
-					<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
-				</S.ItemInfo>
-			</S.Container>
-		</S.Wrapper>
+		products && (
+			<S.Wrapper>
+				<S.Container>
+					<S.Heart>
+						<HeartBtn like={products.liked} idx={products.idx} />
+					</S.Heart>
+					<div onClick={onClickCard}>
+						<S.ItemImg src={products.img_url} />
+						<S.ItemInfo>
+							<S.ItemTitle>{products.title}</S.ItemTitle>
+							<S.ItemPrice>
+								{products.price.toLocaleString('ko-KR')}원
+							</S.ItemPrice>
+							{products.ProductsTags.map(tagObj => (
+								<S.ItemTag key={tagObj.idx}>
+									<a className="tag-link">#{tagObj.Tag.tag}</a>
+								</S.ItemTag>
+							))}
+						</S.ItemInfo>
+					</div>
+				</S.Container>
+			</S.Wrapper>
+		)
 	);
 };
 
@@ -36,7 +50,9 @@ const Container = styled.div`
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border: 1px solid lightgray;
 `;
+
 const Heart = styled.div`
 	position: absolute;
 	width: 25px;
@@ -48,36 +64,46 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	position: relative;
+	max-width: 200px;
 	width: 100%;
-	padding: 15px;
-	max-height: 250px;
+	height: 250px;
 	object-fit: cover;
-	margin: auto;
+	padding: 10px;
 `;
 
 const ItemInfo = styled.div`
 	padding-top: 15px;
 	max-height: 150px;
 	display: flex;
-	flex-direction: column;
-	padding: 0 15px;
+	flex-wrap: wrap;
+\	padding: 0 15px;
 `;
 
 const ItemTitle = styled.div`
+	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-bottom: 10px;
 `;
 
 const ItemPrice = styled.span`
+	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-bottom: 15px;
 `;
 
 const ItemTag = styled.span`
+	display: inline-block;
 	font-size: ${({ theme }) => theme.fontSize.xs};
-	overflow: hidden;
+	margin-right: 5px;
 	margin-bottom: 10px;
+
+	a {
+		display: inline-block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 `;
 
 const S = {
