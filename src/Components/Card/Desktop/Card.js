@@ -48,9 +48,7 @@ const Container = styled.div`
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-// 	border: 1px solid lightgray;
+	border: 1px solid lightgray;
 `;
 
 const Heart = styled.div`
