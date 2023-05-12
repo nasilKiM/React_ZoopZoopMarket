@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import Line from './Components/line';
 import LineWithBtn from './Components/lineWithBtn';
 
 const MyUserEdit = () => {
 	return (
 		<S.Wrapper>
-			<SignUpPage />
+			{/* <SignUpPage /> */}
 			<Line
 				txt={'비밀번호'}
 				placeholder={'특수문자, 영어, 숫자 포함 6자 이상'}
