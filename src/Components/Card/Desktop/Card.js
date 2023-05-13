@@ -45,6 +45,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
+	width: 200px;
 	max-width: 250px;
 	max-height: 400px;
 	cursor: pointer;
@@ -63,6 +64,7 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	position: relative;
+	width: 200px;
 	max-width: 250px;
 	width: 100%;
 	height: 250px;
