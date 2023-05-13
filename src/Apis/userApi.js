@@ -29,13 +29,13 @@ const UserApi = {
 	myPage() {
 		return Axios.get(PATH, '/my-page');
 	},
-	userInfoEdit({ email, region, nickName, phone}) {
+	userInfoEdit({ email, region, nickName, phone }) {
 		return Axios.patch(PATH, {
-				email,
-				region,
-				nickName,
-				phone,
-		})
-	}
+			email,
+			region,
+			nickName,
+			phone,
+		});
+	},
 };
 export default UserApi;

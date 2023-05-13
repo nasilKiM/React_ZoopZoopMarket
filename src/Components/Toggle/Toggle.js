@@ -1,14 +1,47 @@
 import { flexAllCenter } from 'Styles/common';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 const ToggleBar = () => {
+	const navigate = useNavigate();
+
+	const toggleMenu = [
+		{
+			title: '내 등록템',
+			address: 'item',
+		},
+		{
+			title: '개인 정보 수정',
+			address: 'user_edit',
+		},
+		{
+			title: '내 관심템',
+			address: 'interest',
+		},
+		{
+			title: '가계부',
+			address: 'account_book',
+		},
+		{
+			title: '내 후기',
+			address: '',
+		},
+	];
+
+	const onClickToggle = page => {
+		navigate(`/mypage/${page}`);
+	};
+
 	return (
 		<S.Wrapper>
-			<div>내 등록템</div>
-			<div>유저 정보 수정</div>
-			<div>내 관심템</div>
-			<div>가계부</div>
-			<div>내 후기</div>
+			{toggleMenu.map(toggle => (
+				<>
+					<div onClick={() => onClickToggle(toggle.address)}>
+						{toggle.title}
+					</div>
+				</>
+			))}
 		</S.Wrapper>
 	);
 };
