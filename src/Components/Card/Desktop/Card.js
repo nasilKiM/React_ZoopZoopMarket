@@ -49,15 +49,17 @@ const Container = styled.div`
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	border: 1px solid lightgray;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	// 	border: 1px solid lightgray;
 `;
 
 const Heart = styled.div`
-	position: relative;
+	position: absolute;
 	width: 32px;
 	height: 32px;
 	top: 40px;
-	left: 80%;
+	left: 202px;
 	z-index: 1000000;
 `;
 
@@ -69,7 +71,6 @@ const ItemImg = styled.img`
 	height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
-	/* padding: 10px; */
 `;
 
 const ItemInfo = styled.div`
