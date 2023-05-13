@@ -5,6 +5,7 @@ import ToggleBar from 'Components/Toggle/Toggle';
 import UserApi from 'Apis/userApi';
 import { Outlet } from 'react-router-dom';
 import MyUserEdit2 from './MyUserEdit2/myUserEdit2';
+import MyPageApi from 'Apis/myPageApi';
 
 const MyPage = () => {
 	const [ToggleState, setToggleState] = useState();
@@ -17,29 +18,27 @@ const MyPage = () => {
 			try {
 				const res = await UserApi.userInfo();
 				setUserInfo(res.data);
-				console.log(res);
 			} catch (err) {
 				console.log(err);
 			}
 		};
-
+	
 		const getUserProfile = async () => {
 			try {
-				const res = await UserApi.myPage();
+				const res = await MyPageApi.myMainPage();
 				setUserProfile(res.data);
-				console.log(res);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 
-		getUserProfile();
 		getUserInfo();
-	}, []);
+		getUserProfile();
+	}, []) 
 
 	return (
 		<S.Wrapper>
-			<MyProfile userInfo={userInfo} userProfile={userProfile} />
+			{userInfo && userProfile && <MyProfile userInfo={userInfo} userProfile={userProfile}/>}
 			<ToggleBar setToggleState={setToggleState} />
 			{ToggleState === '유저 정보 수정' && <MyUserEdit2 userInfo={userInfo} />}
 			<Outlet />
