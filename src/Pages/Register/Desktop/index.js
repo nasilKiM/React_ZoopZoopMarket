@@ -16,7 +16,6 @@ const RegisterPage = () => {
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const { idx } = useParams();
-	console.log('idx', idx);
 
 	const {
 		register,
@@ -49,8 +48,6 @@ const RegisterPage = () => {
 		}
 	};
 
-	console.log('images', images);
-
 	useEffect(() => {
 		if (!idx) return;
 		productIdx();
@@ -82,13 +79,12 @@ const RegisterPage = () => {
 
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			setError(
+			return setError(
 				'tag',
 				{ message: '1개이상 꼭 입력해주세요.' },
 				{ shouldFocus: true },
 			);
-			return;
-		} else setValue('', '');
+		}
 
 		try {
 			const formData = new FormData();
@@ -107,12 +103,11 @@ const RegisterPage = () => {
 				const res = Axios.post('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
-				console.log(res);
 				alert('물품등록이 완료되었습니다.');
 				navigate('/main');
 			} else {
-				let imgUrl = [];
 				formData.append('idx', idx);
+				let imgUrl = [];
 				images.forEach((element, index) => {
 					if (index === 0) {
 						formData.append('main_url', element);

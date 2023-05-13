@@ -31,6 +31,18 @@ const ProductApi = {
 		});
 	},
 
+	getRecent(prod_idx) {
+		return Axios.get(PATH + '/viewed-list', {
+			prod_idx,
+		});
+	},
+
+	addRecent(prod_idx) {
+		return Axios.post(PATH + '/viewed-list', {
+			prod_idx,
+		});
+	},
+
 	searchItems(page, searchWord, selected) {
 		return Axios.get(PATH + '/search', {
 			params: {
