@@ -9,7 +9,6 @@ const MyInterestPage = () => {
 	const myInterest = async () => {
 		try {
 			const res = await MyPageApi.likeProductList({ page: 1 });
-			console.log(res.data.LikeList);
 			setLikeList(res.data.LikeList);
 		} catch (error) {
 			console.log(error);
@@ -25,10 +24,10 @@ const MyInterestPage = () => {
 			{likeList &&
 				likeList.map(product => (
 					<S.Card>
-						<InterestCard index={product.idx} products={product} />
-						{/* <S.HeartZone>
-							<HeartBtn />
-						</S.HeartZone> */}
+						<InterestCard
+							index={product.Product.idx}
+							products={product.Product}
+						/>
 					</S.Card>
 				))}
 		</S.Container>
