@@ -6,25 +6,25 @@ import styled from 'styled-components';
 const InterestCard = ({ index, products }) => {
 	const navigate = useNavigate();
 
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
 
-	const prod = products.Product;
-	console.log(index);
-
 	return (
-		prod && (
+		products && (
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn like={prod.liked} idx={prod.idx} />
+						<HeartBtn like={products.liked} idx={products.idx} />
 					</S.Heart>
 					<div onClick={onClickCard}>
-						<S.ItemImg src={prod.img_url} />
+						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
-							<S.ItemTitle>{prod.title}</S.ItemTitle>
-							<S.ItemPrice>{prod.price}원</S.ItemPrice>
+							<S.ItemTitle>{products.title}</S.ItemTitle>
+							<S.ItemPrice>
+								{products.price.toLocaleString('ko-KR')}원
+							</S.ItemPrice>
+							<span>{products.status}</span>
 						</S.ItemInfo>
 					</div>
 				</S.Container>

@@ -12,7 +12,7 @@ const ToggleBar = () => {
 			address: 'item',
 		},
 		{
-			title: '유저 정보 수정',
+			title: '개인 정보 수정',
 			address: 'user_edit',
 		},
 		{
