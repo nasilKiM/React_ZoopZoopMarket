@@ -34,12 +34,12 @@ const Button = styled.button`
 	border: none;
 	cursor: pointer;
 	display: inline-block;
-	background-image: url('Assets/Icon/heart.png');
+	background-image: url('/Assets/Icon/heart.png');
 	background-repeat: no-repeat;
 	background-size: contain;
 
 	&.active {
-		background-image: url('Assets/Icon/heart-filled.png');
+		background-image: url('/Assets/Icon/heart-filled.png');
 	}
 `;
 
