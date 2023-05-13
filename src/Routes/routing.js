@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../Pages/Landing';
-import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
@@ -19,6 +18,7 @@ import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
+import AllChat from 'Pages/AllChat';
 
 const router = createBrowserRouter([
 	{
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: 'chat',
-				element: <ChattingPage />,
+				element: <AllChat />,
 			},
 			{
 				path: 'form',

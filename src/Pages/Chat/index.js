@@ -1,42 +1,48 @@
 import styled from 'styled-components';
-import ChatDetail from './ChatDetail/ChatDetail';
 import ChatList from './ChatList/ChatList';
-import { useQuery } from 'react-query';
-import axios from '../../Apis/@core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import ChatApis from 'Apis/chatApis';
 
-const ChattingPage = () => {
+const ChattingPage = ({ idx }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
-
-	const { data } = useQuery(['chatList'], () => {
-		return axios.get('/chatList').then(res => {
-			return res.data;
-		});
-	});
+	const [chatList, setChatList] = useState();
+	// const { data } = useQuery(['chatList'], () => {
+	// 	return axios.get('/chatList').then(res => {
+	// 		return res.data;
+	// 	});
+	// });
 	// console.log('----->', data);
 
-	const { data: message } = useQuery(['chatDetail', chatroomIdx], () => {
-		return axios.get(`/chatDetail/${chatroomIdx}`).then(res => {
-			return res.data;
-		});
-	});
+	// const { data: message } = useQuery(['chatDetail', chatroomIdx], () => {
+	// 	return axios.get(`/chatDetail/${chatroomIdx}`).then(res => {
+	// 		return res.data;
+	// 	});
+	// });
 	// console.log('message', message);
 	// console.log('chatroomIdx', chatroomIdx);
+
+	useEffect(() => {
+		const getChatList = async prodIdx => {
+			try {
+				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
+				console.log(res.data);
+				setChatList(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		getChatList(idx);
+	}, []);
 
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
-				{data && (
-					<ChatList
-						chatList={data}
-						chatroomIdx={chatroomIdx}
-						setChatroomIdx={setChatroomIdx}
-					/>
-				)}
+				<ChatList chatList={chatList} setChatList={setChatList} />
 			</S.ChatLeftContainer>
 			<S.ChatRightContainer>
-				{message && <ChatDetail chatDetail={message} />}
-				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div>
+				{/* {message && <ChatDetail chatDetail={message} />}
+				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div> */}
 			</S.ChatRightContainer>
 		</S.ChatContainer>
 	);

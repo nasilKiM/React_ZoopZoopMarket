@@ -1,8 +1,9 @@
+import { socketConnect } from '@Socket/socket';
+import ChatApis from 'Apis/chatApis';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { flexAllCenter } from 'Styles/common';
 import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
-import { io } from 'socket.io-client';
 import styled from 'styled-components';
 
 const DetailContent = ({ state, item }) => {
@@ -10,6 +11,22 @@ const DetailContent = ({ state, item }) => {
 	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
 
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+
+	const onClickChatStartBtn = async () => {
+		try {
+			const res = await ChatApis.setChatRoom(item.idx);
+			console.log(res);
+			const so = socketConnect();
+			so.emit('join', { room_idx: res.data.idx });
+			const data = {
+				title: item
+			}
+			so.emit('sendMessage', data);
+		} catch (err) {
+			console.log(err);
+			alert('이미 채팅방을 생성하였습니다');
+		}
+	};
 
 	return (
 		<>
@@ -26,7 +43,7 @@ const DetailContent = ({ state, item }) => {
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
 							<div>{item.description}</div>
 							<div>
-								<div>채팅하기</div>
+								<div onClick={onClickChatStartBtn}>채팅하기</div>
 								<div>
 									<HeartBtn like={item.liked} idx={item.idx} />
 								</div>

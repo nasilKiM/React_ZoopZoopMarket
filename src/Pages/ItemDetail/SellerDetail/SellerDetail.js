@@ -7,7 +7,7 @@ import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
 
-const SellerDetailPage = ({ state, product }) => {
+const SellerDetailPage = ({ state, product, idx }) => {
 	const item = product && product.data.searchProduct;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
@@ -37,7 +37,7 @@ const SellerDetailPage = ({ state, product }) => {
 			{detailState === '상세정보' ? (
 				<DetailContent state={state} item={item} />
 			) : (
-				<ChattingPage />
+				<ChattingPage idx={idx} />
 			)}
 			<AnotherProduct />
 		</S.Wrapper>

@@ -1,7 +1,7 @@
 import ChatMessage from 'Components/ChatMessage/ChatMessage';
 import styled from 'styled-components';
 
-const ChatList = ({ chatList, chatroomIdx, setChatroomIdx }) => {
+const ChatList = ({ chatList, setChatList }) => {
 	// console.log('chatList', chatList);
 
 	return (
@@ -10,16 +10,8 @@ const ChatList = ({ chatList, chatroomIdx, setChatroomIdx }) => {
 				<span>채팅목록</span>
 			</S.LeftUpperBar>
 			<S.ListContainer>
-				{chatList.map(chat => {
-					return (
-						<ChatMessage
-							onClick={() => {
-								console.log('chat--->', chat);
-								setChatroomIdx(chat.roomIdx);
-							}}
-							chat={chat}
-						/>
-					);
+				{chatList?.map(chat => {
+					return <ChatMessage chat={chat} />;
 				})}
 			</S.ListContainer>
 		</>

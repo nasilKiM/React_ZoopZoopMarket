@@ -1,17 +1,28 @@
+import { socketConnect } from '@Socket/socket';
+import ChatApis from 'Apis/chatApis';
 import styled from 'styled-components';
 
-const ChatMessage = ({ chat, onClick, isNewMessage }) => {
+const ChatMessage = ({ chat }) => {
+	const onClickChat = async () => {
+		try {
+			const res = await ChatApis.loadChatLog(chat.idx);
+			console.log(res.data);
+			const so = socketConnect();
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	return (
 		<>
-			<S.ChatContent onClick={onClick}>
+			<S.ChatContent onClick={onClickChat}>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
-					<S.ChatContentUpper isNewMessage={isNewMessage}>
-						<S.NickName>{chat.user.nickname}</S.NickName>
-						<span>{chat.msg.createdAt}</span>
+					<S.ChatContentUpper isNewMessage={chat}>
+						<S.NickName>{chat.User.nick_name}</S.NickName>
+						<span>{chat.User.lastMessageCreatedAt}</span>
 					</S.ChatContentUpper>
 					<S.ChatContentdown>
-						<span>{chat.msg.content}</span>
+						<span>{chat.User.lastMessage}</span>
 					</S.ChatContentdown>
 				</div>
 			</S.ChatContent>
@@ -27,6 +38,7 @@ const ChatContent = styled.div`
 	padding: 10px;
 	width: 100%;
 	display: inline-flex;
+	cursor: pointer;
 
 	img {
 		min-width: 50px;
