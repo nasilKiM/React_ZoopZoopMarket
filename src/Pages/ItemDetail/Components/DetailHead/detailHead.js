@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 const DetailHead = ({ item }) => {
 	const navigate = useNavigate();
 
-	console.log(item);
+	//console.log(item);
 
 	return (
 		item && (

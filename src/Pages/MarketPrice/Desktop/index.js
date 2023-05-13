@@ -1,10 +1,9 @@
+import ProductApi from 'Apis/productApi';
 import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 import { theme } from 'Styles/theme';
-import axios from 'axios';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -22,53 +21,79 @@ import styled from 'styled-components';
 const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
+	console.log(word);
 	const [priceList, setItemList] = useRecoilState(itemPriceState);
-	console.log('시세 검색 단어: ', word);
+	const start = '2023-04-30';
+	const end = '2023-05-21';
+	let data = [];
 
-	useEffect(() => {
-		const fetchItems = async () => {
-			try {
-				const response = await axios.get('Mock/ItemData/items.json');
-				const items = response.data.itemList.filter(
-					item => item.category === 1 && item.isSold === true,
-				);
-				const sortedItems = items.sort((a, b) => {
-					return new Date(a.createdAt) - new Date(b.createdAt);
-				});
-				setItemList(sortedItems);
-				//
-				const itemsByMonth = {};
-				sortedItems.forEach(item => {
-					const month = new Date(item.createdAt).getMonth();
-					if (!itemsByMonth[month]) {
-						itemsByMonth[month] = [];
-					}
-					itemsByMonth[month].push(item);
-				});
-				for (let month in itemsByMonth) {
-					const monthItems = itemsByMonth[month];
-					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
-					const average = total / monthItems.length;
-					console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchItems();
-	}, []);
+	const search = async (keyword, start, end) => {
+		try {
+			const response = await ProductApi.searchMarket(keyword, start, end);
+			console.log(response);
+			const data = response.data.prod_idx.cumulativeAvgPrice.map(
+				({ date, avgPrice }) => ({
+					day: date,
+					price: avgPrice,
+				}),
+			);
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-	console.log(priceList);
+	search(word, start, end).then(result => {
+		data = result;
+		console.log(data);
+	});
 
-	const data = [
-		{ day: 'Mon', price: 3000 },
-		{ day: 'Tue', price: 3500 },
-		{ day: 'Wed', price: 2500 },
-		{ day: 'Thu', price: 3800 },
-		{ day: 'Fri', price: 9000 },
-		{ day: 'Sat', price: 3900 },
-		{ day: 'Sun', price: 4200 },
-	];
+	//console.log('시세 검색 단어: ', word);
+
+	// useEffect(() => {
+	// 	const fetchItems = async () => {
+	// 		try {
+	// 			const response = await axios.get('Mock/ItemData/items.json');
+	// 			const items = response.data.itemList.filter(
+	// 				item => item.category === 1 && item.isSold === true,
+	// 			);
+	// 			const sortedItems = items.sort((a, b) => {
+	// 				return new Date(a.createdAt) - new Date(b.createdAt);
+	// 			});
+	// 			setItemList(sortedItems);
+	// 			//
+	// 			const itemsByMonth = {};
+	// 			sortedItems.forEach(item => {
+	// 				const month = new Date(item.createdAt).getMonth();
+	// 				if (!itemsByMonth[month]) {
+	// 					itemsByMonth[month] = [];
+	// 				}
+	// 				itemsByMonth[month].push(item);
+	// 			});
+	// 			for (let month in itemsByMonth) {
+	// 				const monthItems = itemsByMonth[month];
+	// 				const total = monthItems.reduce((sum, item) => sum + item.price, 0);
+	// 				const average = total / monthItems.length;
+	// 				//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
+	// 			}
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 		}
+	// 	};
+	// 	fetchItems();
+	// }, []);
+
+	//console.log(priceList);
+
+	// const data = [
+	// 	{ day: 'Mon', price: 3000 },
+	// 	{ day: 'Tue', price: 3500 },
+	// 	{ day: 'Wed', price: 2500 },
+	// 	{ day: 'Thu', price: 3800 },
+	// 	{ day: 'Fri', price: 9000 },
+	// 	{ day: 'Sat', price: 3900 },
+	// 	{ day: 'Sun', price: 4200 },
+	// ];
 
 	let average = 0;
 	for (let i = 0; i < data.length; i++) {

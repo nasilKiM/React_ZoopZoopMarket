@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
+import ProductApi from 'Apis/productApi';
 
 const SellerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
@@ -16,10 +17,21 @@ const SellerDetailPage = ({ state, product }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
+	const socket = 'sample용소켓입니다.';
+	const soldOut = async (index, socket) => {
+		try {
+			const response = await ProductApi.soldOut(index, socket);
+			if (response.status === 200) {
+				console.log('물품판매됨', response);
+			}
+		} catch (error) {
+			console.log('에러', error);
+		}
+	};
 	return (
 		<S.Wrapper>
 			<S.EditBar>
-				<div>판매완료 변경</div>
+				<div onClick={() => soldOut(item.idx, socket)}>판매완료 변경</div>
 				<ul>
 					<li onClick={() => navigate(`/register/${item.idx}`)}>Edit</li>
 					<li>Delete</li>
