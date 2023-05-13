@@ -47,7 +47,7 @@ const Wrap = styled.form`
 	max-width: 1000px;
 	height: 40px;
 	position: relative;
-	border: 3px solid #1ddb16;
+	border: 3px solid ${({ theme }) => theme.color.subLightGreen};
 `;
 
 const SearchInput = styled.input`
@@ -64,7 +64,7 @@ const GlassBtn = styled.button`
 	height: 35px;
 	position: absolute;
 	right: 0%;
-	background-color: #1ddb16;
+	background-color: ${({ theme }) => theme.color.subLightGreen};
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s ease;

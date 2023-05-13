@@ -5,14 +5,12 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchList from './searchList';
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
-import { useQueryClient } from 'react-query';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(0);
 	const { word } = useParams();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const props = 'search_list';
-	const queryClient = useQueryClient();
 	const res = useInfiniteSearch(word, selected);
 
 	const { data } = res;
