@@ -107,15 +107,15 @@ const RegisterPage = () => {
 				navigate('/main');
 			} else {
 				formData.append('idx', idx);
-				let imgUrl = [];
+				const imgUrls = [];
 				images.forEach((element, index) => {
 					if (index === 0) {
 						formData.append('main_url', element);
 					} else {
-						imgUrl.push(element);
+						imgUrls.push(element);
 					}
 				});
-				formData.append('img_url', imgUrl.join());
+				formData.append('img_url', imgUrls.join());
 				Axios.patch('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
