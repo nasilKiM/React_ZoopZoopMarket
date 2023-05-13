@@ -24,10 +24,7 @@ const UserApi = {
 		return Axios.get(PATH + '/refreshToken');
 	},
 	userInfo() {
-		return Axios.get(PATH, '/info');
-	},
-	myPage() {
-		return Axios.get(PATH, '/my-page');
+		return Axios.get(PATH + '/info');
 	},
 	userInfoEdit({ email, region, nickName, phone }) {
 		return Axios.patch(PATH, {
