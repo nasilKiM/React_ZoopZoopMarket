@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import MyProfile from './Components/MyPofile/myProfile';
 import ToggleBar from 'Components/Toggle/Toggle';
-import AccountBookPage from './MyAccountBook/Desktop';
+import UserApi from 'Apis/userApi';
+import { Outlet } from 'react-router-dom';
+import MyUserEdit2 from './MyUserEdit2/myUserEdit2';
 
 const MyPage = () => {
 	const [ToggleState, setToggleState] = useState();
@@ -40,8 +42,7 @@ const MyPage = () => {
 			<MyProfile userInfo={userInfo} userProfile={userProfile} />
 			<ToggleBar setToggleState={setToggleState} />
 			{ToggleState === '유저 정보 수정' && <MyUserEdit2 userInfo={userInfo} />}
-			{ToggleState === '비밀번호 변경' && <MyPasswordEdit />}
-			{ToggleState === '가계부' && <AccountBookPage />}
+			<Outlet />
 		</S.Wrapper>
 	);
 };
