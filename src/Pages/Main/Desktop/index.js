@@ -1,25 +1,16 @@
 import styled from 'styled-components';
 import Preview from './Components/preview';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-import TokenService from 'Repository/TokenService';
-import { useNavigate } from 'react-router-dom';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
-import UserApi from 'Apis/userApi';
+import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 
 const DesktopMainPage = () => {
-	const navigate = useNavigate();
-
-	const logout = async () => {
-		await UserApi.logout();
-		TokenService.removeToken();
-		navigate('/');
-	};
 	const props = 'search_list';
 
 	return (
 		<S.Wrapper>
-			<button onClick={logout}>로그아웃</button>
+			<TopBtn />
 			<Link to={'/register'}>
 				<S.BtnSection>
 					<RegisterBtn />
@@ -41,7 +32,7 @@ const Wrapper = styled.div`
 	max-width: 1000px;
 	min-width: 700px;
 	margin: 0 auto;
-	padding-top: 30px;
+	padding-top: 10px;
 `;
 
 const SearchSection = styled.div`

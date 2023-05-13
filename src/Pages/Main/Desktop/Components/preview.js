@@ -12,8 +12,8 @@ const Preview = ({ category }) => {
 	let categoryDeclare = category === 0 ? '중고 물품' : '무료나눔';
 	let categoryText =
 		category === 0
-			? `${data && data.region} 인기 줍줍템!`
-			: `회원님 주변의 무료나눔 물품들 이에요!`;
+			? `${data && data.region}에 있는 줍줍템을 확인하세요!`
+			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
 	const [swiper, setSwiper] = useState(null);
 
@@ -25,12 +25,11 @@ const Preview = ({ category }) => {
 		swiper.slidePrev();
 	};
 
-	const List = async () => {
-		const res = await ProductApi.mainList();
-		setData(res.data);
-	};
-
 	useEffect(() => {
+		const List = async () => {
+			const res = await ProductApi.mainList();
+			setData(res.data);
+		};
 		List();
 	}, []);
 
@@ -103,14 +102,15 @@ const More = styled.div`
 const SwiperWrapper = styled.div`
 	width: 100%;
 	margin: 10px;
-	border: 1px solid ${({ theme }) => theme.color.subBeigeGreen};
 	margin-top: 30px;
 	display: flex;
 	align-items: center;
 `;
 const Btn = styled.button`
 	border: none;
-	font-size: ${({ theme }) => theme.fontSize.xl};
+	font-size: ${({ theme }) => theme.fontSize.md};
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 	margin-left: 10px;
 	margin-right: 10px;
 	background: none;

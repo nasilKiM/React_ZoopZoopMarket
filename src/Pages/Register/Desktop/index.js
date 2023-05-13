@@ -42,12 +42,15 @@ const RegisterPage = () => {
 				res.data.searchProduct.img_url,
 				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
 			]);
-			setValue(images);
-			// 수정할때는 url인데 어떻게 file로 보내는지?
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+	// const handleImageChange = (event) => {
+	// 	const imageUrl = URL.createObjectURL(event.target.files[0]);
+	// 	setImages(prevState => [...prevState, imageUrl]);
+	//   };
 
 	console.log('images', images);
 
