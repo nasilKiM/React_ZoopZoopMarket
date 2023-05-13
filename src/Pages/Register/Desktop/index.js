@@ -49,11 +49,6 @@ const RegisterPage = () => {
 		}
 	};
 
-	// const handleImageChange = (event) => {
-	// 	const imageUrl = URL.createObjectURL(event.target.files[0]);
-	// 	setImages(prevState => [...prevState, imageUrl]);
-	//   };
-
 	console.log('images', images);
 
 	useEffect(() => {
@@ -113,19 +108,20 @@ const RegisterPage = () => {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
 				console.log(res);
-				// alert('물품등록이 완료되었습니다.');
-				// navigate('/main');
+				alert('물품등록이 완료되었습니다.');
+				navigate('/main');
 			} else {
+				let imgUrl = [];
 				formData.append('idx', idx);
-				formData.append('main_url', mainImg[0]);
-				[...data.mainImg].forEach(element => {
-					formData.append('img_url', element);
+				images.forEach((element, index) => {
+					if (index === 0) {
+						formData.append('main_url', element);
+					} else {
+						imgUrl.push(element);
+					}
 				});
-				const patchData = {};
-				formData.forEach((value, key) => (patchData[key] = value));
-				console.log('patchData is', patchData);
-				// console.log('patchData is', formData);
-				Axios.patch('/api/product', patchData, {
+				formData.append('img_url', imgUrl.join());
+				Axios.patch('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
 				alert('물품수정이 완료되었습니다.');

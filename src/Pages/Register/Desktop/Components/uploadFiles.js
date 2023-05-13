@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const UploadFiles = ({ register, images, setImages, setValue }) => {
@@ -12,10 +12,11 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 
 		for (let i = 0; i < fileArr.length && i < 5; i++) {
 			const file = fileArr[i];
-			const fileURL = await readFileAsync(file); // Promise로 파일을 읽음
+			const fileURL = await readFileAsync(file);
 			fileURLs.push(fileURL);
 		}
 		setImgSrc(fileURLs);
+		console.log('fileArr', fileArr);
 	};
 
 	const readFileAsync = file => {
@@ -36,13 +37,6 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 		setImages(newFileURLs);
 		console.log(newFileURLs);
 	};
-
-	useEffect(() => {
-		if (images.length === 0) return;
-		const patchData = {};
-		images.forEach((value, key) => (patchData[key] = value));
-		setValue('mainImg', patchData);
-	}, [images]);
 
 	return (
 		<S.Wrapper>
