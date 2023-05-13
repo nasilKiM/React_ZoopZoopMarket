@@ -31,13 +31,15 @@ const ProductApi = {
 		});
 	},
 
-	searchItems(page, searchWord, selected) {
-		return Axios.get('/api/product/search', {
-			params: {
-				category: selected,
-				keyword: searchWord,
-				page: page,
-			},
+	getRecent(prod_idx) {
+		return Axios.get(PATH + '/viewed-list', {
+			prod_idx,
+		});
+	},
+
+	addRecent(prod_idx) {
+		return Axios.post(PATH + '/viewed-list', {
+			prod_idx,
 		});
 	},
 };

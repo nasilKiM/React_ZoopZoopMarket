@@ -1,3 +1,4 @@
+import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ const ItemCard = ({ index, products }) => {
 
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
+		await ProductApi.addRecent(index);
 	};
 	// console.log(products);
 
