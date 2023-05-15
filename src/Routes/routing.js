@@ -18,7 +18,8 @@ import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
-import MyUserEdit2 from 'Pages/MyPage/MyUserEdit2/myUserEdit2';
+import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
+import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 
 const router = createBrowserRouter([
 	{
@@ -88,8 +89,12 @@ const router = createBrowserRouter([
 					},
 					{
 						path: '/mypage/user_edit',
-						element: <MyUserEdit2 />,
+						element: <MyUserEdit />,
 					},
+					{
+						path: '/mypage/user_password_edit',
+						element: <MyPasswordEdit/>
+					}
 				],
 			},
 			{

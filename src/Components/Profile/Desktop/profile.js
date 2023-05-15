@@ -6,7 +6,7 @@ const Profile = ({userProfileUrl}) => {
 	return (
 		<>
 			<S.Circle>
-				{userProfileUrl === null ? <S.Img src="Assets/Images/1.jpg"></S.Img> : <S.Img src={profileUrl}></S.Img>}
+				{userProfileUrl === null ? <S.Img src="Assets/Images/기본 프로필.png"></S.Img> : <S.Img src={profileUrl}></S.Img>}
 			</S.Circle>
 		</>
 	);

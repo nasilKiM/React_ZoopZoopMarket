@@ -1,46 +1,14 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import MyProfile from './Components/MyPofile/myProfile';
 import ToggleBar from 'Components/Toggle/Toggle';
-import UserApi from 'Apis/userApi';
 import { Outlet } from 'react-router-dom';
-import MyUserEdit2 from './MyUserEdit2/myUserEdit2';
-import MyPageApi from 'Apis/myPageApi';
 
 const MyPage = () => {
-	const [ToggleState, setToggleState] = useState();
-
-	const [userInfo, setUserInfo] = useState();
-	const [userProfile, setUserProfile] = useState();
-
-	useEffect(() => {
-		const getUserInfo = async () => {
-			try {
-				const res = await UserApi.userInfo();
-				setUserInfo(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-	
-		const getUserProfile = async () => {
-			try {
-				const res = await MyPageApi.myMainPage();
-				setUserProfile(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
-		getUserInfo();
-		getUserProfile();
-	}, []) 
 
 	return (
 		<S.Wrapper>
-			{userInfo && userProfile && <MyProfile userInfo={userInfo} userProfile={userProfile}/>}
-			<ToggleBar setToggleState={setToggleState} />
-			{ToggleState === '유저 정보 수정' && <MyUserEdit2 userInfo={userInfo} />}
+			<MyProfile/>
+			<ToggleBar/>
 			<Outlet />
 		</S.Wrapper>
 	);

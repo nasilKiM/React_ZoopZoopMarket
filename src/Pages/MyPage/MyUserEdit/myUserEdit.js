@@ -7,7 +7,7 @@ import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 
-const MyUserEdit2 = ({ userInfo }) => {
+const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
@@ -21,7 +21,7 @@ const MyUserEdit2 = ({ userInfo }) => {
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
-
+	
 	const onSubmit = async data => {
 		const infoEdit = {
 			email: data.email,
@@ -29,18 +29,17 @@ const MyUserEdit2 = ({ userInfo }) => {
 			phone: data.phone,
 			region: address,
 		};
-
+		
 		try {
-			const res = await UserApi.userInfo(infoEdit);
-			console.log(res);
+			await UserApi.userInfoEdit(infoEdit);
 			alert('회원정보가 변경되었습니다');
 			navigate('/mypage');
 		} catch (err) {
-			console.log(err);
-			// alert(err.response.data.message);
+			alert(err.response.data.message, '비밀번호 변경을 실패하셨습니다, 다시 시도해주세요');
 		}
 	};
-
+	
+	// zoopzoop의 아이디는 이메일로, 아이디를 변경할수 없도록 해야할지 전체 논의 필요 (우선은 스웨거 상 아이디 변경 가능하도록 되어 있어 추가해놓음)
 	const onCheckId = async e => {
 		e.preventDefault();
 		const value = getValues('email');
@@ -51,12 +50,11 @@ const MyUserEdit2 = ({ userInfo }) => {
 			setIdMsg(err.response.data.message);
 		}
 	};
-
-	// input 값에 변화가 생길때 msg 칸을 비워주는
+	
 	useEffect(() => {
 		setIdMsg('');
-	}, [watch('email')]);
-
+	}, [getValues('email')]);
+	
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -67,19 +65,22 @@ const MyUserEdit2 = ({ userInfo }) => {
 			setNickMsg(err.response.data.message);
 		}
 	};
-
+	
 	useEffect(() => {
 		setNickMsg();
-	}, [watch('nick')]);
-
+	}, [getValues('nick')]);
+	
 	useEffect(() => {
 		setValue('email', userInfo?.email);
 		setValue('nick', userInfo?.nick_name);
 		setValue('phone', userInfo?.phone);
 	}, []);
-
+	
+	const onClickPasswordChange = () => {
+		navigate('/mypage/user_password_edit');
+	}
 	const full = !errors.email && !errors.phone && address;
-
+	
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -96,7 +97,7 @@ const MyUserEdit2 = ({ userInfo }) => {
 							/>
 							<button
 								onClick={onCheckId}
-								disabled={errors.email || !watch('email')}
+								disabled={errors.email || 'email'}
 							>
 								중복확인
 							</button>
@@ -116,7 +117,7 @@ const MyUserEdit2 = ({ userInfo }) => {
 							/>
 							<button
 								onClick={onCheckNick}
-								disabled={errors.nick || !watch('nick')}
+								disabled={errors.nick || 'nick'}
 							>
 								중복확인
 							</button>
@@ -161,21 +162,31 @@ const MyUserEdit2 = ({ userInfo }) => {
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
+			<S.Wrap2>
+				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
+			</S.Wrap2>
 		</S.Div>
 	);
 };
 
-export default MyUserEdit2;
+export default MyUserEdit;
 
 const Div = styled.div`
 	width: 100%;
-	${flexAllCenter}
+	margin: 0 auto;
 `;
 
 const Wrap = styled.div`
 	width: 60%;
 	flex-direction: column;
 	${flexAllCenter}
+	margin: 0 auto;
+`;
+
+const Wrap2 = styled.div`
+	width: 60%;
+	${flexAllCenter}
+	margin: 0 auto;
 `;
 
 const Header = styled.div`
@@ -299,9 +310,20 @@ const Address = styled.div`
 	align-items: center;
 `;
 
+const Text = styled.div`
+	margin-top: 30px;
+	font-size: ${({theme}) => theme.fontSize.base};
+	color: ${({theme}) => theme.color.primary};
+	:hover {
+		cursor: pointer;
+		line-height: 0%;
+	}
+`;
+
 const S = {
 	Div,
 	Wrap,
+	Wrap2,
 	Header,
 	LogoImage,
 	Form,
@@ -313,4 +335,5 @@ const S = {
 	InputBoxWrap,
 	Error,
 	Address,
+	Text
 };

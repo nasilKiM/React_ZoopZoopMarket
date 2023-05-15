@@ -2,84 +2,42 @@ import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 
-const SignUpPage = () => {
+const MyPasswordEdit = () => {
 	const navigate = useNavigate();
-	const [address, setAddress] = useState();
-	const [idMsg, setIdMsg] = useState('');
-	const [nickMsg, setNickMsg] = useState('');
 
 	const {
 		register,
 		handleSubmit,
 		watch,
-		setValue,
-		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
 	const onSubmit = async data => {
 		const info = {
-			email: data.email,
 			pw: data.password,
-			nickName: data.nick,
-			phone: data.phone,
-			region: address,
 		};
 
 		try {
-			await UserApi.signup(info);
-			alert('회원가입이 완료되었습니다.');
-			navigate('/form/login');
+			await UserApi.userPasswordEdit(info);
+			alert('비밀번호가 변경되었습니다.');
+			navigate('/mypage');
 		} catch (err) {
-			alert(err.response.data.message);
+			// alert(err.response.data.message);
+			console.log(err);	// 확인용
 		}
 	};
-
-	const onCheckId = async e => {
-		e.preventDefault();
-		const value = getValues('email');
-		try {
-			const res = await UserApi.checkEmail(value);
-			setIdMsg(res.data.message);
-		} catch (err) {
-			setIdMsg(err.response.data.message);
-		}
-	};
-
-	// input 값에 변화가 생길때 msg 칸을 비워주는
-	useEffect(() => {
-		setIdMsg('');
-	}, [watch('email')]);
-
-	const onCheckNick = async e => {
-		e.preventDefault();
-		const value = getValues('nick');
-		try {
-			const res = await UserApi.checkNickname(value);
-			setNickMsg(res.data.message);
-		} catch (err) {
-			setNickMsg(err.response.data.message);
-		}
-	};
-
-	useEffect(() => {
-		setNickMsg();
-	}, [watch('nick')]);
 
 	const full =
-		!errors.email &&
 		!errors.password &&
-		!errors.confirmPW &&
-		!errors.phone &&
-		address;
+		!errors.confirmPW;
 
 	return (
 		<S.Div>
 			<S.Wrap>
+				<div> 90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!</div>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.InputWrap>
 						<S.ItemWrap>
@@ -106,7 +64,7 @@ const SignUpPage = () => {
 									required: true,
 									validate: value => {
 										if (watch('password') !== value) {
-											return '비밀번호를 다시 확인해 주세요';
+											return '비밀번호가 일치하지 않습니다.';
 										}
 									},
 								})}
@@ -125,7 +83,7 @@ const SignUpPage = () => {
 	);
 };
 
-export default SignUpPage;
+export default MyPasswordEdit;
 
 const Div = styled.div`
 	width: 100%;
@@ -136,6 +94,11 @@ const Wrap = styled.div`
 	width: 60%;
 	flex-direction: column;
 	${flexAllCenter}
+	& > div {
+		margin-bottom: 30px;
+		color: ${({theme}) => theme.color.primary};
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
 `;
 
 const Header = styled.div`
@@ -193,7 +156,7 @@ const BtnWrap = styled.div`
 
 const ItemWrap = styled.div`
 	display: flex;
-	width: 20%;
+	width: 25%;
 	& > span {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
