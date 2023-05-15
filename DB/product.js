@@ -52,7 +52,11 @@ const generateRandomItems = count => {
 	const randomTags = () => {
 		const tagArr = new Array(Math.floor(Math.random() * 3 + 1)).fill(0);
 		const result = tagArr.map(
-			item => (item = tag[Math.floor(Math.random() * 27)]),
+			item =>
+				(item = {
+					idx: Math.floor(Math.random() * 1000),
+					Tag: { tag: tag[Math.floor(Math.random() * 27)] },
+				}),
 		);
 		return result;
 	};
@@ -70,17 +74,19 @@ const generateRandomItems = count => {
 	for (let i = 1; i <= count; i++) {
 		const item = {
 			idx: Math.floor(Math.random() * 100000000),
-			category: randomBoolean(),
 			title: title[Math.floor(Math.random() * 745)],
-			description: content[Math.floor(Math.random() * 70)],
-			location: '서울시 강남구 도곡동',
-			createdAt: randomDate(new Date(2023, 0, 1), new Date()),
-			isSeller: randomBoolean(),
-			Liked: Math.floor(Math.random() * 50),
 			img_url: 'https://picsum.photos/400/500',
-			ProductImages: new Array(randomImg).fill('https://picsum.photos/400/500'),
+			createdAt: randomDate(new Date(2023, 0, 1), new Date()),
+			Liked: Math.floor(Math.random() * 50),
 			status: randomStatus(),
+			ProductImages: new Array(randomImg).fill({
+				img_url: 'https://picsum.photos/400/500',
+			}),
 			ProductsTags: randomTags(),
+			description: content[Math.floor(Math.random() * 70)],
+			category: randomBoolean(),
+			location: '서울시 강남구 도곡동',
+			isSeller: randomBoolean(),
 			User: {
 				nick_name: 'pair2',
 				profile_url: 'https://picsum.photos/400/500',
@@ -90,6 +96,12 @@ const generateRandomItems = count => {
 				},
 			},
 		};
+
+		if (item.category === 1) {
+			item.price = randomPrice();
+		} else item.price = 0;
+
+		items.push(item);
 
 		if (item.category) {
 			item.price = randomPrice();
@@ -103,10 +115,10 @@ const generateRandomItems = count => {
 
 const randomItems = generateRandomItems(100);
 
-fs.writeFile('newItem2.json', JSON.stringify(randomItems), err => {
+fs.writeFile('product.json', JSON.stringify(randomItems), err => {
 	if (err) {
 		console.error(err);
 		return;
 	}
-	console.log('Random items saved to items.json');
+	console.log('product.json파일에 데이터들이 저장되었습니다!');
 });
