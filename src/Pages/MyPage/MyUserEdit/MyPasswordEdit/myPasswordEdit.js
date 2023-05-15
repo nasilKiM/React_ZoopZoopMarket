@@ -11,7 +11,6 @@ const MyPasswordEdit = () => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -63,7 +62,7 @@ const MyPasswordEdit = () => {
 								{...register('confirmPW', {
 									required: true,
 									validate: value => {
-										if (watch('password') !== value) {
+										if ('password' !== value) {
 											return '비밀번호가 일치하지 않습니다.';
 										}
 									},
