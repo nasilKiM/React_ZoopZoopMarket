@@ -1,7 +1,12 @@
 import ChatMessage from 'Components/ChatMessage/ChatMessage';
 import styled from 'styled-components';
 
-const ChatList = ({ chatList, setChatList }) => {
+const ChatList = ({
+	chatList,
+	setChatList,
+	setIsChatEntrance,
+	setChatroomIdx,
+}) => {
 	// console.log('chatList', chatList);
 
 	return (
@@ -11,7 +16,7 @@ const ChatList = ({ chatList, setChatList }) => {
 			</S.LeftUpperBar>
 			<S.ListContainer>
 				{chatList?.map(chat => {
-					return <ChatMessage chat={chat} />;
+					return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
 				})}
 			</S.ListContainer>
 		</>

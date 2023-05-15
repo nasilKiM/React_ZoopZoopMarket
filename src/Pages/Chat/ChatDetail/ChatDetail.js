@@ -1,31 +1,65 @@
 import styled from 'styled-components';
 import MessageDetail from '../Message/Message';
+import { useEffect, useRef, useState } from 'react';
+import ChatApis from 'Apis/chatApis';
+import { socketConnect } from '@Socket/socket';
 
-const ChatDetail = ({ chatDetail }) => {
+const ChatDetail = ({ chatroomIdx, item }) => {
+	const [chat, setChat] = useState();
+	const message = useRef();
+
+	useEffect(() => {
+		const loadChatLog = async () => {
+			try {
+				const res = await ChatApis.loadChatLog(chatroomIdx);
+				console.log(res.data);
+				setChat(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		loadChatLog();
+	}, []);
+
+	const onClickSendMsgBtn = async () => {
+		const so = socketConnect();
+		const message = {
+			title: item.title,
+			createdAt: item.createdAt,
+			prod_idx: item.idx,
+			room_idx: chatroomIdx,
+			nickName: item.User.nick_name,
+			message: message.current.value,
+			// isSeller
+		};
+		so.emit('sendMessage', message);
+		const res = await ChatApis.saveMsg(message.current.value);
+	};
+
 	return (
 		<>
 			<S.ChattingTitle>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
 					<S.CurrentChatting>
-						<div>{chatDetail.product.title}</div>
-						<div> {chatDetail.product.status}</div>
+						{/* <div>{chatDetail.product.title}</div>
+						<div> {chatDetail.product.status}</div> */}
 					</S.CurrentChatting>
 					<S.Price>
-						<span>{chatDetail.product.price}</span>
+						{/* <span>{chatDetail.product.price}</span> */}
 						{/* 판매자가 구매자를 구매확정했을경우에 보여야함
 					+ 후기남긴경우에는 후기수정하기가 떠야함. */}
-						<button>후기 남기기</button>
-						<button>후기 수정하기</button>
+						{/* <button>후기 남기기</button>
+						<button>후기 수정하기</button> */}
 					</S.Price>
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
-				<MessageDetail chatDetail={chatDetail} />
+				<MessageDetail chat={chat} />
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>
-					<textarea autoFocus={true} />
+					<textarea ref={message} autoFocus={true} />
 					<div>
 						<S.SubmitButton type="submit">전송</S.SubmitButton>
 					</div>

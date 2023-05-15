@@ -1,16 +1,8 @@
-import { socketConnect } from '@Socket/socket';
-import ChatApis from 'Apis/chatApis';
 import styled from 'styled-components';
 
-const ChatMessage = ({ chat }) => {
-	const onClickChat = async () => {
-		try {
-			const res = await ChatApis.loadChatLog(chat.idx);
-			console.log(res.data);
-			const so = socketConnect();
-		} catch (err) {
-			console.log(err);
-		}
+const ChatMessage = ({ chat, setChatroomIdx }) => {
+	const onClickChat = () => {
+		setChatroomIdx(chat.idx);
 	};
 	return (
 		<>

@@ -3,25 +3,45 @@ import ChatApis from 'Apis/chatApis';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { flexAllCenter } from 'Styles/common';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { isDesktop } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DetailContent = ({ state, item }) => {
 	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
 	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-
+	console.log(item);
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+
+	const [chatRoom, setChatRoom] = useState();
+	const navigate = useNavigate();
 
 	const onClickChatStartBtn = async () => {
 		try {
-			const res = await ChatApis.setChatRoom(item.idx);
-			console.log(res);
+			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
+			console.log(setChatRoomRes);
 			const so = socketConnect();
-			so.emit('join', { room_idx: res.data.idx });
+			so.emit('join', { room_idx: setChatRoomRes.data.idx });
+			const message = '채팅방을 시작합니다';
 			const data = {
-				title: item
-			}
+				title: item.title,
+				createdAt: item.createdAt,
+				prod_idx: item.idx,
+				room_idx: res.data.idx,
+				nickName: item.User.nick_name,
+				message,
+				socketId: item.User.socket,
+			};
 			so.emit('sendMessage', data);
+			navigate('/chat');
+			const saveMsgRes = await ChatApis.saveMsg(
+				setChatRoomRes.data.idx,
+				message,
+			);
+			// so.on('receiveMessage', data => {
+			// 	console.log(data);
+			// });
 		} catch (err) {
 			console.log(err);
 			alert('이미 채팅방을 생성하였습니다');

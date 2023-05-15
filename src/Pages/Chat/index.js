@@ -2,10 +2,13 @@ import styled from 'styled-components';
 import ChatList from './ChatList/ChatList';
 import { useEffect, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
+import ChatDetail from './ChatDetail/ChatDetail';
 
-const ChattingPage = ({ idx }) => {
+const ChattingPage = ({ idx, item }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatList, setChatList] = useState();
+	const [isChatEntrance, setIsChatEntrance] = useState(false);
+
 	// const { data } = useQuery(['chatList'], () => {
 	// 	return axios.get('/chatList').then(res => {
 	// 		return res.data;
@@ -22,6 +25,7 @@ const ChattingPage = ({ idx }) => {
 	// console.log('chatroomIdx', chatroomIdx);
 
 	useEffect(() => {
+		if (!idx) return;
 		const getChatList = async prodIdx => {
 			try {
 				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
@@ -35,14 +39,34 @@ const ChattingPage = ({ idx }) => {
 		getChatList(idx);
 	}, []);
 
+	useEffect(() => {
+		if (idx) return;
+		const getAllChatList = async () => {
+			try {
+				const res = await ChatApis.loadAllChatList(1);
+				console.log(res);
+				setChatList(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		getAllChatList();
+	}, []);
+
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
-				<ChatList chatList={chatList} setChatList={setChatList} />
+				<ChatList
+					chatList={chatList}
+					setChatList={setChatList}
+					setIsChatEntrance={setIsChatEntrance}
+					setChatroomIdx={setChatroomIdx}
+				/>
 			</S.ChatLeftContainer>
 			<S.ChatRightContainer>
-				{/* {message && <ChatDetail chatDetail={message} />}
-				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div> */}
+				{chatroomIdx && <ChatDetail chatroomIdx={chatroomIdx} item={item} />}
+				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div>
 			</S.ChatRightContainer>
 		</S.ChatContainer>
 	);

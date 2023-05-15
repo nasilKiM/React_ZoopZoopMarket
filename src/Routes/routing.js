@@ -18,7 +18,7 @@ import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
-import AllChat from 'Pages/AllChat';
+import ChattingPage from 'Pages/Chat';
 
 const router = createBrowserRouter([
 	{
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: 'chat',
-				element: <AllChat />,
+				element: <ChattingPage />,
 			},
 			{
 				path: 'form',
