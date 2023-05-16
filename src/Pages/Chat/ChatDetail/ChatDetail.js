@@ -7,6 +7,9 @@ import { socketConnect } from '@Socket/socket';
 const ChatDetail = ({ chatroomIdx, item }) => {
 	const [chat, setChat] = useState();
 	const message = useRef();
+	const [send, setSend] = useState();
+	const [receiveMsg, setReceiveMsg] = useState();
+	const so = socketConnect();
 
 	useEffect(() => {
 		const loadChatLog = async () => {
@@ -21,8 +24,13 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 		loadChatLog();
 	}, []);
 
+	useEffect(() => {
+		so.on('receiveMessage', async data => {
+			const res = await ChatApis.saveMsg(data);
+		});
+	}, []);
+
 	const onClickSendMsgBtn = async () => {
-		const so = socketConnect();
 		const message = {
 			title: item.title,
 			createdAt: item.createdAt,
@@ -32,7 +40,9 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 			message: message.current.value,
 			// isSeller
 		};
-		so.emit('sendMessage', message);
+		so.emit('sendMessage', message, () => {
+			setSend(message.current.value);
+		});
 		const res = await ChatApis.saveMsg(message.current.value);
 	};
 
@@ -61,7 +71,9 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 				<S.ChattingForm>
 					<textarea ref={message} autoFocus={true} />
 					<div>
-						<S.SubmitButton type="submit">전송</S.SubmitButton>
+						<S.SubmitButton type="submit" onClick={onClickSendMsgBtn}>
+							전송
+						</S.SubmitButton>
 					</div>
 				</S.ChattingForm>
 			</S.ChattingFormContainer>
