@@ -16,7 +16,6 @@ const MyUserEdit = ({ userInfo }) => {
 	const {
 		register,
 		handleSubmit,
-		watch,
 		setValue,
 		getValues,
 		formState: { errors },
