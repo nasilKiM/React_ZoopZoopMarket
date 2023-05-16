@@ -1,19 +1,23 @@
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchList from './searchList';
-import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
+import UsedProduct from './components/usedProduct';
+import FreeProduct from './components/freeProduct';
+import { useQuery } from 'react-query';
+import { MockAxios } from 'Apis/@core';
+import { useRecoilState } from 'recoil';
+import { itemListState } from 'Atoms/search.atom';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(0);
 	const { word } = useParams();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const props = 'search_list';
-	const res = useInfiniteSearch(word, selected);
 
-	const { data } = res;
+	// const res = useInfiniteSearch(word, selected);
+
+	//const { data } = res;
 
 	let selectedItem = '';
 
@@ -23,37 +27,75 @@ const DesktopSearchList = () => {
 		selectedItem = '무료나눔';
 	}
 
-	useEffect(() => {
-		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
-	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
+	// useEffect(() => {
+	// 	res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
+	// }, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
+
+	// useEffect(() => {
+	// 	if (!inView) {
+	// 		return;
+	// 	}
+	// 	res.fetchNextPage();
+	// }, [inView]);
+
+	const { data } = useQuery(['product'], () => {
+		return MockAxios.get('/product').then(res => {
+			return res.data;
+		});
+	});
+
+	const [itemList, setItemList] = useRecoilState(itemListState);
+	const PAGE_LIMIT = 10;
+	const fetchItems = (page = 0) => {
+		const startIndex = page * PAGE_LIMIT;
+		const endIndex = (page + 1) * PAGE_LIMIT;
+		const items = data.slice(startIndex, endIndex);
+		setItemList(items); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
+		return { items };
+	};
 
 	useEffect(() => {
-		if (!inView) {
-			return;
-		}
-		res.fetchNextPage();
-	}, [inView]);
+		//data && console.log(data);
+		data && fetchItems();
+		data && console.log(itemList);
+	}, [word]);
 
 	return (
 		<>
 			<S.Wrapper>
 				<S.Container>
-					<S.SearchBarContainer>
+					{/* <S.SearchBarContainer>
 						<SearchBar props={props} />
-					</S.SearchBarContainer>
-					{data && (
+					</S.SearchBarContainer> */}
+					{/* {!data && (
 						<S.ResultText>
-							{data.pages && data.pages[0].data.product.length === 0 ? (
-								<div>{word}에 대한 검색 결과가 없습니다.</div>
-							) : (
-								<div>
-									찾으신 '{word}'에 대한 결과 입니다.(총{} 개)
-								</div>
-							)}
+							<div>{word}에 대한 검색 결과가 없습니다.</div>
 						</S.ResultText>
 					)}
-					<S.CategoryBox>
-						<S.Category
+					{data && (
+						<S.ResultText>
+							{
+								<div>
+									찾으신 '{word}'에 대한 결과 입니다.(총
+									{data && data.pages && data.pages[0].data.product.length} 개)
+								</div>
+							}
+						</S.ResultText>
+					)} */}
+					{
+						<>
+							<S.ResultText>"{word}"에 대한 검색결과</S.ResultText>
+							<S.Category>중고 아이템</S.Category>
+
+							<UsedProduct word={word} data={data}></UsedProduct>
+
+							<S.Category>무료 아이템</S.Category>
+							<FreeProduct word={word} data={data}></FreeProduct>
+						</>
+					}
+
+					{/* <S.CategoryBox> */}
+					{/* <S.Category
 							onClick={() => setSelected(0)}
 							style={selected === 0 ? { fontWeight: 700 } : {}}
 						>
@@ -65,14 +107,15 @@ const DesktopSearchList = () => {
 							style={selected === 1 ? { fontWeight: 700 } : {}}
 						>
 							무료 나눔
-						</S.Category>
-					</S.CategoryBox>
+						</S.Category> */}
+					{/* </S.CategoryBox> */}
 					<S.ItemList>
-						{data &&
+						{/* {data &&
 							data.pages.map(pageItems => (
 								<SearchList products={pageItems.data.product} />
-							))}
-						<S.refDiv ref={ref}></S.refDiv>
+							))} */}
+
+						{/* <S.refDiv ref={ref}></S.refDiv> */}
 					</S.ItemList>
 				</S.Container>
 			</S.Wrapper>
@@ -87,10 +130,11 @@ const refDiv = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 80%;
+	/* max-width: 1000px; */
 	min-width: 700px;
 	margin: 0 auto;
+	border: 2px solid red;
 `;
 
 const Container = styled.div`
@@ -110,12 +154,15 @@ const ResultText = styled.div`
 
 const CategoryBox = styled.div`
 	cursor: pointer;
-	display: flex;
+
 	margin-top: 40px;
 `;
 
 const Category = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
+	margin-top: 40px;
+	font-size: ${({ theme }) => theme.fontSize.big};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	border: 5px solid green;
 `;
 
 const Wall = styled.div`
@@ -128,6 +175,8 @@ const ItemList = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 30px;
+	margin-bottom: 30px;
+	border: 3px solid powderblue;
 `;
 const SampleCard = styled.div`
 	width: 200px;

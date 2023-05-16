@@ -18,6 +18,7 @@ import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
+import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
 // import PrivateRoute from './private';
 // import PrivateRoute from './private';
 
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
 			{
 				path: 'search_list/:word',
 				element: <SearchListPage />,
+			},
+			{
+				path: 'search_list/:word/:category',
+				element: <WholeListPage />,
 			},
 			{
 				path: 'review',

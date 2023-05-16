@@ -1,7 +1,6 @@
 import ProductApi from 'Apis/productApi';
 import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 import { theme } from 'Styles/theme';
 import { useParams } from 'react-router-dom';
@@ -112,7 +111,7 @@ const DesktopMarketPrice = () => {
 					원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
 				</S.SubTitle>
 			</S.Title>
-			<SearchBar props={props} />
+			{/* <SearchBar props={props} /> */}
 			<S.ChartContainer>
 				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
 				<LineChart width={700} height={500} data={data}>
@@ -146,7 +145,7 @@ export default DesktopMarketPrice;
 const Wrapper = styled.div`
 	max-width: 1000px;
 	min-width: 700px;
-	width: 60%;
+	width: 80%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;

@@ -17,7 +17,7 @@ const SearchBar = () => {
 		}
 		try {
 			let searchWord = e.target.searchKey.value;
-			navigate(`/${props}/${searchWord}`);
+			navigate(`/search_list/${searchWord}`);
 		} catch (err) {
 			console.log(err);
 		}
