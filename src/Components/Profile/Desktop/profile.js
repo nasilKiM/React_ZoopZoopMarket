@@ -4,7 +4,7 @@ const Profile = () => {
 	return (
 		<>
 			<S.Circle>
-				<S.Img src="Assets/Images/1.jpg"></S.Img>
+				<S.Img src="/Assets/Images/defaultProfile.png"></S.Img>
 			</S.Circle>
 		</>
 	);
@@ -13,8 +13,6 @@ const Profile = () => {
 export default Profile;
 
 const Circle = styled.div`
-	width: 100px;
-	height: 100px;
 	border-radius: 50px;
 	overflow: hidden;
 `;

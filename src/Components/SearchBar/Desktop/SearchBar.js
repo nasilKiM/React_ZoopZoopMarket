@@ -29,7 +29,7 @@ const SearchBar = () => {
 			<S.GlassBtn type="submit">
 				<FontAwesomeIcon
 					icon={faMagnifyingGlass}
-					color="white"
+					color="gray"
 					cursor="pointer"
 					fontSize="20px"
 				/>
@@ -41,37 +41,36 @@ export default SearchBar;
 
 const Wrap = styled.form`
 	display: flex;
-	border: 1px solid gray;
 	width: 100%;
-	min-width: 700px;
-	max-width: 1000px;
+	min-width: 200px;
+	max-width: 400px;
 	height: 40px;
 	position: relative;
-	border: 3px solid ${({ theme }) => theme.color.subLightGreen};
+	border: 3px solid ${({ theme }) => theme.color.gray};
+	background-color: ${({ theme }) => theme.color.gray};
+	border-radius: 20px;
 `;
 
 const SearchInput = styled.input`
 	width: 90%;
-	//height: 95%;
 	border: 0px;
-	font-size: 16px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	outline: none;
 	margin-left: 20px;
+	background-color: ${({ theme }) => theme.color.gray};
 `;
 
 const GlassBtn = styled.button`
 	width: 40px;
-	height: 35px;
+	height: 37px;
 	position: absolute;
 	right: 0%;
-	background-color: ${({ theme }) => theme.color.subLightGreen};
+	border-radius: 20px;
+	background-color: transparent;
+	/* background-color: ${({ theme }) => theme.color.subLightGreen}; */
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s ease;
-
-	&:focus {
-		outline: none;
-	}
 `;
 
 const S = {
