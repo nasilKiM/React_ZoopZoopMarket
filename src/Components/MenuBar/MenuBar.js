@@ -68,8 +68,12 @@ const Container = styled.div`
 
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
+	height: 20px;
 	text-decoration: none;
 	padding-right: 20px;
+	:hover {
+		color: ${({ theme }) => theme.color.primary};
+	}
 `;
 const LeftMenu = styled.div`
 	width: 100%;

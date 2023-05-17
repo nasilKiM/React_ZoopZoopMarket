@@ -18,7 +18,7 @@ const Preview = ({ category, products }) => {
 	const [slidesToShow, setSlidesToShow] = useState(4);
 
 	const sliderSettings = {
-		infinite: false,
+		infinite: true,
 		dots: false,
 		speed: 500,
 		slidesToShow: slidesToShow,

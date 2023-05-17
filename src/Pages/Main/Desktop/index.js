@@ -17,9 +17,10 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Wrapper>
-			<TitleBox>카테고리별 상품찾기</TitleBox>
 			<CategoryWrapper>
+				<TitleBox>카테고리별 상품찾기</TitleBox>
 				<Category />
+				<div></div>
 			</CategoryWrapper>
 			<Preview category={0} products={data}></Preview>
 			<Preview category={1} products={data}></Preview>
@@ -47,6 +48,7 @@ const TitleBox = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	color: ${({ theme }) => theme.color.primary};
 	padding-top: 30px;
+	padding-bottom: 30px;
 `;
 
 const SearchSection = styled.div`
@@ -65,7 +67,6 @@ const BtnSection = styled.div`
 `;
 
 const CategoryWrapper = styled.div`
-	margin-top: 20px;
 	padding-bottom: 20px;
 `;
 

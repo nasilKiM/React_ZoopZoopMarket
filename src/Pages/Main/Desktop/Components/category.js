@@ -82,6 +82,7 @@ const CategoryWrapper = styled.div`
 
 const CategoryContainer = styled.div`
 	display: flex;
+	cursor: pointer;
 `;
 
 const CategoryItem = styled.div`
@@ -96,6 +97,10 @@ const CategoryItem = styled.div`
 const CategoryIcon = styled.img`
 	width: 50px;
 	margin-bottom: 8px;
+	:hover {
+		border-radius: 50%;
+		border: 2px solid #ffecec;
+	}
 `;
 
 const ItemName = styled.div`

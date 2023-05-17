@@ -67,7 +67,6 @@ const GlassBtn = styled.button`
 	right: 0%;
 	border-radius: 20px;
 	background-color: transparent;
-	/* background-color: ${({ theme }) => theme.color.subLightGreen}; */
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s ease;

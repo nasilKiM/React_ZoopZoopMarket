@@ -17,18 +17,22 @@ const WebHeader = () => {
 					</Link>
 					<SearchBar props={props} />
 					<S.Icon>
-						<FontAwesomeIcon
-							icon={faCommentDots}
-							color="grey"
-							cursor="pointer"
-							fontSize="30px"
-						/>
-						<FontAwesomeIcon
-							icon={faUser}
-							color="grey"
-							cursor="pointer"
-							fontSize="28px"
-						/>
+						<Link to={'/chat'}>
+							<FontAwesomeIcon
+								icon={faCommentDots}
+								color="grey"
+								cursor="pointer"
+								fontSize="30px"
+							/>
+						</Link>
+						<Link to={'/mypage'}>
+							<FontAwesomeIcon
+								icon={faUser}
+								color="grey"
+								cursor="pointer"
+								fontSize="28px"
+							/>
+						</Link>
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>

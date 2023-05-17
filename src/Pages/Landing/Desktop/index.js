@@ -60,12 +60,22 @@ const LandingPage = () => {
 						<S.LandingHeader>
 							<S.LogoImage src="/Assets/web_logo.png" />
 						</S.LandingHeader>
+						<Title>Connect with your community</Title>
 						<S.Section1>
-							<div>Connect with your community</div>
+							{/*
+							
 							<marquee>
 								- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP
-								ZOOP MARKET- ZOOP ZOOP MARKET -
+								ZOOP MARKET- ZOOP ZOOP MARKET - ZOOP ZOOP MARKET - ZOOP ZOOP
+								MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP MARKETZOOP
+								ZOOP MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP
+								MARKET- ZOOP ZOOP MARKETZOOP ZOOP MARKET - ZOOP ZOOP MARKET-
+								ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP MARKETZOOP ZOOP
+								MARKET - ZOOP ZOOP MARKET- ZOOP ZOOP MARKET- ZOOP ZOOP MARKET-
+								ZOOP ZOOP MARKET-
 							</marquee>
+							
+							*/}
 							<p>
 								이미 회원이시라면?&nbsp;&nbsp;
 								<Link to="/form/login">
@@ -204,18 +214,25 @@ const LogoImage = styled.img`
 	max-height: 100%;
 `;
 
+const Title = styled.div`
+	width: 100vw;
+	font-size: 100px;
+	display: absolute;
+	top: 0;
+	left: 0;
+	margin: auto;
+`;
+
 const Section1 = styled.section`
-	height: 500px;
-	background-color: #f2f2f2;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	font-size: 18px;
+	/* font-size: 18px; */
 	line-height: 1.5;
 
 	& > marquee {
-		width: 350px;
+		width: 100%;
 		height: 40px;
 		background-color: #fff;
 		margin-bottom: 15px;
