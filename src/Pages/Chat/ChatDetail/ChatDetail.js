@@ -22,7 +22,11 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 			}
 		};
 		loadChatLog();
-	}, []);
+
+		return () => {
+			so.emit('leamve', chatroomIdx);
+		};
+	}, [chatroomIdx]);
 
 	useEffect(() => {
 		so.on('receiveMessage', async data => {
