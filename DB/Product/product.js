@@ -77,7 +77,7 @@ const generateRandomItems = count => {
 			title: title[Math.floor(Math.random() * 745)],
 			img_url: 'https://picsum.photos/400/500',
 			createdAt: randomDate(new Date(2023, 0, 1), new Date()),
-			Liked: Math.floor(Math.random() * 50),
+			Liked: randomBoolean(),
 			status: randomStatus(),
 			ProductImages: new Array(randomImg).fill({
 				img_url: 'https://picsum.photos/400/500',

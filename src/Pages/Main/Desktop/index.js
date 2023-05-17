@@ -17,18 +17,18 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Wrapper>
-			<TopBtn />
-			<Link to={'/register'}>
-				<S.BtnSection>
-					<RegisterBtn />
-				</S.BtnSection>
-			</Link>
 			<TitleBox>카테고리별 상품찾기</TitleBox>
 			<CategoryWrapper>
 				<Category />
 			</CategoryWrapper>
 			<Preview category={0} products={data}></Preview>
 			<Preview category={1} products={data}></Preview>
+			<TopBtn />
+			<Link to={'/register'}>
+				<S.BtnSection>
+					<RegisterBtn />
+				</S.BtnSection>
+			</Link>
 		</S.Wrapper>
 	);
 };
@@ -46,6 +46,7 @@ const TitleBox = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	color: ${({ theme }) => theme.color.primary};
+	padding-top: 30px;
 `;
 
 const SearchSection = styled.div`
