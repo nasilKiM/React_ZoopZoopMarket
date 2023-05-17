@@ -53,6 +53,11 @@ const Container = styled.div`
 	cursor: pointer;
 	margin-right: 10px;
 	border: 1px solid lightgray;
+	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	:hover {
+		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
+		transition: all 0.3s ease 0s;
+	}
 `;
 
 const Heart = styled.div`
