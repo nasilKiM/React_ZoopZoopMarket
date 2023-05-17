@@ -16,9 +16,10 @@ import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
-import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import PrivateRoute from './private';
+import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
+import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 
 const router = createBrowserRouter([
 	{
@@ -71,24 +72,30 @@ const router = createBrowserRouter([
 				element: <MarketPricePage />,
 			},
 			{
-				path: 'mypage',
+				path: '/mypage',
 				element: <MyPage />,
-			},
-			{
-				path: 'mypage/account_book',
-				element: <AccountBookPage />,
-			},
-			{
-				path: 'mypage/interest',
-				element: <MyInterestPage />,
-			},
-			{
-				path: 'mypage/item',
-				element: <MyItemPage />,
-			},
-			{
-				path: 'mypage/user_edit',
-				element: <MyUserEdit />,
+				children: [
+					{
+						path: '/mypage/item',
+						element: <MyItemPage />,
+					},
+					{
+						path: '/mypage/account_book',
+						element: <AccountBookPage />,
+					},
+					{
+						path: '/mypage/interest',
+						element: <MyInterestPage />,
+					},
+					{
+						path: '/mypage/user_edit',
+						element: <MyUserEdit />,
+					},
+					{
+						path: '/mypage/user_password_edit',
+						element: <MyPasswordEdit/>
+					}
+				],
 			},
 			{
 				path: 'profile',

@@ -3,10 +3,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ItemCard = ({ index, products }) => {
+const InterestCard = ({ index, products }) => {
 	const navigate = useNavigate();
 
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
 
@@ -24,11 +24,7 @@ const ItemCard = ({ index, products }) => {
 							<S.ItemPrice>
 								{products.price.toLocaleString('ko-KR')}원
 							</S.ItemPrice>
-							{products.ProductsTags.map(tagObj => (
-								<S.ItemTag key={tagObj.idx}>
-									<a className="tag-link">#{tagObj.Tag.tag}</a>
-								</S.ItemTag>
-							))}
+							<span>{products.status}</span>
 						</S.ItemInfo>
 					</div>
 				</S.Container>
@@ -37,7 +33,7 @@ const ItemCard = ({ index, products }) => {
 	);
 };
 
-export default ItemCard;
+export default InterestCard;
 
 const Wrapper = styled.div`
 	padding: 15px 0;
@@ -45,27 +41,26 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
 	width: 200px;
-	max-width: 250px;
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border: 1px solid lightgray;
+	position: relative;
 `;
 
 const Heart = styled.div`
 	position: absolute;
 	width: 32px;
 	height: 32px;
-	top: 40px;
-	left: 202px;
+	top: 15px;
+	right: 7px;
 	z-index: 1000000;
 `;
 
 const ItemImg = styled.img`
 	position: relative;
-	width: 200px;
 	max-width: 250px;
 	width: 100%;
 	height: 250px;
@@ -94,20 +89,6 @@ const ItemPrice = styled.span`
 	margin-bottom: 15px;
 `;
 
-const ItemTag = styled.span`
-	display: inline-block;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	margin-right: 5px;
-	margin-bottom: 10px;
-
-	a {
-		display: inline-block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
-
 const S = {
 	Wrapper,
 	Heart,
@@ -116,5 +97,4 @@ const S = {
 	ItemInfo,
 	ItemTitle,
 	ItemPrice,
-	ItemTag,
 };

@@ -12,7 +12,6 @@ const DesktopSearchList = () => {
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const props = 'search_list';
 	const res = useInfiniteSearch(word, selected);
-
 	const { data } = res;
 
 	let selectedItem = '';

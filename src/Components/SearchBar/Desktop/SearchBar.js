@@ -7,6 +7,7 @@ const SearchBar = ({ props }) => {
 	// props가 search면 search_list페이지로,
 	//marketPrice면 market_price페이지로 전달되어 오면
 	//navigate에 props를 전달하여 해당 props에 맞는 페이지로 이동하고 싶었으나 모든 컴포넌트에서 props를 선언해줘야 하는 부분이라 충돌이 우려되어 아직 안함.
+  
 	const navigate = useNavigate();
 
 	const onSearch = async e => {
