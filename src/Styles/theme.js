@@ -43,10 +43,8 @@ const fontWeight = {
 	bolder: '900',
 };
 
-const theme = {
+export const theme = {
 	color,
 	fontSize,
 	fontWeight,
 };
-
-export default theme;
