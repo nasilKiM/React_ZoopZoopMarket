@@ -7,22 +7,18 @@ const variantCSS = {
         ${flexAllCenter};
         cursor: pointer;
         box-sizing: border-box;
-        outline: none;
     `,
 };
 
 const shapeCSS = {
-    default: css``,
-    shape1: css`
-        border-radius: 10px;
-        border: 2px solid ${({ theme }) => theme.color.primary};
-    `,
-    shape2: css`
-        border: 2px solid ${({ theme }) => theme.color.subLightGreen};
-    `,
+    // 검색 페이지에서 [상품 더보기]에 쓰일 예정
     moreBtn: css`
         border-radius: 500px;
-        border: 1.5px solid rgb(197, 200, 206);
+        border: 1.5px solid ${({ theme }) => theme.color.gray[200]};
+    `,
+    submitBtn: css`
+        border-radius: 6px;
+        border: 1.5px solid ${({ theme }) => theme.color.gray[200]};
     `,
     round: css`
         border-radius: 50%;
@@ -30,17 +26,22 @@ const shapeCSS = {
 };
 
 const sizeCSS = {
-
-    // more 버튼
-    size1: css`
+    moreBtn: css`
         width: 188px;
-        max-width: 200px;   // 수정 필요
+        max-width: 200px;
         height: 58px;
         padding: 17px;
         font-size: ${({ theme }) => theme.fontSize.base};
         font-weight: ${({ theme }) => theme.fontWeight.regular};
     `,
+    submitBtn: css`
+        width: 400px;
+        height: 52px;
+        font-size: ${({ theme }) => theme.fontSize.base};
+        font-weight: ${({ theme }) => theme.fontWeight.bold};
+    `,
 
+    // 수업자료 참고
     small: css`
         width: 40px;
         max-width: 60px;
@@ -67,12 +68,11 @@ const sizeCSS = {
     `,
 };
 
-export const ButtonA = styled.button`
+export const PropsBtn = styled.button`
     ${({ variant }) => variantCSS[variant]}
     ${({ shape }) => shapeCSS[shape]}
     ${({ size }) => sizeCSS[size]}
     cursor: pointer;
-    border: none;
     :hover {
         opacity: 0.8;
     }
