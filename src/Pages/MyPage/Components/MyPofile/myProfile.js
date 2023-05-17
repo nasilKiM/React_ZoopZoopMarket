@@ -2,7 +2,7 @@ import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
 import MannerMeter from 'Components/Icon/Icon';
 import Profile from 'Components/Profile/Desktop/profile';
-import { flexAlignCenter, flexAllCenter, flexJustifyCenter } from 'Styles/common';
+import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 

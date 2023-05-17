@@ -1,5 +1,5 @@
 import { flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';

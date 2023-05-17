@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
+// import ButtonA from 'Components/Buttons/button';
+// import CustomButton from 'Components/Buttons/button';
+import { ButtonA } from 'Components/Buttons/style';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
@@ -163,6 +166,7 @@ const MyUserEdit = ({ userInfo }) => {
 			</S.Wrap>
 			<S.Wrap2>
 				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
+				<ButtonA variant={'primary'} shape={'moreBtn'} size={'size1'}>상품 전체보기</ButtonA>
 			</S.Wrap2>
 		</S.Div>
 	);
