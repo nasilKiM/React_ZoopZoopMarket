@@ -230,7 +230,7 @@ const LogoImage = styled.img`
 `;
 
 const Form = styled.form`
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	/* border: 1px solid ${({ theme }) => theme.color.subBeige}; */
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
@@ -239,11 +239,11 @@ const Form = styled.form`
 	padding: 40px 30px;
 	max-width: 700px;
 	min-width: 600px;
-	& > p {
+	/* & > p {
 		font-size: ${({ theme }) => theme.fontSize.lg};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		margin-bottom: 20px;
-	}
+	} */
 `;
 
 const Button = styled.button`
@@ -253,13 +253,13 @@ const Button = styled.button`
 	border: none;
 	margin-top: 20px;
 	cursor: pointer;
-	background: ${({ theme }) => theme.color.primary};
+	/* background: ${({ theme }) => theme.color.primary};
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	:disabled {
 		background: ${({ theme }) => theme.color.gray};
-	}
+	} */
 `;
 
 const BtnWrap = styled.div`
@@ -272,8 +272,8 @@ const ItemWrap = styled.div`
 	display: flex;
 	width: 20%;
 	& > span {
-		font-size: ${({ theme }) => theme.fontSize.base};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		/* font-size: ${({ theme }) => theme.fontSize.base}; */
+		/* font-weight: ${({ theme }) => theme.fontWeight.bold}; */
 	}
 `;
 
@@ -283,7 +283,7 @@ const InputBoxWrap = styled.div`
 	& > input {
 		width: 100%;
 		height: 40px;
-		border: 1px solid ${({ theme }) => theme.color.subBeige};
+		/* border: 1px solid ${({ theme }) => theme.color.subBeige}; */
 		border-radius: 10px;
 		margin: 10px 0px;
 		display: flex;
@@ -296,7 +296,7 @@ const InputBoxWrap = styled.div`
 		width: 120px;
 		height: 40px;
 		border-radius: 10px;
-		border: 1px solid ${({ theme }) => theme.color.primary};
+		/* border: 1px solid ${({ theme }) => theme.color.primary}; */
 		background: none;
 		margin-left: 10px;
 		cursor: pointer;
@@ -316,16 +316,9 @@ const InputWrapBtn = styled.div`
 	align-items: center;
 `;
 
-const Mark = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
+const Mark = styled.span``;
 
-const Error = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
-`;
+const Error = styled.div``;
 
 const Address = styled.div`
 	display: flex;
