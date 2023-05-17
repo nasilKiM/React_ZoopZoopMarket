@@ -4,7 +4,7 @@ const variantCSS = {
 	// 밑줄만 있는 인풋
 	primaryBottom: css`
 		border: none;
-		border-bottom: 2px solid ${({ theme }) => theme.PALETTE.gray[200]};
+		border-bottom: 2px solid ${({ theme }) => theme.color.gray[200]};
 	`,
 };
 
@@ -21,13 +21,13 @@ const shapeCSS = {
 
 const statusCSS = {
 	success: css`
-		color: ${({ theme }) => theme.PALETTE.success};
+		color: ${({ theme }) => theme.color.success};
 	`,
 	error: css`
-		color: ${({ theme }) => theme.PALETTE.error};
+		color: ${({ theme }) => theme.color.error};
 	`,
 	default: css`
-		color: ${({ theme }) => theme.PALETTE.gray[200]};
+		color: ${({ theme }) => theme.color.fontColor[300]};
 	`,
 };
 
@@ -36,17 +36,16 @@ export const Input = styled.input`
 	padding: 7px;
 	background: none;
 	outline: none;
-	font-size: ${({ theme }) => theme.FONT_SIZE.base};
-	border: 1px solid ${({ theme }) => theme.PALETTE.gray[200]};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	${({ variant }) => variantCSS[variant]}
 	${({ shape }) => shapeCSS[shape]}
     ${({ status }) => statusCSS[status]}
     :focus {
-		/* border-color: ${({ theme }) => theme.PALETTE.primary[300]}; */
-		border: 2px solid ${({ theme }) => theme.PALETTE.primary[300]};
+		border: 2px solid ${({ theme }) => theme.color.primary[300]};
 	}
 	:disabled {
-		color: ${({ theme }) => theme.PALETTE.gray[200]};
+		color: ${({ theme }) => theme.color.gray[200]};
 		opacity: 0.8;
 	}
 	cursor: pointer;

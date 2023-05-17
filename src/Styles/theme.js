@@ -1,4 +1,4 @@
-const PALETTE = {
+const color = {
 	primary: {
 		100: '#FFD1D1',
 		200: '#FF9494',
@@ -24,7 +24,7 @@ const PALETTE = {
 	},
 };
 
-const FONT_SIZE = {
+const fontSize = {
 	micro: '6px',
 	es: '10px',
 	xs: '12px',
@@ -36,7 +36,7 @@ const FONT_SIZE = {
 	xl: '32px',
 };
 
-const FONT_WEIGHT = {
+const fontWeight = {
 	light: '300',
 	regular: '400',
 	bold: '700',
@@ -44,9 +44,9 @@ const FONT_WEIGHT = {
 };
 
 const theme = {
-	PALETTE,
-	FONT_SIZE,
-	FONT_WEIGHT,
+	color,
+	fontSize,
+	fontWeight,
 };
 
 export default theme;
