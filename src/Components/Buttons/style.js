@@ -11,12 +11,12 @@ const variantCSS = {
 };
 
 const shapeCSS = {
-    // 검색 페이지에서 [상품 더보기]에 쓰일 예정
+    // 검색 페이지에서 [상품 더보기]에 쓰일 예정!
     moreBtn: css`
         border-radius: 500px;
         border: 1.5px solid ${({ theme }) => theme.color.gray[200]};
     `,
-    // 회원가입/로그인 등 제출시 쓰일 예정
+    // 회원가입/로그인 등 제출시 쓰일 예정!
     submitBtn: css`
         border-radius: 6px;
         border: 1.5px solid ${({ theme }) => theme.color.gray[200]};
