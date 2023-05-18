@@ -47,8 +47,8 @@ const Wrap = styled.form`
 	max-width: 400px;
 	height: 40px;
 	position: relative;
-	border: 3px solid ${({ theme }) => theme.color.gray};
-	background-color: ${({ theme }) => theme.color.gray};
+	border: 3px solid ${({ theme }) => theme.color.gray[100]};
+	background-color: ${({ theme }) => theme.color.gray[100]};
 	border-radius: 20px;
 `;
 
@@ -58,7 +58,7 @@ const SearchInput = styled.input`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	outline: none;
 	margin-left: 20px;
-	background-color: ${({ theme }) => theme.color.gray};
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const GlassBtn = styled.button`

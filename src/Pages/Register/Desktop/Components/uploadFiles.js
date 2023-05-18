@@ -138,7 +138,7 @@ const MainImgSection = styled.img`
 	width: 360px;
 	height: 360px;
 	cursor: pointer;
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	border: 1px solid ${({ theme }) => theme.color.subColor};
 	object-fit: cover;
 `;
 
@@ -163,7 +163,7 @@ const SmallImgSection = styled.img`
 	height: 171px;
 	cursor: pointer;
 	object-fit: cover;
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	border: 1px solid ${({ theme }) => theme.color.subColor};
 `;
 
 const DelBtn = styled.div`
@@ -173,7 +173,7 @@ const DelBtn = styled.div`
 	right: 5px;
 	border-radius: 15px;
 	border: none;
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.primary[400]};
 	position: absolute;
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.lg};

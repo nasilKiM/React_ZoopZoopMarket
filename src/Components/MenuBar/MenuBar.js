@@ -50,8 +50,8 @@ const Bar = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-size: ${({ theme }) => theme.fontWeight.bold};
 	color: black;
-	border-top: 1px solid ${({ theme }) => theme.color.gray};
-	border-bottom: 1px solid ${({ theme }) => theme.color.gray};
+	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
 
 const Container = styled.div`

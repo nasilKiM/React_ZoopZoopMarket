@@ -256,7 +256,7 @@ const Line = styled.div`
 
 const Mark = styled.span`
 	position: absolute;
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[400]};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	top: 0;
 	left: 0;
@@ -276,7 +276,7 @@ const InputContainer = styled.div`
 const InputBox = styled.input`
 	width: 600px;
 	border: none;
-	border-bottom: 1px solid ${({ theme }) => theme.color.subBeige};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	:focus {
@@ -287,7 +287,7 @@ const InputBox = styled.input`
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.error};
 	margin-left: 30px;
 	margin-top: 5px;
 	position: absolute;
@@ -324,15 +324,6 @@ const Address = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
-const SearchBtn = styled.button`
-	width: 120px;
-	height: 40px;
-	border: 1px solid ${({ theme }) => theme.color.primary};
-	border-radius: 10px;
-	background: none;
-	cursor: pointer;
-`;
-
 const ContentBox = styled.div`
 	width: 700px;
 	display: flex;
@@ -358,7 +349,8 @@ const TxtArea = styled.textarea`
 const RegisterBtn = styled.button`
 	width: 240px;
 	height: 54px;
-	border: 2px solid ${({ theme }) => theme.color.primary};
+	border: none;
+	background: ${({ theme }) => theme.color.primary[400]};
 	border-radius: 5px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -395,7 +387,6 @@ const S = {
 	AddressMap,
 	ContentBox,
 	TxtArea,
-	SearchBtn,
 	TagWrapper,
 	TagBox,
 };
