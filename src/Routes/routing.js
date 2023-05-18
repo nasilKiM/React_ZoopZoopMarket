@@ -17,15 +17,10 @@ import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import YourProfile from 'Pages/YourProfile/Desktop';
-<<<<<<< HEAD
 import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
 // import PrivateRoute from './private';
-// import PrivateRoute from './private';
-=======
-import PrivateRoute from './private';
 import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
->>>>>>> 46c164c49444ebbdfb65b617b5de029984f9bfd2
 
 const router = createBrowserRouter([
 	{
@@ -44,15 +39,9 @@ const router = createBrowserRouter([
 
 	{
 		element: (
-<<<<<<< HEAD
 			//<PrivateRoute>
 			<LayOut />
 			//</PrivateRoute>
-=======
-			<PrivateRoute>
-				<LayOut />
-			</PrivateRoute>
->>>>>>> 46c164c49444ebbdfb65b617b5de029984f9bfd2
 		),
 		children: [
 			{

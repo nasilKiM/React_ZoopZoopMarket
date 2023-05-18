@@ -140,7 +140,7 @@ const DesktopMarketPrice = () => {
 	);
 };
 
-// export default DesktopMarketPrice;
+export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
 	max-width: 1000px;
