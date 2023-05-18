@@ -1,14 +1,17 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
 // import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
 // import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
+import { flexAllCenter } from 'Styles/common';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
 	const [userProfile, setUserProfile] = useState('');
+	const photoInput = useRef();
 
 	const getUserInfo = async () => {
 		try {
@@ -27,6 +30,29 @@ const MyProfile = () => {
 			console.log(err);
 		}
 	};
+	// 프로필 사진 수정 틀
+	const profileImgEdit = async () => {
+		const formData = new FormData();
+		formData.append('profile_url');
+
+		try {
+			const res = await UserApi.userProfileEdit(formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleClick = () => {
+		photoInput.current.click();
+	};
+
+	useEffect(() => {
+		profileImgEdit();
+	}, []);
 
 	useEffect(() => {
 		getUserInfo();
@@ -39,7 +65,24 @@ const MyProfile = () => {
 	return (
 		<S.Wrapper>
 			<S.Info>
-				<S.Img src="/Assets/Images/기본 프로필.png"></S.Img>
+				<S.ImgWrap>
+					<S.Img src="/Assets/Images/기본 프로필.png" />
+					<S.ProfileImg>
+						<FontAwesomeIcon
+							icon={faCamera}
+							style={{ color: '#ffffff', fontSize: '25px' }}
+							onClick={handleClick}
+						/>
+						<input
+							type="file"
+							accept="image/jpg, image/jpeg, image/png"
+							multiple
+							ref={photoInput}
+							style={{ display: 'none' }}
+						/>
+					</S.ProfileImg>
+				</S.ImgWrap>
+
 				<S.Detail>
 					<div>
 						반가워요<S.Nickname>고라니</S.Nickname>님!
@@ -80,13 +123,27 @@ const Wrapper = styled.div`
 `;
 
 const Info = styled.div`
-	${flexAlignCenter}
+	display: flex;
 `;
 
 const Img = styled.img`
-	width: 15%;
+	width: 150px;
 	object-fit: cover;
 	object-position: center;
+`;
+
+const ImgWrap = styled.div`
+	position: relative;
+`;
+
+const ProfileImg = styled.div`
+	background-color: ${({ theme }) => theme.color.primary[400]};
+	padding: 13px;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
 `;
 
 const Detail = styled.div`
@@ -131,4 +188,6 @@ const S = {
 	Address,
 	Nickname,
 	Temp,
+	ProfileImg,
+	ImgWrap,
 };
