@@ -17,7 +17,11 @@ const SearchBar = () => {
 		}
 		try {
 			let searchWord = e.target.searchKey.value;
+<<<<<<< HEAD
 			navigate(`/search_list/${searchWord}`);
+=======
+			navigate(`/${props}/${searchWord}`);
+>>>>>>> 46c164c49444ebbdfb65b617b5de029984f9bfd2
 		} catch (err) {
 			console.log(err);
 		}
@@ -67,6 +71,10 @@ const GlassBtn = styled.button`
 	right: 0%;
 	border-radius: 20px;
 	background-color: transparent;
+<<<<<<< HEAD
+=======
+	/* background-color: ${({ theme }) => theme.color.subLightGreen}; */
+>>>>>>> 46c164c49444ebbdfb65b617b5de029984f9bfd2
 	border: none;
 	cursor: pointer;
 	transition: all 0.3s ease;

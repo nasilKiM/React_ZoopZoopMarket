@@ -5,15 +5,11 @@ import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
+import { flexJustifyCenter } from 'Styles/common';
+import Input from 'Components/Input/input';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ mode: 'onChange' });
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
@@ -22,12 +18,19 @@ const LoginPage = () => {
 		}
 	}, []);
 
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
+
 	const onSubmit = async data => {
+		const loginInfo = {
+			email: data.email,
+			pw: data.password,
+		};
 		try {
-			const res = await UserApi.login({
-				email: data.email,
-				pw: data.password,
-			});
+			const res = await UserApi.login(loginInfo);
 			TokenService.setToken(res.data.tokenForHeader);
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			navigate('/main');
@@ -44,19 +47,23 @@ const LoginPage = () => {
 		<S.Div>
 			<S.Wrap>
 				<S.Header>
-					<S.LogoImage src="/Assets/web_logo.png" />
+					<p>이메일로 줍줍하기</p>
 				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<p>로그인</p>
-					<input {...register('email', FORM_TYPE.EMAIL)} placeholder="E-mail" />
+					<S.InputWrap
+						shape={'shape'}
+						{...register('email', FORM_TYPE.EMAIL)}
+						placeholder="E-mail"
+					/>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
-					<input
+					<S.InputWrap
+						shape={'shape'}
 						{...register('password', FORM_TYPE.PASSWORD_simple)}
 						placeholder="PW"
 						type="password"
 					/>
 					<S.Button disabled={!full}>로그인</S.Button>
-					<S.SignUpBtn onClick={() => navigate(`${USER_API_PATH}/signup`)}>
+					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
 						신규회원이신가요?
 					</S.SignUpBtn>
 				</S.Form>
@@ -68,13 +75,12 @@ const LoginPage = () => {
 export default LoginPage;
 const Div = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 `;
 
 const Wrap = styled.div`
 	height: 800px;
-	width: 60%;
+	width: 80%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -86,20 +92,14 @@ const Header = styled.div`
 	height: 150px;
 	padding-top: 50px;
 	margin-bottom: 30px;
-	display: flex;
-	justify-content: center;
-`;
-
-const LogoImage = styled.img`
-	max-width: 100%;
-	max-height: 100%;
+	background-color: red;
+	${flexJustifyCenter}
 `;
 
 const Form = styled.form`
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
-	border-radius: 10px;
 	position: relative;
 	display: flex;
+	border-top: 1px solid black;
 	flex-direction: column;
 	align-items: center;
 	width: 60%;
@@ -107,21 +107,11 @@ const Form = styled.form`
 	padding: 40px 30px;
 	max-width: 700px;
 	min-width: 600px;
+`;
 
-	& > input {
-		width: 80%;
-		height: 40px;
-		border: 1px solid ${({ theme }) => theme.color.subBeige};
-		border-radius: 10px;
-		margin: 10px 0px;
-		display: flex;
-		padding: 20px;
-	}
-	& > p:first-child {
-		font-size: ${({ theme }) => theme.fontSize.lg};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		margin-bottom: 20px;
-	}
+const InputWrap = styled(Input)`
+	max-width: 420px;
+	min-height: 45px;
 `;
 
 const Button = styled.button`
@@ -130,13 +120,10 @@ const Button = styled.button`
 	border-radius: 10px;
 	border: none;
 	margin-top: 20px;
-	background: ${({ theme }) => theme.color.primary};
+
 	cursor: pointer;
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
+
 	:disabled {
-		background: ${({ theme }) => theme.color.gray};
 	}
 `;
 
@@ -147,22 +134,18 @@ const SignUpBtn = styled.span`
 	display: flex;
 	right: 14%;
 	color: #357aff;
-	font-size: ${({ theme }) => theme.fontSize.xs};
+
 	border-bottom: 1px solid #357aff;
 	cursor: pointer;
 `;
 
-const Error = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
-`;
+const Error = styled.div``;
 
 const S = {
 	Div,
 	Wrap,
 	Header,
-	LogoImage,
+	InputWrap,
 	Form,
 	Button,
 	SignUpBtn,

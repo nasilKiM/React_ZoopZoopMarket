@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import styled from 'styled-components';
 
-const ProductImg = ({ main, sub }) => {
+const ProductImg = () => {
 	return (
 		main && (
 			<>

@@ -17,6 +17,7 @@ const SellerDetailPage = ({ state, product }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
+
 	const socket = 'sample용소켓입니다.';
 	const soldOut = async (index, socket) => {
 		try {

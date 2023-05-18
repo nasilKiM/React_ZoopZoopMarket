@@ -4,6 +4,7 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots, faUser } from '@fortawesome/free-regular-svg-icons';
 import MenuBar from 'Components/MenuBar/MenuBar';
+import styled from 'styled-components';
 
 const WebHeader = () => {
 	const props = 'search_list';

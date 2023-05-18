@@ -1,12 +1,15 @@
-import ToggleBar from 'Components/Toggle/Toggle';
-import MyProfile from './Components/MyPofile/myProfile';
 import styled from 'styled-components';
+import MyProfile from './Components/MyPofile/myProfile';
+import ToggleBar from 'Components/Toggle/Toggle';
+import { Outlet } from 'react-router-dom';
 
 const MyPage = () => {
+
 	return (
 		<S.Wrapper>
-			<MyProfile />
-			<ToggleBar />
+			<MyProfile/>
+			<ToggleBar/>
+			<Outlet />
 		</S.Wrapper>
 	);
 };

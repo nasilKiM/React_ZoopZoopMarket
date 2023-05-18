@@ -6,20 +6,12 @@ import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
-import TokenService from 'Repository/TokenService';
 
-const SignUpPage = () => {
+const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
-
-	useEffect(() => {
-		if (TokenService.getToken()) {
-			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
-			navigate('/main');
-		}
-	}, []);
 
 	const {
 		register,
@@ -28,24 +20,25 @@ const SignUpPage = () => {
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
-
+	
 	const onSubmit = async data => {
-		const info = {
+		const infoEdit = {
 			email: data.email,
-			pw: data.password,
 			nickName: data.nick,
 			phone: data.phone,
 			region: address,
 		};
+		
 		try {
-			await UserApi.signup(info);
-			alert('회원가입이 완료되었습니다.');
-			navigate('/form/login');
+			await UserApi.userInfoEdit(infoEdit);
+			alert('회원정보가 변경되었습니다');
+			navigate('/mypage');
 		} catch (err) {
-			alert(err.response.data.message);
+			alert(err.response.data.message, '비밀번호 변경을 실패하셨습니다, 다시 시도해주세요');
 		}
 	};
-
+	
+	// zoopzoop의 아이디는 이메일로, 아이디를 변경할수 없도록 해야할지 전체 논의 필요 (우선은 스웨거 상 아이디 변경 가능하도록 되어 있어 추가해놓음)
 	const onCheckId = async e => {
 		e.preventDefault();
 		const value = getValues('email');
@@ -56,12 +49,11 @@ const SignUpPage = () => {
 			setIdMsg(err.response.data.message);
 		}
 	};
-
-	// input 값에 변화가 생길때 msg 칸을 비워주는
+	
 	useEffect(() => {
 		setIdMsg('');
 	}, [getValues('email')]);
-
+	
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -72,26 +64,26 @@ const SignUpPage = () => {
 			setNickMsg(err.response.data.message);
 		}
 	};
-
+	
 	useEffect(() => {
 		setNickMsg();
 	}, [getValues('nick')]);
-
-	const full =
-		!errors.email &&
-		!errors.password &&
-		!errors.confirmPW &&
-		!errors.phone &&
-		address;
-
+	
+	useEffect(() => {
+		setValue('email', userInfo?.email);
+		setValue('nick', userInfo?.nick_name);
+		setValue('phone', userInfo?.phone);
+	}, []);
+	
+	const onClickPasswordChange = () => {
+		navigate('/mypage/user_password_edit');
+	}
+	const full = !errors.email && !errors.phone && address;
+	
 	return (
 		<S.Div>
 			<S.Wrap>
-				<S.Header>
-					<S.LogoImage src="/Assets/web_logo.png" />
-				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<p>회원가입</p>
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -102,48 +94,16 @@ const SignUpPage = () => {
 								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button onClick={onCheckId} disabled={errors.email || !'email'}>
+							<button
+								onClick={onCheckId}
+								disabled={errors.email || 'email'}
+							>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					{<S.Error>{idMsg}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								{...register('password', FORM_TYPE.PASSWORD)}
-								placeholder="특수문자, 영어, 숫자 포함 8자이상"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호 확인</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								{...register('confirmPW', {
-									required: true,
-									validate: value => {
-										if (getValues('password') !== value) {
-											return '비밀번호를 다시 확인해 주세요';
-										}
-									},
-								})}
-								placeholder="PW check"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
-					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -154,7 +114,10 @@ const SignUpPage = () => {
 								{...register('nick', FORM_TYPE.NICKNAME)}
 								placeholder="Nick_Name"
 							/>
-							<button onClick={onCheckNick} disabled={errors.nick || !'nick'}>
+							<button
+								onClick={onCheckNick}
+								disabled={errors.nick || 'nick'}
+							>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
@@ -190,29 +153,39 @@ const SignUpPage = () => {
 						</S.ItemWrap>
 						<S.InputBoxWrap>
 							<S.Address>{address}</S.Address>
-							<FindAddress setter={setAddress} />
+							<FindAddress setter={setAddress} region={userInfo?.region} />
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					<BtnWrap>
-						<S.Button disabled={!full}>회원가입</S.Button>
+						<S.Button disabled={!full}>저장하기</S.Button>
 					</BtnWrap>
 				</S.Form>
 			</S.Wrap>
+			<S.Wrap2>
+				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
+			</S.Wrap2>
 		</S.Div>
 	);
 };
 
-export default SignUpPage;
+export default MyUserEdit;
 
 const Div = styled.div`
 	width: 100%;
-	${flexAllCenter}
+	margin: 0 auto;
 `;
 
 const Wrap = styled.div`
 	width: 60%;
 	flex-direction: column;
 	${flexAllCenter}
+	margin: 0 auto;
+`;
+
+const Wrap2 = styled.div`
+	width: 60%;
+	${flexAllCenter}
+	margin: 0 auto;
 `;
 
 const Header = styled.div`
@@ -230,7 +203,7 @@ const LogoImage = styled.img`
 `;
 
 const Form = styled.form`
-	/* border: 1px solid ${({ theme }) => theme.color.subBeige}; */
+	border: 1px solid ${({ theme }) => theme.color.subBeige};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
@@ -239,11 +212,11 @@ const Form = styled.form`
 	padding: 40px 30px;
 	max-width: 700px;
 	min-width: 600px;
-	/* & > p {
+	& > p {
 		font-size: ${({ theme }) => theme.fontSize.lg};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		margin-bottom: 20px;
-	} */
+	}
 `;
 
 const Button = styled.button`
@@ -253,13 +226,13 @@ const Button = styled.button`
 	border: none;
 	margin-top: 20px;
 	cursor: pointer;
-	/* background: ${({ theme }) => theme.color.primary};
+	background: ${({ theme }) => theme.color.primary};
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	:disabled {
 		background: ${({ theme }) => theme.color.gray};
-	} */
+	}
 `;
 
 const BtnWrap = styled.div`
@@ -272,8 +245,8 @@ const ItemWrap = styled.div`
 	display: flex;
 	width: 20%;
 	& > span {
-		/* font-size: ${({ theme }) => theme.fontSize.base}; */
-		/* font-weight: ${({ theme }) => theme.fontWeight.bold}; */
+		font-size: ${({ theme }) => theme.fontSize.base};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 
@@ -283,7 +256,7 @@ const InputBoxWrap = styled.div`
 	& > input {
 		width: 100%;
 		height: 40px;
-		/* border: 1px solid ${({ theme }) => theme.color.subBeige}; */
+		border: 1px solid ${({ theme }) => theme.color.subBeige};
 		border-radius: 10px;
 		margin: 10px 0px;
 		display: flex;
@@ -296,7 +269,7 @@ const InputBoxWrap = styled.div`
 		width: 120px;
 		height: 40px;
 		border-radius: 10px;
-		/* border: 1px solid ${({ theme }) => theme.color.primary}; */
+		border: 1px solid ${({ theme }) => theme.color.primary};
 		background: none;
 		margin-left: 10px;
 		cursor: pointer;
@@ -321,6 +294,12 @@ const Mark = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
+const Error = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const Address = styled.div`
 	display: flex;
 	height: 40px;
@@ -330,9 +309,20 @@ const Address = styled.div`
 	align-items: center;
 `;
 
+const Text = styled.div`
+	margin-top: 30px;
+	font-size: ${({theme}) => theme.fontSize.base};
+	color: ${({theme}) => theme.color.primary};
+	:hover {
+		cursor: pointer;
+		line-height: 0%;
+	}
+`;
+
 const S = {
 	Div,
 	Wrap,
+	Wrap2,
 	Header,
 	LogoImage,
 	Form,
@@ -344,4 +334,5 @@ const S = {
 	InputBoxWrap,
 	Error,
 	Address,
+	Text
 };

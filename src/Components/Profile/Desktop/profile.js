@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
-const Profile = () => {
+const Profile = ({ userProfileUrl }) => {
+	const profileUrl = userProfileUrl;
 	return (
 		<>
 			<S.Circle>
-				<S.Img src="/Assets/Images/defaultProfile.png"></S.Img>
+				{userProfileUrl === null ? (
+					<S.Img src="Assets/Images/기본 프로필.png"></S.Img>
+				) : (
+					<S.Img src={profileUrl}></S.Img>
+				)}
 			</S.Circle>
 		</>
 	);
