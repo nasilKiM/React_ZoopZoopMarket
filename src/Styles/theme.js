@@ -60,6 +60,5 @@ export const theme = {
 	color,
 	fontSize,
 	fontWeight,
-	deviceHeight,
 	device,
 };
