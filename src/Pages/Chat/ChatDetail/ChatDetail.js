@@ -24,13 +24,16 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 		loadChatLog();
 
 		return () => {
-			so.emit('leamve', chatroomIdx);
+			so.emit('leave', chatroomIdx);
 		};
 	}, [chatroomIdx]);
 
 	useEffect(() => {
 		so.on('receiveMessage', async data => {
 			const res = await ChatApis.saveMsg(data);
+			so.on('newMessage', data => {
+				console.log(data);
+			});
 		});
 	}, []);
 
