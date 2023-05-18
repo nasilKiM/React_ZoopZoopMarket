@@ -7,6 +7,8 @@ import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import TokenService from 'Repository/TokenService';
+import Input from 'Components/Input/input';
+import CustomButton from 'Components/Buttons/button';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -88,23 +90,28 @@ const SignUpPage = () => {
 		<S.Div>
 			<S.Wrap>
 				<S.Header>
-					<S.LogoImage src="/Assets/web_logo.png" />
+					<p>회원가입</p>
 				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<p>회원가입</p>
 					<S.InputWrapBtn>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
 							<span>아이디</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input
+							<S.InputHalf
+								shape={'littleShape'}
 								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button onClick={onCheckId} disabled={errors.email || !'email'}>
+							<S.CheckBtn
+								disabled={errors.email || !'email'}
+								onClick={onCheckId}
+								shape={'submitBtn'}
+								size={'submitBtn'}
+							>
 								중복확인
-							</button>
+							</S.CheckBtn>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
@@ -115,7 +122,8 @@ const SignUpPage = () => {
 							<span>비밀번호</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input
+							<S.InputCustom
+								shape={'littleShape'}
 								{...register('password', FORM_TYPE.PASSWORD)}
 								placeholder="특수문자, 영어, 숫자 포함 8자이상"
 								type="password"
@@ -129,7 +137,8 @@ const SignUpPage = () => {
 							<span>비밀번호 확인</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input
+							<S.InputCustom
+								shape={'littleShape'}
 								{...register('confirmPW', {
 									required: true,
 									validate: value => {
@@ -150,13 +159,20 @@ const SignUpPage = () => {
 							<span>닉네임</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input
+							<S.InputHalf
+								shape={'littleShape'}
 								{...register('nick', FORM_TYPE.NICKNAME)}
 								placeholder="Nick_Name"
 							/>
-							<button onClick={onCheckNick} disabled={errors.nick || !'nick'}>
+
+							<S.CheckBtn
+								disabled={errors.nick || !'nick'}
+								onClick={onCheckNick}
+								shape={'submitBtn'}
+								size={'submitBtn'}
+							>
 								중복확인
-							</button>
+							</S.CheckBtn>
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{<S.Error>{nickMsg}</S.Error>}
@@ -166,7 +182,8 @@ const SignUpPage = () => {
 							<span>전화번호</span>
 						</S.ItemWrap>
 						<S.InputBoxWrap>
-							<input
+							<S.InputCustom
+								shape={'littleShape'}
 								maxLength="13"
 								{...register('phone', {
 									onChange: e => {
@@ -193,9 +210,16 @@ const SignUpPage = () => {
 							<FindAddress setter={setAddress} />
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
-					<BtnWrap>
-						<S.Button disabled={!full}>회원가입</S.Button>
-					</BtnWrap>
+					<S.BtnWrap>
+						<S.Button
+							type="submit"
+							disabled={!full}
+							size={'submitBtn'}
+							shape={'submitBtn'}
+						>
+							회원가입
+						</S.Button>
+					</S.BtnWrap>
 				</S.Form>
 			</S.Wrap>
 		</S.Div>
@@ -210,7 +234,7 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	width: 60%;
+	width: 80%;
 	flex-direction: column;
 	${flexAllCenter}
 `;
@@ -219,9 +243,10 @@ const Header = styled.div`
 	width: 100%;
 	height: 150px;
 	padding-top: 50px;
-	margin-bottom: 30px;
-	display: flex;
-	justify-content: center;
+	margin-bottom: 10px;
+	${flexAllCenter}
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const LogoImage = styled.img`
@@ -230,8 +255,6 @@ const LogoImage = styled.img`
 `;
 
 const Form = styled.form`
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
-	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -239,69 +262,57 @@ const Form = styled.form`
 	padding: 40px 30px;
 	max-width: 700px;
 	min-width: 600px;
-	& > p {
-		font-size: ${({ theme }) => theme.fontSize.lg};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		margin-bottom: 20px;
-	}
-`;
-
-const Button = styled.button`
-	height: 40px;
-	width: 82%;
-	border-radius: 10px;
-	border: none;
-	margin-top: 20px;
-	cursor: pointer;
-	background: ${({ theme }) => theme.color.primary};
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	:disabled {
-		background: ${({ theme }) => theme.color.gray};
-	}
+	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
 
 const BtnWrap = styled.div`
-	display: flex;
-	justify-content: flex-end;
 	width: 100%;
+	text-align: center;
+`;
+const Button = styled(CustomButton)`
+	margin-top: 20px;
+	background: linear-gradient(
+		${({ theme }) => theme.color.primary[400]},
+		${({ theme }) => theme.color.primary[200]}
+	);
+	border: none;
+	color: ${({ theme }) => theme.color.fontColor[100]};
+	&:hover {
+		background: ${({ theme }) => theme.color.hover};
+	}
 `;
 
 const ItemWrap = styled.div`
 	display: flex;
 	width: 20%;
-	& > span {
-		font-size: ${({ theme }) => theme.fontSize.base};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-	}
 `;
 
 const InputBoxWrap = styled.div`
 	${flexAlignCenter}
-	width: 100%;
-	& > input {
-		width: 100%;
-		height: 40px;
-		border: 1px solid ${({ theme }) => theme.color.subBeige};
-		border-radius: 10px;
-		margin: 10px 0px;
-		display: flex;
-		padding: 20px;
-		margin-left: 10px;
-		padding-left: 10px;
-	}
 
+	width: 100%;
 	& > button {
 		width: 120px;
 		height: 40px;
 		border-radius: 10px;
-		border: 1px solid ${({ theme }) => theme.color.primary};
 		background: none;
 		margin-left: 10px;
 		cursor: pointer;
 	}
 `;
+const InputCustom = styled(Input)`
+	max-width: 400px;
+	min-height: 45px;
+	margin: 10px;
+	border: 2px solid ${({ theme }) => theme.color.gray[100]};
+`;
+const InputHalf = styled(Input)`
+	max-width: 260px;
+	min-height: 45px;
+	margin: 10px;
+	border: 2px solid ${({ theme }) => theme.color.gray[100]};
+`;
+
 const InputWrap = styled.div`
 	width: 100%;
 	display: flex;
@@ -317,14 +328,15 @@ const InputWrapBtn = styled.div`
 `;
 
 const Mark = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary[400]};
+	font-size: 20px;
 `;
 
 const Error = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
+	width: 60%;
+	text-align: start;
+	color: ${({ theme }) => theme.color.error};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 `;
 
 const Address = styled.div`
@@ -334,6 +346,20 @@ const Address = styled.div`
 	padding-left: 10px;
 	margin-right: 5px;
 	align-items: center;
+`;
+const CheckBtn = styled(CustomButton)`
+	background: linear-gradient(
+		${({ theme }) => theme.color.primary[400]},
+		${({ theme }) => theme.color.primary[200]}
+	);
+	font-weight: normal;
+	min-height: 45px;
+	border: 2px solid ${({ theme }) => theme.color.primary[400]};
+	&:hover {
+		color: ${({ theme }) => theme.color.fontColor[100]};
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		border: none;
+	}
 `;
 
 const S = {
@@ -350,4 +376,8 @@ const S = {
 	InputBoxWrap,
 	Error,
 	Address,
+	InputCustom,
+	InputHalf,
+	CheckBtn,
+	BtnWrap,
 };

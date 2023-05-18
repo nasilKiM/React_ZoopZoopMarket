@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import CustomButton from '../button';
 
 const EditBtns = () => {
 	return (
 		<S.Wrap>
-			<button>수정</button>
-			<button>삭제</button>
+			<CustomButton variant={'primary'} shape={'shape2'}>수정</CustomButton>
+			<CustomButton variant={'primary'} shape={'shape2'}>삭제</CustomButton>
 		</S.Wrap>
 	);
 };
@@ -16,12 +17,6 @@ const Wrap = styled.div`
 		margin-right: 5px;
 		border-radius: 5px;
 		cursor: pointer;
-	}
-	& > button:first-child {
-		border: 2px solid ${({ theme }) => theme.color.subLightGreen};
-	}
-	& > button:last-child {
-		border: 2px solid ${({ theme }) => theme.color.subBeigeGreen};
 	}
 `;
 

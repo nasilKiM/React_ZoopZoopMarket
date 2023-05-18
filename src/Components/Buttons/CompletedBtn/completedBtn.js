@@ -1,22 +1,20 @@
-import styled from 'styled-components';
+import Button from '../button';
 
 const CompletedBtn = () => {
 	return (
-		<S.Wrap>
-			<button>판매 완료 변경</button>
-		</S.Wrap>
+			<Button variant={'primary'} shape={'shape'}>판매 완료 변경</Button>
 	);
 };
 export default CompletedBtn;
 
-const Wrap = styled.div`
-	& > button {
-		border-radius: 5px;
-		background-color: ${({ theme }) => theme.color.white};
-		border: 2px solid ${({ theme }) => theme.color.primary};
-	}
-`;
+// const Wrap = styled.div`
+// 	& > button {
+// 		border-radius: 5px;
+// 		background-color: ${({ theme }) => theme.color.white};
+// 		border: 2px solid ${({ theme }) => theme.color.primary};
+// 	}
+// `;
 
-const S = {
-	Wrap,
-};
+// const S = {
+// 	Wrap,
+// };
