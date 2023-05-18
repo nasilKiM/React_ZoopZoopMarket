@@ -90,7 +90,6 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	height: 800px;
 	width: 80%;
 	flex-direction: column;
 	${flexAllCenter}
