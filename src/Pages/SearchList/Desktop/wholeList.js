@@ -1,20 +1,54 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import SearchList from './components/searchList';
 
 const WholeListPage = () => {
 	const { word } = useParams();
-	const { category } = useParams();
+	const { category } = useParams(); //useParams는 다 string으로 변환.
 	const location = useLocation();
-	console.log(location.state);
+	const [selected, setSelected] = useState(category);
+	const navigate = useNavigate();
+	const onSelectBoxClick = option => {
+		setSelected(option);
+	};
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		if (selected == 1) {
+			navigate(`/search_list/${word}/1`, { state: location.state });
+		} else if (selected == 0) {
+			navigate(`/search_list/${word}/0`, { state: location.state });
+		} else {
+			navigate(`/search_list/${word}`);
+		}
+	}, [selected]);
 
 	let categoryResult = '';
 
-	category === 0
-		? (categoryResult = '중고물품')
-		: (categoryResult = '무료물품');
+	category == 0 ? (categoryResult = '중고물품') : (categoryResult = '무료물품');
+	//400px
 	return (
 		<S.Wrapper>
+			<S.SelectContainer>
+				<S.SelectBox
+					isSelected={selected == 2}
+					onClick={() => onSelectBoxClick(2)}
+				>
+					통합
+				</S.SelectBox>
+				<S.SelectBox
+					isSelected={selected == 0}
+					onClick={() => onSelectBoxClick(0)}
+				>
+					중고
+				</S.SelectBox>
+				<S.SelectBox
+					isSelected={selected == 1}
+					onClick={() => onSelectBoxClick(1)}
+				>
+					무료
+				</S.SelectBox>
+			</S.SelectContainer>
 			<S.ResultText>
 				<S.ResultWord>"{word}"</S.ResultWord>에 대한 {categoryResult} 검색 결과
 			</S.ResultText>
@@ -27,15 +61,14 @@ const WholeListPage = () => {
 };
 export default WholeListPage;
 const Wrapper = styled.div`
+	width: 80%;
+	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
-	border: 10px solid beige;
 `;
 const Container = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
-	border: 1px solid black;
 	justify-content: center;
 	margin-top: 30px;
 `;
@@ -47,13 +80,32 @@ const ResultText = styled.div`
 	margin-left: 40px;
 `;
 const ResultWord = styled.div`
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[300]};
+`;
+
+const SelectContainer = styled.div`
+	width: 100%;
+	margin-top: 20px;
+	display: flex;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+`;
+
+const SelectBox = styled.div`
+	cursor: pointer;
+	margin: 10px 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ isSelected }) =>
+		isSelected
+			? ({ theme }) => theme.color.primary[300]
+			: ({ theme }) => theme.color.black};
 `;
 const S = {
 	Wrapper,
 	Container,
 	ResultText,
 	ResultWord,
+	SelectContainer,
+	SelectBox,
 };
 
 // // const res = useInfiniteSearch(word, selected);
