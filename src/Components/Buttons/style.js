@@ -19,7 +19,11 @@ const shapeCSS = {
 	// 회원가입/로그인 등 제출시 쓰일 예정!
 	submitBtn: css`
 		border-radius: 6px;
-		border: 1.5px solid ${({ theme }) => theme.color.gray[200]};
+		&:disabled {
+			background: ${({ theme }) => theme.color.gray[200]};
+			color: ${({ theme }) => theme.color.fontColor[100]};
+			border: none;
+		}
 	`,
 	round: css`
 		border-radius: 50%;
@@ -73,8 +77,5 @@ export const PropsBtn = styled.button`
 	${({ variant }) => variantCSS[variant]}
 	${({ shape }) => shapeCSS[shape]}
     ${({ size }) => sizeCSS[size]}
-    cursor: pointer;
-	/* :hover {
-		opacity: 0.8;
-	} */
+	cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 `;

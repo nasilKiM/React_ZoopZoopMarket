@@ -1,5 +1,5 @@
 import { flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -7,14 +7,14 @@ import styled from 'styled-components';
 const ToggleBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	
+
 	const PathNameArr = location.pathname.split('/');
 	const current = PathNameArr[2];
-	
+
 	useEffect(() => {
 		navigate('/mypage/item');
 	}, []);
-	
+
 	const toggleMenu = [
 		{
 			title: '내 등록템',
@@ -37,17 +37,19 @@ const ToggleBar = () => {
 			address: '',
 		},
 	];
-	
-	const onClickToggle = (page) => {
+
+	const onClickToggle = page => {
 		navigate(`/mypage/${page}`);
 	};
-
 
 	return (
 		<S.Wrapper>
 			{toggleMenu.map(toggle => (
 				<>
-					<S.Menu onClick={() => onClickToggle(toggle.address)} currentMenu={current === toggle.address}>
+					<S.Menu
+						onClick={() => onClickToggle(toggle.address)}
+						currentMenu={current === toggle.address}
+					>
 						{toggle.title}
 					</S.Menu>
 				</>
@@ -66,15 +68,15 @@ const Wrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	`;
+`;
 
 const Menu = styled.div`
 	:hover {
 		cursor: pointer;
-		color: ${({theme}) => theme.color.primary};
+		color: ${({ theme }) => theme.color.primary};
 	}
-	color: ${({currentMenu}) => (currentMenu ? 'red' : 'black')};
-	`;
+	color: ${({ currentMenu }) => (currentMenu ? 'red' : 'black')};
+`;
 
 const S = {
 	Wrapper,

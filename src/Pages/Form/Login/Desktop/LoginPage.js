@@ -43,7 +43,6 @@ const LoginPage = () => {
 	};
 
 	const full = !errors.email && !errors.password;
-
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -63,10 +62,13 @@ const LoginPage = () => {
 						placeholder="PW"
 						type="password"
 					/>
+					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.LoginBtn size={'submitBtn'} shape={'submitBtn'} disabled={!full}>
 						로그인하기
 					</S.LoginBtn>
-					<S.FindPassword>비밀번호 재설정</S.FindPassword>
+					<S.WrapPW>
+						<S.FindPassword>비밀번호 재설정</S.FindPassword>
+					</S.WrapPW>
 					<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
 					<S.SignUpBtn
 						size={'submitBtn'}
@@ -88,7 +90,6 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	height: 800px;
 	width: 80%;
 	flex-direction: column;
 	${flexAllCenter}
@@ -128,25 +129,21 @@ const LoginBtn = styled(CustomButton)`
 	border: none;
 	min-height: 50px;
 	color: ${({ theme }) => theme.color.fontColor[100]};
-	:hover {
-		background: ${({ theme }) => theme.color.hover};
-	}
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
 		${({ theme }) => theme.color.primary[200]}
 	);
 `;
-
-const FindPassword = styled.span`
-	text-align: end;
+const WrapPW = styled.div`
 	width: 62%;
+	margin: 10px 0 60px 0;
+	text-align: end;
+`;
+const FindPassword = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	color: ${({ theme }) => theme.color.fontColor[200]};
-	padding: 10px 0 60px 0;
 	cursor: pointer;
-	:hover {
-	}
 `;
 const SingUp = styled.p`
 	${flexAllCenter}
@@ -184,4 +181,5 @@ const S = {
 	Error,
 	LoginBtn,
 	FindPassword,
+	WrapPW,
 };

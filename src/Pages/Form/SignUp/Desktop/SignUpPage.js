@@ -176,6 +176,7 @@ const SignUpPage = () => {
 						</S.InputBoxWrap>
 					</S.InputWrapBtn>
 					{<S.Error>{nickMsg}</S.Error>}
+					{errors.nick && <S.Error>{errors.nick.message}</S.Error>}
 					<S.InputWrap>
 						<S.ItemWrap>
 							<S.Mark>*</S.Mark>
@@ -277,9 +278,6 @@ const Button = styled(CustomButton)`
 	);
 	border: none;
 	color: ${({ theme }) => theme.color.fontColor[100]};
-	&:hover {
-		background: ${({ theme }) => theme.color.hover};
-	}
 `;
 
 const ItemWrap = styled.div`
@@ -348,17 +346,12 @@ const Address = styled.div`
 	align-items: center;
 `;
 const CheckBtn = styled(CustomButton)`
-	background: linear-gradient(
-		${({ theme }) => theme.color.primary[400]},
-		${({ theme }) => theme.color.primary[200]}
-	);
 	font-weight: normal;
 	min-height: 45px;
 	border: 2px solid ${({ theme }) => theme.color.primary[400]};
 	&:hover {
 		color: ${({ theme }) => theme.color.fontColor[100]};
 		background-color: ${({ theme }) => theme.color.primary[400]};
-		border: none;
 	}
 `;
 
