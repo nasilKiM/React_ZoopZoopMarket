@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import Preview from './Components/preview';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
-import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
-import Category from './Components/category';
 import { MockAxios } from 'Apis/@core';
 import { useQuery } from 'react-query';
 
@@ -37,7 +34,7 @@ const DesktopMainPage = () => {
 export default DesktopMainPage;
 
 const Wrapper = styled.div`
-	width: 80%;
+	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
 	margin: 0 auto;

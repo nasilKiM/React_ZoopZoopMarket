@@ -55,7 +55,7 @@ const Bar = styled.div`
 `;
 
 const Container = styled.div`
-	width: 80%;
+	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
 	height: 50px;
@@ -106,10 +106,10 @@ const LogoutButton = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.white};
-	background-color: ${({ theme }) => theme.color.gray};
+	background-color: ${({ theme }) => theme.color.gray[200]};
 	cursor: pointer;
 	&:hover {
-		background-color: ${({ theme }) => theme.color.primary};
+		background-color: ${({ theme }) => theme.color.primary[300]};
 	}
 `;
 

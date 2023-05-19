@@ -188,6 +188,4 @@ const S = {
 	Address,
 	Nickname,
 	Temp,
-	ProfileImg,
-	ImgWrap,
 };
