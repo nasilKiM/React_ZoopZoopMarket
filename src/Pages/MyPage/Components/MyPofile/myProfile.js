@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
-// import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
-// import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Profile from 'Components/Profile/Desktop/profile';
+import MannerMeter from 'Components/Icon/Icon';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -30,7 +30,7 @@ const MyProfile = () => {
 			console.log(err);
 		}
 	};
-	// 프로필 사진 수정 틀
+
 	const profileImgEdit = async () => {
 		const formData = new FormData();
 		formData.append('profile_url');
@@ -64,13 +64,14 @@ const MyProfile = () => {
 
 	return (
 		<S.Wrapper>
+			{userInfo && userProfile &&
 			<S.Info>
 				<S.ImgWrap>
-					<S.Img src="/Assets/Images/기본 프로필.png" />
+					<Profile userProfileUrl={User.profileUrl}/>	
 					<S.ProfileImg>
 						<FontAwesomeIcon
 							icon={faCamera}
-							style={{ color: '#ffffff', fontSize: '25px' }}
+							style={{ color: '#ffffff', fontSize: '15px' }}
 							onClick={handleClick}
 						/>
 						<input
@@ -85,30 +86,50 @@ const MyProfile = () => {
 
 				<S.Detail>
 					<div>
-						반가워요<S.Nickname>고라니</S.Nickname>님!
+						반가워요<S.Nickname>{User.nickName}</S.Nickname>님,
 					</div>
 					<S.Icon>
-						현재 매너온도는<S.Temp>36도</S.Temp>입니다 :)
+						현재 매너온도는<S.Temp><MannerMeter ondo={ondo}/></S.Temp>입니다!
 					</S.Icon>
 					<div>
-						활동지역<S.Address>#경기도 화성시 반송동</S.Address>
+						활동지역<S.Address>#{region}</S.Address>
 					</div>
 				</S.Detail>
-			</S.Info>
+			</S.Info>}
 		</S.Wrapper>
-		// <S.Wrapper>
-		// 	{userInfo && userProfile &&
-		// 		<div>
-		// 			<div>
-		// 			<Profile userProfileUrl={User.profileUrl}/>
-		// 			</div>
-		// 			<div>반가워요, <S.nickName>{User.nickName}</S.nickName>님 :)</div>
-		// 			<S.Icon>
-		// 					<MannerMeter ondo={ondo} />
-		// 			</S.Icon>
-		// 			<div>{region}</div>
-		// 		</div>}
-		// </S.Wrapper>
+	
+	// 백엔드 회선 변경 시 사용했던 코드 (임시 데이터)
+	// 	<S.Info>
+	// 	<S.ImgWrap>
+	// 		<S.Img src="/Assets/Images/기본 프로필.png" />
+	// 		<S.ProfileImg>
+	// 			<FontAwesomeIcon
+	// 				icon={faCamera}
+	// 				style={{ color: '#ffffff', fontSize: '25px' }}
+	// 				onClick={handleClick}
+	// 			/>
+	// 			<input
+	// 				type="file"
+	// 				accept="image/jpg, image/jpeg, image/png"
+	// 				multiple
+	// 				ref={photoInput}
+	// 				style={{ display: 'none' }}
+	// 			/>
+	// 		</S.ProfileImg>
+	// 	</S.ImgWrap>
+
+	// 	<S.Detail>
+	// 		<div>
+	// 			반가워요<S.Nickname>고라니</S.Nickname>님!
+	// 		</div>
+	// 		<S.Icon>
+	// 			현재 매너온도는<S.Temp>36도</S.Temp>입니다 :)
+	// 		</S.Icon>
+	// 		<div>
+	// 			활동지역<S.Address>#경기도 화성시 반송동</S.Address>
+	// 		</div>
+	// 	</S.Detail>
+	// </S.Info>
 	);
 };
 
