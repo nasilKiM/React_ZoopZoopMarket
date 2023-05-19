@@ -12,6 +12,7 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 	const so = socketConnect();
 
 	useEffect(() => {
+		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
@@ -51,6 +52,17 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 			setSend(message.current.value);
 		});
 		const res = await ChatApis.saveMsg(message.current.value);
+
+		// 채팅 로그를 불렀으면 읽음처리를 해줘야함
+		const readMsg = async () => {
+			try {
+				const res = await ChatApis.readChatMsg(chatroomIdx);
+			} catch (err) {
+				console.log(err);
+			}
+			// 읽음 처리는 해주는데, 읽음 처리를 해주면 채팅 목록 조회에서
+			// isRead처리를 어떻게 해주는가??
+		};
 	};
 
 	return (
