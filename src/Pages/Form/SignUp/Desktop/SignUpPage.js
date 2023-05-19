@@ -257,21 +257,22 @@ const LogoImage = styled.img`
 
 const Form = styled.form`
 	display: flex;
-	align-items: center;
 	flex-direction: column;
+	align-items: center;
 	width: 100%;
 	padding: 40px 30px;
-	max-width: 700px;
+	max-width: 800px;
 	min-width: 600px;
 	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
 
 const BtnWrap = styled.div`
 	width: 100%;
-	text-align: center;
+	text-align: end;
 `;
 const Button = styled(CustomButton)`
 	margin-top: 20px;
+	width: 82%;
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
 		${({ theme }) => theme.color.primary[200]}
@@ -287,7 +288,6 @@ const ItemWrap = styled.div`
 
 const InputBoxWrap = styled.div`
 	${flexAlignCenter}
-
 	width: 100%;
 	& > button {
 		width: 120px;
@@ -299,15 +299,14 @@ const InputBoxWrap = styled.div`
 	}
 `;
 const InputCustom = styled(Input)`
-	max-width: 400px;
 	min-height: 45px;
 	margin: 10px;
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 `;
 const InputHalf = styled(Input)`
-	max-width: 260px;
 	min-height: 45px;
 	margin: 10px;
+	width: 74%;
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 `;
 
