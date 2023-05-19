@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import MyPageApi from 'Apis/myPageApi';
-import UserApi from 'Apis/userApi';
 // import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
 // import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MyPageApi from 'Apis/myPageApi';
+import UserApi from 'Apis/userApi';
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -111,7 +111,6 @@ const MyProfile = () => {
 		// </S.Wrapper>
 	);
 };
-
 export default MyProfile;
 
 const Wrapper = styled.div`
@@ -182,7 +181,9 @@ const Temp = styled.span`
 const S = {
 	Wrapper,
 	Img,
+	ImgWrap,
 	Info,
+	ProfileImg,
 	Icon,
 	Detail,
 	Address,

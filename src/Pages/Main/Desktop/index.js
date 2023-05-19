@@ -3,6 +3,10 @@ import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
 import { MockAxios } from 'Apis/@core';
 import { useQuery } from 'react-query';
+// import { Category, Preview } from '@mui/icons-material';
+import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
+import Preview from './Components/preview';
+import Category from './Components/category';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
