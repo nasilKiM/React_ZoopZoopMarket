@@ -1,9 +1,9 @@
-import { Button } from "../style";
+import CustomButton from "../button";
 
 // 검색 페이지에는 대표 상품 8개만 보여줄 예정. 전체 상품이 8개 이상일 경우, 해당 버튼 클릭하면 페이지 전환되어(?) 전체 상품 리스트를 무한스크롤링으로 보여줌.
 const MoreBtn = () => {
     return(
-        <Button variant={'primary'} shape={'shape1'} size={'size1'}>상품 전체보기</Button>
+        <CustomButton variant={'primary'} shape={'shape1'} size={'size1'}>상품 전체보기</CustomButton>
     )
 }
 
