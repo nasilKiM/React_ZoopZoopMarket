@@ -6,16 +6,18 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 
 	const onUpload = async e => {
 		setImages([]);
-		const fileArr = e.target.files;
-		const fileURLs = [];
+		if (e.target.files) {
+			const fileArr = e.target.files;
+			const fileURLs = [];
 
-		for (let i = 0; i < fileArr.length && i < 5; i++) {
-			const file = fileArr[i];
-			const fileURL = await readFileAsync(file);
-			fileURLs.push(fileURL);
-		}
-		setImgSrc(fileURLs);
-		console.log('fileArr', fileArr);
+			for (let i = 0; i < fileArr.length && i < 5; i++) {
+				const file = fileArr[i];
+				const fileURL = await readFileAsync(file);
+				fileURLs.push(fileURL);
+			}
+			setImgSrc(fileURLs);
+			console.log('fileArr', fileArr);
+		} else setImgSrc(imgSrc);
 	};
 
 	const readFileAsync = file => {
@@ -28,13 +30,11 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 	};
 
 	const onClickDeleteNew = idx => {
-		// if (imgSrc.length === 0 && images.length === 0) return;
 		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
 		setImgSrc(newFileURLs);
 	};
 
 	const onClickDeleteOld = idx => {
-		// if (imgSrc.length === 0 && images.length === 0) return;
 		const newFileURLs = images.filter(url => url !== images[idx]);
 		setImages(newFileURLs);
 	};
