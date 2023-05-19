@@ -54,7 +54,7 @@ const WebHeader = () => {
 export default WebHeader;
 
 const Wrapper = styled.div`
-	width: 80%;
+	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
 	height: 100px;

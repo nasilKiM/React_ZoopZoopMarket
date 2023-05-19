@@ -52,12 +52,11 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-	width: 200px;
+	width: 280px;
+	// 200px + 여백 10px정도?
 	max-width: 250px;
-	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	border: 1px solid lightgray;
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {
@@ -77,13 +76,11 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	position: relative;
-	width: 200px;
-	max-width: 250px;
+	max-width: 280px;
 	width: 100%;
 	height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
-	/* padding: 10px; */
 `;
 
 const ItemInfo = styled.div`

@@ -1,4 +1,5 @@
 import EditBtns from 'Components/Buttons/EditBtns/editBtns';
+import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import { flexJustifyCenter } from 'Styles/common';
 import styled from 'styled-components';
 
@@ -7,18 +8,12 @@ const MyItemPage = () => {
 	return (
 		<S.Div>
 			<S.Wrapper>
-				{/*onClick={() => navigate(`/detail/${item.id}`)} */}
 				{item.map(() => (
 					<S.Container>
-						<S.ItemImg src="Assets/Images/bicycle.jpg" />
-						<S.ItemInfo>
-							<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
-							<S.ItemPrice>130,000 원</S.ItemPrice>
-							<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
-							<S.WrapEditBtns>
-								<EditBtns />
-							</S.WrapEditBtns>
-						</S.ItemInfo>
+						<ItemCardMock />
+						<S.WrapEditBtns>
+							<EditBtns />
+						</S.WrapEditBtns>
 					</S.Container>
 				))}
 			</S.Wrapper>

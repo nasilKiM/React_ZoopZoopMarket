@@ -15,14 +15,14 @@ const Preview = ({ category, products }) => {
 			? `${data && data.region}에 있는 줍줍템을 확인하세요!`
 			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
-	const [slidesToShow, setSlidesToShow] = useState(4);
+	const [slidesToShow, setSlidesToShow] = useState(3);
 
 	const sliderSettings = {
 		infinite: true,
 		dots: false,
 		speed: 500,
 		slidesToShow: slidesToShow,
-		slidesToScroll: 4,
+		slidesToScroll: 3,
 		nextArrow: (
 			<Div>
 				<img src="/Assets/Icon/right-arrow.png" />
@@ -36,11 +36,11 @@ const Preview = ({ category, products }) => {
 	};
 
 	const handleResize = () => {
-		if (window.innerWidth >= 1250) {
-			setSlidesToShow(5);
-		} else if (window.innerWidth >= 980) {
+		if (window.innerWidth >= 1300) {
 			setSlidesToShow(4);
-		} else if (window.innerWidth >= 768) {
+		} else if (window.innerWidth >= 1100) {
+			setSlidesToShow(3);
+		} else if (window.innerWidth >= 868) {
 			setSlidesToShow(3);
 		} else if (window.innerWidth >= 480) {
 			setSlidesToShow(2);
