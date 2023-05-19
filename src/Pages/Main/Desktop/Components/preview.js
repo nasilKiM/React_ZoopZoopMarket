@@ -43,7 +43,7 @@ const Preview = ({ category, products }) => {
 		} else if (window.innerWidth >= 768) {
 			setSlidesToShow(3);
 		} else if (window.innerWidth >= 480) {
-			setSlidesToShow(3);
+			setSlidesToShow(2);
 		} else {
 			setSlidesToShow(2);
 		}

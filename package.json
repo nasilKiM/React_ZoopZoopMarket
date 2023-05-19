@@ -27,6 +27,7 @@
 		"react-intersection-observer": "^9.4.3",
 		"react-kakao-maps-sdk": "^1.1.8",
 		"react-query": "^3.39.3",
+		"react-responsive": "^9.0.2",
 		"react-router-dom": "^6.8.1",
 		"react-scripts": "^5.0.1",
 		"react-slick": "^0.29.0",
