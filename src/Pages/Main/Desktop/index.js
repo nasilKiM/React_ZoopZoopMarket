@@ -3,6 +3,7 @@ import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
 import { MockAxios } from 'Apis/@core';
 import { useQuery } from 'react-query';
+import CustomButton from 'Components/Buttons/button';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
