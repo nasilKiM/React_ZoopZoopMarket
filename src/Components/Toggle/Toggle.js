@@ -9,14 +9,14 @@ const ToggleBar = () => {
 	const isDesktopOrMobile = useMediaQuery({query: '(max-width: 768px'});
 	const navigate = useNavigate();
 	const location = useLocation();
-	
+
 	const PathNameArr = location.pathname.split('/');
 	const current = PathNameArr[2];
-	
+
 	useEffect(() => {
 		navigate('/mypage/item');
 	}, []);
-	
+
 	const toggleMenu = [
 		{
 			title: '내 등록템',
@@ -39,11 +39,10 @@ const ToggleBar = () => {
 			address: '',
 		},
 	];
-	
-	const onClickToggle = (page) => {
+
+	const onClickToggle = page => {
 		navigate(`/mypage/${page}`);
 	};
-
 
 	return (
 		<>
@@ -51,7 +50,10 @@ const ToggleBar = () => {
 		<S.Wrapper>
 			{toggleMenu.map(toggle => (
 				<>
-					<S.Menu onClick={() => onClickToggle(toggle.address)} currentMenu={current === toggle.address}>
+					<S.Menu
+						onClick={() => onClickToggle(toggle.address)}
+						currentMenu={current === toggle.address}
+					>
 						{toggle.title}
 					</S.Menu>
 				</>
@@ -98,7 +100,7 @@ const MWrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	`;
+`;
 
 const Menu = styled.div`
 	:hover {
@@ -106,8 +108,8 @@ const Menu = styled.div`
 		color: ${({theme}) => theme.color.primary};
 		background-color: ${({theme}) => theme.color.gray[200]};
 	}
-	color: ${({currentMenu}) => (currentMenu ? 'red' : 'black')};
-	`;
+	color: ${({ currentMenu }) => (currentMenu ? 'red' : 'black')};
+`;
 
 const S = {
 	Wrapper,

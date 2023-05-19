@@ -93,8 +93,8 @@ const router = createBrowserRouter([
 					},
 					{
 						path: '/mypage/user_password_edit',
-						element: <MyPasswordEdit/>
-					}
+						element: <MyPasswordEdit />,
+					},
 				],
 			},
 			{

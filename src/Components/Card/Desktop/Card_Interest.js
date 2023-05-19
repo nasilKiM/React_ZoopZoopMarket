@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const InterestCard = ({ index, products }) => {
 	const navigate = useNavigate();
-
+	//
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};

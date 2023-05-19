@@ -24,7 +24,6 @@ const color = {
 	},
 };
 
-// 폰트 크기
 const fontSize = {
 	micro: '6px',
 	es: '10px',
@@ -37,7 +36,6 @@ const fontSize = {
 	xl: '32px',
 };
 
-// 폰트 굵기
 const fontWeight = {
 	light: '300',
 	regular: '400',
@@ -45,8 +43,22 @@ const fontWeight = {
 	bolder: '900',
 };
 
+// media query
+const deviceWidth = {
+	mobile: 414,
+	tablet: 768,
+	laptop: 1440,
+};
+
+const device = {
+	mobile: `screen and (max-width: ${deviceWidth.mobile}px)`,
+	tablet: `screen and (max-width: ${deviceWidth.tablet}px)`,
+	laptop: `screen and (max-width: ${deviceWidth.laptop}px)`,
+};
+
 export const theme = {
 	color,
 	fontSize,
 	fontWeight,
+	device,
 };
