@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots, faUser } from '@fortawesome/free-regular-svg-icons';
-import { useMediaQuery } from 'react-responsive';
 import MobileHeader from '../Mobile';
 import MenuBar from 'Components/MenuBar/MenuBar';
+import { useMediaQuery } from 'react-responsive';
 
 const WebHeader = () => {
 	const props = 'search_list';

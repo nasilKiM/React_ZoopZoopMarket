@@ -24,7 +24,7 @@ export const FORM_TYPE = {
 	},
 
 	PASSWORD_simple: {
-		required: true,
+		required: '비밀번호를 입력해주세요',
 		pattern: {
 			message: '비밀번호가 일치하지 않습니다.',
 		},

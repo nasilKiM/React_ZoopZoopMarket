@@ -5,8 +5,9 @@ import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
-import { flexJustifyCenter } from 'Styles/common';
+import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
+import CustomButton from 'Components/Buttons/button';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -42,7 +43,6 @@ const LoginPage = () => {
 	};
 
 	const full = !errors.email && !errors.password;
-
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -51,20 +51,31 @@ const LoginPage = () => {
 				</S.Header>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.InputWrap
-						shape={'shape'}
+						shape={'littleShape'}
 						{...register('email', FORM_TYPE.EMAIL)}
 						placeholder="E-mail"
 					/>
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					<S.InputWrap
-						shape={'shape'}
+						shape={'littleShape'}
 						{...register('password', FORM_TYPE.PASSWORD_simple)}
 						placeholder="PW"
 						type="password"
 					/>
-					<S.Button disabled={!full}>로그인</S.Button>
-					<S.SignUpBtn onClick={() => navigate(`/form/signup`)}>
-						신규회원이신가요?
+					{errors.password && <S.Error>{errors.password.message}</S.Error>}
+					<S.LoginBtn size={'submitBtn'} shape={'submitBtn'} disabled={!full}>
+						로그인하기
+					</S.LoginBtn>
+					<S.WrapPW>
+						<S.FindPassword>비밀번호 재설정</S.FindPassword>
+					</S.WrapPW>
+					<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
+					<S.SignUpBtn
+						size={'submitBtn'}
+						shape={'submitBtn'}
+						onClick={() => navigate(`/form/signup`)}
+					>
+						이메일로 가입하기
 					</S.SignUpBtn>
 				</S.Form>
 			</S.Wrap>
@@ -79,27 +90,25 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	height: 800px;
 	width: 80%;
-	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	${flexAllCenter}
 `;
 
 const Header = styled.div`
 	width: 100%;
 	height: 150px;
 	padding-top: 50px;
-	margin-bottom: 30px;
-	background-color: red;
-	${flexJustifyCenter}
+	margin-bottom: 10px;
+	${flexAllCenter}
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Form = styled.form`
 	position: relative;
 	display: flex;
-	border-top: 1px solid black;
+	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
 	flex-direction: column;
 	align-items: center;
 	width: 60%;
@@ -110,36 +119,56 @@ const Form = styled.form`
 `;
 
 const InputWrap = styled(Input)`
-	max-width: 420px;
+	max-width: 400px;
 	min-height: 45px;
+	margin: 10px;
 `;
 
-const Button = styled.button`
-	height: 40px;
-	width: 80%;
-	border-radius: 10px;
-	border: none;
+const LoginBtn = styled(CustomButton)`
 	margin-top: 20px;
-
+	border: none;
+	min-height: 50px;
+	color: ${({ theme }) => theme.color.fontColor[100]};
+	background: linear-gradient(
+		${({ theme }) => theme.color.primary[400]},
+		${({ theme }) => theme.color.primary[200]}
+	);
+`;
+const WrapPW = styled.div`
+	width: 62%;
+	margin: 10px 0 60px 0;
+	text-align: end;
+`;
+const FindPassword = styled.span`
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.fontColor[200]};
 	cursor: pointer;
+`;
+const SingUp = styled.p`
+	${flexAllCenter}
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.fontColor[200]};
+	padding-bottom: 20px;
+`;
 
-	:disabled {
+const SignUpBtn = styled(CustomButton)`
+	min-height: 50px;
+	border: none;
+	font-weight: ${({ theme }) => theme.fontWeight.regular};
+	:hover {
+		background: ${({ theme }) => theme.color.primary[100]};
+		color: ${({ theme }) => theme.color.fontColor[100]};
 	}
 `;
 
-const SignUpBtn = styled.span`
-	margin: 10px 0 0 370px;
-	min-width: 95px;
-	max-width: 100px;
-	display: flex;
-	right: 14%;
-	color: #357aff;
-
-	border-bottom: 1px solid #357aff;
-	cursor: pointer;
+const Error = styled.div`
+	width: 60%;
+	text-align: start;
+	color: ${({ theme }) => theme.color.error};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 `;
-
-const Error = styled.div``;
 
 const S = {
 	Div,
@@ -147,7 +176,10 @@ const S = {
 	Header,
 	InputWrap,
 	Form,
-	Button,
+	SingUp,
 	SignUpBtn,
 	Error,
+	LoginBtn,
+	FindPassword,
+	WrapPW,
 };

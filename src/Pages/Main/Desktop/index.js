@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import Preview from './Components/preview';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
-import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
-import Category from './Components/category';
 import { MockAxios } from 'Apis/@core';
 import { useQuery } from 'react-query';
+import CustomButton from 'Components/Buttons/button';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
@@ -17,14 +15,10 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Wrapper>
-			<CategoryWrapper>
-				<TitleBox>카테고리별 상품찾기</TitleBox>
-				<Category />
-				<div></div>
-			</CategoryWrapper>
-			<Preview category={0} products={data}></Preview>
-			<Preview category={1} products={data}></Preview>
-			<TopBtn />
+			{/* 버튼 컴포넌트 확인 코드로 추후 삭제 예정 */}
+			<CustomButton variant={'primary'} shape={'submitBtn'} size={'submitBtn'}>
+				버튼 스타일 확인용
+			</CustomButton>
 			<Link to={'/register'}>
 				<S.BtnSection>
 					<RegisterBtn />
