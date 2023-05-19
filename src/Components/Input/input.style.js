@@ -33,11 +33,12 @@ const statusCSS = {
 
 export const Input = styled.input`
 	width: 100%;
-	padding: 7px;
+	padding: 15px;
 	background: none;
 	outline: none;
+	color: ${({ theme }) => theme.color.gray[200]};
 	font-size: ${({ theme }) => theme.fontSize.base};
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	${({ variant }) => variantCSS[variant]}
 	${({ shape }) => shapeCSS[shape]}
     ${({ status }) => statusCSS[status]}

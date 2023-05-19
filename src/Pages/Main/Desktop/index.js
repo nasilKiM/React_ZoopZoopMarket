@@ -10,7 +10,7 @@ const DesktopMainPage = () => {
 	return (
 		<S.Wrapper>
 			{/* 버튼 컴포넌트 확인 코드로 추후 삭제 예정 */}
-            <CustomButton variant={'primary'} shape={'submitBtn'} size={'submitBtn'}>버튼 스타일 확인용</CustomButton> 
+			<CustomButton variant={'primary'} shape={'submitBtn'} size={'submitBtn'}>버튼 스타일 확인용</CustomButton> 
 			<Link to={'/register'}>
 				<S.BtnSection>
 					<RegisterBtn />
