@@ -1,39 +1,80 @@
 import styled from "styled-components";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import './styles.css';
+import moment from "moment"
+import { useState } from "react";
+import { PurchaseMockData, SaleMockData } from "./mock";
 
-const AccountBookDetailInfo = () => {
+const AccountBookDetailInfo = ({date, setDate, year, month}) => {
+    let saleDateArr = [];
+    SaleMockData["payList"].map((item) => {
+        const saleDate = item.createAt;
+        saleDateArr.push(saleDate.split('T')[0])
+    });
+
+    let purchaseDateArr = [];
+    PurchaseMockData["payList"].map((item) => {
+        const saleDate = item.createAt;
+        purchaseDateArr.push(saleDate.split('T')[0])
+    });
+
+    const [sale, setSale] = useState(saleDateArr);
+    const [purchase, setPurchase] = useState(purchaseDateArr);
+
+    const [saleCount, setSaleCount] = useState(SaleMockData.count);
+    const [purchaseCount, setPurchaseCount] = useState(PurchaseMockData.count);
+
+    const [saleAmount, setSaleAmount] = useState(SaleMockData["amount"].thisMonthSaleAmount);
+    const [purchaseAmount, setPurchaseAmount] = useState(PurchaseMockData["amount"].thisMonthPurchaseAmount);
 
     return (
         <>
           <S.PreviewWrap>
             <S.PreviewContent>
-                <S.Month>1월</S.Month>
-                <S.Text>NNN님, <br/>
-                    yyyy년 m월에는 이렇게 거래했어요 :)
+                <S.Text>
+                    {year}년 {month}월에는 이렇게 거래했어요 :)
                 </S.Text>
             </S.PreviewContent>
             <S.PreviewContent>
                 <S.SummaryContent1>
-                    판매 _ 건<br/>
-                    구매 _ 건<br/>
-                    무료 나눔<br/>
+                    판매건수<br/>
+                    구매건수<br/>
+                    {/* 무료나눔<br/> */}
                 </S.SummaryContent1>
                 <S.SummaryContent2>
-                    원<br/>
-                    원<br/>
-                    건<br/>
-                    <div>총 원</div>
+                    {saleCount}건<br/>
+                    {purchaseCount}건<br/>
+                </S.SummaryContent2>
+                <S.SummaryContent2>
+                    {saleAmount}원<br/>
+                    {purchaseAmount}원<br/>
                 </S.SummaryContent2>
             </S.PreviewContent>
           </S.PreviewWrap>
-            <S.MonthButtonsZone>
-                <S.MonthButton>3개월</S.MonthButton>
-                <S.MonthButton>6개월</S.MonthButton>
-                <S.MonthButton>9개월</S.MonthButton>
-                <S.MonthButton>12개월</S.MonthButton>
-            </S.MonthButtonsZone>
-          <S.GraphWrap>
-            <S.Graph>라이브러리 그래프</S.Graph>
-          </S.GraphWrap>
+          <Calendar value={date} 
+                    onChange={setDate}
+                    className='react-calendar'
+                    formatDay={(locale, date) => moment(date).format("D")}
+                    tileContent={({date}) => {
+                        if(sale.find(day => day===moment(date).format('YYYY-MM-DD'))) {
+                            return (
+                                <>
+                                    <div className="sale"></div>
+                                </>
+                            )
+                        }
+                        if(purchase.find(day => day===moment(date).format('YYYY-MM-DD'))) {
+                            return (
+                                <>
+                                    <div className="purchase"></div>
+                                </>
+                            )
+                        }
+                    }}
+          />
+          {/* <span>선택한 날짜</span>
+          {date.getDate()} */}
           <div>카드 컴포넌트</div>
         </>
     )
@@ -44,11 +85,14 @@ export default AccountBookDetailInfo;
 // 거래내역 박스
 const PreviewWrap = styled.div`
     width: 100%;
-    height: 500px;
-    background-color: ${({ theme }) => theme.color.subBeige};
+    height: 300px;
+    box-shadow: 0px 0px 20px #e0e0e0;
+    border-radius: 15px;
+    background-color: ${({ theme }) => theme.color.primary[100]};
+    margin-bottom: 30px;
     padding-top: 30px;
     & > div:nth-child(1) {
-            border-bottom: dashed 3px white;
+            border-bottom: solid 3px ${({ theme }) => theme.color.gray[100]};;
             align-items: center;
     }
     & > div:nth-child(2) {
@@ -61,7 +105,7 @@ const PreviewWrap = styled.div`
 
 const PreviewContent= styled.div`
     width: 90%;
-    height: 170px;
+    height: 80px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -80,9 +124,8 @@ const Month = styled.div`
 `
 
 const Text = styled.div`
-    margin-left: 90px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    line-height: 2.5rem;  
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
 `
 
 const SummaryContent1 = styled.div`

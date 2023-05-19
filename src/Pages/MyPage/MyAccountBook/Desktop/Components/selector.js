@@ -1,40 +1,56 @@
+import CustomButton from "Components/Buttons/button";
 import styled from "styled-components";
 
-const AccountBookSelector = () => {
-
+const AccountBookSelector = (props) => {
+	const {category, setCategory, year, setYear, month, setMonth} = props;
 	return(
 		<S.SelectorsZone>
 			<form>
-				<S.LargeSelect name="action_type" id="action_type_select">
-					<option value="total">전체</option>
+				<S.LargeSelect
+					name="action_type"
+					id="action_type_select"
+					value={category}
+					onChange={({target: {value}}) => setCategory(String(value))}
+				>
+					{/* <option value="total">전체</option> */}
 					<option value="sell">판매</option>
 					<option value="purchase">구매</option>
-					<option value="free">무료나눔</option>
 				</S.LargeSelect>
 			</form>
 			<S.RightSideSelectors>
 				<form>
-					<S.LargeSelect name="year" id="year_select">
+					<S.LargeSelect
+						name="year"
+						id="year_select"
+						value={year}
+						onChange={({target: {value}}) => setYear(String(value))}
+					>
 						<option value="2023">2023 년</option>
 						<option value="2022">2022 년</option>
 						<option value="2021">2021 년</option>
 					</S.LargeSelect>
 				</form>
 				<form>
-					<S.LargeSelect name="month" id="month_select">
-						<option value="1">1 월</option>
-						<option value="2">2 월</option>
-						<option value="3">3 월</option>
-						<option value="4">4 월</option>
-						<option value="5">5 월</option>
-						<option value="6">6 월</option>
-						<option value="7">7 월</option>
-						<option value="8">8 월</option>
-						<option value="9">9 월</option>
+					<S.LargeSelect
+						name="month"
+						id="month_select"
+						value={month}
+						onChange={({target: {value}}) => setMonth(String(value))}
+					>
+						<option value="01">1 월</option>
+						<option value="02">2 월</option>
+						<option value="03">3 월</option>
+						<option value="04">4 월</option>
+						<option value="05">5 월</option>
+						<option value="06">6 월</option>
+						<option value="07">7 월</option>
+						<option value="08">8 월</option>
+						<option value="09">9 월</option>
 						<option value="10">10 월</option>
 						<option value="11">11 월</option>
 						<option value="12">12 월</option>
 					</S.LargeSelect>
+					{/* <CustomButton variant={"primary"} shape={"moreBtn"} size={"small"}>조회하기</CustomButton> */}
 				</form>
 			</S.RightSideSelectors>
 		</S.SelectorsZone>
