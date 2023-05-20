@@ -1,33 +1,39 @@
 import styled from 'styled-components';
-import MyPageApi from 'Apis/myPageApi';
-import { useEffect, useState } from 'react';
-import InterestCard from 'Components/Card/Desktop/Card_Interest';
+// import MyPageApi from 'Apis/myPageApi';
+// import { useState } from 'react';
+// import InterestCard from 'Components/Card/Desktop/Card_Interest';
+import ItemCardMock from 'Components/Card/Desktop/Card copy';
+import { MockAxios } from 'Apis/@core';
+import { useQuery } from 'react-query';
 
 const MyInterestPage = () => {
-	const [likeList, setLikeList] = useState();
+	// const [likeList, setLikeList] = useState();
 
-	const myInterest = async () => {
-		try {
-			const res = await MyPageApi.likeProductList({ page: 1 });
-			setLikeList(res.data.LikeList);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// const myInterest = async () => {
+	// 	try {
+	// 		const res = await MyPageApi.likeProductList({ page: 1 });
+	// 		setLikeList(res.data.LikeList);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
-	useEffect(() => {
-		myInterest();
-	}, []);
+	// useEffect(() => {
+	// 	myInterest();
+	// }, []);
+
+	const { data } = useQuery(['product'], () => {
+		return MockAxios.get('/product').then(res => {
+			return res.data;
+		});
+	});
 
 	return (
 		<S.Container>
-			{likeList &&
-				likeList.map(product => (
+			{data &&
+				data.map(product => (
 					<S.Card>
-						<InterestCard
-							index={product.Product.idx}
-							products={product.Product}
-						/>
+						<ItemCardMock products={product} />
 					</S.Card>
 				))}
 		</S.Container>

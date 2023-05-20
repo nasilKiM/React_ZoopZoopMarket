@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import MyPageApi from 'Apis/myPageApi';
-import UserApi from 'Apis/userApi';
 // import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
 // import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MyPageApi from 'Apis/myPageApi';
+import UserApi from 'Apis/userApi';
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -70,7 +70,7 @@ const MyProfile = () => {
 					<S.ProfileImg>
 						<FontAwesomeIcon
 							icon={faCamera}
-							style={{ color: '#ffffff', fontSize: '25px' }}
+							style={{ color: '#ffffff', fontSize: '15px' }}
 							onClick={handleClick}
 						/>
 						<input
@@ -111,23 +111,23 @@ const MyProfile = () => {
 		// </S.Wrapper>
 	);
 };
-
 export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 170px;
+	height: 180px;
 	border-top: solid 1px #e9e9e9;
-	border-bottom: solid 1px #e9e9e9;
-	${flexAllCenter}
+	/* border-bottom: solid 1px #e9e9e9; */
+	padding: 30px 0;
 `;
 
 const Info = styled.div`
 	display: flex;
+	align-items: center;
 `;
 
 const Img = styled.img`
-	width: 150px;
+	width: 100px;
 	object-fit: cover;
 	object-position: center;
 `;
@@ -147,24 +147,24 @@ const ProfileImg = styled.div`
 `;
 
 const Detail = styled.div`
-	margin-left: 60px;
-	line-height: 2rem;
+	margin-left: 50px;
+	line-height: 1.5rem;
 	& :nth-child(3) {
-		margin-top: 15px;
+		margin-top: 10px;
 	}
 `;
 
 const Nickname = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.primary[300]};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	margin: 0 10px;
 `;
 
 const Address = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: #999;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
 	margin: 0 10px;
 `;
 
@@ -174,20 +174,21 @@ const Icon = styled.div`
 `;
 
 const Temp = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
 	margin: 0 10px;
 `;
 
 const S = {
 	Wrapper,
 	Img,
+	ImgWrap,
 	Info,
+	ProfileImg,
 	Icon,
 	Detail,
 	Address,
 	Nickname,
 	Temp,
-	ProfileImg,
-	ImgWrap,
 };

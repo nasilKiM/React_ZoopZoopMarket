@@ -5,3 +5,4 @@ https://www.npmjs.com/package/json-server
 3004/ChatDetail
 3004/chatDetail/${id}
 
+* 폴더 경로를 DB로 맞추고 json-server --watch {파일명}.json --port 3004

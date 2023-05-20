@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import ChatDetail from './ChatDetail/ChatDetail';
 import ChatList from './ChatList/ChatList';
 import { useQuery } from 'react-query';
-import axios from '../../Apis/@core';
+import { MockAxios } from '../../Apis/@core';
 import { useState } from 'react';
 
 const ChattingPage = () => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 
 	const { data } = useQuery(['chatList'], () => {
-		return axios.get('/chatList').then(res => {
+		return MockAxios.get('/chatList').then(res => {
 			return res.data;
 		});
 	});

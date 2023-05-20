@@ -1,169 +1,198 @@
-// import { itemPriceState } from 'Atoms/marketPrice.atom';
-// import ItemCard from 'Components/Card/Desktop/Card';
-// import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+import ProductApi from 'Apis/productApi';
+import { itemPriceState } from 'Atoms/marketPrice.atom';
+import ItemCard from 'Components/Card/Desktop/Card';
 
-// import { theme } from 'Styles/theme';
-// import axios from 'axios';
-// import { useEffect } from 'react';
+import { theme } from 'Styles/theme';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
-// import {
-// 	LineChart,
-// 	Line,
-// 	XAxis,
-// 	YAxis,
-// 	CartesianGrid,
-// 	Tooltip,
-// 	Legend,
-// } from 'recharts';
-// import { useRecoilState } from 'recoil';
-// import styled from 'styled-components';
+import {
+	LineChart,
+	Line,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
+} from 'recharts';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 
-// const DesktopMarketPrice = () => {
-// 	const [priceList, setItemList] = useRecoilState(itemPriceState);
+const DesktopMarketPrice = () => {
+	const props = 'market_price';
+	const { word } = useParams();
+	console.log(word);
+	const [priceList, setItemList] = useRecoilState(itemPriceState);
+	const start = '2023-04-30';
+	const end = '2023-05-21';
+	// let data = [];
 
-// 	useEffect(() => {
-// 		const fetchItems = async () => {
-// 			try {
-// 				const response = await axios.get('Mock/ItemData/items.json');
-// 				const items = response.data.itemList.filter(
-// 					item => item.category === 1 && item.isSold === true,
-// 				);
-// 				const sortedItems = items.sort((a, b) => {
-// 					return new Date(a.createdAt) - new Date(b.createdAt);
-// 				});
-// 				setItemList(sortedItems);
-// 				//
-// 				const itemsByMonth = {};
-// 				sortedItems.forEach(item => {
-// 					const month = new Date(item.createdAt).getMonth();
-// 					if (!itemsByMonth[month]) {
-// 						itemsByMonth[month] = [];
-// 					}
-// 					itemsByMonth[month].push(item);
-// 				});
-// 				for (let month in itemsByMonth) {
-// 					const monthItems = itemsByMonth[month];
-// 					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
-// 					const average = total / monthItems.length;
-// 					console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
-// 				}
-// 			} catch (error) {
-// 				console.error(error);
-// 			}
-// 		};
-// 		fetchItems();
-// 	}, []);
+	const search = async (keyword, start, end) => {
+		try {
+			const response = await ProductApi.searchMarket(keyword, start, end);
+			console.log(response);
+			const data = response.data.prod_idx.cumulativeAvgPrice.map(
+				({ date, avgPrice }) => ({
+					day: date,
+					price: avgPrice,
+				}),
+			);
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-// 	console.log(priceList);
+	search(word, start, end).then(result => {
+		data = result;
+		console.log(data);
+	});
 
-// 	const data = [
-// 		{ day: 'Mon', price: 3000 },
-// 		{ day: 'Tue', price: 3500 },
-// 		{ day: 'Wed', price: 2500 },
-// 		{ day: 'Thu', price: 3800 },
-// 		{ day: 'Fri', price: 9000 },
-// 		{ day: 'Sat', price: 3900 },
-// 		{ day: 'Sun', price: 4200 },
-// 	];
+	//console.log('시세 검색 단어: ', word);
 
-// 	let average = 0;
-// 	for (let i = 0; i < data.length; i++) {
-// 		average += data[i].price;
-// 	}
+	useEffect(() => {
+		const fetchItems = async () => {
+			try {
+				const response = await axios.get('Mock/ItemData/items.json');
+				const items = response.data.itemList.filter(
+					item => item.category === 1 && item.isSold === true,
+				);
+				const sortedItems = items.sort((a, b) => {
+					return new Date(a.createdAt) - new Date(b.createdAt);
+				});
+				setItemList(sortedItems);
+				//
+				const itemsByMonth = {};
+				sortedItems.forEach(item => {
+					const month = new Date(item.createdAt).getMonth();
+					if (!itemsByMonth[month]) {
+						itemsByMonth[month] = [];
+					}
+					itemsByMonth[month].push(item);
+				});
+				for (let month in itemsByMonth) {
+					const monthItems = itemsByMonth[month];
+					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
+					const average = total / monthItems.length;
+					//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchItems();
+	}, []);
 
-// 	average = (average / data.length).toFixed(0);
+	console.log(priceList);
 
-// 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	const data = [
+		{ day: 'Mon', price: 3000 },
+		{ day: 'Tue', price: 3500 },
+		{ day: 'Wed', price: 2500 },
+		{ day: 'Thu', price: 3800 },
+		{ day: 'Fri', price: 9000 },
+		{ day: 'Sat', price: 3900 },
+		{ day: 'Sun', price: 4200 },
+	];
 
-// 	return (
-// 		<S.Wrapper>
-// 			<S.Title>
-// 				시세 조회
-// 				<S.SubTitle>
-// 					원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
-// 				</S.SubTitle>
-// 			</S.Title>
-// 			<SearchBar></SearchBar>
-// 			<S.ChartContainer>
-// 				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
-// 				<LineChart width={700} height={500} data={data}>
-// 					<CartesianGrid strokeDasharray="3 3" />
-// 					<XAxis dataKey="day" />
-// 					<YAxis />
-// 					<Tooltip />
-// 					<Legend />
-// 					<Line
-// 						type="monotone"
-// 						dataKey="price"
-// 						stroke={theme.color.primary}
-// 						activeDot={{ r: 7 }}
-// 					/>
-// 				</LineChart>
-// 			</S.ChartContainer>
-// 			<S.RecentlyClosed>
-// 				최근 거래 종료 품목
-// 				<S.ItemList>
-// 					{itemList.map(item => (
-// 						<ItemCard key={item} />
-// 					))}
-// 				</S.ItemList>
-// 			</S.RecentlyClosed>
-// 		</S.Wrapper>
-// 	);
-// };
+	let average = 0;
+	for (let i = 0; i < data.length; i++) {
+		average += data[i].price;
+	}
 
-// export default DesktopMarketPrice;
+	average = (average / data.length).toFixed(0);
 
-// const Wrapper = styled.div`
-// 	max-width: 1000px;
-// 	min-width: 700px;
-// 	width: 60%;
-// 	margin: 0 auto;
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// `;
-// const Title = styled.div`
-// 	text-align: center;
-// 	font-size: ${({ theme }) => theme.fontSize.md};
-// 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-// 	margin-top: 80px;
-// 	margin-bottom: 80px;
-// `;
-// const SubTitle = styled.div`
-// 	margin-top: 10px;
-// 	font-size: ${({ theme }) => theme.fontSize.base};
-// `;
-// const ChartContainer = styled.div`
-// 	margin-top: 80px;
-// 	display: flex;
-// `;
-// const Average = styled.div`
-// 	font-size: ${({ theme }) => theme.fontSize.base};
-// 	margin-top: 80px;
-// 	margin-right: 18px;
-// `;
+	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// const RecentlyClosed = styled.div`
-// 	margin-top: 80px;
-// 	font-size: ${({ theme }) => theme.fontSize.md};
-// 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-// `;
-// const ItemList = styled.div`
-// 	display: flex;
-// 	flex-wrap: wrap;
-// 	margin-top: 80px;
-// 	justify-content: space-evenly;
-// `;
-// const S = {
-// 	Wrapper,
-// 	Title,
-// 	SubTitle,
-// 	ChartContainer,
-// 	Average,
-// 	RecentlyClosed,
-// 	ItemList,
-// };
+	return (
+		<S.Wrapper>
+			<S.Title>
+				시세 조회
+				<S.SubTitle>
+					원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
+				</S.SubTitle>
+			</S.Title>
+			{/* <SearchBar props={props} /> */}
+			<S.ChartContainer>
+				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
+				<LineChart width={700} height={500} data={data}>
+					<CartesianGrid strokeDasharray="3 3" />
+					<XAxis dataKey="day" />
+					<YAxis />
+					<Tooltip />
+					<Legend />
+					<Line
+						type="monotone"
+						dataKey="price"
+						stroke={theme.color.primary}
+						activeDot={{ r: 7 }}
+					/>
+				</LineChart>
+			</S.ChartContainer>
+			<S.RecentlyClosed>
+				최근 거래 종료 품목
+				<S.ItemList>
+					{itemList.map(item => (
+						<ItemCard key={item} />
+					))}
+				</S.ItemList>
+			</S.RecentlyClosed>
+		</S.Wrapper>
+	);
+};
+
+export default DesktopMarketPrice;
+
+const Wrapper = styled.div`
+	max-width: 1000px;
+	min-width: 700px;
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+const Title = styled.div`
+	text-align: center;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-top: 80px;
+	margin-bottom: 80px;
+`;
+const SubTitle = styled.div`
+	margin-top: 10px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+`;
+const ChartContainer = styled.div`
+	margin-top: 80px;
+	display: flex;
+`;
+const Average = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	margin-top: 80px;
+	margin-right: 18px;
+`;
+
+const RecentlyClosed = styled.div`
+	margin-top: 80px;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+`;
+const ItemList = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 80px;
+	justify-content: space-evenly;
+`;
+const S = {
+	Wrapper,
+	Title,
+	SubTitle,
+	ChartContainer,
+	Average,
+	RecentlyClosed,
+	ItemList,
+};
 
 // /* 라이브러리 사용법 npm i recharts
 // <LineChart> : Recharts에서 제공하는 선 그래프를 그리기 위한 컨테이너입니다. width와 height props를 통해 그래프의 크기를 설정할 수 있습니다.

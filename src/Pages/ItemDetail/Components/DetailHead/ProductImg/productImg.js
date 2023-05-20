@@ -9,7 +9,12 @@ const ProductImg = ({ main, sub }) => {
 	return (
 		main && (
 			<>
-				<Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+				<Swiper
+					navigation={true}
+					modules={[Navigation]}
+					className="mySwiper"
+					loop={true}
+				>
 					<SwiperSlide>
 						<ImgSection
 							src={main}
