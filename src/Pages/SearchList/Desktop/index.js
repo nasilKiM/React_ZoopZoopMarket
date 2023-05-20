@@ -1,38 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
+import { itemListState } from 'Atoms/search.atom';
+import { useRecoilValue } from 'recoil';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
 	const { word } = useParams();
-	const [ref, inView] = useInView({ threshold: 0.5 });
-	const props = 'search_list';
 	const navigate = useNavigate();
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-
-	// const res =
-	// 	selected === 2
-	// 		? useInfiniteSearch(word) //통합으로 검색요청.
-	// 		: useInfiniteSearch(word, selected);
-
-	// const { data } = res;
-
-	// useEffect(() => {
-	// 	res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
-	// }, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
-	//data && console.log(data.pages[0].data.product); //실제 API 리턴.
-
-	// useEffect(() => {
-	// 	if (!inView) {
-	// 		return;
-	// 	}
-	// 	res.fetchNextPage();
-	// }, [inView]);
 
 	// const { data } = useQuery(['product'], () => {
 	// 	return MockAxios.get('/product').then(res => {
@@ -45,28 +25,12 @@ const DesktopSearchList = () => {
 			navigate(`${selected}`);
 		}
 	}, [selected]);
-
-	//400px
+	const itemList = useRecoilValue(itemListState);
 
 	return (
 		<>
 			<S.Wrapper>
 				<S.Container>
-					{/* {!data && (
-						<S.ResultText>
-							<div>{word}에 대한 검색 결과가 없습니다.</div>
-						</S.ResultText>
-					)}
-					{data && (
-						<S.ResultText>
-							{
-								<div>
-									찾으신 '{word}'에 대한 결과 입니다.(총
-									{data && data.pages && data.pages[0].data.product.length} 개)
-								</div>
-							}
-						</S.ResultText>
-					)} */}
 					<S.SelectContainer>
 						<S.SelectBox
 							isSelected={selected === 2}
@@ -88,9 +52,16 @@ const DesktopSearchList = () => {
 						</S.SelectBox>
 					</S.SelectContainer>
 					<S.ResultContainer>
-						<S.ResultText>
-							<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
-						</S.ResultText>
+						{itemList.length < 1 ? (
+							<S.ResultText>
+								<div>{word}에 대한 검색 결과가 없습니다.</div>
+							</S.ResultText>
+						) : (
+							<S.ResultText>
+								<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
+							</S.ResultText>
+						)}
+
 						<S.Category>중고 아이템</S.Category>
 
 						<UsedProduct word={word}></UsedProduct>
