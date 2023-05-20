@@ -58,9 +58,9 @@ const LandingPage = () => {
 				<>
 					<S.ContentWrapper showContent={showContent}>
 						<S.LandingHeader>
-							<S.LogoImage src="/Assets/web_logo.png" />
+							<S.LogoImage src="/Assets/web_logo_edit4.png" />
 						</S.LandingHeader>
-						<Title>Connect with your community</Title>
+						{/* <Title>Connect with your community</Title> */}
 						<S.Section1>
 							{/*
 							

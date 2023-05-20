@@ -42,9 +42,10 @@ export default SearchBar;
 
 const Wrap = styled.form`
 	display: flex;
+	flex: 3;
 	width: 100%;
-	min-width: 200px;
-	max-width: 400px;
+	min-width: 100px;
+	max-width: 300px;
 	height: 40px;
 	position: relative;
 	border: 3px solid ${({ theme }) => theme.color.gray[100]};
@@ -58,7 +59,12 @@ const SearchInput = styled.input`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	outline: none;
 	margin-left: 20px;
+	border-radius: 20px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
+	text-overflow: ellipsis;
+	@media (min-width: 414px) {
+		width: 70%;
+	}
 `;
 
 const GlassBtn = styled.button`
@@ -66,7 +72,7 @@ const GlassBtn = styled.button`
 	height: 37px;
 	position: absolute;
 	right: 0%;
-	border-radius: 20px;
+	border-radius: 50px;
 	background-color: transparent;
 	border: none;
 	cursor: pointer;

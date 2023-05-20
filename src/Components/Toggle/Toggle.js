@@ -80,14 +80,12 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Wrapper = styled.div`
-	margin: 50px 0;
 	${flexAllCenter}
 	width: 100%;
-	height: 70px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	height: 50px;
 	& > div {
 		margin: 0 35px;
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;

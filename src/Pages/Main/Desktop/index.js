@@ -18,6 +18,7 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Wrapper>
+			<Banner></Banner>
 			<CategoryWrapper>
 				<TitleBox>카테고리별 상품찾기</TitleBox>
 				<Category />
@@ -44,6 +45,13 @@ const Wrapper = styled.div`
 	margin: 0 auto;
 	padding-top: 10px;
 `;
+
+const Banner = styled.div`
+	width: 100%;
+	height: 500px;
+	background-color: gray;
+`;
+
 const TitleBox = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};

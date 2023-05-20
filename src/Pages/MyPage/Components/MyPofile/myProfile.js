@@ -70,7 +70,7 @@ const MyProfile = () => {
 					<S.ProfileImg>
 						<FontAwesomeIcon
 							icon={faCamera}
-							style={{ color: '#ffffff', fontSize: '25px' }}
+							style={{ color: '#ffffff', fontSize: '15px' }}
 							onClick={handleClick}
 						/>
 						<input
@@ -115,10 +115,10 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 170px;
+	height: 180px;
 	border-top: solid 1px #e9e9e9;
 	border-bottom: solid 1px #e9e9e9;
-	${flexAllCenter}
+	padding: 30px 0;
 `;
 
 const Info = styled.div`
@@ -126,7 +126,7 @@ const Info = styled.div`
 `;
 
 const Img = styled.img`
-	width: 150px;
+	width: 100px;
 	object-fit: cover;
 	object-position: center;
 `;
