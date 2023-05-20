@@ -17,6 +17,7 @@ const MyProfile = () => {
 		try {
 			const res = await UserApi.userInfo(); // userInfo => email, nick_name, phone, profile_url, region, x, y
 			setUserInfo(res);
+			console.log(userInfo);
 		} catch (err) {
 			console.log(err);
 		}
@@ -31,28 +32,38 @@ const MyProfile = () => {
 		}
 	};
 
-	const profileImgEdit = async () => {
-		const formData = new FormData();
-		formData.append('profile_url');
 
+	// 프로필 사진 수정 틀
+	const profileImgEdit = async e => {
+		const formData = new FormData();
+		const file = e.target.files[0];
+		formData.append('profile_url', file);
+
+		console.log(file);
 		try {
-			const res = await UserApi.userProfileEdit(formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			});
+			const res = await UserApi.userProfileEdit(formData);
+			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	// 클릭시 사진 수정
 	const handleClick = () => {
 		photoInput.current.click();
 	};
 
-	useEffect(() => {
-		profileImgEdit();
-	}, []);
+	// 이미지 미리보기 업로드
+	// const onClickFile = e => {
+	// 	const file = e.target.files[0];
+	// 	// setProfileImg(file);
+	// 	reader.readAsDataURL(file);
+
+	// 	const reader = new FileReader();
+	// 	reader.onload = () => {
+	// 		setProfileImg(reader.result || null);
+	// 	};
+	// };
 
 	useEffect(() => {
 		getUserInfo();
@@ -67,6 +78,7 @@ const MyProfile = () => {
 			{userInfo && userProfile &&
 			<S.Info>
 				<S.ImgWrap>
+					{userInfo && <S.Img src={userInfo.data.profile_url} />}
 					<Profile userProfileUrl={User.profileUrl}/>	
 					<S.ProfileImg>
 						<FontAwesomeIcon
@@ -80,6 +92,7 @@ const MyProfile = () => {
 							multiple
 							ref={photoInput}
 							style={{ display: 'none' }}
+							onChange={e => profileImgEdit(e)}
 						/>
 					</S.ProfileImg>
 				</S.ImgWrap>
@@ -115,6 +128,14 @@ const Wrapper = styled.div`
 
 const Info = styled.div`
 	display: flex;
+`;
+
+
+const Img = styled.img`
+	width: 150px;
+	object-fit: cover;
+	object-position: center;
+	border-radius: 50%;
 `;
 
 const ImgWrap = styled.div`
