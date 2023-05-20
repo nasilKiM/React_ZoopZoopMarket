@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
-// import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
-// import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Profile from 'Components/Profile/Desktop/profile';
+import MannerMeter from 'Components/Icon/Icon';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -31,6 +31,7 @@ const MyProfile = () => {
 			console.log(err);
 		}
 	};
+
 
 	// 프로필 사진 수정 틀
 	const profileImgEdit = async e => {
@@ -74,13 +75,15 @@ const MyProfile = () => {
 
 	return (
 		<S.Wrapper>
+			{userInfo && userProfile &&
 			<S.Info>
 				<S.ImgWrap>
 					{userInfo && <S.Img src={userInfo.data.profile_url} />}
+					<Profile userProfileUrl={User.profileUrl}/>	
 					<S.ProfileImg>
 						<FontAwesomeIcon
 							icon={faCamera}
-							style={{ color: '#ffffff', fontSize: '25px' }}
+							style={{ color: '#ffffff', fontSize: '15px' }}
 							onClick={handleClick}
 						/>
 						<input
@@ -93,33 +96,23 @@ const MyProfile = () => {
 						/>
 					</S.ProfileImg>
 				</S.ImgWrap>
-
 				<S.Detail>
-					<div>
-						반가워요<S.Nickname>고라니</S.Nickname>님!
-					</div>
-					<S.Icon>
-						현재 매너온도는<S.Temp>36도</S.Temp>입니다 :)
-					</S.Icon>
-					<div>
-						활동지역<S.Address>#경기도 화성시 반송동</S.Address>
-					</div>
+					<S.List>
+						<S.InfoTitle>닉네임</S.InfoTitle>
+						<S.InfoContent>{User.nickName}</S.InfoContent>
+					</S.List>
+					<S.List>
+						<S.InfoTitle>매너온도</S.InfoTitle>
+						<S.InfoContent><MannerMeter ondo={ondo}/></S.InfoContent>
+					</S.List>
+					<S.List>
+						<S.InfoTitle>활동지역</S.InfoTitle>
+						<S.InfoContent>#{region}</S.InfoContent>
+					</S.List>
 				</S.Detail>
-			</S.Info>
+			</S.Info>}
 		</S.Wrapper>
-		// <S.Wrapper>
-		// 	{userInfo && userProfile &&
-		// 		<div>
-		// 			<div>
-		// 			<Profile userProfileUrl={User.profileUrl}/>
-		// 			</div>
-		// 			<div>반가워요, <S.nickName>{User.nickName}</S.nickName>님 :)</div>
-		// 			<S.Icon>
-		// 					<MannerMeter ondo={ondo} />
-		// 			</S.Icon>
-		// 			<div>{region}</div>
-		// 		</div>}
-		// </S.Wrapper>
+
 	);
 };
 
@@ -137,6 +130,7 @@ const Info = styled.div`
 	display: flex;
 `;
 
+
 const Img = styled.img`
 	width: 150px;
 	object-fit: cover;
@@ -146,6 +140,7 @@ const Img = styled.img`
 
 const ImgWrap = styled.div`
 	position: relative;
+	margin-right: 50px;
 `;
 
 const ProfileImg = styled.div`
@@ -161,45 +156,35 @@ const ProfileImg = styled.div`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
-	& :nth-child(3) {
+	/* & :nth-child(3) {
 		margin-top: 15px;
-	}
+	} */
 `;
 
-const Nickname = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin: 0 10px;
+const List = styled.div`
+	height: max-content;
+	display: flex;
+	margin: 5px;
+`
+
+const InfoTitle = styled.div`
+	width: 80px;
+	height: max-content;
+	font-size: ${({theme}) => theme.fontSize.sm};
+	color: ${({theme}) => theme.color.gray[300]}
 `;
 
-const Address = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: #999;
-	margin: 0 10px;
-`;
-
-const Icon = styled.div`
-	${flexAllCenter}
-	justify-content: start;
-`;
-
-const Temp = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin: 0 10px;
-`;
-
+const InfoContent = styled.div`
+	margin-left: 30px;
+	font-size: ${({theme}) => theme.fontSize.base};
+`
 const S = {
 	Wrapper,
-	Img,
 	Info,
-	Icon,
 	Detail,
-	Address,
-	Nickname,
-	Temp,
 	ProfileImg,
 	ImgWrap,
+	List,
+	InfoTitle,
+	InfoContent
 };
