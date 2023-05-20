@@ -1,16 +1,11 @@
-import ItemCardMock from 'Components/Card/Desktop/Card copy';
+import ItemCard from 'Components/Card/Desktop/Card';
 import styled from 'styled-components';
 
 const SearchList = ({ products }) => {
-	//console.log(products);
 	return (
 		<S.Wrapper>
-			{/* {products &&
-				products.map(product => (
-					// <ItemCard index={product.idx} products={product} />
-					
-				))} */}
-			<ItemCardMock index={products} products={products} />
+			<ItemCard index={products.idx} products={products} />
+			{/* <ItemCardMock index={products} products={products} /> */}
 		</S.Wrapper>
 	);
 };

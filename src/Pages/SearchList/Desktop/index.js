@@ -4,10 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
-import { useQuery } from 'react-query';
-import { MockAxios } from 'Apis/@core';
-import { useRecoilState } from 'recoil';
-import { itemListState } from 'Atoms/search.atom';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -18,21 +14,18 @@ const DesktopSearchList = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-	// const res = useInfiniteSearch(word, selected);
 
-	//const { data } = res;
+	// const res =
+	// 	selected === 2
+	// 		? useInfiniteSearch(word) //통합으로 검색요청.
+	// 		: useInfiniteSearch(word, selected);
 
-	// let selectedItem = '';
-
-	// if (selected === 0) {
-	// 	selectedItem = '중고물품';
-	// } else if (selected === 1) {
-	// 	selectedItem = '무료나눔';
-	// }
+	// const { data } = res;
 
 	// useEffect(() => {
 	// 	res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
 	// }, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
+	//data && console.log(data.pages[0].data.product); //실제 API 리턴.
 
 	// useEffect(() => {
 	// 	if (!inView) {
@@ -41,30 +34,15 @@ const DesktopSearchList = () => {
 	// 	res.fetchNextPage();
 	// }, [inView]);
 
-	const { data } = useQuery(['product'], () => {
-		return MockAxios.get('/product').then(res => {
-			return res.data;
-		});
-	});
+	// const { data } = useQuery(['product'], () => {
+	// 	return MockAxios.get('/product').then(res => {
+	// 		return res.data;
+	// 	});
+	// }); //목데이터용
 
-	const [itemList, setItemList] = useRecoilState(itemListState);
-	const PAGE_LIMIT = 10;
-	const fetchItems = (page = 0) => {
-		const startIndex = page * PAGE_LIMIT;
-		const endIndex = (page + 1) * PAGE_LIMIT;
-		const items = data.slice(startIndex, endIndex);
-		setItemList(items); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
-		return { items };
-	};
-
-	useEffect(() => {
-		//data && console.log(data);
-		data && fetchItems();
-		//data && console.log(itemList);
-	}, [word]);
 	useEffect(() => {
 		if (selected <= 1) {
-			navigate(`${selected}`, { state: data });
+			navigate(`${selected}`);
 		}
 	}, [selected]);
 
@@ -74,9 +52,6 @@ const DesktopSearchList = () => {
 		<>
 			<S.Wrapper>
 				<S.Container>
-					{/* <S.SearchBarContainer>
-						<SearchBar props={props} />
-					</S.SearchBarContainer> */}
 					{/* {!data && (
 						<S.ResultText>
 							<div>{word}에 대한 검색 결과가 없습니다.</div>
@@ -118,35 +93,11 @@ const DesktopSearchList = () => {
 						</S.ResultText>
 						<S.Category>중고 아이템</S.Category>
 
-						<UsedProduct word={word} data={data}></UsedProduct>
+						<UsedProduct word={word}></UsedProduct>
 
 						<S.Category>무료 아이템</S.Category>
-						<FreeProduct word={word} data={data}></FreeProduct>
+						<FreeProduct word={word}></FreeProduct>
 					</S.ResultContainer>
-					{/* 
-					<S.CategoryBox>
-						<S.Category
-							onClick={() => setSelected(0)}
-							style={selected === 0 ? { fontWeight: 700 } : {}}
-						>
-							중고 물품
-						</S.Category>
-						<S.Wall></S.Wall>
-						<S.Category
-							onClick={() => setSelected(1)}
-							style={selected === 1 ? { fontWeight: 700 } : {}}
-						>
-							무료 나눔
-						</S.Category>
-					</S.CategoryBox> */}
-					{/* <S.ItemList>
-						{data &&
-							data.pages.map(pageItems => (
-								<SearchList products={pageItems.data.product} />
-							))}
-
-						<S.refDiv ref={ref}></S.refDiv>
-					</S.ItemList> */}
 				</S.Container>
 			</S.Wrapper>
 		</>
