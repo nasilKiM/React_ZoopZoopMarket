@@ -5,22 +5,22 @@ import { Outlet } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 const MyPage = () => {
-	const isDesktopOrMobile = useMediaQuery({query: '(max-width: 768px'});
+	const isDesktopOrMobile = useMediaQuery({ query: '(max-width: 768px' });
 	return (
 		<>
-		{isDesktopOrMobile !== true ?
-		<S.Wrapper>
-			<MyProfile/>
-			<ToggleBar/>
-			<Outlet />
-		</S.Wrapper>
-		:
-		<S.MWrapper>
-			<MyProfile/>
-			<ToggleBar/>
-			<Outlet />
-		</S.MWrapper>
-		}
+			{isDesktopOrMobile !== true ? (
+				<S.Wrapper>
+					<MyProfile />
+					<ToggleBar />
+					<Outlet />
+				</S.Wrapper>
+			) : (
+				<S.MWrapper>
+					<MyProfile />
+					<ToggleBar />
+					<Outlet />
+				</S.MWrapper>
+			)}
 		</>
 	);
 };
@@ -28,8 +28,15 @@ const MyPage = () => {
 export default MyPage;
 
 const Wrapper = styled.div`
-	width: 60%;
+	width: 70%;
 	margin: 0 auto;
+	background-color: beige;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 85%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const MWrapper = styled.div`
@@ -39,5 +46,5 @@ const MWrapper = styled.div`
 
 const S = {
 	Wrapper,
-	MWrapper
+	MWrapper,
 };

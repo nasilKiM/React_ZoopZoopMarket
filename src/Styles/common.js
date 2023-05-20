@@ -36,3 +36,16 @@ export const title = css`
 	line-height: 16px;
 	font-weight: bold;
 `;
+
+// grid
+export const gridAllCenter = css`
+	display: grid;
+	justify-items: center;
+	align-items: center;
+`;
+
+export const gridColumn = num => css`
+	grid-template-columns: repeat(${num}, 1fr);
+	row-gap: 30px;
+	column-gap: 30px;
+`;

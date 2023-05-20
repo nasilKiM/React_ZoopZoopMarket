@@ -5,47 +5,34 @@ import styled from 'styled-components';
 
 const InterestCard = ({ index, products }) => {
 	const navigate = useNavigate();
-	//
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
 
 	return (
 		products && (
-			<S.Wrapper>
-				<S.Container>
-					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
-					</S.Heart>
-					<div onClick={onClickCard}>
-						<S.ItemImg src={products.img_url} />
-						<S.ItemInfo>
-							<S.ItemTitle>{products.title}</S.ItemTitle>
-							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
-							</S.ItemPrice>
-							<span>{products.status}</span>
-						</S.ItemInfo>
-					</div>
-				</S.Container>
-			</S.Wrapper>
+			<S.Container>
+				<S.Heart>
+					<HeartBtn like={products.liked} idx={products.idx} />
+				</S.Heart>
+				<div onClick={onClickCard}>
+					<S.ItemImg img={products.img_url}></S.ItemImg>
+					<S.ItemInfo>
+						<S.ItemTitle>{products.title}</S.ItemTitle>
+						<S.ItemPrice>{products.price}원</S.ItemPrice>
+						<span>{products.status}</span>
+					</S.ItemInfo>
+				</div>
+			</S.Container>
 		)
 	);
 };
 
 export default InterestCard;
 
-const Wrapper = styled.div`
-	padding: 15px 0;
-`;
-
 const Container = styled.div`
-	width: 200px;
-	max-height: 400px;
+	width: 100%;
 	cursor: pointer;
-	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	border: 1px solid lightgray;
 	position: relative;
 `;
@@ -59,13 +46,14 @@ const Heart = styled.div`
 	z-index: 1000000;
 `;
 
-const ItemImg = styled.img`
+const ItemImg = styled.div`
 	position: relative;
-	max-width: 250px;
+	background: ${({ img }) => `url(${img})`} no-repeat center;
 	width: 100%;
 	height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
+	background-size: cover;
 `;
 
 const ItemInfo = styled.div`
@@ -90,7 +78,6 @@ const ItemPrice = styled.span`
 `;
 
 const S = {
-	Wrapper,
 	Heart,
 	Container,
 	ItemImg,
