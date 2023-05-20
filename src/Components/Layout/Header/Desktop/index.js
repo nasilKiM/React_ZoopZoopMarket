@@ -5,26 +5,12 @@ import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-// import SearchSideBar from './Components/sidebar';
 
 const WebHeader = () => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 950 });
 	const [isHover, setIsHover] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	// const [isOpen, setIsOpen] = useState(false);
-	// const [yPosition, setYposition] = useState(-300);
-
-	// const onShowSidebar = () => {
-	// 	if (yPosition < 0) {
-	// 		setYposition(0);
-	// 		setIsOpen(true);
-	// 	} else {
-	// 		setYposition(-300);
-	// 		setIsOpen(false);
-	// 	}
-	// };
 
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
