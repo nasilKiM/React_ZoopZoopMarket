@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper';
 import styled from 'styled-components';
 
-const ProductImg = () => {
+const ProductImg = ({ main, sub }) => {
 	return (
 		main && (
 			<>
@@ -41,6 +41,6 @@ const ImgSection = styled.img`
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	background: black;
+	background: gray;
 	margin: 0 auto;
 `;

@@ -72,7 +72,7 @@ const Menu = styled(Link)`
 	text-decoration: none;
 	padding-right: 20px;
 	:hover {
-		color: ${({ theme }) => theme.color.primary};
+		color: ${({ theme }) => theme.color.primary[400]};
 	}
 `;
 const LeftMenu = styled.div`

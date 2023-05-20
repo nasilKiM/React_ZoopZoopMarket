@@ -35,6 +35,13 @@ const Category = () => {
 		slidesToScroll: 8,
 		responsive: [
 			{
+				breakpoint: 968,
+				settings: {
+					slidesToShow: 6,
+					slidesToScroll: 6,
+				},
+			},
+			{
 				breakpoint: 768,
 				settings: {
 					slidesToShow: 5,

@@ -29,12 +29,8 @@ const Div = styled.div`
 
 const Wrapper = styled.div`
 	height: 800px;
-	width: 60%;
+	width: 100%;
 	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	padding: 20px;
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
 `;
 
 const Container = styled.div`

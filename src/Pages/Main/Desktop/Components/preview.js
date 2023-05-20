@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import ProductApi from 'Apis/productApi';
+import ProductApi from 'Apis/productApi';
 import { useEffect } from 'react';
-import ItemCardMock from 'Components/Card/Desktop/Card copy';
+//import ItemCardMock from 'Components/Card/Desktop/Card copy';
+import ItemCard from 'Components/Card/Desktop/Card';
 
-const Preview = ({ category, products }) => {
+const Preview = ({ category }) => {
 	const [data, setData] = useState();
+	const products =
+		data && (category === 0 ? data.usedProduct : data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
 	let categoryText =
 		category === 0
@@ -49,13 +52,14 @@ const Preview = ({ category, products }) => {
 		}
 	};
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const res = await ProductApi.mainList();
-	// 		setData(res.data);
-	// 	};
-	// 	fetchData();
-	// }, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await ProductApi.mainList();
+			setData(res.data);
+		};
+		fetchData();
+	}, []);
+	console.log(data);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -74,10 +78,11 @@ const Preview = ({ category, products }) => {
 			</S.UpperSwiper>
 			<SwiperWrapper>
 				<Slider {...sliderSettings}>
-					{products?.map((item, index) => (
-						<ItemCardMock key={item} products={item} index={index} />
+					{products?.map(item => (
+						<ItemCard key={item} products={item} index={item.idx} />
 					))}
 					{/* <ItemCard key={item} products={item} index={item.idx} /> */}
+					{/* <ItemCardMock key={item} products={item} index={index} /> */}
 				</Slider>
 			</SwiperWrapper>
 		</S.Wrapper>
@@ -91,7 +96,7 @@ const Wrapper = styled.div`
 	min-width: 700px;
 	max-width: 1200px;
 	margin: 0 auto;
-	padding-top: 20px;
+	padding-top: 50px;
 `;
 const UpperSwiper = styled.div`
 	width: 100%;

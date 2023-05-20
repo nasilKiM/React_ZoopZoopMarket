@@ -10,7 +10,9 @@ const BuyerDetailPage = ({ state, product }) => {
 	console.log(item);
 	return (
 		<S.Wrapper>
-			<DetailHead item={item} />
+			<div>
+				<DetailHead item={item} />
+			</div>
 			<DetailContent state={state} item={item} />
 			<S.MapContent>
 				<div>거래장소</div>
@@ -24,11 +26,13 @@ const BuyerDetailPage = ({ state, product }) => {
 export default BuyerDetailPage;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 70%;
 	min-width: 700px;
-	border: 1px solid;
+	max-width: 1200px;
 	margin: 0 auto;
+	& > div:first-child {
+		border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
+	}
 `;
 
 const MapContent = styled.div`

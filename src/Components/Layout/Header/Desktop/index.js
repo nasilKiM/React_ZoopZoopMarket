@@ -1,52 +1,70 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faUser } from '@fortawesome/free-regular-svg-icons';
-import MobileHeader from '../Mobile';
-import MenuBar from 'Components/MenuBar/MenuBar';
 import { useMediaQuery } from 'react-responsive';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const WebHeader = () => {
 	const props = 'search_list';
-	const isMobile = useMediaQuery({ maxWidth: 412 });
+	const isTablet = useMediaQuery({ maxWidth: 950 });
+	const [isHover, setIsHover] = useState(false);
 
 	return (
 		<>
-			{isMobile ? (
-				<MobileHeader />
-			) : (
-				<>
-					<S.Wrapper>
-						<S.Container isMobile={isMobile}>
-							<Link to={'/main'}>
-								<S.Logo src="/Assets/web_logo.png"></S.Logo>
-							</Link>
-							{isMobile ? null : <SearchBar props={props} />}
-							<S.Icon>
-								<Link to={'/chat'}>
-									<FontAwesomeIcon
-										icon={faCommentDots}
-										color="grey"
-										cursor="pointer"
-										fontSize={isMobile ? '32px' : '30px'}
-									/>
-								</Link>
-								<Link to={'/mypage'}>
-									<FontAwesomeIcon
-										icon={faUser}
-										color="grey"
-										cursor="pointer"
-										fontSize={isMobile ? '30px' : '28px'}
-									/>
-								</Link>
-							</S.Icon>
-						</S.Container>
-						{isMobile && <SearchBar props={props} />}
-					</S.Wrapper>
-					<MenuBar />
-				</>
-			)}
+			<S.Wrapper>
+				<S.Container isMobile={isTablet}>
+					<Link to={'/main'}>
+						<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
+					</Link>
+
+					<S.MenuList>
+						<S.Menu key={1} to="/search_list">
+							중고 거래
+						</S.Menu>
+						<S.Menu key={0} to="/search_list">
+							무료 나눔
+						</S.Menu>
+
+						<S.Menu to="/market_price">실시간 시세</S.Menu>
+					</S.MenuList>
+					{isTablet ? (
+						<Link to={'/search_list'}>
+							<FontAwesomeIcon
+								icon={faMagnifyingGlass}
+								color="gray"
+								cursor="pointer"
+								fontSize="30px"
+							/>
+						</Link>
+					) : (
+						<SearchBar props={props} />
+					)}
+					<S.Icon>
+						<Link
+							to={'/mypage'}
+							onMouseOver={() => {
+								setIsHover(true);
+							}}
+							onMouseOut={() => {
+								setIsHover(false);
+							}}
+						>
+							<CategoryIcon
+								src={
+									isHover
+										? '/Assets/Images/default_Profile_edit3.png'
+										: '/Assets/Images/default_Profile_edit4.png'
+								}
+							/>
+						</Link>
+						<Link to={'/chat'}>
+							<button>채팅하기</button>
+						</Link>
+					</S.Icon>
+				</S.Container>
+			</S.Wrapper>
 		</>
 	);
 };
@@ -57,14 +75,13 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
-	height: 100px;
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	margin: 0 auto;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 `;
 
 const Container = styled.div`
@@ -74,14 +91,49 @@ const Container = styled.div`
 	justify-content: ${props =>
 		props.isMobile ? 'space-around' : 'space-between'};
 	padding-top: 30px;
-	padding-bottom: 10px;
+`;
+
+const MenuList = styled.div`
+	display: flex;
+	padding-left: 5px;
+	padding-right: 5px;
+`;
+
+const Menu = styled(Link)`
+	color: ${({ theme }) => theme.color.black};
+	height: 20px;
+	width: 91px;
+	text-decoration: none;
+	padding-right: 10px;
+
+	:hover {
+		color: ${({ theme }) => theme.color.primary[400]};
+	}
 `;
 
 const Icon = styled.div`
-	flex: ${props => (props.isMobile ? 1 : 3)};
+	flex: ${props => (props.isMobile ? 1 : 2)};
 	display: flex;
 	justify-content: flex-end;
-	gap: 20px;
+	gap: 15px;
+	align-items: center;
+	button {
+		display: inline-block;
+		color: ${({ theme }) => theme.color.black};
+		border: none;
+		text-decoration: none;
+		padding: 11px 15px;
+		width: 90px;
+		border-radius: 10px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		color: ${({ theme }) => theme.color.white};
+		background-color: ${({ theme }) => theme.color.gray[200]};
+		cursor: pointer;
+		&:hover {
+			background-color: ${({ theme }) => theme.color.primary[300]};
+		}
+	}
 `;
 
 const Logo = styled.img`
@@ -89,9 +141,17 @@ const Logo = styled.img`
 	margin-right: 20px;
 `;
 
+const CategoryIcon = styled.img`
+	width: 40px;
+	margin-left: 15px;
+`;
+
 const S = {
 	Wrapper,
 	Container,
+	MenuList,
+	Menu,
 	Icon,
 	Logo,
+	CategoryIcon,
 };

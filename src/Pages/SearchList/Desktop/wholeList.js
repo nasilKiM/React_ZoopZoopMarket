@@ -14,7 +14,6 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-	console.log(category);
 
 	const res = useInfiniteSearch(word, selected);
 
@@ -23,7 +22,6 @@ const WholeListPage = () => {
 	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	const { data } = res;
-	console.log(data);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -43,7 +41,7 @@ const WholeListPage = () => {
 		if (!inView) {
 			return;
 		}
-		console.log('!');
+
 		res.fetchNextPage();
 	}, [inView]);
 	//400px
@@ -90,14 +88,16 @@ const refDiv = styled.div``;
 const Wrapper = styled.div`
 	width: 70%;
 	margin: 0 auto;
-	display: flex;
+	display: grid;
 	flex-wrap: wrap;
 `;
 const Container = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	grid-gap: 20px;
+	justify-items: center;
 	margin-top: 30px;
+	border: 1px solid red;
 `;
 const ResultText = styled.div`
 	display: flex;

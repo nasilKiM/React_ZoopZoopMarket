@@ -59,6 +59,7 @@ const RegisterPage = () => {
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			console.log('확인용', tags);
 			if (newTag) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
@@ -90,11 +91,16 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
+			console.log('데이터가격', data.price);
 			formData.append('price', Number(data.price.replace(/,/g, '')));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
+			console.log('태그배열', tags);
 			formData.append('tag', tags);
+			// [...tags].forEach(el => {
+			// 	formData.append('tag', el);
+			// });
 			console.log('이미지 formdata', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);

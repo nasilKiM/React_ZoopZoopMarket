@@ -9,11 +9,15 @@ const MyPage = () => {
 	return (
 		<>
 			{isDesktopOrMobile !== true ? (
-				<S.Wrapper>
-					<MyProfile />
-					<ToggleBar />
-					<Outlet />
-				</S.Wrapper>
+				<>
+					<Container>
+						<ToggleBar />
+					</Container>
+					<S.Wrapper>
+						<MyProfile />
+						<Outlet />
+					</S.Wrapper>
+				</>
 			) : (
 				<S.MWrapper>
 					<MyProfile />
@@ -27,8 +31,17 @@ const MyPage = () => {
 
 export default MyPage;
 
+const Container = styled.div`
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin: 0 auto;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+`;
+
 const Wrapper = styled.div`
-	width: 60%;
+	width: 70%;
 	margin: 0 auto;
 `;
 

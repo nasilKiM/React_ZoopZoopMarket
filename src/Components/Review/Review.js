@@ -4,7 +4,7 @@ const ReviewMessage = () => {
 	return (
 		<>
 			<S.ChatContent>
-				<img src="Assets/Images/bicycle.jpg" />
+				<img src="/Assets/Images/bicycle.jpg" />
 				<div>
 					<S.ChatContentUpper>
 						<S.NickName>닉네임</S.NickName>
@@ -28,6 +28,7 @@ const ChatContent = styled.div`
 	padding: 10px;
 	width: 100%;
 	display: inline-flex;
+	margin-bottom: 20px;
 
 	img {
 		min-width: 50px;
