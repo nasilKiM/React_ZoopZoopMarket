@@ -36,7 +36,7 @@ const ToggleBar = () => {
 		},
 		{
 			title: '내 후기',
-			address: '',
+			address: 'review',
 		},
 	];
 

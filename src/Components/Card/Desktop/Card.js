@@ -44,19 +44,28 @@ export default ItemCard;
 
 const Wrapper = styled.div`
 	padding: 15px 0;
+	display: flex;
 `;
 
 const Container = styled.div`
-	width: 200px;
+	width: 280px;
 	max-width: 250px;
-	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
-	border: 1px solid lightgray;
+	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {
 		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
 		transition: all 0.3s ease 0s;
+	}
+	@media (min-width: 414px) {
+		width: 200px;
+	}
+	@media (min-width: 600px) {
+		width: 220px;
+	}
+	@media (min-width: 900px) {
+		width: 240px;
 	}
 `;
 
@@ -70,14 +79,12 @@ const Heart = styled.div`
 `;
 
 const ItemImg = styled.img`
-	position: relative;
-	width: 200px;
-	max-width: 250px;
 	width: 100%;
-	height: 250px;
+	height: 100%;
+	max-height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
-	/* padding: 10px; */
+	margin: auto;
 `;
 
 const ItemInfo = styled.div`
@@ -104,14 +111,18 @@ const ItemPrice = styled.span`
 const ItemTag = styled.span`
 	display: inline-block;
 	font-size: ${({ theme }) => theme.fontSize.xs};
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	border-radius: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
 
 	a {
+		width: 100%;
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		padding: 5px 10px;
 	}
 `;
 

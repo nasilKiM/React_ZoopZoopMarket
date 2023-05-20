@@ -28,6 +28,7 @@ const ChatContent = styled.div`
 	padding: 10px;
 	width: 100%;
 	display: inline-flex;
+	margin-bottom: 20px;
 
 	img {
 		min-width: 50px;

@@ -21,6 +21,7 @@ import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
 // import PrivateRoute from './private';
 import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
+import MyReview from 'Pages/MyPage/MyReview/MyReview';
 
 const router = createBrowserRouter([
 	{
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
 					{
 						path: '/mypage/user_password_edit',
 						element: <MyPasswordEdit />,
+					},
+					{
+						path: '/mypage/review',
+						element: <MyReview />,
 					},
 				],
 			},
