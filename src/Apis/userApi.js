@@ -34,5 +34,12 @@ const UserApi = {
 			phone,
 		});
 	},
+	//임시
+	myItem({ page, category }) {
+		return Axios.get(PATH + '/my-page/product-list', {
+			page,
+			category,
+		});
+	},
 };
 export default UserApi;
