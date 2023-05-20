@@ -75,7 +75,6 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
-	/* height: 100px; */
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
@@ -92,7 +91,6 @@ const Container = styled.div`
 	justify-content: ${props =>
 		props.isMobile ? 'space-around' : 'space-between'};
 	padding-top: 30px;
-	/* padding-bottom: 10px; */
 `;
 
 const MenuList = styled.div`
