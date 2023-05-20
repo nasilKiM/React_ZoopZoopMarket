@@ -7,6 +7,7 @@ import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
+import { flexAlignCenter } from 'Styles/common';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -177,7 +178,7 @@ const RegisterPage = () => {
 				<S.Title>태그</S.Title>
 				<S.InputContainer>
 					<S.InputBox
-						placeholder="이곳에 입력해주세요."
+						placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
@@ -230,7 +231,7 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	margin: 50px 0;
+	margin-top: 100px;
 `;
 
 const Blank = styled.div`
@@ -347,27 +348,43 @@ const TxtArea = styled.textarea`
 `;
 
 const RegisterBtn = styled.button`
-	width: 240px;
-	height: 54px;
+	width: 150px;
+	height: 50px;
 	border: none;
-	background: ${({ theme }) => theme.color.primary[400]};
+	background: ${({ theme }) => theme.color.primary[200]};
 	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.md};
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: auto;
 	cursor: pointer;
 	:hover {
-		background-color: ${({ theme }) => theme.color.primary};
-		color: ${({ theme }) => theme.color.white};
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		/* color: ${({ theme }) => theme.color.white}; */
 	}
 `;
 
 const TagWrapper = styled.div`
-	border: 2px solid green;
+	height: 30px;
+	${flexAlignCenter}
+	padding: 0 10px;
+	margin-top: 5px;
 `;
 
-const TagBox = styled.div`
-	border: 1px solid green;
+const TagBox = styled.span`
+	/* border: 1px solid green; */
+	padding: 5px;
+	margin-right: 10px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	> button {
+		width: 20px;
+		margin-left: 10px;
+		border: none;
+		background: none;
+		:hover {
+			font-weight: ${({ theme }) => theme.fontWeight.bold};
+		}
+	}
 `;
 
 const S = {

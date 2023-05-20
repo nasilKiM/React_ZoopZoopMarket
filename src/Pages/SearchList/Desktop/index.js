@@ -160,7 +160,7 @@ const refDiv = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 80%;
+	width: 70%;
 	/* max-width: 1000px; */
 	/* min-width: 700px; */
 	margin: 0 auto;
