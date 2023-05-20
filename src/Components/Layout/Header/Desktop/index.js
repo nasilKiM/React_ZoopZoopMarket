@@ -5,11 +5,41 @@ import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+// import SearchSideBar from './Components/sidebar';
 
 const WebHeader = () => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 950 });
 	const [isHover, setIsHover] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	// const [isOpen, setIsOpen] = useState(false);
+	// const [yPosition, setYposition] = useState(-300);
+
+	// const onShowSidebar = () => {
+	// 	if (yPosition < 0) {
+	// 		setYposition(0);
+	// 		setIsOpen(true);
+	// 	} else {
+	// 		setYposition(-300);
+	// 		setIsOpen(false);
+	// 	}
+	// };
+
+	const Modal = ({ isOpen, onClose, children }) => {
+		return (
+			<>
+				{isOpen && (
+					<ModalOverlay>
+						<ModalContent>
+							<CloseButton onClick={onClose}>&times;</CloseButton>
+							{children}
+						</ModalContent>
+					</ModalOverlay>
+				)}
+			</>
+		);
+	};
 
 	return (
 		<>
@@ -30,13 +60,24 @@ const WebHeader = () => {
 						<S.Menu to="/market_price">실시간 시세</S.Menu>
 					</S.MenuList>
 					{isTablet ? (
-						<Link to={'/search_list'}>
+						<Link>
 							<FontAwesomeIcon
 								icon={faMagnifyingGlass}
 								color="gray"
 								cursor="pointer"
 								fontSize="30px"
+								onClick={() => setIsModalOpen(!isModalOpen)}
 							/>
+							{isModalOpen && (
+								<Modal>
+									<SearchBar props={props} />
+								</Modal>
+							)}
+							{/* <SearchSideBar
+								yPosition={yPosition}
+								setYposition={setYposition}
+								setIsOpen={setIsOpen}
+							/> */}
 						</Link>
 					) : (
 						<SearchBar props={props} />
@@ -65,6 +106,12 @@ const WebHeader = () => {
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>
+
+			{isModalOpen && (
+				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+					<SearchBar props={props} />
+				</Modal>
+			)}
 		</>
 	);
 };
@@ -144,6 +191,39 @@ const Logo = styled.img`
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
+`;
+
+const ModalOverlay = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+`;
+
+const ModalContent = styled.div`
+	background-color: transparent;
+	border-radius: 4px;
+	padding: 20px;
+	display: flex;
+	min-width: 400px;
+	top: 80px;
+	position: absolute;
+	align-items: center;
+`;
+
+const CloseButton = styled.button`
+	position: absolute;
+	right: 10px;
+	background: none;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-size: 60px;
 `;
 
 const S = {
