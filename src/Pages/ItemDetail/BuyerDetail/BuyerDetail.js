@@ -24,10 +24,9 @@ const BuyerDetailPage = ({ state, product }) => {
 export default BuyerDetailPage;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 70%;
 	min-width: 700px;
-	border: 1px solid;
+	max-width: 1200px;
 	margin: 0 auto;
 `;
 

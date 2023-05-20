@@ -41,15 +41,15 @@ const ItemCard = ({ index, products }) => {
 };
 
 export default ItemCard;
-
 const Wrapper = styled.div`
 	padding: 15px 0;
 	display: flex;
 `;
 
 const Container = styled.div`
-	width: 280px;
-	max-width: 250px;
+	width: 100%;
+	max-width: 280px;
+	overflow: hidden;
 	cursor: pointer;
 	margin-right: 10px;
 	border-radius: 10px;
@@ -67,6 +67,9 @@ const Container = styled.div`
 	@media (min-width: 900px) {
 		width: 240px;
 	}
+	@media (min-width: 1100px) {
+		width: 280px;
+	}
 `;
 
 const Heart = styled.div`
@@ -80,7 +83,7 @@ const Heart = styled.div`
 
 const ItemImg = styled.img`
 	width: 100%;
-	height: 100%;
+	height: 250px;
 	max-height: 250px;
 	object-fit: cover;
 	padding-bottom: 15px;
@@ -88,11 +91,13 @@ const ItemImg = styled.img`
 `;
 
 const ItemInfo = styled.div`
+	width: 100%;
 	padding-top: 15px;
-	max-height: 150px;
+	max-height: 87px;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 0 15px;
+	overflow: hidden;
 `;
 
 const ItemTitle = styled.div`
@@ -115,9 +120,12 @@ const ItemTag = styled.span`
 	border-radius: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
+	/* flex-shrink: 0; */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
 	a {
-		width: 100%;
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import { Link } from 'react-router-dom';
-import { MockAxios } from 'Apis/@core';
-import { useQuery } from 'react-query';
+//import { MockAxios } from 'Apis/@core';
+//import { useQuery } from 'react-query';
 // import { Category, Preview } from '@mui/icons-material';
 import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 import Preview from './Components/preview';
@@ -10,11 +10,11 @@ import Category from './Components/category';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
-	const { data } = useQuery(['product'], () => {
-		return MockAxios.get('/product').then(res => {
-			return res.data;
-		});
-	});
+	// const { data } = useQuery(['product'], () => {
+	// 	return MockAxios.get('/product').then(res => {
+	// 		return res.data;
+	// 	});
+	// });
 
 	return (
 		<S.Wrapper>
@@ -24,8 +24,11 @@ const DesktopMainPage = () => {
 				<Category />
 				<div></div>
 			</CategoryWrapper>
+			{/* MockData용
 			<Preview category={0} products={data}></Preview>
-			<Preview category={1} products={data}></Preview>
+			<Preview category={1} products={data}></Preview> */}
+			<Preview category={0}></Preview>
+			<Preview category={1}></Preview>
 			<TopBtn />
 			<Link to={'/register'}>
 				<S.BtnSection>

@@ -22,7 +22,8 @@ export default LayOut;
 const Wrapper = styled.div`
 	position: sticky;
 	top: 0;
+	padding-bottom: 20px;
 	background-color: white;
 	z-index: 1;
-	/* border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]}; */
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;

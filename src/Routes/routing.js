@@ -18,7 +18,7 @@ import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
-// import PrivateRoute from './private';
+import PrivateRoute from './private';
 import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 import MyReview from 'Pages/MyPage/MyReview/MyReview';
@@ -40,9 +40,9 @@ const router = createBrowserRouter([
 
 	{
 		element: (
-			// <PrivateRoute>
-			<LayOut />
-			// </PrivateRoute>
+			<PrivateRoute>
+				<LayOut />
+			</PrivateRoute>
 		),
 		children: [
 			{

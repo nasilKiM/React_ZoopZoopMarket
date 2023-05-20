@@ -4,7 +4,7 @@ const ReviewMessage = () => {
 	return (
 		<>
 			<S.ChatContent>
-				<img src="Assets/Images/bicycle.jpg" />
+				<img src="/Assets/Images/bicycle.jpg" />
 				<div>
 					<S.ChatContentUpper>
 						<S.NickName>닉네임</S.NickName>
