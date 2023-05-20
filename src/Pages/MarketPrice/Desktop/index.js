@@ -2,9 +2,8 @@ import ProductApi from 'Apis/productApi';
 import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-
 import { theme } from 'Styles/theme';
-import { useMediaQuery } from 'react-responsive';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
 	LineChart,
@@ -27,7 +26,22 @@ const DesktopMarketPrice = () => {
 	const end = '2023-05-21';
 
 	//let data = [];
+	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
 
+	useEffect(() => {
+		const handleResize = () => {
+			setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize(); // 컴포넌트 마운트 시 초기 크기 설정
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	console.log(viewportSize);
 	const search = async (keyword, start, end) => {
 		try {
 			const response = await ProductApi.searchMarket(keyword, start, end);
@@ -50,39 +64,6 @@ const DesktopMarketPrice = () => {
 	// });
 
 	//console.log('시세 검색 단어: ', word);
-
-	useEffect(() => {
-		const fetchItems = async () => {
-			try {
-				const response = await axios.get('Mock/ItemData/items.json');
-				const items = response.data.itemList.filter(
-					item => item.category === 1 && item.isSold === true,
-				);
-				const sortedItems = items.sort((a, b) => {
-					return new Date(a.createdAt) - new Date(b.createdAt);
-				});
-				setItemList(sortedItems);
-				//
-				const itemsByMonth = {};
-				sortedItems.forEach(item => {
-					const month = new Date(item.createdAt).getMonth();
-					if (!itemsByMonth[month]) {
-						itemsByMonth[month] = [];
-					}
-					itemsByMonth[month].push(item);
-				});
-				for (let month in itemsByMonth) {
-					const monthItems = itemsByMonth[month];
-					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
-					const average = total / monthItems.length;
-					//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchItems();
-	}, []);
 
 	console.log(priceList);
 
@@ -148,63 +129,28 @@ const DesktopMarketPrice = () => {
 
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	//반응형
-	const isExtraSmall = useMediaQuery({ maxWidth: 572 });
-	const isSmall = useMediaQuery({ minWidth: 573, maxWidth: 782 });
-	const isMedium = useMediaQuery({ minWidth: 783, maxWidth: 1069 });
-	const isLarge = useMediaQuery({ minWidth: 1070, maxWidth: 1329 });
-	const isExtraLarge = useMediaQuery({ minWidth: 1330 });
-
-	let variable;
-	if (isExtraSmall) {
-		variable = 300;
-	} else if (isSmall) {
-		variable = 400;
-	} else if (isMedium) {
-		variable = 600;
-	} else if (isLarge) {
-		variable = 800;
-	} else if (isExtraLarge) {
-		variable = 1000;
-	}
-	const isMonitor24 = useMediaQuery({ minWidth: 1153 });
-	const Desktop = ({ children }) => {
-		const isDesktop = useMediaQuery({ minWidth: 860 });
-		return isDesktop ? children : null;
-	};
-	const NoteBook = ({ children }) => {
-		const isDesktop = useMediaQuery({ maxWidth: 859 });
-		return isDesktop ? children : null;
-	};
 
 	return (
 		<S.Wrapper>
-			<Desktop>
-				<S.UpperPart>
-					<S.LeftPart>
-						<S.Title isMonitor24={isMonitor24}>
-							시세 조회
-							<S.SubTitle isMonitor24={isMonitor24}>
-								원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
-							</S.SubTitle>
-						</S.Title>
-					</S.LeftPart>
-					<S.SearchBarContainer>
-						<SearchBar props={props} />
-					</S.SearchBarContainer>
-				</S.UpperPart>
-			</Desktop>
-			<NoteBook>
-				<S.NoteBookUpper>
-					<S.NoteBookTitle isMonitor24={isMonitor24}>시세 조회</S.NoteBookTitle>
-
-					<S.SearchBarContainer>
-						<SearchBar props={props} />
-					</S.SearchBarContainer>
-				</S.NoteBookUpper>
-			</NoteBook>
-
+			<S.UpperPart>
+				<S.LeftPart>
+					<S.Title>
+						시세 조회
+						<S.SubTitle>
+							원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
+						</S.SubTitle>
+					</S.Title>
+				</S.LeftPart>
+				<S.SearchBarContainer>
+					<SearchBar props={props} />
+				</S.SearchBarContainer>
+			</S.UpperPart>
 			<S.ChartContainer>
-				<LineChart width={variable} height={500} data={groupedData}>
+				<LineChart
+					width={viewportSize.width * 0.6}
+					height={viewportSize.width * 0.6 * 0.6}
+					data={groupedData}
+				>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis dataKey="group" />
 					<YAxis />
@@ -237,47 +183,44 @@ const DesktopMarketPrice = () => {
 export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
+	width: 70%;
 	/* min-width: 700px; */
 	max-width: 1200px;
-	width: 80%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid black;
 `;
 const UpperPart = styled.div`
 	width: 100%;
 	display: flex;
+	justify-content: space-between;
+	@media screen and (max-width: 720px) {
+		align-items: center;
+		flex-direction: column;
+	}
 `;
 
-const NoteBookUpper = styled.div`
-	margin: 0 auto;
-`;
-const NoteBookTitle = styled.div`
-	margin-top: 20px;
-	text-align: center;
-`;
 const LeftPart = styled.div`
-	width: 40%;
-	margin-left: 10%;
+	width: 60%;
+	margin-left: 20px;
 `;
 const Title = styled.div`
 	text-align: start;
-	font-size: ${({ isMonitor24 }) =>
-		isMonitor24
-			? ({ theme }) => theme.fontSize.md
-			: ({ theme }) => theme.fontSize.sm};
-
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-top: ${({ isMonitor24 }) => (isMonitor24 ? '40px' : '20px')};
+	font-size: ${({ theme }) => theme.fontSize.md};
+	@media screen and (max-width: 720px) {
+		text-align: center;
+		font-size: ${({ theme }) => theme.fontSize.base};
+	}
+	margin-top: 40px;
 `;
 const SubTitle = styled.div`
 	margin-top: 10px;
-	font-size: ${({ isMonitor24 }) =>
-		isMonitor24
-			? ({ theme }) => theme.fontSize.base
-			: ({ theme }) => theme.fontSize.xs};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	@media screen and (max-width: 920px) {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 const ChartContainer = styled.div`
 	width: 100%;
@@ -310,14 +253,18 @@ const ResultWord = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
-	width: 50%;
-	margin-top: ${({ isMonitor24 }) => (isMonitor24 ? '40px' : '20px')};
+	width: 240px;
+	margin-top: 45px;
+	margin-right: 10px;
+	@media screen and (max-width: 720px) {
+		width: 200px;
+		margin: 0 auto;
+		margin-top: 25px;
+	}
 `;
 const S = {
 	Wrapper,
 	UpperPart,
-	NoteBookUpper,
-	NoteBookTitle,
 	LeftPart,
 	Title,
 	SubTitle,
@@ -344,3 +291,36 @@ const S = {
 dataKey props를 통해 그래프의 데이터를 설정합니다. stroke props를 통해 선의 색상을 설정할 수 있습니다. 
 activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원형으로 표시됩니다.
 */
+
+// useEffect(() => {
+// 	const fetchItems = async () => {
+// 		try {
+// 			const response = await axios.get('Mock/ItemData/items.json');
+// 			const items = response.data.itemList.filter(
+// 				item => item.category === 1 && item.isSold === true,
+// 			);
+// 			const sortedItems = items.sort((a, b) => {
+// 				return new Date(a.createdAt) - new Date(b.createdAt);
+// 			});
+// 			setItemList(sortedItems);
+// 			//
+// 			const itemsByMonth = {};
+// 			sortedItems.forEach(item => {
+// 				const month = new Date(item.createdAt).getMonth();
+// 				if (!itemsByMonth[month]) {
+// 					itemsByMonth[month] = [];
+// 				}
+// 				itemsByMonth[month].push(item);
+// 			});
+// 			for (let month in itemsByMonth) {
+// 				const monthItems = itemsByMonth[month];
+// 				const total = monthItems.reduce((sum, item) => sum + item.price, 0);
+// 				const average = total / monthItems.length;
+// 				//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
+// 			}
+// 		} catch (error) {
+// 			console.error(error);
+// 		}
+// 	};
+// 	fetchItems();
+// }, []);
