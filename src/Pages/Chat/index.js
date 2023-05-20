@@ -6,7 +6,7 @@ import ChatDetail from './ChatDetail/ChatDetail';
 
 const ChattingPage = ({ idx, item }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
-	const [chatList, setChatList] = useState();
+	const [chatroomList, setChatroomList] = useState();
 	const [isChatEntrance, setIsChatEntrance] = useState(false);
 
 	// const { data } = useQuery(['chatList'], () => {
@@ -30,7 +30,7 @@ const ChattingPage = ({ idx, item }) => {
 			try {
 				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
 				console.log(res.data);
-				setChatList(res.data);
+				setChatroomList(res.data);
 			} catch (err) {
 				console.log(err);
 			}
@@ -45,7 +45,7 @@ const ChattingPage = ({ idx, item }) => {
 			try {
 				const res = await ChatApis.loadAllChatList(1);
 				console.log(res);
-				setChatList(res.data);
+				setChatroomList(res.data);
 			} catch (err) {
 				console.log(err);
 			}
@@ -58,8 +58,8 @@ const ChattingPage = ({ idx, item }) => {
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
 				<ChatList
-					chatList={chatList}
-					setChatList={setChatList}
+					chatroomList={chatroomList}
+					setChatroomList={setChatroomList}
 					setIsChatEntrance={setIsChatEntrance}
 					setChatroomIdx={setChatroomIdx}
 				/>

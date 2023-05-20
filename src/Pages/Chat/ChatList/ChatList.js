@@ -2,22 +2,22 @@ import ChatMessage from 'Components/ChatMessage/ChatMessage';
 import styled from 'styled-components';
 
 const ChatList = ({
-	chatList,
-	setChatList,
+	chatroomList,
+	setChatroomList,
 	setIsChatEntrance,
 	setChatroomIdx,
 }) => {
 	// console.log('chatList', chatList);
-
 	return (
 		<>
 			<S.LeftUpperBar>
 				<span>채팅목록</span>
 			</S.LeftUpperBar>
 			<S.ListContainer>
-				{chatList?.map(chat => {
-					return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
-				})}
+				{chatroomList &&
+					chatroomList.chats.map(chat => {
+						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
+					})}
 			</S.ListContainer>
 		</>
 	);
