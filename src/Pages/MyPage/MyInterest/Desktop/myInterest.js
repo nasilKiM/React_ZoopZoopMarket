@@ -1,25 +1,26 @@
 import styled from 'styled-components';
-import MyPageApi from 'Apis/myPageApi';
 import { useEffect, useState } from 'react';
+import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
+import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import InterestCard from 'Components/Card/Desktop/Card_Interest';
-import { gridAllCenter, gridColumn } from 'Styles/common';
 
 const MyInterestPage = () => {
 	const [likeList, setLikeList] = useState();
 
-	const myInterest = async () => {
-		try {
-			const res = await MyPageApi.likeProductList({ page: 1 });
-			setLikeList(res.data.LikeList);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	const res = useInfiniteMy();
+	const { data } = res;
+
+	if (data) {
+		const likes = data.pages.map(el => el.data);
+		console.log(likes[0].LikeList);
+	}
 
 	useEffect(() => {
-		myInterest();
+		if (data) {
+			const likes = data.pages.map(el => el.data);
+			setLikeList(likes[0]?.LikeList);
+		}
 	}, []);
-
 	return (
 		<S.Wrap>
 			<S.Container>
@@ -50,9 +51,11 @@ const Container = styled.div`
 	${gridAllCenter}
 	@media ${({ theme }) => theme.device.tablet} {
 		${gridColumn(3)}
+		${gridGap.tablet}
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(2)}
+		${gridGap.mobile}
 	}
 `;
 

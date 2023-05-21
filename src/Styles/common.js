@@ -49,3 +49,14 @@ export const gridColumn = num => css`
 	row-gap: 30px;
 	column-gap: 30px;
 `;
+
+export const gridGap = {
+	mobile: css`
+		row-gap: 15px;
+		column-gap: 15px;
+	`,
+	tablet: css`
+		row-gap: 20px;
+		column-gap: 20px;
+	`,
+};
