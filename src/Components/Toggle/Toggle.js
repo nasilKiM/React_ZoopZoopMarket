@@ -74,6 +74,7 @@ const Wrapper = styled.div`
 
 const Menu = styled.div`
 	width: 200px;
+	min-width: max-content;
 	height: 50px;
 	${flexAllCenter}
 	font-size: ${({ theme }) => theme.fontSize.base};

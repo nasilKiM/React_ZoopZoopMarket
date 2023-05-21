@@ -177,6 +177,7 @@ const List = styled.div`
 
 const InfoTitle = styled.div`
 	width: 80px;
+	min-width: max-content;
 	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
@@ -184,6 +185,7 @@ const InfoTitle = styled.div`
 
 const InfoContent = styled.div`
 	margin-left: 30px;
+	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
