@@ -3,80 +3,36 @@ import MyPageApi from 'Apis/myPageApi';
 import { useEffect, useState } from 'react';
 import InterestCard from 'Components/Card/Desktop/Card_Interest';
 import { gridAllCenter, gridColumn } from 'Styles/common';
-import { useInfiniteQuery } from 'react-query';
 
 const MyInterestPage = () => {
 	const [likeList, setLikeList] = useState();
 
-	// const myInterest = async () => {
-	// 	try {
-	// 		const res = await MyPageApi.likeProductList({ page: 1 });
-	// 		setLikeList(res.data.LikeList);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
-
-	useEffect(() => {
-		['myInterest'];
-	}, []);
-
-	const projects = async ({ pageParam }) => {
-		const res = await MyPageApi.likeProductList({ page: pageParam });
-		return res;
-	};
-
-	const {
-		data,
-		fetchNextPage,
-		isFetchingNextPage,
-		hasNextPage,
-		isLoading,
-		isError,
-	} = useInfiniteQuery(['myInterest'], projects, {
-		getNextPageParam: currentPage => {
-			// return lastPage.pages ? lastPage.pages + 1 : 'ddd';
-			const nextPage = currentPage.page + 1;
-			return nextPage > currentPage.total_pages ? null : nextPage;
-		},
-	});
-
-	console.log({ hasNextPage });
-	console.log({ fetchNextPage });
-
-	const real = data?.pages.map(el => el.data.LikeList);
-	console.log(real);
-
-	if (isLoading) {
-		return <h1>Loading...</h1>;
-	}
-
-	if (isError) {
-		return <span>Error</span>;
-	}
-
-	const nextPageGo = () => {
-		if (hasNextPage) {
-			fetchNextPage();
+	const myInterest = async () => {
+		try {
+			const res = await MyPageApi.likeProductList({ page: 1 });
+			setLikeList(res.data.LikeList);
+		} catch (error) {
+			console.log(error);
 		}
 	};
+
+	useEffect(() => {
+		myInterest();
+	}, []);
 
 	return (
 		<S.Wrap>
 			<S.Container>
-				{real.map(product => (
-					<S.Card>
-						<InterestCard products={product} />
-					</S.Card>
-				))}
+				{likeList &&
+					likeList.map(product => (
+						<S.Card>
+							<InterestCard
+								index={product.Product.idx}
+								products={product.Product}
+							/>
+						</S.Card>
+					))}
 			</S.Container>
-			<button onClick={nextPageGo} disabled={!hasNextPage}>
-				{isFetchingNextPage
-					? 'Loading more...'
-					: hasNextPage
-					? 'Load More'
-					: 'Nothing more to load'}
-			</button>
 		</S.Wrap>
 	);
 };

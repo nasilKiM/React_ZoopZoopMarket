@@ -8,7 +8,7 @@ const InterestCard = ({ index, products }) => {
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
-
+	console.log(products);
 	return (
 		products && (
 			<S.Container>
