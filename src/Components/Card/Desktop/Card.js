@@ -1,4 +1,4 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
+// import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ const ItemCard = ({ index, products }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
-	index && products && console.log(index, products)
+	index && products && console.log(index, products);
 
 	return (
 		products && (
@@ -23,15 +23,13 @@ const ItemCard = ({ index, products }) => {
 						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
-							{products.price === 0 ?
-							<S.ItemPrice>
-							무료나눔 상품
-						</S.ItemPrice>
-							:
-							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
-							</S.ItemPrice>
-							}
+							{products.price === 0 ? (
+								<S.ItemPrice>무료나눔 상품</S.ItemPrice>
+							) : (
+								<S.ItemPrice>
+									{products.price.toLocaleString('ko-KR')}원
+								</S.ItemPrice>
+							)}
 							{/* {products && products.ProductsTags.map(tagObj => (
 								<S.ItemTag key={tagObj.idx}>
 									<a className="tag-link">#{tagObj.Tag.tag}</a>
