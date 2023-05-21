@@ -34,5 +34,12 @@ const UserApi = {
 			phone,
 		});
 	},
+	userProfileEdit(image) {
+		return Axios.patch(PATH + '/profile', image, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+	},
 };
 export default UserApi;

@@ -1,12 +1,10 @@
 import { flexAllCenter } from 'Styles/common';
 import { useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 const ToggleBar = () => {
-	const isDesktopOrMobile = useMediaQuery({query: '(max-width: 768px'});
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -45,8 +43,6 @@ const ToggleBar = () => {
 	};
 
 	return (
-		<>
-		{isDesktopOrMobile !== true ?
 		<S.Wrapper>
 			{toggleMenu.map(toggle => (
 				<>
@@ -59,60 +55,39 @@ const ToggleBar = () => {
 				</>
 			))}
 		</S.Wrapper>
-		:
-		<S.MWrapper>
-			{toggleMenu.map(toggle => (
-				<>
-					<S.Menu onClick={() => onClickToggle(toggle.address)} currentMenu={current === toggle.address}>
-						{toggle.title}
-					</S.Menu>
-				</>
-			))}
-		</S.MWrapper>	
-		}
-		</>
 	);
 	};
 
 export default ToggleBar;
 
 const Wrapper = styled.div`
-	margin: 50px 0;
+	margin: 0 0 50px;
+	padding: 0 80px;
 	${flexAllCenter}
 	width: 100%;
-	height: 70px;
+	height: 50px;
 	background-color: ${({theme}) => theme.color.gray[100]};
-	& > div {
-		margin: 0 35px;
-		font-size: ${({ theme }) => theme.fontSize.md};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	& > div:first-child {
+		border-left: none;
 	}
 	`;
 
-const MWrapper = styled.div`
-	margin: 50px 0;
-	${flexAllCenter}
-	width: 414px;
-	height: 70px;
-	background-color: ${({theme}) => theme.color.gray[100]};
-	& > div {
-		margin: 0 35px;
-		font-size: ${({ theme }) => theme.fontSize.md};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-	}
-`;
-
 const Menu = styled.div`
+	width: 200px;
+	height: 50px;
+	${flexAllCenter}
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	border-left: solid 1px ${({theme}) => theme.color.gray[200]};
 	:hover {
 		cursor: pointer;
-		color: ${({theme}) => theme.color.primary};
 		background-color: ${({theme}) => theme.color.gray[200]};
 	}
-	color: ${({ currentMenu }) => (currentMenu ? 'red' : 'black')};
+	background-color: ${({ currentMenu }) => (currentMenu ? '#FFD1D1' : '#E9E9E9')};
+	border-bottom: solid 3px ${({ currentMenu }) => (currentMenu ? '#FF3647' : '#E9E9E9')};
 `;
 
 const S = {
 	Wrapper,
-	MWrapper,
 	Menu,
 };

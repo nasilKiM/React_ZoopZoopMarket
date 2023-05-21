@@ -1,4 +1,4 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
+// import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,25 +10,31 @@ const ItemCard = ({ index, products }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
+	index && products && console.log(index, products);
+
 	return (
 		products && (
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
+						{/* <HeartBtn like={products.liked} idx={products.idx} /> */}
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
-							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
-							</S.ItemPrice>
-							{products.ProductsTags.map(tagObj => (
+							{products.price === 0 ? (
+								<S.ItemPrice>무료나눔 상품</S.ItemPrice>
+							) : (
+								<S.ItemPrice>
+									{products.price.toLocaleString('ko-KR')}원
+								</S.ItemPrice>
+							)}
+							{/* {products && products.ProductsTags.map(tagObj => (
 								<S.ItemTag key={tagObj.idx}>
 									<a className="tag-link">#{tagObj.Tag.tag}</a>
 								</S.ItemTag>
-							))}
+							))} */}
 						</S.ItemInfo>
 					</div>
 				</S.Container>
@@ -40,6 +46,7 @@ const ItemCard = ({ index, products }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
+	width: 200px;
 	padding: 15px 0;
 `;
 
