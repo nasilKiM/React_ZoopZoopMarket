@@ -1,29 +1,29 @@
 import ProductApi from 'Apis/productApi';
-import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { theme } from 'Styles/theme';
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import {
-	LineChart,
+	CartesianGrid,
+	Legend,
 	Line,
+	LineChart,
+	Tooltip,
 	XAxis,
 	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
 } from 'recharts';
-import { useRecoilState } from 'recoil';
+
 import styled from 'styled-components';
 
 const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
 	//console.log(word);
-	const [priceList, setItemList] = useRecoilState(itemPriceState);
-	const start = '2023-04-30';
-	const end = '2023-05-21';
+	// const [priceList, setItemList] = useRecoilState(itemPriceState);
+	const start = '2023-05-15';
+	const end = '2023-05-22';
 
 	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
@@ -41,58 +41,50 @@ const DesktopMarketPrice = () => {
 		};
 	}, []);
 
-	console.log(viewportSize);
+	// console.log(viewportSize);
 	const search = async (keyword, start, end) => {
-		try {
-			const response = await ProductApi.searchMarket(keyword, start, end);
-			console.log(response);
-			const data = response.data.prod_idx.cumulativeAvgPrice.map(
-				({ date, avgPrice }) => ({
-					day: date,
-					price: avgPrice,
-				}),
-			);
-			return data;
-		} catch (error) {
-			console.log(error);
-		}
-	};
+		const data = await ProductApi.searchMarket(keyword, start, end);
 
-	// search(word, start, end).then(result => {
-	// 	data = result;
-	// 	console.log(data);
-	// });
+		return data;
+	};
+	const { data, isLoading, isError, error } = useQuery(['SEARCH_PRICE'], () =>
+		search('테스트', start, end),
+	);
+	data && console.log(data.data.prod_idx.cumulativeAvgPrice);
 
 	//console.log('시세 검색 단어: ', word);
 
-	console.log(priceList);
+	// console.log(priceList);
 
-	const data = [
-		{ date: '2023-04-30', price: 3000 },
-		{ date: '2023-05-01', price: 3500 },
-		{ date: '2023-05-02', price: 2500 },
-		{ date: '2023-05-03', price: 3800 },
-		{ date: '2023-05-04', price: 9000 },
-		{ date: '2023-05-05', price: 3900 },
-		{ date: '2023-05-06', price: 4200 },
-		{ date: '2023-05-07', price: 4200 },
-		{ date: '2023-05-08', price: 3800 },
-		{ date: '2023-05-09', price: 4200 },
-		{ date: '2023-05-11', price: 3800 },
-		{ date: '2023-05-11', price: 4200 },
-	];
+	// const data = [
+	// 	{ date: '2023-04-30', price: 3000 },
+	// 	{ date: '2023-05-01', price: 3500 },
+	// 	{ date: '2023-05-02', price: 2500 },
+	// 	{ date: '2023-05-03', price: 3800 },
+	// 	{ date: '2023-05-04', price: 9000 },
+	// 	{ date: '2023-05-05', price: 3900 },
+	// 	{ date: '2023-05-06', price: 4200 },
+	// 	{ date: '2023-05-07', price: 4200 },
+	// 	{ date: '2023-05-08', price: 3800 },
+	// 	{ date: '2023-05-09', price: 4200 },
+	// 	{ date: '2023-05-11', price: 3800 },
+	// 	{ date: '2023-05-11', price: 4200 },
+	// ]; 실제 데이터도 이 형태로 담겨져서 옴
+
 	const formatData = data => {
 		return data.map(({ date, price }) => {
 			const [month, day] = date.split('-').slice(1);
 			const formattedMonth = month.replace(/^0+/, ''); // 0으로 시작하는 부분 제거
 			return {
 				date: `${formattedMonth}-${day}`,
-				price,
+				price: price !== undefined ? price : 0,
 			};
 		});
 	}; //데이터에서 날짜의 월일만 빼서 다시 저장하는 함수.
-	const arr = formatData(data);
-
+	const arr =
+		data?.data.prod_idx?.cumulativeAvgPrice &&
+		formatData(data.data.prod_idx.cumulativeAvgPrice);
+	console.log(arr);
 	const groupingData = (data, groupSize) => {
 		const result = [];
 		let group = [];
@@ -117,18 +109,20 @@ const DesktopMarketPrice = () => {
 		return result;
 	}; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
 
-	const groupedData = groupingData(arr, 2);
+	const groupedData = arr?.length && groupingData(arr, 2);
+
 	console.log(groupedData);
 
 	let average = 0;
-	for (let i = 0; i < data.length; i++) {
-		average += data[i].price;
+	if (data && data.data.prod_idx.cumulativeAvgPrice) {
+		for (let i = 0; i < data.data.prod_idx.cumulativeAvgPrice.length; i++) {
+			average += data.data.prod_idx.cumulativeAvgPrice[i].avgPrice;
+		}
+		average = (average / data.length).toFixed(0);
 	}
 
-	average = (average / data.length).toFixed(0);
-
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	//반응형
+	// //반응형
 
 	return (
 		<S.Wrapper>

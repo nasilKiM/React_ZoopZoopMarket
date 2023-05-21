@@ -18,7 +18,7 @@ const SellerDetailPage = ({ state, product }) => {
 		setDetailState(innerText);
 	};
 
-	const socket = 'sample용소켓입니다.';
+	const socket = 'caeb9fae-7da5-4d70-9508-a4690a3a1f41';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
