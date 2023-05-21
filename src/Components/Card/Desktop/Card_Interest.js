@@ -8,7 +8,7 @@ const InterestCard = ({ index, products }) => {
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
-	console.log(products);
+
 	return (
 		products && (
 			<S.Container>
@@ -19,7 +19,9 @@ const InterestCard = ({ index, products }) => {
 					<S.ItemImg img={products.img_url}></S.ItemImg>
 					<S.ItemInfo>
 						<S.ItemTitle>{products.title}</S.ItemTitle>
-						<S.ItemPrice>{products.price}원</S.ItemPrice>
+						<S.ItemPrice>
+							{products.price.toLocaleString('ko-KR')}원
+						</S.ItemPrice>
 						<span>{products.status}</span>
 					</S.ItemInfo>
 				</div>
