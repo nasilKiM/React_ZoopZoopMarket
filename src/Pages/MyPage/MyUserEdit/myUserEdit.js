@@ -176,7 +176,7 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	width: 60%;
+	width: 70%;
 	flex-direction: column;
 	${flexAllCenter}
 	margin: 0 auto;

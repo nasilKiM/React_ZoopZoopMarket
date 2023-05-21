@@ -2,11 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
-// import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
-// import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import MannerMeter from 'Components/Icon/Icon';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -114,21 +113,8 @@ const MyProfile = () => {
 						활동지역<S.Address>#경기도 화성시 반송동</S.Address>
 					</div>
 				</S.Detail>
-			</S.Info>
+			</S.Info>		
 		</S.Wrapper>
-		// <S.Wrapper>
-		// 	{userInfo && userProfile &&
-		// 		<div>
-		// 			<div>
-		// 			<Profile userProfileUrl={User.profileUrl}/>
-		// 			</div>
-		// 			<div>반가워요, <S.nickName>{User.nickName}</S.nickName>님 :)</div>
-		// 			<S.Icon>
-		// 					<MannerMeter ondo={ondo} />
-		// 			</S.Icon>
-		// 			<div>{region}</div>
-		// 		</div>}
-		// </S.Wrapper>
 	);
 };
 
@@ -155,6 +141,7 @@ const Img = styled.img`
 
 const ImgWrap = styled.div`
 	position: relative;
+	margin-right: 50px;
 `;
 
 const ProfileImg = styled.div`
@@ -170,45 +157,36 @@ const ProfileImg = styled.div`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
-	& :nth-child(3) {
+	/* & :nth-child(3) {
 		margin-top: 15px;
-	}
+	} */
 `;
 
-const Nickname = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin: 0 10px;
+const List = styled.div`
+	height: max-content;
+	display: flex;
+	margin: 5px;
 `;
 
-const Address = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: #999;
-	margin: 0 10px;
+const InfoTitle = styled.div`
+	width: 80px;
+	height: max-content;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	color: ${({ theme }) => theme.color.gray[300]};
 `;
 
-const Icon = styled.div`
-	${flexAllCenter}
-	justify-content: start;
+const InfoContent = styled.div`
+	margin-left: 30px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 `;
-
-const Temp = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin: 0 10px;
-`;
-
 const S = {
 	Wrapper,
-	Img,
 	Info,
-	Icon,
 	Detail,
-	Address,
-	Nickname,
-	Temp,
 	ProfileImg,
 	ImgWrap,
+	List,
+	InfoTitle,
+	InfoContent,
+	Img,
 };
