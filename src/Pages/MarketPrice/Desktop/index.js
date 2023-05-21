@@ -42,15 +42,15 @@ const DesktopMarketPrice = () => {
 	}, []);
 
 	// console.log(viewportSize);
-	const search = async (keyword, start, end) => {
-		const data = await ProductApi.searchMarket(keyword, start, end);
-
-		return data;
-	};
+	// const search = async (keyword, start, end) => {
+	// 	const data = await ProductApi.searchMarket(keyword, start, end);
+	// 	return data;
+	// };
 	const { data, isLoading, isError, error } = useQuery(['SEARCH_PRICE'], () =>
-		search('테스트', start, end),
+		ProductApi.searchMarket('테스트', start, end),
 	);
-	data && console.log(data.data.prod_idx.cumulativeAvgPrice);
+	// data && console.log(data);
+	// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
 
 	//console.log('시세 검색 단어: ', word);
 
