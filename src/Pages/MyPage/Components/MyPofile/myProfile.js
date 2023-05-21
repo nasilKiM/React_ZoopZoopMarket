@@ -76,7 +76,15 @@ const MyProfile = () => {
 		<S.Wrapper>
 			<S.Info>
 				<S.ImgWrap>
-					{userInfo && <S.Img src={userInfo.data.profile_url} />}
+					{userInfo && (
+						<S.Img
+							src={
+								userInfo.data.profile_url
+									? userInfo.data.profile_url
+									: '/Assets/Images/기본 프로필.png'
+							}
+						/>
+					)}
 					<S.ProfileImg>
 						<FontAwesomeIcon
 							icon={faCamera}
