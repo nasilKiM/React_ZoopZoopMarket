@@ -52,6 +52,7 @@ const MyProfile = () => {
 		photoInput.current.click();
 	};
 
+	//
 	// 이미지 미리보기 업로드
 	// const onClickFile = e => {
 	// 	const file = e.target.files[0];
