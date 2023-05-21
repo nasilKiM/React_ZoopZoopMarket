@@ -10,6 +10,7 @@ import MannerMeter from 'Components/Icon/Icon';
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
 	const [userProfile, setUserProfile] = useState('');
+	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
 
 	const getUserInfo = async () => {
@@ -37,7 +38,9 @@ const MyProfile = () => {
 		const file = e.target.files[0];
 		formData.append('profile_url', file);
 
-		console.log(file);
+		const imageUrl = URL.createObjectURL(file);
+		setProfileImg(imageUrl);
+
 		try {
 			const res = await UserApi.userProfileEdit(formData);
 			console.log(res);
@@ -50,19 +53,6 @@ const MyProfile = () => {
 	const handleClick = () => {
 		photoInput.current.click();
 	};
-
-	//
-	// 이미지 미리보기 업로드
-	// const onClickFile = e => {
-	// 	const file = e.target.files[0];
-	// 	// setProfileImg(file);
-	// 	reader.readAsDataURL(file);
-
-	// 	const reader = new FileReader();
-	// 	reader.onload = () => {
-	// 		setProfileImg(reader.result || null);
-	// 	};
-	// };
 
 	useEffect(() => {
 		getUserInfo();
@@ -81,7 +71,9 @@ const MyProfile = () => {
 							<S.Img
 								src={
 									userInfo.data.profile_url
-										? userInfo.data.profile_url
+										? profileImg
+											? profileImg
+											: userInfo.data.profile_url
 										: '/Assets/Images/기본 프로필.png'
 								}
 							/>
@@ -89,7 +81,7 @@ const MyProfile = () => {
 						<S.ProfileImg>
 							<FontAwesomeIcon
 								icon={faCamera}
-								style={{ color: '#ffffff', fontSize: '25px' }}
+								style={{ color: '#ffffff', fontSize: '20px' }}
 								onClick={handleClick}
 							/>
 							<input
@@ -144,6 +136,12 @@ const Img = styled.img`
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 130px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 90px;
+	}
 `;
 
 const ImgWrap = styled.div`
@@ -153,12 +151,19 @@ const ImgWrap = styled.div`
 
 const ProfileImg = styled.div`
 	background-color: ${({ theme }) => theme.color.primary[400]};
-	padding: 13px;
+	padding: 12px;
 	border-radius: 50%;
 	position: absolute;
 	bottom: 0;
 	right: 0;
 	cursor: pointer;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 10px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		padding: 7px;
+		bottom: 80px;
+	}
 `;
 
 const Detail = styled.div`
@@ -186,6 +191,7 @@ const InfoContent = styled.div`
 	margin-left: 30px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 `;
+
 const S = {
 	Wrapper,
 	Info,
