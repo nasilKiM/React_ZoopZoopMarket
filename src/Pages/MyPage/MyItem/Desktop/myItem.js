@@ -1,5 +1,5 @@
 import MyPageApi from 'Apis/myPageApi';
-import ItemCard from 'Components/Card/Desktop/Card';
+import MyItemCard from 'Components/Card/Desktop/Card_MyItem';
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -43,7 +43,7 @@ const MyItemPage = () => {
 			</S.CategoryZone>
 			<S.Wrapper>
 				{myItemList && myItemList.map(item => (
-					  <ItemCard index={item.idx} products={item}/>
+					  <MyItemCard index={item.idx} products={item}/>
 				))}
 				{/*onClick={() => navigate(`/detail/${item.id}`)} */}
 				{/* {item.map(() => (

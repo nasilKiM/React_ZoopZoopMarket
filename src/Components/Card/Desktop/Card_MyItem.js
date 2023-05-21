@@ -1,10 +1,9 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
-const ItemCard = ({ index, products }) => {
-	const navigate = useNavigate();
+const MyItemCard = ({ index, products }) => {
+    const navigate = useNavigate();
 
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
@@ -15,7 +14,6 @@ const ItemCard = ({ index, products }) => {
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
@@ -28,20 +26,15 @@ const ItemCard = ({ index, products }) => {
 									{products.price.toLocaleString('ko-KR')}원
 								</S.ItemPrice>
 							)}
-							{products && products.ProductsTags.map(tagObj => (
-								<S.ItemTag key={tagObj.idx}>
-									<a className="tag-link">#{tagObj.Tag.tag}</a>
-								</S.ItemTag>
-							))}
 						</S.ItemInfo>
 					</div>
 				</S.Container>
 			</S.Wrapper>
 		)
 	);
-};
+}
 
-export default ItemCard;
+export default MyItemCard;
 
 const Wrapper = styled.div`
 	width: 200px;
