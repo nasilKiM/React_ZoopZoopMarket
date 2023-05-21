@@ -8,7 +8,7 @@ const MyItemPage = () => {
 	// const item = new Array(8).fill(0);
 
 	const [myItemList, setMyItemList] = useState([]); //!?
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(2);
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	
 	const getMyItemList = async () => {
@@ -65,15 +65,16 @@ const MyItemPage = () => {
 };
 
 export default MyItemPage;
+
 const Div = styled.div`
 	width: 100%;
-	height: 500px;
+	height: 150%;
 	margin: 0 auto;
 `;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 500px;
+	height: 150%;
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
