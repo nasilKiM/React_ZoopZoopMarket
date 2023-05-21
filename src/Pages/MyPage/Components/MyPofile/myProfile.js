@@ -5,7 +5,6 @@ import UserApi from 'Apis/userApi';
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Profile from 'Components/Profile/Desktop/profile';
 import MannerMeter from 'Components/Icon/Icon';
 
 const MyProfile = () => {
@@ -17,6 +16,7 @@ const MyProfile = () => {
 		try {
 			const res = await UserApi.userInfo(); // userInfo => email, nick_name, phone, profile_url, region, x, y
 			setUserInfo(res);
+			console.log(userInfo);
 		} catch (err) {
 			console.log(err);
 		}
@@ -31,28 +31,37 @@ const MyProfile = () => {
 		}
 	};
 
-	const profileImgEdit = async () => {
+	// 프로필 사진 수정 틀
+	const profileImgEdit = async e => {
 		const formData = new FormData();
-		formData.append('profile_url');
+		const file = e.target.files[0];
+		formData.append('profile_url', file);
 
+		console.log(file);
 		try {
-			const res = await UserApi.userProfileEdit(formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-			});
+			const res = await UserApi.userProfileEdit(formData);
+			console.log(res);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	// 클릭시 사진 수정
 	const handleClick = () => {
 		photoInput.current.click();
 	};
 
-	useEffect(() => {
-		profileImgEdit();
-	}, []);
+	// 이미지 미리보기 업로드
+	// const onClickFile = e => {
+	// 	const file = e.target.files[0];
+	// 	// setProfileImg(file);
+	// 	reader.readAsDataURL(file);
+
+	// 	const reader = new FileReader();
+	// 	reader.onload = () => {
+	// 		setProfileImg(reader.result || null);
+	// 	};
+	// };
 
 	useEffect(() => {
 		getUserInfo();
@@ -64,42 +73,46 @@ const MyProfile = () => {
 
 	return (
 		<S.Wrapper>
-			{userInfo && userProfile &&
-			<S.Info>
-				<S.ImgWrap>
-					<Profile userProfileUrl={User.profileUrl}/>	
-					<S.ProfileImg>
-						<FontAwesomeIcon
-							icon={faCamera}
-							style={{ color: '#ffffff', fontSize: '15px' }}
-							onClick={handleClick}
-						/>
-						<input
-							type="file"
-							accept="image/jpg, image/jpeg, image/png"
-							multiple
-							ref={photoInput}
-							style={{ display: 'none' }}
-						/>
-					</S.ProfileImg>
-				</S.ImgWrap>
-				<S.Detail>
-					<S.List>
-						<S.InfoTitle>닉네임</S.InfoTitle>
-						<S.InfoContent>{User.nickName}</S.InfoContent>
-					</S.List>
-					<S.List>
-						<S.InfoTitle>매너온도</S.InfoTitle>
-						<S.InfoContent><MannerMeter ondo={ondo}/></S.InfoContent>
-					</S.List>
-					<S.List>
-						<S.InfoTitle>활동지역</S.InfoTitle>
-						<S.InfoContent>#{region}</S.InfoContent>
-					</S.List>
-				</S.Detail>
-			</S.Info>}
+			{userInfo && userProfile && (
+				<S.Info>
+					<S.ImgWrap>
+						{userInfo && <S.Img src={userInfo.data.profile_url} />}
+						{/* <Profile userProfileUrl={User.profileUrl} /> */}
+						<S.ProfileImg>
+							<FontAwesomeIcon
+								icon={faCamera}
+								style={{ color: '#ffffff', fontSize: '15px' }}
+								onClick={handleClick}
+							/>
+							<input
+								type="file"
+								accept="image/jpg, image/jpeg, image/png"
+								multiple
+								ref={photoInput}
+								style={{ display: 'none' }}
+								onChange={e => profileImgEdit(e)}
+							/>
+						</S.ProfileImg>
+					</S.ImgWrap>
+					<S.Detail>
+						<S.List>
+							<S.InfoTitle>닉네임</S.InfoTitle>
+							<S.InfoContent>{User.nickName}</S.InfoContent>
+						</S.List>
+						<S.List>
+							<S.InfoTitle>매너온도</S.InfoTitle>
+							<S.InfoContent>
+								<MannerMeter ondo={ondo} />
+							</S.InfoContent>
+						</S.List>
+						<S.List>
+							<S.InfoTitle>활동지역</S.InfoTitle>
+							<S.InfoContent>#{region}</S.InfoContent>
+						</S.List>
+					</S.Detail>
+				</S.Info>
+			)}
 		</S.Wrapper>
-
 	);
 };
 
@@ -115,6 +128,13 @@ const Wrapper = styled.div`
 
 const Info = styled.div`
 	display: flex;
+`;
+
+const Img = styled.img`
+	width: 150px;
+	object-fit: cover;
+	object-position: center;
+	border-radius: 50%;
 `;
 
 const ImgWrap = styled.div`
@@ -144,19 +164,19 @@ const List = styled.div`
 	height: max-content;
 	display: flex;
 	margin: 5px;
-`
+`;
 
 const InfoTitle = styled.div`
 	width: 80px;
 	height: max-content;
-	font-size: ${({theme}) => theme.fontSize.sm};
-	color: ${({theme}) => theme.color.gray[300]}
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	color: ${({ theme }) => theme.color.gray[300]};
 `;
 
 const InfoContent = styled.div`
 	margin-left: 30px;
-	font-size: ${({theme}) => theme.fontSize.base};
-`
+	font-size: ${({ theme }) => theme.fontSize.base};
+`;
 const S = {
 	Wrapper,
 	Info,
@@ -165,5 +185,6 @@ const S = {
 	ImgWrap,
 	List,
 	InfoTitle,
-	InfoContent
+	InfoContent,
+	Img,
 };
