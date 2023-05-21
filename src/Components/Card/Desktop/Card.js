@@ -24,13 +24,9 @@ const ItemCard = ({ index, products }) => {
 						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
-							{products.price === 0 ? (
-								<S.ItemPrice>무료나눔 상품</S.ItemPrice>
-							) : (
-								<S.ItemPrice>
-									{products.price.toLocaleString('ko-KR')}원
-								</S.ItemPrice>
-							)}
+							<S.ItemPrice>
+								{products.price.toLocaleString('ko-KR')}원
+							</S.ItemPrice>
 							{products && products.ProductsTags.map(tagObj => (
 								<S.ItemTag key={tagObj.idx}>
 									<a className="tag-link">#{tagObj.Tag.tag}</a>
@@ -46,7 +42,6 @@ const ItemCard = ({ index, products }) => {
 
 export default ItemCard;
 const Wrapper = styled.div`
-	width: 200px;
 	padding: 15px 0;
 	display: flex;
 `;

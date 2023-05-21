@@ -1,12 +1,14 @@
 import MyPageApi from 'Apis/myPageApi';
 import MyItemCard from 'Components/Card/Desktop/Card_MyItem';
-import { flexAllCenter } from 'Styles/common';
+// import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
+// import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 const MyItemPage = () => {
 	const [myItemList, setMyItemList] = useState([]);
-	const [page, setPage] = useState(2);
+	const [page, setPage] = useState(1);
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	
 	const getMyItemList = async () => {
@@ -18,11 +20,28 @@ const MyItemPage = () => {
 		}
 	}
 
-	myItemList && console.log(myItemList[0]);
-
 	useEffect(() => {
 		getMyItemList()
 	}, [page, category]);
+
+	// const [ref, inView] = useInView(); // threshold
+
+	// const res = useInfiniteMyItem();
+
+	// const {data} = res;
+
+	// res && console.log(data);
+
+	// useEffect(() => {
+	// 	if (!inView) {
+	// 		return;
+	// 	}
+	// 	res.fetchNextPage();
+	// }, [inView]);
+
+	// useEffect(() => {
+	// 	window.scroll(0, 0);
+	// }, []);
 
 	const onClickSaleCategory = () => {
 		setCategory(0);
@@ -39,10 +58,13 @@ const MyItemPage = () => {
 				<S.Category category={category === 1} onClick={onClickFreeCategory}>무료 나눔</S.Category>
 			</S.CategoryZone>
 			<S.Wrapper>
+				<S.Container>
 				{myItemList && myItemList.map(item => (
 					  <MyItemCard index={item.idx} products={item}/>
 				))}
+				</S.Container>
 			</S.Wrapper>
+			{/* <div ref={ref}></div> */}
 		</S.Div>
 	);
 };
@@ -51,17 +73,25 @@ export default MyItemPage;
 
 const Div = styled.div`
 	width: 100%;
-	height: 150%;
+	height: 100%;
 	margin: 0 auto;
 `;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	border: 1px solid ${({ theme }) => theme.color.gray[100]};
+	margin: 0 auto;
+`;
+
+const Container = styled.div`
+	width: 100%;
+	${gridColumn(4)}
+	${gridAllCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+	}
 `;
 
 const CategoryZone = styled.div`
@@ -85,6 +115,7 @@ const Category = styled.div`
 const S = {
 	Div,
 	Wrapper,
+	Container,
 	CategoryZone,
 	Category
 };

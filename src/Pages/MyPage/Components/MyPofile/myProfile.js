@@ -17,7 +17,6 @@ const MyProfile = () => {
 		try {
 			const res = await UserApi.userInfo(); // userInfo => email, nick_name, phone, profile_url, region, x, y
 			setUserInfo(res);
-			console.log(userInfo);
 		} catch (err) {
 			console.log(err);
 		}

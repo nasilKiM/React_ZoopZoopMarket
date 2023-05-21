@@ -11,10 +11,7 @@ const MyItemCard = ({ index, products }) => {
 
 	return (
 		products && (
-			<S.Wrapper>
 				<S.Container>
-					<S.Heart>
-					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
 						<S.ItemInfo>
@@ -29,46 +26,42 @@ const MyItemCard = ({ index, products }) => {
 						</S.ItemInfo>
 					</div>
 				</S.Container>
-			</S.Wrapper>
 		)
 	);
 }
 
 export default MyItemCard;
 
-const Wrapper = styled.div`
-	width: 200px;
-	padding: 15px 0;
-`;
-
 const Container = styled.div`
-	width: 200px;
+	/* width: 100%;
 	max-width: 250px;
 	max-height: 400px;
 	cursor: pointer;
 	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border: 1px solid lightgray; */
+	width: 100%;
+	cursor: pointer;
 	border: 1px solid lightgray;
-`;
-
-const Heart = styled.div`
-	position: absolute;
-	width: 32px;
-	height: 32px;
-	top: 40px;
-	left: 202px;
-	z-index: 1000000;
+	position: relative;
 `;
 
 const ItemImg = styled.img`
-	position: relative;
+	/* position: relative;
 	width: 200px;
 	max-width: 250px;
 	width: 100%;
 	height: 250px;
 	object-fit: cover;
+	padding-bottom: 15px; */
+	position: relative;
+	background: ${({ img }) => `url(${img})`} no-repeat center;
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
 	padding-bottom: 15px;
+	background-size: cover;
 `;
 
 const ItemInfo = styled.div`
@@ -92,27 +85,10 @@ const ItemPrice = styled.span`
 	margin-bottom: 15px;
 `;
 
-const ItemTag = styled.span`
-	display: inline-block;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	margin-right: 5px;
-	margin-bottom: 10px;
-
-	a {
-		display: inline-block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
-
 const S = {
-	Wrapper,
-	Heart,
 	Container,
 	ItemImg,
 	ItemInfo,
 	ItemTitle,
 	ItemPrice,
-	ItemTag,
 };
