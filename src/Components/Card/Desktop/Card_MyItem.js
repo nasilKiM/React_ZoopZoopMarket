@@ -33,28 +33,18 @@ const MyItemCard = ({ index, products }) => {
 export default MyItemCard;
 
 const Container = styled.div`
-	/* width: 100%;
-	max-width: 250px;
-	max-height: 400px;
-	cursor: pointer;
-	margin-right: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border: 1px solid lightgray; */
 	width: 100%;
 	cursor: pointer;
-	border: 1px solid lightgray;
 	position: relative;
+	border-radius: 10px;
+	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	:hover {
+		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
+		transition: all 0.3s ease 0s;
+	}
 `;
 
 const ItemImg = styled.img`
-	/* position: relative;
-	width: 200px;
-	max-width: 250px;
-	width: 100%;
-	height: 250px;
-	object-fit: cover;
-	padding-bottom: 15px; */
 	position: relative;
 	background: ${({ img }) => `url(${img})`} no-repeat center;
 	width: 100%;

@@ -35,8 +35,13 @@ export default InterestCard;
 const Container = styled.div`
 	width: 100%;
 	cursor: pointer;
-	border: 1px solid lightgray;
 	position: relative;
+	border-radius: 10px;
+	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	:hover {
+		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
+		transition: all 0.3s ease 0s;
+	}
 `;
 
 const Heart = styled.div`
