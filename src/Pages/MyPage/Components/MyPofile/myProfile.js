@@ -5,6 +5,7 @@ import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
+import { flexAllCenter } from 'Styles/common';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -119,10 +120,9 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 180px;
+	height: 170px;
 	border-top: solid 1px #e9e9e9;
-	/* border-bottom: solid 1px #e9e9e9; */
-	padding: 30px 0;
+	${flexAllCenter}
 `;
 
 const Info = styled.div`
