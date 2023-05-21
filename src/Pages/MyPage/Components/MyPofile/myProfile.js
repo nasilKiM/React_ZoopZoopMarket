@@ -51,6 +51,7 @@ const MyProfile = () => {
 		photoInput.current.click();
 	};
 
+	//
 	// 이미지 미리보기 업로드
 	// const onClickFile = e => {
 	// 	const file = e.target.files[0];
@@ -73,45 +74,46 @@ const MyProfile = () => {
 
 	return (
 		<S.Wrapper>
-			{userInfo && userProfile && (
-				<S.Info>
-					<S.ImgWrap>
-						{userInfo && <S.Img src={userInfo.data.profile_url} />}
-						{/* <Profile userProfileUrl={User.profileUrl} /> */}
-						<S.ProfileImg>
-							<FontAwesomeIcon
-								icon={faCamera}
-								style={{ color: '#ffffff', fontSize: '15px' }}
-								onClick={handleClick}
-							/>
-							<input
-								type="file"
-								accept="image/jpg, image/jpeg, image/png"
-								multiple
-								ref={photoInput}
-								style={{ display: 'none' }}
-								onChange={e => profileImgEdit(e)}
-							/>
-						</S.ProfileImg>
-					</S.ImgWrap>
-					<S.Detail>
-						<S.List>
-							<S.InfoTitle>닉네임</S.InfoTitle>
-							<S.InfoContent>{User.nickName}</S.InfoContent>
-						</S.List>
-						<S.List>
-							<S.InfoTitle>매너온도</S.InfoTitle>
-							<S.InfoContent>
-								<MannerMeter ondo={ondo} />
-							</S.InfoContent>
-						</S.List>
-						<S.List>
-							<S.InfoTitle>활동지역</S.InfoTitle>
-							<S.InfoContent>#{region}</S.InfoContent>
-						</S.List>
-					</S.Detail>
-				</S.Info>
-			)}
+			<S.Info>
+				<S.ImgWrap>
+					{userInfo && (
+						<S.Img
+							src={
+								userInfo.data.profile_url
+									? userInfo.data.profile_url
+									: '/Assets/Images/기본 프로필.png'
+							}
+						/>
+					)}
+					<S.ProfileImg>
+						<FontAwesomeIcon
+							icon={faCamera}
+							style={{ color: '#ffffff', fontSize: '25px' }}
+							onClick={handleClick}
+						/>
+						<input
+							type="file"
+							accept="image/jpg, image/jpeg, image/png"
+							multiple
+							ref={photoInput}
+							style={{ display: 'none' }}
+							onChange={e => profileImgEdit(e)}
+						/>
+					</S.ProfileImg>
+				</S.ImgWrap>
+
+				<S.Detail>
+					<div>
+						반가워요<S.Nickname>고라니</S.Nickname>님!
+					</div>
+					<S.Icon>
+						현재 매너온도는<S.Temp>36도</S.Temp>입니다 :)
+					</S.Icon>
+					<div>
+						활동지역<S.Address>#경기도 화성시 반송동</S.Address>
+					</div>
+				</S.Detail>
+			</S.Info>		
 		</S.Wrapper>
 	);
 };
