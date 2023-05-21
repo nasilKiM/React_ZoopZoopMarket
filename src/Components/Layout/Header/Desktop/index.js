@@ -59,11 +59,6 @@ const WebHeader = () => {
 									<SearchBar props={props} />
 								</Modal>
 							)}
-							{/* <SearchSideBar
-								yPosition={yPosition}
-								setYposition={setYposition}
-								setIsOpen={setIsOpen}
-							/> */}
 						</Link>
 					) : (
 						<SearchBar props={props} />
