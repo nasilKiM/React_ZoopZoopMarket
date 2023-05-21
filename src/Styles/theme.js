@@ -1,14 +1,29 @@
 const color = {
-	primary: '#FF3647',
-	subBeige: '#E0D4C6',
-	subLightGreen: '#9EC284',
-	subBeigeGreen: '#BECAA2',
+	primary: {
+		100: '#FFD1D1',
+		200: '#FF9494',
+		300: '#F87474', // focus 색깔
+		400: '#FF3647', // 대표 색깔
+	},
+	subColor: '#FFECEC',
+	hover: '#db2e3d',
+	fontColor: {
+		100: '#FFFFFF',
+		200: '#646F7C',
+		300: '#181D1F', // basic Text
+	},
+	error: '#FF0000',
+	success: '#028202',
 	white: '#FFFFFF',
 	black: '#000000',
-	gray: '#D9D9D9',
+	gray: {
+		100: '#E9E9E9',
+		200: '#D9D9D9', // basic gray
+		300: '#656565',
+		400: '#333',
+	},
 };
 
-// 폰트 크기
 const fontSize = {
 	micro: '6px',
 	es: '10px',
@@ -21,7 +36,6 @@ const fontSize = {
 	xl: '32px',
 };
 
-// 폰트 굵기
 const fontWeight = {
 	light: '300',
 	regular: '400',
@@ -29,8 +43,22 @@ const fontWeight = {
 	bolder: '900',
 };
 
+// media query
+const deviceWidth = {
+	mobile: 414,
+	tablet: 768,
+	laptop: 1440,
+};
+
+const device = {
+	mobile: `screen and (max-width: ${deviceWidth.mobile}px)`,
+	tablet: `screen and (max-width: ${deviceWidth.tablet}px)`,
+	laptop: `screen and (max-width: ${deviceWidth.laptop}px)`,
+};
+
 export const theme = {
 	color,
 	fontSize,
 	fontWeight,
+	device,
 };

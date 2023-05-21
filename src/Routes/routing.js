@@ -15,9 +15,12 @@ import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
-import MyUserEdit from 'Pages/MyPage/MyUserEdit/Desktop/myUserEdit';
 import YourProfile from 'Pages/YourProfile/Desktop';
+import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
 import PrivateRoute from './private';
+import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
+import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
+import MyReview from 'Pages/MyPage/MyReview/MyReview';
 import ChattingPage from 'Pages/Chat';
 
 const router = createBrowserRouter([
@@ -71,24 +74,34 @@ const router = createBrowserRouter([
 				element: <MarketPricePage />,
 			},
 			{
-				path: 'mypage',
+				path: '/mypage',
 				element: <MyPage />,
-			},
-			{
-				path: 'mypage/account_book',
-				element: <AccountBookPage />,
-			},
-			{
-				path: 'mypage/interest',
-				element: <MyInterestPage />,
-			},
-			{
-				path: 'mypage/item',
-				element: <MyItemPage />,
-			},
-			{
-				path: 'mypage/user_edit',
-				element: <MyUserEdit />,
+				children: [
+					{
+						path: '/mypage/item',
+						element: <MyItemPage />,
+					},
+					{
+						path: '/mypage/account_book',
+						element: <AccountBookPage />,
+					},
+					{
+						path: '/mypage/interest',
+						element: <MyInterestPage />,
+					},
+					{
+						path: '/mypage/user_edit',
+						element: <MyUserEdit />,
+					},
+					{
+						path: '/mypage/user_password_edit',
+						element: <MyPasswordEdit />,
+					},
+					{
+						path: '/mypage/review',
+						element: <MyReview />,
+					},
+				],
 			},
 			{
 				path: 'profile',
@@ -105,6 +118,10 @@ const router = createBrowserRouter([
 			{
 				path: 'search_list/:word',
 				element: <SearchListPage />,
+			},
+			{
+				path: 'search_list/:word/:category',
+				element: <WholeListPage />,
 			},
 			{
 				path: 'review',

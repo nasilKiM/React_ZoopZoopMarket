@@ -1,68 +1,70 @@
 import styled from 'styled-components';
-import MessageDetail from '../Message/Message';
 import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import { socketConnect } from '@Socket/socket';
 
-const ChatDetail = ({ chatroomIdx, item }) => {
+const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 	const [chat, setChat] = useState();
-	const message = useRef();
+	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
 	const so = socketConnect();
-
+	console.log(chat);
 	useEffect(() => {
 		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
 				console.log(res.data);
+				console.log(111111111111);
 				setChat(res.data);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 		loadChatLog();
-
-		return () => {
-			so.emit('leave', chatroomIdx);
-		};
-	}, [chatroomIdx]);
-
-	useEffect(() => {
-		so.on('receiveMessage', async data => {
-			const res = await ChatApis.saveMsg(data);
-			so.on('newMessage', data => {
-				console.log(data);
-			});
-		});
 	}, []);
 
-	const onClickSendMsgBtn = async () => {
+	// useEffect(() => {
+	// 	so.on('receiveMessage', async data => {
+	// 		const res = await ChatApis.saveMsg(data);
+	// 		so.on('newMessage', data => {
+	// 			console.log(data);
+	// 		});
+	// 	});
+	// }, []);
+	console.log(item);
+	const onClickSendMsgBtn = async e => {
+		e.preventDefault();
+		so.emit('join', { room_idx: chatroomIdx });
 		const message = {
 			title: item.title,
 			createdAt: item.createdAt,
 			prod_idx: item.idx,
 			room_idx: chatroomIdx,
 			nickName: item.User.nick_name,
-			message: message.current.value,
-			// isSeller
+			message: inputMsg.current.value,
+			isSeller,
 		};
-		so.emit('sendMessage', message, () => {
-			setSend(message.current.value);
+		// console.log(333333333333, message);
+		so.emit('sendMessage', { data: message });
+		so.on('receiveMessage', data => {
+			console.log('수신', data);
 		});
-		const res = await ChatApis.saveMsg(message.current.value);
+		console.log('클릭');
+		// const res = await ChatApis.saveMsg(data.message);
+		// console.log(res);
 
-		// 채팅 로그를 불렀으면 읽음처리를 해줘야함
-		const readMsg = async () => {
-			try {
-				const res = await ChatApis.readChatMsg(chatroomIdx);
-			} catch (err) {
-				console.log(err);
-			}
-			// 읽음 처리는 해주는데, 읽음 처리를 해주면 채팅 목록 조회에서
-			// isRead처리를 어떻게 해주는가??
-		};
+		// // 채팅 로그를 불렀으면 읽음처리를 해줘야함
+		// const readMsg = async () => {
+		// 	try {
+		// 		const res = await ChatApis.readChatMsg(chatroomIdx);
+		// 	} catch (err) {
+		// 		console.log(err);
+		// 	}
+		// 	// 읽음 처리는 해주는데, 읽음 처리를 해주면 채팅 목록 조회에서
+		// 	// isRead처리를 어떻게 해주는가??
+		// };
 	};
 
 	return (
@@ -84,11 +86,11 @@ const ChatDetail = ({ chatroomIdx, item }) => {
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
-				<MessageDetail chat={chat} />
+				{/* <MessageDetail chat={chat} /> */}
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>
-					<textarea ref={message} autoFocus={true} />
+					<textarea ref={inputMsg} autoFocus={true} />
 					<div>
 						<S.SubmitButton type="submit" onClick={onClickSendMsgBtn}>
 							전송
@@ -193,7 +195,7 @@ const SubmitButton = styled.button`
 	width: 100%;
 	height: 100%;
 	border: none;
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.primary[400]};
 	color: white;
 `;
 

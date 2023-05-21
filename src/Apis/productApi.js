@@ -30,5 +30,44 @@ const ProductApi = {
 			prod_idx,
 		});
 	},
+
+	getRecent(prod_idx) {
+		return Axios.get(PATH + '/viewed-list', {
+			prod_idx,
+		});
+	},
+
+	addRecent(prod_idx) {
+		return Axios.post(PATH + '/viewed-list', {
+			prod_idx,
+		});
+	},
+
+	searchItems(page, searchWord, selected) {
+		return Axios.get(PATH + '/search', {
+			params: {
+				category: selected,
+				keyword: searchWord,
+				page: page,
+			},
+		});
+	},
+
+	soldOut(prod_idx, socket) {
+		return Axios.post(PATH + '/sale-complete', {
+			prod_idx,
+			socket,
+		});
+	},
+
+	searchMarket(keyword, start, end) {
+		return Axios.get(PATH + '/quote', {
+			params: {
+				keyword: keyword,
+				start: start,
+				end: end,
+			},
+		});
+	},
 };
 export default ProductApi;

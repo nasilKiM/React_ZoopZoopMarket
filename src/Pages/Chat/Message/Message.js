@@ -3,10 +3,11 @@ import YourMessage from './Components/YourChat';
 import MyMessage from './Components/MyChat';
 
 const MessageDetail = ({ chat }) => {
+	console.log(chat);
 	return (
 		<div>
 			<S.DateDivideContainer>
-				<S.DateDivide>{chat.createdAt}</S.DateDivide>
+				<S.DateDivide>{chat?.createdAt}</S.DateDivide>
 			</S.DateDivideContainer>
 
 			{chatDetail.messages.map(msg => {

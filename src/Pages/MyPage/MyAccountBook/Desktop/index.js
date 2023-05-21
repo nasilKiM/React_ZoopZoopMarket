@@ -1,44 +1,37 @@
-import { useState } from "react";
-import styled from "styled-components";
-import AccountBookSelector from "./Components/selector";
-import AccountBookDetailInfo from "./Components/detailInfo";
+import { useState } from 'react';
+import styled from 'styled-components';
+import AccountBookSelector from './Components/selector';
+import AccountBookDetailInfo from './Components/detailInfo';
 
 const AccountBookPage = () => {
+	const [date, setDate] = useState(new Date());
+	console.log(date);
+	const [category, setCategory] = useState();
+	const [year, setYear] = useState(date.getFullYear());
+	const [month, setMonth] = useState(date.getMonth() + 1);
 
-	// /api/user/my-page/account-book?category=seller&start=2023-04-01&end=2023-05-02&page=1
-	const [category, setCategory] = useState('');	// 카테고리(total / seller / buyer)
-	const [start, setStart] = useState('');			// 시작 날짜
-	const [end, setEnd] = useState('');				// 끝 날짜
-	
-	// category: enum("seller", "buyer") 스웨거 참고
-	// category: {
-	// 	0: "seller",
-	// 	1: "buyer",
-	// },
+	const specificMonth = new Date(year, month, 0);
+	const lastDay = specificMonth.getDate();
 
-	const accountInfo = {
-		page: 1,
-		category: "seller",
-		start: '2023-04-01',
-		end: '2023-05-02',
-	}
-	
-	const onGetAccountInfoBtn = async (e) => {
-		e.preventDefault();
-		try{
-			const res = await MyInfoApi.getAccountInfo(accountInfo);
-			console.log(res);
-		} catch(err) {
-			console.log(err);
-		}
-	}
+	const monthFirstDate = `${year}-${month}-1`; // params_start
+	const monthLastDate = `${year}-${month}-${lastDay}`; // params_end
+	console.log(monthFirstDate, monthLastDate);
 
-	return(
-	  <S.Wrapper>
-		<AccountBookSelector getInfo={onGetAccountInfoBtn}/>
-		<AccountBookDetailInfo/>
-	  </S.Wrapper>
-	) 
+	return (
+		<S.Wrapper>
+			<AccountBookSelector
+				date={date}
+				setDate={setDate}
+				category={category}
+				setCategory={setCategory}
+				year={year}
+				setYear={setYear}
+				month={month}
+				setMonth={setMonth}
+			/>
+			<AccountBookDetailInfo year={year} month={month} />
+		</S.Wrapper>
+	);
 };
 
 export default AccountBookPage;
@@ -52,4 +45,4 @@ const Wrapper = styled.div`
 
 const S = {
 	Wrapper,
-}
+};

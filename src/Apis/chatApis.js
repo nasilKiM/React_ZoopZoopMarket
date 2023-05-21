@@ -29,7 +29,7 @@ const ChatApis = {
 				page,
 			},
 		});
-	},
+	}, 
 	loadSpecificChatRoom(prod_idx) {
 		return Axios.get(PATH + '/product-chat-list', {
 			params: {

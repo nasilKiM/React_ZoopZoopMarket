@@ -1,24 +1,41 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
-import ItemCard from 'Components/Card/Desktop/Card';
 import styled from 'styled-components';
+// import MyPageApi from 'Apis/myPageApi';
+// import { useState } from 'react';
+// import InterestCard from 'Components/Card/Desktop/Card_Interest';
+import ItemCardMock from 'Components/Card/Desktop/Card copy';
+import { MockAxios } from 'Apis/@core';
+import { useQuery } from 'react-query';
 
 const MyInterestPage = () => {
-	const res = [1, 2, 3, 4, 5, 6, 7, 8]; // 임시 데이터로 response 실데이터로 변경해야 함
+	// const [likeList, setLikeList] = useState();
 
-	// npm start하면 heartbtn 안보이는 이슈 발생
+	// const myInterest = async () => {
+	// 	try {
+	// 		const res = await MyPageApi.likeProductList({ page: 1 });
+	// 		setLikeList(res.data.LikeList);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+
+	// useEffect(() => {
+	// 	myInterest();
+	// }, []);
+
+	const { data } = useQuery(['product'], () => {
+		return MockAxios.get('/product').then(res => {
+			return res.data;
+		});
+	});
 
 	return (
 		<S.Container>
-			{res.map(res => {
-				return (
+			{data &&
+				data.map(product => (
 					<S.Card>
-						<ItemCard />
-						<S.HeartZone>
-							<HeartBtn />
-						</S.HeartZone>
+						<ItemCardMock products={product} />
 					</S.Card>
-				);
-			})}
+				))}
 		</S.Container>
 	);
 };

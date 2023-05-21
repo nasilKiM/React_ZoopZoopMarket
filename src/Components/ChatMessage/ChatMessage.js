@@ -4,6 +4,7 @@ const ChatMessage = ({ chat, setChatroomIdx }) => {
 	const onClickChat = () => {
 		setChatroomIdx(chat.idx);
 	};
+	console.log(chat);
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>
@@ -11,7 +12,7 @@ const ChatMessage = ({ chat, setChatroomIdx }) => {
 				<div>
 					<S.ChatContentUpper isNewMessage={chat}>
 						<S.NickName>{chat.User.nick_name}</S.NickName>
-						<span>{chat.User.lastMessageCreatedAt}</span>
+						<span>{chat.lastMessageCreatedAt}</span>
 					</S.ChatContentUpper>
 					<S.ChatContentdown>
 						<span>{chat.User.lastMessage}</span>

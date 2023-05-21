@@ -7,7 +7,7 @@ const ChatList = ({
 	setIsChatEntrance,
 	setChatroomIdx,
 }) => {
-	// console.log('chatList', chatList);
+	console.log('chatList', chatroomList);
 	return (
 		<>
 			<S.LeftUpperBar>
@@ -15,7 +15,7 @@ const ChatList = ({
 			</S.LeftUpperBar>
 			<S.ListContainer>
 				{chatroomList &&
-					chatroomList.chats.map(chat => {
+					chatroomList.map(chat => {
 						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
 					})}
 			</S.ListContainer>

@@ -12,9 +12,8 @@ import MobileMyInterestPage from 'Pages/MyPage/MyInterest/Mobile/mobileMyInteres
 import ErrorPage from 'Error';
 import MobileAccountBookPage from 'Pages/MyPage/MyAccountBook/Mobile';
 import ReviewPage from 'Pages/Review';
-import MobileLoginPage from 'Pages/Form/Login/Mobile/MobileLoginPage';
+// import MobileLoginPage from 'Pages/Form/Login/Mobile/MobileLoginPage';
 import MobileMain from 'Pages/Main/Mobile';
-import MobileMyUserEdit from 'Pages/MyPage/MyUserEdit/Mobile';
 import MobileRegisterPage from 'Pages/Register/Mobile';
 import MobileSignUpPage from 'Pages/Form/SignUp/Mobile/MobileSignUpPage';
 
@@ -23,10 +22,10 @@ const m_router = createBrowserRouter([
 		path: '',
 		element: <MobileLandingPage />,
 	},
-	{
-		path: 'form/login',
-		element: <MobileLoginPage />,
-	},
+	// {
+	// 	path: 'form/login',
+	// 	element: <MobileLoginPage />,
+	// },
 	{
 		path: 'form/signup',
 		element: <MobileSignUpPage />,
@@ -81,7 +80,7 @@ const m_router = createBrowserRouter([
 			},
 			{
 				path: 'mypage/user_edit',
-				element: <MobileMyUserEdit />, //수정 필요
+				// element: <MobileMyUserEdit />, //수정 필요
 			},
 			{
 				path: 'register',

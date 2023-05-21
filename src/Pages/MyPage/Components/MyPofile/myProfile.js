@@ -1,68 +1,171 @@
+// import MannerMeter from 'Components/Icon/Icon';	// 추후 주석 취소 예정
+// import Profile from 'Components/Profile/Desktop/profile';	// 추후 주석 취소 예정
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
-import MannerMeter from 'Components/Icon/Icon';
-import Profile from 'Components/Profile/Desktop/profile';
-import TokenService from 'Repository/TokenService';
-
 import { flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const MyProfile = ({ userInfo }) => {
-	const navigate = useNavigate();
-	const [myProfile, setMyProfile] = useState();
-	useEffect(() => {
-		const getProfile = async () => {
-			const res = await UserApi.myPage();
-			setMyProfile(res.data);
-			console.log(res.data);
-		};
-		getProfile();
-	}, []);
+const MyProfile = () => {
+	const [userInfo, setUserInfo] = useState('');
+	const [userProfile, setUserProfile] = useState('');
+	const photoInput = useRef();
 
-	const onClickLogOutBtn = async () => {
+	const getUserInfo = async () => {
 		try {
-			const res = await UserApi.logout();
-			if (res.status === 200) {
-				TokenService.removeToken();
-				alert('로그아웃 되었습니다');
-				navigate('/');
-			}
+			const res = await UserApi.userInfo(); // userInfo => email, nick_name, phone, profile_url, region, x, y
+			setUserInfo(res);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
+	const getUserProfile = async () => {
+		try {
+			const res = await MyPageApi.myMainPage(); // userProfile => User(nickName, profileUrl), chatCount, likeCount, ondo, productsCount
+			setUserProfile(res);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+	// 프로필 사진 수정 틀
+	const profileImgEdit = async () => {
+		const formData = new FormData();
+		formData.append('profile_url');
+
+		try {
+			const res = await UserApi.userProfileEdit(formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleClick = () => {
+		photoInput.current.click();
+	};
+
+	useEffect(() => {
+		profileImgEdit();
+	}, []);
+
+	useEffect(() => {
+		getUserInfo();
+		getUserProfile();
+	}, []);
+
+	const { region } = userInfo && userInfo.data;
+	const { User, ondo } = userProfile && userProfile.data;
+
 	return (
 		<S.Wrapper>
-			<div>
-				<div>
-					<Profile />
-				</div>
-				<div>{myProfile?.User.nickName}</div>
-				<S.Icon>
-					<MannerMeter ondo={myProfile?.ondo} />
-				</S.Icon>
-				<div>내 지역</div>
-			</div>
-			<div>
-				<div onClick={onClickLogOutBtn}>로그아웃</div>
-			</div>
+			<S.Info>
+				<S.ImgWrap>
+					<S.Img src="/Assets/Images/기본 프로필.png" />
+					<S.ProfileImg>
+						<FontAwesomeIcon
+							icon={faCamera}
+							style={{ color: '#ffffff', fontSize: '15px' }}
+							onClick={handleClick}
+						/>
+						<input
+							type="file"
+							accept="image/jpg, image/jpeg, image/png"
+							multiple
+							ref={photoInput}
+							style={{ display: 'none' }}
+						/>
+					</S.ProfileImg>
+				</S.ImgWrap>
+
+				<S.Detail>
+					<div>
+						반가워요<S.Nickname>고라니</S.Nickname>님!
+					</div>
+					<S.Icon>
+						현재 매너온도는<S.Temp>36도</S.Temp>입니다 :)
+					</S.Icon>
+					<div>
+						활동지역<S.Address>#경기도 화성시 반송동</S.Address>
+					</div>
+				</S.Detail>
+			</S.Info>
 		</S.Wrapper>
+		// <S.Wrapper>
+		// 	{userInfo && userProfile &&
+		// 		<div>
+		// 			<div>
+		// 			<Profile userProfileUrl={User.profileUrl}/>
+		// 			</div>
+		// 			<div>반가워요, <S.nickName>{User.nickName}</S.nickName>님 :)</div>
+		// 			<S.Icon>
+		// 					<MannerMeter ondo={ondo} />
+		// 			</S.Icon>
+		// 			<div>{region}</div>
+		// 		</div>}
+		// </S.Wrapper>
 	);
 };
-
 export default MyProfile;
 
 const Wrapper = styled.div`
-	${flexAllCenter}
-	justify-content: space-between;
-	& > div:first-child {
-		${flexAllCenter}
-		&>div>* {
-			margin: 0 20px;
-		}
+	width: 100%;
+	height: 180px;
+	border-top: solid 1px #e9e9e9;
+	/* border-bottom: solid 1px #e9e9e9; */
+	padding: 30px 0;
+`;
+
+const Info = styled.div`
+	display: flex;
+	align-items: center;
+`;
+
+const Img = styled.img`
+	width: 100px;
+	object-fit: cover;
+	object-position: center;
+`;
+
+const ImgWrap = styled.div`
+	position: relative;
+`;
+
+const ProfileImg = styled.div`
+	background-color: ${({ theme }) => theme.color.primary[400]};
+	padding: 13px;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	cursor: pointer;
+`;
+
+const Detail = styled.div`
+	margin-left: 50px;
+	line-height: 1.5rem;
+	& :nth-child(3) {
+		margin-top: 10px;
 	}
+`;
+
+const Nickname = styled.span`
+	color: ${({ theme }) => theme.color.primary[300]};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	margin: 0 10px;
+`;
+
+const Address = styled.span`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
+	margin: 0 10px;
 `;
 
 const Icon = styled.div`
@@ -70,7 +173,22 @@ const Icon = styled.div`
 	justify-content: start;
 `;
 
+const Temp = styled.span`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
+	margin: 0 10px;
+`;
+
 const S = {
 	Wrapper,
+	Img,
+	ImgWrap,
+	Info,
+	ProfileImg,
 	Icon,
+	Detail,
+	Address,
+	Nickname,
+	Temp,
 };

@@ -1,10 +1,10 @@
+import ProductApi from 'Apis/productApi';
 import { itemPriceState } from 'Atoms/marketPrice.atom';
 import ItemCard from 'Components/Card/Desktop/Card';
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
 import { theme } from 'Styles/theme';
-import axios from 'axios';
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {
 	LineChart,
@@ -16,10 +16,39 @@ import {
 	Legend,
 } from 'recharts';
 import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { useEffect } from 'react';
 
 const DesktopMarketPrice = () => {
+	const props = 'market_price';
+	const { word } = useParams();
+	console.log(word);
 	const [priceList, setItemList] = useRecoilState(itemPriceState);
+	const start = '2023-04-30';
+	const end = '2023-05-21';
+	// let data = [];
+
+	const search = async (keyword, start, end) => {
+		try {
+			const response = await ProductApi.searchMarket(keyword, start, end);
+			console.log(response);
+			const data = response.data.prod_idx.cumulativeAvgPrice.map(
+				({ date, avgPrice }) => ({
+					day: date,
+					price: avgPrice,
+				}),
+			);
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	search(word, start, end).then(result => {
+		data = result;
+		console.log(data);
+	});
+
+	//console.log('시세 검색 단어: ', word);
 
 	useEffect(() => {
 		const fetchItems = async () => {
@@ -45,7 +74,7 @@ const DesktopMarketPrice = () => {
 					const monthItems = itemsByMonth[month];
 					const total = monthItems.reduce((sum, item) => sum + item.price, 0);
 					const average = total / monthItems.length;
-					console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
+					//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
 				}
 			} catch (error) {
 				console.error(error);
@@ -83,7 +112,7 @@ const DesktopMarketPrice = () => {
 					원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
 				</S.SubTitle>
 			</S.Title>
-			<SearchBar></SearchBar>
+			{/* <SearchBar props={props} /> */}
 			<S.ChartContainer>
 				<S.Average>평균 시세는 {average}원 입니다. </S.Average>
 				<LineChart width={700} height={500} data={data}>
@@ -117,7 +146,7 @@ export default DesktopMarketPrice;
 const Wrapper = styled.div`
 	max-width: 1000px;
 	min-width: 700px;
-	width: 60%;
+	width: 80%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -165,18 +194,18 @@ const S = {
 	ItemList,
 };
 
-/* 라이브러리 사용법 npm i recharts
-<LineChart> : Recharts에서 제공하는 선 그래프를 그리기 위한 컨테이너입니다. width와 height props를 통해 그래프의 크기를 설정할 수 있습니다.
-<CartesianGrid> : 그래프 내에 격자무늬를 생성하기 위한 컴포넌트입니다. strokeDasharray props를 통해 점선으로 설정되어 있습니다.
-<XAxis> : x축을 설정하는 컴포넌트입니다. dataKey props를 통해 x축에 대한 데이터를 설정합니다.
- dataKey에 "day"를 전달하게 되는데, 이를 문자열 리터럴로 감싸는 이유는 dataKey prop이 문자열 타입이기 때문입니다.
- 
-<YAxis> : y축을 설정하는 컴포넌트입니다.
-<Tooltip> : 마우스를 이용해 그래프의 데이터를 보여주는 툴팁 컴포넌트입니다.
+// /* 라이브러리 사용법 npm i recharts
+// <LineChart> : Recharts에서 제공하는 선 그래프를 그리기 위한 컨테이너입니다. width와 height props를 통해 그래프의 크기를 설정할 수 있습니다.
+// <CartesianGrid> : 그래프 내에 격자무늬를 생성하기 위한 컴포넌트입니다. strokeDasharray props를 통해 점선으로 설정되어 있습니다.
+// <XAxis> : x축을 설정하는 컴포넌트입니다. dataKey props를 통해 x축에 대한 데이터를 설정합니다.
+//  dataKey에 "day"를 전달하게 되는데, 이를 문자열 리터럴로 감싸는 이유는 dataKey prop이 문자열 타입이기 때문입니다.
 
-<Legend> : 그래프에 대한 범례를 표시하기 위한 컴포넌트입니다.
+// <YAxis> : y축을 설정하는 컴포넌트입니다.
+// <Tooltip> : 마우스를 이용해 그래프의 데이터를 보여주는 툴팁 컴포넌트입니다.
 
-<Line> : 선 그래프를 그리기 위한 컴포넌트입니다. type props를 통해 그래프의 모양을 설정할 수 있으며, 
-dataKey props를 통해 그래프의 데이터를 설정합니다. stroke props를 통해 선의 색상을 설정할 수 있습니다. 
-activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원형으로 표시됩니다.
-*/
+// <Legend> : 그래프에 대한 범례를 표시하기 위한 컴포넌트입니다.
+
+// <Line> : 선 그래프를 그리기 위한 컴포넌트입니다. type props를 통해 그래프의 모양을 설정할 수 있으며,
+// dataKey props를 통해 그래프의 데이터를 설정합니다. stroke props를 통해 선의 색상을 설정할 수 있습니다.
+// activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원형으로 표시됩니다.
+// */

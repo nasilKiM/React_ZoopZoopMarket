@@ -8,14 +8,16 @@ import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item }) => {
+const DetailContent = ({ state, item, itemAllInfo }) => {
 	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
 	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-	console.log(item);
+	console.log(itemAllInfo);
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
 
 	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
+
+	const so = socketConnect();
 
 	const onClickChatStartBtn = async () => {
 		try {
@@ -28,23 +30,51 @@ const DetailContent = ({ state, item }) => {
 				title: item.title,
 				createdAt: item.createdAt,
 				prod_idx: item.idx,
-				room_idx: res.data.idx,
+				room_idx: setChatRoomRes.data.idx,
 				nickName: item.User.nick_name,
 				message,
-				socketId: item.User.socket,
+				isSeller: itemAllInfo.isSeller,
 			};
 			so.emit('sendMessage', data);
-			navigate('/chat');
-			const saveMsgRes = await ChatApis.saveMsg(
-				setChatRoomRes.data.idx,
-				message,
-			);
+			so.on('receiveMessage', data => {
+				console.log(data);
+			});
+			// const saveMsgRes = await ChatApis.saveMsg(
+			// 	setChatRoomRes.data.idx,
+			// 	message,
+			// );
+			// navigate('/chat');
 			// so.on('receiveMessage', data => {
 			// 	console.log(data);
 			// });
 		} catch (err) {
+			navigate('/chat');
+			console.log('11111111111111111111');
+			so.emit('sendMessage', '채팅방생성');
+			so.on('receiveMessage', data => {
+				console.log(data);
+			});
 			console.log(err);
-			alert('이미 채팅방을 생성하였습니다');
+			// console.log(!itemAllInfo.chat[0].lastMessage);
+			// alert('이미 채팅방을 생성하였습니다');
+			// if (!itemAllInfo.chat[0].lastMessage) {
+			// 	const message = '채팅방을 시작합니다';
+			// 	const data = {
+			// 		title: item.title,
+			// 		createdAt: item.createdAt,
+			// 		prod_idx: item.idx,
+			// 		room_idx: res.data.idx,
+			// 		nickName: item.User.nick_name,
+			// 		message,
+			// 		isSeller: itemAllInfo.isSeller,
+			// 	};
+			// 	console.log('에러');
+			// 	so.emit('sendMessage', data);
+			// 	so.on('receiveMessage', data => {
+			// 		console.log(data);
+			// 	});
+			// 	alert('다시 생성합니다');
+			// }
 		}
 	};
 
@@ -58,7 +88,7 @@ const DetailContent = ({ state, item }) => {
 								{item.ProductsTags.map(item => (
 									<span>#{item.Tag.tag}</span>
 								))}
-								| {date}
+								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
 							<div>{item.description}</div>
@@ -82,7 +112,7 @@ const DetailContent = ({ state, item }) => {
 								{item.ProductsTags.map(item => (
 									<span>#{item.Tag.tag}</span>
 								))}
-								| {date}
+								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
 							<div>{item.description}</div>
@@ -94,29 +124,39 @@ const DetailContent = ({ state, item }) => {
 
 export default DetailContent;
 const BuyerWrapper = styled.div`
-	margin: 20px 20px;
+	margin: 25px 10px;
 	& > div {
 		margin: 20px 0;
 	}
 	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
-		font-weight: ${({ theme }) => theme.fontWeight.regular};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	//태그, 날짜
 	& > div:nth-of-type(2) {
 		display: flex;
+		align-items: center;
 		gap: 5px;
+		span {
+			padding: 5px;
+			border-radius: 5px;
+			background-color: ${({ theme }) => theme.color.gray[100]};
+		}
+		div:nth-of-type(1) {
+			padding: 0px 5px;
+		}
 	}
 	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 	//본문내용
 	& > div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
+		padding-top: 20px;
 	}
 	// 카테고리
 	& > div:nth-of-type(5) {
@@ -124,9 +164,16 @@ const BuyerWrapper = styled.div`
 		justify-content: space-between;
 		margin: 40px 0;
 		& > div:first-child {
-			background-color: #b9b9b9;
-			padding: 15px 30px;
+			background-color: ${({ theme }) => theme.color.gray[200]};
+			font-weight: ${({ theme }) => theme.fontWeight.bold};
+			color: ${({ theme }) => theme.color.black};
+			cursor: pointer;
+			padding: 15px 35px;
 			border-radius: 10px;
+			:hover {
+				background-color: ${({ theme }) => theme.color.primary[400]};
+				color: ${({ theme }) => theme.color.white};
+			}
 		}
 		//heart
 		& > div:last-child {
@@ -137,15 +184,17 @@ const BuyerWrapper = styled.div`
 `;
 
 const SellerWrapper = styled.div`
-	margin: 20px 20px;
+	margin: 20px 10px;
 	& > div {
 		margin: 20px 0;
 	}
+	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
-		font-weight: ${({ theme }) => theme.fontWeight.regular};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
+		//하트
 		& > div:last-child {
 			width: 40px;
 			height: 40px;

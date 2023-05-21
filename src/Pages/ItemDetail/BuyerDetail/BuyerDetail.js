@@ -7,11 +7,12 @@ import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
+	const itemAllInfo = product.data;
 	console.log(item);
 	return (
 		<S.Wrapper>
 			<DetailHead item={item} />
-			<DetailContent state={state} item={item} />
+			<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
 			<S.MapContent>
 				<div>거래장소</div>
 				<KaMap />
@@ -24,10 +25,9 @@ const BuyerDetailPage = ({ state, product }) => {
 export default BuyerDetailPage;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 70%;
 	min-width: 700px;
-	border: 1px solid;
+	max-width: 1200px;
 	margin: 0 auto;
 `;
 

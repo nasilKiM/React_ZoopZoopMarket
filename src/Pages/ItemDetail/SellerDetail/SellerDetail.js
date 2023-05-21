@@ -6,9 +6,11 @@ import { useState } from 'react';
 import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
+import ProductApi from 'Apis/productApi';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const item = product && product.data.searchProduct;
+	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
 
@@ -16,12 +18,24 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
+
+	const socket = 'sample용소켓입니다.';
+	const soldOut = async (index, socket) => {
+		try {
+			const response = await ProductApi.soldOut(index, socket);
+			if (response.status === 200) {
+				console.log('물품판매됨', response);
+			}
+		} catch (error) {
+			console.log('에러', error);
+		}
+	};
 	return (
 		<S.Wrapper>
 			<S.EditBar>
-				<div>판매완료 변경</div>
+				<div onClick={() => soldOut(item.idx, socket)}>판매완료 변경</div>
 				<ul>
-					<li onClick={() => navigate('/register')}>Edit</li>
+					<li onClick={() => navigate(`/register/${item.idx}`)}>Edit</li>
 					<li>Delete</li>
 				</ul>
 			</S.EditBar>
@@ -37,7 +51,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			{detailState === '상세정보' ? (
 				<DetailContent state={state} item={item} />
 			) : (
-				<ChattingPage idx={idx} item={item} />
+				<ChattingPage idx={idx} item={item} isSeller={isSeller} />
 			)}
 			<AnotherProduct />
 		</S.Wrapper>
@@ -47,22 +61,26 @@ const SellerDetailPage = ({ state, product, idx }) => {
 export default SellerDetailPage;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 70%;
 	min-width: 700px;
-	border: 1px solid;
+	max-width: 1200px;
+	/* border: 1px solid; */
 	margin: 0 auto;
 `;
 
 const EditBar = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	${flexAllCenter}
 	justify-content: space-between;
 	& > div {
-		padding: 10px;
+		padding: 15px 20px;
 		margin: 20px;
 		background-color: #d9d9d9;
 		border-radius: 10px;
+		cursor: pointer;
+		:hover {
+			background-color: ${({ theme }) => theme.color.primary[300]};
+		}
 	}
 	& > ul {
 		margin: 0 10px;
@@ -81,7 +99,7 @@ const DetailAndChatBar = styled.div`
 		border-top: 1px solid black;
 		border-bottom: 1px solid black;
 		padding: 20px;
-		font-size: ${({ theme }) => theme.fontSize.lg};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		letter-spacing: 5px;
 		width: 100%;

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 const DetailHead = ({ item }) => {
 	const navigate = useNavigate();
 
-	console.log(item);
+	//console.log(item);
 
 	return (
 		item && (
@@ -38,11 +38,13 @@ const DetailHead = ({ item }) => {
 export default DetailHead;
 
 const Wrapper = styled.div`
+	padding-top: 50px;
+	width: 100%;
 	& > * {
 		margin-bottom: 20px 0;
 	}
 	& > div:first-child {
-		border: 1px solid;
+		border: 1px solid ${({ theme }) => theme.color.gray[200]};
 		height: 400px;
 		${flexAllCenter}
 		background-color: #d9d9d9;
@@ -52,7 +54,7 @@ const Wrapper = styled.div`
 const ProductWrapper = styled.div`
 	${flexAllCenter}
 	justify-content: space-between;
-	margin: 20px 20px;
+	margin: 20px 0px;
 `;
 
 const UserProfile = styled.div`
@@ -65,7 +67,7 @@ const UserProfile = styled.div`
 			margin-bottom: 5px;
 		}
 		& > li {
-			margin: 5px 0;
+			margin: 10px 0;
 		}
 	}
 `;
@@ -73,15 +75,15 @@ const UserProfile = styled.div`
 const UserProfileDetail = styled.div`
 	text-align: right;
 	& > ul > * {
-		margin: 10px 0;
+		margin: 10px 10px;
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 `;
 
 const ProfileWrapper = styled.div`
 	border: 1px solid red;
-	width: ${({ size }) => (size === 'small' ? '50px' : '100px')};
-	height: ${({ size }) => (size === 'small' ? '50px' : '100px')};
+	width: ${({ size }) => (size === 'small' ? '50px' : '70px')};
+	height: ${({ size }) => (size === 'small' ? '50px' : '70px')};
 `;
 
 const S = {
