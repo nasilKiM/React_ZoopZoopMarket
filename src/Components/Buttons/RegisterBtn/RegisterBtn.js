@@ -28,8 +28,6 @@ const Wrap = styled.div`
 const Button = styled.button`
 	height: 100%;
 	width: 100%;
-	max-width: 60px;
-	border: none;
 	cursor: pointer;
 	display: inline-block;
 	background-color: transparent;

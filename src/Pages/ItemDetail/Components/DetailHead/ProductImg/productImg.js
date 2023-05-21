@@ -9,7 +9,12 @@ const ProductImg = ({ main, sub }) => {
 	return (
 		main && (
 			<>
-				<Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+				<Swiper
+					navigation={true}
+					modules={[Navigation]}
+					className="mySwiper"
+					loop={true}
+				>
 					<SwiperSlide>
 						<ImgSection
 							src={main}
@@ -36,6 +41,6 @@ const ImgSection = styled.img`
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	background: black;
+	background: gray;
 	margin: 0 auto;
 `;

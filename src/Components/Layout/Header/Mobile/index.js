@@ -6,14 +6,14 @@ import MobileSideBar from './Components/sidebar';
 
 const MobileHeader = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [xPosition, setXposition] = useState(-300);
+	const [xPosition, setXposition] = useState(300);
 
 	const onShowSidebar = () => {
 		if (xPosition < 0) {
 			setXposition(0);
 			setIsOpen(true);
 		} else {
-			setXposition(-300);
+			setXposition(300);
 			setIsOpen(false);
 		}
 	};
@@ -26,16 +26,16 @@ const MobileHeader = () => {
 				) : (
 					<FontAwesomeIcon
 						icon={faBars}
-						color="white"
+						color="gray"
 						cursor="pointer"
 						fontSize="30px"
 					/>
 				)}
 			</S.Button>
-			<S.Logo src="Assets/web_logo.png"></S.Logo>
+			<S.Logo src="/Assets/web_logo.png"></S.Logo>
 			<FontAwesomeIcon
 				icon={faMagnifyingGlass}
-				color="white"
+				color="gray"
 				cursor="pointer"
 				fontSize="30px"
 			/>
@@ -51,14 +51,16 @@ const MobileHeader = () => {
 export default MobileHeader;
 
 const Wrapper = styled.div`
-	width: 414px;
+	width: 100%;
 	height: 80px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border: 1px solid sandybrown;
-	background-color: ${({ theme }) => theme.color.primary};
-	padding: 0 40px;
+	background-color: ${({ theme }) => theme.color.white};
+	border-top: 5px solid ${({ theme }) => theme.color.primary[300]};
+	border-bottom: 5px solid ${({ theme }) => theme.color.primary[300]};
+	padding: 0 20px;
+	margin-bottom: 15px;
 	position: sticky;
 	z-index: 999;
 	top: 0;
@@ -73,7 +75,7 @@ const Button = styled.button`
 	all: unset;
 	font-size: ${({ theme }) => theme.fontSize.big};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.white};
+	color: ${({ theme }) => theme.color.gray[300]};
 	width: 30px;
 `;
 

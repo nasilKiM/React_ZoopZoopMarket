@@ -73,7 +73,6 @@ export default MannerMeter;
 
 const Wrapper = styled.div`
 	${flexAllCenter};
-	/* justify-content: end; */
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	font-size: ${({ theme }) => theme.fontSize.md};
 	& > div {
@@ -85,13 +84,13 @@ const Wrapper = styled.div`
 const MannerMeterExplain = styled.div`
 	background-color: #d9d9d9;
 	width: 320px;
-	position: absolute;			
+	position: absolute;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	top: 40px;
 	left: 50px;
 	text-align: center;
 	line-height: 20px;
-	border-radius: 10px;	
+	border-radius: 10px;
 `;
 
 const S = {

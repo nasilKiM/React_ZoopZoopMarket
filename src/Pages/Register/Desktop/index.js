@@ -7,6 +7,7 @@ import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
+import { flexAlignCenter } from 'Styles/common';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -16,7 +17,6 @@ const RegisterPage = () => {
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const { idx } = useParams();
-	console.log('idx', idx);
 
 	const {
 		register,
@@ -49,8 +49,6 @@ const RegisterPage = () => {
 		}
 	};
 
-	console.log('images', images);
-
 	useEffect(() => {
 		if (!idx) return;
 		productIdx();
@@ -61,6 +59,7 @@ const RegisterPage = () => {
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			console.log('확인용', tags);
 			if (newTag) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
@@ -82,22 +81,26 @@ const RegisterPage = () => {
 
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			setError(
+			return setError(
 				'tag',
 				{ message: '1개이상 꼭 입력해주세요.' },
 				{ shouldFocus: true },
 			);
-			return;
-		} else setValue('', '');
+		}
 
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
+			console.log('데이터가격', data.price);
 			formData.append('price', Number(data.price.replace(/,/g, '')));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
+			console.log('태그배열', tags);
 			formData.append('tag', tags);
+			// [...tags].forEach(el => {
+			// 	formData.append('tag', el);
+			// });
 			console.log('이미지 formdata', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
@@ -107,20 +110,19 @@ const RegisterPage = () => {
 				const res = Axios.post('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
-				console.log(res);
 				alert('물품등록이 완료되었습니다.');
 				navigate('/main');
 			} else {
-				let imgUrl = [];
 				formData.append('idx', idx);
+				const imgUrls = [];
 				images.forEach((element, index) => {
 					if (index === 0) {
 						formData.append('main_url', element);
 					} else {
-						imgUrl.push(element);
+						imgUrls.push(element);
 					}
 				});
-				formData.append('img_url', imgUrl.join());
+				formData.append('img_url', imgUrls.join());
 				Axios.patch('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
@@ -182,7 +184,7 @@ const RegisterPage = () => {
 				<S.Title>태그</S.Title>
 				<S.InputContainer>
 					<S.InputBox
-						placeholder="이곳에 입력해주세요."
+						placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
@@ -235,7 +237,11 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	margin: 50px 0;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 50px;
 `;
 
 const Blank = styled.div`
@@ -244,14 +250,14 @@ const Blank = styled.div`
 `;
 
 const Container = styled.div`
-	width: 700px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 10px;
 	display: flex;
 `;
 
 const Line = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	padding: 0 10px 30px 10px;
@@ -261,27 +267,29 @@ const Line = styled.div`
 
 const Mark = styled.span`
 	position: absolute;
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[400]};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	top: 0;
 	left: 0;
 `;
 
 const Title = styled.span`
-	width: 80px;
+	width: 105px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const InputContainer = styled.div`
-	width: 600px;
+	width: 100%;
 	position: relative;
 `;
 
 const InputBox = styled.input`
-	width: 600px;
+	width: 100%;
+	min-width: 400px;
+	max-width: 1200px;
 	border: none;
-	border-bottom: 1px solid ${({ theme }) => theme.color.subBeige};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	:focus {
@@ -292,7 +300,7 @@ const InputBox = styled.input`
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.error};
 	margin-left: 30px;
 	margin-top: 5px;
 	position: absolute;
@@ -301,7 +309,7 @@ const Error = styled.div`
 `;
 
 const AddressWrapper = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	padding: 0 10px 30px 10px;
@@ -310,7 +318,7 @@ const AddressWrapper = styled.div`
 `;
 
 const AddressTitleContainer = styled.div`
-	width: 680px;
+	width: 100%;
 	display: flex;
 	margin-bottom: 10px;
 	align-items: center;
@@ -318,28 +326,21 @@ const AddressTitleContainer = styled.div`
 `;
 
 const AddressMap = styled.div`
-	width: 680px;
+	/* width: 680px; */
+	width: 100%;
 	position: relative;
 	margin: 0 auto;
 `;
 
 const Address = styled.div`
-	width: 450px;
+	/* width: 450px; */
+	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
-const SearchBtn = styled.button`
-	width: 120px;
-	height: 40px;
-	border: 1px solid ${({ theme }) => theme.color.primary};
-	border-radius: 10px;
-	background: none;
-	cursor: pointer;
-`;
-
 const ContentBox = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -349,7 +350,7 @@ const ContentBox = styled.div`
 `;
 
 const TxtArea = styled.textarea`
-	width: 700px;
+	width: 100%;
 	margin-top: -15px;
 	height: 400px;
 	font-size: ${({ theme }) => theme.fontSize.base};
@@ -361,26 +362,43 @@ const TxtArea = styled.textarea`
 `;
 
 const RegisterBtn = styled.button`
-	width: 240px;
-	height: 54px;
-	border: 2px solid ${({ theme }) => theme.color.primary};
+	width: 150px;
+	height: 50px;
+	border: none;
+	background: ${({ theme }) => theme.color.primary[200]};
 	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.md};
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: auto;
 	cursor: pointer;
 	:hover {
-		background-color: ${({ theme }) => theme.color.primary};
-		color: ${({ theme }) => theme.color.white};
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		/* color: ${({ theme }) => theme.color.white}; */
 	}
 `;
 
 const TagWrapper = styled.div`
-	border: 2px solid green;
+	height: 30px;
+	${flexAlignCenter}
+	padding: 0 10px;
+	margin-top: 5px;
 `;
 
-const TagBox = styled.div`
-	border: 1px solid green;
+const TagBox = styled.span`
+	/* border: 1px solid green; */
+	padding: 5px;
+	margin-right: 10px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	> button {
+		width: 20px;
+		margin-left: 10px;
+		border: none;
+		background: none;
+		:hover {
+			font-weight: ${({ theme }) => theme.fontWeight.bold};
+		}
+	}
 `;
 
 const S = {
@@ -400,7 +418,6 @@ const S = {
 	AddressMap,
 	ContentBox,
 	TxtArea,
-	SearchBtn,
 	TagWrapper,
 	TagBox,
 };

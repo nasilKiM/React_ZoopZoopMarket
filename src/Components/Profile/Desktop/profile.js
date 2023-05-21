@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-const Profile = ({userProfileUrl}) => {
-
+const Profile = ({ userProfileUrl }) => {
 	const profileUrl = userProfileUrl;
 	return (
 		<>

@@ -50,12 +50,12 @@ const Bar = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-size: ${({ theme }) => theme.fontWeight.bold};
 	color: black;
-	border-top: 1px solid ${({ theme }) => theme.color.gray};
-	border-bottom: 1px solid ${({ theme }) => theme.color.gray};
+	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
 
 const Container = styled.div`
-	width: 80%;
+	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
 	height: 50px;
@@ -68,8 +68,12 @@ const Container = styled.div`
 
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
+	height: 20px;
 	text-decoration: none;
 	padding-right: 20px;
+	:hover {
+		color: ${({ theme }) => theme.color.primary[400]};
+	}
 `;
 const LeftMenu = styled.div`
 	width: 100%;
@@ -102,10 +106,10 @@ const LogoutButton = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.white};
-	background-color: ${({ theme }) => theme.color.gray};
+	background-color: ${({ theme }) => theme.color.gray[200]};
 	cursor: pointer;
 	&:hover {
-		background-color: ${({ theme }) => theme.color.primary};
+		background-color: ${({ theme }) => theme.color.primary[300]};
 	}
 `;
 

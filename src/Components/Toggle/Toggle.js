@@ -34,7 +34,7 @@ const ToggleBar = () => {
 		},
 		{
 			title: '내 후기',
-			address: '',
+			address: 'review',
 		},
 	];
 
@@ -56,7 +56,7 @@ const ToggleBar = () => {
 			))}
 		</S.Wrapper>
 	);
-	};
+};
 
 export default ToggleBar;
 
@@ -70,7 +70,7 @@ const Wrapper = styled.div`
 	& > div:first-child {
 		border-left: none;
 	}
-	`;
+`;
 
 const Menu = styled.div`
 	width: 200px;

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import MyPageApi from 'Apis/myPageApi';
 import UserApi from 'Apis/userApi';
-import { flexAllCenter } from 'Styles/common';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
@@ -94,7 +93,6 @@ const MyProfile = () => {
 							/>
 						</S.ProfileImg>
 					</S.ImgWrap>
-
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>닉네임</S.InfoTitle>
@@ -121,18 +119,19 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 170px;
+	height: 180px;
 	border-top: solid 1px #e9e9e9;
-	border-bottom: solid 1px #e9e9e9;
-	${flexAllCenter}
+	/* border-bottom: solid 1px #e9e9e9; */
+	padding: 30px 0;
 `;
 
 const Info = styled.div`
 	display: flex;
+	align-items: center;
 `;
 
 const Img = styled.img`
-	width: 150px;
+	width: 100px;
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
@@ -169,9 +168,6 @@ const ProfileImg = styled.div`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
-	/* & :nth-child(3) {
-		margin-top: 15px;
-	} */
 `;
 
 const List = styled.div`
