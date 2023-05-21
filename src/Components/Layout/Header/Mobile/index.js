@@ -6,14 +6,14 @@ import MobileSideBar from './Components/sidebar';
 
 const MobileHeader = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [xPosition, setXposition] = useState(-300);
+	const [xPosition, setXposition] = useState(300);
 
 	const onShowSidebar = () => {
 		if (xPosition < 0) {
 			setXposition(0);
 			setIsOpen(true);
 		} else {
-			setXposition(-300);
+			setXposition(300);
 			setIsOpen(false);
 		}
 	};

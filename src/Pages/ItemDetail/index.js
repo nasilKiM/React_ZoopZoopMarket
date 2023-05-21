@@ -1,37 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
-import SellerDetailPage from './SellerDetail/SellerDetail';
+import { useQuery } from 'react-query';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
+import SellerDetailPage from './SellerDetail/SellerDetail';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
 	let state = '';
-	const [product, setProduct] = useState('');
+	// const [product, setProduct] = useState('');
 
-	const temp = async () => {
-		try {
-			const res = await ProductApi.detail(idx);
-			setProduct(res);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	// const temp = async () => {
+	// 	try {
+	// 		const res = await ProductApi.detail(idx);
+	// 		setProduct(res);
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// };
+	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		temp();
+		// temp();
 	}, []);
 
-	const { isSeller } = product && product.data;
-	state = isSeller;
+	const isSeller = data && data.data ? data.data.isSeller : null;
+
+	state = data ? data.isSeller : null;
 
 	return (
 		<>
 			{!isSeller ? (
-				<BuyerDetailPage state={state} product={product} />
+				<BuyerDetailPage state={state} product={data} />
 			) : (
-				<SellerDetailPage state={state} product={product} />
+				<SellerDetailPage state={state} product={data} />
 			)}
 		</>
 	);

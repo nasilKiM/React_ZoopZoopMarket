@@ -24,6 +24,6 @@ const Wrapper = styled.div`
 	top: 0;
 	padding-bottom: 20px;
 	background-color: white;
-	z-index: 1;
+	z-index: 10000;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
