@@ -1,23 +1,23 @@
-import { LastPage } from "@mui/icons-material"
 import MyPageApi from "Apis/myPageApi"
 import { useInfiniteQuery } from "react-query"
 
-
-export const useInfiniteMyItem = (category, page) => {
+export const useInfiniteMyItem = (category) => {
     const res = useInfiniteQuery(
-        ['MY_ITEMS', category],
-        ({ pageParam = 1 }) => MyPageApi.productList(pageParam, page),
+        ['MY_ITEMS'],
+        ({ pageParam = 3 }) => MyPageApi.productList({page: pageParam, category}),
         {
-            getNextPageParam: LastPage => {
+            getNextPageParam: lastPage => {
                 let page =
-                    LastPage.data.pagination.no === 0 ? 1
-                    :
-                    Math.floor(LastPage.data.pagination.no / 20) + 1;
-                if (page < LastPage.data.pagination.endPage) {
-                    return page + 1;
-                } else {
-                    return undefined;
-                }
+                //     lastPage.data.id === 0 ? 
+                //     1
+                //     :
+                //     Math.floor(lastPage.data.pagination.no / 20) + 1;
+                // if (page < lastPage.data.pagination.endPage) {
+                //     return page + 1;
+                // } else {
+                //     return undefined;
+                // }
+                console.log(lastPage);
             }
         }
     );

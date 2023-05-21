@@ -8,7 +8,7 @@ const MyPage = () => {
 		<>
 			<Container>
 				<ToggleBar />
-				</Container>
+			</Container>
 			<S.Wrapper>
 				<MyProfile />
 				<Outlet />
@@ -30,8 +30,9 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
+	height: 100%;
 	margin: 0 auto;
-	background-color: beige;
+	/* background-color: beige; */
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 85%;
 	}
