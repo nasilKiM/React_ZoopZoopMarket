@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import MyPageApi from 'Apis/myPageApi';
 import { useEffect, useState } from 'react';
 import InterestCard from 'Components/Card/Desktop/Card_Interest';
+import { gridAllCenter, gridColumn } from 'Styles/common';
 
 const MyInterestPage = () => {
 	const [likeList, setLikeList] = useState();
@@ -20,32 +21,43 @@ const MyInterestPage = () => {
 	}, []);
 
 	return (
-		<S.Container>
-			{likeList &&
-				likeList.map(product => (
-					<S.Card>
-						<InterestCard
-							index={product.Product.idx}
-							products={product.Product}
-						/>
-					</S.Card>
-				))}
-		</S.Container>
+		<S.Wrap>
+			<S.Container>
+				{likeList &&
+					likeList.map(product => (
+						<S.Card>
+							<InterestCard
+								index={product.Product.idx}
+								products={product.Product}
+							/>
+						</S.Card>
+					))}
+			</S.Container>
+		</S.Wrap>
 	);
 };
 
 export default MyInterestPage;
 
-const Container = styled.div`
-	max-width: 60vw;
-	height: 100%;
-	margin: 30px auto;
-	display: flex;
-	justify-content: flex-start;
-	flex-flow: wrap;
+const Wrap = styled.div`
+	width: 100%;
+	margin: 0 auto;
 `;
+
+const Container = styled.div`
+	width: 100%;
+	${gridColumn(4)}
+	${gridAllCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+	}
+`;
+
 const Card = styled.div`
-	margin: 10px;
+	width: 100%;
 `;
 
 const HeartZone = styled.div`
@@ -58,4 +70,5 @@ const S = {
 	Container,
 	Card,
 	HeartZone,
+	Wrap,
 };
