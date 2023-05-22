@@ -64,6 +64,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 					setChatroomList={setChatroomList}
 					setIsChatEntrance={setIsChatEntrance}
 					setChatroomIdx={setChatroomIdx}
+					idx={idx}
 				/>
 			</S.ChatLeftContainer>
 			<S.ChatRightContainer>

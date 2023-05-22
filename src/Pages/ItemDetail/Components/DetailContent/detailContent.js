@@ -23,7 +23,6 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		try {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
-			const so = socketConnect();
 			so.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
 			const data = {
@@ -39,21 +38,22 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			so.on('receiveMessage', data => {
 				console.log(data);
 			});
-			// const saveMsgRes = await ChatApis.saveMsg(
-			// 	setChatRoomRes.data.idx,
-			// 	message,
-			// );
+			const saveMsgRes = await ChatApis.saveMsg({
+				room_idx: setChatRoomRes.data.idx,
+				message,
+			});
+			console.log(saveMsgRes.data);
 			// navigate('/chat');
 			// so.on('receiveMessage', data => {
 			// 	console.log(data);
 			// });
 		} catch (err) {
-			navigate('/chat');
-			console.log('11111111111111111111');
-			so.emit('sendMessage', '채팅방생성');
-			so.on('receiveMessage', data => {
-				console.log(data);
-			});
+			// navigate('/chat');
+			// console.log('11111111111111111111');
+			// so.emit('sendMessage', '채팅방생성');
+			// so.on('receiveMessage', data => {
+			// 	console.log(data);
+			// });
 			console.log(err);
 			// console.log(!itemAllInfo.chat[0].lastMessage);
 			// alert('이미 채팅방을 생성하였습니다');

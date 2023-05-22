@@ -16,7 +16,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
 				console.log(res.data);
-				console.log(111111111111);
 				setChat(res.data);
 			} catch (err) {
 				console.log(err);
@@ -46,14 +45,27 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 			message: inputMsg.current.value,
 			isSeller,
 		};
-		// console.log(333333333333, message);
-		so.emit('sendMessage', { data: message });
-		so.on('receiveMessage', data => {
-			console.log('수신', data);
+		so.emit('sendMessage', message);
+		so.on('receiveMessage', async data => {
+			console.log('수신13244321314234123421', data);
+			try {
+				const res = await ChatApis.loadChatLog(chatroomIdx);
+				console.log(res.data);
+				setChat(res.data);
+			} catch (err) {
+				console.log(err);
+			}
 		});
+		try {
+			const res = await ChatApis.saveMsg({
+				room_idx: chatroomIdx,
+				message: inputMsg.current.value,
+			});
+			console.log(res);
+		} catch (err) {
+			console.log(err);
+		}
 		console.log('클릭');
-		// const res = await ChatApis.saveMsg(data.message);
-		// console.log(res);
 
 		// // 채팅 로그를 불렀으면 읽음처리를 해줘야함
 		// const readMsg = async () => {

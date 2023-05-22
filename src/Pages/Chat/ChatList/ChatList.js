@@ -6,6 +6,7 @@ const ChatList = ({
 	setChatroomList,
 	setIsChatEntrance,
 	setChatroomIdx,
+	idx,
 }) => {
 	console.log('chatList', chatroomList);
 	return (
@@ -14,8 +15,14 @@ const ChatList = ({
 				<span>채팅목록</span>
 			</S.LeftUpperBar>
 			<S.ListContainer>
-				{chatroomList &&
+				{idx &&
+					chatroomList &&
 					chatroomList.map(chat => {
+						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
+					})}
+				{!idx &&
+					chatroomList &&
+					chatroomList.chats.map(chat => {
 						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
 					})}
 			</S.ListContainer>
@@ -30,7 +37,7 @@ const LeftUpperBar = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 10%;
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.primary[400]};
 	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
 	color: white;
 	cursor: pointer;
