@@ -20,7 +20,7 @@ const ReviewPage = () => {
 
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
-	const [ondo, setOndo] = useState(0);
+	const [ondo, setOndo] = useState(3);
 	const [images, setImages] = useState([]);
 
 	const handleSubmit = async e => {
@@ -31,7 +31,7 @@ const ReviewPage = () => {
 		formData.append('payList_idx', Number(1)); // payList_idx: number
 		formData.append('title', title); // title: string
 		formData.append('content', content); // content: string
-		formData.append('ondo', ondo); // ondo: number
+		formData.append('ondo', ondo + 33); // ondo: number
 
 		for (let i = 0; i < images.length; i++) {
 			formData.append('images', images[i]); // images: File[]
@@ -96,24 +96,34 @@ const ReviewPage = () => {
 				<span>
 					왼쪽부터 '매우불만족 - 불만족 - 보통 - 만족 - 매우만족' 순입니다.
 				</span>
+				{/* ondo 입력 필드 */}
+				{/* <input
+					type="number"
+					value={ondo}
+					onChange={event => setOndo(event.target.value)}
+				/> */}
 				<RatingWrapper>
 					<div>
 						<StyledRating
 							name="highlight-selected-only"
-							defaultValue={3}
+							value={ondo}
 							IconContainerComponent={IconContainer}
 							getLabelText={value => customIcons[value].label}
 							highlightSelectedOnly
+							onChange={(event, newValue) => {
+								setOndo(newValue);
+							}}
 						/>
 					</div>
 				</RatingWrapper>
 
 				<ReviewTitle>판매자 님과의 거래 후기를 남겨주세요.</ReviewTitle>
 				{/* title 입력 필드 */}
-				<input
+				<S.TxtAreaTitle
 					value={title}
 					type="text"
 					onChange={event => setTitle(event.target.value)}
+					placeholder="제목을 입력해주세요."
 				/>
 				{/* content 입력 필드 */}
 				<S.TxtArea
@@ -121,12 +131,6 @@ const ReviewPage = () => {
 					onChange={event => setContent(event.target.value)}
 					placeholder="본문 내용을 입력해주세요."
 				></S.TxtArea>
-				{/* ondo 입력 필드 */}
-				<input
-					type="number"
-					value={ondo}
-					onChange={event => setOndo(event.target.value)}
-				/>
 
 				{/* images 파일 입력 필드 */}
 				<input
@@ -208,6 +212,17 @@ const TxtArea = styled.textarea`
 	}
 `;
 
+const TxtAreaTitle = styled.input`
+	width: 100%;
+	height: 50px;
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	padding: 20px;
+	:focus {
+		outline: none;
+	}
+`;
+
 const RegisterBtn = styled.button`
 	width: 250px;
 	height: 60px;
@@ -228,5 +243,6 @@ const S = {
 	Wrapper,
 	Container,
 	TxtArea,
+	TxtAreaTitle,
 	RegisterBtn,
 };
