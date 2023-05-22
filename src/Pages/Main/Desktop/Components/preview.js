@@ -10,6 +10,7 @@ import ItemCard from 'Components/Card/Desktop/Card';
 
 const Preview = ({ category }) => {
 	const [data, setData] = useState();
+	data && console.log(data);
 	const products =
 		data && (category === 0 ? data.usedProduct : data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';

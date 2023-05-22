@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
+import KaMap2 from 'Components/Map/Map copy';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -206,7 +206,7 @@ const RegisterPage = () => {
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
 				</S.AddressTitleContainer>
-				<KaMap />
+				<KaMap2 inputAddress={searchResult} />
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>

@@ -1,57 +1,67 @@
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
+
 const { kakao } = window;
 
-const KaMap = ({ inputAddress }) => {
-	const geocoder = new daum.maps.services.Geocoder();
-	const place = new kakao.maps.services.Places();
+const KaMap2 = ({ address }) => {
+	const [state, setState] = useState({
+		center: { lat: 37.496768, lng: 127.02474 },
+		inPanto: true,
+	});
 
-	const placeSearch = (data, status, pagination) => {
-		if (status === kakao.maps.services.Status.OK) {
-			let bounds = new kakao.maps.LatLngBounds();
-			for (let i = 0; i < data.length; i++) {
-				displayMarker(data[i]);
-				bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-			}
-
-			map.setBounds(bounds);
-		}
-	};
-	place.keywordSearch(inputAddress, placeSearch);
-
-	const displayMarker = spot => {
-		let marker = new kakao.maps.Marker({
-			map,
-			position: new kakao.maps.LatLng(spot.y, spot.x),
-		});
-
-		kakao.maps.event.addListener(marker, 'click', function () {
-			infowindow.open(map, marker);
-		});
-	};
-
-	useEffect(() => {
-		const mapSection = useRef();
-		const options = {
-			center: new kakao.maps.LatLng(33.5563, 126.79581),
-			level: 3,
-		};
-
-		const map = new kakao.maps.Map(mapSection, options);
+	const searchMap = () => {
 		const geocoder = new kakao.maps.services.Geocoder();
-		geocoder.addressSearch('서울시 강남구 도곡동', function (result, status) {
+
+		let callback = function (result, status) {
 			if (status === kakao.maps.services.Status.OK) {
-				const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				const marker = new kakao.maps.Marker({
-					map,
-					position: coords,
+				const newSearch = result[0];
+				console.log(newSearch);
+				setState({
+					center: { lat: newSearch.y, lng: newSearch.x },
 				});
-
-				map.setCenter(coords);
 			}
-		});
-	}, []);
+		};
+		geocoder.addressSearch(`${address}`, callback);
+	};
 
+	// let markers = [];
+
+	// useEffect(() => {
+	// 	const mapSection = useRef();
+	// 	const options = {
+	// 		center: new kakao.maps.LatLng(33.5563, 126.79581),
+	// 		level: 3,
+	// 	};
+	// });
+
+	// const map = new kakao.maps.Map(mapSection, options);
+	// const place = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+	// const placeSearchCB = (data, status) => {
+	// 	if (status === kakao.maps.services.Status.OK) {
+	// 		return displayPlaces(data);
+	// 	}
+	// };
+
+	// const searchPlace = () => {
+	// 	if (!inputAddress) {
+	// 		return alert('주소를 입력해주세요!');
+	// 	}
+
+	// 	place.keywordSearch(inputAddress, placeSearchCB);
+	// };
+
+	// searchPlace();
+
+	// const displayPlaces = place => {
+	// 	const bounds = new kakao.maps.LatLngBounds();
+	// 	for (let i = 0; i < place.length; i++) {
+	// 		let placePosition = new kakao.maps.LatLng(place[i].y, place[i].x),
+	// 		bounds.extend(placePosition);
+	// 	}
+
+	// 	map.setBounds(bounds);
+	// };
 	// useEffect(() => {
 	// 	const mapSection = useRef();
 	// 	const options = {
@@ -75,7 +85,12 @@ const KaMap = ({ inputAddress }) => {
 	// }, []);
 
 	return (
-		<Map ref={mapSection} style={{ width: '100%', height: '360px' }}>
+		<Map
+			center={state.center}
+			isPanto={state.isPanto}
+			style={{ width: '100%', height: '360px' }}
+			level={3}
+		>
 			{/* <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}> */}
 			{/* <div style={{ color: '#000' }}>거래 장소</div> */}
 			{/* </MapMarker> */}
@@ -83,7 +98,7 @@ const KaMap = ({ inputAddress }) => {
 	);
 };
 
-export default KaMap;
+export default KaMap2;
 
 /*
 <input type="text" id="sample5_address" placeholder="주소">
