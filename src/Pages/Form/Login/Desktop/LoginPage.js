@@ -44,6 +44,8 @@ const LoginPage = () => {
 
 	const full = !errors.email && !errors.password;
 	return (
+		<>
+		<S.Logo src="/Assets/web_logo.png"></S.Logo>
 		<S.Div>
 			<S.Wrap>
 				<S.Header>
@@ -80,13 +82,21 @@ const LoginPage = () => {
 				</S.Form>
 			</S.Wrap>
 		</S.Div>
+		</>
 	);
 };
 
 export default LoginPage;
+
 const Div = styled.div`
 	width: 100%;
 	${flexJustifyCenter}
+`;
+
+const Logo = styled.img`
+	${flexJustifyCenter}
+	margin: 50px auto 0;
+	max-width: 300px;
 `;
 
 const Wrap = styled.div`
@@ -97,9 +107,9 @@ const Wrap = styled.div`
 
 const Header = styled.div`
 	width: 100%;
-	height: 150px;
-	padding-top: 50px;
-	margin-bottom: 10px;
+	/* margin-bottom: 30px; */
+	height: 130px;
+	padding-top: 10px;
 	${flexAllCenter}
 	font-size: ${({ theme }) => theme.fontSize.lg};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -112,8 +122,8 @@ const Form = styled.form`
 	flex-direction: column;
 	align-items: center;
 	width: 60%;
-	height: 45%;
-	padding: 40px 30px;
+	/* height: 45%; */
+	padding: 30px 30px;
 	max-width: 700px;
 	min-width: 600px;
 `;
@@ -172,6 +182,7 @@ const Error = styled.div`
 
 const S = {
 	Div,
+	Logo,
 	Wrap,
 	Header,
 	InputWrap,

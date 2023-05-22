@@ -27,7 +27,7 @@ const ItemCard = ({ index, products }) => {
 							<S.ItemPrice>
 								{products.price.toLocaleString('ko-KR')}원
 							</S.ItemPrice>
-							{products.ProductsTags.map(tagObj => (
+							{products && products.ProductsTags.map(tagObj => (
 								<S.ItemTag key={tagObj.idx}>
 									<a className="tag-link">#{tagObj.Tag.tag}</a>
 								</S.ItemTag>
