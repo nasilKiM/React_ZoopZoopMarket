@@ -96,12 +96,6 @@ const ReviewPage = () => {
 				<span>
 					왼쪽부터 '매우불만족 - 불만족 - 보통 - 만족 - 매우만족' 순입니다.
 				</span>
-				{/* ondo 입력 필드 */}
-				{/* <input
-					type="number"
-					value={ondo}
-					onChange={event => setOndo(event.target.value)}
-				/> */}
 				<RatingWrapper>
 					<div>
 						<StyledRating
@@ -118,21 +112,18 @@ const ReviewPage = () => {
 				</RatingWrapper>
 
 				<ReviewTitle>판매자 님과의 거래 후기를 남겨주세요.</ReviewTitle>
-				{/* title 입력 필드 */}
 				<S.TxtAreaTitle
 					value={title}
 					type="text"
 					onChange={event => setTitle(event.target.value)}
 					placeholder="제목을 입력해주세요."
 				/>
-				{/* content 입력 필드 */}
 				<S.TxtArea
 					value={content}
 					onChange={event => setContent(event.target.value)}
 					placeholder="본문 내용을 입력해주세요."
 				></S.TxtArea>
 
-				{/* images 파일 입력 필드 */}
 				<input
 					type="file"
 					multiple
