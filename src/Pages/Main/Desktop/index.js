@@ -27,6 +27,7 @@ const DesktopMainPage = () => {
 			{/* MockData용
 			<Preview category={0} products={data}></Preview>
 			<Preview category={1} products={data}></Preview> */}
+
 			<Preview category={0}></Preview>
 			<Preview category={1}></Preview>
 			<TopBtn />
@@ -61,7 +62,7 @@ const Banner = styled.div`
 const TitleBox = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[400]};
 	padding-top: 30px;
 	padding-bottom: 30px;
 `;

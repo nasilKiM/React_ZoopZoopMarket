@@ -5,6 +5,7 @@ import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
 import { itemListState } from 'Atoms/search.atom';
 import { useRecoilValue } from 'recoil';
+import ProductApi from 'Apis/productApi';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -13,6 +14,11 @@ const DesktopSearchList = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
+
+	useEffect(async () => {
+		const res = await ProductApi.getRecent();
+		return console.log('마따따비', res);
+	}, []);
 
 	// const { data } = useQuery(['product'], () => {
 	// 	return MockAxios.get('/product').then(res => {

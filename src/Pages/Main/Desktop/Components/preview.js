@@ -29,6 +29,7 @@ const Preview = ({ category }) => {
 		speed: 500,
 		slidesToShow: slidesToShow,
 		slidesToScroll: 3,
+
 		nextArrow: (
 			<Div>
 				<img src="/Assets/Icon/right-arrow.png" />
@@ -148,6 +149,7 @@ const SwiperWrapper = styled.div`
 	.slick-slide div {
 		//슬라이더  컨텐츠
 		cursor: pointer;
+		/* background-color: ${({ theme }) => theme.color.gray[100]}; */
 	}
 `;
 const Div = styled.div`
