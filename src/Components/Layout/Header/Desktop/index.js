@@ -9,7 +9,7 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import MobileSideBar from './Components/sidebar';
+// import MobileSideBar from '../Desktop/Components/sidebar';
 
 const WebHeader = () => {
 	const props = 'search_list';
@@ -17,16 +17,20 @@ const WebHeader = () => {
 	const [isHover, setIsHover] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
-	const [xPosition, setXposition] = useState(-300);
+	// const [xPosition, setXposition] = useState(-300);
 
-	const onShowSidebar = () => {
-		if (xPosition < 0) {
-			setXposition(0);
-			setMenuIsOpen(true);
-		} else {
-			setXposition(-300);
-			setMenuIsOpen(false);
-		}
+	// const onShowSidebar = () => {
+	// 	if (xPosition < 0) {
+	// 		setXposition(0);
+	// 		setMenuIsOpen(true);
+	// 	} else {
+	// 		setXposition(-300);
+	// 		setMenuIsOpen(false);
+	// 	}
+	// };
+
+	const toggleMenu = () => {
+		setMenuIsOpen(MenuIsOpen => !MenuIsOpen); // on,off 개념 boolean
 	};
 
 	const Modal = ({ isOpen, onClose, children }) => {
@@ -50,14 +54,28 @@ const WebHeader = () => {
 				<S.Container isMobile={isTablet}>
 					{isTablet ? (
 						<>
-							<div onClick={onShowSidebar}>
+							<div onClick={() => toggleMenu()}>
 								{MenuIsOpen ? (
-									<FontAwesomeIcon
-										icon={faXmark}
-										color="gray"
-										cursor="pointer"
-										fontSize="35px"
-									/>
+									<>
+										<FontAwesomeIcon
+											icon={faXmark}
+											color="gray"
+											cursor="pointer"
+											fontSize="40px"
+										/>
+										<div disabled={!MenuIsOpen}>
+											<MenuOpen>
+												<S.Menu key={1} to="/search_list">
+													중고 거래
+												</S.Menu>
+												<S.Menu key={0} to="/search_list">
+													무료 나눔
+												</S.Menu>
+
+												<S.Menu to="/market_price">실시간 시세</S.Menu>
+											</MenuOpen>
+										</div>
+									</>
 								) : (
 									<FontAwesomeIcon
 										icon={faBars}
@@ -133,11 +151,6 @@ const WebHeader = () => {
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>
-			<MobileSideBar
-				xPosition={xPosition}
-				setXposition={setXposition}
-				setMenuIsOpen={setMenuIsOpen}
-			/>
 
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -157,13 +170,21 @@ const Wrapper = styled.div`
 	@media (max-width: 700px) {
 		width: 95%;
 	}
+
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column;
 	margin: 0 auto;
 	padding-bottom: 5px;
+
+	& > div:second-child {
+		width: 376px;
+		height: 500px;
+		position: absolute;
+		left: 0px;
+		transition: 1s;
+	}
 `;
 
 const Container = styled.div`
@@ -173,6 +194,21 @@ const Container = styled.div`
 	justify-content: ${props =>
 		props.isMobile ? 'space-around' : 'space-between'};
 	padding-top: 30px;
+`;
+
+const MenuOpen = styled.div`
+	width: 150px;
+	height: 140px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 100px;
+	gap: 17px;
+	padding-top: 25px;
+	padding-left: 20px;
+	transition: 0.4s ease;
+	border-radius: 0 0 5px 5px;
 `;
 
 const TabletDiv = styled.div`

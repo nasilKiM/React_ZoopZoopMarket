@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const MobileSideBar = ({ xPosition, setXpostion, setMenuIsOpen }) => {
+const MobileSideBar = ({ xPosition, setXposition, setMenuIsOpen, isOpen }) => {
 	const { page } = useParams();
 	page && console.log(page);
 
 	useEffect(() => {
 		if (page) {
 			setMenuIsOpen(true);
-			setXpostion(0);
+			setXposition(0);
 		}
 	}, [page]);
 
 	return (
-		<S.Container xPosition={xPosition}>
+		<S.Container xPosition={xPosition} isOpen={isOpen}>
 			<S.Ul>
 				<S.StyledLink to={'search_list'}>
 					<S.Li>중고거래</S.Li>
@@ -47,7 +47,8 @@ const Container = styled.div`
 	position: absolute;
 	top: 100px;
 	left: 0;
-	transform: translateX(${({ xPosition }) => `${xPosition}px`});
+	/* transform: translateX(${({ xPosition }) => `${xPosition}px`}); */
+	transform: translateY(${({ isOpen }) => (isOpen ? '0' : '-100vh')});
 	transition: 0.4s ease;
 `;
 
