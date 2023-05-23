@@ -43,8 +43,11 @@ export default DesktopMainPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	padding-top: 10px;
 `;

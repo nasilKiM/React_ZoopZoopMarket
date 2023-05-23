@@ -27,11 +27,12 @@ const ItemCard = ({ index, products }) => {
 							<S.ItemPrice>
 								{products.price.toLocaleString('ko-KR')}원
 							</S.ItemPrice>
-							{products && products.ProductsTags.map(tagObj => (
-								<S.ItemTag key={tagObj.idx}>
-									<a className="tag-link">#{tagObj.Tag.tag}</a>
-								</S.ItemTag>
-							))}
+							{products &&
+								products.ProductsTags.map(tagObj => (
+									<S.ItemTag key={tagObj.idx}>
+										<a className="tag-link">#{tagObj.Tag.tag}</a>
+									</S.ItemTag>
+								))}
 						</S.ItemInfo>
 					</div>
 				</S.Container>
@@ -62,12 +63,18 @@ const Container = styled.div`
 		width: 200px;
 	}
 	@media (min-width: 600px) {
-		width: 220px;
+		width: 210px;
 	}
 	@media (min-width: 900px) {
-		width: 240px;
+		width: 220px;
 	}
 	@media (min-width: 1100px) {
+		width: 230px;
+	}
+	@media (min-width: 1200px) {
+		width: 240px;
+	}
+	@media (min-width: 1350px) {
 		width: 280px;
 	}
 `;
@@ -78,7 +85,7 @@ const Heart = styled.div`
 	height: 32px;
 	top: 40px;
 	left: 80%;
-	z-index: 1000000;
+	z-index: 100;
 `;
 
 const ItemImg = styled.img`

@@ -47,8 +47,8 @@ const Container = styled.div`
 `;
 
 const ItemImg = styled.img`
-	min-width: 180px;
-	max-height: 150px;
+	min-width: 120px;
+	max-height: 120px;
 	margin: 15px 15px 15px 25px;
 	object-fit: cover;
 `;
@@ -61,18 +61,18 @@ const ItemInfo = styled.div`
 `;
 
 const ItemTitle = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	padding-bottom: 15px;
 `;
 
 const ItemPrice = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	padding-bottom: 15px;
 `;
 
 const ItemTag = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	overflow: hidden;
 	padding-bottom: 10px;
 `;

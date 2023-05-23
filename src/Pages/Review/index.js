@@ -154,18 +154,18 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	span {
-		font-size: ${({ theme }) => theme.fontSize.base};
+		font-size: ${({ theme }) => theme.fontSize.sm};
 		color: ${({ theme }) => theme.color.gray[300]};
 	}
 	li {
-		font-size: ${({ theme }) => theme.fontSize.base};
+		font-size: ${({ theme }) => theme.fontSize.sm};
 		color: ${({ theme }) => theme.color.gray[400]};
 		margin-bottom: 10px;
 	}
 `;
 
 const ReviewTitle = styled.h2`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	margin-bottom: 15px;
 	margin-top: 50px;
@@ -195,7 +195,7 @@ const TxtArea = styled.textarea`
 	width: 100%;
 	height: 250px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	padding: 20px;
 
 	:focus {
@@ -207,7 +207,7 @@ const TxtAreaTitle = styled.input`
 	width: 100%;
 	height: 50px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	padding: 20px;
 	:focus {
 		outline: none;
@@ -215,11 +215,11 @@ const TxtAreaTitle = styled.input`
 `;
 
 const RegisterBtn = styled.button`
-	width: 250px;
-	height: 60px;
+	width: 200px;
+	height: 50px;
 	border: none;
 	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	background-color: ${({ theme }) => theme.color.subBeige};
 	margin-left: auto;
