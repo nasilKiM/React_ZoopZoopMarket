@@ -70,6 +70,9 @@ const Wrapper = styled.div`
 	& > div:first-child {
 		border-left: none;
 	}
+	@media screen and (max-width: 414px) {
+		width: 100%;
+	}
 `;
 
 const Menu = styled.div`
@@ -86,6 +89,11 @@ const Menu = styled.div`
 	}
 	background-color: ${({ currentMenu }) => (currentMenu ? '#FFD1D1' : '#E9E9E9')};
 	border-bottom: solid 3px ${({ currentMenu }) => (currentMenu ? '#FF3647' : '#E9E9E9')};
+
+	@media screen and (max-width: 414px) {
+		width: 20px;
+		font-size: ${({ theme }) => theme.fontSize.micro};
+	}
 `;
 
 const S = {

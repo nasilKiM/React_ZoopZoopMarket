@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, hasNextPage } = res;
+	const { data, fetchNextPage, hasNextPage, refetch } = res;
 	const [ref, inView] = useInView();
 
 	data && console.log( '/////', data, hasNextPage );
@@ -17,9 +17,9 @@ const MyItemPage = () => {
 		if (!inView) {
 			return;
 		}
-		if (hasNextPage) {
+		// if (hasNextPage) {
 			fetchNextPage();
-		}
+		// }
 	}, [inView]);
 
 	// useEffect(() => {
@@ -28,7 +28,7 @@ const MyItemPage = () => {
 
 
 	useEffect(() => {
-		res.refetch()
+		refetch()
 	}, [category]);
 
 	const onClickSaleCategory = () => {
@@ -48,7 +48,7 @@ const MyItemPage = () => {
 			<S.Wrapper>
 				<S.Container>
 				{data?.pages.map(page => (
-					page?.result.products.map(item => (
+					page?.data.products.map(item => (
 					<MyItemCard index={item.idx} products={item}/>
 					))
 				))}

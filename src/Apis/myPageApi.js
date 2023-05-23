@@ -8,7 +8,7 @@ const MyPageApi = {
 	},
 	productList({ page, category }) {
 		return Axios.get(PATH + '/product-list', { 
-			params: { page, category } 
+			params: { page:page, category } 
 		});
 	},
 	likeProductList({ page }) {
