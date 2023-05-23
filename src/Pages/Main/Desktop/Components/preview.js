@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
 	//const [data, setData] = useState();
-	const { data } = useQuery('mainList', ProductApi.mainList);
+	const { data } = useQuery(['mainList'], ProductApi.mainList);
 
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
