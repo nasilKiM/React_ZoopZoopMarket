@@ -206,7 +206,7 @@ const RegisterPage = () => {
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
 				</S.AddressTitleContainer>
-				<KaMap />
+				<KaMap address={searchResult} />
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>
