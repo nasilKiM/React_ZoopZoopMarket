@@ -9,7 +9,6 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-// import MobileSideBar from '../Desktop/Components/sidebar';
 
 const WebHeader = () => {
 	const props = 'search_list';
@@ -17,20 +16,9 @@ const WebHeader = () => {
 	const [isHover, setIsHover] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
-	// const [xPosition, setXposition] = useState(-300);
-
-	// const onShowSidebar = () => {
-	// 	if (xPosition < 0) {
-	// 		setXposition(0);
-	// 		setMenuIsOpen(true);
-	// 	} else {
-	// 		setXposition(-300);
-	// 		setMenuIsOpen(false);
-	// 	}
-	// };
 
 	const toggleMenu = () => {
-		setMenuIsOpen(MenuIsOpen => !MenuIsOpen); // on,off 개념 boolean
+		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
 	};
 
 	const Modal = ({ isOpen, onClose, children }) => {
