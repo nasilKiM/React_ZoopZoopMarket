@@ -1,5 +1,5 @@
+import { useInfiniteQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
-import { useInfiniteQuery } from 'react-query';
 
 export const useInfiniteSearch = (word, selected) => {
 	const res = useInfiniteQuery(

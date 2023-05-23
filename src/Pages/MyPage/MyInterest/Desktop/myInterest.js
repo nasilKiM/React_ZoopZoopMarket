@@ -1,57 +1,76 @@
 import styled from 'styled-components';
-// import MyPageApi from 'Apis/myPageApi';
-// import { useState } from 'react';
-// import InterestCard from 'Components/Card/Desktop/Card_Interest';
-import ItemCardMock from 'Components/Card/Desktop/Card copy';
-import { MockAxios } from 'Apis/@core';
-import { useQuery } from 'react-query';
+import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
+import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
+import InterestCard from 'Components/Card/Desktop/Card_Interest';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
 
 const MyInterestPage = () => {
-	// const [likeList, setLikeList] = useState();
+	const res = useInfiniteMy();
+	const [ref, inView] = useInView({ threshold: 0.5 });
+	const { data, hasNextPage, fetchNextPage, isLoading } = res;
 
-	// const myInterest = async () => {
-	// 	try {
-	// 		const res = await MyPageApi.likeProductList({ page: 1 });
-	// 		setLikeList(res.data.LikeList);
-	// 	} catch (error) {
-	// 		console.log(error);
+	// const loadMore = () => {
+	// 	if (hasNextPage) {
+	// 		fetchNextPage();
 	// 	}
 	// };
 
-	// useEffect(() => {
-	// 	myInterest();
-	// }, []);
-
-	const { data } = useQuery(['product'], () => {
-		return MockAxios.get('/product').then(res => {
-			return res.data;
-		});
-	});
+	useEffect(() => {
+		if (!inView) {
+			return;
+		}
+		fetchNextPage();
+	}, [inView]);
 
 	return (
-		<S.Container>
-			{data &&
-				data.map(product => (
-					<S.Card>
-						<ItemCardMock products={product} />
-					</S.Card>
-				))}
-		</S.Container>
+		<>
+			{isLoading ? (
+				<div>로딩</div> // 임시 로딩
+			) : (
+				<S.Wrap>
+					<S.Container>
+						{data.pages.map(page =>
+							page.data.LikeList.map(list => (
+								<S.Card>
+									<InterestCard index={list.idx} products={list.Product} />
+								</S.Card>
+							)),
+						)}
+					</S.Container>
+					{/* <button onClick={() => loadMore()} disabled={!hasNextPage}>
+						더보기
+					</button> */}
+					<div ref={ref}></div>
+				</S.Wrap>
+			)}
+		</>
 	);
 };
 
 export default MyInterestPage;
 
-const Container = styled.div`
-	max-width: 60vw;
-	height: 100%;
-	margin: 30px auto;
-	display: flex;
-	justify-content: flex-start;
-	flex-flow: wrap;
+const Wrap = styled.div`
+	width: 100%;
+	margin: 0 auto;
 `;
+
+const Container = styled.div`
+	width: 100%;
+	${gridColumn(4)}
+	${gridAllCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+		${gridGap.mobile}
+	}
+`;
+
 const Card = styled.div`
-	margin: 10px;
+	width: 100%;
 `;
 
 const HeartZone = styled.div`
@@ -64,4 +83,5 @@ const S = {
 	Container,
 	Card,
 	HeartZone,
+	Wrap,
 };

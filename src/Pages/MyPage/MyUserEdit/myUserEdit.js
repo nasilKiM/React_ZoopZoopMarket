@@ -20,7 +20,7 @@ const MyUserEdit = ({ userInfo }) => {
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
-	
+
 	const onSubmit = async data => {
 		const infoEdit = {
 			email: data.email,
@@ -28,16 +28,19 @@ const MyUserEdit = ({ userInfo }) => {
 			phone: data.phone,
 			region: address,
 		};
-		
+
 		try {
 			await UserApi.userInfoEdit(infoEdit);
 			alert('회원정보가 변경되었습니다');
 			navigate('/mypage');
 		} catch (err) {
-			alert(err.response.data.message, '비밀번호 변경을 실패하셨습니다, 다시 시도해주세요');
+			alert(
+				err.response.data.message,
+				'비밀번호 변경을 실패하셨습니다, 다시 시도해주세요',
+			);
 		}
 	};
-	
+
 	// zoopzoop의 아이디는 이메일로, 아이디를 변경할수 없도록 해야할지 전체 논의 필요 (우선은 스웨거 상 아이디 변경 가능하도록 되어 있어 추가해놓음)
 	const onCheckId = async e => {
 		e.preventDefault();
@@ -49,11 +52,11 @@ const MyUserEdit = ({ userInfo }) => {
 			setIdMsg(err.response.data.message);
 		}
 	};
-	
+
 	useEffect(() => {
 		setIdMsg('');
 	}, [getValues('email')]);
-	
+
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -64,22 +67,22 @@ const MyUserEdit = ({ userInfo }) => {
 			setNickMsg(err.response.data.message);
 		}
 	};
-	
+
 	useEffect(() => {
 		setNickMsg();
 	}, [getValues('nick')]);
-	
+
 	useEffect(() => {
 		setValue('email', userInfo?.email);
 		setValue('nick', userInfo?.nick_name);
 		setValue('phone', userInfo?.phone);
 	}, []);
-	
+
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
-	}
+	};
 	const full = !errors.email && !errors.phone && address;
-	
+
 	return (
 		<S.Div>
 			<S.Wrap>
@@ -94,10 +97,7 @@ const MyUserEdit = ({ userInfo }) => {
 								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button
-								onClick={onCheckId}
-								disabled={errors.email || 'email'}
-							>
+							<button onClick={onCheckId} disabled={errors.email}>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
@@ -114,10 +114,7 @@ const MyUserEdit = ({ userInfo }) => {
 								{...register('nick', FORM_TYPE.NICKNAME)}
 								placeholder="Nick_Name"
 							/>
-							<button
-								onClick={onCheckNick}
-								disabled={errors.nick || 'nick'}
-							>
+							<button onClick={onCheckNick} disabled={errors.nick}>
 								중복확인
 							</button>
 						</S.InputBoxWrap>
@@ -176,7 +173,7 @@ const Div = styled.div`
 `;
 
 const Wrap = styled.div`
-	width: 60%;
+	width: 70%;
 	flex-direction: column;
 	${flexAllCenter}
 	margin: 0 auto;
@@ -311,8 +308,8 @@ const Address = styled.div`
 
 const Text = styled.div`
 	margin-top: 30px;
-	font-size: ${({theme}) => theme.fontSize.base};
-	color: ${({theme}) => theme.color.primary};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	color: ${({ theme }) => theme.color.primary};
 	:hover {
 		cursor: pointer;
 		line-height: 0%;
@@ -334,5 +331,5 @@ const S = {
 	InputBoxWrap,
 	Error,
 	Address,
-	Text
+	Text,
 };

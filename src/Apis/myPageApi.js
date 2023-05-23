@@ -11,7 +11,7 @@ const MyPageApi = {
 	},
 	likeProductList({ page }) {
 		return Axios.get(PATH + '/like-product-list', {
-			params: { page },
+			params: { page: page },
 		});
 	},
 	accountBook({ page, category, start, end }) {
