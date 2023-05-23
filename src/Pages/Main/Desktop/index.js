@@ -49,6 +49,9 @@ const Wrapper = styled.div`
 	@media (max-width: 700px) {
 		width: 95%;
 	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 	margin: 0 auto;
 	padding-top: 10px;
 `;
