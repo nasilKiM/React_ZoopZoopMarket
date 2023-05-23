@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
-import { socketConnect } from '@Socket/socket';
+import { useRecoilValue } from 'recoil';
+import { userSocketAtom } from 'Atoms/socket.atom';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
-	const so = socketConnect();
+	const so = useRecoilValue(userSocketAtom);
+	console.log(1213213321123, so);
 	console.log(chat);
 	useEffect(() => {
 		// 채팅 목록을 마운트시 불러오기
@@ -23,6 +25,9 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 		};
 		loadChatLog();
 	}, []);
+
+	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
+	// emit은 이벤트 발생 on 이벤트 생성
 
 	// useEffect(() => {
 	// 	so.on('receiveMessage', async data => {

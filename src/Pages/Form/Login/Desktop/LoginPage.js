@@ -9,9 +9,12 @@ import { socketConnect } from '@Socket/socket';
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
+import { useRecoilState } from 'recoil';
+import { userSocketAtom } from 'Atoms/socket.atom';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const [socket, setSocket] = useRecoilState(userSocketAtom);
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
@@ -43,6 +46,7 @@ const LoginPage = () => {
 			const socketId = res.data.user.socket;
 			// const so = io.connect(process.env.REACT_APP_BACKEND_URL);
 			const so = socketConnect();
+			setSocket(so);
 			// socket 연결 확인
 			so.on('connect', () => {
 				console.log('socket connected');
