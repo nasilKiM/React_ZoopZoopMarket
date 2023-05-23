@@ -33,10 +33,10 @@ const RegisterPage = () => {
 			const res = await ProductApi.detail(idx);
 			console.log('res', res);
 			setPrice(res.data.searchProduct.price);
+			price && setValue('price', price);
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
-			setValue('price', price);
 			setValue('title', res.data.searchProduct.title);
 			setValue('content', res.data.searchProduct.description);
 			setSearchResult(res.data.searchProduct.region);
@@ -188,17 +188,17 @@ const RegisterPage = () => {
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
-					<S.TagWrapper>
-						{tags &&
-							tags.map((tag, index) => (
-								<S.TagBox key={index}>
-									{tag}
-									<button onClick={e => handleDelete(tag)(e)}>x</button>
-								</S.TagBox>
-							))}
-					</S.TagWrapper>
 				</S.InputContainer>
 			</S.Line>
+			<S.TagWrapper>
+				{tags &&
+					tags.map((tag, index) => (
+						<S.TagBox key={index}>
+							<S.TagContent>{tag}</S.TagContent>
+							<S.DelTag onClick={e => handleDelete(tag)(e)}>x</S.DelTag>
+						</S.TagBox>
+					))}
+			</S.TagWrapper>
 			<S.AddressWrapper>
 				<S.AddressTitleContainer>
 					<S.Mark>*</S.Mark>
@@ -238,8 +238,11 @@ export default RegisterPage;
 
 const Wrapper = styled.form`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	margin-top: 50px;
 `;
@@ -277,6 +280,9 @@ const Title = styled.span`
 	width: 105px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media (max-width: 1100px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
+	}
 `;
 
 const InputContainer = styled.div`
@@ -294,6 +300,9 @@ const InputBox = styled.input`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	:focus {
 		outline: none;
+	}
+	@media (max-width: 1100px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 `;
 
@@ -379,25 +388,41 @@ const RegisterBtn = styled.button`
 `;
 
 const TagWrapper = styled.div`
-	height: 30px;
+	width: 90%;
+	/* height: 30px; */
 	${flexAlignCenter}
+	flex-wrap: wrap;
 	padding: 0 10px;
-	margin-top: 5px;
+	margin-left: 100px;
+	margin-bottom: 50px;
 `;
 
 const TagBox = styled.span`
-	/* border: 1px solid green; */
+	display: flex;
+	max-width: 150px;
 	padding: 5px;
 	margin-right: 10px;
+	margin-bottom: 10px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
-	> button {
-		width: 20px;
-		margin-left: 10px;
-		border: none;
-		background: none;
-		:hover {
-			font-weight: ${({ theme }) => theme.fontWeight.bold};
-		}
+`;
+
+const TagContent = styled.span`
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: right;
+`;
+
+const DelTag = styled.button`
+	width: 20px;
+	/* margin-left: 10px; */
+	border: none;
+	background: none;
+	display: flex;
+	align-items: flex-end;
+	line-height: 14px;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 
@@ -420,4 +445,6 @@ const S = {
 	TxtArea,
 	TagWrapper,
 	TagBox,
+	TagContent,
+	DelTag,
 };
