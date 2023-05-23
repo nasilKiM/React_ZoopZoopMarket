@@ -7,7 +7,7 @@ export const getMainList = () => {
 		isLoading,
 		error,
 		data: mainList,
-	} = useQuery('mainList', ProductApi.mainList, queryConfig);
+	} = useQuery(['mainList'], ProductApi.mainList, queryConfig);
 
 	if (isLoading) {
 		return <div>Loading...</div>;

@@ -68,6 +68,6 @@ const ProductApi = {
 				end: end,
 			},
 		});
-	}, 
+	},
 };
 export default ProductApi;
