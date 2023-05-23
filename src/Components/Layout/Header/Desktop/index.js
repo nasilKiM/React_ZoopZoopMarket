@@ -4,13 +4,30 @@ import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {
+	faBars,
+	faMagnifyingGlass,
+	faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import MobileSideBar from './Components/sidebar';
 
 const WebHeader = () => {
 	const props = 'search_list';
-	const isTablet = useMediaQuery({ maxWidth: 950 });
+	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [MenuIsOpen, setMenuIsOpen] = useState(false);
+	const [xPosition, setXposition] = useState(-300);
+
+	const onShowSidebar = () => {
+		if (xPosition < 0) {
+			setXposition(0);
+			setMenuIsOpen(true);
+		} else {
+			setXposition(-300);
+			setMenuIsOpen(false);
+		}
+	};
 
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
@@ -31,20 +48,49 @@ const WebHeader = () => {
 		<>
 			<S.Wrapper>
 				<S.Container isMobile={isTablet}>
-					<Link to={'/main'}>
-						<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
-					</Link>
+					{isTablet ? (
+						<>
+							<div onClick={onShowSidebar}>
+								{MenuIsOpen ? (
+									<FontAwesomeIcon
+										icon={faXmark}
+										color="gray"
+										cursor="pointer"
+										fontSize="35px"
+									/>
+								) : (
+									<FontAwesomeIcon
+										icon={faBars}
+										color="gray"
+										cursor="pointer"
+										fontSize="30px"
+									/>
+								)}
+							</div>
+							<TabletDiv>
+								<Link to={'/main'}>
+									<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
+								</Link>
+							</TabletDiv>
+						</>
+					) : (
+						<>
+							<Link to={'/main'}>
+								<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
+							</Link>
 
-					<S.MenuList>
-						<S.Menu key={1} to="/search_list">
-							중고 거래
-						</S.Menu>
-						<S.Menu key={0} to="/search_list">
-							무료 나눔
-						</S.Menu>
+							<S.MenuList>
+								<S.Menu key={1} to="/search_list">
+									중고 거래
+								</S.Menu>
+								<S.Menu key={0} to="/search_list">
+									무료 나눔
+								</S.Menu>
 
-						<S.Menu to="/market_price">실시간 시세</S.Menu>
-					</S.MenuList>
+								<S.Menu to="/market_price">실시간 시세</S.Menu>
+							</S.MenuList>
+						</>
+					)}
 					{isTablet ? (
 						<Link>
 							<FontAwesomeIcon
@@ -87,6 +133,11 @@ const WebHeader = () => {
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>
+			<MobileSideBar
+				xPosition={xPosition}
+				setXposition={setXposition}
+				setMenuIsOpen={setMenuIsOpen}
+			/>
 
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -101,8 +152,11 @@ export default WebHeader;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;
@@ -121,6 +175,10 @@ const Container = styled.div`
 	padding-top: 30px;
 `;
 
+const TabletDiv = styled.div`
+	width: 100%;
+	margin-left: 50px;
+`;
 const MenuList = styled.div`
 	display: flex;
 	padding-left: 5px;

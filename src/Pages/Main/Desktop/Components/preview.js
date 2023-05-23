@@ -48,7 +48,9 @@ const Preview = ({ category }) => {
 			setSlidesToShow(3);
 		} else if (window.innerWidth >= 868) {
 			setSlidesToShow(3);
-		} else if (window.innerWidth >= 480) {
+		} else if (window.innerWidth >= 580) {
+			setSlidesToShow(3);
+		} else if (window.innerWidth >= 414) {
 			setSlidesToShow(2);
 		} else {
 			setSlidesToShow(2);
@@ -96,8 +98,11 @@ export default Preview;
 
 const Wrapper = styled.div`
 	width: 100%;
-	min-width: 700px;
 	max-width: 1200px;
+	min-width: 414px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	padding-top: 50px;
 `;
