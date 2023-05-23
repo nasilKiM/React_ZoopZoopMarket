@@ -6,38 +6,26 @@ import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 const MyItemPage = () => {
-	// const [myItemList, setMyItemList] = useState([]);
-	// const [page, setPage] = useState(1);
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
-	// const getMyItemList = async () => {
-	// 	try {
-	// 		const res = await MyPageApi.productList({page, category});
-	// 		setMyItemList(res.data.products);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// }
-
 	const res = useInfiniteMyItem(category);
-	const { data } = res;
-	
-
-	// res.data && console.log(res.data); // count endPage products startPage totalPage
-
+	const { data, fetchNextPage, hasNextPage } = res;
 	const [ref, inView] = useInView();
 
+	data && console.log( '/////', data, hasNextPage );
+	
 	useEffect(() => {
 		if (!inView) {
 			return;
 		}
-		res.fetchNextPage();
+		if (hasNextPage) {
+			fetchNextPage();
+		}
 	}, [inView]);
 
-	useEffect(() => {
-		window.scroll(0, 0);
-	}, []);
+	// useEffect(() => {
+	// 	window.scroll(0, 0);
+	// }, []);
 
-	data && console.log( data );
 
 	useEffect(() => {
 		res.refetch()
@@ -60,13 +48,13 @@ const MyItemPage = () => {
 			<S.Wrapper>
 				<S.Container>
 				{data?.pages.map(page => (
-					page?.data.products.map(item => (
+					page?.result.products.map(item => (
 					<MyItemCard index={item.idx} products={item}/>
 					))
 				))}
 				</S.Container>
-			</S.Wrapper>
 			<div ref={ref}></div>
+			</S.Wrapper>
 		</S.Div>
 	);
 };

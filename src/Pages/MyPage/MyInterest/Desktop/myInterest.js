@@ -16,6 +16,8 @@ const MyInterestPage = () => {
 	// 	}
 	// };
 
+	data && console.log(data);
+
 	useEffect(() => {
 		if (!inView) {
 			return;
