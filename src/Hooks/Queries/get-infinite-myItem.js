@@ -1,23 +1,19 @@
 import MyPageApi from "Apis/myPageApi"
+import { all } from "axios";
 import { useInfiniteQuery } from "react-query"
 
 export const useInfiniteMyItem = (category) => {
     const res = useInfiniteQuery(
         ['MY_ITEMS'],
-        ({ pageParam = 3 }) => MyPageApi.productList({page: pageParam, category}),
+        ({ pageParam = 1 }) => MyPageApi.productList({page: pageParam, category}),
         {
-            getNextPageParam: lastPage => {
-                let page =
-                //     lastPage.data.id === 0 ? 
-                //     1
-                //     :
-                //     Math.floor(lastPage.data.pagination.no / 20) + 1;
-                // if (page < lastPage.data.pagination.endPage) {
-                //     return page + 1;
-                // } else {
-                //     return undefined;
-                // }
+            getNextPageParam: (lastPage) => {
                 console.log(lastPage);
+                if (lastPage.data.count % 10 != 0 && lastPage.data.products.length % 10 === 0) {
+                    return lastPage.data.startPage + 1;
+                } else if (lastPage.data.products.length % 10 != 0) {
+                    return undefined;
+                }
             }
         }
     );

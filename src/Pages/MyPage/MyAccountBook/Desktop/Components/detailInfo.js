@@ -111,7 +111,7 @@ const PreviewWrap = styled.div`
 `;
 
 const PreviewContent = styled.div`
-	width: 90%;
+	width: 45%;
 	height: 80px;
 	margin: 0 auto;
 	display: flex;
