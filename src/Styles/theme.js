@@ -47,6 +47,8 @@ const fontWeight = {
 const deviceWidth = {
 	mobile: 414,
 	tablet: 768,
+	// mobile: 600,
+	// tablet: 1200,
 	laptop: 1440,
 };
 
