@@ -14,8 +14,12 @@ const WebHeader = () => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
+	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	//햄버거메뉴
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
+	//마이페이지 메뉴
+	const [showOptions, setShowOptions] = useState(false);
 
 	const toggleMenu = () => {
 		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
@@ -117,7 +121,7 @@ const WebHeader = () => {
 					)}
 					<S.Icon>
 						<Link
-							to={'/mypage'}
+							// to={'/mypage'}
 							onMouseOver={() => {
 								setIsHover(true);
 							}}
@@ -131,7 +135,18 @@ const WebHeader = () => {
 										? '/Assets/Images/default_Profile_edit3.png'
 										: '/Assets/Images/default_Profile_edit4.png'
 								}
+								onClick={() => setShowOptions(!showOptions)}
 							/>
+							{showOptions && (
+								<MenuOptions>
+									<Link to={'/mypage'} onClick={() => setShowOptions(false)}>
+										<MenuOption>마이페이지</MenuOption>
+									</Link>
+									<Link to>
+										<MenuOption>로그아웃하기</MenuOption>
+									</Link>
+								</MenuOptions>
+							)}
 						</Link>
 						<Link to={'/chat'}>
 							<button>채팅하기</button>
@@ -185,18 +200,19 @@ const Container = styled.div`
 `;
 
 const MenuOpen = styled.div`
-	width: 150px;
-	height: 140px;
+	width: 145px;
+	height: 130px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 	display: flex;
 	flex-direction: column;
 	position: absolute;
 	top: 100px;
-	gap: 17px;
+	gap: 10px;
 	padding-top: 25px;
 	padding-left: 20px;
 	transition: 0.4s ease;
 	border-radius: 0 0 5px 5px;
+	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
 `;
 
 const TabletDiv = styled.div`
@@ -218,6 +234,9 @@ const Menu = styled(Link)`
 
 	:hover {
 		color: ${({ theme }) => theme.color.primary[400]};
+	}
+	&:hover {
+		background-color: lightgray;
 	}
 `;
 
@@ -287,6 +306,26 @@ const CloseButton = styled.button`
 	color: white;
 	cursor: pointer;
 	font-size: 60px;
+`;
+
+const MenuOptions = styled.div`
+	position: absolute;
+	top: 100%;
+	transform: translateX(-50%);
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
+	padding: 8px;
+	border-radius: 4px;
+`;
+
+const MenuOption = styled.div`
+	cursor: pointer;
+	padding: 4px 8px;
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: lightgray;
+	}
 `;
 
 const S = {
