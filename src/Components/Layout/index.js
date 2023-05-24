@@ -20,6 +20,7 @@ const LayOut = () => {
 export default LayOut;
 
 const Wrapper = styled.div`
+	height: 12vh;
 	position: sticky;
 	top: 0;
 	padding-bottom: 20px;

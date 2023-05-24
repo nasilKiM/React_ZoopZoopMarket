@@ -25,6 +25,15 @@ const shapeCSS = {
 			border: none;
 		}
 	`,
+		checkBtn: css`
+		border-radius: 10px;
+		&:disabled {
+			background: ${({ theme }) => theme.color.gray[200]};
+			color: ${({ theme }) => theme.color.fontColor[100]};
+			border: none;
+		}
+	`,
+
 	round: css`
 		border-radius: 50%;
 	`,
@@ -45,6 +54,12 @@ const sizeCSS = {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	`,
+	checkBtn: css`
+	width: 6vw;
+	height: 5vh;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.normal};
+`,
 
 	// 수업자료 참고
 	small: css`

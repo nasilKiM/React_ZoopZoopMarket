@@ -1,47 +1,35 @@
-import MyPageApi from 'Apis/myPageApi';
-import MyItemCard from 'Components/Card/Desktop/Card_MyItem';
-// import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import MyItemCard from 'Components/Card/Desktop/Card_MyItem'
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
-// import { useInView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 const MyItemPage = () => {
-	const [myItemList, setMyItemList] = useState([]);
-	const [page, setPage] = useState(1);
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
+	const res = useInfiniteMyItem(category);
+	const { data, fetchNextPage, hasNextPage, refetch } = res;
+	const [ref, inView] = useInView();
+
+	data && console.log( '/////', data, hasNextPage );
 	
-	const getMyItemList = async () => {
-		try {
-			const res = await MyPageApi.productList({page, category});
-			setMyItemList(res.data.products);
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
 	useEffect(() => {
-		getMyItemList()
-	}, [page, category]);
-
-	// const [ref, inView] = useInView(); // threshold
-
-	// const res = useInfiniteMyItem();
-
-	// const {data} = res;
-
-	// res && console.log(data);
-
-	// useEffect(() => {
-	// 	if (!inView) {
-	// 		return;
-	// 	}
-	// 	res.fetchNextPage();
-	// }, [inView]);
+		if (!inView) {
+			return;
+		}
+		// if (hasNextPage) {
+			fetchNextPage();
+		// }
+	}, [inView]);
 
 	// useEffect(() => {
 	// 	window.scroll(0, 0);
 	// }, []);
+
+
+	useEffect(() => {
+		refetch()
+	}, [category]);
 
 	const onClickSaleCategory = () => {
 		setCategory(0);
@@ -59,12 +47,14 @@ const MyItemPage = () => {
 			</S.CategoryZone>
 			<S.Wrapper>
 				<S.Container>
-				{myItemList && myItemList.map(item => (
-					  <MyItemCard index={item.idx} products={item}/>
+				{data?.pages.map(page => (
+					page?.data.products.map(item => (
+					<MyItemCard index={item.idx} products={item}/>
+					))
 				))}
 				</S.Container>
+			<div ref={ref}></div>
 			</S.Wrapper>
-			{/* <div ref={ref}></div> */}
 		</S.Div>
 	);
 };
