@@ -5,16 +5,15 @@ import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
-import { socketConnect } from '@Socket/socket';
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
-import { useRecoilState } from 'recoil';
-import { userSocketAtom } from 'Atoms/socket.atom';
+import { useSocket } from 'Context/socket';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
-	const [socket, setSocket] = useRecoilState(userSocketAtom);
+	const so = useSocket();
+	console.log(so);
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
@@ -45,8 +44,8 @@ const LoginPage = () => {
 			console.log(res.data.user.socket); // 확인용
 			const socketId = res.data.user.socket;
 			// const so = io.connect(process.env.REACT_APP_BACKEND_URL);
-			const so = socketConnect();
-			setSocket(so);
+			// const so = socketConnect();
+			so.setSocket(io.connect(process.env.REACT_APP_BACKEND_URL));
 			// socket 연결 확인
 			so.on('connect', () => {
 				console.log('socket connected');

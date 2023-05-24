@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
-import { useRecoilValue } from 'recoil';
-import { userSocketAtom } from 'Atoms/socket.atom';
+import { socketConnect } from '@Socket/socket';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
-	const so = useRecoilValue(userSocketAtom);
+	const so = socketConnect();
 	console.log(1213213321123, so);
 	console.log(chat);
 	useEffect(() => {
