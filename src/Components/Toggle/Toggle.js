@@ -43,60 +43,61 @@ const ToggleBar = () => {
 	};
 
 	return (
-		<S.Wrapper>
-			{toggleMenu.map(toggle => (
-				<>
-					<S.Menu
-						onClick={() => onClickToggle(toggle.address)}
-						currentMenu={current === toggle.address}
-					>
-						{toggle.title}
-					</S.Menu>
-				</>
-			))}
-		</S.Wrapper>
+		<S.Sticky>
+			<S.Wrapper>
+				{toggleMenu.map(toggle => (
+					<>
+						<S.Menu
+							onClick={() => onClickToggle(toggle.address)}
+							currentMenu={current === toggle.address}
+						>
+							{toggle.title}
+						</S.Menu>
+					</>
+				))}
+			</S.Wrapper>
+		</S.Sticky>
 	);
 };
 
 export default ToggleBar;
 
+const Sticky = styled.div`
+	position: relative;
+	z-index: 100;
+`;
+
 const Wrapper = styled.div`
-	margin: 0 0 50px;
-	padding: 0 80px;
-	${flexAllCenter}
 	width: 100%;
-	height: 50px;
+	height: 40px;
+	${flexAllCenter}
 	background-color: ${({theme}) => theme.color.gray[100]};
-	& > div:first-child {
-		border-left: none;
-	}
-	@media screen and (max-width: 414px) {
-		width: 100%;
-	}
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: repeat(5, 1fr);
+	position: fixed;
+	top: 12vh;
+	left: 50%;
+  	transform: translateX( -50% );
 `;
 
 const Menu = styled.div`
-	width: 200px;
-	min-width: max-content;
-	height: 50px;
+	min-width: min-content;
+	white-space: nowrap;
+	height: 40px;
 	${flexAllCenter}
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: 0.8em;
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	border-left: solid 1px ${({theme}) => theme.color.gray[200]};
 	:hover {
 		cursor: pointer;
 		background-color: ${({theme}) => theme.color.gray[200]};
 	}
 	background-color: ${({ currentMenu }) => (currentMenu ? '#FFD1D1' : '#E9E9E9')};
 	border-bottom: solid 3px ${({ currentMenu }) => (currentMenu ? '#FF3647' : '#E9E9E9')};
-
-	@media screen and (max-width: 414px) {
-		width: 20px;
-		font-size: ${({ theme }) => theme.fontSize.micro};
-	}
 `;
 
 const S = {
+	Sticky,
 	Wrapper,
 	Menu,
 };
