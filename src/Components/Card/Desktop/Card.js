@@ -49,6 +49,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
 	width: 100%;
+	min-width: 200px;
 	max-width: 280px;
 	overflow: hidden;
 	cursor: pointer;
