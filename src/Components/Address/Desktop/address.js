@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Post from './post';
 import styled from 'styled-components';
-import KaMap2 from 'Components/Map/Map copy';
 
 const FindAddress = ({ setter }) => {
 	/* 현재 주소찾기 컴포넌트는 
@@ -27,7 +26,6 @@ const FindAddress = ({ setter }) => {
 	return (
 		<>
 			<div className="address_search">
-				{/* <S.Box>{address}</S.Box> */}
 				<S.SearchBtn onClick={handleComplete}>주소 찾기</S.SearchBtn>
 				{popup && (
 					<Post
@@ -37,7 +35,6 @@ const FindAddress = ({ setter }) => {
 					></Post>
 				)}
 			</div>
-			<KaMap2 address={address} />
 		</>
 	);
 };

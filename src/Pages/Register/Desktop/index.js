@@ -7,6 +7,7 @@ import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
+import KaMap from 'Components/Map/Map';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
