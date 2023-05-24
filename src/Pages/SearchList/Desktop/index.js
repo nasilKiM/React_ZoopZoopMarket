@@ -1,97 +1,42 @@
 import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
-import { useQuery } from 'react-query';
-import { MockAxios } from 'Apis/@core';
-import { useRecoilState } from 'recoil';
 import { itemListState } from 'Atoms/search.atom';
+import { useRecoilValue } from 'recoil';
+import ProductApi from 'Apis/productApi';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
 	const { word } = useParams();
-	const [ref, inView] = useInView({ threshold: 0.5 });
-	const props = 'search_list';
 	const navigate = useNavigate();
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-	// const res = useInfiniteSearch(word, selected);
 
-	//const { data } = res;
+	useEffect(async () => {
+		const res = await ProductApi.getRecent();
+		return console.log('마따따비', res);
+	}, []);
 
-	// let selectedItem = '';
+	// const { data } = useQuery(['product'], () => {
+	// 	return MockAxios.get('/product').then(res => {
+	// 		return res.data;
+	// 	});
+	// }); //목데이터용
 
-	// if (selected === 0) {
-	// 	selectedItem = '중고물품';
-	// } else if (selected === 1) {
-	// 	selectedItem = '무료나눔';
-	// }
-
-	// useEffect(() => {
-	// 	res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
-	// }, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
-
-	// useEffect(() => {
-	// 	if (!inView) {
-	// 		return;
-	// 	}
-	// 	res.fetchNextPage();
-	// }, [inView]);
-
-	const { data } = useQuery(['product'], () => {
-		return MockAxios.get('/product').then(res => {
-			return res.data;
-		});
-	});
-
-	const [itemList, setItemList] = useRecoilState(itemListState);
-	const PAGE_LIMIT = 10;
-	const fetchItems = (page = 0) => {
-		const startIndex = page * PAGE_LIMIT;
-		const endIndex = (page + 1) * PAGE_LIMIT;
-		const items = data.slice(startIndex, endIndex);
-		setItemList(items); // data.itemList 값을 setItemList 함수를 사용하여 itemListState 상태에 저장
-		return { items };
-	};
-
-	useEffect(() => {
-		//data && console.log(data);
-		data && fetchItems();
-		//data && console.log(itemList);
-	}, [word]);
 	useEffect(() => {
 		if (selected <= 1) {
-			navigate(`${selected}`, { state: data });
+			navigate(`${selected}`);
 		}
 	}, [selected]);
-
-	//400px
+	const itemList = useRecoilValue(itemListState);
 
 	return (
 		<>
 			<S.Wrapper>
 				<S.Container>
-					{/* <S.SearchBarContainer>
-						<SearchBar props={props} />
-					</S.SearchBarContainer> */}
-					{/* {!data && (
-						<S.ResultText>
-							<div>{word}에 대한 검색 결과가 없습니다.</div>
-						</S.ResultText>
-					)}
-					{data && (
-						<S.ResultText>
-							{
-								<div>
-									찾으신 '{word}'에 대한 결과 입니다.(총
-									{data && data.pages && data.pages[0].data.product.length} 개)
-								</div>
-							}
-						</S.ResultText>
-					)} */}
 					<S.SelectContainer>
 						<S.SelectBox
 							isSelected={selected === 2}
@@ -113,40 +58,23 @@ const DesktopSearchList = () => {
 						</S.SelectBox>
 					</S.SelectContainer>
 					<S.ResultContainer>
-						<S.ResultText>
-							<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
-						</S.ResultText>
+						{itemList.length < 1 ? (
+							<S.ResultText>
+								<div>{word}에 대한 검색 결과가 없습니다.</div>
+							</S.ResultText>
+						) : (
+							<S.ResultText>
+								<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
+							</S.ResultText>
+						)}
+
 						<S.Category>중고 아이템</S.Category>
 
-						<UsedProduct word={word} data={data}></UsedProduct>
+						<UsedProduct word={word}></UsedProduct>
 
 						<S.Category>무료 아이템</S.Category>
-						<FreeProduct word={word} data={data}></FreeProduct>
+						<FreeProduct word={word}></FreeProduct>
 					</S.ResultContainer>
-					{/* 
-					<S.CategoryBox>
-						<S.Category
-							onClick={() => setSelected(0)}
-							style={selected === 0 ? { fontWeight: 700 } : {}}
-						>
-							중고 물품
-						</S.Category>
-						<S.Wall></S.Wall>
-						<S.Category
-							onClick={() => setSelected(1)}
-							style={selected === 1 ? { fontWeight: 700 } : {}}
-						>
-							무료 나눔
-						</S.Category>
-					</S.CategoryBox> */}
-					{/* <S.ItemList>
-						{data &&
-							data.pages.map(pageItems => (
-								<SearchList products={pageItems.data.product} />
-							))}
-
-						<S.refDiv ref={ref}></S.refDiv>
-					</S.ItemList> */}
 				</S.Container>
 			</S.Wrapper>
 		</>

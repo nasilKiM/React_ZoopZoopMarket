@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-const MobileSideBar = ({ xPosition, setXpostion, setIsOpen }) => {
+const MobileSideBar = ({ xPosition, setXpostion, setMenuIsOpen }) => {
 	const { page } = useParams();
 	page && console.log(page);
 
@@ -26,22 +26,22 @@ const MobileSideBar = ({ xPosition, setXpostion, setIsOpen }) => {
 				</S.ProfilInfo>
 			</S.ProfileZone>
 			<S.Ul>
-				<S.StyledLink to={'/search_list'}>
+				<S.StyledLink to={'search_list'}>
 					<S.Li>중고거래</S.Li>
 				</S.StyledLink>
-				<S.StyledLink to={'/search_list'}>
+				<S.StyledLink to={'search_list'}>
 					<S.Li>무료나눔</S.Li>
 				</S.StyledLink>
-				<S.StyledLink to={'/market_price'}>
+				<S.StyledLink to={'market_price'}>
 					<S.Li>시세조회</S.Li>
 				</S.StyledLink>
-				<S.StyledLink to={'/register'}>
+				<S.StyledLink to={'register'}>
 					<S.Li>물품등록</S.Li>
 				</S.StyledLink>
-				<S.StyledLink to={'/chat'}>
+				<S.StyledLink to={'chat'}>
 					<S.Li>나의 채팅</S.Li>
 				</S.StyledLink>
-				<S.StyledLink to={'/mypage'}>
+				<S.StyledLink to={'mypage'}>
 					<S.Li>마이페이지</S.Li>
 				</S.StyledLink>
 			</S.Ul>
@@ -57,13 +57,13 @@ export default MobileSideBar;
 
 const Container = styled.div`
 	width: 300px;
-	height: 60vh;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	height: 70vh;
+	background-color: ${({ theme }) => theme.color.gray};
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	padding: 30px;
 	position: absolute;
-	top: 75px;
+	top: 240px;
 	left: 0;
 	transform: translateX(${({ xPosition }) => `${xPosition}px`});
 	transition: 0.4s ease;
@@ -82,7 +82,7 @@ const ProfilInfo = styled.div`
 `;
 
 const Ul = styled.ul`
-	height: 280px;
+	height: 320px;
 	border-bottom: solid 1px black;
 	font-size: ${({ theme }) => theme.fontSize.base};
 `;
@@ -91,7 +91,7 @@ const Li = styled.li`
 	margin-bottom: 20px;
 	cursor: pointer;
 	:hover {
-		color: ${({ theme }) => theme.color.primary[300]};
+		color: ${({ theme }) => theme.color.primary};
 	}
 `;
 
@@ -102,7 +102,7 @@ const SettingZone = styled.div`
 	& > div {
 		cursor: pointer;
 		:hover {
-			color: ${({ theme }) => theme.color.primary[300]};
+			color: ${({ theme }) => theme.color.primary};
 		}
 	}
 `;

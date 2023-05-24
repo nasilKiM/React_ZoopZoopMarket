@@ -7,12 +7,14 @@ import ProductApi from 'Apis/productApi';
 import { useEffect } from 'react';
 //import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
+import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
-	const [data, setData] = useState();
-	data && console.log(data);
+	//const [data, setData] = useState();
+	const { data } = useQuery(['mainList'], ProductApi.mainList);
+
 	const products =
-		data && (category === 0 ? data.usedProduct : data.freeProduct);
+		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
 	let categoryText =
 		category === 0
@@ -27,6 +29,7 @@ const Preview = ({ category }) => {
 		speed: 500,
 		slidesToShow: slidesToShow,
 		slidesToScroll: 3,
+
 		nextArrow: (
 			<Div>
 				<img src="/Assets/Icon/right-arrow.png" />
@@ -46,21 +49,23 @@ const Preview = ({ category }) => {
 			setSlidesToShow(3);
 		} else if (window.innerWidth >= 868) {
 			setSlidesToShow(3);
-		} else if (window.innerWidth >= 480) {
+		} else if (window.innerWidth >= 580) {
+			setSlidesToShow(3);
+		} else if (window.innerWidth >= 414) {
 			setSlidesToShow(2);
 		} else {
 			setSlidesToShow(2);
 		}
 	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const res = await ProductApi.mainList();
-			setData(res.data);
-		};
-		fetchData();
-	}, []);
-	console.log(data);
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const res = await ProductApi.mainList();
+	// 		setData(res.data);
+	// 	};
+	// 	fetchData();
+	// }, []);
+	// console.log(data);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -94,8 +99,11 @@ export default Preview;
 
 const Wrapper = styled.div`
 	width: 100%;
-	min-width: 700px;
 	max-width: 1200px;
+	min-width: 414px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	padding-top: 50px;
 `;
@@ -141,6 +149,7 @@ const SwiperWrapper = styled.div`
 	.slick-slide div {
 		//슬라이더  컨텐츠
 		cursor: pointer;
+		/* background-color: ${({ theme }) => theme.color.gray[100]}; */
 	}
 `;
 const Div = styled.div`

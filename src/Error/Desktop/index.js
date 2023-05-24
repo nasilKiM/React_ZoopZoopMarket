@@ -5,7 +5,7 @@ const DesktopError = () => {
 	return (
 		<S.Wrapper>
 			<S.ImageContainer>
-				<S.ErrorImage src="Assets/Images/errorImg.png"></S.ErrorImage>
+				<S.ErrorImage src="/Assets/Error.png"></S.ErrorImage>
 			</S.ImageContainer>
 			<S.Text>
 				<S.Emphasize>에러가 발생했습니다!</S.Emphasize>
@@ -21,14 +21,15 @@ const DesktopError = () => {
 export default DesktopError;
 
 const Wrapper = styled.div`
-	width: 60%;
-	max-width: 1000px;
+	width: 70%;
+	max-width: 1200px;
 	min-width: 700px;
 	margin: 0 auto;
 `;
 
 const ImageContainer = styled.div`
-	margin: 100px;
+	margin-top: 100px;
+	margin-bottom: 60px;
 	display: flex;
 	justify-content: center;
 `;
@@ -40,11 +41,12 @@ const ErrorImage = styled.img`
 const Text = styled.div`
 	text-align: center;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	margin-bottom: 20px;
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	margin-bottom: 30px;
 `;
 
 const Emphasize = styled.div`
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 	color: ${({ theme }) => theme.color.primary};
 	font-size: ${({ theme }) => theme.fontSize.big};
 `;
@@ -62,6 +64,13 @@ const GoMain = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-decoration: none;
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	padding: 20px;
+	border-radius: 10px;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		color: ${({ theme }) => theme.color.white};
+	}
 `;
 
 const S = {

@@ -1,4 +1,4 @@
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { flexAlignCenter, flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -87,6 +87,8 @@ const SignUpPage = () => {
 		address;
 
 	return (
+		<>
+		<S.Logo src="/Assets/web_logo.png"></S.Logo>
 		<S.Div>
 			<S.Wrap>
 				<S.Header>
@@ -224,6 +226,7 @@ const SignUpPage = () => {
 				</S.Form>
 			</S.Wrap>
 		</S.Div>
+		</>
 	);
 };
 
@@ -234,6 +237,12 @@ const Div = styled.div`
 	${flexAllCenter}
 `;
 
+const Logo = styled.img`
+	${flexJustifyCenter}
+	margin: 50px auto 0;
+	max-width: 300px;
+`;
+
 const Wrap = styled.div`
 	width: 80%;
 	flex-direction: column;
@@ -242,17 +251,11 @@ const Wrap = styled.div`
 
 const Header = styled.div`
 	width: 100%;
-	height: 150px;
-	padding-top: 50px;
-	margin-bottom: 10px;
+	height: 130px;
+	padding-top: 10px;
 	${flexAllCenter}
 	font-size: ${({ theme }) => theme.fontSize.lg};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
-
-const LogoImage = styled.img`
-	max-width: 100%;
-	max-height: 100%;
 `;
 
 const Form = styled.form`
@@ -260,7 +263,7 @@ const Form = styled.form`
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	padding: 40px 30px;
+	padding: 30px 30px;
 	max-width: 800px;
 	min-width: 600px;
 	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -356,9 +359,9 @@ const CheckBtn = styled(CustomButton)`
 
 const S = {
 	Div,
+	Logo,
 	Wrap,
 	Header,
-	LogoImage,
 	Form,
 	Button,
 	InputWrap,

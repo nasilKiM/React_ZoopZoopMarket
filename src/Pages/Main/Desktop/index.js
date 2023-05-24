@@ -27,6 +27,7 @@ const DesktopMainPage = () => {
 			{/* MockData용
 			<Preview category={0} products={data}></Preview>
 			<Preview category={1} products={data}></Preview> */}
+
 			<Preview category={0}></Preview>
 			<Preview category={1}></Preview>
 			<TopBtn />
@@ -43,8 +44,14 @@ export default DesktopMainPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 	margin: 0 auto;
 	padding-top: 10px;
 `;
@@ -58,7 +65,7 @@ const Banner = styled.div`
 const TitleBox = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[400]};
 	padding-top: 30px;
 	padding-bottom: 30px;
 `;

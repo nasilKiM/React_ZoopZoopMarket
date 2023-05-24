@@ -34,11 +34,11 @@ const UserApi = {
 			phone,
 		});
 	},
-	//임시
-	myItem({ page, category }) {
-		return Axios.get(PATH + '/my-page/product-list', {
-			page,
-			category,
+	userProfileEdit(image) {
+		return Axios.patch(PATH + '/profile', image, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
 		});
 	},
 };

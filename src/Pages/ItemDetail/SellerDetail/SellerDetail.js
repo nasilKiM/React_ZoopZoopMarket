@@ -18,7 +18,7 @@ const SellerDetailPage = ({ state, product }) => {
 		setDetailState(innerText);
 	};
 
-	const socket = 'sample용소켓입니다.';
+	const socket = 'caeb9fae-7da5-4d70-9508-a4690a3a1f41';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
@@ -29,6 +29,7 @@ const SellerDetailPage = ({ state, product }) => {
 			console.log('에러', error);
 		}
 	};
+
 	return (
 		<S.Wrapper>
 			<S.EditBar>
@@ -62,8 +63,11 @@ export default SellerDetailPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	/* border: 1px solid; */
 	margin: 0 auto;
 `;
@@ -85,13 +89,9 @@ const EditBar = styled.div`
 		}
 	}
 	& > ul {
-		margin: 0 10px;
 		${flexAllCenter}
 		cursor: pointer;
 		gap: 10px;
-		/* & > span {
-			margin: 0 10px;
-		} */
 		& > div {
 			padding: 15px 20px;
 			background-color: #d9d9d9;

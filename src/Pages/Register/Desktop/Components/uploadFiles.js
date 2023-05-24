@@ -162,12 +162,12 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 export default UploadFiles;
 
 const Wrapper = styled.div`
-	width: 800px;
+	width: 100%;
 	margin: 0 auto;
 `;
 
 const ImgContainer = styled.div`
-	width: 100%;
+	/* width: 100%; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -177,6 +177,18 @@ const MainImgContainer = styled.div`
 	width: 360px;
 	height: 360px;
 	position: relative;
+	@media screen and (max-width: 1000px) {
+		width: 310px;
+		height: 310px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 240px;
+		height: 240px;
+	}
+	@media screen and (max-width: 414px) {
+		width: 200px;
+		height: 200px;
+	}
 `;
 
 const MainImgSection = styled.img`
@@ -185,15 +197,40 @@ const MainImgSection = styled.img`
 	cursor: pointer;
 	border: 1px solid ${({ theme }) => theme.color.subColor};
 	object-fit: cover;
+	@media screen and (max-width: 1000px) {
+		width: 310px;
+		height: 310px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 240px;
+		height: 240px;
+	}
+	@media screen and (max-width: 414px) {
+		width: 200px;
+		height: 200px;
+	}
 `;
 
 const SmallImgBox = styled.div`
-	width: 376px;
-	height: 376px;
+	width: 380px;
+	height: 380px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
+	overflow: hidden;
+	@media screen and (max-width: 1000px) {
+		width: 320px;
+		height: 320px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 300px;
+		height: 300px;
+	}
+	@media screen and (max-width: 414px) {
+		width: 200px;
+		height: 200px;
+	}
 `;
 
 const SmallImgContainer = styled.div`
@@ -201,6 +238,18 @@ const SmallImgContainer = styled.div`
 	height: 171px;
 	position: relative;
 	margin: 0 4px;
+	@media screen and (max-width: 1000px) {
+		width: 140px;
+		height: 140px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 115px;
+		height: 115px;
+	}
+	@media screen and (max-width: 414px) {
+		width: 100px;
+		height: 100px;
+	}
 `;
 
 const SmallImgSection = styled.img`
@@ -209,6 +258,18 @@ const SmallImgSection = styled.img`
 	cursor: pointer;
 	object-fit: cover;
 	border: 1px solid ${({ theme }) => theme.color.subColor};
+	@media screen and (max-width: 1000px) {
+		width: 140px;
+		height: 140px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 115px;
+		height: 115px;
+	}
+	@media screen and (max-width: 414px) {
+		width: 100px;
+		height: 100px;
+	}
 `;
 
 const DelBtn = styled.div`
