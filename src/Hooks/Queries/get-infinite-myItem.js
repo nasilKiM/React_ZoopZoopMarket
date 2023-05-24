@@ -6,16 +6,18 @@ export const useInfiniteMyItem = (category) => {
         ['MY_ITEMS'],
         ({ pageParam = 1 }) => MyPageApi.productList({page:pageParam, category}),
         {
-            getNextPageParam: lastPage => {
+            getNextPageParam: (lastPage, allPage) => {
                 console.log('lastpage', lastPage); // 확인용
-                const nextPage = Math.ceil(lastPage.data.count / 10);
-                if (nextPage < lastPage.data.endPage) {
-                    return nextPage + 1;
-                }
-                else {
-                    return undefined;
-                }
-                }
+                console.log('allpage', allPage)
+                // const nextPage = Math.ceil(lastPage.data.count / 10);
+                // if (nextPage < lastPage.data.endPage) {
+                //     return nextPage + 1;
+                // }
+                // else {
+                //     return undefined;
+                // }
+                
+            }
         }
     )
     return res;
