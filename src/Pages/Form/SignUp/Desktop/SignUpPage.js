@@ -14,6 +14,7 @@ import TokenService from 'Repository/TokenService';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import { useMutation } from 'react-query';
+import useCheckEmail from 'Hooks/Queries/get.email.check';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -58,16 +59,27 @@ const SignUpPage = () => {
 		mutate(info);
 	};
 
+	const value = getValues('email');
+	const { data, refetch, error, isError, isLoading } = useCheckEmail(value);
+
+	// console.log(data);
+	// console.log(isLoading);
+
+	// console.log(error);
+	// if (!isLoading && error) {
+	// 	console.log(error.response.data.message);
+	// }
 	// 이메일 중복체크
-	const onCheckId = async e => {
+	const onCheckId = e => {
 		e.preventDefault();
-		const value = getValues('email');
-		try {
-			const res = await UserApi.checkEmail(value);
-			setIdMsg(res.data.message);
-		} catch (err) {
-			setIdMsg(err.response.data.message);
-		}
+		refetch(data);
+		// console.log(message);
+		// try {
+		// 	const res = await UserApi.checkEmail(value);
+		// 	setIdMsg(res.data.message);
+		// } catch (err) {
+		// 	setIdMsg(err.response.data.message);
+		// }
 	};
 
 	// input 값에 변화가 생길때 msg 칸을 비워주는
@@ -129,7 +141,15 @@ const SignUpPage = () => {
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
-						{<S.Error>{idMsg}</S.Error>}
+						{/* {<S.Error>{idMsg}</S.Error>} */}
+						{/* {
+							<S.Error>
+								{!isLoading && error && !data
+									? error.response.data.message
+									: data.message}
+							</S.Error>
+						} */}
+
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>

@@ -1,4 +1,4 @@
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -39,39 +39,44 @@ const MyPasswordEdit = () => {
 	return (
 		<>
 			<S.Wrap>
-				<S.Text> 90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!</S.Text>
+				<S.Text>
+					{' '}
+					90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!
+				</S.Text>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-				<S.Grid1>
-							<S.Title>* 비밀번호</S.Title>
-							<S.Input
-								{...register('password', FORM_TYPE.PASSWORD)}
-								placeholder="특수문자, 영어, 숫자 포함 8자이상"
-								type="password"
-							/>
+					<S.Grid1>
+						<S.Title>* 비밀번호</S.Title>
+						<S.Input
+							{...register('password', FORM_TYPE.PASSWORD)}
+							placeholder="특수문자, 영어, 숫자 포함 8자이상"
+							type="password"
+						/>
 					</S.Grid1>
 					{errors.password && <S.Error>{errors.password.message}</S.Error>}
 					<S.Grid1>
 						<S.Title>* 비밀번호 확인</S.Title>
-							<S.Input
-								{...register('confirmPW', {
-									required: true,
-									validate: value => {
-										if ('password' !== value) {
-											return '비밀번호가 일치하지 않습니다.';
-										}
-									},
-								})}
-								placeholder="PW check"
-								type="password"
-							/>
+						<S.Input
+							{...register('confirmPW', {
+								required: true,
+								validate: value => {
+									if ('password' !== value) {
+										return '비밀번호가 일치하지 않습니다.';
+									}
+								},
+							})}
+							placeholder="PW check"
+							type="password"
+						/>
 					</S.Grid1>
 					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
-						<S.Button 
-							type="submit"
-							disabled={!full}
-							size={'submitBtn'}
-							shape={'submitBtn'}
-						>저장하기</S.Button>
+					<S.Button
+						type="submit"
+						disabled={!full}
+						size={'submitBtn'}
+						shape={'submitBtn'}
+					>
+						저장하기
+					</S.Button>
 				</S.Form>
 				<S.Text2 onClick={onClickExit}>취소하기</S.Text2>
 			</S.Wrap>
@@ -136,12 +141,12 @@ const Title = styled.div`
 	min-width: max-content;
 	${flexAllCenter}
 	margin-right: 22px;
-`
+`;
 
 const Title2 = styled.div`
 	min-width: max-content;
 	${flexAllCenter}
-`
+`;
 
 const Text = styled.div`
 	margin-bottom: 3vh;
@@ -161,7 +166,6 @@ const Text2 = styled.div`
 	}
 `;
 
-
 const S = {
 	Wrap,
 	Form,
@@ -172,5 +176,5 @@ const S = {
 	Title,
 	Title2,
 	Text,
-	Text2
+	Text2,
 };

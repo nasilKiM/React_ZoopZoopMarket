@@ -4,7 +4,7 @@ const color = {
 		200: '#FF9494',
 		300: '#F87474', // focus 색깔
 		400: '#FF3647', // 대표 색깔
-		500: '#FF0000'
+		500: '#FF0000',
 	},
 	subColor: '#FFECEC',
 	hover: '#db2e3d',

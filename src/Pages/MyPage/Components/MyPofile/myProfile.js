@@ -147,7 +147,7 @@ const ImgWrap = styled.div`
 		margin-right: 0px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		margin-right:0px;
+		margin-right: 0px;
 	}
 `;
 
@@ -170,14 +170,14 @@ const ProfileImg = styled.div`
 	}
 `;
 
-const FontAwesomeIconImg = styled(FontAwesomeIcon) `
+const FontAwesomeIconImg = styled(FontAwesomeIcon)`
 	@media ${({ theme }) => theme.device.tablet} {
 		font-size: 3vw;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: 5px;
 	}
-	`;
+`;
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
@@ -225,5 +225,5 @@ const S = {
 	InfoTitle,
 	InfoContent,
 	Img,
-	FontAwesomeIconImg
+	FontAwesomeIconImg,
 };
