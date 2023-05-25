@@ -16,7 +16,6 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 				fileURLs.push(fileURL);
 			}
 			setImgSrc(fileURLs);
-			console.log('fileArr', fileArr);
 		} else setImgSrc(imgSrc);
 	};
 
@@ -228,8 +227,8 @@ const SmallImgBox = styled.div`
 		height: 300px;
 	}
 	@media screen and (max-width: 414px) {
-		width: 200px;
-		height: 200px;
+		width: 230px;
+		height: 230px;
 	}
 `;
 
@@ -243,12 +242,12 @@ const SmallImgContainer = styled.div`
 		height: 140px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 115px;
-		height: 115px;
+		width: 110px;
+		height: 110px;
 	}
 	@media screen and (max-width: 414px) {
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 	}
 `;
 
@@ -263,12 +262,12 @@ const SmallImgSection = styled.img`
 		height: 140px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 115px;
-		height: 115px;
+		width: 110px;
+		height: 110px;
 	}
 	@media screen and (max-width: 414px) {
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 	}
 `;
 
@@ -290,6 +289,15 @@ const DelBtn = styled.div`
 		width: 32px;
 		height: 32px;
 		cursor: pointer;
+	}
+	@media screen and (max-width: 768px) {
+		width: 20px;
+		height: 20px;
+		:hover {
+			width: 22px;
+			height: 22px;
+			cursor: pointer;
+		}
 	}
 `;
 

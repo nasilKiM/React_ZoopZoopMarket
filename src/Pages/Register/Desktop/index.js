@@ -32,8 +32,8 @@ const RegisterPage = () => {
 		try {
 			const res = await ProductApi.detail(idx);
 			console.log('res', res);
+			setValue('price', res.data.searchProduct.price);
 			setPrice(res.data.searchProduct.price);
-			price && setValue('price', price);
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
@@ -73,6 +73,7 @@ const RegisterPage = () => {
 	};
 
 	const handlePriceChange = e => {
+		console.log(e.target.value);
 		const value = e.target.value;
 		const num = parseInt(value.replace(/[^0-9]/g, ''), 10);
 		const priceValue = isNaN(num) ? 0 : num;
@@ -92,16 +93,11 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
-			console.log('데이터가격', data.price);
-			formData.append('price', Number(data.price.replace(/,/g, '')));
+			formData.append('price', Number(data.price));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
-			console.log('태그배열', tags);
 			formData.append('tag', tags);
-			// [...tags].forEach(el => {
-			// 	formData.append('tag', el);
-			// });
 			console.log('이미지 formdata', data.mainImg);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
@@ -283,6 +279,9 @@ const Title = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	@media (max-width: 1100px) {
 		font-size: ${({ theme }) => theme.fontSize.base};
+	}
+	@media screen and (max-width: 768px) {
+		min-width: 40px;
 	}
 `;
 

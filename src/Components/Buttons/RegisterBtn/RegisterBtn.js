@@ -34,6 +34,7 @@ const Button = styled.button`
 	background-image: url('/Assets/Icon/add.png');
 	background-repeat: no-repeat;
 	background-size: contain;
+	border: none;
 `;
 
 const S = {

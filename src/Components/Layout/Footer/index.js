@@ -15,7 +15,6 @@ const BasicFooter = () => {
 export default BasicFooter;
 
 const FooterWrap = styled.div`
-	width: 100vw;
 	height: 200px;
 	position: relative;
 	transform: translateY(

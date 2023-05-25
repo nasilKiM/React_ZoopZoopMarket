@@ -15,7 +15,6 @@ const KaMap = ({ address }) => {
 		let callback = function (result, status) {
 			if (status === kakao.maps.services.Status.OK) {
 				const newSearch = result[0];
-				console.log(newSearch);
 				setState({
 					center: { lat: newSearch.y, lng: newSearch.x },
 				});

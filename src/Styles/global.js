@@ -29,6 +29,12 @@ const GlobalStyles = createGlobalStyle`
 	body{
 		font-family: 'Nanum_regular';
 	}
+	button: {
+		border: none;
+	}
+	input {
+		outline: none;
+	}
 
 `;
 export default GlobalStyles;

@@ -10,15 +10,15 @@ import ItemCard from 'Components/Card/Desktop/Card';
 import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
-	//const [data, setData] = useState();
 	const { data } = useQuery(['mainList'], ProductApi.mainList);
 
+	// data && console.log('data', data);
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
 	let categoryText =
 		category === 0
-			? `${data && data.region}에 있는 줍줍템을 확인하세요!`
+			? `${data && data.data.region}에 있는 줍줍템을 확인하세요!`
 			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
 	const [slidesToShow, setSlidesToShow] = useState(3);
