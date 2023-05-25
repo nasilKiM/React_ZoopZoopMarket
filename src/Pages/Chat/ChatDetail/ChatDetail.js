@@ -10,7 +10,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [receiveMsg, setReceiveMsg] = useState();
 	const so = useSocket();
 	console.log(chat);
-
 	useEffect(() => {
 		if (!item) item = itemInfo;
 	}, []);
@@ -33,7 +32,16 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 		so.on('receiveMessage', async data => {
 			console.log(data);
 			try {
-				const res = await ChatApis.loadChatLog(chatroomIdx);
+				const res = await ChatApis.saveMsg({
+					room_idx: data.room_idx,
+					message: data.message,
+				});
+				console.log(res);
+			} catch (err) {
+				console.log(err);
+			}
+			try {
+				const res = await ChatApis.loadChatLog(data.room_idx);
 				console.log(res.data);
 				setChat(res.data);
 			} catch (err) {
@@ -77,20 +85,21 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 		// 		console.log(err);
 		// 	}
 		// });
-		try {
-			const res = await ChatApis.saveMsg({
-				room_idx: chatroomIdx,
-				message: inputMsg.current.value,
-			});
-			console.log(res);
-		} catch (err) {
-			console.log(err);
-		}
+		// try {
+		// 	const res = await ChatApis.saveMsg({
+		// 		room_idx: chatroomIdx,
+		// 		message: inputMsg.current.value,
+		// 	});
+		// 	console.log(res);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 		console.log('클릭');
 	};
 
 	return (
 		<>
+			<div>{chat?.length}</div>
 			<S.ChattingTitle>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
