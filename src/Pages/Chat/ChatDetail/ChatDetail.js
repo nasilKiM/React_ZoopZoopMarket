@@ -31,6 +31,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 
 	useEffect(() => {
 		so.on('receiveMessage', async data => {
+			console.log(data);
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
 				console.log(res.data);
@@ -57,11 +58,11 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 		e.preventDefault();
 		so.emit('join', { room_idx: chatroomIdx });
 		const message = {
-			title: item.title,
-			createdAt: item.createdAt,
-			prod_idx: item.idx,
+			title: item?.title,
+			createdAt: item?.createdAt,
+			prod_idx: item?.idx,
 			room_idx: chatroomIdx,
-			nickName: item.User.nick_name,
+			nickName: item?.User.nick_name,
 			message: inputMsg.current.value,
 			isSeller,
 		};
