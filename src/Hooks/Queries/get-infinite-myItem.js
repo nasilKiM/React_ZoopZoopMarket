@@ -1,7 +1,7 @@
 import MyPageApi from "Apis/myPageApi"
 import { useInfiniteQuery } from "react-query"
 
-let currentPage = 1;
+
 export const useInfiniteMyItem = (category) => {
     const res = useInfiniteQuery(
         ['MY_ITEMS'],
@@ -9,9 +9,9 @@ export const useInfiniteMyItem = (category) => {
         {
             getNextPageParam: (lastPage, allPages) => {
                 // console.log('lastpage', lastPage);
-                // console.log('allpage', allPages);
-                if(currentPage < allPages[0].data.pagination.endPage) {
-                    return currentPage + 1;
+                console.log('allpage', allPages);
+                if(allPages[0].data.pagination.curPage < allPages[0].data.pagination.endPage) {
+                    return allPages[0].data.pagination.curPage + 1;
                 } else return;
             }
         }
