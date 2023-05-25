@@ -7,6 +7,9 @@ const ChatList = ({
 	setIsChatEntrance,
 	setChatroomIdx,
 	idx,
+	item,
+	setItem,
+	setItemInfo,
 }) => {
 	console.log('chatList', chatroomList);
 	return (
@@ -18,12 +21,27 @@ const ChatList = ({
 				{idx &&
 					chatroomList &&
 					chatroomList.map(chat => {
-						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
+						return (
+							<ChatMessage
+								chat={chat}
+								setChatroomIdx={setChatroomIdx}
+								item={item}
+								setItem={setItem}
+							/>
+						);
 					})}
 				{!idx &&
 					chatroomList &&
 					chatroomList.chats.map(chat => {
-						return <ChatMessage chat={chat} setChatroomIdx={setChatroomIdx} />;
+						return (
+							<ChatMessage
+								chat={chat}
+								setChatroomIdx={setChatroomIdx}
+								setItem={setItem}
+								item={item}
+								setItemInfo={setItemInfo}
+							/>
+						);
 					})}
 			</S.ListContainer>
 		</>

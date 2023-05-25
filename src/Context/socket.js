@@ -8,13 +8,12 @@ const SocketProvider = ({ children }) => {
 	const [socket, setSocket] = useState();
 
 	useEffect(() => {
+		if (socket) return;
 		setSocket(io(process.env.REACT_APP_BACKEND_URL));
 	}, []);
 
 	return (
-		<socketContext.Provider value={(socket, setSocket)}>
-			{children}
-		</socketContext.Provider>
+		<socketContext.Provider value={socket}>{children}</socketContext.Provider>
 	);
 };
 

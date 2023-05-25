@@ -45,7 +45,8 @@ const LoginPage = () => {
 			const socketId = res.data.user.socket;
 			// const so = io.connect(process.env.REACT_APP_BACKEND_URL);
 			// const so = socketConnect();
-			so.setSocket(io.connect(process.env.REACT_APP_BACKEND_URL));
+			// const setSocket = so.setSocket;
+			// setSocket(io.connect(process.env.REACT_APP_BACKEND_URL));
 			// socket 연결 확인
 			so.on('connect', () => {
 				console.log('socket connected');

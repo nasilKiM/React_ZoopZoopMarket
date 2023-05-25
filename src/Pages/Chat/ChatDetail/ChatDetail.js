@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
-import { socketConnect } from '@Socket/socket';
+import { useSocket } from 'Context/socket';
 
-const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
+const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
-	const so = socketConnect();
-	console.log(1213213321123, so);
+	const so = useSocket();
 	console.log(chat);
+
+	useEffect(() => {
+		if (!item) item = itemInfo;
+	}, []);
+
 	useEffect(() => {
 		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {
@@ -23,6 +27,18 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 			}
 		};
 		loadChatLog();
+	}, []);
+
+	useEffect(() => {
+		so.on('receiveMessage', async data => {
+			try {
+				const res = await ChatApis.loadChatLog(chatroomIdx);
+				console.log(res.data);
+				setChat(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		});
 	}, []);
 
 	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
@@ -50,16 +66,16 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 			isSeller,
 		};
 		so.emit('sendMessage', message);
-		so.on('receiveMessage', async data => {
-			console.log('수신13244321314234123421', data);
-			try {
-				const res = await ChatApis.loadChatLog(chatroomIdx);
-				console.log(res.data);
-				setChat(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		});
+		// so.on('receiveMessage', async data => {
+		// 	console.log('수신13244321314234123421', data);
+		// 	try {
+		// 		const res = await ChatApis.loadChatLog(chatroomIdx);
+		// 		console.log(res.data);
+		// 		setChat(res.data);
+		// 	} catch (err) {
+		// 		console.log(err);
+		// 	}
+		// });
 		try {
 			const res = await ChatApis.saveMsg({
 				room_idx: chatroomIdx,
@@ -70,17 +86,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller }) => {
 			console.log(err);
 		}
 		console.log('클릭');
-
-		// // 채팅 로그를 불렀으면 읽음처리를 해줘야함
-		// const readMsg = async () => {
-		// 	try {
-		// 		const res = await ChatApis.readChatMsg(chatroomIdx);
-		// 	} catch (err) {
-		// 		console.log(err);
-		// 	}
-		// 	// 읽음 처리는 해주는데, 읽음 처리를 해주면 채팅 목록 조회에서
-		// 	// isRead처리를 어떻게 해주는가??
-		// };
 	};
 
 	return (

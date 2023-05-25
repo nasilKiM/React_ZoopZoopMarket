@@ -2,24 +2,32 @@ import styled from 'styled-components';
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
 import ProductApi from 'Apis/productApi';
 
 const SellerDetailPage = ({ state, product, idx }) => {
-	const item = product && product.data.searchProduct;
+	// const item = product && product.data.searchProduct;
+	const [item, setItem] = useState();
 	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (product) setItem(product.data.searchProduct);
+		return () => {
+			setItem();
+		};
+	}, []);
 
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
 
-	const socket = 'sample용소켓입니다.';
+	// const socket = 'sample용소켓입니다.';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
@@ -51,7 +59,12 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			{detailState === '상세정보' ? (
 				<DetailContent state={state} item={item} />
 			) : (
-				<ChattingPage idx={idx} item={item} isSeller={isSeller} />
+				<ChattingPage
+					idx={idx}
+					item={item}
+					isSeller={isSeller}
+					setItem={setItem}
+				/>
 			)}
 			<AnotherProduct />
 		</S.Wrapper>

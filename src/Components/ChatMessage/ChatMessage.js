@@ -1,10 +1,22 @@
+import ProductApi from 'Apis/productApi';
 import styled from 'styled-components';
 
-const ChatMessage = ({ chat, setChatroomIdx }) => {
-	const onClickChat = () => {
+const ChatMessage = ({ chat, setChatroomIdx, setItem, item, setItemInfo }) => {
+	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
+		console.log(item);
+		console.log(setItemInfo);
+		if (item) return;
+		try {
+			const res = await ProductApi.detail(chat.idx);
+			console.log(res);
+			setItemInfo(res.data.searchProduct);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 	console.log(chat);
+
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>

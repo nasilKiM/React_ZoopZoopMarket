@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import ChatDetail from './ChatDetail/ChatDetail';
 
-const ChattingPage = ({ idx, item, isSeller }) => {
+const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [isChatEntrance, setIsChatEntrance] = useState(false);
+	const [itemInfo, setItemInfo] = useState();
+	console.log(itemInfo);
 	console.log(idx, item);
 	// const { data } = useQuery(['chatList'], () => {
 	// 	return axios.get('/chatList').then(res => {
@@ -65,6 +67,9 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 					setIsChatEntrance={setIsChatEntrance}
 					setChatroomIdx={setChatroomIdx}
 					idx={idx}
+					item={item}
+					setItem={setItem}
+					setItemInfo={setItemInfo}
 				/>
 			</S.ChatLeftContainer>
 			<S.ChatRightContainer>
@@ -73,6 +78,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 						chatroomIdx={chatroomIdx}
 						item={item}
 						isSeller={isSeller}
+						itemInfo={itemInfo}
 					/>
 				)}
 				<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div>
