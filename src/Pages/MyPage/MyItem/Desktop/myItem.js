@@ -8,25 +8,20 @@ import styled from 'styled-components';
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, hasNextPage, refetch } = res;
-	const [ref, inView] = useInView();
+	const { data, fetchNextPage, refetch} = res;
+	const [ref, isView] = useInView();
 
-	data && console.log( '/////', data, hasNextPage );
+	// data && console.log( '/////', data, data.pageParams.length);
 	
 	useEffect(() => {
-		if (!inView) {
+		if (!isView) {
 			return;
 		}
-		// if (hasNextPage) {
+		else if (data && data.pages.length + 1 < data.pages[0].data.pagination.endPage) {
 			fetchNextPage();
-		// }
-	}, [inView]);
-
-	// useEffect(() => {
-	// 	window.scroll(0, 0);
-	// }, []);
-
-
+		}
+	}, [isView]);
+	
 	useEffect(() => {
 		refetch()
 	}, [category]);
