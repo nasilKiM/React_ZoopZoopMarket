@@ -29,6 +29,7 @@ const Button = styled.button`
 	height: 100%;
 	width: 100%;
 	cursor: pointer;
+	border: none;
 	display: inline-block;
 	background-color: transparent;
 	background-image: url('/Assets/Icon/add.png');

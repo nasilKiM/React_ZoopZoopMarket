@@ -49,6 +49,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
 	width: 100%;
+	min-width: 200px;
 	max-width: 280px;
 	overflow: hidden;
 	cursor: pointer;
@@ -85,7 +86,7 @@ const Heart = styled.div`
 	height: 32px;
 	top: 40px;
 	left: 80%;
-	z-index: 100;
+	z-index: 99;
 `;
 
 const ItemImg = styled.img`
