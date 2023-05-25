@@ -15,13 +15,14 @@ const WholeListPage = () => {
 		setSelected(option);
 	};
 
-	const res = useInfiniteSearch(word, selected);
+	const res = useInfiniteSearch(word.split(','), selected);
 
 	useEffect(() => {
 		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
 	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	const { data } = res;
+	console.log('res----->', res);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);

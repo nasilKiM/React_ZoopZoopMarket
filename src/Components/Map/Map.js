@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 
 const { kakao } = window;
@@ -23,7 +23,10 @@ const KaMap = ({ address }) => {
 		geocoder.addressSearch(`${address}`, callback);
 	};
 
-	address && searchMap();
+	//무한반복되어서 useEffect에 넣어둠
+	useEffect(() => {
+		address && searchMap();
+	}, []);
 
 	return (
 		<Map

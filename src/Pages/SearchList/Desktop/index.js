@@ -31,6 +31,7 @@ const DesktopSearchList = () => {
 			navigate(`${selected}`);
 		}
 	}, [selected]);
+	
 	const itemList = useRecoilValue(itemListState);
 
 	return (
