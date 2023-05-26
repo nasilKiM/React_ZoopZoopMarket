@@ -46,6 +46,10 @@ const DesktopSearchList = () => {
 	// }
 	freeData && console.log(freeData);
 
+	const { data } = useQuery(['SEARCH_ALL', word], () => {
+		return ProductApi.searchItems(1, word);
+	});
+
 	return (
 		<>
 			<S.Wrapper>
@@ -70,8 +74,7 @@ const DesktopSearchList = () => {
 							무료
 						</S.SelectBox>
 					</S.SelectContainer>
-					{(freeData.data.pagination.count > 0 ||
-						usedData.data.pagination.count > 0) && (
+					{data && (
 						<S.ResultContainer>
 							{productCount > 0 ? (
 								<S.ResultText>
@@ -87,10 +90,14 @@ const DesktopSearchList = () => {
 
 							<S.Category>중고 아이템</S.Category>
 
-							<UsedProduct word={word} data={usedData}></UsedProduct>
+							{usedData.data && (
+								<UsedProduct word={word} data={usedData.data}></UsedProduct>
+							)}
 
 							<S.Category>무료 아이템</S.Category>
-							<FreeProduct word={word} data={freeData}></FreeProduct>
+							{freeData.data && (
+								<FreeProduct word={word} data={freeData.data}></FreeProduct>
+							)}
 						</S.ResultContainer>
 					)}
 				</S.Container>
