@@ -9,7 +9,7 @@ const InterestCard = ({ index, products }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
-	console.log(products);
+	// console.log(products);
 
 	return (
 		products && (

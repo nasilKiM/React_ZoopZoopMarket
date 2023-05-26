@@ -97,6 +97,7 @@ const RegisterPage = () => {
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
 			console.log('이미지 formdata', data.mainImg);
+			console.log('본문내용', data.content);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
