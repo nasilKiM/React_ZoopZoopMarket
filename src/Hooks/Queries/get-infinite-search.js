@@ -1,5 +1,5 @@
-const { default: ProductApi } = require('Apis/productApi');
-const { useInfiniteQuery } = require('react-query');
+import { useInfiniteQuery } from '@tanstack/react-query';
+import ProductApi from 'Apis/productApi';
 
 export const useInfiniteSearch = (word, selected) => {
 	const res = useInfiniteQuery(

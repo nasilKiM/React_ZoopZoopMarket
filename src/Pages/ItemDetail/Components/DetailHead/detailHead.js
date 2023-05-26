@@ -38,8 +38,9 @@ const DetailHead = ({ item }) => {
 export default DetailHead;
 
 const Wrapper = styled.div`
-	padding-top: 50px;
 	width: 100%;
+	padding-top: 20px;
+
 	& > * {
 		margin-bottom: 20px 0;
 	}

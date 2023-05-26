@@ -1,46 +1,41 @@
 import ProductApi from 'Apis/productApi';
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
+import EditBtns from 'Components/Buttons/EditBtns/editBtns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ItemCard = ({ index, products }) => {
+const MyItemCard = ({ index, products }) => {
 	const navigate = useNavigate();
 
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
 		await ProductApi.addRecent(index);
 	};
-	// console.log(products);
 
 	return (
-		products && (
-			<S.Wrapper>
-				<S.Container>
-					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
-					</S.Heart>
-					<div onClick={onClickCard}>
-						<S.ItemImg src={products.img_url} />
-						<S.ItemInfo>
-							<S.ItemTitle>{products.title}</S.ItemTitle>
-							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
-							</S.ItemPrice>
-							{products && products.ProductsTags.map(tagObj => (
-								<S.ItemTag key={tagObj.idx}>
-									<a className="tag-link">#{tagObj.Tag.tag}</a>
-								</S.ItemTag>
-							))}
-						</S.ItemInfo>
-					</div>
-				</S.Container>
-			</S.Wrapper>
-		)
+		// products && (
+		<S.Wrapper>
+			<S.Container>
+				<div onClick={onClickCard}>
+					<S.ItemImg src={'/Assets/Images/bicycle.jpg'} />
+					<S.ItemInfo>
+						<S.ItemTitle>제목이 들어갑니다.</S.ItemTitle>
+						<S.ItemPrice>
+							100,000 원{/* {products.price.toLocaleString('ko-KR')}원 */}
+						</S.ItemPrice>
+						<S.Button>
+							<EditBtns />
+						</S.Button>
+					</S.ItemInfo>
+				</div>
+			</S.Container>
+		</S.Wrapper>
 	);
+	//);
 };
 
-export default ItemCard;
+export default MyItemCard;
+
 const Wrapper = styled.div`
 	padding: 15px 0;
 	display: flex;
@@ -72,15 +67,6 @@ const Container = styled.div`
 	}
 `;
 
-const Heart = styled.div`
-	position: relative;
-	width: 32px;
-	height: 32px;
-	top: 40px;
-	left: 80%;
-	z-index: 1000000;
-`;
-
 const ItemImg = styled.img`
 	width: 100%;
 	height: 250px;
@@ -93,11 +79,9 @@ const ItemImg = styled.img`
 const ItemInfo = styled.div`
 	width: 100%;
 	padding-top: 15px;
-	max-height: 87px;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 0 15px;
-	overflow: hidden;
 `;
 
 const ItemTitle = styled.div`
@@ -110,37 +94,20 @@ const ItemPrice = styled.span`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 `;
 
-const ItemTag = styled.span`
-	display: inline-block;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	background-color: ${({ theme }) => theme.color.gray[100]};
-	border-radius: 5px;
-	margin-right: 5px;
-	margin-bottom: 10px;
-	/* flex-shrink: 0; */
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	a {
-		display: inline-block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		padding: 5px 10px;
-	}
+const Button = styled.div`
+	width: 100%;
+	padding-bottom: 10px;
 `;
 
 const S = {
 	Wrapper,
-	Heart,
 	Container,
 	ItemImg,
 	ItemInfo,
 	ItemTitle,
 	ItemPrice,
-	ItemTag,
+	Button,
 };

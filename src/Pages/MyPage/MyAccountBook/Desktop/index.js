@@ -5,7 +5,6 @@ import AccountBookDetailInfo from './Components/detailInfo';
 
 const AccountBookPage = () => {
 	const [date, setDate] = useState(new Date());
-	console.log(date);
 	const [category, setCategory] = useState();
 	const [year, setYear] = useState(date.getFullYear());
 	const [month, setMonth] = useState(date.getMonth() + 1);

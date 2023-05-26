@@ -7,11 +7,14 @@ import ProductApi from 'Apis/productApi';
 import { useEffect } from 'react';
 //import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
+import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
-	const [data, setData] = useState();
+	//const [data, setData] = useState();
+	const { data } = useQuery('mainList', ProductApi.mainList);
+
 	const products =
-		data && (category === 0 ? data.usedProduct : data.freeProduct);
+		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
 	let categoryText =
 		category === 0
@@ -52,14 +55,14 @@ const Preview = ({ category }) => {
 		}
 	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const res = await ProductApi.mainList();
-			setData(res.data);
-		};
-		fetchData();
-	}, []);
-	console.log(data);
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const res = await ProductApi.mainList();
+	// 		setData(res.data);
+	// 	};
+	// 	fetchData();
+	// }, []);
+	// console.log(data);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);

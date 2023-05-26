@@ -237,7 +237,11 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	margin-top: 100px;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 50px;
 `;
 
 const Blank = styled.div`
@@ -246,14 +250,14 @@ const Blank = styled.div`
 `;
 
 const Container = styled.div`
-	width: 700px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 10px;
 	display: flex;
 `;
 
 const Line = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	padding: 0 10px 30px 10px;
@@ -270,18 +274,20 @@ const Mark = styled.span`
 `;
 
 const Title = styled.span`
-	width: 80px;
+	width: 105px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const InputContainer = styled.div`
-	width: 600px;
+	width: 100%;
 	position: relative;
 `;
 
 const InputBox = styled.input`
-	width: 600px;
+	width: 100%;
+	min-width: 400px;
+	max-width: 1200px;
 	border: none;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	padding: 10px;
@@ -303,7 +309,7 @@ const Error = styled.div`
 `;
 
 const AddressWrapper = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	padding: 0 10px 30px 10px;
@@ -312,7 +318,7 @@ const AddressWrapper = styled.div`
 `;
 
 const AddressTitleContainer = styled.div`
-	width: 680px;
+	width: 100%;
 	display: flex;
 	margin-bottom: 10px;
 	align-items: center;
@@ -320,19 +326,21 @@ const AddressTitleContainer = styled.div`
 `;
 
 const AddressMap = styled.div`
-	width: 680px;
+	/* width: 680px; */
+	width: 100%;
 	position: relative;
 	margin: 0 auto;
 `;
 
 const Address = styled.div`
-	width: 450px;
+	/* width: 450px; */
+	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 const ContentBox = styled.div`
-	width: 700px;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -342,7 +350,7 @@ const ContentBox = styled.div`
 `;
 
 const TxtArea = styled.textarea`
-	width: 700px;
+	width: 100%;
 	margin-top: -15px;
 	height: 400px;
 	font-size: ${({ theme }) => theme.fontSize.base};

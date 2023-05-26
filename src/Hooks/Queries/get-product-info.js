@@ -1,6 +1,7 @@
 import ProductApi from 'Apis/productApi';
-import { useQuery } from 'react-query';
+
 import { queryConfig } from './@config';
+import { useQuery } from '@tanstack/react-query';
 
 export const getMainList = () => {
 	const {

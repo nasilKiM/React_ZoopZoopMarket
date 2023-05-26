@@ -1,30 +1,18 @@
 import styled from 'styled-components';
 import ToggleBar from 'Components/Toggle/Toggle';
 import { Outlet } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import MyProfile from './Components/MyPofile/myProfile';
 
 const MyPage = () => {
-	const isDesktopOrMobile = useMediaQuery({ query: '(max-width: 768px' });
 	return (
 		<>
-			{isDesktopOrMobile !== true ? (
-				<>
-					<Container>
-						<ToggleBar />
-					</Container>
-					<S.Wrapper>
-						<MyProfile />
-						<Outlet />
-					</S.Wrapper>
-				</>
-			) : (
-				<S.MWrapper>
-					<MyProfile />
-					<ToggleBar />
-					<Outlet />
-				</S.MWrapper>
-			)}
+			<Container>
+				<ToggleBar />
+			</Container>
+			<S.Wrapper>
+				<MyProfile />
+				<Outlet />
+			</S.Wrapper>
 		</>
 	);
 };
@@ -42,7 +30,15 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
+	height: 100%;
 	margin: 0 auto;
+	/* background-color: beige; */
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 85%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const MWrapper = styled.div`
@@ -52,5 +48,4 @@ const MWrapper = styled.div`
 
 const S = {
 	Wrapper,
-	MWrapper,
 };

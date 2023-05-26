@@ -132,6 +132,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 
 export default DetailContent;
 const BuyerWrapper = styled.div`
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	margin: 25px 10px;
 	& > div {
 		margin: 20px 0;
@@ -165,6 +166,7 @@ const BuyerWrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 		padding-top: 20px;
+		min-height: 150px;
 	}
 	// 카테고리
 	& > div:nth-of-type(5) {
@@ -192,7 +194,8 @@ const BuyerWrapper = styled.div`
 `;
 
 const SellerWrapper = styled.div`
-	margin: 20px 10px;
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
+	margin: 25px 10px;
 	& > div {
 		margin: 20px 0;
 	}
@@ -208,21 +211,30 @@ const SellerWrapper = styled.div`
 			height: 40px;
 		}
 	}
+	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
+	//본문
 	& > div:nth-of-type(4) {
+		padding-top: 20px;
+		min-height: 150px;
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 	}
-	& > div:nth-of-type(5) {
-		${flexAllCenter}
-		justify-content: space-between;
-		& > div {
-			background-color: #b9b9b9;
-			padding: 20px;
-			border-radius: 20px;
+	//태그
+	& > div:nth-of-type(2) {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		span {
+			padding: 5px;
+			border-radius: 5px;
+			background-color: ${({ theme }) => theme.color.gray[100]};
+		}
+		div:nth-of-type(1) {
+			padding: 0px 5px;
 		}
 	}
 `;

@@ -2,12 +2,12 @@ import { RouterProvider } from 'react-router-dom';
 import router from './Routes/routing';
 import GlobalStyles from 'Styles/global';
 import { ThemeProvider } from 'styled-components';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 // import { isDesktop } from 'react-device-detect';
 // import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
 import SocketProvider from 'Context/socket';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 	const queryClient = new QueryClient({});
