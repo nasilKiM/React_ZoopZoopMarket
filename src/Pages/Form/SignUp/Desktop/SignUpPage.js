@@ -61,6 +61,7 @@ const SignUpPage = () => {
 	// 이메일 중복체크
 	const onCheckId = async e => {
 		e.preventDefault();
+		// refetch(data);
 		const value = getValues('email');
 		try {
 			const res = await UserApi.checkEmail(value);
@@ -130,6 +131,14 @@ const SignUpPage = () => {
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 						{<S.Error>{idMsg}</S.Error>}
+						{/* {isLoading ? (
+							<div></div>
+						) : (
+							<S.Error>
+								{error ? error.response.data.message : data.message}
+							</S.Error>
+						)} */}
+
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>

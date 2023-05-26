@@ -1,4 +1,4 @@
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -106,51 +106,53 @@ const MyUserEdit = ({ userInfo }) => {
 						</S.Grid1> */}
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					{<S.Error>{idMsg}</S.Error>}
-						<S.Grid1>
-							<S.Title>* 닉네임</S.Title>
-							<S.Input
-								{...register('nick', FORM_TYPE.NICKNAME)}
-								placeholder="Nick_Name"
-							/>
-							<S.CheckBtn
-									disabled={errors.nick || !'nick'}
-									onClick={onCheckNick}
-									shape={'checkBtn'}
-									size={'checkBtn'}
-								>
-								중복확인
-							</S.CheckBtn>
-						</S.Grid1>
+					<S.Grid1>
+						<S.Title>* 닉네임</S.Title>
+						<S.Input
+							{...register('nick', FORM_TYPE.NICKNAME)}
+							placeholder="Nick_Name"
+						/>
+						<S.CheckBtn
+							disabled={errors.nick || !'nick'}
+							onClick={onCheckNick}
+							shape={'checkBtn'}
+							size={'checkBtn'}
+						>
+							중복확인
+						</S.CheckBtn>
+					</S.Grid1>
 					{<S.Error>{nickMsg}</S.Error>}
-						<S.Grid2>
-							<S.Title2>* 전화번호</S.Title2>
-							<S.Input
-								maxLength="13"
-								{...register('phone', {
-									onChange: e => {
-										setValue(
-											'phone',
-											e.target.value
-												.replace(/[^0-9]/g, '')
-												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
-										);
-									},
-								})}
-								placeholder="010-0000-0000"
-							/>
-						</S.Grid2>
+					<S.Grid2>
+						<S.Title2>* 전화번호</S.Title2>
+						<S.Input
+							maxLength="13"
+							{...register('phone', {
+								onChange: e => {
+									setValue(
+										'phone',
+										e.target.value
+											.replace(/[^0-9]/g, '')
+											.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+									);
+								},
+							})}
+							placeholder="010-0000-0000"
+						/>
+					</S.Grid2>
 					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
-						<S.Grid3>
-							<S.Title>* 주소</S.Title>
-							<div>{address}</div>
-							<FindAddress setter={setAddress} region={userInfo?.region} />
-						</S.Grid3>
-						<S.Button
-								type="submit"
-								disabled={!full}
-								size={'submitBtn'}
-								shape={'submitBtn'}
-							>저장하기</S.Button>
+					<S.Grid3>
+						<S.Title>* 주소</S.Title>
+						<div>{address}</div>
+						<FindAddress setter={setAddress} region={userInfo?.region} />
+					</S.Grid3>
+					<S.Button
+						type="submit"
+						disabled={!full}
+						size={'submitBtn'}
+						shape={'submitBtn'}
+					>
+						저장하기
+					</S.Button>
 				</S.Form>
 			</S.Wrap>
 			<S.Wrap2>
@@ -173,7 +175,7 @@ const Wrap2 = styled.div`
 	width: 100%;
 	${flexAllCenter}
 	margin: 0 auto;
-	`;
+`;
 
 const Form = styled.form`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -182,7 +184,7 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 40px 15vw;
-	`;
+`;
 
 const Input = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -260,13 +262,13 @@ const Title = styled.div`
 	min-width: max-content;
 	${flexAllCenter}
 	margin-right: 22px;
-`
+`;
 
 const Title2 = styled.div`
 	width: 10vw;
 	min-width: max-content;
 	${flexAllCenter}
-`
+`;
 
 const S = {
 	Wrap,
@@ -281,5 +283,5 @@ const S = {
 	Grid2,
 	Grid3,
 	Title,
-	Title2
+	Title2,
 };

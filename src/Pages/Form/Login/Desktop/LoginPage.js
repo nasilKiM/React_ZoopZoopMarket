@@ -3,14 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
-import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
+import { useMutation } from '@tanstack/react-query';
+import UserApi from 'Apis/userApi';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
@@ -19,27 +26,25 @@ const LoginPage = () => {
 		}
 	}, []);
 
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ mode: 'onChange' });
+	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
+		onSuccess: res => {
+			alert(`${res.data.user.nickName}님 안녕하세요.`);
+			TokenService.setToken(res.data.tokenForHeader);
+			navigate('/main');
+		},
+		onError: err => {
+			alert(
+				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
+			);
+		},
+	});
 
-	const onSubmit = async data => {
+	const onSubmit = data => {
 		const loginInfo = {
 			email: data.email,
 			pw: data.password,
 		};
-		try {
-			const res = await UserApi.login(loginInfo);
-			TokenService.setToken(res.data.tokenForHeader);
-			alert(`${res.data.user.nickName}님 안녕하세요.`);
-			navigate('/main');
-		} catch (err) {
-			alert(
-				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
-			);
-		}
+		mutate(loginInfo);
 	};
 
 	const full = !errors.email && !errors.password;

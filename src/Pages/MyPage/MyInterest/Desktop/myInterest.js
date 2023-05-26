@@ -8,15 +8,7 @@ import { useEffect } from 'react';
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
 	const [ref, inView] = useInView({ threshold: 0.5 });
-	const { data, hasNextPage, fetchNextPage, isLoading } = res;
-
-	// const loadMore = () => {
-	// 	if (hasNextPage) {
-	// 		fetchNextPage();
-	// 	}
-	// };
-
-	data && console.log(data);
+	const { data, fetchNextPage, isLoading } = res;
 
 	useEffect(() => {
 		if (!inView) {
@@ -40,9 +32,6 @@ const MyInterestPage = () => {
 							)),
 						)}
 					</S.Container>
-					{/* <button onClick={() => loadMore()} disabled={!hasNextPage}>
-						더보기
-					</button> */}
 					<div ref={ref}></div>
 				</S.Wrap>
 			)}
