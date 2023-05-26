@@ -4,7 +4,7 @@ import ProductApi from 'Apis/productApi';
 export const useInfiniteSearch = (words, selected) => {
 	//console.log('words', words);
 	const res = useInfiniteQuery(
-		['SEARCH_ITEMS', words],
+		['SEARCH_ITEMS', words, selected],
 		async ({ pageParam = 1 }) => {
 			const result = await Promise.all(
 				//비동기처리
