@@ -1,4 +1,8 @@
-import { flexAlignCenter, flexAllCenter, flexJustifyCenter } from 'Styles/common';
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexJustifyCenter,
+} from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -88,144 +92,144 @@ const SignUpPage = () => {
 
 	return (
 		<>
-		<S.Logo src="/Assets/web_logo.png"></S.Logo>
-		<S.Div>
-			<S.Wrap>
-				<S.Header>
-					<p>회원가입</p>
-				</S.Header>
-				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>아이디</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.InputHalf
-								shape={'littleShape'}
-								{...register('email', FORM_TYPE.EMAIL)}
-								placeholder="E-mail"
-							/>
-							<S.CheckBtn
-								disabled={errors.email || !'email'}
-								onClick={onCheckId}
-								shape={'submitBtn'}
-								size={'submitBtn'}
-							>
-								중복확인
-							</S.CheckBtn>
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
-					{errors.email && <S.Error>{errors.email.message}</S.Error>}
-					{<S.Error>{idMsg}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.InputCustom
-								shape={'littleShape'}
-								{...register('password', FORM_TYPE.PASSWORD)}
-								placeholder="특수문자, 영어, 숫자 포함 8자이상"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호 확인</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.InputCustom
-								shape={'littleShape'}
-								{...register('confirmPW', {
-									required: true,
-									validate: value => {
-										if (getValues('password') !== value) {
-											return '비밀번호를 다시 확인해 주세요';
-										}
-									},
-								})}
-								placeholder="PW check"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
-					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>닉네임</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.InputHalf
-								shape={'littleShape'}
-								{...register('nick', FORM_TYPE.NICKNAME)}
-								placeholder="Nick_Name"
-							/>
+			<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
+			<S.Div>
+				<S.Wrap>
+					<S.Header>
+						<p>회원가입</p>
+					</S.Header>
+					<S.Form onSubmit={handleSubmit(onSubmit)}>
+						<S.InputWrapBtn>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>아이디</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.InputHalf
+									shape={'littleShape'}
+									{...register('email', FORM_TYPE.EMAIL)}
+									placeholder="E-mail"
+								/>
+								<S.CheckBtn
+									disabled={errors.email || !'email'}
+									onClick={onCheckId}
+									shape={'submitBtn'}
+									size={'submitBtn'}
+								>
+									중복확인
+								</S.CheckBtn>
+							</S.InputBoxWrap>
+						</S.InputWrapBtn>
+						{errors.email && <S.Error>{errors.email.message}</S.Error>}
+						{<S.Error>{idMsg}</S.Error>}
+						<S.InputWrap>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>비밀번호</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.InputCustom
+									shape={'littleShape'}
+									{...register('password', FORM_TYPE.PASSWORD)}
+									placeholder="특수문자, 영어, 숫자 포함 8자이상"
+									type="password"
+								/>
+							</S.InputBoxWrap>
+						</S.InputWrap>
+						{errors.password && <S.Error>{errors.password.message}</S.Error>}
+						<S.InputWrap>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>비밀번호 확인</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.InputCustom
+									shape={'littleShape'}
+									{...register('confirmPW', {
+										required: true,
+										validate: value => {
+											if (getValues('password') !== value) {
+												return '비밀번호를 다시 확인해 주세요';
+											}
+										},
+									})}
+									placeholder="PW check"
+									type="password"
+								/>
+							</S.InputBoxWrap>
+						</S.InputWrap>
+						{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
+						<S.InputWrapBtn>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>닉네임</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.InputHalf
+									shape={'littleShape'}
+									{...register('nick', FORM_TYPE.NICKNAME)}
+									placeholder="Nick_Name"
+								/>
 
-							<S.CheckBtn
-								disabled={errors.nick || !'nick'}
-								onClick={onCheckNick}
-								shape={'submitBtn'}
+								<S.CheckBtn
+									disabled={errors.nick || !'nick'}
+									onClick={onCheckNick}
+									shape={'submitBtn'}
+									size={'submitBtn'}
+								>
+									중복확인
+								</S.CheckBtn>
+							</S.InputBoxWrap>
+						</S.InputWrapBtn>
+						{<S.Error>{nickMsg}</S.Error>}
+						{errors.nick && <S.Error>{errors.nick.message}</S.Error>}
+						<S.InputWrap>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>전화번호</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.InputCustom
+									shape={'littleShape'}
+									maxLength="13"
+									{...register('phone', {
+										onChange: e => {
+											setValue(
+												'phone',
+												e.target.value
+													.replace(/[^0-9]/g, '')
+													.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+											);
+										},
+									})}
+									placeholder="010-0000-0000"
+								/>
+							</S.InputBoxWrap>
+						</S.InputWrap>
+						{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
+						<S.InputWrapBtn>
+							<S.ItemWrap>
+								<S.Mark>*</S.Mark>
+								<span>주소</span>
+							</S.ItemWrap>
+							<S.InputBoxWrap>
+								<S.Address>{address}</S.Address>
+								<FindAddress setter={setAddress} />
+							</S.InputBoxWrap>
+						</S.InputWrapBtn>
+						<S.BtnWrap>
+							<S.Button
+								type="submit"
+								disabled={!full}
 								size={'submitBtn'}
+								shape={'submitBtn'}
 							>
-								중복확인
-							</S.CheckBtn>
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
-					{<S.Error>{nickMsg}</S.Error>}
-					{errors.nick && <S.Error>{errors.nick.message}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>전화번호</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.InputCustom
-								shape={'littleShape'}
-								maxLength="13"
-								{...register('phone', {
-									onChange: e => {
-										setValue(
-											'phone',
-											e.target.value
-												.replace(/[^0-9]/g, '')
-												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
-										);
-									},
-								})}
-								placeholder="010-0000-0000"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
-					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>주소</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.Address>{address}</S.Address>
-							<FindAddress setter={setAddress} />
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
-					<S.BtnWrap>
-						<S.Button
-							type="submit"
-							disabled={!full}
-							size={'submitBtn'}
-							shape={'submitBtn'}
-						>
-							회원가입
-						</S.Button>
-					</S.BtnWrap>
-				</S.Form>
-			</S.Wrap>
-		</S.Div>
+								회원가입
+							</S.Button>
+						</S.BtnWrap>
+					</S.Form>
+				</S.Wrap>
+			</S.Div>
 		</>
 	);
 };

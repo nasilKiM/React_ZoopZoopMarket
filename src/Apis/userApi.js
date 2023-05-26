@@ -6,6 +6,9 @@ const UserApi = {
 	login({ email, pw }) {
 		return Axios.post(PATH + '/login', { email, pw });
 	},
+	logout() {
+		return Axios.get(PATH + '/logout');
+	},
 	signup({ email, pw, nickName, phone, region }) {
 		return Axios.post(PATH, { email, pw, nickName, phone, region });
 	},
@@ -16,9 +19,6 @@ const UserApi = {
 		return Axios.get(PATH + '/check/nickname', {
 			params: { nickname },
 		});
-	},
-	logout() {
-		return Axios.get(PATH + '/logout');
 	},
 	refreshToken() {
 		return Axios.get(PATH + '/refreshToken');

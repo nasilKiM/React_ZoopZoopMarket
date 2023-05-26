@@ -13,7 +13,6 @@ import { flexAlignCenter } from 'Styles/common';
 const Preview = ({ category }) => {
 	const { data } = useQuery(['mainList'], ProductApi.mainList);
 
-	data && console.log('data', data);
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
