@@ -10,9 +10,6 @@ const DetailContent = ({ state, item }) => {
 
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
 
-	console.log('본문내용', item.description);
-	const cont = item && item.description.replaceAll('\r,\n', '<br />');
-
 	return (
 		<>
 			{!state
