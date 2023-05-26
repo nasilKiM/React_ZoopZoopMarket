@@ -7,7 +7,7 @@ import ProductApi from 'Apis/productApi';
 import { useEffect } from 'react';
 //import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
 	//const [data, setData] = useState();
