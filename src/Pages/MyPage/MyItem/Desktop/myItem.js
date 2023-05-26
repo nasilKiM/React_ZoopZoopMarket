@@ -11,13 +11,13 @@ const MyItemPage = () => {
 	const { data, fetchNextPage, refetch} = res;
 	const [ref, isView] = useInView();
 
-	// data && console.log( '/////', data, data.pageParams.length);
+	data && console.log( '/////', data, data.pageParams.length);
 	
 	useEffect(() => {
 		if (!isView) {
 			return;
 		}
-		else if (data && data.pages.length + 1 < data.pages[0].data.pagination.endPage) {
+		else if (data && data.pages.length < data.pages[0].data.pagination.endPage) {
 			fetchNextPage();
 		}
 	}, [isView]);
