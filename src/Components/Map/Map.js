@@ -26,7 +26,7 @@ const KaMap = ({ address }) => {
 	//무한반복되어서 useEffect에 넣어둠
 	useEffect(() => {
 		address && searchMap();
-	}, []);
+	}, [address]);
 
 	return (
 		<Map

@@ -26,7 +26,9 @@ const ItemCard = ({ index, products }) => {
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
 							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
+								{products.price !== 0
+									? products.price.toLocaleString('ko-KR') + '원'
+									: '무료나눔'}
 							</S.ItemPrice>
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
