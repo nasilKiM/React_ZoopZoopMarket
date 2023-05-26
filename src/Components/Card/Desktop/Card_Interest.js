@@ -9,6 +9,8 @@ const InterestCard = ({ index, products }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
+	console.log(products);
+
 	return (
 		products && (
 			<S.Container>

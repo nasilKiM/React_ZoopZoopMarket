@@ -73,7 +73,6 @@ const RegisterPage = () => {
 	};
 
 	const handlePriceChange = e => {
-		console.log(e.target.value);
 		const value = e.target.value;
 		const num = parseInt(value.replace(/[^0-9]/g, ''), 10);
 		const priceValue = isNaN(num) ? 0 : num;
