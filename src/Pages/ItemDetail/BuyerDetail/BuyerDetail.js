@@ -16,7 +16,7 @@ const BuyerDetailPage = ({ state, product }) => {
 				</div>
 				<DetailContent state={state} item={item} />
 				<S.MapContent>
-					<div>거래장소</div>
+					<div>거래장소 : {item.region}</div>
 					<KaMap address={item.region} />
 				</S.MapContent>
 				<AnotherProduct />

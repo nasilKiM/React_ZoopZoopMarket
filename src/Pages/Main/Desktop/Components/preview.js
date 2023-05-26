@@ -8,10 +8,15 @@ import { useEffect } from 'react';
 //import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
 import { useQuery } from '@tanstack/react-query';
+import { flexAlignCenter } from 'Styles/common';
 
 const Preview = ({ category }) => {
 	const { data } = useQuery(['mainList'], ProductApi.mainList);
 
+<<<<<<< HEAD
+=======
+	data && console.log('data', data);
+>>>>>>> ef009ddb1e0e556b72294976143c1bb00038d1e8
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';
@@ -58,11 +63,11 @@ const Preview = ({ category }) => {
 	};
 
 	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const res = await ProductApi.mainList();
-	// 		setData(res.data);
-	// 	};
-	// 	fetchData();
+	//    const fetchData = async () => {
+	//       const res = await ProductApi.mainList();
+	//       setData(res.data);
+	//    };
+	//    fetchData();
 	// }, []);
 	// console.log(data);
 
@@ -75,11 +80,11 @@ const Preview = ({ category }) => {
 	return (
 		<S.Wrapper>
 			<S.UpperSwiper>
+				<S.CategoryBox>{categoryDeclare}</S.CategoryBox>
 				<S.SpaceBetween>
-					<S.CategoryBox>{categoryDeclare}</S.CategoryBox>
+					<S.CategoryText>{categoryText}</S.CategoryText>
 					<S.More> 더보기 &gt; </S.More>
 				</S.SpaceBetween>
-				<S.CategoryText>{categoryText}</S.CategoryText>
 			</S.UpperSwiper>
 			<SwiperWrapper>
 				<Slider {...sliderSettings}>
@@ -110,11 +115,13 @@ const UpperSwiper = styled.div`
 	width: 100%;
 	flex-direction: column;
 	display: flex;
+	margin-bottom: 20px;
 `;
 
 const SpaceBetween = styled.div`
-	display: flex;
+	${flexAlignCenter}
 	justify-content: space-between;
+	padding-right: 10px;
 `;
 
 const CategoryBox = styled.div`
@@ -130,7 +137,6 @@ const CategoryText = styled.div`
 const More = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	justify-content: flex-end;
-	right: 0%;
 	cursor: pointer;
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
@@ -152,35 +158,37 @@ const SwiperWrapper = styled.div`
 	}
 `;
 const Div = styled.div`
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	position: absolute;
-	right: -30px;
+	right: -40px;
 	z-index: 99;
 	text-align: right;
 	line-height: 30px;
 	border-radius: 50%;
+	background-color: rgba(217, 217, 217, 0.4);
 	img {
-		width: 30px;
-	}
-	:hover {
-		background-color: ${({ theme }) => theme.color.gray};
+		width: 23px;
+		position: relative;
+		left: -6px;
+		top: 7px;
 	}
 `;
 const DivPre = styled.div`
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	position: absolute;
-	left: -40px;
+	left: -50px;
 	z-index: 99;
 	text-align: left;
 	line-height: 30px;
 	border-radius: 50%;
+	background-color: rgba(217, 217, 217, 0.4);
 	img {
-		width: 30px;
-	}
-	:hover {
-		background-color: ${({ theme }) => theme.color.gray};
+		width: 23px;
+		position: relative;
+		right: -6px;
+		top: 7px;
 	}
 `;
 
