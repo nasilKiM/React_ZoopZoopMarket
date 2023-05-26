@@ -8,25 +8,20 @@ import styled from 'styled-components';
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, hasNextPage, refetch } = res;
-	const [ref, inView] = useInView();
+	const { data, fetchNextPage, refetch} = res;
+	const [ref, isView] = useInView();
 
-	data && console.log( '/////', data, hasNextPage );
+	// data && console.log( '/////', data, data.pageParams.length);
 	
 	useEffect(() => {
-		if (!inView) {
+		if (!isView) {
 			return;
 		}
-		// if (hasNextPage) {
+		else if (data && data.pages.length + 1 < data.pages[0].data.pagination.endPage) {
 			fetchNextPage();
-		// }
-	}, [inView]);
-
-	// useEffect(() => {
-	// 	window.scroll(0, 0);
-	// }, []);
-
-
+		}
+	}, [isView]);
+	
 	useEffect(() => {
 		refetch()
 	}, [category]);
@@ -62,8 +57,8 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	width: 100%;
-	height: 100%;
+	/* width: 100%;
+	height: 100%; */
 	margin: 0 auto;
 `;
 
@@ -76,11 +71,21 @@ const Container = styled.div`
 	width: 100%;
 	${gridColumn(4)}
 	${gridAllCenter}
-	@media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.pc} {
+		min-width: 200px; // pc -> laptop 사이즈 줄어들떼 카드 최소 사이즈 적용 안되는 이슈 있음
+	}
+	@media ${({ theme }) => theme.device.laptop} {
 		${gridColumn(3)}
+		min-width: 200px;
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(2)}
+		min-width: 200px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
+		${gridColumn(1)}
+		min-width: 200px;
+
 	}
 `;
 

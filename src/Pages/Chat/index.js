@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import ChatDetail from './ChatDetail/ChatDetail';
 import ChatList from './ChatList/ChatList';
-import { useQuery } from 'react-query';
 import { MockAxios } from '../../Apis/@core';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 const ChattingPage = () => {
 	const [chatroomIdx, setChatroomIdx] = useState();

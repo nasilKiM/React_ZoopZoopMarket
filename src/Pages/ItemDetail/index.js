@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
-import { useQuery } from 'react-query';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
+import { useQuery } from '@tanstack/react-query';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();

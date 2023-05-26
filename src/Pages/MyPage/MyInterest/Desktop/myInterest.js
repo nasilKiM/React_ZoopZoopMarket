@@ -50,13 +50,30 @@ const Container = styled.div`
 	width: 100%;
 	${gridColumn(4)}
 	${gridAllCenter}
-	@media ${({ theme }) => theme.device.tablet} {
+	// 선영님 코드
+	/* @media ${({ theme }) => theme.device.tablet} {
 		${gridColumn(3)}
 		${gridGap.tablet}
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(2)}
 		${gridGap.mobile}
+	} */
+	@media ${({ theme }) => theme.device.pc} {
+		min-width: 200px; // pc -> laptop 사이즈 줄어들떼 카드 최소 사이즈 적용 안되는 이슈 있음
+	}
+	@media ${({ theme }) => theme.device.laptop} {
+		${gridColumn(3)}
+		min-width: 200px;
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(2)}
+		min-width: 200px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(1)}
+		min-width: 200px;
+
 	}
 `;
 

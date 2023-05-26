@@ -48,15 +48,15 @@ const fontWeight = {
 const deviceWidth = {
 	mobile: 414,
 	tablet: 768,
-	// mobile: 600,
-	// tablet: 1200,
-	laptop: 1440,
+	laptop: 1000,
+	pc: 1440
 };
 
 const device = {
 	mobile: `screen and (max-width: ${deviceWidth.mobile}px)`,
 	tablet: `screen and (max-width: ${deviceWidth.tablet}px)`,
 	laptop: `screen and (max-width: ${deviceWidth.laptop}px)`,
+	pc: `screen and (max-width: ${deviceWidth.laptop}px)`,
 };
 
 export const theme = {

@@ -89,21 +89,21 @@ const MyUserEdit = ({ userInfo }) => {
 		<>
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.Grid1>
-						<S.Title>* 아이디</S.Title>
-						<S.Input
-							{...register('email', FORM_TYPE.EMAIL)}
-							placeholder="E-mail"
-						/>
-						<S.CheckBtn
-							disabled={errors.email || !'email'}
-							onClick={onCheckId}
-							shape={'checkBtn'}
-							size={'checkBtn'}
-						>
-							중복확인
-						</S.CheckBtn>
-					</S.Grid1>
+						{/* <S.Grid1>
+							<S.Title>* 아이디</S.Title>
+							<S.Input
+								{...register('email', FORM_TYPE.EMAIL)}
+								placeholder="E-mail"
+							/>
+							<S.CheckBtn
+									disabled={errors.email || !'email'}
+									onClick={onCheckId}
+									shape={'checkBtn'}
+									size={'checkBtn'}
+							>
+								중복확인
+							</S.CheckBtn>
+						</S.Grid1> */}
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					{<S.Error>{idMsg}</S.Error>}
 					<S.Grid1>
@@ -230,7 +230,6 @@ const Text = styled.div`
 	:hover {
 		color: ${({ theme }) => theme.color.primary[500]};
 		cursor: pointer;
-		line-height: 0%;
 	}
 `;
 
