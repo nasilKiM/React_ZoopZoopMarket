@@ -13,7 +13,7 @@ import { FORM_TYPE } from 'Consts/FormType';
 import TokenService from 'Repository/TokenService';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();

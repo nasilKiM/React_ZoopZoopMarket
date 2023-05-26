@@ -1,9 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { theme } from 'Styles/theme';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import {
 	CartesianGrid,
@@ -14,7 +14,6 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts';
-
 import styled from 'styled-components';
 
 const DesktopMarketPrice = () => {
