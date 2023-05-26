@@ -228,7 +228,6 @@ const Text = styled.div`
 	:hover {
 		color: ${({ theme }) => theme.color.primary[500]};
 		cursor: pointer;
-		line-height: 0%;
 	}
 `;
 
