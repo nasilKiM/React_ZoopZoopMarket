@@ -6,8 +6,7 @@ import { RecoilRoot } from 'recoil';
 // import { isDesktop } from 'react-device-detect';
 // import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
-import { QueryClient, QueryClientProvider } from 'react-query';
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 	const queryClient = new QueryClient({});
