@@ -5,7 +5,7 @@ import { useInfiniteQuery } from "react-query"
 export const useInfiniteMyItem = (category) => {
     const res = useInfiniteQuery(
         ['MY_ITEMS'],
-        ({ pageParam = 3 }) => MyPageApi.productList({page:pageParam, category}),
+        ({ pageParam = 1 }) => MyPageApi.productList({page:pageParam, category}),
         {
             getNextPageParam: (lastPage, allPages) => {
                 // console.log('lastpage', lastPage);
