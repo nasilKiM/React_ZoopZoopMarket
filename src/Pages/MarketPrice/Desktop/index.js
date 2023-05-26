@@ -23,7 +23,7 @@ const DesktopMarketPrice = () => {
 	//console.log(word);
 	// const [priceList, setItemList] = useRecoilState(itemPriceState);
 	const start = '2023-05-15';
-	const end = '2023-05-22';
+	const end = '2023-05-26';
 
 	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });

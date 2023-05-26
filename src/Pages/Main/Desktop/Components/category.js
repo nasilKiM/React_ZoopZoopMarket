@@ -52,7 +52,7 @@ const categories = [
 		id: 8,
 		name: '여성의류',
 		icon: '/Assets/Icon/Category/8.여성의류.png',
-		keyword: '원피스,스커트,블라우스,',
+		keyword: '원피스,스커트,블라우스',
 	},
 	{
 		id: 9,

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
 import { itemListState } from 'Atoms/search.atom';
 import { useRecoilValue } from 'recoil';
-import ProductApi from 'Apis/productApi';
+import UsedProduct from './components/usedProduct';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -15,10 +14,10 @@ const DesktopSearchList = () => {
 		setSelected(option);
 	};
 
-	useEffect(async () => {
-		const res = await ProductApi.getRecent();
-		return console.log('마따따비', res);
-	}, []);
+	// useEffect(async () => {
+	// 	const res = await ProductApi.getRecent();
+	// 	return console.log('마따따비', res);
+	// }, []);
 
 	// const { data } = useQuery(['product'], () => {
 	// 	return MockAxios.get('/product').then(res => {
@@ -31,7 +30,7 @@ const DesktopSearchList = () => {
 			navigate(`${selected}`);
 		}
 	}, [selected]);
-	
+
 	const itemList = useRecoilValue(itemListState);
 
 	return (

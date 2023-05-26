@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
@@ -20,7 +20,7 @@ const WebHeader = () => {
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	//마이페이지 메뉴
 	const [showOptions, setShowOptions] = useState(false);
-
+	const navigate = useNavigate();
 	const toggleMenu = () => {
 		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
 	};
@@ -39,7 +39,7 @@ const WebHeader = () => {
 			</>
 		);
 	};
-
+	const word = ',';
 	return (
 		<>
 			<S.Wrapper>
@@ -57,7 +57,13 @@ const WebHeader = () => {
 										/>
 										<div disabled={!MenuIsOpen}>
 											<MenuOpen>
-												<S.Menu key={1} to="/search_list">
+												<S.Menu
+													key={1}
+													onClick={() => {
+														console.log('2');
+														navigate(`/search_list/${word}}/0`);
+													}}
+												>
 													중고 거래
 												</S.Menu>
 												<S.Menu key={0} to="/search_list">
@@ -90,14 +96,27 @@ const WebHeader = () => {
 							</Link>
 
 							<S.MenuList>
-								<S.Menu key={1} to="/search_list">
+								<S.Menu
+									key={1}
+									onClick={() => {
+										console.log('3');
+										navigate(`/search_list/${word}/0`);
+									}}
+								>
 									중고 거래
 								</S.Menu>
 								<S.Menu key={0} to="/search_list">
 									무료 나눔
 								</S.Menu>
 
-								<S.Menu to="/market_price">실시간 시세</S.Menu>
+								<S.Menu
+									onClick={() => {
+										console.log('3');
+										navigate(`/market_price`);
+									}}
+								>
+									실시간 시세
+								</S.Menu>
 							</S.MenuList>
 						</>
 					)}
@@ -225,7 +244,7 @@ const MenuList = styled.div`
 	padding-right: 5px;
 `;
 
-const Menu = styled(Link)`
+const Menu = styled.div`
 	color: ${({ theme }) => theme.color.black};
 	height: 20px;
 	width: 91px;
