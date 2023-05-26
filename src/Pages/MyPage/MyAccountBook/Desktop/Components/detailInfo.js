@@ -3,10 +3,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './styles.css';
 import moment from 'moment';
-import { useState } from 'react';
 import { PurchaseMockData, SaleMockData } from './mock';
 
 const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
+	
+	// mock data 활용 코드
 	let saleDateArr = [];
 	SaleMockData['payList'].map(item => {
 		const saleDate = item.createAt;
@@ -19,21 +20,8 @@ const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
 		purchaseDateArr.push(saleDate.split('T')[0]);
 	});
 
-	const [sale, setSale] = useState(saleDateArr);
-	const [purchase, setPurchase] = useState(purchaseDateArr);
-
-	const [saleCount, setSaleCount] = useState(SaleMockData.count);
-	const [purchaseCount, setPurchaseCount] = useState(PurchaseMockData.count);
-
-	const [saleAmount, setSaleAmount] = useState(
-		SaleMockData['amount'].thisMonthSaleAmount,
-	);
-	const [purchaseAmount, setPurchaseAmount] = useState(
-		PurchaseMockData['amount'].thisMonthPurchaseAmount,
-	);
-
 	return (
-		<>
+		<S.Wrap>
 			<S.PreviewWrap>
 				<S.PreviewContent>
 					<S.Text>
@@ -46,15 +34,14 @@ const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
 						<br />
 						구매건수
 						<br />
-						{/* 무료나눔<br/> */}
 					</S.SummaryContent1>
 					<S.SummaryContent2>
-						{saleCount}건<br />
-						{purchaseCount}건<br />
+						{SaleMockData.count}건<br />
+						{PurchaseMockData.count}건<br />
 					</S.SummaryContent2>
 					<S.SummaryContent2>
-						{saleAmount}원<br />
-						{purchaseAmount}원<br />
+						{SaleMockData['amount'].thisMonthSaleAmount}원<br />
+						{PurchaseMockData['amount'].thisMonthPurchaseAmount}원<br />
 					</S.SummaryContent2>
 				</S.PreviewContent>
 			</S.PreviewWrap>
@@ -64,35 +51,35 @@ const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
 				className="react-calendar"
 				formatDay={(locale, date) => moment(date).format('D')}
 				tileContent={({ date }) => {
-					if (sale.find(day => day === moment(date).format('YYYY-MM-DD'))) {
+					if (saleDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
 						return (
-							<>
 								<div className="sale"></div>
-							</>
 						);
 					}
-					if (purchase.find(day => day === moment(date).format('YYYY-MM-DD'))) {
+					if (purchaseDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
 						return (
-							<>
 								<div className="purchase"></div>
-							</>
 						);
 					}
 				}}
 			/>
 			{/* <span>선택한 날짜</span>
           {date.getDate()} */}
-			<div>카드 컴포넌트</div>
-		</>
+		</S.Wrap>
 	);
 };
 
 export default AccountBookDetailInfo;
 
+const Wrap = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
 // 거래내역 박스
 const PreviewWrap = styled.div`
-	width: 100%;
-	height: 300px;
+	width: 48%;
+	height: 65vh;
 	box-shadow: 0px 0px 20px #e0e0e0;
 	border-radius: 15px;
 	background-color: ${({ theme }) => theme.color.primary[100]};
@@ -104,14 +91,12 @@ const PreviewWrap = styled.div`
 	}
 	& > div:nth-child(2) {
 		margin-top: 30px;
-		width: 40%;
 		height: 250px;
-		justify-content: space-between;
 	}
 `;
 
 const PreviewContent = styled.div`
-	width: 45%;
+	width: 90%;
 	height: 80px;
 	margin: 0 auto;
 	display: flex;
@@ -131,7 +116,7 @@ const Month = styled.div`
 `;
 
 const Text = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
@@ -139,6 +124,7 @@ const SummaryContent1 = styled.div`
 	margin-top: 20px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	line-height: 3rem;
+	margin-right: 20px;
 `;
 
 const SummaryContent2 = styled.div`
@@ -147,6 +133,7 @@ const SummaryContent2 = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	line-height: 3rem;
 	text-align: right;
+	margin-right: 10px;
 	& > div {
 		margin-top: 40px;
 		font-size: ${({ theme }) => theme.fontSize.md};
@@ -191,6 +178,7 @@ const Graph = styled.div`
 `;
 
 const S = {
+	Wrap,
 	PreviewWrap,
 	PreviewContent,
 	Month,

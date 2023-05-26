@@ -89,7 +89,7 @@ const MyUserEdit = ({ userInfo }) => {
 		<>
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-						<S.Grid1>
+						{/* <S.Grid1>
 							<S.Title>* 아이디</S.Title>
 							<S.Input
 								{...register('email', FORM_TYPE.EMAIL)}
@@ -103,7 +103,7 @@ const MyUserEdit = ({ userInfo }) => {
 							>
 								중복확인
 							</S.CheckBtn>
-						</S.Grid1>
+						</S.Grid1> */}
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					{<S.Error>{idMsg}</S.Error>}
 						<S.Grid1>

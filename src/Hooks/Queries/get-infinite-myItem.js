@@ -1,21 +1,19 @@
 import MyPageApi from "Apis/myPageApi"
 import { useInfiniteQuery } from "react-query"
 
+
 export const useInfiniteMyItem = (category) => {
     const res = useInfiniteQuery(
         ['MY_ITEMS'],
-        ({ pageParam = 1 }) => MyPageApi.productList({page:pageParam, category}),
+        ({ pageParam = 3 }) => MyPageApi.productList({page:pageParam, category}),
         {
-            getNextPageParam: lastPage => {
-                console.log('lastpage', lastPage); // 확인용
-                const nextPage = Math.ceil(lastPage.data.count / 10);
-                if (nextPage < lastPage.data.endPage) {
-                    return nextPage + 1;
-                }
-                else {
-                    return undefined;
-                }
-                }
+            getNextPageParam: (lastPage, allPages) => {
+                // console.log('lastpage', lastPage);
+                console.log('allpage', allPages);
+                if(allPages[0].data.pagination.curPage < allPages[0].data.pagination.endPage) {
+                    return allPages[0].data.pagination.curPage + 1;
+                } else return;
+            }
         }
     )
     return res;
