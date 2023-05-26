@@ -47,7 +47,7 @@ const DetailContent = ({ state, item }) => {
 								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div>{item.description}</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>{item.description}</div>
 						</S.SellerWrapper>
 				  )}
 		</>
