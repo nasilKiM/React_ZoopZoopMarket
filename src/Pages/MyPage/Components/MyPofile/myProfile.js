@@ -5,7 +5,6 @@ import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
-import { flexAllCenter } from 'Styles/common';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -110,15 +109,21 @@ const MyProfile = () => {
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>내 등록템</S.InfoTitle>
-							<S.InfoContent><span>{userProfile.data.productsCount}</span> 개</S.InfoContent>
+							<S.InfoContent>
+								<span>{userProfile.data.productsCount}</span> 개
+							</S.InfoContent>
 						</S.List>
 						<S.List>
 							<S.InfoTitle>내 관심템</S.InfoTitle>
-							<S.InfoContent><span>{userProfile.data.likeCount}</span> 개</S.InfoContent>
+							<S.InfoContent>
+								<span>{userProfile.data.likeCount}</span> 개
+							</S.InfoContent>
 						</S.List>
 						<S.List>
 							<S.InfoTitle>채팅</S.InfoTitle>
-							<S.InfoContent><span>{userProfile.data.chatCount}</span> 건</S.InfoContent>
+							<S.InfoContent>
+								<span>{userProfile.data.chatCount}</span> 건
+							</S.InfoContent>
 						</S.List>
 					</S.Detail>
 				</S.Info>
@@ -132,7 +137,7 @@ export default MyProfile;
 const Wrapper = styled.div`
 	width: 100%;
 	height: 20vh;
-	`;
+`;
 
 const Info = styled.div`
 	display: flex;
@@ -169,7 +174,7 @@ const ImgWrap = styled.div`
 		margin: 0px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-	margin: 0px;
+		margin: 0px;
 	}
 `;
 
@@ -250,10 +255,10 @@ const InfoContent = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 		@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({ theme }) => theme.fontSize.sm};
+			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
 		@media ${({ theme }) => theme.device.mobile} {
-		font-size: ${({ theme }) => theme.fontSize.xs};
+			font-size: ${({ theme }) => theme.fontSize.xs};
 		}
 	}
 `;
