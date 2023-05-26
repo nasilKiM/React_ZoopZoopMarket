@@ -29,6 +29,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	}, []);
 
 	useEffect(() => {
+		so.emit('join', { room_idx: chatroomIdx });
 		so.on('receiveMessage', async data => {
 			console.log(data);
 			try {
@@ -64,7 +65,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	console.log(item);
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
-		so.emit('join', { room_idx: chatroomIdx });
 		const message = {
 			title: item?.title,
 			createdAt: item?.createdAt,
