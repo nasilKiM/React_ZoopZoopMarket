@@ -22,7 +22,7 @@ const Container = styled.div`
 		width: 90%;
 	}
 	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
+		width: 95%;
 	}
 `;
 

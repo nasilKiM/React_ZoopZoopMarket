@@ -91,9 +91,7 @@ const PreviewWrap = styled.div`
 	}
 	& > div:nth-child(2) {
 		margin-top: 30px;
-		width: 40%;
 		height: 250px;
-		justify-content: space-between;
 	}
 `;
 
@@ -118,7 +116,7 @@ const Month = styled.div`
 `;
 
 const Text = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
@@ -126,6 +124,7 @@ const SummaryContent1 = styled.div`
 	margin-top: 20px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	line-height: 3rem;
+	margin-right: 20px;
 `;
 
 const SummaryContent2 = styled.div`
@@ -134,6 +133,7 @@ const SummaryContent2 = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	line-height: 3rem;
 	text-align: right;
+	margin-right: 10px;
 	& > div {
 		margin-top: 40px;
 		font-size: ${({ theme }) => theme.fontSize.md};
