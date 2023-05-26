@@ -92,7 +92,6 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
-			formData.append('price', Number(data.price));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
@@ -103,12 +102,14 @@ const RegisterPage = () => {
 			});
 
 			if (!idx) {
+				formData.append('price', Number(data.price.replace(/,/g, '')));
 				const res = Axios.post('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
 				alert('물품등록이 완료되었습니다.');
 				navigate('/main');
 			} else {
+				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
 				images.forEach((element, index) => {
