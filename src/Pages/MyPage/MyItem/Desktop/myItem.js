@@ -57,8 +57,8 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	width: 100%;
-	height: 100%;
+	/* width: 100%;
+	height: 100%; */
 	margin: 0 auto;
 `;
 
@@ -71,11 +71,21 @@ const Container = styled.div`
 	width: 100%;
 	${gridColumn(4)}
 	${gridAllCenter}
-	@media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.pc} {
+		min-width: 200px; // pc -> laptop 사이즈 줄어들떼 카드 최소 사이즈 적용 안되는 이슈 있음
+	}
+	@media ${({ theme }) => theme.device.laptop} {
 		${gridColumn(3)}
+		min-width: 200px;
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(2)}
+		min-width: 200px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
+		${gridColumn(1)}
+		min-width: 200px;
+
 	}
 `;
 
