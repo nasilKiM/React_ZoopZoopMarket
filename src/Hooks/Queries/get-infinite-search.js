@@ -26,6 +26,7 @@ export const useInfiniteSearch = (words, selected) => {
 		},
 		{
 			getNextPageParam: lastPage => {
+				console.log('1=====>', lastPage.data.pagination);
 				//console.log(lastPage.data.pagination.curPage);
 				return lastPage.data.pagination.curPage + 1;
 			},

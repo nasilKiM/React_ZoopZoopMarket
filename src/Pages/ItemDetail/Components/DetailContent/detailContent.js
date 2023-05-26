@@ -23,7 +23,9 @@ const DetailContent = ({ state, item }) => {
 								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div>{item.description}</div>
+							<div style={{ 'white-space': 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
 							<div>
 								<div>채팅하기</div>
 								<div>
@@ -47,7 +49,9 @@ const DetailContent = ({ state, item }) => {
 								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div>{item.description}</div>
+							<div style={{ 'white-space': 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
 						</S.SellerWrapper>
 				  )}
 		</>

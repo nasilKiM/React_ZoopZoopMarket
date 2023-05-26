@@ -9,8 +9,11 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import UserApi from 'Apis/userApi';
+import TokenService from 'Repository/TokenService';
 
 const WebHeader = () => {
+	const navigate = useNavigate();
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
@@ -20,7 +23,7 @@ const WebHeader = () => {
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	//마이페이지 메뉴
 	const [showOptions, setShowOptions] = useState(false);
-	const navigate = useNavigate();
+
 	const toggleMenu = () => {
 		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
 	};
@@ -39,7 +42,21 @@ const WebHeader = () => {
 			</>
 		);
 	};
+
 	const word = ',';
+
+	const logout = async () => {
+		const res = await UserApi.logout();
+		console.log(res);
+		TokenService.removeToken();
+		navigate('/');
+	};
+
+	const myPage = () => {
+		console.log('클릭!!!!');
+		navigate('/mypage');
+	};
+
 	return (
 		<>
 			<S.Wrapper>
@@ -162,13 +179,13 @@ const WebHeader = () => {
 								onClick={() => setShowOptions(!showOptions)}
 							/>
 							{showOptions && (
-								<MenuOptions>
-									<Link to={'/mypage'} onClick={() => setShowOptions(false)}>
-										<MenuOption>마이페이지</MenuOption>
-									</Link>
-									<Link to>
-										<MenuOption>로그아웃하기</MenuOption>
-									</Link>
+								<MenuOptions onClick={() => setShowOptions(false)}>
+									<S.Menu>
+										<MenuOption to={'/mypage'}>마이페이지</MenuOption>
+									</S.Menu>
+									<S.Menu>
+										<MenuOption onClick={logout}>로그아웃</MenuOption>
+									</S.Menu>
 								</MenuOptions>
 							)}
 						</Link>
@@ -252,15 +269,12 @@ const MenuList = styled.div`
 const Menu = styled.div`
 	color: ${({ theme }) => theme.color.black};
 	height: 20px;
-	width: 91px;
+	width: 110px;
 	text-decoration: none;
 	padding-right: 10px;
-
+	cursor: pointer;
 	:hover {
 		color: ${({ theme }) => theme.color.primary[400]};
-	}
-	&:hover {
-		background-color: lightgray;
 	}
 `;
 
@@ -334,18 +348,25 @@ const CloseButton = styled.button`
 
 const MenuOptions = styled.div`
 	position: absolute;
-	top: 100%;
-	transform: translateX(-50%);
+
+	top: 90%;
+	height: 70px;
+	transform: translateX(-20%);
 	background-color: ${({ theme }) => theme.color.gray[100]};
 	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
-	padding: 8px;
-	border-radius: 4px;
+	border-radius: 5px;
+	text-align: center;
+	align-items: center;
+	padding-top: 10px;
+	padding-left: 10px;
 `;
 
-const MenuOption = styled.div`
+const MenuOption = styled(Link)`
 	cursor: pointer;
-	padding: 4px 8px;
+	text-decoration: none;
 	transition: background-color 0.3s;
+	margin: 5px;
+	display: block;
 
 	&:hover {
 		background-color: lightgray;

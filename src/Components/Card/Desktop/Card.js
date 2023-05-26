@@ -3,6 +3,7 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import SoldoutCard from './CardSoldout';
 
 const ItemCard = ({ index, products }) => {
 	const navigate = useNavigate();
@@ -25,9 +26,11 @@ const ItemCard = ({ index, products }) => {
 						<S.ItemInfo>
 							<S.ItemTitle>{products.title}</S.ItemTitle>
 							<S.ItemPrice>
-								{products.price.toLocaleString('ko-KR')}원
+								{products.price !== 0
+									? products.price.toLocaleString('ko-KR') + '원'
+									: '무료나눔'}
 							</S.ItemPrice>
-							{products &&
+							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
 										<a className="tag-link">#{tagObj.Tag.tag}</a>
@@ -36,22 +39,26 @@ const ItemCard = ({ index, products }) => {
 						</S.ItemInfo>
 					</div>
 				</S.Container>
+				{products.status === '판매완료' ? <SoldoutCard /> : ''}
 			</S.Wrapper>
 		)
 	);
 };
 
 export default ItemCard;
+
 const Wrapper = styled.div`
-	padding: 15px 0;
 	display: flex;
+	position: relative;
 `;
 
 const Container = styled.div`
 	width: 100%;
 	min-width: 200px;
 	max-width: 280px;
+	height: 370px;
 	overflow: hidden;
+	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
 	margin-right: 10px;
 	border-radius: 10px;
@@ -84,7 +91,7 @@ const Heart = styled.div`
 	position: relative;
 	width: 32px;
 	height: 32px;
-	top: 40px;
+	top: 10px;
 	left: 80%;
 	z-index: 99;
 `;
@@ -94,18 +101,20 @@ const ItemImg = styled.img`
 	height: 250px;
 	max-height: 250px;
 	object-fit: cover;
-	padding-bottom: 15px;
-	margin: auto;
+	position: relative;
+	top: -35px;
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ItemInfo = styled.div`
 	width: 100%;
-	padding-top: 15px;
 	max-height: 87px;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 0 15px;
 	overflow: hidden;
+	position: relative;
+	top: -10px;
 `;
 
 const ItemTitle = styled.div`

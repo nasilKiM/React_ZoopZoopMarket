@@ -10,18 +10,18 @@ const MyItemPage = () => {
 	const [myItemList, setMyItemList] = useState([]);
 	const [page, setPage] = useState(1);
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
-	
+
 	const getMyItemList = async () => {
 		try {
-			const res = await MyPageApi.productList({page, category});
+			const res = await MyPageApi.productList({ page, category });
 			setMyItemList(res.data.products);
 		} catch (err) {
 			console.log(err);
 		}
-	}
+	};
 
 	useEffect(() => {
-		getMyItemList()
+		getMyItemList();
 	}, [page, category]);
 
 	// const [ref, inView] = useInView(); // threshold
@@ -54,14 +54,19 @@ const MyItemPage = () => {
 	return (
 		<S.Div>
 			<S.CategoryZone>
-				<S.Category category={category === 0} onClick={onClickSaleCategory}>중고 물품</S.Category>
-				<S.Category category={category === 1} onClick={onClickFreeCategory}>무료 나눔</S.Category>
+				<S.Category category={category === 0} onClick={onClickSaleCategory}>
+					중고 물품
+				</S.Category>
+				<S.Category category={category === 1} onClick={onClickFreeCategory}>
+					무료 나눔
+				</S.Category>
 			</S.CategoryZone>
 			<S.Wrapper>
 				<S.Container>
-				{myItemList && myItemList.map(item => (
-					  <MyItemCard index={item.idx} products={item}/>
-				))}
+					{myItemList &&
+						myItemList.map(item => (
+							<MyItemCard index={item.idx} products={item} />
+						))}
 				</S.Container>
 			</S.Wrapper>
 			{/* <div ref={ref}></div> */}
@@ -98,7 +103,7 @@ const CategoryZone = styled.div`
 	display: flex;
 	margin-bottom: 30px;
 	& > div:first-child {
-		border-right: solid 3px ${({theme}) => theme.color.primary[100]};
+		border-right: solid 3px ${({ theme }) => theme.color.primary[100]};
 	}
 `;
 
@@ -107,9 +112,9 @@ const Category = styled.div`
 	height: 30px;
 	${flexAllCenter}
 	:hover {
-		font-size: ${({theme}) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.md};
 	}
-	color: ${({category}) => category ? '#FF3647' : 'black'}
+	color: ${({ category }) => (category ? '#FF3647' : 'black')};
 `;
 
 const S = {
@@ -117,5 +122,5 @@ const S = {
 	Wrapper,
 	Container,
 	CategoryZone,
-	Category
+	Category,
 };

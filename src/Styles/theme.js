@@ -16,6 +16,7 @@ const color = {
 	success: '#028202',
 	white: '#FFFFFF',
 	black: '#000000',
+	bg: 'rgb(238, 241, 245)',
 	gray: {
 		100: '#E9E9E9',
 		200: '#D9D9D9', // basic gray
