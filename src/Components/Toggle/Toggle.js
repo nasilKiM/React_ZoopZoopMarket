@@ -68,7 +68,7 @@ const Sticky = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 70%;
 	height: 40px;
 	${flexAllCenter}
 	background-color: ${({theme}) => theme.color.gray[100]};
@@ -79,6 +79,12 @@ const Wrapper = styled.div`
 	top: 12vh;
 	left: 50%;
   	transform: translateX( -50% );
+	@media ${({ theme }) => theme.device.laptop} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 100%;
+	}
 `;
 
 const Menu = styled.div`
