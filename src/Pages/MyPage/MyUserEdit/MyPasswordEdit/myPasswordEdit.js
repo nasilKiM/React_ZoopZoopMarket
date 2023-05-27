@@ -1,9 +1,10 @@
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
+import CustomButton from 'Components/Buttons/button';
 
 const MyPasswordEdit = () => {
 	const navigate = useNavigate();
@@ -17,6 +18,7 @@ const MyPasswordEdit = () => {
 	const onSubmit = async data => {
 		const info = {
 			pw: data.password,
+			confirmPW: data.confirmPW,
 		};
 
 		try {
@@ -24,215 +26,154 @@ const MyPasswordEdit = () => {
 			alert('비밀번호가 변경되었습니다.');
 			navigate('/mypage');
 		} catch (err) {
-			// alert(err.response.data.message);
-			console.log(err);	// 확인용
+			alert(err.response.data.message);
 		}
 	};
 
-	const full =
-		!errors.password &&
-		!errors.confirmPW;
+	const onClickExit = () => {
+		navigate('/mypage/user_edit');
+	};
+
+	const full = !errors.password && !errors.confirmPW;
 
 	return (
-		<S.Div>
+		<>
 			<S.Wrap>
-				<div> 90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!</div>
+				<S.Text>
+					{' '}
+					90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!
+				</S.Text>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								{...register('password', FORM_TYPE.PASSWORD)}
-								placeholder="특수문자, 영어, 숫자 포함 8자이상"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
+					<S.Grid1>
+						<S.Title>* 비밀번호</S.Title>
+						<S.Input
+							{...register('password', FORM_TYPE.PASSWORD)}
+							placeholder="특수문자, 영어, 숫자 포함 8자이상"
+							type="password"
+						/>
+					</S.Grid1>
 					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>비밀번호 확인</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								{...register('confirmPW', {
-									required: true,
-									validate: value => {
-										if ('password' !== value) {
-											return '비밀번호가 일치하지 않습니다.';
-										}
-									},
-								})}
-								placeholder="PW check"
-								type="password"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
+					<S.Grid1>
+						<S.Title>* 비밀번호 확인</S.Title>
+						<S.Input
+							{...register('confirmPW', {
+								required: true,
+								validate: value => {
+									if ('password' !== value) {
+										return '비밀번호가 일치하지 않습니다.';
+									}
+								},
+							})}
+							placeholder="PW check"
+							type="password"
+						/>
+					</S.Grid1>
 					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
-					<BtnWrap>
-						<S.Button disabled={!full}>저장하기</S.Button>
-					</BtnWrap>
+					<S.Button
+						type="submit"
+						disabled={!full}
+						size={'submitBtn'}
+						shape={'submitBtn'}
+					>
+						저장하기
+					</S.Button>
 				</S.Form>
+				<S.Text2 onClick={onClickExit}>취소하기</S.Text2>
 			</S.Wrap>
-		</S.Div>
+		</>
 	);
 };
 
 export default MyPasswordEdit;
 
-const Div = styled.div`
-	width: 100%;
-	${flexAllCenter}
-`;
-
 const Wrap = styled.div`
-	width: 60%;
+	width: 100%;
+	margin: 0 auto;
 	flex-direction: column;
 	${flexAllCenter}
-	& > div {
-		margin-bottom: 30px;
-		color: ${({theme}) => theme.color.primary};
-		font-size: ${({theme}) => theme.fontSize.sm};
-	}
-`;
-
-const Header = styled.div`
-	width: 100%;
-	height: 150px;
-	padding-top: 50px;
-	margin-bottom: 30px;
-	display: flex;
-	justify-content: center;
-`;
-
-const LogoImage = styled.img`
-	max-width: 100%;
-	max-height: 100%;
 `;
 
 const Form = styled.form`
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	width: 100%;
-	padding: 40px 30px;
-	max-width: 700px;
-	min-width: 600px;
-	& > p {
-		font-size: ${({ theme }) => theme.fontSize.lg};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		margin-bottom: 20px;
-	}
+	padding: 40px 15vw;
 `;
 
-const Button = styled.button`
-	height: 40px;
-	width: 82%;
+const Input = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
-	border: none;
+`;
+
+const Button = styled(CustomButton)`
 	margin-top: 20px;
-	cursor: pointer;
-	background: ${({ theme }) => theme.color.primary};
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	:disabled {
-		background: ${({ theme }) => theme.color.gray};
-	}
-`;
-
-const BtnWrap = styled.div`
-	display: flex;
-	justify-content: flex-end;
 	width: 100%;
-`;
-
-const ItemWrap = styled.div`
-	display: flex;
-	width: 25%;
-	& > span {
-		font-size: ${({ theme }) => theme.fontSize.base};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-	}
-`;
-
-const InputBoxWrap = styled.div`
-	${flexAlignCenter}
-	width: 100%;
-	& > input {
+	background: linear-gradient(
+		${({ theme }) => theme.color.primary[400]},
+		${({ theme }) => theme.color.primary[200]}
+	);
+	border: none;
+	color: ${({ theme }) => theme.color.fontColor[100]};
+	@media ${({ theme }) => theme.device.mobile} {
 		width: 100%;
-		height: 40px;
-		border: 1px solid ${({ theme }) => theme.color.subBeige};
-		border-radius: 10px;
-		margin: 10px 0px;
-		display: flex;
-		padding: 20px;
-		margin-left: 10px;
-		padding-left: 10px;
 	}
-
-	& > button {
-		width: 120px;
-		height: 40px;
-		border-radius: 10px;
-		border: 1px solid ${({ theme }) => theme.color.primary};
-		background: none;
-		margin-left: 10px;
-		cursor: pointer;
-	}
-`;
-const InputWrap = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
-`;
-
-const InputWrapBtn = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
-`;
-
-const Mark = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.primary};
+	margin-bottom: 15px;
 `;
 
-const Address = styled.div`
-	display: flex;
-	height: 40px;
-	margin: 10px 0px;
-	padding-left: 10px;
-	margin-right: 5px;
-	align-items: center;
+const Grid1 = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	grid-auto-rows: 5.5vh;
+	grid-gap: 20px;
+	margin-bottom: 3vh;
+`;
+
+const Title = styled.div`
+	width: 10vw;
+	min-width: max-content;
+	${flexAllCenter}
+	margin-right: 22px;
+`;
+
+const Title2 = styled.div`
+	min-width: max-content;
+	${flexAllCenter}
+`;
+
+const Text = styled.div`
+	margin-bottom: 3vh;
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
+`;
+
+const Text2 = styled.div`
+	margin-top: 30px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	color: ${({ theme }) => theme.color.primary[300]};
+	:hover {
+		color: ${({ theme }) => theme.color.primary[500]};
+		cursor: pointer;
+	}
 `;
 
 const S = {
-	Div,
 	Wrap,
-	Header,
-	LogoImage,
 	Form,
+	Input,
 	Button,
-	InputWrap,
-	InputWrapBtn,
-	Mark,
-	ItemWrap,
-	InputBoxWrap,
 	Error,
-	Address,
+	Grid1,
+	Title,
+	Title2,
+	Text,
+	Text2,
 };

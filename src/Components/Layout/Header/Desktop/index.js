@@ -122,7 +122,12 @@ const WebHeader = () => {
 								>
 									중고 거래
 								</S.Menu>
-								<S.Menu key={0} to="/search_list">
+								<S.Menu
+									key={0}
+									onClick={() => {
+										navigate(`/search_list/${word}/1`);
+									}}
+								>
 									무료 나눔
 								</S.Menu>
 

@@ -14,7 +14,6 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts';
-
 import styled from 'styled-components';
 
 const DesktopMarketPrice = () => {
@@ -24,6 +23,7 @@ const DesktopMarketPrice = () => {
 	// const [priceList, setItemList] = useRecoilState(itemPriceState);
 	const start = '2023-05-15';
 	const end = '2023-05-26';
+	console.log(word);
 
 	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
@@ -84,7 +84,7 @@ const DesktopMarketPrice = () => {
 	const arr =
 		data?.data.prod_idx?.cumulativeAvgPrice &&
 		formatData(data.data.prod_idx.cumulativeAvgPrice);
-	console.log(arr);
+	//console.log(arr);
 	const groupingData = (data, groupSize) => {
 		const result = [];
 		let group = [];
@@ -111,8 +111,6 @@ const DesktopMarketPrice = () => {
 
 	const groupedData = arr?.length && groupingData(arr, 2);
 
-	console.log(groupedData);
-
 	let average = 0;
 	if (data && data.data.prod_idx.cumulativeAvgPrice) {
 		for (let i = 0; i < data.data.prod_idx.cumulativeAvgPrice.length; i++) {
@@ -123,16 +121,20 @@ const DesktopMarketPrice = () => {
 
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	// //반응형
-
+	console.log(average);
 	return (
 		<S.Wrapper>
 			<S.UpperPart>
 				<S.LeftPart>
 					<S.Title>
 						시세 조회
-						<S.SubTitle>
-							원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
-						</S.SubTitle>
+						{word ? (
+							<S.SubTitle>
+								원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
+							</S.SubTitle>
+						) : (
+							<S.SubTitle>시세를 알고싶은 물품을 검색해주세요.</S.SubTitle>
+						)}
 					</S.Title>
 				</S.LeftPart>
 				<S.SearchBarContainer>
@@ -158,10 +160,14 @@ const DesktopMarketPrice = () => {
 					/>
 				</LineChart>
 			</S.ChartContainer>
-			<S.Average>
-				평균 시세는
-				<S.ResultWord>{average}원</S.ResultWord> 입니다.
-			</S.Average>
+			{isNaN(average) ? (
+				<S.Average>검색어가 입력되지 않았습니다.</S.Average>
+			) : (
+				<S.Average>
+					평균 시세는
+					<S.ResultWord>{average}원</S.ResultWord> 입니다.
+				</S.Average>
+			)}
 			<S.RecentlyClosed>
 				최근 거래 종료 품목
 				<S.ItemList>

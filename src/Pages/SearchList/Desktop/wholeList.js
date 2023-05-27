@@ -24,6 +24,7 @@ const WholeListPage = () => {
 
 	const { data } = res;
 	//console.log('res----->', res);
+	//console.log(data.pages[0].data.pagination.count);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -49,12 +50,14 @@ const WholeListPage = () => {
 	//400px
 
 	const convertedCategory = CategoryConverter(word.split(','));
-	let RESULT = '';
+
+	const searchWord = word === ',' ? '전체' : word;
+	console.log(word);
 
 	return (
 		<S.Wrapper>
 			<S.SelectContainer>
-				{word.length <= 2 && word !== ',' && (
+				{word.split(',').length <= 2 && word !== ',' && (
 					<S.SelectBox
 						isSelected={selected === 2}
 						onClick={() => onSelectBoxClick(2)}
@@ -75,10 +78,10 @@ const WholeListPage = () => {
 					무료
 				</S.SelectBox>
 			</S.SelectContainer>
-			{word.length < 2 ? (
+			{word.split(',').length < 2 ? (
 				<S.ResultText>
-					<S.ResultWord>"{word}"</S.ResultWord>에 대한 {categoryResult} 검색
-					결과
+					<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 {categoryResult}{' '}
+					검색 결과
 				</S.ResultText>
 			) : (
 				<S.ResultText>

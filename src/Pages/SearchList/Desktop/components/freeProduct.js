@@ -7,17 +7,16 @@ import { useRecoilState } from 'recoil';
 import { itemListState } from 'Atoms/search.atom';
 import { useQuery } from '@tanstack/react-query';
 
-const FreeProduct = ({ word }) => {
+const FreeProduct = ({ word, data }) => {
 	const navigate = useNavigate();
-	const [itemList, setItemList] = useRecoilState(itemListState);
 
-	const { data } = useQuery(['SEARCH_FREE', word], () => {
-		return ProductApi.searchItems(1, word, 1);
-		//useInfinteQuery 안에 내용사용해서 적용해보기
-	});
+	// const { data } = useQuery(['SEARCH_FREE', word], () => {
+	// 	return ProductApi.searchItems(1, word, 1);
+	// 	//useInfinteQuery 안에 내용사용해서 적용해보기
+	// });
 
-	data && console.log(data);
-	data && setItemList(data.data.product);
+	//data && console.log(data);
+
 	const goWholeList = () => {
 		navigate(`${1}`, { state: data });
 	};
