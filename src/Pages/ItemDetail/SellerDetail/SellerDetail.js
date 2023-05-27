@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import DetailHead from '../Components/DetailHead/detailHead';
-import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
 import { useEffect, useState } from 'react';
-import ChattingPage from 'Pages/Chat';
-import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
 import ProductApi from 'Apis/productApi';
+import ChattingPage from 'Pages/Chat';
+import DetailContent from '../Components/DetailContent/detailContent';
+import DetailHead from '../Components/DetailHead/detailHead';
+import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	// const item = product && product.data.searchProduct;
@@ -17,6 +17,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	useEffect(() => {
 		if (product) setItem(product.data.searchProduct);
+		product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 		return () => {
 			setItem();
 		};

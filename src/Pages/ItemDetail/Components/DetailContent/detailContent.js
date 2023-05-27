@@ -18,12 +18,12 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
+	console.log(so);
 
 	useEffect(() => {
-		so &&
-			so.on('receiveMessage', data => {
-				console.log(data);
-			});
+		so?.on('receiveMessage', data => {
+			console.log(data);
+		});
 	}, []);
 
 	const onClickChatStartBtn = async () => {
