@@ -6,6 +6,7 @@ import { RecoilRoot } from 'recoil';
 // import { isDesktop } from 'react-device-detect';
 // import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
+import SocketProvider from 'Context/socket';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ApiCustomError from 'Apis/@error';

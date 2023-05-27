@@ -7,11 +7,14 @@ import { FORM_TYPE } from 'Consts/FormType';
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
+import { useSocket } from 'Context/socket';
 import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const so = useSocket();
+	console.log(so);
 
 	const {
 		register,
@@ -25,6 +28,7 @@ const LoginPage = () => {
 			navigate('/main');
 		}
 	}, []);
+
 
 	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {
