@@ -8,6 +8,7 @@ import KaMap from 'Components/Map/Map';
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
 	console.log(item);
+
 	return (
 		<S.Wrapper>
 			<div>

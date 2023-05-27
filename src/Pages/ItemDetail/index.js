@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
@@ -18,7 +18,13 @@ const ItemDetailPage = () => {
 	// 		console.log(err);
 	// 	}
 	// };
+
 	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
+	const { mutate } = useMutation(prod_idx => ProductApi.addRecent(prod_idx));
+
+	useEffect(() => {
+		mutate(data?.data.searchProduct.idx);
+	}, []);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);

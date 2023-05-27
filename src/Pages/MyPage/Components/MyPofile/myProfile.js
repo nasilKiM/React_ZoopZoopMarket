@@ -93,7 +93,7 @@ const MyProfile = () => {
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>닉네임</S.InfoTitle>
-							<S.InfoContent>{User.nickName}</S.InfoContent>
+							{/* <S.InfoContent>{User.nickName}</S.InfoContent> */}
 						</S.List>
 						<S.List>
 							<S.InfoTitle>매너온도</S.InfoTitle>
@@ -142,6 +142,7 @@ const Wrapper = styled.div`
 const Info = styled.div`
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	margin-top: 60px;
 	margin-left: 20px;
 	@media ${({ theme }) => theme.device.tablet} {

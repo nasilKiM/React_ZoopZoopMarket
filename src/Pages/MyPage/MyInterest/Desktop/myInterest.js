@@ -73,7 +73,6 @@ const Container = styled.div`
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(1)}
 		min-width: 200px;
-
 	}
 `;
 
