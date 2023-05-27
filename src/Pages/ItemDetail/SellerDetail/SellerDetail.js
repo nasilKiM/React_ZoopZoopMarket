@@ -1,24 +1,34 @@
 import styled from 'styled-components';
-import DetailHead from '../Components/DetailHead/detailHead';
-import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
-import ChattingPage from 'Pages/Chat';
-import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ProductApi from 'Apis/productApi';
+import ChattingPage from 'Pages/Chat';
+import DetailContent from '../Components/DetailContent/detailContent';
+import DetailHead from '../Components/DetailHead/detailHead';
+import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
-const SellerDetailPage = ({ state, product }) => {
-	const item = product && product.data.searchProduct;
+const SellerDetailPage = ({ state, product, idx }) => {
+	// const item = product && product.data.searchProduct;
+	const [item, setItem] = useState();
+	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (product) setItem(product.data.searchProduct);
+		product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
+		return () => {
+			setItem();
+		};
+	}, []);
 
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
 
-	const socket = 'caeb9fae-7da5-4d70-9508-a4690a3a1f41';
+	// const socket = 'sample용소켓입니다.';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
@@ -52,7 +62,12 @@ const SellerDetailPage = ({ state, product }) => {
 			{detailState === '상세정보' ? (
 				<DetailContent state={state} item={item} />
 			) : (
-				<ChattingPage />
+				<ChattingPage
+					idx={idx}
+					item={item}
+					isSeller={isSeller}
+					setItem={setItem}
+				/>
 			)}
 			<AnotherProduct />
 		</S.Wrapper>
