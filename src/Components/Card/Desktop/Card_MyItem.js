@@ -34,6 +34,7 @@ export default MyItemCard;
 
 const Container = styled.div`
 	width: 100%;
+	/* min-width: 200px; */
 	cursor: pointer;
 	position: relative;
 	border-radius: 10px;
