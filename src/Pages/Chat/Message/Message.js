@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import YourMessage from './Components/YourChat';
 import MyMessage from './Components/MyChat';
 
-const MessageDetail = ({ chatDetail }) => {
+const MessageDetail = ({ chat }) => {
+	console.log(chat);
 	return (
 		<div>
 			<S.DateDivideContainer>
-				<S.DateDivide>{chatDetail.messageDate}</S.DateDivide>
+				<S.DateDivide>{chat?.createdAt}</S.DateDivide>
 			</S.DateDivideContainer>
 
 			{chatDetail.messages.map(msg => {

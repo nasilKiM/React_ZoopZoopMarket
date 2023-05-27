@@ -20,7 +20,7 @@ const ItemDetailPage = () => {
 			{!isSeller ? (
 				<BuyerDetailPage state={isSeller} product={data} />
 			) : (
-				<SellerDetailPage state={isSeller} product={data} />
+				<SellerDetailPage state={isSeller} product={data}  idx={idx} />
 			)}
 		</>
 	);
