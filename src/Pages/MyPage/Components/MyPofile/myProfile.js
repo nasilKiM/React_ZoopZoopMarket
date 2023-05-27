@@ -5,7 +5,6 @@ import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
-import { flexAllCenter } from 'Styles/common';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -31,7 +30,6 @@ const MyProfile = () => {
 		}
 	};
 
-	// 프로필 사진 수정 틀
 	const profileImgEdit = async e => {
 		const formData = new FormData();
 		const file = e.target.files[0];
@@ -48,7 +46,6 @@ const MyProfile = () => {
 		}
 	};
 
-	// 클릭시 사진 수정
 	const handleClick = () => {
 		photoInput.current.click();
 	};
@@ -78,7 +75,7 @@ const MyProfile = () => {
 							/>
 						)}
 						<S.ProfileImg>
-							<FontAwesomeIcon
+							<S.FontAwesomeIconImg
 								icon={faCamera}
 								style={{ color: '#ffffff', fontSize: '20px' }}
 								onClick={handleClick}
@@ -109,6 +106,26 @@ const MyProfile = () => {
 							<S.InfoContent>#{region}</S.InfoContent>
 						</S.List>
 					</S.Detail>
+					<S.Detail>
+						<S.List>
+							<S.InfoTitle>내 등록템</S.InfoTitle>
+							<S.InfoContent>
+								<span>{userProfile.data.productsCount}</span> 개
+							</S.InfoContent>
+						</S.List>
+						<S.List>
+							<S.InfoTitle>내 관심템</S.InfoTitle>
+							<S.InfoContent>
+								<span>{userProfile.data.likeCount}</span> 개
+							</S.InfoContent>
+						</S.List>
+						<S.List>
+							<S.InfoTitle>채팅</S.InfoTitle>
+							<S.InfoContent>
+								<span>{userProfile.data.chatCount}</span> 건
+							</S.InfoContent>
+						</S.List>
+					</S.Detail>
 				</S.Info>
 			)}
 		</S.Wrapper>
@@ -119,14 +136,22 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 170px;
-	border-top: solid 1px #e9e9e9;
-	${flexAllCenter}
+	height: 20vh;
 `;
 
 const Info = styled.div`
 	display: flex;
 	align-items: center;
+	margin-top: 60px;
+	margin-left: 20px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 80vw;
+		margin-left: 0;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 80vw;
+		margin-left: 0;
+	}
 `;
 
 const Img = styled.img`
@@ -135,16 +160,22 @@ const Img = styled.img`
 	object-position: center;
 	border-radius: 50%;
 	@media ${({ theme }) => theme.device.tablet} {
-		width: 130px;
+		width: 14vw;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		width: 90px;
+		width: 13vw;
 	}
 `;
 
 const ImgWrap = styled.div`
 	position: relative;
 	margin-right: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		margin: 0px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		margin: 0px;
+	}
 `;
 
 const ProfileImg = styled.div`
@@ -156,17 +187,33 @@ const ProfileImg = styled.div`
 	right: 0;
 	cursor: pointer;
 	@media ${({ theme }) => theme.device.tablet} {
-		padding: 10px;
+		padding: 2vw;
+		border-radius: 50%;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		padding: 7px;
-		bottom: 80px;
+		padding: 1vw;
+		bottom: 100px;
+		border-radius: 50%;
 	}
 `;
 
+const FontAwesomeIconImg = styled(FontAwesomeIcon)`
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: 3vw;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 5px;
+	}
+`;
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-left: 30px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 10px;
+	}
 `;
 
 const List = styled.div`
@@ -177,14 +224,43 @@ const List = styled.div`
 
 const InfoTitle = styled.div`
 	width: 80px;
+	min-width: max-content;
 	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
 `;
 
 const InfoContent = styled.div`
-	margin-left: 30px;
+	margin-left: 10px;
+	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+		margin-left: 0;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: ${({ theme }) => theme.fontSize.es};
+		margin-left: 0;
+	}
+
+	& > span {
+		color: ${({ theme }) => theme.color.primary[400]};
+		font-size: ${({ theme }) => theme.fontSize.md};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		@media ${({ theme }) => theme.device.tablet} {
+			font-size: ${({ theme }) => theme.fontSize.sm};
+		}
+		@media ${({ theme }) => theme.device.mobile} {
+			font-size: ${({ theme }) => theme.fontSize.xs};
+		}
+	}
 `;
 
 const S = {
@@ -197,4 +273,5 @@ const S = {
 	InfoTitle,
 	InfoContent,
 	Img,
+	FontAwesomeIconImg,
 };

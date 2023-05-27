@@ -1,4 +1,4 @@
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
+import CustomButton from 'Components/Buttons/button';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
@@ -81,255 +82,206 @@ const MyUserEdit = ({ userInfo }) => {
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
 	};
+
 	const full = !errors.email && !errors.phone && address;
 
 	return (
-		<S.Div>
+		<>
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>아이디</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
+						{/* <S.Grid1>
+							<S.Title>* 아이디</S.Title>
+							<S.Input
 								{...register('email', FORM_TYPE.EMAIL)}
 								placeholder="E-mail"
 							/>
-							<button onClick={onCheckId} disabled={errors.email}>
+							<S.CheckBtn
+									disabled={errors.email || !'email'}
+									onClick={onCheckId}
+									shape={'checkBtn'}
+									size={'checkBtn'}
+							>
 								중복확인
-							</button>
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
+							</S.CheckBtn>
+						</S.Grid1> */}
 					{errors.email && <S.Error>{errors.email.message}</S.Error>}
 					{<S.Error>{idMsg}</S.Error>}
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>닉네임</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								{...register('nick', FORM_TYPE.NICKNAME)}
-								placeholder="Nick_Name"
-							/>
-							<button onClick={onCheckNick} disabled={errors.nick}>
-								중복확인
-							</button>
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
+					<S.Grid1>
+						<S.Title>* 닉네임</S.Title>
+						<S.Input
+							{...register('nick', FORM_TYPE.NICKNAME)}
+							placeholder="Nick_Name"
+						/>
+						<S.CheckBtn
+							disabled={errors.nick || !'nick'}
+							onClick={onCheckNick}
+							shape={'checkBtn'}
+							size={'checkBtn'}
+						>
+							중복확인
+						</S.CheckBtn>
+					</S.Grid1>
 					{<S.Error>{nickMsg}</S.Error>}
-					<S.InputWrap>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>전화번호</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<input
-								maxLength="13"
-								{...register('phone', {
-									onChange: e => {
-										setValue(
-											'phone',
-											e.target.value
-												.replace(/[^0-9]/g, '')
-												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
-										);
-									},
-								})}
-								placeholder="010-0000-0000"
-							/>
-						</S.InputBoxWrap>
-					</S.InputWrap>
+					<S.Grid2>
+						<S.Title2>* 전화번호</S.Title2>
+						<S.Input
+							maxLength="13"
+							{...register('phone', {
+								onChange: e => {
+									setValue(
+										'phone',
+										e.target.value
+											.replace(/[^0-9]/g, '')
+											.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+									);
+								},
+							})}
+							placeholder="010-0000-0000"
+						/>
+					</S.Grid2>
 					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
-					<S.InputWrapBtn>
-						<S.ItemWrap>
-							<S.Mark>*</S.Mark>
-							<span>주소</span>
-						</S.ItemWrap>
-						<S.InputBoxWrap>
-							<S.Address>{address}</S.Address>
-							<FindAddress setter={setAddress} region={userInfo?.region} />
-						</S.InputBoxWrap>
-					</S.InputWrapBtn>
-					<BtnWrap>
-						<S.Button disabled={!full}>저장하기</S.Button>
-					</BtnWrap>
+					<S.Grid3>
+						<S.Title>* 주소</S.Title>
+						<div>{address}</div>
+						<FindAddress setter={setAddress} region={userInfo?.region} />
+					</S.Grid3>
+					<S.Button
+						type="submit"
+						disabled={!full}
+						size={'submitBtn'}
+						shape={'submitBtn'}
+					>
+						저장하기
+					</S.Button>
 				</S.Form>
 			</S.Wrap>
 			<S.Wrap2>
 				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
 			</S.Wrap2>
-		</S.Div>
+		</>
 	);
 };
 
 export default MyUserEdit;
 
-const Div = styled.div`
+const Wrap = styled.div`
 	width: 100%;
 	margin: 0 auto;
-`;
-
-const Wrap = styled.div`
-	width: 70%;
 	flex-direction: column;
 	${flexAllCenter}
-	margin: 0 auto;
 `;
 
 const Wrap2 = styled.div`
-	width: 60%;
+	width: 100%;
 	${flexAllCenter}
 	margin: 0 auto;
 `;
 
-const Header = styled.div`
-	width: 100%;
-	height: 150px;
-	padding-top: 50px;
-	margin-bottom: 30px;
-	display: flex;
-	justify-content: center;
-`;
-
-const LogoImage = styled.img`
-	max-width: 100%;
-	max-height: 100%;
-`;
-
 const Form = styled.form`
-	border: 1px solid ${({ theme }) => theme.color.subBeige};
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	width: 100%;
-	padding: 40px 30px;
-	max-width: 700px;
-	min-width: 600px;
-	& > p {
-		font-size: ${({ theme }) => theme.fontSize.lg};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		margin-bottom: 20px;
-	}
+	padding: 40px 15vw;
 `;
 
-const Button = styled.button`
-	height: 40px;
-	width: 82%;
+const Input = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
-	border: none;
+`;
+
+const CheckBtn = styled(CustomButton)`
+	min-width: max-content;
+	background: none;
+	margin-left: 10px;
+	border: 2px solid ${({ theme }) => theme.color.primary[400]};
+	&:hover {
+		color: ${({ theme }) => theme.color.fontColor[100]};
+		background-color: ${({ theme }) => theme.color.primary[400]};
+	}
+`;
+
+const Button = styled(CustomButton)`
 	margin-top: 20px;
-	cursor: pointer;
-	background: ${({ theme }) => theme.color.primary};
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	:disabled {
-		background: ${({ theme }) => theme.color.gray};
-	}
-`;
-
-const BtnWrap = styled.div`
-	display: flex;
-	justify-content: flex-end;
 	width: 100%;
-`;
-
-const ItemWrap = styled.div`
-	display: flex;
-	width: 20%;
-	& > span {
-		font-size: ${({ theme }) => theme.fontSize.base};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-	}
-`;
-
-const InputBoxWrap = styled.div`
-	${flexAlignCenter}
-	width: 100%;
-	& > input {
+	background: linear-gradient(
+		${({ theme }) => theme.color.primary[400]},
+		${({ theme }) => theme.color.primary[200]}
+	);
+	border: none;
+	color: ${({ theme }) => theme.color.fontColor[100]};
+	@media ${({ theme }) => theme.device.mobile} {
 		width: 100%;
-		height: 40px;
-		border: 1px solid ${({ theme }) => theme.color.subBeige};
-		border-radius: 10px;
-		margin: 10px 0px;
-		display: flex;
-		padding: 20px;
-		margin-left: 10px;
-		padding-left: 10px;
 	}
-
-	& > button {
-		width: 120px;
-		height: 40px;
-		border-radius: 10px;
-		border: 1px solid ${({ theme }) => theme.color.primary};
-		background: none;
-		margin-left: 10px;
-		cursor: pointer;
-	}
-`;
-const InputWrap = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
-`;
-
-const InputWrapBtn = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
-`;
-
-const Mark = styled.span`
-	color: ${({ theme }) => theme.color.primary};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
 
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.primary};
-`;
-
-const Address = styled.div`
-	display: flex;
-	height: 40px;
-	margin: 10px 0px;
-	padding-left: 10px;
-	margin-right: 5px;
-	align-items: center;
+	margin-bottom: 15px;
 `;
 
 const Text = styled.div`
 	margin-top: 30px;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	color: ${({ theme }) => theme.color.primary};
+	color: ${({ theme }) => theme.color.primary[300]};
 	:hover {
+		color: ${({ theme }) => theme.color.primary[500]};
 		cursor: pointer;
-		line-height: 0%;
 	}
 `;
 
+const Grid1 = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 4.1fr 1fr;
+	grid-auto-rows: 5.5vh;
+	grid-gap: 20px;
+	margin-bottom: 10px;
+`;
+
+const Grid2 = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 7.6fr;
+	grid-auto-rows: 5.5vh;
+	grid-gap: 40px;
+	margin-bottom: 25px;
+`;
+
+const Grid3 = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 6fr 1.1fr;
+	grid-auto-rows: 5.5vh;
+	grid-gap: 18px;
+	justify-content: center;
+`;
+
+const Title = styled.div`
+	width: 10vw;
+	min-width: max-content;
+	${flexAllCenter}
+	margin-right: 22px;
+`;
+
+const Title2 = styled.div`
+	width: 10vw;
+	min-width: max-content;
+	${flexAllCenter}
+`;
+
 const S = {
-	Div,
 	Wrap,
 	Wrap2,
-	Header,
-	LogoImage,
 	Form,
+	Input,
+	CheckBtn,
 	Button,
-	InputWrap,
-	InputWrapBtn,
-	Mark,
-	ItemWrap,
-	InputBoxWrap,
 	Error,
-	Address,
 	Text,
+	Grid1,
+	Grid2,
+	Grid3,
+	Title,
+	Title2,
 };

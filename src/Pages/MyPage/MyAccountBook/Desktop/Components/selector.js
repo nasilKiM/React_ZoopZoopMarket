@@ -67,11 +67,11 @@ const SelectorsZone = styled.div`
 			margin-right: 15px;
 		}
 	}
-`;
+	`;
 
 const RightSideSelectors = styled.div`
 	display: flex;
-`;
+	`;
 
 const LargeSelect = styled.select`
 	-moz-appearance: none;
@@ -87,6 +87,14 @@ const LargeSelect = styled.select`
 	border-radius: 0.5em;
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	cursor: pointer;
+	@media ${({ theme }) => theme.device.laptop} {
+		width: 15vw;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 15vw;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const S = {

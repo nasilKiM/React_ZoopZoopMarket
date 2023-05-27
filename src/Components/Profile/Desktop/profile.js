@@ -18,7 +18,7 @@ const Circle = styled.div`
 	height: 100px;
 	border-radius: 50px;
 	overflow: hidden;
-`;
+	`;
 
 const Img = styled.img`
 	width: 100%;
