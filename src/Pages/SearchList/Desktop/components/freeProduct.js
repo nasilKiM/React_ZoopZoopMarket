@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PropsBtn } from 'Components/Buttons/style';
-import ProductApi from 'Apis/productApi';
 import SearchList from './searchList';
-import { useRecoilState } from 'recoil';
-import { itemListState } from 'Atoms/search.atom';
-import { useQuery } from '@tanstack/react-query';
 
 const FreeProduct = ({ word, data }) => {
 	const navigate = useNavigate();

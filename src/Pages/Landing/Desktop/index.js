@@ -34,12 +34,53 @@ const LandingPage = () => {
 
 				<S.Section1>
 					<Title>
-						원하는 상품은 ? 줍줍마켓 <br />{' '}
+						원하는 상품은 ? 줍줍마켓 <br /> 싫증난 물건도 ? 줍줍마켓
+						<br /> ... <br />
 					</Title>
 				</S.Section1>
-				<S.Section2></S.Section2>
+				<S.Section2>
+					<S.White>
+						<div>
+							<img src="/Assets/Images/Landing/w_baseball.png" />
+						</div>
+						<div>
+							<img src="/Assets/Images/Landing/w_eyeball.png" />={' '}
+						</div>
+						<div>
+							<img src="/Assets/Images/Landing/w_couch.png" />
+						</div>
+						<div>
+							<img src="/Assets/Images/Landing/w_child.png" />
+						</div>
+						<div>
+							<img src="/Assets/Images/Landing/w_heel.png" />
+						</div>
+						<div>
+							<img src="/Assets/Images/Landing/w_cat.png" />
+						</div>
+					</S.White>
+					<S.HoverWhite>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_baseball.png" />
+						</div>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_eyeball.png" />={' '}
+						</div>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_couch.png" />
+						</div>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_child.png" />
+						</div>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_heel.png" />
+						</div>
+						<div>
+							<OverlayImage src="/Assets/Images/Landing/c_cat.png" />
+						</div>
+					</S.HoverWhite>
+				</S.Section2>
 				<S.Section3></S.Section3>
-				<S.Section2></S.Section2>
 			</S.ContentWrapper>
 		</S.Wrapper>
 	);
@@ -49,7 +90,6 @@ export default LandingPage;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 100vh;
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
@@ -82,25 +122,7 @@ const LogoImage = styled.img`
 	max-height: 100%;
 `;
 
-const Title = styled.div`
-	font-size: 70px;
-	display: absolute;
-	top: 0;
-	left: 0;
-	margin: auto;
-`;
-
-const Section1 = styled.section`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	line-height: 1.5;
-	color: ${({ theme }) => theme.color.white};
-`;
-
 const GoToLogin = styled.button`
-	color: #0077c2;
 	cursor: pointer;
 	&:hover {
 		text-decoration: underline;
@@ -108,7 +130,6 @@ const GoToLogin = styled.button`
 `;
 
 const GoToSignup = styled.button`
-	color: #0077c2;
 	cursor: pointer;
 
 	&:hover {
@@ -116,53 +137,144 @@ const GoToSignup = styled.button`
 	}
 `;
 
-const Section2 = styled.section`
+const Section1 = styled.section`
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	line-height: 1.5;
+	justify-content: center;
+	text-align: center;
+	padding-top: 50px;
+	line-height: 1.7;
+	color: ${({ theme }) => theme.color.white};
+`;
+const Title = styled.div`
+	font-size: 28px;
+`;
+
+const Section2 = styled.section`
+	width: 100%;
+	height: 100vh;
+	padding-top: 800px;
+	position: relative;
+`;
+
+const White = styled.div`
+	// 야구배트
+
+	& > div:nth-of-type(1) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 230px;
+		bottom: 8%;
+		left: 8%;
+	}
+	// 눈알
+	& > div:nth-of-type(2) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 130px;
+		top: 20%;
+		left: 30%;
+	}
+	// 소파
+	& > div:nth-of-type(3) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 550px;
+		top: 10%;
+		right: 15%;
+	}
+	// 유모차
+	& > div:nth-of-type(4) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 275px;
+		bottom: 5%;
+		left: 27%;
+	}
+	// 하이힐
+	& > div:nth-of-type(5) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 300px;
+		bottom: 15%;
+		right: 30%;
+	}
+	// 쪼밥이
+	& > div:nth-of-type(6) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 170px;
+		bottom: 7%;
+		right: 8%;
+	}
+`;
+
+const OverlayImage = styled.img`
+	position: relative;
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	:hover {
+		opacity: 1;
+	}
+`;
+
+const HoverWhite = styled.div`
+	//야구배트
+	& > div:nth-of-type(1) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 165px;
+		bottom: 11%;
+		left: 10%;
+	}
+	// 눈알
+	& > div:nth-of-type(2) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 310px;
+		top: 12%;
+		left: 24.3%;
+	}
+	// 소파
+	& > div:nth-of-type(3) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 450px;
+		top: 13%;
+		right: 18%;
+	}
+	// 유모차
+	& > div:nth-of-type(4) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 275px;
+		bottom: 7.5%;
+		left: 25.5%;
+	}
+	// 하이힐
+	& > div:nth-of-type(5) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 180px;
+		bottom: 17%;
+		right: 34.5%;
+	}
+	// 쪼밥이
+	& > div:nth-of-type(6) > img {
+		position: absolute;
+		width: 100%;
+		max-width: 145px;
+		bottom: 9.5%;
+		right: 9%;
+	}
 `;
 
 const Section3 = styled.div`
-	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	animation: slide-left 1s ease-out;
 
 	@media (max-width: 768px) {
 		flex-direction: column;
 	}
-
-	h3 {
-		text-align: right;
-		margin-bottom: 15px;
-		letter-spacing: -0.02em;
-		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		font-size: ${({ theme }) => theme.fontSize.lg};
-	}
-
-	span {
-		text-align: right;
-		letter-spacing: 0.12em;
-		font-size: ${({ theme }) => theme.fontSize.sm};
-	}
-
-	img {
-		width: 50%;
-		max-width: 650px;
-		left: 0;
-		border-radius: 15px;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-		@media (max-width: 768px) {
-			position: static;
-			width: 100%;
-		}
-	}
-`;
-
-const SpanContainer = styled.div`
-	text-align: right;
 `;
 
 const S = {
@@ -174,5 +286,7 @@ const S = {
 	GoToLogin,
 	GoToSignup,
 	Section2,
+	White,
+	HoverWhite,
 	Section3,
 };

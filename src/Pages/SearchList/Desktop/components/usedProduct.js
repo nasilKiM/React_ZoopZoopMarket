@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
-import ProductApi from 'Apis/productApi';
-import { useQuery } from '@tanstack/react-query';
 
 const UsedProduct = ({ word, data }) => {
 	const navigate = useNavigate();
