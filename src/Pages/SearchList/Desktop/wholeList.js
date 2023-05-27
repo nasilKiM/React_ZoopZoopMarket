@@ -112,7 +112,6 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
 	display: grid;
-	display: grid;
 	width: 100%;
 	row-gap: 10px;
 	//
