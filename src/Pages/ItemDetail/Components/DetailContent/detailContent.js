@@ -20,9 +20,10 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 	const so = useSocket();
 
 	useEffect(() => {
-		so.on('receiveMessage', data => {
-			console.log(data);
-		});
+		so &&
+			so.on('receiveMessage', data => {
+				console.log(data);
+			});
 	}, []);
 
 	const onClickChatStartBtn = async () => {
@@ -31,7 +32,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
 			// 같은 방에 join
-			so.emit('join', { room_idx: setChatRoomRes.data.idx });
+			so && so.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
 			const data = {
 				title: item.title,
@@ -43,7 +44,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 				isSeller: itemAllInfo.isSeller,
 			};
 			// 이벤트 발생
-			so.emit('sendMessage', data);
+			so && so.emit('sendMessage', data);
 
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,

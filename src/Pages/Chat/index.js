@@ -3,8 +3,6 @@ import ChatList from './ChatList/ChatList';
 import { useEffect, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import ChatDetail from './ChatDetail/ChatDetail';
-import { MockAxios } from '../../Apis/@core';
-import { useQuery } from '@tanstack/react-query';
 
 const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();

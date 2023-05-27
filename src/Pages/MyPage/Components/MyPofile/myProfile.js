@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import MyPageApi from 'Apis/myPageApi';
+import MyPageApi from 'Apis/mypageApi';
 import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -94,7 +94,7 @@ const MyProfile = () => {
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>닉네임</S.InfoTitle>
-							<S.InfoContent>{User.nickName}</S.InfoContent>
+							{/* <S.InfoContent>{User.nickName}</S.InfoContent> */}
 						</S.List>
 						<S.List>
 							<S.InfoTitle>매너온도</S.InfoTitle>
