@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import KaMap from 'Components/Map/Map';
 import FindAddress from 'Components/Address/Desktop/address';
 import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
+import KaMap from 'Components/Map/Map';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -32,11 +32,11 @@ const RegisterPage = () => {
 		try {
 			const res = await ProductApi.detail(idx);
 			console.log('res', res);
+			setValue('price', res.data.searchProduct.price);
 			setPrice(res.data.searchProduct.price);
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
-			setValue('price', price);
 			setValue('title', res.data.searchProduct.title);
 			setValue('content', res.data.searchProduct.description);
 			setSearchResult(res.data.searchProduct.region);
@@ -50,6 +50,7 @@ const RegisterPage = () => {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (!idx) return;
 		productIdx();
 	}, [idx]);
@@ -91,28 +92,25 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
-			console.log('데이터가격', data.price);
-			formData.append('price', Number(data.price.replace(/,/g, '')));
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
-			console.log('태그배열', tags);
 			formData.append('tag', tags);
-			// [...tags].forEach(el => {
-			// 	formData.append('tag', el);
-			// });
 			console.log('이미지 formdata', data.mainImg);
+			console.log('본문내용', data.content);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
 
 			if (!idx) {
+				formData.append('price', Number(data.price.replace(/,/g, '')));
 				const res = Axios.post('/api/product', formData, {
 					headers: { 'Content-Type': 'multipart/form-data' },
 				});
 				alert('물품등록이 완료되었습니다.');
 				navigate('/main');
 			} else {
+				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
 				images.forEach((element, index) => {
@@ -188,17 +186,17 @@ const RegisterPage = () => {
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
-					<S.TagWrapper>
-						{tags &&
-							tags.map((tag, index) => (
-								<S.TagBox key={index}>
-									{tag}
-									<button onClick={e => handleDelete(tag)(e)}>x</button>
-								</S.TagBox>
-							))}
-					</S.TagWrapper>
 				</S.InputContainer>
 			</S.Line>
+			<S.TagWrapper>
+				{tags &&
+					tags.map((tag, index) => (
+						<S.TagBox key={index}>
+							<S.TagContent>{tag}</S.TagContent>
+							<S.DelTag onClick={e => handleDelete(tag)(e)}>x</S.DelTag>
+						</S.TagBox>
+					))}
+			</S.TagWrapper>
 			<S.AddressWrapper>
 				<S.AddressTitleContainer>
 					<S.Mark>*</S.Mark>
@@ -206,7 +204,7 @@ const RegisterPage = () => {
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
 				</S.AddressTitleContainer>
-				<KaMap />
+				<KaMap address={searchResult} />
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>
@@ -238,8 +236,11 @@ export default RegisterPage;
 
 const Wrapper = styled.form`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	margin-top: 50px;
 `;
@@ -277,6 +278,12 @@ const Title = styled.span`
 	width: 105px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media (max-width: 1100px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
+	}
+	@media screen and (max-width: 768px) {
+		min-width: 40px;
+	}
 `;
 
 const InputContainer = styled.div`
@@ -294,6 +301,9 @@ const InputBox = styled.input`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	:focus {
 		outline: none;
+	}
+	@media (max-width: 1100px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 `;
 
@@ -379,25 +389,41 @@ const RegisterBtn = styled.button`
 `;
 
 const TagWrapper = styled.div`
-	height: 30px;
+	width: 90%;
+	/* height: 30px; */
 	${flexAlignCenter}
+	flex-wrap: wrap;
 	padding: 0 10px;
-	margin-top: 5px;
+	margin-left: 100px;
+	margin-bottom: 50px;
 `;
 
 const TagBox = styled.span`
-	/* border: 1px solid green; */
+	display: flex;
+	max-width: 150px;
 	padding: 5px;
 	margin-right: 10px;
+	margin-bottom: 10px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
-	> button {
-		width: 20px;
-		margin-left: 10px;
-		border: none;
-		background: none;
-		:hover {
-			font-weight: ${({ theme }) => theme.fontWeight.bold};
-		}
+`;
+
+const TagContent = styled.span`
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: right;
+`;
+
+const DelTag = styled.button`
+	width: 20px;
+	/* margin-left: 10px; */
+	border: none;
+	background: none;
+	display: flex;
+	align-items: flex-end;
+	line-height: 14px;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 `;
 
@@ -420,4 +446,6 @@ const S = {
 	TxtArea,
 	TagWrapper,
 	TagBox,
+	TagContent,
+	DelTag,
 };

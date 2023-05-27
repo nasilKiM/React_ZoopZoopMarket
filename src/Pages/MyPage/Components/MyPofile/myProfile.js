@@ -25,6 +25,7 @@ const MyProfile = () => {
 		try {
 			const res = await MyPageApi.myMainPage(); // userProfile => User(nickName, profileUrl), chatCount, likeCount, ondo, productsCount
 			setUserProfile(res);
+			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}

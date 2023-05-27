@@ -15,12 +15,9 @@ const BasicFooter = () => {
 export default BasicFooter;
 
 const FooterWrap = styled.div`
-	width: 100vw;
+	width: 100%;
 	height: 200px;
 	position: relative;
-	transform: translateY(
-		120%
-	); // 페이지마다 하단고정 여부가 달라지는 이슈 발생. 수정 필요 (ex. mypage)
 	background-color: ${({ theme }) => theme.color.primary[200]};
 	padding-top: 20px;
 	font-family: 'Nanum_extraBold';
@@ -29,6 +26,9 @@ const FooterWrap = styled.div`
 const FooterText = styled.div`
 	margin-left: 300px;
 	line-height: 2.5rem;
+	@media (max-width: 800px) {
+		margin-left: 100px;
+	}
 `;
 
 const Text1 = styled.div`

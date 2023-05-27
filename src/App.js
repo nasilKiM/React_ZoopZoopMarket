@@ -6,24 +6,33 @@ import { RecoilRoot } from 'recoil';
 // import { isDesktop } from 'react-device-detect';
 // import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 	const queryClient = new QueryClient({});
 	return (
-		<RecoilRoot>
-			<QueryClientProvider client={queryClient}>
-				<ThemeProvider theme={theme}>
-					<GlobalStyles />
-					<RouterProvider router={router} />
-					{/* {isDesktop ? (
-						<RouterProvider router={router} />
-					) : (
-						<RouterProvider router={m_router} />
-					)} */}
-				</ThemeProvider>
-			</QueryClientProvider>
-		</RecoilRoot>
+		<Suspense>
+			<ErrorBoundary
+				fallback={<div>에러발생!!</div>}
+				onError={error => {
+					const { response } = error;
+					const err = new ApiCustomError(response.data, response.status);
+					alert(err);
+				}}
+			>
+				<RecoilRoot>
+					<QueryClientProvider client={queryClient}>
+						<ThemeProvider theme={theme}>
+							<GlobalStyles />
+							<RouterProvider router={router} />
+						</ThemeProvider>
+					</QueryClientProvider>
+				</RecoilRoot>
+			</ErrorBoundary>
+		</Suspense>
 	);
 }
 

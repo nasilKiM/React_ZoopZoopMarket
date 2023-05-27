@@ -3,13 +3,8 @@ import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import ProductImg from './ProductImg/productImg';
 import Profile from 'Components/Profile/Desktop/profile';
-import { useNavigate } from 'react-router';
 
 const DetailHead = ({ item }) => {
-	const navigate = useNavigate();
-
-	//console.log(item);
-
 	return (
 		item && (
 			<S.Wrapper>
@@ -17,7 +12,7 @@ const DetailHead = ({ item }) => {
 				<S.ProductWrapper>
 					<S.UserProfile>
 						<S.ProfileWrapper>
-							<Profile />
+							<Profile userProfileUrl={item.User.profile_url} />
 						</S.ProfileWrapper>
 						<ul>
 							<li>{item.User.nick_name}</li>
@@ -82,9 +77,8 @@ const UserProfileDetail = styled.div`
 `;
 
 const ProfileWrapper = styled.div`
-	border: 1px solid red;
-	width: ${({ size }) => (size === 'small' ? '50px' : '70px')};
-	height: ${({ size }) => (size === 'small' ? '50px' : '70px')};
+	width: 80px;
+	height: 80px;
 `;
 
 const S = {

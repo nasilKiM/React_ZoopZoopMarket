@@ -33,7 +33,7 @@ const LeftUpperBar = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 10%;
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.primary[400]};
 	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
 	color: white;
 	cursor: pointer;
