@@ -5,6 +5,7 @@ import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
 import SearchList from './components/searchList';
 import { useInView } from 'react-intersection-observer';
 import CategoryConverter from './components/categoryConverter';
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 const WholeListPage = () => {
 	const { word } = useParams();
@@ -22,8 +23,8 @@ const WholeListPage = () => {
 		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
 	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
-	const { data } = res;
-	//console.log('res----->', res);
+	const { data, isLoading, isSuccess } = res;
+	// console.log('res----->', res);
 	//console.log(data.pages[0].data.pagination.count);
 
 	useEffect(() => {
@@ -52,7 +53,6 @@ const WholeListPage = () => {
 	const convertedCategory = CategoryConverter(word.split(','));
 
 	const searchWord = word === ',' ? '전체' : word;
-	console.log(word);
 
 	return (
 		<S.Wrapper>
@@ -89,14 +89,17 @@ const WholeListPage = () => {
 					{categoryResult} 검색 결과
 				</S.ResultText>
 			)}
-			<S.Container>
-				{data &&
-					data.pages.map(pageItems =>
-						pageItems.data.product.map(product => (
-							<SearchList products={product} />
-						)),
-					)}
-			</S.Container>
+			{isSuccess && (
+				<S.Container>
+					{data &&
+						data.pages.map(pageItems =>
+							pageItems.data.product.map(product => (
+								<SearchList products={product} />
+							)),
+						)}
+				</S.Container>
+			)}
+			{isLoading && <WholeListSkeleton />}
 			<S.refDiv ref={ref}></S.refDiv>
 		</S.Wrapper>
 	);
@@ -106,9 +109,16 @@ const refDiv = styled.div``;
 
 const Wrapper = styled.div`
 	width: 70%;
+	min-width: 414px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 	margin: 0 auto;
-	display: grid;
-	flex-wrap: wrap;
+	padding-top: 10px;
 `;
 const Container = styled.div`
 	display: grid;

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
 import { theme } from 'Styles/theme';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,10 +24,11 @@ const DesktopMarketPrice = () => {
 	// const [priceList, setItemList] = useRecoilState(itemPriceState);
 	const start = '2023-05-15';
 	const end = '2023-05-26';
-	console.log(word);
+	//console.log(word);
 
 	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
+	//리팩토링때 고칠예정. 오히려 skeleton에서는 state로 반응형 안짬 ㅎㅎ.
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -46,7 +48,7 @@ const DesktopMarketPrice = () => {
 	// 	const data = await ProductApi.searchMarket(keyword, start, end);
 	// 	return data;
 	// };
-	const { data, isLoading, isError, error } = useQuery(['SEARCH_PRICE'], () =>
+	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE'], () =>
 		ProductApi.searchMarket('테스트', start, end),
 	);
 	// data && console.log(data);
@@ -121,62 +123,67 @@ const DesktopMarketPrice = () => {
 
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	// //반응형
-	console.log(average);
+	//console.log(average);
 	return (
-		<S.Wrapper>
-			<S.UpperPart>
-				<S.LeftPart>
-					<S.Title>
-						시세 조회
-						{word ? (
-							<S.SubTitle>
-								원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
-							</S.SubTitle>
-						) : (
-							<S.SubTitle>시세를 알고싶은 물품을 검색해주세요.</S.SubTitle>
-						)}
-					</S.Title>
-				</S.LeftPart>
-				<S.SearchBarContainer>
-					<SearchBar props={props} />
-				</S.SearchBarContainer>
-			</S.UpperPart>
-			<S.ChartContainer>
-				<LineChart
-					width={viewportSize.width * 0.6}
-					height={viewportSize.width * 0.6 * 0.6}
-					data={groupedData}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="group" />
-					<YAxis />
-					<Tooltip />
-					<Legend />
-					<Line
-						type="monotone"
-						dataKey="avgPrice"
-						stroke={theme.color.primary[300]}
-						activeDot={{ r: 7 }}
-					/>
-				</LineChart>
-			</S.ChartContainer>
-			{isNaN(average) ? (
-				<S.Average>검색어가 입력되지 않았습니다.</S.Average>
-			) : (
-				<S.Average>
-					평균 시세는
-					<S.ResultWord>{average}원</S.ResultWord> 입니다.
-				</S.Average>
+		<>
+			{isLoading && (
+				<S.Wrapper>
+					<S.UpperPart>
+						<S.LeftPart>
+							<S.Title>
+								시세 조회
+								{word ? (
+									<S.SubTitle>
+										원하시는 상품이 얼마에 거래되고 있는지 알아보세요.
+									</S.SubTitle>
+								) : (
+									<S.SubTitle>시세를 알고싶은 물품을 검색해주세요.</S.SubTitle>
+								)}
+							</S.Title>
+						</S.LeftPart>
+						<S.SearchBarContainer>
+							<SearchBar props={props} />
+						</S.SearchBarContainer>
+					</S.UpperPart>
+					<S.ChartContainer>
+						<LineChart
+							width={viewportSize.width * 0.6}
+							height={viewportSize.width * 0.6 * 0.6}
+							data={groupedData}
+						>
+							<CartesianGrid strokeDasharray="3 3" />
+							<XAxis dataKey="group" />
+							<YAxis />
+							<Tooltip />
+							<Legend />
+							<Line
+								type="monotone"
+								dataKey="avgPrice"
+								stroke={theme.color.primary[300]}
+								activeDot={{ r: 7 }}
+							/>
+						</LineChart>
+					</S.ChartContainer>
+					{isNaN(average) ? (
+						<S.Average>검색어가 입력되지 않았습니다.</S.Average>
+					) : (
+						<S.Average>
+							평균 시세는
+							<S.ResultWord>{average}원</S.ResultWord> 입니다.
+						</S.Average>
+					)}
+					<S.RecentlyClosed>
+						최근 거래 종료 품목
+						<S.ItemList>
+							{itemList.map(item => (
+								<ItemCard key={item} />
+							))}
+						</S.ItemList>
+					</S.RecentlyClosed>
+				</S.Wrapper>
 			)}
-			<S.RecentlyClosed>
-				최근 거래 종료 품목
-				<S.ItemList>
-					{itemList.map(item => (
-						<ItemCard key={item} />
-					))}
-				</S.ItemList>
-			</S.RecentlyClosed>
-		</S.Wrapper>
+			{isSuccess && <MarketPriceSkeleton />}
+		</>
 	);
 };
 

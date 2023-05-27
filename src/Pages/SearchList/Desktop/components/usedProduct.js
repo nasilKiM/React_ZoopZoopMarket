@@ -65,6 +65,17 @@ const UsedProduct = ({ word, data }) => {
 };
 export default UsedProduct;
 const Wrapper = styled.div`
+	width: 70%;
+	min-width: 414px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+	margin: 0 auto;
+	padding-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;

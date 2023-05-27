@@ -5,7 +5,7 @@ import FreeProduct from './components/freeProduct';
 import UsedProduct from './components/usedProduct';
 import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
-import IndexSkeleton from './skeleton/indexSkeleton';
+import IndexSkeleton from '../../Skeleton/page/searchIndexSkele';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -73,7 +73,7 @@ const DesktopSearchList = () => {
 							무료
 						</S.SelectBox>
 					</S.SelectContainer>
-					{isLoading && data && (
+					{isSuccess && data && (
 						<S.ResultContainer>
 							{data.data.pagination.count > 0 ? (
 								<S.ResultText>
@@ -102,7 +102,7 @@ const DesktopSearchList = () => {
 				</S.Container>
 			</S.Wrapper>
 
-			{isSuccess && <IndexSkeleton></IndexSkeleton>}
+			{isLoading && <IndexSkeleton></IndexSkeleton>}
 		</>
 	);
 };
@@ -111,9 +111,16 @@ export default DesktopSearchList;
 
 const Wrapper = styled.div`
 	width: 70%;
-	/* max-width: 1000px; */
-	/* min-width: 700px; */
+	min-width: 414px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 	margin: 0 auto;
+	padding-top: 10px;
 `;
 
 const Container = styled.div`
