@@ -6,9 +6,8 @@ import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state, product }) => {
-	const item = product && product.data.searchProduct;
-
-	const itemAllInfo = product.data;
+	const item = product && product.searchProduct;
+	const itemAllInfo = product?.data;
 
 	return (
 		item && (

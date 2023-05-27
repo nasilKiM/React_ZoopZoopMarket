@@ -6,14 +6,14 @@ import { RecoilRoot } from 'recoil';
 // import { isDesktop } from 'react-device-detect';
 // import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
-import SocketProvider from 'Context/socket';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
-	const queryClient = new QueryClient({});
+	const queryClient = new QueryClient();
 	return (
 		<Suspense>
 			<ErrorBoundary
@@ -26,6 +26,7 @@ function App() {
 			>
 				<RecoilRoot>
 					<QueryClientProvider client={queryClient}>
+						<ReactQueryDevtools initialIsOpen={false} />
 						<ThemeProvider theme={theme}>
 							<GlobalStyles />
 							<RouterProvider router={router} />

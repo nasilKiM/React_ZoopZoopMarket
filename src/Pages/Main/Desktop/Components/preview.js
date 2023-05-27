@@ -8,9 +8,10 @@ import { useEffect } from 'react';
 //import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
 import { useQuery } from '@tanstack/react-query';
+import { flexAlignCenter } from 'Styles/common';
 
 const Preview = ({ category }) => {
-	const { data } = useQuery(['mainList'], ProductApi.mainList);
+	const { data } = useQuery(['mainList'], () => ProductApi.mainList());
 
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);

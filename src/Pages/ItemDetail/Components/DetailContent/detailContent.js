@@ -18,9 +18,10 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
+	console.log(so);
 
 	useEffect(() => {
-		so.on('receiveMessage', data => {
+		so?.on('receiveMessage', data => {
 			console.log(data);
 		});
 	}, []);
