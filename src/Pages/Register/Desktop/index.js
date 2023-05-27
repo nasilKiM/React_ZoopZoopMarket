@@ -60,13 +60,15 @@ const RegisterPage = () => {
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
-			console.log('확인용', tags);
-			if (newTag) {
+			const check = tags.filter(tag => tag === newTag);
+			console.log(check);
+			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
-			}
+			} else e.target.value = '';
 		}
 	};
+
 	const handleDelete = deleteTag => e => {
 		e.preventDefault();
 		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
