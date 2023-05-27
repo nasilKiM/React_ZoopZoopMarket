@@ -214,6 +214,9 @@ const Wrapper = styled.div`
 	@media (max-width: 700px) {
 		width: 95%;
 	}
+	@media (max-width: 900px) {
+		width: 90%;
+	}
 
 	font-family: 'Nanum_extraBold';
 	display: flex;

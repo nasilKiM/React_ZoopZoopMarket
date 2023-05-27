@@ -101,7 +101,7 @@ const SignUpPage = () => {
 
 	return (
 		<>
-			<S.Logo src="/Assets/web_logo.png"></S.Logo>
+			<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 			<S.Div>
 				<S.Wrap>
 					<S.Header>

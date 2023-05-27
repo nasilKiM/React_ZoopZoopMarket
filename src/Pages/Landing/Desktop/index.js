@@ -124,16 +124,32 @@ const LogoImage = styled.img`
 
 const GoToLogin = styled.button`
 	cursor: pointer;
+	background-color: ${({ theme }) => theme.color.gray[300]};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: white;
+	padding: 10px 20px;
+	margin-right: 15px;
+	border: none;
+	border-radius: 4px;
 	&:hover {
 		text-decoration: underline;
+		background-color: ${({ theme }) => theme.color.primary[300]};
 	}
 `;
 
 const GoToSignup = styled.button`
 	cursor: pointer;
+	background-color: ${({ theme }) => theme.color.gray[300]};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: white;
+	padding: 10px 20px;
+	margin-right: 15px;
+	border: none;
+	border-radius: 4px;
 
 	&:hover {
 		text-decoration: underline;
+		background-color: ${({ theme }) => theme.color.primary[400]};
 	}
 `;
 
@@ -146,19 +162,18 @@ const Section1 = styled.section`
 	color: ${({ theme }) => theme.color.white};
 `;
 const Title = styled.div`
-	font-size: 28px;
+	font-size: 24px;
 `;
 
 const Section2 = styled.section`
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	padding-top: 800px;
 	position: relative;
 `;
 
 const White = styled.div`
 	// 야구배트
-
 	& > div:nth-of-type(1) > img {
 		position: absolute;
 		width: 100%;
@@ -263,9 +278,9 @@ const HoverWhite = styled.div`
 	& > div:nth-of-type(6) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 145px;
-		bottom: 9.5%;
-		right: 9%;
+		max-width: 330px;
+		bottom: 2.4%;
+		right: 3.4%;
 	}
 `;
 

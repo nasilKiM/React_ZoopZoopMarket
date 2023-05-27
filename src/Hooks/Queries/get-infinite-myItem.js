@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import MyPageApi from 'Apis/myPageApi';
+import MyPageApi from 'Apis/mypageApi';
 
 export const useInfiniteMyItem = category => {
 	const res = useInfiniteQuery(

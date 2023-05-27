@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import MyPageApi from 'Apis/myPageApi';
+import MyPageApi from 'Apis/mypageApi';
 
 const useInfiniteMy = () => {
 	const res = useInfiniteQuery(

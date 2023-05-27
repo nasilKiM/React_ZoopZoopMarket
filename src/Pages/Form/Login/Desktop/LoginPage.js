@@ -29,7 +29,6 @@ const LoginPage = () => {
 		}
 	}, []);
 
-
 	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
@@ -54,7 +53,7 @@ const LoginPage = () => {
 	const full = !errors.email && !errors.password;
 	return (
 		<>
-			<S.Logo src="/Assets/web_logo.png"></S.Logo>
+			<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 			<S.Div>
 				<S.Wrap>
 					<S.Header>

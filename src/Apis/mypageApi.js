@@ -1,5 +1,5 @@
 import { Axios } from './@core';
-//
+
 const PATH = '/api/user/my-page';
 
 const MyPageApi = {

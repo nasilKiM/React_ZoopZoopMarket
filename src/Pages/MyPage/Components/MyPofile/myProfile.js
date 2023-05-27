@@ -4,7 +4,6 @@ import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
-import MyPageApi from 'Apis/myPageApi';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
