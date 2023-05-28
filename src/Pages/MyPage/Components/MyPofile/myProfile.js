@@ -143,6 +143,7 @@ const Wrapper = styled.div`
 const Info = styled.div`
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	margin-top: 60px;
 	margin-left: 20px;
 	@media ${({ theme }) => theme.device.tablet} {

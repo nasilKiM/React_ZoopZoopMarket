@@ -9,6 +9,7 @@ const MyInterestPage = () => {
 	const res = useInfiniteMy();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
+	console.log(data);
 
 	useEffect(() => {
 		if (!inView) {

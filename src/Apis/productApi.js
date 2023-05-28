@@ -31,16 +31,17 @@ const ProductApi = {
 		});
 	},
 
-	getRecent(prod_idx) {
-		return Axios.get(PATH + '/viewed-list', {
-			prod_idx,
-		});
+	getRecent() {
+		return Axios.get(PATH + '/viewed-list', {});
 	},
 
 	addRecent(prod_idx) {
 		return Axios.post(PATH + '/viewed-list', {
 			prod_idx,
 		});
+	},
+	deleteRecentList(prod_idx) {
+		return Axios.delete(PATH + '/viewed-list', { params: { prod_idx } });
 	},
 
 	searchItems(page, searchWord, selected) {
