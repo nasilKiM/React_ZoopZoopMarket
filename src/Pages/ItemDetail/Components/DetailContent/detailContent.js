@@ -26,7 +26,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
 			// 같은 방에 join
-			so?.emit('join', { room_idx: setChatRoomRes.data.idx });
+			// so?.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
 			// const data = {
 			// 	title: item.title,

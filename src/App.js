@@ -10,9 +10,10 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SocketProvider from 'Context/socket';
 
 function App() {
-	const queryClient = new QueryClient({});
+	const queryClient = new QueryClient();
 	return (
 		<Suspense>
 			<ErrorBoundary
@@ -26,8 +27,10 @@ function App() {
 				<RecoilRoot>
 					<QueryClientProvider client={queryClient}>
 						<ThemeProvider theme={theme}>
-							<GlobalStyles />
-							<RouterProvider router={router} />
+							<SocketProvider>
+								<GlobalStyles />
+								<RouterProvider router={router} />
+							</SocketProvider>
 						</ThemeProvider>
 					</QueryClientProvider>
 				</RecoilRoot>

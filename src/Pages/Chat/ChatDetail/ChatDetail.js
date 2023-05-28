@@ -33,8 +33,8 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	}, []);
 
 	useEffect(() => {
-		so.emit('join', { room_idx: chatroomIdx });
-		so.on('receiveMessage', async data => {
+		so?.emit('join', { room_idx: chatroomIdx });
+		so?.on('receiveMessage', async data => {
 			console.log(data);
 			try {
 				const res = await ChatApis.loadChatLog(data.room_idx);
@@ -74,7 +74,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			isSeller: itemSeller,
 		};
 		console.log(message);
-		so.emit('sendMessage', message);
+		so?.emit('sendMessage', message);
 		try {
 			const res = await ChatApis.saveMsg({
 				room_idx: message.room_idx,

@@ -21,7 +21,7 @@ const WebHeader = () => {
 	const [showOptions, setShowOptions] = useState();
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
+	const [MenuIsOpen, setMenuIsOpen] = useState();
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
