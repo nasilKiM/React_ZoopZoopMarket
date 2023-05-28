@@ -1,10 +1,7 @@
-import styled from 'styled-components';
-import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
-import { Link } from 'react-router-dom';
 //import { MockAxios } from 'Apis/@core';
 //import { useQuery } from 'react-query';
 // import { Category, Preview } from '@mui/icons-material';
-import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
+import styled from 'styled-components';
 import Preview from './Components/preview';
 import Category from './Components/category';
 
@@ -36,12 +33,6 @@ const DesktopMainPage = () => {
 			<S.PreviewBg>
 				<Preview category={1}></Preview>
 			</S.PreviewBg>
-			<TopBtn />
-			<Link to={'/register'}>
-				<S.BtnSection>
-					<RegisterBtn />
-				</S.BtnSection>
-			</Link>
 		</S.Cover>
 	);
 };
@@ -114,11 +105,6 @@ const SearchSection = styled.div`
 	justify-content: center;
 `;
 
-const BtnSection = styled.div`
-	width: 50px;
-	height: 50px;
-`;
-
 const CategoryWrapper = styled.div`
 	padding-bottom: 20px;
 	margin-bottom: 30px;
@@ -131,5 +117,4 @@ const S = {
 	TitleBox,
 	PreviewBg,
 	SearchSection,
-	BtnSection,
 };

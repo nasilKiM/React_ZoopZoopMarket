@@ -1,7 +1,9 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import WebHeader from './Header/Desktop';
 import BasicFooter from './Footer';
 import styled from 'styled-components';
+import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
+import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 
 const LayOut = () => {
 	return (
@@ -11,6 +13,12 @@ const LayOut = () => {
 			</Wrapper>
 			<Outlet />
 			<BasicFooter />
+			<TopBtn />
+			<Link to={'/register'}>
+				<BtnSection>
+					<RegisterBtn />
+				</BtnSection>
+			</Link>
 		</>
 	);
 };
@@ -25,4 +33,9 @@ const Wrapper = styled.div`
 	background-color: white;
 	z-index: 10000;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
+`;
+
+const BtnSection = styled.div`
+	width: 50px;
+	height: 50px;
 `;
