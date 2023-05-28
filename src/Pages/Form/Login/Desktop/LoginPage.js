@@ -9,11 +9,19 @@ import CustomButton from 'Components/Buttons/button';
 import { useSocket } from 'Context/socket';
 import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
+import { useForm } from 'react-hook-form';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const so = useSocket();
 	console.log(so);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({ mode: 'onChange' });
+
 	useEffect(() => {
 		if (TokenService.getToken()) {
 			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
