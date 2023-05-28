@@ -5,12 +5,20 @@ import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useSocket } from 'Context/socket';
+import NewMessage from './Components/newMessage';
 
 const WebHeader = () => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 950 });
 	const [isHover, setIsHover] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const so = useSocket();
+	// useEffect(() => {
+	// 	so?.on('newMessage', data => {
+	// 		console.log(data);
+	// 	});
+	// }, []);
 
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
@@ -30,6 +38,7 @@ const WebHeader = () => {
 	return (
 		<>
 			<S.Wrapper>
+				<NewMessage />
 				<S.Container isMobile={isTablet}>
 					<Link to={'/main'}>
 						<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>

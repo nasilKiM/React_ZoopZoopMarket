@@ -11,8 +11,8 @@ import { useQuery } from '@tanstack/react-query';
 
 const Preview = ({ category }) => {
 	//const [data, setData] = useState();
-	const { data } = useQuery('mainList', ProductApi.mainList);
-
+	const { data } = useQuery(['mainList'], () => ProductApi.mainList());
+	console.log(data);
 	const products =
 		data && (category === 0 ? data.data.usedProduct : data.data.freeProduct);
 	let categoryDeclare = category === 0 ? '중고 아이템' : '무료 아이템';

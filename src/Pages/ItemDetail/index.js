@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ProductApi from 'Apis/productApi';
 
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
 import { useQuery } from '@tanstack/react-query';
+import ProductApi from 'Apis/productApi';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
@@ -19,8 +19,10 @@ const ItemDetailPage = () => {
 	// 		console.log(err);
 	// 	}
 	// };
-	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
+	console.log(idx);
+	const { data } = useQuery(['product'], () => ProductApi.detail(idx));
 
+	console.log(data);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		// temp();
@@ -35,7 +37,7 @@ const ItemDetailPage = () => {
 			{!isSeller ? (
 				<BuyerDetailPage state={state} product={data} />
 			) : (
-				<SellerDetailPage state={state} product={product} idx={idx} />
+				<SellerDetailPage state={state} product={data} idx={idx} />
 			)}
 		</>
 	);

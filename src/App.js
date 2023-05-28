@@ -8,12 +8,14 @@ import { RecoilRoot } from 'recoil';
 import { theme } from 'Styles/theme';
 import SocketProvider from 'Context/socket';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
 	const queryClient = new QueryClient({});
 	return (
 		<RecoilRoot>
 			<QueryClientProvider client={queryClient}>
+				<ReactQueryDevtools initialIsOpen={false} />
 				<ThemeProvider theme={theme}>
 					<SocketProvider>
 						<GlobalStyles />

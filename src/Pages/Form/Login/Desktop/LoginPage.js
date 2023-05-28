@@ -14,7 +14,6 @@ const LoginPage = () => {
 	const navigate = useNavigate();
 	const so = useSocket();
 	console.log(so);
-
 	useEffect(() => {
 		if (TokenService.getToken()) {
 			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
@@ -63,43 +62,43 @@ const LoginPage = () => {
 	const full = !errors.email && !errors.password;
 	return (
 		<>
-		<S.Logo src="/Assets/web_logo.png"></S.Logo>
-		<S.Div>
-			<S.Wrap>
-				<S.Header>
-					<p>이메일로 줍줍하기</p>
-				</S.Header>
-				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.InputWrap
-						shape={'littleShape'}
-						{...register('email', FORM_TYPE.EMAIL)}
-						placeholder="E-mail"
-					/>
-					{errors.email && <S.Error>{errors.email.message}</S.Error>}
-					<S.InputWrap
-						shape={'littleShape'}
-						{...register('password', FORM_TYPE.PASSWORD_simple)}
-						placeholder="PW"
-						type="password"
-					/>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.LoginBtn size={'submitBtn'} shape={'submitBtn'} disabled={!full}>
-						로그인하기
-					</S.LoginBtn>
-					<S.WrapPW>
-						<S.FindPassword>비밀번호 재설정</S.FindPassword>
-					</S.WrapPW>
-					<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
-					<S.SignUpBtn
-						size={'submitBtn'}
-						shape={'submitBtn'}
-						onClick={() => navigate(`/form/signup`)}
-					>
-						이메일로 가입하기
-					</S.SignUpBtn>
-				</S.Form>
-			</S.Wrap>
-		</S.Div>
+			<S.Logo src="/Assets/web_logo.png"></S.Logo>
+			<S.Div>
+				<S.Wrap>
+					<S.Header>
+						<p>이메일로 줍줍하기</p>
+					</S.Header>
+					<S.Form onSubmit={handleSubmit(onSubmit)}>
+						<S.InputWrap
+							shape={'littleShape'}
+							{...register('email', FORM_TYPE.EMAIL)}
+							placeholder="E-mail"
+						/>
+						{errors.email && <S.Error>{errors.email.message}</S.Error>}
+						<S.InputWrap
+							shape={'littleShape'}
+							{...register('password', FORM_TYPE.PASSWORD_simple)}
+							placeholder="PW"
+							type="password"
+						/>
+						{errors.password && <S.Error>{errors.password.message}</S.Error>}
+						<S.LoginBtn size={'submitBtn'} shape={'submitBtn'} disabled={!full}>
+							로그인하기
+						</S.LoginBtn>
+						<S.WrapPW>
+							<S.FindPassword>비밀번호 재설정</S.FindPassword>
+						</S.WrapPW>
+						<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
+						<S.SignUpBtn
+							size={'submitBtn'}
+							shape={'submitBtn'}
+							onClick={() => navigate(`/form/signup`)}
+						>
+							이메일로 가입하기
+						</S.SignUpBtn>
+					</S.Form>
+				</S.Wrap>
+			</S.Div>
 		</>
 	);
 };

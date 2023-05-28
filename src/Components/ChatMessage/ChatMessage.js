@@ -1,34 +1,44 @@
 import ProductApi from 'Apis/productApi';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const ChatMessage = ({ chat, setChatroomIdx, setItem, item, setItemInfo }) => {
+const ChatMessage = ({
+	chat,
+	chatroomList,
+	setChatroomIdx,
+	setItem,
+	item,
+	setItemInfo,
+}) => {
+	console.log(chat);
+	const now = new Date();
+	console.log(now.toLocaleTimeString());
+	const timeStamp = new Date(chat.lastMessageCreatedAt);
 	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
 		console.log(item);
 		console.log(setItemInfo);
 		if (item) return;
 		try {
-			const res = await ProductApi.detail(chat.idx);
+			const res = await ProductApi.detail(chat.product.idx);
 			console.log(res);
-			setItemInfo(res.data.searchProduct);
+			setItemInfo(res.data);
 		} catch (err) {
 			console.log(err);
 		}
+		console.log('채팅방클릭!!!!!!!!!!!!!');
 	};
 	console.log(chat);
 
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>
-				<img src="Assets/Images/bicycle.jpg" />
 				<div>
-					<S.ChatContentUpper isNewMessage={chat}>
-						<S.NickName>{chat.User.nick_name}</S.NickName>
-						<span>{chat.lastMessageCreatedAt}</span>
-					</S.ChatContentUpper>
-					<S.ChatContentdown>
-						<span>{chat.User.lastMessage}</span>
-					</S.ChatContentdown>
+					<div>{chat.User.nick_name}</div>
+					<div>{chat.lastMessage}</div>
+				</div>
+				<div>
+					<div>{chat.lastMessageCreatedAt}</div>
 				</div>
 			</S.ChatContent>
 		</>
@@ -40,17 +50,15 @@ export default ChatMessage;
 const ChatContent = styled.div`
 	box-shadow: 2px 5px 5px -2px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
-	padding: 10px;
-	width: 100%;
-	display: inline-flex;
+	padding: 20px 15px;
+	${flexAllCenter}
+	justify-content: space-between;
+	/* background-color: red; */
 	cursor: pointer;
-
-	img {
-		min-width: 50px;
-		max-height: 50px;
-		border-radius: 15%;
-		object-fit: fill;
-		margin-right: 10px;
+	& > div:first-child {
+	}
+	& > div:last-child {
+		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
 `;
 
@@ -63,7 +71,7 @@ const ChatContentUpper = styled.div`
 	margin-bottom: 10px;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 
-	${({ isNewMessage }) =>
+	/* ${({ isNewMessage }) =>
 		isNewMessage &&
 		`
     &::before {
@@ -84,7 +92,7 @@ const ChatContentUpper = styled.div`
       color: ${({ theme }) => theme.color.red};
       margin-left: 10px;
     }
-  `}
+  `} */
 `;
 
 const NickName = styled.span`
@@ -94,6 +102,7 @@ const NickName = styled.span`
 
 const ChatContentdown = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
+	text-align: right;
 `;
 
 const S = {

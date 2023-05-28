@@ -11,9 +11,10 @@ import ProductApi from 'Apis/productApi';
 const SellerDetailPage = ({ state, product, idx }) => {
 	// const item = product && product.data.searchProduct;
 	const [item, setItem] = useState();
-	const isSeller = product.data.isSeller;
+	const isSeller = product?.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
+	const itemAllInfo = product?.data;
 
 	useEffect(() => {
 		if (product) setItem(product.data.searchProduct);
@@ -58,7 +59,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 				</S.Chat>
 			</S.DetailAndChatBar>
 			{detailState === '상세정보' ? (
-				<DetailContent state={state} item={item} />
+				<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
 			) : (
 				<ChattingPage
 					idx={idx}
