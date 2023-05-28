@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
@@ -12,6 +12,19 @@ const ItemDetailPage = () => {
 			console.log(err);
 		},
 	});
+  
+  const client = useQueryClient();
+	
+	const { mutate } = useMutation(() => ProductApi.addRecent(idx), {
+		onSuccess: () => {
+			client.invalidateQueries(['recent']);
+		},
+	});
+
+	useEffect(() => {
+		mutate(data?.data.searchProduct.idx);
+	}, []);
+
 
 	console.log(data);
 	useEffect(() => {
