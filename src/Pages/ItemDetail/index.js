@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
