@@ -1,4 +1,3 @@
-import ProductApi from 'Apis/productApi';
 import EditBtns from 'Components/Buttons/EditBtns/editBtns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,9 +6,8 @@ import styled from 'styled-components';
 const MyItemCard = ({ index, products }) => {
 	const navigate = useNavigate();
 
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
-		await ProductApi.addRecent(index);
 	};
 
 	return (

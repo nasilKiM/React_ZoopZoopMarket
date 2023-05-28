@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
 	let state = '';
+	const client = useQueryClient();
 	// const [product, setProduct] = useState('');
 
 	// const temp = async () => {
@@ -20,7 +21,11 @@ const ItemDetailPage = () => {
 	// };
 
 	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
-	const { mutate } = useMutation(prod_idx => ProductApi.addRecent(prod_idx));
+	const { mutate } = useMutation(() => ProductApi.addRecent(idx), {
+		onSuccess: () => {
+			client.invalidateQueries(['recent']);
+		},
+	});
 
 	useEffect(() => {
 		mutate(data?.data.searchProduct.idx);

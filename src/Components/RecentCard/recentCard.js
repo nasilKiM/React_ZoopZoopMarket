@@ -1,16 +1,20 @@
-// import { useQuery } from '@tanstack/react-query';
-// import ProductApi from 'Apis/productApi';
 import { flexAllCenter } from 'Styles/common';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// const { data} = useQuery(['recent'], () => ProductApi.getRecent());
-// console.log({ data });
+const RecentCard = item => {
+	const navigate = useNavigate();
 
-const RecentCard = () => {
+	const onClickDetail = () => {
+		navigate(`/item_detail/${item.item.Product.idx}`);
+	};
+
 	return (
 		<S.Img>
-			<S.FirstImg>이미지 1</S.FirstImg>
-			<S.SecondImg>이미지 2</S.SecondImg>
+			<S.ItemImg
+				src={item.item.Product.img_url}
+				onClick={() => onClickDetail()}
+			/>
 		</S.Img>
 	);
 };
@@ -18,26 +22,23 @@ export default RecentCard;
 
 const Img = styled.div`
 	width: 100%;
-	height: 280px;
+	display: inline-block;
 	${flexAllCenter}
 	flex-direction: column;
-`;
-
-const FirstImg = styled.div`
-	width: 80%;
-	height: 110px;
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-`;
-
-const SecondImg = styled.div`
-	width: 80%;
-	height: 110px;
 	margin-top: 10px;
+`;
+
+const ItemImg = styled.img`
+	width: 80%;
+	height: 100px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	cursor: pointer;
+	:hover {
+		border: 2px solid ${({ theme }) => theme.color.primary[300]};
+	}
 `;
 
 const S = {
 	Img,
-	FirstImg,
-	SecondImg,
+	ItemImg,
 };

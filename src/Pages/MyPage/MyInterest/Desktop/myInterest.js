@@ -9,6 +9,7 @@ const MyInterestPage = () => {
 	const res = useInfiniteMy();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
+	console.log(data);
 
 	useEffect(() => {
 		if (!inView) {
@@ -27,7 +28,10 @@ const MyInterestPage = () => {
 						{data.pages.map(page =>
 							page.data.LikeList.map(list => (
 								<S.Card>
-									<InterestCard index={list.idx} products={list.Product} />
+									<InterestCard
+										index={list.Product.idx}
+										products={list.Product}
+									/>
 								</S.Card>
 							)),
 						)}

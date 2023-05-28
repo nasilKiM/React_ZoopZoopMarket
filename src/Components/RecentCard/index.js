@@ -6,14 +6,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 import RecentCard from './recentCard';
+import useRecentProduct from 'Hooks/Queries/get-recent-product';
 
 const RecentProduct = () => {
+	const res = useRecentProduct();
+
 	const sliderSetting = {
 		infinite: true,
 		dots: false,
 		speed: 500,
 		slidesToScroll: 1,
-		slidesToShow: 1,
+		slidesToShow: 2,
 		vertical: true,
 		nextArrow: (
 			<S.Next>
@@ -31,9 +34,9 @@ const RecentProduct = () => {
 		<S.Wrap>
 			<S.RecentWord>최근 본 상품</S.RecentWord>
 			<StyledSlider {...sliderSetting}>
-				<RecentCard />
-				<RecentCard />
-				<RecentCard />
+				{res.data?.productList.map(item => (
+					<RecentCard item={item} />
+				))}
 			</StyledSlider>
 		</S.Wrap>
 	);
@@ -54,13 +57,7 @@ const RecentWord = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	margin-bottom: 10px;
-`;
-
-const Img = styled.div`
-	width: 100%;
-	height: 280px;
-	${flexAllCenter}
-	flex-direction: column;
+	padding-bottom: 30px;
 `;
 
 const Pre = styled.div`
@@ -90,16 +87,16 @@ const StyledSlider = styled(Slider)`
 
 	.slick-prev::before,
 	.slick-next::before {
-		/* opacity: 0; */
 		display: none;
 	}
 
 	.slick-prev {
-		top: 0;
+		top: -30px;
 		left: 0;
 	}
 
 	.slick-next {
+		top: -20px;
 		bottom: 0;
 		right: 0;
 	}
@@ -108,7 +105,6 @@ const StyledSlider = styled(Slider)`
 const S = {
 	Wrap,
 	RecentWord,
-	Img,
 	Next,
 	Pre,
 };

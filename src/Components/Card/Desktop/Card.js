@@ -1,4 +1,3 @@
-import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,9 +6,8 @@ import styled from 'styled-components';
 const ItemCard = ({ index, products }) => {
 	const navigate = useNavigate();
 
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
-		await ProductApi.addRecent(index);
 	};
 	// console.log(products);
 
@@ -27,11 +25,12 @@ const ItemCard = ({ index, products }) => {
 							<S.ItemPrice>
 								{products.price.toLocaleString('ko-KR')}원
 							</S.ItemPrice>
-							{products && products.ProductsTags.map(tagObj => (
-								<S.ItemTag key={tagObj.idx}>
-									<a className="tag-link">#{tagObj.Tag.tag}</a>
-								</S.ItemTag>
-							))}
+							{products &&
+								products.ProductsTags.map(tagObj => (
+									<S.ItemTag key={tagObj.idx}>
+										<a className="tag-link">#{tagObj.Tag.tag}</a>
+									</S.ItemTag>
+								))}
 						</S.ItemInfo>
 					</div>
 				</S.Container>

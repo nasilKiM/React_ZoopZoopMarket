@@ -31,10 +31,8 @@ const ProductApi = {
 		});
 	},
 
-	getRecent(prod_idx) {
-		return Axios.get(PATH + '/viewed-list', {
-			prod_idx,
-		});
+	getRecent() {
+		return Axios.get(PATH + '/viewed-list', {});
 	},
 
 	addRecent(prod_idx) {
