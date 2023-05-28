@@ -239,11 +239,11 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	width: 70%;
+	width: 60%;
 	min-width: 414px;
 	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
+	@media screen and (max-width: 1100px) {
+		width: 70%;
 	}
 	margin: 0 auto;
 	margin-top: 50px;
@@ -286,7 +286,7 @@ const Title = styled.span`
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 	@media screen and (max-width: 768px) {
-		min-width: 40px;
+		min-width: 30px;
 	}
 `;
 
@@ -297,7 +297,7 @@ const InputContainer = styled.div`
 
 const InputBox = styled.input`
 	width: 100%;
-	min-width: 400px;
+	min-width: 300px;
 	max-width: 1200px;
 	border: none;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -309,6 +309,9 @@ const InputBox = styled.input`
 	@media (max-width: 1100px) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
+	@media screen and (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const Error = styled.div`
@@ -318,8 +321,16 @@ const Error = styled.div`
 	margin-left: 30px;
 	margin-top: 5px;
 	position: absolute;
-	left: 400px;
+	right: 50px;
 	top: 10px;
+	@media (max-width: 1100px) {
+		right: 50px;
+		top: 10px;
+	}
+	@media (max-width: 768px) {
+		left: -20px;
+		top: 40px;
+	}
 `;
 
 const AddressWrapper = styled.div`
@@ -351,6 +362,9 @@ const Address = styled.div`
 	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const ContentBox = styled.div`
@@ -361,6 +375,9 @@ const ContentBox = styled.div`
 	padding: 0 10px 30px 10px;
 	position: relative;
 	margin: 0 auto;
+	@media (max-width: 768px) {
+		padding: 0 10px 10px 10px;
+	}
 `;
 
 const TxtArea = styled.textarea`
@@ -369,9 +386,12 @@ const TxtArea = styled.textarea`
 	height: 400px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	padding: 20px;
-
 	:focus {
 		outline: none;
+	}
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		height: 250px;
 	}
 `;
 
@@ -385,10 +405,15 @@ const RegisterBtn = styled.button`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: auto;
+	margin-bottom: 50px;
 	cursor: pointer;
 	:hover {
 		background-color: ${({ theme }) => theme.color.primary[400]};
-		/* color: ${({ theme }) => theme.color.white}; */
+	}
+	@media (max-width: 768px) {
+		width: 110px;
+		height: 30px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 
@@ -400,6 +425,16 @@ const TagWrapper = styled.div`
 	padding: 0 10px;
 	margin-left: 100px;
 	margin-bottom: 50px;
+	@media (max-width: 1100px) {
+		margin-left: 100px;
+		margin-bottom: 20px;
+		margin-top: -10px;
+	}
+	@media (max-width: 768px) {
+		margin-left: 95px;
+		margin-bottom: 20px;
+		margin-top: -15px;
+	}
 `;
 
 const TagBox = styled.span`
@@ -416,6 +451,9 @@ const TagContent = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	float: right;
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const DelTag = styled.button`
@@ -428,6 +466,9 @@ const DelTag = styled.button`
 	line-height: 14px;
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+	@media (max-width: 768px) {
+		width: 15px;
 	}
 `;
 
