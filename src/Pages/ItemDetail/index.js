@@ -7,7 +7,7 @@ import SellerDetailPage from './SellerDetail/SellerDetail';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
-	const { data } = useQuery(['product'], () => ProductApi.detail(idx), {
+	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
 		onError: err => {
 			console.log(err);
 		},
