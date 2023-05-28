@@ -126,7 +126,7 @@ const DesktopMarketPrice = () => {
 	//console.log(average);
 	return (
 		<>
-			{isLoading && (
+			{isSuccess && (
 				<S.Wrapper>
 					<S.UpperPart>
 						<S.LeftPart>
@@ -182,7 +182,7 @@ const DesktopMarketPrice = () => {
 					</S.RecentlyClosed>
 				</S.Wrapper>
 			)}
-			{isSuccess && <MarketPriceSkeleton />}
+			{isLoading && <MarketPriceSkeleton />}
 		</>
 	);
 };

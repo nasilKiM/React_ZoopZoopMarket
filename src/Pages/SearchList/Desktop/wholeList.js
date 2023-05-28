@@ -16,7 +16,7 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-
+	console.log(word);
 	const res = useInfiniteSearch(word.split(','), selected);
 
 	useEffect(() => {

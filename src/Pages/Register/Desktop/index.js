@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
+import Category from './Components/category';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -131,7 +132,9 @@ const RegisterPage = () => {
 			return console.log(err);
 		}
 	};
-
+	useEffect(() => {
+		console.log(tags);
+	}, [tags]);
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
 			<UploadFiles
@@ -188,6 +191,7 @@ const RegisterPage = () => {
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
 				</S.InputContainer>
 			</S.Line>
+			<Category setTags={setTags} tags={tags}></Category>
 			<S.TagWrapper>
 				{tags &&
 					tags.map((tag, index) => (
