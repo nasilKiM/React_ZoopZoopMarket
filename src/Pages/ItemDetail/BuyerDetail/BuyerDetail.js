@@ -7,6 +7,7 @@ import KaMap from 'Components/Map/Map';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
+	const itemAllInfo = product?.data;
 
 	return (
 		item && (
@@ -14,7 +15,7 @@ const BuyerDetailPage = ({ state, product }) => {
 				<div>
 					<DetailHead item={item} />
 				</div>
-				<DetailContent state={state} item={item} />
+				<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
 				<S.MapContent>
 					<div>거래장소 : {item.region}</div>
 					<KaMap address={item.region} />

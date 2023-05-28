@@ -13,6 +13,7 @@ import { FORM_TYPE } from 'Consts/FormType';
 import TokenService from 'Repository/TokenService';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
+import { useMutation } from '@tanstack/react-query';
 
 const SignUpPage = () => {
 	const navigate = useNavigate();
@@ -35,7 +36,18 @@ const SignUpPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = async data => {
+	// signUp mutation
+	const { mutate } = useMutation(info => UserApi.signup(info), {
+		onSuccess: () => {
+			alert('회원가입이 완료되었습니다.');
+			navigate('/form/login');
+		},
+		onError: err => {
+			alert(err.response.data.message);
+		},
+	});
+
+	const onSubmit = data => {
 		const info = {
 			email: data.email,
 			pw: data.password,
@@ -43,17 +55,13 @@ const SignUpPage = () => {
 			phone: data.phone,
 			region: address,
 		};
-		try {
-			await UserApi.signup(info);
-			alert('회원가입이 완료되었습니다.');
-			navigate('/form/login');
-		} catch (err) {
-			alert(err.response.data.message);
-		}
+		mutate(info);
 	};
 
+	// 이메일 중복체크
 	const onCheckId = async e => {
 		e.preventDefault();
+		// refetch(data);
 		const value = getValues('email');
 		try {
 			const res = await UserApi.checkEmail(value);
@@ -68,6 +76,7 @@ const SignUpPage = () => {
 		setIdMsg('');
 	}, [getValues('email')]);
 
+	// 닉네임 중복체크
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -122,6 +131,14 @@ const SignUpPage = () => {
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 						{<S.Error>{idMsg}</S.Error>}
+						{/* {isLoading ? (
+							<div></div>
+						) : (
+							<S.Error>
+								{error ? error.response.data.message : data.message}
+							</S.Error>
+						)} */}
+
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -170,7 +187,6 @@ const SignUpPage = () => {
 									{...register('nick', FORM_TYPE.NICKNAME)}
 									placeholder="Nick_Name"
 								/>
-
 								<S.CheckBtn
 									disabled={errors.nick || !'nick'}
 									onClick={onCheckNick}
@@ -251,6 +267,9 @@ const Wrap = styled.div`
 	width: 80%;
 	flex-direction: column;
 	${flexAllCenter}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const Header = styled.div`
@@ -269,8 +288,10 @@ const Form = styled.form`
 	width: 100%;
 	padding: 30px 30px;
 	max-width: 800px;
-	min-width: 600px;
 	border-top: 1px solid ${({ theme }) => theme.color.gray[200]};
+	@media ${({ theme }) => theme.device.mobile} {
+		padding: 30px 0;
+	}
 `;
 
 const BtnWrap = styled.div`
@@ -286,35 +307,40 @@ const Button = styled(CustomButton)`
 	);
 	border: none;
 	color: ${({ theme }) => theme.color.fontColor[100]};
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 100%;
+	}
 `;
 
 const ItemWrap = styled.div`
 	display: flex;
 	width: 20%;
+
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 100%;
+	}
 `;
 
 const InputBoxWrap = styled.div`
 	${flexAlignCenter}
 	width: 100%;
-	& > button {
-		width: 120px;
-		height: 40px;
-		border-radius: 10px;
-		background: none;
-		margin-left: 10px;
-		cursor: pointer;
-	}
 `;
 const InputCustom = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
+	@media ${({ theme }) => theme.device.mobile} {
+		margin: 10px 0;
+	}
 `;
 const InputHalf = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
 	width: 74%;
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
+	@media ${({ theme }) => theme.device.mobile} {
+		margin: 10px 0;
+	}
 `;
 
 const InputWrap = styled.div`
@@ -322,6 +348,10 @@ const InputWrap = styled.div`
 	display: flex;
 	justify-content: end;
 	align-items: center;
+	@media ${({ theme }) => theme.device.mobile} {
+		flex-direction: column;
+		align-items: start;
+	}
 `;
 
 const InputWrapBtn = styled.div`
@@ -329,6 +359,10 @@ const InputWrapBtn = styled.div`
 	display: flex;
 	justify-content: end;
 	align-items: center;
+	@media ${({ theme }) => theme.device.mobile} {
+		flex-direction: column;
+		align-items: start;
+	}
 `;
 
 const Mark = styled.span`
@@ -341,19 +375,28 @@ const Error = styled.div`
 	text-align: start;
 	color: ${({ theme }) => theme.color.error};
 	font-size: ${({ theme }) => theme.fontSize.sm};
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 100%;
+		text-align: end;
+		margin-bottom: 10px;
+	}
 `;
 
 const Address = styled.div`
 	display: flex;
 	height: 40px;
 	margin: 10px 0px;
-	padding-left: 10px;
+	padding-left: 5px;
 	margin-right: 5px;
 	align-items: center;
 `;
+
 const CheckBtn = styled(CustomButton)`
 	font-weight: normal;
 	min-height: 45px;
+	width: 120px;
+	background: none;
+	margin-left: 10px;
 	border: 2px solid ${({ theme }) => theme.color.primary[400]};
 	&:hover {
 		color: ${({ theme }) => theme.color.fontColor[100]};

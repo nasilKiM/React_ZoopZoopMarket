@@ -166,109 +166,68 @@ const Wrapper = styled.div`
 `;
 
 const ImgContainer = styled.div`
-	/* width: 100%; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 `;
 
 const MainImgContainer = styled.div`
-	width: 360px;
-	height: 360px;
+	width: 700px;
+	height: 300px;
 	position: relative;
-	@media screen and (max-width: 1000px) {
-		width: 310px;
-		height: 310px;
+	border: 2px solid ${({ theme }) => theme.color.primary[100]};
+	@media screen and (max-width: 1100px) {
+		width: 600px;
+		height: 250px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 240px;
-		height: 240px;
-	}
-	@media screen and (max-width: 414px) {
-		width: 200px;
+		width: 400px;
 		height: 200px;
 	}
 `;
 
 const MainImgSection = styled.img`
-	width: 360px;
-	height: 360px;
+	width: 100%;
+	height: 100%;
 	cursor: pointer;
-	border: 1px solid ${({ theme }) => theme.color.subColor};
 	object-fit: cover;
-	@media screen and (max-width: 1000px) {
-		width: 310px;
-		height: 310px;
-	}
-	@media screen and (max-width: 768px) {
-		width: 240px;
-		height: 240px;
-	}
-	@media screen and (max-width: 414px) {
-		width: 200px;
-		height: 200px;
-	}
 `;
 
 const SmallImgBox = styled.div`
-	width: 380px;
-	height: 380px;
+	width: 700px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	overflow: hidden;
-	@media screen and (max-width: 1000px) {
-		width: 320px;
-		height: 320px;
+	justify-content: space-between;
+	@media screen and (max-width: 1100px) {
+		width: 600px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 300px;
-		height: 300px;
-	}
-	@media screen and (max-width: 414px) {
-		width: 230px;
-		height: 230px;
+		width: 400px;
 	}
 `;
 
 const SmallImgContainer = styled.div`
-	width: 171px;
-	height: 171px;
+	width: 173px;
+	height: 120px;
 	position: relative;
-	margin: 0 4px;
-	@media screen and (max-width: 1000px) {
-		width: 140px;
-		height: 140px;
+	margin-top: 2px;
+	border: 2px solid ${({ theme }) => theme.color.primary[100]};
+	@media screen and (max-width: 1100px) {
+		width: 148px;
+		height: 90px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 110px;
-		height: 110px;
-	}
-	@media screen and (max-width: 414px) {
-		width: 80px;
-		height: 80px;
+		width: 98px;
+		height: 60px;
 	}
 `;
 
 const SmallImgSection = styled.img`
-	width: 171px;
-	height: 171px;
+	width: 100%;
+	height: 100%;
 	cursor: pointer;
 	object-fit: cover;
-	border: 1px solid ${({ theme }) => theme.color.subColor};
-	@media screen and (max-width: 1000px) {
-		width: 140px;
-		height: 140px;
-	}
-	@media screen and (max-width: 768px) {
-		width: 110px;
-		height: 110px;
-	}
-	@media screen and (max-width: 414px) {
-		width: 80px;
-		height: 80px;
-	}
 `;
 
 const DelBtn = styled.div`
@@ -307,6 +266,9 @@ const Count = styled.span`
 	justify-content: center;
 	align-items: center;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 const S = {
 	Wrapper,

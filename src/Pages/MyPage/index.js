@@ -5,47 +5,27 @@ import MyProfile from './Components/MyPofile/myProfile';
 
 const MyPage = () => {
 	return (
-		<>
-			<Container>
+			<S.Container>
 				<ToggleBar />
-			</Container>
-			<S.Wrapper>
 				<MyProfile />
 				<Outlet />
-			</S.Wrapper>
-		</>
+			</S.Container>
 	);
 };
 
 export default MyPage;
 
 const Container = styled.div`
-	width: 100%;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	margin: 0 auto;
-	background-color: ${({ theme }) => theme.color.gray[100]};
-`;
-
-const Wrapper = styled.div`
 	width: 70%;
-	height: 100%;
 	margin: 0 auto;
-	/* background-color: beige; */
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 85%;
+	@media ${({ theme }) => theme.device.laptop} {
+		width: 90%;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
+	@media ${({ theme }) => theme.device.tablet} {
 		width: 95%;
 	}
 `;
 
-const MWrapper = styled.div`
-	width: 414px;
-	margin: 0 auto;
-`;
-
 const S = {
-	Wrapper,
+	Container,
 };

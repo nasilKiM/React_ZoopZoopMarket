@@ -140,7 +140,7 @@ const Category = () => {
 						{categories.map(category => (
 							<CategoryContainer
 								onClick={() => {
-									navigate(`/search_list/${category.keyword}/0`);
+									navigate(`/search_list/${category.name}/0`);
 								}}
 							>
 								<CategoryItem key={category.id}>

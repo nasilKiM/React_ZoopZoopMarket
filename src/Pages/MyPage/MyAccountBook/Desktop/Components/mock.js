@@ -71,7 +71,7 @@ export const PurchaseMockData = {
         },
         {
             "idx": 3,
-            "createAt": "2023-05-17T15:13:22.000Z",
+            "createAt": "2023-05-31T15:13:22.000Z",
             "Product": {
                 "idx": 6,
                 "title": "test2",
