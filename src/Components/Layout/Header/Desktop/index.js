@@ -50,11 +50,13 @@ const WebHeader = () => {
 		console.log(res);
 		TokenService.removeToken();
 		navigate('/');
+		setShowOptions(false);
 	};
 
 	const myPage = () => {
 		console.log('클릭!!!!');
 		navigate('/mypage');
+		setShowOptions(false);
 	};
 
 	return (
@@ -162,7 +164,6 @@ const WebHeader = () => {
 					)}
 					<S.Icon>
 						<Link
-							// to={'/mypage'}
 							onMouseOver={() => {
 								setIsHover(true);
 							}}

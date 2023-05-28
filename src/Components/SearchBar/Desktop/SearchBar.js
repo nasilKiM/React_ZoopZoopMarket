@@ -11,9 +11,8 @@ const SearchBar = ({ props }) => {
 	const navigate = useNavigate();
 	const searchInputRef = useRef(null);
 	const location = useLocation();
-	//console.log(location.pathname.split('/')[1]);
-
 	const pathOption = location.pathname.split('/')[1];
+	//console.log(location.pathname.split('/')[1]);
 
 	const onSearch = async e => {
 		e.preventDefault();
