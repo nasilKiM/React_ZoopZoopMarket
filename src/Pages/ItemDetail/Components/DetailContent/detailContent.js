@@ -3,7 +3,7 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { useSocket } from 'Context/socket';
 import { flexAllCenter } from 'Styles/common';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -18,33 +18,27 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
-	console.log(so);
-
-	useEffect(() => {
-		so?.on('receiveMessage', data => {
-			console.log(data);
-		});
-	}, []);
-
+	console.log(111111111111111111, item);
+	console.log(222222222222222, itemAllInfo);
 	const onClickChatStartBtn = async () => {
 		try {
 			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
 			// 같은 방에 join
-			so.emit('join', { room_idx: setChatRoomRes.data.idx });
+			// so?.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
-			const data = {
-				title: item.title,
-				createdAt: item.createdAt,
-				prod_idx: item.idx,
-				room_idx: setChatRoomRes.data.idx,
-				nickName: item.User.nick_name,
-				message,
-				isSeller: itemAllInfo.isSeller,
-			};
-			// 이벤트 발생
-			so.emit('sendMessage', data);
+			// const data = {
+			// 	title: item.title,
+			// 	createdAt: item.createdAt,
+			// 	prod_idx: item.idx,
+			// 	room_idx: setChatRoomRes.data.idx,
+			// 	nickName: item.User.nick_name,
+			// 	message,
+			// 	isSeller: itemAllInfo.isSeller,
+			// };
+			// // 이벤트 발생
+			// so.emit('sendMessage', data);
 
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
@@ -57,7 +51,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			// 	console.log(data);
 			// });
 		} catch (err) {
-			// navigate('/chat');
+			navigate('/chat');
 			// console.log('11111111111111111111');
 			// so.emit('sendMessage', '채팅방생성');
 			// so.on('receiveMessage', data => {

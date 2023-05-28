@@ -14,7 +14,6 @@
 		"@mui/material": "^5.12.2",
 		"@mui/styled-engine-sc": "^5.12.0",
 		"@tanstack/react-query": "^4.29.7",
-		"@tanstack/react-query-devtools": "^4.29.7",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
@@ -51,7 +50,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"lint": "eslint . --eåxt .js,.jsx",
+		"lint": "eslint . --ext .js,.jsx",
 		"lint:fix": "eslint . --ext .js,.jsx --fix",
 		"format": "prettier --write --cache \"src/**/*.{js,jsx}\""
 	},
@@ -74,6 +73,7 @@
 		]
 	},
 	"devDependencies": {
+		"@tanstack/react-query-devtools": "^4.29.11",
 		"eslint": "^8.36.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",

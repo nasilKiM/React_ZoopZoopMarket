@@ -10,6 +10,7 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SocketProvider from 'Context/socket';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
@@ -28,8 +29,10 @@ function App() {
 					<QueryClientProvider client={queryClient}>
 						<ReactQueryDevtools initialIsOpen={false} />
 						<ThemeProvider theme={theme}>
-							<GlobalStyles />
-							<RouterProvider router={router} />
+							<SocketProvider>
+								<GlobalStyles />
+								<RouterProvider router={router} />
+							</SocketProvider>
 						</ThemeProvider>
 					</QueryClientProvider>
 				</RecoilRoot>

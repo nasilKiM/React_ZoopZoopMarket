@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import { FORM_TYPE } from 'Consts/FormType';
@@ -15,20 +14,12 @@ const LoginPage = () => {
 	const navigate = useNavigate();
 	const so = useSocket();
 	console.log(so);
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({ mode: 'onChange' });
-
 	useEffect(() => {
 		if (TokenService.getToken()) {
 			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
 			navigate('/main');
 		}
 	}, []);
-
 
 	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {

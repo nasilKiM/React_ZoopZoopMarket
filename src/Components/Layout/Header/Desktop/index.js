@@ -9,6 +9,7 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import NewMessage from './Components/newMessage';
 import UserApi from 'Apis/userApi';
 import TokenService from 'Repository/TokenService';
 
@@ -17,17 +18,10 @@ const WebHeader = () => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
+	const [showOptions, setShowOptions] = useState();
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	//햄버거메뉴
-	const [MenuIsOpen, setMenuIsOpen] = useState(false);
-	//마이페이지 메뉴
-	const [showOptions, setShowOptions] = useState(false);
-
-	const toggleMenu = () => {
-		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
-	};
-
+	const [MenuIsOpen, setMenuIsOpen] = useState();
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -60,6 +54,7 @@ const WebHeader = () => {
 	return (
 		<>
 			<S.Wrapper>
+				<NewMessage />
 				<S.Container isMobile={isTablet}>
 					{isTablet ? (
 						<>
