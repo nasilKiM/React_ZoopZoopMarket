@@ -8,13 +8,11 @@ import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-
 const DetailContent = ({ state, item }) => {
 	const today = dayjs();
 	const created = item && dayjs(item.createdAt);
 	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
 	const diff = today.diff(created, 'day', true);
-	console.log(today, created, diff, diff.toFixed());
 
 	const date =
 		diff.toFixed() == 0
@@ -23,12 +21,10 @@ const DetailContent = ({ state, item }) => {
 			? `${diff.toFixed()}일전`
 			: cleanDate;
 
-
 	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
 
 	const so = useSocket();
-	console.log(so);
 
 	useEffect(() => {
 		so?.on('receiveMessage', data => {

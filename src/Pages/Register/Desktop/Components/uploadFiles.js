@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const UploadFiles = ({ register, images, setImages, setValue }) => {
+const UploadFiles = ({ register, images, setImages }) => {
 	const [imgSrc, setImgSrc] = useState([]);
 
 	const onUpload = async e => {

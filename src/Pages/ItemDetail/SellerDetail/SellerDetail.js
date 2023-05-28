@@ -9,7 +9,6 @@ import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 
 const SellerDetailPage = ({ state, product, idx }) => {
-	// const item = product && product.data.searchProduct;
 	const [item, setItem] = useState();
 	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
@@ -17,7 +16,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	useEffect(() => {
 		if (product) setItem(product.data.searchProduct);
-		product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 		return () => {
 			setItem();
 		};

@@ -3,14 +3,12 @@ import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
-import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Category from './Components/category';
-
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -87,15 +85,11 @@ const RegisterPage = () => {
 	};
 
 	const mutationPost = useMutation(data => {
-		return Axios.post('/api/product', data, {
-			headers: { 'Content-Type': 'multipart/form-data' },
-		});
+		return ProductApi.registerPost(data);
 	});
 
 	const mutationEdit = useMutation(data => {
-		return Axios.patch('/api/product', data, {
-			headers: { 'Content-Type': 'multipart/form-data' },
-		});
+		return ProductApi.editPost(data);
 	});
 
 	const onSubmit = data => {
@@ -105,11 +99,6 @@ const RegisterPage = () => {
 				{ message: '1개이상 꼭 입력해주세요.' },
 				{ shouldFocus: true },
 			);
-		}
-
-		if (data.mainImg.length === 0) {
-			window.scrollTo(0, 0);
-			return alert('이미지를 등록해주세요.');
 		}
 
 		try {
@@ -123,7 +112,13 @@ const RegisterPage = () => {
 				formData.append('images', element);
 			});
 
+			console.log('확인', data.mainImg);
+
 			if (!idx) {
+				if (data.mainImg.length === 0) {
+					window.scrollTo(0, 0);
+					return alert('이미지를 등록해주세요.');
+				}
 				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
 					onSuccess: () => {
@@ -156,19 +151,14 @@ const RegisterPage = () => {
 			return console.log(err);
 		}
 	};
+
 	useEffect(() => {
 		console.log(tags);
 	}, [tags]);
+
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles
-				images={images}
-				setImages={setImages}
-				register={register}
-				setValue={setValue}
-				getValues={getValues}
-				errors={errors}
-			/>
+			<UploadFiles register={register} images={images} setImages={setImages} />
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>
