@@ -128,6 +128,10 @@ const RegisterPage = () => {
 					},
 				});
 			} else {
+				if (images.length === 0) {
+					window.scrollTo(0, 0);
+					return alert('이미지를 등록해주세요.');
+				}
 				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
