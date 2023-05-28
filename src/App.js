@@ -11,6 +11,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SocketProvider from 'Context/socket';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 function App() {
 	const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ function App() {
 			>
 				<RecoilRoot>
 					<QueryClientProvider client={queryClient}>
+						<ReactQueryDevtools initialIsOpen={false} />
 						<ThemeProvider theme={theme}>
 							<SocketProvider>
 								<GlobalStyles />

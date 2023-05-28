@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import BuyerDetailPage from './BuyerDetail/BuyerDetail';
-import SellerDetailPage from './SellerDetail/SellerDetail';
 import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
+import BuyerDetailPage from './BuyerDetail/BuyerDetail';
+import SellerDetailPage from './SellerDetail/SellerDetail';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
-	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
+	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
+		onError: err => {
+			console.log(err);
+		},
+	});
 
 	console.log(data);
 	useEffect(() => {
@@ -22,7 +25,7 @@ const ItemDetailPage = () => {
 			{!isSeller ? (
 				<BuyerDetailPage state={isSeller} product={data} />
 			) : (
-				<SellerDetailPage state={isSeller} product={data}  idx={idx} />
+				<SellerDetailPage state={isSeller} product={data} idx={idx} />
 			)}
 		</>
 	);
