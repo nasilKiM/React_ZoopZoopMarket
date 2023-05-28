@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import TokenService from 'Repository/TokenService';
 import { useEffect } from 'react';
 import { FORM_TYPE } from 'Consts/FormType';
@@ -10,6 +9,7 @@ import CustomButton from 'Components/Buttons/button';
 import { useSocket } from 'Context/socket';
 import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
+import { useForm } from 'react-hook-form';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -28,7 +28,6 @@ const LoginPage = () => {
 			navigate('/main');
 		}
 	}, []);
-
 
 	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {

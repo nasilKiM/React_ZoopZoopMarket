@@ -1,5 +1,5 @@
 import { Axios } from './@core';
-//
+
 const PATH = '/api/user/my-page';
 
 const MyPageApi = {
@@ -7,7 +7,9 @@ const MyPageApi = {
 		return Axios.get(PATH);
 	},
 	productList({ page, category }) {
-		return Axios.get(PATH + '/product-list', { params: { page, category } });
+		return Axios.get(PATH + '/product-list', {
+			params: { page, category },
+		});
 	},
 	likeProductList({ page }) {
 		return Axios.get(PATH + '/like-product-list', {
