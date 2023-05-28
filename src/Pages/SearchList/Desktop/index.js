@@ -120,46 +120,40 @@ const Wrapper = styled.div`
 		width: 90%;
 	}
 	margin: 0 auto;
-	padding-top: 10px;
 `;
 
 const Container = styled.div`
+	width: 100%;
 	margin: 0 auto;
 `;
 
-const SearchBarContainer = styled.div`
+// 메뉴(통합/중고/무료)
+const SelectContainer = styled.div`
 	display: flex;
-	justify-content: center;
-	padding-top: 40px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ResultText = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	margin-top: 40px;
-	margin-left: 40px;
-	/* flex-direction: column; */
-	@media screen and (max-width: 767px) {
+	margin-top: 30px;
+	margin-left: 20px;
+	/* @media screen and (max-width: 767px) {
 		flex-direction: column;
-	}
+	} */
 `;
-const ResultWord = styled.div`
-	color: ${({ theme }) => theme.color.primary[300]};
-`;
-const ResultContainer = styled.div``;
 
 const CategoryBox = styled.div`
 	cursor: pointer;
-
 	margin-top: 40px;
 `;
 
 const Category = styled.div`
 	margin-top: 40px;
-	font-size: ${({ theme }) => theme.fontSize.big};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	margin-bottom: 10px;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const Wall = styled.div`
@@ -174,17 +168,6 @@ const ItemList = styled.div`
 	margin-top: 30px;
 	margin-bottom: 30px;
 `;
-const SampleCard = styled.div`
-	width: 200px;
-	height: 400px;
-	border: 1px solid black;
-`;
-
-const SelectContainer = styled.div`
-	display: flex;
-	margin-top: 20px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
-`;
 
 const SelectBox = styled.div`
 	cursor: pointer;
@@ -196,6 +179,13 @@ const SelectBox = styled.div`
 			: ({ theme }) => theme.color.black};
 `;
 
+const ResultWord = styled.div`
+	color: ${({ theme }) => theme.color.primary[300]};
+`;
+const ResultContainer = styled.div`
+	width: 100%;
+`;
+
 const S = {
 	Wrapper,
 	Container,
@@ -204,8 +194,6 @@ const S = {
 	Category,
 	Wall,
 	ItemList,
-	SearchBarContainer,
-	SampleCard,
 	SelectContainer,
 	SelectBox,
 	ResultWord,

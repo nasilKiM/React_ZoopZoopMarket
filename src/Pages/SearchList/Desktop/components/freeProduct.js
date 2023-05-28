@@ -87,7 +87,7 @@ const CardContainer = styled.div`
 	margin-top: 30px;
 
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(1, minmax(280px, 1fr));
+		grid-template-columns: repeat(2, minmax(280px, 1fr));
 		column-gap: 10px;
 		row-gap: 10px;
 	}
