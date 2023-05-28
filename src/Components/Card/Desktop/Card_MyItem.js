@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MyItemCard = ({ index, products }) => {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
@@ -11,24 +11,24 @@ const MyItemCard = ({ index, products }) => {
 
 	return (
 		products && (
-				<S.Container>
-					<div onClick={onClickCard}>
-						<S.ItemImg src={products.img_url} />
-						<S.ItemInfo>
-							<S.ItemTitle>{products.title}</S.ItemTitle>
-							{products.price === 0 ? (
-								<S.ItemPrice>무료나눔 상품</S.ItemPrice>
-							) : (
-								<S.ItemPrice>
-									{products.price.toLocaleString('ko-KR')}원
-								</S.ItemPrice>
-							)}
-						</S.ItemInfo>
-					</div>
-				</S.Container>
+			<S.Container>
+				<div onClick={onClickCard}>
+					<S.ItemImg src={products.img_url} />
+					<S.ItemInfo>
+						<S.ItemTitle>{products.title}</S.ItemTitle>
+						{products.price === 0 ? (
+							<S.ItemPrice>무료나눔 상품</S.ItemPrice>
+						) : (
+							<S.ItemPrice>
+								{products.price.toLocaleString('ko-KR')}원
+							</S.ItemPrice>
+						)}
+					</S.ItemInfo>
+				</div>
+			</S.Container>
 		)
 	);
-}
+};
 
 export default MyItemCard;
 

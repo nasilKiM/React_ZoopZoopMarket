@@ -1,4 +1,4 @@
-import MyItemCard from 'Components/Card/Desktop/Card_MyItem'
+import MyItemCard from 'Components/Card/Desktop/Card_MyItem';
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
@@ -8,22 +8,24 @@ import styled from 'styled-components';
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, refetch} = res;
+	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
 
-	data && console.log( '/////', data, data.pageParams.length);
-	
+	//data && console.log('/////', data.pages[0].data.products);
+
 	useEffect(() => {
 		if (!isView) {
 			return;
-		}
-		else if (data && data.pages.length < data.pages[0].data.pagination.endPage) {
+		} else if (
+			data &&
+			data.pages.length < data.pages[0].data.pagination.endPage
+		) {
 			fetchNextPage();
 		}
 	}, [isView]);
-	
+
 	useEffect(() => {
-		refetch()
+		refetch();
 	}, [category]);
 
 	const onClickSaleCategory = () => {
@@ -46,13 +48,13 @@ const MyItemPage = () => {
 			</S.CategoryZone>
 			<S.Wrapper>
 				<S.Container>
-				{data?.pages.map(page => (
-					page?.data.products.map(item => (
-					<MyItemCard index={item.idx} products={item}/>
-					))
-				))}
+					{data?.pages.map(page =>
+						page?.data.products.map(item => (
+							<MyItemCard index={item.idx} products={item} />
+						)),
+					)}
 				</S.Container>
-			<div ref={ref}></div>
+				<div ref={ref}></div>
 			</S.Wrapper>
 		</S.Div>
 	);
@@ -89,7 +91,6 @@ const Container = styled.div`
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(1)}
 		min-width: 200px;
-
 	}
 `;
 

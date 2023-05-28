@@ -15,7 +15,9 @@ const ChatMessage = ({ chat, setChatroomIdx, setItem, item, setItemInfo }) => {
 			console.log(err);
 		}
 	};
-	console.log(chat);
+
+	// console.log(chat.User.socket);
+	// console.log(chat.User.nick_name);
 
 	return (
 		<>

@@ -7,6 +7,9 @@ import ChattingPage from 'Pages/Chat';
 import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
+import { useSocket } from 'Context/socket';
+import { useRecoilValue } from 'recoil';
+import { userSocketAtom } from 'Atoms/socket.atom';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	// const item = product && product.data.searchProduct;
@@ -17,33 +20,39 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	useEffect(() => {
 		if (product) setItem(product.data.searchProduct);
-		product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
+		//product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 		return () => {
 			setItem();
 		};
 	}, []);
-
+	product && console.log(product.data.searchProduct.User.socket);
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
+	const so = useSocket();
+	so && console.log(so);
 
-	// const socket = 'sample용소켓입니다.';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
 			if (response.status === 200) {
 				console.log('물품판매됨', response);
 			}
+			navigate('/mypage');
 		} catch (error) {
 			console.log('에러', error);
 		}
 	};
+	const socketData = useRecoilValue(userSocketAtom);
+	socketData && console.log(socketData.userSocket);
 
 	return (
 		<S.Wrapper>
 			<S.EditBar>
-				<div onClick={() => soldOut(item.idx, socket)}>판매완료 변경</div>
+				<div onClick={() => soldOut(item.idx, socketData.userSocket)}>
+					판매완료 변경
+				</div>
 				<ul>
 					<div onClick={() => navigate(`/register/${item.idx}`)}>Edit</div>
 					{/* <span>|</span> */}

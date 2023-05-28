@@ -22,8 +22,8 @@ const DesktopMarketPrice = () => {
 	const { word } = useParams();
 	//console.log(word);
 	// const [priceList, setItemList] = useRecoilState(itemPriceState);
-	const start = '2023-05-15';
-	const end = '2023-05-26';
+	const start = '2023-05-20';
+	const end = '2023-06-02';
 	//console.log(word);
 
 	//let data = [];
@@ -49,9 +49,9 @@ const DesktopMarketPrice = () => {
 	// 	return data;
 	// };
 	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE'], () =>
-		ProductApi.searchMarket('테스트', start, end),
+		ProductApi.searchMarket('라면', start, end),
 	);
-	// data && console.log(data);
+	data && console.log(data);
 	// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
 
 	//console.log('시세 검색 단어: ', word);
