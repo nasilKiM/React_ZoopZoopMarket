@@ -4,15 +4,32 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
+import { flexSpaceBetween } from 'Styles/common';
 
-const ItemCard = ({ index, products }) => {
+const ItemCard = ({ index, products, isMine }) => {
 	const navigate = useNavigate();
 
 	const onClickCard = async () => {
 		navigate(`/item_detail/${index}`);
 		await ProductApi.addRecent(index);
 	};
+
 	// console.log(products);
+
+	const onClickEdit = e => {
+		e.preventDefault();
+		navigate(`/register/${products.idx}`);
+	};
+
+	const onClickDelete = async () => {
+		try {
+			if (confirm('물품을 삭제하시겠습니까?') == false) return console.log(1);
+			await ProductApi.deletePost(products.idx);
+			alert('물품이 삭제되었습니다.');
+		} catch {
+			console.log('삭제 실패');
+		}
+	};
 
 	return (
 		products && (
@@ -38,6 +55,12 @@ const ItemCard = ({ index, products }) => {
 								))}
 						</S.ItemInfo>
 					</div>
+					{isMine && (
+						<S.BtnSection>
+							<S.Btn onClick={onClickEdit}>수정</S.Btn>
+							<S.Btn onClick={onClickDelete}>삭제</S.Btn>
+						</S.BtnSection>
+					)}
 				</S.Container>
 				{products.status === '판매완료' ? <SoldoutCard /> : ''}
 			</S.Wrapper>
@@ -151,6 +174,24 @@ const ItemTag = styled.span`
 	}
 `;
 
+const BtnSection = styled.div`
+	width: 100%;
+	${flexSpaceBetween}
+	padding: 0 15px 15px 15px;
+	margin-top: -10px;
+`;
+
+const Btn = styled.button`
+	width: 48%;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[200]};
+	}
+`;
+
 const S = {
 	Wrapper,
 	Heart,
@@ -160,4 +201,6 @@ const S = {
 	ItemTitle,
 	ItemPrice,
 	ItemTag,
+	BtnSection,
+	Btn,
 };

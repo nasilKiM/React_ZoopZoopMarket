@@ -55,8 +55,8 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			<S.EditBar>
 				<div onClick={() => soldOut(item.idx, socket)}>판매완료 변경</div>
 				<ul>
-					<div onClick={() => navigate(`/register/${item.idx}`)}>Edit</div>
-					<div onClick={deletePost}>Delete</div>
+					<div onClick={() => navigate(`/register/${item.idx}`)}>수정</div>
+					<div onClick={deletePost}>삭제</div>
 				</ul>
 			</S.EditBar>
 			<DetailHead item={item} />
