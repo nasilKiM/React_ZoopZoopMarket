@@ -2,16 +2,15 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
-
 import ProductApi from 'Apis/productApi';
 import { useQuery } from '@tanstack/react-query';
 
-const UsedProduct = ({ word }) => {
+const UsedProduct = ({ word, data }) => {
 	const navigate = useNavigate();
 
-	const { data } = useQuery(['SEARCH_USED', word], () => {
-		return ProductApi.searchItems(1, word, 0);
-	});
+	// const { data } = useQuery(['SEARCH_USED', word], () => {
+	// 	return ProductApi.searchItems(1, word, 0);
+	// });
 
 	const goWholeList = () => {
 		navigate(`${0}`);

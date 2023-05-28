@@ -8,36 +8,21 @@ import ProductApi from 'Apis/productApi';
 
 const ItemDetailPage = () => {
 	const { idx } = useParams();
-	let state = '';
-	// const [product, setProduct] = useState('');
-
-	// const temp = async () => {
-	// 	try {
-	// 		const res = await ProductApi.detail(idx);
-	// 		setProduct(res);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-	console.log(idx);
-	const { data } = useQuery(['product'], () => ProductApi.detail(idx));
+	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx));
 
 	console.log(data);
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		// temp();
 	}, []);
 
-	const isSeller = data && data.data ? data.data.isSeller : null;
-
-	state = data ? data.isSeller : null;
+	const isSeller = data && data.data.isSeller;
 
 	return (
 		<>
 			{!isSeller ? (
-				<BuyerDetailPage state={state} product={data} />
+				<BuyerDetailPage state={isSeller} product={data} />
 			) : (
-				<SellerDetailPage state={state} product={data} idx={idx} />
+				<SellerDetailPage state={isSeller} product={data}  idx={idx} />
 			)}
 		</>
 	);

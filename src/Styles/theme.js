@@ -4,6 +4,7 @@ const color = {
 		200: '#FF9494',
 		300: '#F87474', // focus 색깔
 		400: '#FF3647', // 대표 색깔
+		500: '#FF0000',
 	},
 	subColor: '#FFECEC',
 	hover: '#db2e3d',
@@ -16,6 +17,7 @@ const color = {
 	success: '#028202',
 	white: '#FFFFFF',
 	black: '#000000',
+	bg: 'rgb(238, 241, 245)',
 	gray: {
 		100: '#E9E9E9',
 		200: '#D9D9D9', // basic gray
@@ -47,13 +49,16 @@ const fontWeight = {
 const deviceWidth = {
 	mobile: 414,
 	tablet: 768,
-	laptop: 1440,
+	laptop: 1000,
+	pc: 1440
 };
 
 const device = {
 	mobile: `screen and (max-width: ${deviceWidth.mobile}px)`,
 	tablet: `screen and (max-width: ${deviceWidth.tablet}px)`,
 	laptop: `screen and (max-width: ${deviceWidth.laptop}px)`,
+	desktop: `screen and (max-width: ${deviceWidth.desktop}px)`,
+	pc: `screen and (max-width: ${deviceWidth.pc}px)`,
 };
 
 export const theme = {

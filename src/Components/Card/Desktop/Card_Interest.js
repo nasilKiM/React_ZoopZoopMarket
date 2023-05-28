@@ -9,6 +9,8 @@ const InterestCard = ({ index, products }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
+	// console.log(products);
+
 	return (
 		products && (
 			<S.Container>
@@ -50,7 +52,7 @@ const Heart = styled.div`
 	height: 32px;
 	top: 15px;
 	right: 7px;
-	z-index: 1000000;
+	z-index: 99;
 `;
 
 const ItemImg = styled.div`

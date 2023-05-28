@@ -39,6 +39,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			console.log('에러', error);
 		}
 	};
+
 	return (
 		<S.Wrapper>
 			<S.EditBar>
@@ -77,8 +78,11 @@ export default SellerDetailPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	/* border: 1px solid; */
 	margin: 0 auto;
 `;
@@ -100,13 +104,9 @@ const EditBar = styled.div`
 		}
 	}
 	& > ul {
-		margin: 0 10px;
 		${flexAllCenter}
 		cursor: pointer;
 		gap: 10px;
-		/* & > span {
-			margin: 0 10px;
-		} */
 		& > div {
 			padding: 15px 20px;
 			background-color: #d9d9d9;

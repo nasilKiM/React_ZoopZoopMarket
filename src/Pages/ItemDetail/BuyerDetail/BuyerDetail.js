@@ -10,17 +10,19 @@ const BuyerDetailPage = ({ state, product }) => {
 	const itemAllInfo = product?.data;
 	console.log(item);
 	return (
-		<S.Wrapper>
-			<div>
-				<DetailHead item={item} />
-			</div>
-			<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
-			<S.MapContent>
-				<div>거래장소</div>
-				<KaMap />
-			</S.MapContent>
-			<AnotherProduct />
-		</S.Wrapper>
+		item && (
+			<S.Wrapper>
+				<div>
+					<DetailHead item={item} />
+				</div>
+				<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
+				<S.MapContent>
+					<div>거래장소 : {item.region}</div>
+					<KaMap address={item.region} />
+				</S.MapContent>
+				<AnotherProduct />
+			</S.Wrapper>
+		)
 	);
 };
 
@@ -28,8 +30,11 @@ export default BuyerDetailPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	margin: 0 auto;
 	& > div:first-child {
 		border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
