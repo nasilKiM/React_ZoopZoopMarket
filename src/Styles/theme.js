@@ -17,6 +17,7 @@ const color = {
 	success: '#028202',
 	white: '#FFFFFF',
 	black: '#000000',
+	bg: 'rgb(238, 241, 245)',
 	gray: {
 		100: '#E9E9E9',
 		200: '#D9D9D9', // basic gray
@@ -56,7 +57,8 @@ const device = {
 	mobile: `screen and (max-width: ${deviceWidth.mobile}px)`,
 	tablet: `screen and (max-width: ${deviceWidth.tablet}px)`,
 	laptop: `screen and (max-width: ${deviceWidth.laptop}px)`,
-	pc: `screen and (max-width: ${deviceWidth.laptop}px)`,
+	desktop: `screen and (max-width: ${deviceWidth.desktop}px)`,
+	pc: `screen and (max-width: ${deviceWidth.pc}px)`,
 };
 
 export const theme = {

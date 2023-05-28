@@ -1,26 +1,48 @@
 import ChatMessage from 'Components/ChatMessage/ChatMessage';
 import styled from 'styled-components';
 
-const ChatList = ({ chatList, chatroomIdx, setChatroomIdx }) => {
-	// console.log('chatList', chatList);
-
+const ChatList = ({
+	chatroomList,
+	setChatroomList,
+	setIsChatEntrance,
+	setChatroomIdx,
+	idx,
+	item,
+	setItem,
+	setItemInfo,
+}) => {
+	console.log('chatList', chatroomList);
 	return (
 		<>
 			<S.LeftUpperBar>
 				<span>채팅목록</span>
 			</S.LeftUpperBar>
 			<S.ListContainer>
-				{chatList.map(chat => {
-					return (
-						<ChatMessage
-							onClick={() => {
-								console.log('chat--->', chat);
-								setChatroomIdx(chat.roomIdx);
-							}}
-							chat={chat}
-						/>
-					);
-				})}
+				{idx &&
+					chatroomList &&
+					chatroomList.map(chat => {
+						return (
+							<ChatMessage
+								chat={chat}
+								setChatroomIdx={setChatroomIdx}
+								item={item}
+								setItem={setItem}
+							/>
+						);
+					})}
+				{!idx &&
+					chatroomList &&
+					chatroomList.chats.map(chat => {
+						return (
+							<ChatMessage
+								chat={chat}
+								setChatroomIdx={setChatroomIdx}
+								setItem={setItem}
+								item={item}
+								setItemInfo={setItemInfo}
+							/>
+						);
+					})}
 			</S.ListContainer>
 		</>
 	);
@@ -33,7 +55,7 @@ const LeftUpperBar = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 10%;
-	background-color: ${({ theme }) => theme.color.primary};
+	background-color: ${({ theme }) => theme.color.primary[400]};
 	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
 	color: white;
 	cursor: pointer;

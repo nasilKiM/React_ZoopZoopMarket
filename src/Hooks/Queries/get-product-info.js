@@ -1,13 +1,13 @@
 import ProductApi from 'Apis/productApi';
-import { useQuery } from 'react-query';
 import { queryConfig } from './@config';
+import { useQuery } from '@tanstack/react-query';
 
 export const getMainList = () => {
 	const {
 		isLoading,
 		error,
 		data: mainList,
-	} = useQuery('mainList', ProductApi.mainList, queryConfig);
+	} = useQuery(['mainList'], ProductApi.mainList, queryConfig);
 
 	if (isLoading) {
 		return <div>Loading...</div>;

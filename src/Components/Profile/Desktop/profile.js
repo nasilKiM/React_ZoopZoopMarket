@@ -5,7 +5,11 @@ const Profile = ({ userProfileUrl }) => {
 	return (
 		<>
 			<S.Circle>
-				{userProfileUrl === null ? <S.Img src="/Assets/Images/기본 프로필.png"></S.Img> : <S.Img src={profileUrl}></S.Img>}
+				{userProfileUrl === null ? (
+					<S.Img src="/Assets/Images/기본 프로필.png"></S.Img>
+				) : (
+					<S.Img src={profileUrl}></S.Img>
+				)}
 			</S.Circle>
 		</>
 	);
@@ -14,8 +18,8 @@ const Profile = ({ userProfileUrl }) => {
 export default Profile;
 
 const Circle = styled.div`
-	width: 100px;
-	height: 100px;
+	width: 100%;
+	height: 100%;
 	border-radius: 50px;
 	overflow: hidden;
 	`;

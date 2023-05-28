@@ -1,14 +1,91 @@
+import ChatApis from 'Apis/chatApis';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
+import { useSocket } from 'Context/socket';
 import { flexAllCenter } from 'Styles/common';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { isDesktop } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item }) => {
+const DetailContent = ({ state, item, itemAllInfo }) => {
 	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
 	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-
+	console.log(itemAllInfo);
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+
+	const [chatRoom, setChatRoom] = useState();
+	const navigate = useNavigate();
+
+	const so = useSocket();
+	console.log(so);
+
+	useEffect(() => {
+		so?.on('receiveMessage', data => {
+			console.log(data);
+		});
+	}, []);
+
+	const onClickChatStartBtn = async () => {
+		try {
+			// 채팅방생성
+			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
+			console.log(setChatRoomRes);
+			// 같은 방에 join
+			so.emit('join', { room_idx: setChatRoomRes.data.idx });
+			const message = '채팅방을 시작합니다';
+			const data = {
+				title: item.title,
+				createdAt: item.createdAt,
+				prod_idx: item.idx,
+				room_idx: setChatRoomRes.data.idx,
+				nickName: item.User.nick_name,
+				message,
+				isSeller: itemAllInfo.isSeller,
+			};
+			// 이벤트 발생
+			so.emit('sendMessage', data);
+
+			const saveMsgRes = await ChatApis.saveMsg({
+				room_idx: setChatRoomRes.data.idx,
+				message,
+			});
+			navigate('/chat');
+			console.log(saveMsgRes.data);
+			// navigate('/chat');
+			// so.on('receiveMessage', data => {
+			// 	console.log(data);
+			// });
+		} catch (err) {
+			// navigate('/chat');
+			// console.log('11111111111111111111');
+			// so.emit('sendMessage', '채팅방생성');
+			// so.on('receiveMessage', data => {
+			// 	console.log(data);
+			// });
+			console.log(err);
+			// console.log(!itemAllInfo.chat[0].lastMessage);
+			// alert('이미 채팅방을 생성하였습니다');
+			// if (!itemAllInfo.chat[0].lastMessage) {
+			// 	const message = '채팅방을 시작합니다';
+			// 	const data = {
+			// 		title: item.title,
+			// 		createdAt: item.createdAt,
+			// 		prod_idx: item.idx,
+			// 		room_idx: res.data.idx,
+			// 		nickName: item.User.nick_name,
+			// 		message,
+			// 		isSeller: itemAllInfo.isSeller,
+			// 	};
+			// 	console.log('에러');
+			// 	so.emit('sendMessage', data);
+			// 	so.on('receiveMessage', data => {
+			// 		console.log(data);
+			// 	});
+			// 	alert('다시 생성합니다');
+			// }
+		}
+	};
 
 	return (
 		<>
@@ -23,9 +100,11 @@ const DetailContent = ({ state, item }) => {
 								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div>{item.description}</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
 							<div>
-								<div>채팅하기</div>
+								<div onClick={onClickChatStartBtn}>채팅하기</div>
 								<div>
 									<HeartBtn like={item.liked} idx={item.idx} />
 								</div>
@@ -47,7 +126,9 @@ const DetailContent = ({ state, item }) => {
 								<div>|</div> {date}
 							</div>
 							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div>{item.description}</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
 						</S.SellerWrapper>
 				  )}
 		</>

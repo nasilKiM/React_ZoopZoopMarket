@@ -216,7 +216,6 @@ const LogoImage = styled.img`
 `;
 
 const Title = styled.div`
-	width: 100vw;
 	font-size: 100px;
 	display: absolute;
 	top: 0;

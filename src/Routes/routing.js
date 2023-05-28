@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LandingPage from '../Pages/Landing';
-import ChattingPage from '../Pages/Chat';
 import FormPage from '../Pages/Form';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
@@ -22,6 +21,7 @@ import PrivateRoute from './private';
 import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 import MyReview from 'Pages/MyPage/MyReview/MyReview';
+import ChattingPage from 'Pages/Chat';
 
 const router = createBrowserRouter([
 	{

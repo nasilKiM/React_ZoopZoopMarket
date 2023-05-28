@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
 import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
-import InterestCard from 'Components/Card/Desktop/Card_Interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import ItemCard from 'Components/Card/Desktop/Card';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
@@ -28,10 +28,7 @@ const MyInterestPage = () => {
 						{data.pages.map(page =>
 							page.data.LikeList.map(list => (
 								<S.Card>
-									<InterestCard
-										index={list.Product.idx}
-										products={list.Product}
-									/>
+									<ItemCard index={list.idx} products={list.Product} />
 								</S.Card>
 							)),
 						)}

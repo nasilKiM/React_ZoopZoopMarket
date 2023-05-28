@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
 import SearchList from './components/searchList';
 import { useInView } from 'react-intersection-observer';
+import CategoryConverter from './components/categoryConverter';
 
 const WholeListPage = () => {
 	const { word } = useParams();
@@ -15,13 +16,15 @@ const WholeListPage = () => {
 		setSelected(option);
 	};
 
-	const res = useInfiniteSearch(word, selected);
+	const res = useInfiniteSearch(word.split(','), selected);
 
 	useEffect(() => {
 		res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
 	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	const { data } = res;
+	//console.log('res----->', res);
+	//console.log(data.pages[0].data.pagination.count);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -45,15 +48,23 @@ const WholeListPage = () => {
 		res.fetchNextPage();
 	}, [inView]);
 	//400px
+
+	const convertedCategory = CategoryConverter(word.split(','));
+
+	const searchWord = word === ',' ? '전체' : word;
+	console.log(word);
+
 	return (
 		<S.Wrapper>
 			<S.SelectContainer>
-				<S.SelectBox
-					isSelected={selected == 2}
-					onClick={() => onSelectBoxClick(2)}
-				>
-					통합
-				</S.SelectBox>
+				{word.split(',').length <= 2 && word !== ',' && (
+					<S.SelectBox
+						isSelected={selected === 2}
+						onClick={() => onSelectBoxClick(2)}
+					>
+						통합
+					</S.SelectBox>
+				)}
 				<S.SelectBox
 					isSelected={selected == 0}
 					onClick={() => onSelectBoxClick(0)}
@@ -67,9 +78,17 @@ const WholeListPage = () => {
 					무료
 				</S.SelectBox>
 			</S.SelectContainer>
-			<S.ResultText>
-				<S.ResultWord>"{word}"</S.ResultWord>에 대한 {categoryResult} 검색 결과
-			</S.ResultText>
+			{word.split(',').length < 2 ? (
+				<S.ResultText>
+					<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 {categoryResult}{' '}
+					검색 결과
+				</S.ResultText>
+			) : (
+				<S.ResultText>
+					<S.ResultWord>"{convertedCategory}"</S.ResultWord>에 대한{' '}
+					{categoryResult} 검색 결과
+				</S.ResultText>
+			)}
 			<S.Container>
 				{data &&
 					data.pages.map(pageItems =>
@@ -93,11 +112,28 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	grid-gap: 20px;
+	display: grid;
+	width: 100%;
+	row-gap: 10px;
+	//
+
 	justify-items: center;
 	margin-top: 30px;
-	border: 1px solid red;
+
+	@media screen and (max-width: 767px) {
+		grid-template-columns: repeat(1, minmax(200px, 1fr));
+	}
+	@media screen and (min-width: 768px) and (max-width: 1000px) {
+		grid-template-columns: repeat(2, minmax(280px, 1fr));
+	}
+	@media screen and (min-width: 1001px) and (max-width: 1499px) {
+		grid-template-columns: repeat(3, minmax(280px, 1fr));
+		column-gap: 20px;
+	}
+	@media screen and (min-width: 1500px) {
+		grid-template-columns: repeat(4, minmax(280px, 1fr));
+		column-gap: 40px;
+	}
 `;
 const ResultText = styled.div`
 	display: flex;

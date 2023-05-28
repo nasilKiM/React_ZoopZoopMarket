@@ -2,23 +2,32 @@ import styled from 'styled-components';
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChattingPage from 'Pages/Chat';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useNavigate } from 'react-router';
 import ProductApi from 'Apis/productApi';
 
-const SellerDetailPage = ({ state, product }) => {
-	const item = product && product.data.searchProduct;
+const SellerDetailPage = ({ state, product, idx }) => {
+	// const item = product && product.data.searchProduct;
+	const [item, setItem] = useState();
+	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (product) setItem(product.data.searchProduct);
+		return () => {
+			setItem();
+		};
+	}, []);
 
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
 
-	const socket = 'caeb9fae-7da5-4d70-9508-a4690a3a1f41';
+	// const socket = 'sample용소켓입니다.';
 	const soldOut = async (index, socket) => {
 		try {
 			const response = await ProductApi.soldOut(index, socket);
@@ -29,6 +38,7 @@ const SellerDetailPage = ({ state, product }) => {
 			console.log('에러', error);
 		}
 	};
+
 	return (
 		<S.Wrapper>
 			<S.EditBar>
@@ -51,7 +61,12 @@ const SellerDetailPage = ({ state, product }) => {
 			{detailState === '상세정보' ? (
 				<DetailContent state={state} item={item} />
 			) : (
-				<ChattingPage />
+				<ChattingPage
+					idx={idx}
+					item={item}
+					isSeller={isSeller}
+					setItem={setItem}
+				/>
 			)}
 			<AnotherProduct />
 		</S.Wrapper>
@@ -62,8 +77,11 @@ export default SellerDetailPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 414px;
 	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
 	/* border: 1px solid; */
 	margin: 0 auto;
 `;
@@ -85,13 +103,9 @@ const EditBar = styled.div`
 		}
 	}
 	& > ul {
-		margin: 0 10px;
 		${flexAllCenter}
 		cursor: pointer;
 		gap: 10px;
-		/* & > span {
-			margin: 0 10px;
-		} */
 		& > div {
 			padding: 15px 20px;
 			background-color: #d9d9d9;

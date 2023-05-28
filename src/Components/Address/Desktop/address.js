@@ -24,17 +24,18 @@ const FindAddress = ({ setter }) => {
 	}, [address]);
 
 	return (
-		<div className="address_search">
-			{/* <S.Box>{address}</S.Box> */}
-			<S.SearchBtn onClick={handleComplete}>주소 찾기</S.SearchBtn>
-			{popup && (
-				<Post
-					address={address}
-					setAddress={setAddress}
-					setPopup={setPopup}
-				></Post>
-			)}
-		</div>
+		<>
+			<div className="address_search">
+				<S.SearchBtn onClick={handleComplete}>주소 찾기</S.SearchBtn>
+				{popup && (
+					<Post
+						address={address}
+						setAddress={setAddress}
+						setPopup={setPopup}
+					></Post>
+				)}
+			</div>
+		</>
 	);
 };
 

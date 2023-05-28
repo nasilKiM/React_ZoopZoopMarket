@@ -8,6 +8,9 @@ export const MockAxios = axios.create({ baseURL: 'http://localhost:3004' });
 export const Axios = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
 	withCredentials: true,
+	headers: {
+		Authorization: `Bearer ${TokenService.getToken()}`,
+	},
 });
 
 Axios.interceptors.request.use(
@@ -23,7 +26,7 @@ Axios.interceptors.request.use(
 	},
 );
 
-// 토큰만료되었을때 (아직 사용x)
+// 토큰만료되었을때
 Axios.interceptors.response.use(
 	response => {
 		return response;
@@ -32,8 +35,8 @@ Axios.interceptors.response.use(
 		const originalRequest = error.config;
 		if (error.response.status === 403 && !originalRequest._retry) {
 			originalRequest._retry = true;
-			const res = await axios.post(
-				`${process.env.REACT_APP_BACKEND_URL}/user/jwtRefresh`,
+			const res = await axios.get(
+				`${process.env.REACT_APP_BACKEND_URL}/api/user/refreshToken`,
 			);
 			if (res.status === 200) {
 				TokenService.setToken(res.data.accessToken);

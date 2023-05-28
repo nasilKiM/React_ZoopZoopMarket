@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import MobileSideBar from './Components/sidebar';
+// import MobileSideBar from './Components/sidebar';
 
 const MobileHeader = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -39,11 +39,11 @@ const MobileHeader = () => {
 				cursor="pointer"
 				fontSize="30px"
 			/>
-			<MobileSideBar
+			{/* <MobileSideBar
 				xPosition={xPosition}
 				setXposition={setXposition}
 				setIsOpen={setIsOpen}
-			/>
+			/> */}
 		</S.Wrapper>
 	);
 };

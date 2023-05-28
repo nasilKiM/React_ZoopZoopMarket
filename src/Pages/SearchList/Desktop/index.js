@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import UsedProduct from './components/usedProduct';
 import FreeProduct from './components/freeProduct';
-import { itemListState } from 'Atoms/search.atom';
-import { useRecoilValue } from 'recoil';
+import UsedProduct from './components/usedProduct';
+import { useQuery } from '@tanstack/react-query';
+import ProductApi from 'Apis/productApi';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -13,6 +13,11 @@ const DesktopSearchList = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
+
+	// useEffect(async () => {
+	// 	const res = await ProductApi.getRecent();
+	// 	return console.log('마따따비', res);
+	// }, []);
 
 	// const { data } = useQuery(['product'], () => {
 	// 	return MockAxios.get('/product').then(res => {
@@ -25,7 +30,25 @@ const DesktopSearchList = () => {
 			navigate(`${selected}`);
 		}
 	}, [selected]);
-	const itemList = useRecoilValue(itemListState);
+
+	const freeData = useQuery(['SEARCH_FREE', word], () => {
+		return ProductApi.searchItems(1, word, 1);
+	});
+
+	const usedData = useQuery(['SEARCH_USED', word], () => {
+		return ProductApi.searchItems(1, word, 0);
+	});
+	let productCount = 0;
+
+	// if (freeData && usedData) {
+	// 	productCount =
+	// 		freeData.data.pagination.count + usedData.data.pagination.count;
+	// }
+	freeData && console.log(freeData);
+
+	const { data } = useQuery(['SEARCH_ALL', word], () => {
+		return ProductApi.searchItems(1, word);
+	});
 
 	return (
 		<>
@@ -51,24 +74,32 @@ const DesktopSearchList = () => {
 							무료
 						</S.SelectBox>
 					</S.SelectContainer>
-					<S.ResultContainer>
-						{itemList.length < 1 ? (
-							<S.ResultText>
-								<div>{word}에 대한 검색 결과가 없습니다.</div>
-							</S.ResultText>
-						) : (
-							<S.ResultText>
-								<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
-							</S.ResultText>
-						)}
+					{data && (
+						<S.ResultContainer>
+							{productCount > 0 ? (
+								<S.ResultText>
+									<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
+									(총 {productCount}개)
+								</S.ResultText>
+							) : (
+								<S.ResultText>
+									<S.ResultWord>"{word}"</S.ResultWord>에 대한 검색결과가
+									없습니다.
+								</S.ResultText>
+							)}
 
-						<S.Category>중고 아이템</S.Category>
+							<S.Category>중고 아이템</S.Category>
 
-						<UsedProduct word={word}></UsedProduct>
+							{usedData.data && (
+								<UsedProduct word={word} data={usedData.data}></UsedProduct>
+							)}
 
-						<S.Category>무료 아이템</S.Category>
-						<FreeProduct word={word}></FreeProduct>
-					</S.ResultContainer>
+							<S.Category>무료 아이템</S.Category>
+							{freeData.data && (
+								<FreeProduct word={word} data={freeData.data}></FreeProduct>
+							)}
+						</S.ResultContainer>
+					)}
 				</S.Container>
 			</S.Wrapper>
 		</>

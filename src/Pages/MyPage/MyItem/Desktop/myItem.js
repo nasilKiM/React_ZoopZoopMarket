@@ -1,4 +1,4 @@
-import MyItemCard from 'Components/Card/Desktop/Card_MyItem'
+import ItemCard from 'Components/Card/Desktop/Card';
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
@@ -8,22 +8,22 @@ import styled from 'styled-components';
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0); // 0:중고 1:무료
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, refetch} = res;
+	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
 
-	data && console.log( '/////', data, data.pageParams.length);
-	
 	useEffect(() => {
 		if (!isView) {
 			return;
-		}
-		else if (data && data.pages.length < data.pages[0].data.pagination.endPage) {
+		} else if (
+			data &&
+			data.pages.length < data.pages[0].data.pagination.endPage
+		) {
 			fetchNextPage();
 		}
 	}, [isView]);
-	
+
 	useEffect(() => {
-		refetch()
+		refetch();
 	}, [category]);
 
 	const onClickSaleCategory = () => {
@@ -37,18 +37,22 @@ const MyItemPage = () => {
 	return (
 		<S.Div>
 			<S.CategoryZone>
-				<S.Category category={category === 0} onClick={onClickSaleCategory}>중고 물품</S.Category>
-				<S.Category category={category === 1} onClick={onClickFreeCategory}>무료 나눔</S.Category>
+				<S.Category category={category === 0} onClick={onClickSaleCategory}>
+					중고 물품
+				</S.Category>
+				<S.Category category={category === 1} onClick={onClickFreeCategory}>
+					무료 나눔
+				</S.Category>
 			</S.CategoryZone>
 			<S.Wrapper>
 				<S.Container>
-				{data?.pages.map(page => (
-					page?.data.products.map(item => (
-					<MyItemCard index={item.idx} products={item}/>
-					))
-				))}
+					{data?.pages.map(page =>
+						page?.data.products.map(item => (
+							<ItemCard index={item.idx} products={item} isMine={true} />
+						)),
+					)}
 				</S.Container>
-			<div ref={ref}></div>
+				<div ref={ref}></div>
 			</S.Wrapper>
 		</S.Div>
 	);
@@ -57,8 +61,6 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	/* width: 100%;
-	height: 100%; */
 	margin: 0 auto;
 `;
 
@@ -85,7 +87,6 @@ const Container = styled.div`
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(1)}
 		min-width: 200px;
-
 	}
 `;
 
@@ -93,7 +94,7 @@ const CategoryZone = styled.div`
 	display: flex;
 	margin-bottom: 30px;
 	& > div:first-child {
-		border-right: solid 3px ${({theme}) => theme.color.primary[100]};
+		border-right: solid 3px ${({ theme }) => theme.color.primary[100]};
 	}
 `;
 
@@ -102,9 +103,9 @@ const Category = styled.div`
 	height: 30px;
 	${flexAllCenter}
 	:hover {
-		font-size: ${({theme}) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.md};
 	}
-	color: ${({category}) => category ? '#FF3647' : 'black'}
+	color: ${({ category }) => (category ? '#FF3647' : 'black')};
 `;
 
 const S = {
@@ -112,5 +113,5 @@ const S = {
 	Wrapper,
 	Container,
 	CategoryZone,
-	Category
+	Category,
 };
