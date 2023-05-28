@@ -1,4 +1,4 @@
-import MyItemCard from 'Components/Card/Desktop/Card_MyItem';
+import ItemCard from 'Components/Card/Desktop/Card';
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ const MyItemPage = () => {
 	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
 
-	//data && console.log('/////', data.pages[0].data.products);
+	data && console.log('/////', data, data.pageParams.length);
 
 	useEffect(() => {
 		if (!isView) {
@@ -50,7 +50,7 @@ const MyItemPage = () => {
 				<S.Container>
 					{data?.pages.map(page =>
 						page?.data.products.map(item => (
-							<MyItemCard index={item.idx} products={item} />
+							<ItemCard index={item.idx} products={item} isMine={true} />
 						)),
 					)}
 				</S.Container>
@@ -63,8 +63,6 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	/* width: 100%;
-	height: 100%; */
 	margin: 0 auto;
 `;
 

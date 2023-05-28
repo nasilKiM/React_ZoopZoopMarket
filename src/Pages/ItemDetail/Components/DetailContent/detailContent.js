@@ -8,11 +8,18 @@ import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item, itemAllInfo }) => {
-	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
-	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-	console.log(itemAllInfo);
-	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+const DetailContent = ({ state, item }) => {
+	const today = dayjs();
+	const created = item && dayjs(item.createdAt);
+	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
+	const diff = today.diff(created, 'day', true);
+
+	const date =
+		diff.toFixed() == 0
+			? '오늘'
+			: diff < 4
+			? `${diff.toFixed()}일전`
+			: cleanDate;
 
 	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
@@ -115,9 +122,6 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 						<S.SellerWrapper isDesktop={isDesktop}>
 							<div>
 								<div>{item.title}</div>
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
 							</div>
 							<div>
 								{item.ProductsTags.map(item => (
@@ -171,7 +175,9 @@ const BuyerWrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 		padding-top: 20px;
-		min-height: 150px;
+		min-height: 180px;
+		line-height: 30px;
+		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
 	// 카테고리
 	& > div:nth-of-type(5) {
@@ -210,11 +216,6 @@ const SellerWrapper = styled.div`
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
-		//하트
-		& > div:last-child {
-			width: 40px;
-			height: 40px;
-		}
 	}
 	//가격
 	& > div:nth-of-type(3) {
@@ -224,9 +225,11 @@ const SellerWrapper = styled.div`
 	//본문
 	& > div:nth-of-type(4) {
 		padding-top: 20px;
-		min-height: 150px;
+		min-height: 180px;
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
+		line-height: 30px;
+		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
 	//태그
 	& > div:nth-of-type(2) {

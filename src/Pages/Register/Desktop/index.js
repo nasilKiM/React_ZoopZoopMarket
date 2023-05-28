@@ -3,11 +3,11 @@ import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
-import { Axios } from 'Apis/@core';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Category from './Components/category';
 
 const RegisterPage = () => {
@@ -18,6 +18,8 @@ const RegisterPage = () => {
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const { idx } = useParams();
+
+	const queryClient = useQueryClient();
 
 	const {
 		register,
@@ -61,13 +63,14 @@ const RegisterPage = () => {
 			clearErrors('tag'); // 에러초기화
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
-			console.log('확인용', tags);
-			if (newTag) {
+			const check = tags.filter(tag => tag === newTag);
+			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
-			}
+			} else e.target.value = '';
 		}
 	};
+
 	const handleDelete = deleteTag => e => {
 		e.preventDefault();
 		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
@@ -80,6 +83,14 @@ const RegisterPage = () => {
 		const formattedPrice = priceValue.toLocaleString();
 		setPrice(formattedPrice);
 	};
+
+	const mutationPost = useMutation(data => {
+		return ProductApi.registerPost(data);
+	});
+
+	const mutationEdit = useMutation(data => {
+		return ProductApi.editPost(data);
+	});
 
 	const onSubmit = data => {
 		if (tags.length === 0) {
@@ -97,20 +108,30 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
-			console.log('이미지 formdata', data.mainImg);
-			console.log('본문내용', data.content);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
 
+			console.log('확인', data.mainImg);
+
 			if (!idx) {
+				if (data.mainImg.length === 0) {
+					window.scrollTo(0, 0);
+					return alert('이미지를 등록해주세요.');
+				}
 				formData.append('price', Number(data.price.replace(/,/g, '')));
-				const res = Axios.post('/api/product', formData, {
-					headers: { 'Content-Type': 'multipart/form-data' },
+				mutationPost.mutate(formData, {
+					onSuccess: () => {
+						queryClient.invalidateQueries(['mainList']);
+						alert('물품등록이 완료되었습니다.');
+						navigate('/main');
+					},
 				});
-				alert('물품등록이 완료되었습니다.');
-				navigate('/main');
 			} else {
+				if (images.length === 0) {
+					window.scrollTo(0, 0);
+					return alert('이미지를 등록해주세요.');
+				}
 				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
@@ -122,29 +143,26 @@ const RegisterPage = () => {
 					}
 				});
 				formData.append('img_url', imgUrls.join());
-				Axios.patch('/api/product', formData, {
-					headers: { 'Content-Type': 'multipart/form-data' },
+				mutationEdit.mutate(formData, {
+					onSuccess: () => {
+						queryClient.invalidateQueries(['mainList']);
+						alert('물품수정이 완료되었습니다.');
+						navigate('/main');
+					},
 				});
-				alert('물품수정이 완료되었습니다.');
-				navigate('/main');
 			}
 		} catch (err) {
 			return console.log(err);
 		}
 	};
+
 	useEffect(() => {
 		console.log(tags);
 	}, [tags]);
+
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles
-				images={images}
-				setImages={setImages}
-				register={register}
-				setValue={setValue}
-				getValues={getValues}
-				errors={errors}
-			/>
+			<UploadFiles register={register} images={images} setImages={setImages} />
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>
@@ -156,6 +174,9 @@ const RegisterPage = () => {
 						{...register('title', {
 							required: '제목은 필수 사항입니다.',
 						})}
+						onKeyDown={e => {
+							if (e.key == 'Enter') e.preventDefault();
+						}}
 					></S.InputBox>
 					{errors.title && <Error role="alert">{errors.title.message}</Error>}
 				</S.InputContainer>
@@ -239,11 +260,11 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	width: 70%;
+	width: 60%;
 	min-width: 414px;
 	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
+	@media screen and (max-width: 1100px) {
+		width: 70%;
 	}
 	margin: 0 auto;
 	margin-top: 50px;
@@ -286,7 +307,7 @@ const Title = styled.span`
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 	@media screen and (max-width: 768px) {
-		min-width: 40px;
+		min-width: 30px;
 	}
 `;
 
@@ -297,7 +318,7 @@ const InputContainer = styled.div`
 
 const InputBox = styled.input`
 	width: 100%;
-	min-width: 400px;
+	min-width: 300px;
 	max-width: 1200px;
 	border: none;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -309,6 +330,9 @@ const InputBox = styled.input`
 	@media (max-width: 1100px) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
+	@media screen and (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const Error = styled.div`
@@ -318,8 +342,16 @@ const Error = styled.div`
 	margin-left: 30px;
 	margin-top: 5px;
 	position: absolute;
-	left: 400px;
+	right: 50px;
 	top: 10px;
+	@media (max-width: 1100px) {
+		right: 50px;
+		top: 10px;
+	}
+	@media (max-width: 768px) {
+		left: -20px;
+		top: 40px;
+	}
 `;
 
 const AddressWrapper = styled.div`
@@ -351,6 +383,9 @@ const Address = styled.div`
 	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const ContentBox = styled.div`
@@ -361,6 +396,9 @@ const ContentBox = styled.div`
 	padding: 0 10px 30px 10px;
 	position: relative;
 	margin: 0 auto;
+	@media (max-width: 768px) {
+		padding: 0 10px 10px 10px;
+	}
 `;
 
 const TxtArea = styled.textarea`
@@ -369,9 +407,12 @@ const TxtArea = styled.textarea`
 	height: 400px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	padding: 20px;
-
 	:focus {
 		outline: none;
+	}
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		height: 250px;
 	}
 `;
 
@@ -385,10 +426,15 @@ const RegisterBtn = styled.button`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: auto;
+	margin-bottom: 50px;
 	cursor: pointer;
 	:hover {
 		background-color: ${({ theme }) => theme.color.primary[400]};
-		/* color: ${({ theme }) => theme.color.white}; */
+	}
+	@media (max-width: 768px) {
+		width: 110px;
+		height: 30px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 
@@ -400,6 +446,16 @@ const TagWrapper = styled.div`
 	padding: 0 10px;
 	margin-left: 100px;
 	margin-bottom: 50px;
+	@media (max-width: 1100px) {
+		margin-left: 100px;
+		margin-bottom: 20px;
+		margin-top: -10px;
+	}
+	@media (max-width: 768px) {
+		margin-left: 95px;
+		margin-bottom: 20px;
+		margin-top: -15px;
+	}
 `;
 
 const TagBox = styled.span`
@@ -416,6 +472,9 @@ const TagContent = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	float: right;
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const DelTag = styled.button`
@@ -428,6 +487,9 @@ const DelTag = styled.button`
 	line-height: 14px;
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+	@media (max-width: 768px) {
+		width: 15px;
 	}
 `;
 

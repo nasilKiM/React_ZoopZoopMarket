@@ -12,7 +12,6 @@ import { useRecoilValue } from 'recoil';
 import { userSocketAtom } from 'Atoms/socket.atom';
 
 const SellerDetailPage = ({ state, product, idx }) => {
-	// const item = product && product.data.searchProduct;
 	const [item, setItem] = useState();
 	const isSeller = product.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
@@ -47,6 +46,16 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	const socketData = useRecoilValue(userSocketAtom);
 	socketData && console.log(socketData.userSocket);
 
+	const deletePost = async () => {
+		try {
+			await ProductApi.deletePost(item.idx);
+			alert('물품이 삭제되었습니다.');
+			navigate('/main');
+		} catch {
+			console.log('삭제 실패');
+		}
+	};
+
 	return (
 		<S.Wrapper>
 			<S.EditBar>
@@ -54,9 +63,8 @@ const SellerDetailPage = ({ state, product, idx }) => {
 					판매완료 변경
 				</div>
 				<ul>
-					<div onClick={() => navigate(`/register/${item.idx}`)}>Edit</div>
-					{/* <span>|</span> */}
-					<div>Delete</div>
+					<div onClick={() => navigate(`/register/${item.idx}`)}>수정</div>
+					<div onClick={deletePost}>삭제</div>
 				</ul>
 			</S.EditBar>
 			<DetailHead item={item} />

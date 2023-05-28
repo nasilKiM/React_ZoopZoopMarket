@@ -3,15 +3,15 @@ import { Axios } from './@core';
 const PATH = '/api/product';
 
 const ProductApi = {
-	register(title, price, description, category, region, tag, images) {
-		return Axios.post(PATH, {
-			title,
-			price,
-			description,
-			category,
-			region,
-			tag,
-			images,
+	registerPost(data) {
+		return Axios.post(PATH, data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
+		});
+	},
+
+	editPost(data) {
+		return Axios.patch(PATH, data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
 		});
 	},
 
@@ -28,6 +28,12 @@ const ProductApi = {
 	likedBtn(prod_idx) {
 		return Axios.post(PATH + '/like', {
 			prod_idx,
+		});
+	},
+
+	deletePost(prod_idx) {
+		return Axios.delete(PATH, {
+			params: { prod_idx },
 		});
 	},
 
