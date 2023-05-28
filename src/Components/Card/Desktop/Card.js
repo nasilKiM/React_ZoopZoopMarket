@@ -1,4 +1,3 @@
-import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,9 +11,8 @@ const ItemCard = ({ index, products, isMine }) => {
 
 	console.log(prod_idx);
 
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
-		await ProductApi.addRecent(index);
 	};
 
 	// products && console.log('이건 카드로 전달된 product', products);
