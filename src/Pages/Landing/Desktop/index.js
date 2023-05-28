@@ -80,7 +80,6 @@ const LandingPage = () => {
 						</div>
 					</S.HoverWhite>
 				</S.Section2>
-				<S.Section3></S.Section3>
 			</S.ContentWrapper>
 		</S.Wrapper>
 	);
@@ -110,6 +109,13 @@ const LandingHeader = styled.div`
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
+	@media (max-width: 768px) {
+		height: 150px;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+	}
 `;
 
 const Logo = styled.div`
@@ -173,6 +179,7 @@ const Section2 = styled.section`
 `;
 
 const White = styled.div`
+	width: 100%;
 	// 야구배트
 	& > div:nth-of-type(1) > img {
 		position: absolute;
@@ -217,9 +224,54 @@ const White = styled.div`
 	& > div:nth-of-type(6) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 170px;
+		max-width: 180px;
 		bottom: 7%;
 		right: 8%;
+	}
+	// 반응형
+	@media (max-width: 768px) {
+		//야구배트
+		& > div:nth-of-type(1) > img {
+			width: 70%;
+			max-width: 150px;
+			top: 30%;
+			left: 5%;
+		}
+		// 눈알
+		& > div:nth-of-type(2) > img {
+			width: 40%;
+			max-width: 90px;
+			top: 35%;
+			left: 45%;
+		}
+		// 소파
+		& > div:nth-of-type(3) > img {
+			width: 90%;
+			max-width: 350px;
+			top: 5%;
+			right: 5%;
+		}
+		// 유모차
+		& > div:nth-of-type(4) > img {
+			width: 50%;
+			max-width: 180px;
+			top: 50%;
+			left: 55%;
+		}
+		// 하이힐
+		& > div:nth-of-type(5) > img {
+			width: 40%;
+			max-width: 180px;
+			bottom: 5%;
+			left: 10%;
+		}
+		// 쪼밥이
+		& > div:nth-of-type(6) > img {
+			width: 100%;
+			max-width: 120px;
+			bottom: 5.5%;
+			right: 10.5%;
+		}
 	}
 `;
 
@@ -280,15 +332,52 @@ const HoverWhite = styled.div`
 		width: 100%;
 		max-width: 330px;
 		bottom: 2.4%;
-		right: 3.4%;
+		right: 3.65%;
 	}
-`;
-
-const Section3 = styled.div`
-	align-items: center;
-
+	// 반응형
 	@media (max-width: 768px) {
-		flex-direction: column;
+		//야구배트
+		& > div:nth-of-type(1) > img {
+			width: 70%;
+			max-width: 100px;
+			top: 33%;
+			left: 10%;
+		}
+		// 눈알
+		& > div:nth-of-type(2) > img {
+			width: 100%;
+			max-width: 210px;
+			top: 29.7%;
+			left: 31.6%;
+		}
+		// 소파
+		& > div:nth-of-type(3) > img {
+			width: 90%;
+			max-width: 300px;
+			top: 6%;
+			right: 10%;
+		}
+		// 유모차
+		& > div:nth-of-type(4) > img {
+			width: 50%;
+			max-width: 180px;
+			top: 48.5%;
+			left: 52%;
+		}
+		// 하이힐
+		& > div:nth-of-type(5) > img {
+			width: 40%;
+			max-width: 110px;
+			bottom: 6%;
+			left: 15%;
+		}
+		// 쪼밥이
+		& > div:nth-of-type(6) > img {
+			width: 50%;
+			width: 220px;
+			bottom: 2%;
+			right: 0%;
+		}
 	}
 `;
 
@@ -303,5 +392,4 @@ const S = {
 	Section2,
 	White,
 	HoverWhite,
-	Section3,
 };

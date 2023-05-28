@@ -29,27 +29,50 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	}, []);
 
 	useEffect(() => {
-		so.emit('join', { room_idx: chatroomIdx });
-		so.on('receiveMessage', async data => {
-			console.log(data);
-			try {
-				const res = await ChatApis.saveMsg({
-					room_idx: data.room_idx,
-					message: data.message,
-				});
-				console.log(res);
-			} catch (err) {
-				console.log(err);
-			}
-			try {
-				const res = await ChatApis.loadChatLog(data.room_idx);
-				console.log(res.data);
-				setChat(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		});
-	}, []);
+		if (so && chatroomIdx) {
+			so.emit('join', { room_idx: chatroomIdx });
+			so.on('receiveMessage', async data => {
+				console.log(data);
+				try {
+					const res = await ChatApis.saveMsg({
+						room_idx: data.room_idx,
+						message: data.message,
+					});
+					console.log(res);
+				} catch (err) {
+					console.log(err);
+				}
+				try {
+					const res = await ChatApis.loadChatLog(data.room_idx);
+					console.log(res.data);
+					setChat(res.data);
+				} catch (err) {
+					console.log(err);
+				}
+			});
+		}
+	}, [so, chatroomIdx]);
+	// 	so.emit('join', { room_idx: chatroomIdx });
+	// 	so.on('receiveMessage', async data => {
+	// 		console.log(data);
+	// 		try {
+	// 			const res = await ChatApis.saveMsg({
+	// 				room_idx: data.room_idx,
+	// 				message: data.message,
+	// 			});
+	// 			console.log(res);
+	// 		} catch (err) {
+	// 			console.log(err);
+	// 		}
+	// 		try {
+	// 			const res = await ChatApis.loadChatLog(data.room_idx);
+	// 			console.log(res.data);
+	// 			setChat(res.data);
+	// 		} catch (err) {
+	// 			console.log(err);
+	// 		}
+	// 	});
+	// }, []);
 
 	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
 	// emit은 이벤트 발생 on 이벤트 생성
@@ -63,6 +86,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	// 	});
 	// }, []);
 	console.log(item);
+
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
 		const message = {
@@ -74,7 +98,10 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			message: inputMsg.current.value,
 			isSeller,
 		};
-		so.emit('sendMessage', message);
+		if (so && so.emit) {
+			so.emit('sendMessage', message);
+		}
+		// so.emit('sendMessage', message);
 		// so.on('receiveMessage', async data => {
 		// 	console.log('수신13244321314234123421', data);
 		// 	try {
