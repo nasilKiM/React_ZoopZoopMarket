@@ -11,8 +11,6 @@ const MyItemPage = () => {
 	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
 
-	// data && console.log('/////', data, data.pageParams.length);
-
 	useEffect(() => {
 		if (!isView) {
 			return;
@@ -63,8 +61,6 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	/* width: 100%;
-	height: 100%; */
 	margin: 0 auto;
 `;
 
