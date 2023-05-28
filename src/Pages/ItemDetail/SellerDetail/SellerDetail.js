@@ -30,14 +30,23 @@ const SellerDetailPage = ({ state, product }) => {
 		}
 	};
 
+	const deletePost = async () => {
+		try {
+			await ProductApi.deletePost(item.idx);
+			alert('물품이 삭제되었습니다.');
+			navigate('/main');
+		} catch {
+			console.log('삭제 실패');
+		}
+	};
+
 	return (
 		<S.Wrapper>
 			<S.EditBar>
 				<div onClick={() => soldOut(item.idx, socket)}>판매완료 변경</div>
 				<ul>
 					<div onClick={() => navigate(`/register/${item.idx}`)}>Edit</div>
-					{/* <span>|</span> */}
-					<div>Delete</div>
+					<div onClick={deletePost}>Delete</div>
 				</ul>
 			</S.EditBar>
 			<DetailHead item={item} />

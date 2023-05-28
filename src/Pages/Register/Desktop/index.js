@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -17,6 +18,8 @@ const RegisterPage = () => {
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const { idx } = useParams();
+
+	const queryClient = useQueryClient();
 
 	const {
 		register,
@@ -61,7 +64,6 @@ const RegisterPage = () => {
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			const check = tags.filter(tag => tag === newTag);
-			console.log(check);
 			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
@@ -82,6 +84,18 @@ const RegisterPage = () => {
 		setPrice(formattedPrice);
 	};
 
+	const mutationPost = useMutation(data => {
+		return Axios.post('/api/product', data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
+		});
+	});
+
+	const mutationEdit = useMutation(data => {
+		return Axios.patch('/api/product', data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
+		});
+	});
+
 	const onSubmit = data => {
 		if (tags.length === 0) {
 			return setError(
@@ -91,6 +105,11 @@ const RegisterPage = () => {
 			);
 		}
 
+		if (data.mainImg.length === 0) {
+			window.scrollTo(0, 0);
+			return alert('이미지를 등록해주세요.');
+		}
+
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
@@ -98,19 +117,19 @@ const RegisterPage = () => {
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
 			formData.append('tag', tags);
-			console.log('이미지 formdata', data.mainImg);
-			console.log('본문내용', data.content);
 			[...data.mainImg].forEach(element => {
 				formData.append('images', element);
 			});
 
 			if (!idx) {
 				formData.append('price', Number(data.price.replace(/,/g, '')));
-				const res = Axios.post('/api/product', formData, {
-					headers: { 'Content-Type': 'multipart/form-data' },
+				mutationPost.mutate(formData, {
+					onSuccess: () => {
+						queryClient.invalidateQueries(['mainList']);
+						alert('물품등록이 완료되었습니다.');
+						navigate('/main');
+					},
 				});
-				alert('물품등록이 완료되었습니다.');
-				navigate('/main');
 			} else {
 				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
@@ -123,11 +142,13 @@ const RegisterPage = () => {
 					}
 				});
 				formData.append('img_url', imgUrls.join());
-				Axios.patch('/api/product', formData, {
-					headers: { 'Content-Type': 'multipart/form-data' },
+				mutationEdit.mutate(formData, {
+					onSuccess: () => {
+						queryClient.invalidateQueries(['mainList']);
+						alert('물품수정이 완료되었습니다.');
+						navigate('/main');
+					},
 				});
-				alert('물품수정이 완료되었습니다.');
-				navigate('/main');
 			}
 		} catch (err) {
 			return console.log(err);
@@ -155,6 +176,9 @@ const RegisterPage = () => {
 						{...register('title', {
 							required: '제목은 필수 사항입니다.',
 						})}
+						onKeyDown={e => {
+							if (e.key == 'Enter') e.preventDefault();
+						}}
 					></S.InputBox>
 					{errors.title && <Error role="alert">{errors.title.message}</Error>}
 				</S.InputContainer>
