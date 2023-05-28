@@ -23,7 +23,6 @@ const KaMap = ({ address }) => {
 		geocoder.addressSearch(`${address}`, callback);
 	};
 
-	//무한반복되어서 useEffect에 넣어둠
 	useEffect(() => {
 		address && searchMap();
 	}, [address]);
@@ -33,7 +32,7 @@ const KaMap = ({ address }) => {
 			center={state.center}
 			isPanto={state.isPanto}
 			style={{ width: '100%', height: '360px' }}
-			level={3}
+			level={4}
 		></Map>
 	);
 };

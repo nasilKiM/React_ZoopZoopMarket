@@ -31,6 +31,12 @@ const ProductApi = {
 		});
 	},
 
+	deletePost(prod_idx) {
+		return Axios.delete(PATH, {
+			params: { prod_idx },
+		});
+	},
+
 	getRecent(prod_idx) {
 		return Axios.get(PATH + '/viewed-list', {
 			prod_idx,
