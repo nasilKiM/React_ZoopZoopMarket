@@ -49,7 +49,7 @@ const Wrap = styled.div`
 
 const Container = styled.div`
 	width: 100%;
-	${gridColumn(4)}
+	${gridColumn(3)}
 	${gridAllCenter}
 	// 선영님 코드
 	/* @media ${({ theme }) => theme.device.tablet} {

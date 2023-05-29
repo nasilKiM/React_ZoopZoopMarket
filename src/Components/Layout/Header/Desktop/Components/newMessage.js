@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NewMessage = () => {
 	return (
 		<S.Wrapper>
-			<div>상품위치</div>
+			{/* <div>상품위치</div> */}
 		</S.Wrapper>
 	);
 };

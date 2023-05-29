@@ -1,10 +1,33 @@
+import MyPageApi from 'Apis/myPageApi';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const AccountBookSelector = props => {
-	const { category, setCategory, year, setYear, month, setMonth } = props;
+	const { year, setYear, month, setMonth } = props;
+
+	const specificMonth = new Date(year, month, 0);
+	const lastDay = specificMonth.getDate();
+
+	
+	// 백엔드 통신에 필요한 params
+	const [category, setCategory] = useState(); // params_category
+	const start = `${year}-${month}-1`; // params_start
+	const end = `${year}-${month}-${lastDay}`; // params_end
+
+	// console.log(monthFirstDate, monthLastDate); // 확인용
+
+	const onClickGetInfo = async () => {
+		try {
+			await MyPageApi.accountBook({ category, start, end}) // page도 param. 아마 useInfiniteQuery 써야할 듯
+		} catch (err) {
+			console.log(err)
+		}
+	};
+
 	return (
+	  <>
 		<S.SelectorsZone>
-			<form>
+			{/* <form> */}
 				<S.LargeSelect
 					name="action_type"
 					id="action_type_select"
@@ -15,9 +38,9 @@ const AccountBookSelector = props => {
 					<option value="sell">판매</option>
 					<option value="purchase">구매</option>
 				</S.LargeSelect>
-			</form>
+			{/* </form> */}
 			<S.RightSideSelectors>
-				<form>
+				{/* <form> */}
 					<S.LargeSelect
 						name="year"
 						id="year_select"
@@ -28,14 +51,15 @@ const AccountBookSelector = props => {
 						<option value="2022">2022 년</option>
 						<option value="2021">2021 년</option>
 					</S.LargeSelect>
-				</form>
-				<form>
+				{/* </form> */}
+				{/* <form> */}
 					<S.LargeSelect
 						name="month"
 						id="month_select"
 						value={month}
 						onChange={({ target: { value } }) => setMonth(String(value))}
 					>
+						<option value="none">=== 선택 ===</option>
 						<option value="01">1 월</option>
 						<option value="02">2 월</option>
 						<option value="03">3 월</option>
@@ -50,9 +74,11 @@ const AccountBookSelector = props => {
 						<option value="12">12 월</option>
 					</S.LargeSelect>
 					{/* <CustomButton variant={"primary"} shape={"moreBtn"} size={"small"}>조회하기</CustomButton> */}
-				</form>
+				{/* </form> */}
 			</S.RightSideSelectors>
 		</S.SelectorsZone>
+		<button onClick={onClickGetInfo}>확인</button>
+	  </>	
 	);
 };
 
