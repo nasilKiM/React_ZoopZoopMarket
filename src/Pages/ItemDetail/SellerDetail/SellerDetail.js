@@ -8,8 +8,8 @@ import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import { useSocket } from 'Context/socket';
-import { useRecoilValue } from 'recoil';
-import { userSocketAtom } from 'Atoms/socket.atom';
+import SoldOutModal from './soldOutModal';
+import ChatApis from 'Apis/chatApis';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
@@ -17,15 +17,18 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
 	const itemAllInfo = product?.data;
-
+	const [isOpenModal, setIsOpenModal] = useState(false);
 	useEffect(() => {
-		if (product) setItem(product.data.searchProduct);
+		if (product) {
+			getChatList(idx);
+			setItem(product.data.searchProduct);
+		}
 		//product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 		return () => {
 			setItem();
 		};
 	}, []);
-	product && console.log(product.data.searchProduct.User.socket);
+	//product && console.log(product.data.searchProduct.User.socket);
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
@@ -33,19 +36,29 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	const so = useSocket();
 	so && console.log(so);
 
-	const soldOut = async (index, socket) => {
+	// const soldOut = async (index, socket) => {
+	// 	try {
+	// 		const response = await ProductApi.soldOut(index, socket);
+	// 		if (response.status === 200) {
+	// 			console.log('물품판매됨', response);
+	// 		}
+	// 		navigate('/mypage');
+	// 	} catch (error) {
+	// 		console.log('에러', error);
+	// 	}
+	// };
+	const [listForSoldOut, setListForSoldOut] = useState([]);
+
+	const getChatList = async prodIdx => {
 		try {
-			const response = await ProductApi.soldOut(index, socket);
-			if (response.status === 200) {
-				console.log('물품판매됨', response);
-			}
-			navigate('/mypage');
-		} catch (error) {
-			console.log('에러', error);
+			const res = await ChatApis.loadSpecificChatRoom(prodIdx);
+			const updatedChatroomList = [...listForSoldOut, res.data];
+			setListForSoldOut(updatedChatroomList);
+			console.log(updatedChatroomList);
+		} catch (err) {
+			console.log(err);
 		}
 	};
-	const socketData = useRecoilValue(userSocketAtom);
-	socketData && console.log(socketData.userSocket);
 
 	const deletePost = async () => {
 		try {
@@ -59,14 +72,26 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	console.log('주람', item);
 
+	const onClickSoldOut = () => {
+		setIsOpenModal(true);
+	};
+	const onCloseModal = () => {
+		setIsOpenModal(false);
+	};
+
 	return (
 		item && (
 			<S.Wrapper>
+				{isOpenModal && (
+					<SoldOutModal
+						roomData={listForSoldOut}
+						onClose={onCloseModal}
+						idx={idx}
+					/>
+				)}
 				<S.EditBar>
 					{item.status == '판매중' && (
-						<div onClick={() => soldOut(item.idx, socketData.userSocket)}>
-							판매완료 변경
-						</div>
+						<div onClick={onClickSoldOut}>판매완료 변경</div>
 					)}
 					{item.status == '판매중' && (
 						<ul>
