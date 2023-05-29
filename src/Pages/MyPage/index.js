@@ -5,11 +5,11 @@ import MyProfile from './Components/MyPofile/myProfile';
 
 const MyPage = () => {
 	return (
-			<S.Container>
-				<ToggleBar />
-				<MyProfile />
-				<Outlet />
-			</S.Container>
+		<S.Container>
+			<ToggleBar />
+			<MyProfile />
+			<Outlet />
+		</S.Container>
 	);
 };
 
@@ -18,6 +18,7 @@ export default MyPage;
 const Container = styled.div`
 	width: 70%;
 	margin: 0 auto;
+	padding-bottom: 50px;
 	@media ${({ theme }) => theme.device.laptop} {
 		width: 90%;
 	}
