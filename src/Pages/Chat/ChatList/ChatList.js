@@ -1,4 +1,5 @@
 import ChatMessage from 'Components/ChatMessage/ChatMessage';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const ChatList = ({
@@ -36,6 +37,7 @@ const ChatList = ({
 						return (
 							<ChatMessage
 								chat={chat}
+								chatroomList={chatroomList}
 								setChatroomIdx={setChatroomIdx}
 								setItem={setItem}
 								item={item}
@@ -51,9 +53,7 @@ const ChatList = ({
 export default ChatList;
 
 const LeftUpperBar = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexAllCenter}
 	height: 10%;
 	background-color: ${({ theme }) => theme.color.primary[400]};
 	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
@@ -66,7 +66,6 @@ const ListContainer = styled.div`
 	height: 90%;
 	display: flex;
 	flex-direction: column;
-	padding: 0 0.2rem;
 	overflow-y: scroll;
 	::-webkit-scrollbar {
 		width: 8px;

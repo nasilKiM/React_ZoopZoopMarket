@@ -1,23 +1,17 @@
-import ProductApi from 'Apis/productApi';
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
 import { flexSpaceBetween } from 'Styles/common';
+import ProductApi from 'Apis/productApi';
 
 const ItemCard = ({ index, products, isMine }) => {
 	const navigate = useNavigate();
-	const { prod_idx } = useParams();
 
-	console.log(prod_idx);
-
-	const onClickCard = async () => {
+	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
-		await ProductApi.addRecent(index);
 	};
-
-	// products && console.log('이건 카드로 전달된 product', products);
 
 	const onClickEdit = e => {
 		e.preventDefault();
@@ -65,7 +59,7 @@ const ItemCard = ({ index, products, isMine }) => {
 						</S.BtnSection>
 					)}
 				</S.Container>
-				{products.status === '판매완료' ? <SoldoutCard /> : ''}
+				{products.status === '판매완료' ? <SoldoutCard index={index} /> : ''}
 			</S.Wrapper>
 		)
 	);

@@ -13,9 +13,10 @@ import { userSocketAtom } from 'Atoms/socket.atom';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
-	const isSeller = product.data.isSeller;
+	const isSeller = product?.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
 	const navigate = useNavigate();
+	const itemAllInfo = product?.data;
 
 	useEffect(() => {
 		if (product) setItem(product.data.searchProduct);
@@ -56,38 +57,47 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		}
 	};
 
+	console.log('주람', item);
+
 	return (
-		<S.Wrapper>
-			<S.EditBar>
-				<div onClick={() => soldOut(item.idx, socketData.userSocket)}>
-					판매완료 변경
-				</div>
-				<ul>
-					<div onClick={() => navigate(`/register/${item.idx}`)}>수정</div>
-					<div onClick={deletePost}>삭제</div>
-				</ul>
-			</S.EditBar>
-			<DetailHead item={item} />
-			<S.DetailAndChatBar>
-				<S.Detail active={detailState} onClick={onClickDetailAndChatBar}>
-					상세정보
-				</S.Detail>
-				<S.Chat active={detailState} onClick={onClickDetailAndChatBar}>
-					채팅내역
-				</S.Chat>
-			</S.DetailAndChatBar>
-			{detailState === '상세정보' ? (
-				<DetailContent state={state} item={item} />
-			) : (
-				<ChattingPage
-					idx={idx}
-					item={item}
-					isSeller={isSeller}
-					setItem={setItem}
-				/>
-			)}
-			<AnotherProduct />
-		</S.Wrapper>
+		item && (
+			<S.Wrapper>
+				<S.EditBar>
+					{item.status == '판매중' && (
+						<div onClick={() => soldOut(item.idx, socketData.userSocket)}>
+							판매완료 변경
+						</div>
+					)}
+					{item.status == '판매중' && (
+						<ul>
+							<div onClick={() => navigate(`/register/${item.idx}`)}>수정</div>
+							<div onClick={deletePost}>삭제</div>
+						</ul>
+					)}
+					{item.status == '판매완료' && <div>판매가 완료된 아이템입니다.</div>}
+				</S.EditBar>
+				<DetailHead item={item} />
+				<S.DetailAndChatBar>
+					<S.Detail active={detailState} onClick={onClickDetailAndChatBar}>
+						상세정보
+					</S.Detail>
+					<S.Chat active={detailState} onClick={onClickDetailAndChatBar}>
+						채팅내역
+					</S.Chat>
+				</S.DetailAndChatBar>
+				{detailState === '상세정보' ? (
+					<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
+				) : (
+					<ChattingPage
+						idx={idx}
+						item={item}
+						isSeller={isSeller}
+						setItem={setItem}
+					/>
+				)}
+				<AnotherProduct />
+			</S.Wrapper>
+		)
 	);
 };
 

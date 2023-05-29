@@ -1,24 +1,58 @@
 import ChatProfile from 'Components/Profile/Desktop/chatProfile';
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const YourMessage = ({ msg, isRead }) => {
+const YourMessage = ({ msg }) => {
+	const createdAt = new Date(msg.createdAt);
+	const AMPM = createdAt.getHours() >= 12 ? '오후' : '오전';
 	return (
-		<>
-			<S.MessageContainer>
+		<S.Wrapper>
+			{/* <S.MessageContainer>{
 				<div>
 					<ChatProfile />
 				</div>
 				<S.Message>{msg.message}</S.Message>
 				<S.MessageTimeUnreadContainer>
 					<S.Unread>{isRead ? 0 : 1}</S.Unread>
-					<S.MessageTime>{msg.timestamp}</S.MessageTime>
+					<S.MessageTime>{msg.createdAt}</S.MessageTime>
 				</S.MessageTimeUnreadContainer>
-			</S.MessageContainer>
-		</>
+			</S.MessageContainer>} */}
+			<div>
+				<ChatProfile />
+			</div>
+			<div>{msg.message}</div>
+			<div>
+				<span>{AMPM}</span>
+				<span>
+					{createdAt.getHours()}:{createdAt.getMinutes()}
+				</span>
+			</div>
+		</S.Wrapper>
 	);
 };
 
 export default YourMessage;
+const Wrapper = styled.div`
+	${flexAllCenter}
+	/* background-color: ${({ theme }) => theme.color.primary[100]}; */
+	justify-content: left;
+	margin: 20px 0;
+	& > :nth-child(2) {
+		word-break: break-all;
+		background-color: ${({ theme }) => theme.color.primary[100]};
+		line-height: 25px;
+		margin-left: 5px;
+		padding: 5px;
+		border-radius: 10px;
+	}
+	& > div:nth-child(3) {
+		margin-left: 5px;
+		font-size: ${({ theme }) => theme.fontSize.es};
+		& > span {
+			margin: 0 1px;
+		}
+	}
+`;
 
 const MessageContainer = styled.div`
 	display: inline-flex;
@@ -68,4 +102,5 @@ const S = {
 	MessageTimeUnreadContainer,
 	Unread,
 	MessageTime,
+	Wrapper,
 };

@@ -3,7 +3,7 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import { useSocket } from 'Context/socket';
 import { flexAllCenter } from 'Styles/common';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -25,33 +25,27 @@ const DetailContent = ({ state, item }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
-	so && console.log(so);
-
-	useEffect(() => {
-		so?.on('receiveMessage', data => {
-			console.log(data);
-		});
-	}, []);
-
+	console.log(111111111111111111, item);
+	// console.log(222222222222222, itemAllInfo);
 	const onClickChatStartBtn = async () => {
 		try {
 			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
 			// 같은 방에 join
-			so && so.emit('join', { room_idx: setChatRoomRes.data.idx });
+			// so?.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
-			const data = {
-				title: item.title,
-				createdAt: item.createdAt,
-				prod_idx: item.idx,
-				room_idx: setChatRoomRes.data.idx,
-				nickName: item.User.nick_name,
-				message,
-				isSeller: itemAllInfo.isSeller,
-			};
-			// 이벤트 발생
-			so && so.emit('sendMessage', data);
+			// const data = {
+			// 	title: item.title,
+			// 	createdAt: item.createdAt,
+			// 	prod_idx: item.idx,
+			// 	room_idx: setChatRoomRes.data.idx,
+			// 	nickName: item.User.nick_name,
+			// 	message,
+			// 	isSeller: itemAllInfo.isSeller,
+			// };
+			// // 이벤트 발생
+			// so.emit('sendMessage', data);
 
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
@@ -64,7 +58,7 @@ const DetailContent = ({ state, item }) => {
 			// 	console.log(data);
 			// });
 		} catch (err) {
-			// navigate('/chat');
+			navigate('/chat');
 			// console.log('11111111111111111111');
 			// so.emit('sendMessage', '채팅방생성');
 			// so.on('receiveMessage', data => {
@@ -93,6 +87,7 @@ const DetailContent = ({ state, item }) => {
 			// }
 		}
 	};
+	console.log('주람', item);
 
 	return (
 		<>
@@ -111,11 +106,18 @@ const DetailContent = ({ state, item }) => {
 								{item.description.replaceAll('\r,\n', '<br />')}
 							</div>
 							<div>
-								<div onClick={onClickChatStartBtn}>채팅하기</div>
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
+								{item.status == '판매중' && (
+									<div onClick={onClickChatStartBtn}>채팅하기</div>
+								)}
+								{item.status == '판매중' && (
+									<div>
+										<HeartBtn like={item.liked} idx={item.idx} />
+									</div>
+								)}
 							</div>
+							{item.status == '판매완료' && (
+								<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+							)}
 						</S.BuyerWrapper>
 				  )
 				: item && (
@@ -204,6 +206,15 @@ const BuyerWrapper = styled.div`
 	}
 `;
 
+const solidOut = styled.div`
+	width: 100%;
+	padding: 15px;
+	${flexAllCenter}
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.black};
+`;
+
 const SellerWrapper = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	margin: 25px 10px;
@@ -249,5 +260,6 @@ const SellerWrapper = styled.div`
 
 const S = {
 	BuyerWrapper,
+	solidOut,
 	SellerWrapper,
 };

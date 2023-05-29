@@ -2,17 +2,21 @@ import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import { useSocket } from 'Context/socket';
+import MessageDetail from '../Message/Message';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
+	const [eventCheck, setEventCheck] = useState(true);
 	const so = useSocket();
+	const itemRes = item ? item : itemInfo?.searchProduct;
+	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
+	console.log(itemRes);
 	console.log(chat);
-	useEffect(() => {
-		if (!item) item = itemInfo;
-	}, []);
+	console.log(111111111111111, isSeller);
+	console.log(3333333, itemInfo);
 
 	useEffect(() => {
 		// 채팅 목록을 마운트시 불러오기
@@ -29,50 +33,22 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	}, []);
 
 	useEffect(() => {
-		if (so && chatroomIdx) {
-			so.emit('join', { room_idx: chatroomIdx });
-			so.on('receiveMessage', async data => {
-				console.log(data);
-				try {
-					const res = await ChatApis.saveMsg({
-						room_idx: data.room_idx,
-						message: data.message,
-					});
-					console.log(res);
-				} catch (err) {
-					console.log(err);
-				}
-				try {
-					const res = await ChatApis.loadChatLog(data.room_idx);
-					console.log(res.data);
-					setChat(res.data);
-				} catch (err) {
-					console.log(err);
-				}
-			});
-		}
-	}, [so, chatroomIdx]);
-	// 	so.emit('join', { room_idx: chatroomIdx });
-	// 	so.on('receiveMessage', async data => {
-	// 		console.log(data);
-	// 		try {
-	// 			const res = await ChatApis.saveMsg({
-	// 				room_idx: data.room_idx,
-	// 				message: data.message,
-	// 			});
-	// 			console.log(res);
-	// 		} catch (err) {
-	// 			console.log(err);
-	// 		}
-	// 		try {
-	// 			const res = await ChatApis.loadChatLog(data.room_idx);
-	// 			console.log(res.data);
-	// 			setChat(res.data);
-	// 		} catch (err) {
-	// 			console.log(err);
-	// 		}
-	// 	});
-	// }, []);
+		so?.emit('join', { room_idx: chatroomIdx });
+		so?.on('receiveMessage', async data => {
+			console.log(data);
+			try {
+				const res = await ChatApis.loadChatLog(data.room_idx);
+				console.log(res.data);
+				setChat(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+			setEventCheck(prev => !prev);
+		});
+		// return () => {
+		// 	so.emit('leave', { room_idx: chatroomIdx });
+		// };
+	}, []);
 
 	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
 	// emit은 이벤트 발생 on 이벤트 생성
@@ -90,43 +66,39 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
 		const message = {
-			title: item?.title,
-			createdAt: item?.createdAt,
-			prod_idx: item?.idx,
+			title: itemRes?.title,
+			createdAt: itemRes?.createdAt,
+			prod_idx: itemRes?.idx,
 			room_idx: chatroomIdx,
-			nickName: item?.User.nick_name,
+			nickName: itemRes?.User.nick_name,
 			message: inputMsg.current.value,
-			isSeller,
+			isSeller: itemSeller,
 		};
-		if (so && so.emit) {
-			so.emit('sendMessage', message);
+		console.log(message);
+		so?.emit('sendMessage', message);
+		try {
+			const res = await ChatApis.saveMsg({
+				room_idx: message.room_idx,
+				message: message.message,
+			});
+			console.log(res);
+		} catch (err) {
+			console.log(err);
 		}
-		// so.emit('sendMessage', message);
-		// so.on('receiveMessage', async data => {
-		// 	console.log('수신13244321314234123421', data);
-		// 	try {
-		// 		const res = await ChatApis.loadChatLog(chatroomIdx);
-		// 		console.log(res.data);
-		// 		setChat(res.data);
-		// 	} catch (err) {
-		// 		console.log(err);
-		// 	}
-		// });
-		// try {
-		// 	const res = await ChatApis.saveMsg({
-		// 		room_idx: chatroomIdx,
-		// 		message: inputMsg.current.value,
-		// 	});
-		// 	console.log(res);
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		try {
+			const res = await ChatApis.loadChatLog(message.room_idx);
+			console.log(res.data);
+			setChat(res.data);
+		} catch (err) {
+			console.log(err);
+		}
+		setEventCheck(prev => !prev);
+		inputMsg.current.value = '';
 		console.log('클릭');
 	};
 
 	return (
 		<>
-			<div>{chat?.length}</div>
 			<S.ChattingTitle>
 				<img src="Assets/Images/bicycle.jpg" />
 				<div>
@@ -144,7 +116,11 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
-				{/* <MessageDetail chat={chat} /> */}
+				<MessageDetail
+					chat={chat}
+					eventCheck={eventCheck}
+					setEventCheck={setEventCheck}
+				/>
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>

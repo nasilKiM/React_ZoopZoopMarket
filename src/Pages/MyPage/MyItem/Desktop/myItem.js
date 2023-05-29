@@ -11,8 +11,6 @@ const MyItemPage = () => {
 	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
 
-	data && console.log('/////', data, data.pageParams.length);
-
 	useEffect(() => {
 		if (!isView) {
 			return;

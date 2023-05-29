@@ -4,6 +4,7 @@ import BasicFooter from './Footer';
 import styled from 'styled-components';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
+import RecentProduct from 'Components/RecentCard';
 
 const LayOut = () => {
 	return (
@@ -11,6 +12,9 @@ const LayOut = () => {
 			<Wrapper>
 				<WebHeader />
 			</Wrapper>
+			<RecentWrap>
+				<RecentProduct />
+			</RecentWrap>
 			<Outlet />
 			<BasicFooter />
 			<TopBtn />
@@ -38,4 +42,11 @@ const Wrapper = styled.div`
 const BtnSection = styled.div`
 	width: 50px;
 	height: 50px;
+`;
+
+const RecentWrap = styled.div`
+	position: fixed;
+	top: 500px;
+	right: 130px;
+	z-index: 100;
 `;
