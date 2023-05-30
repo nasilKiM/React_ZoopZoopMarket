@@ -18,7 +18,12 @@ const MyPageApi = {
 	},
 	accountBook({ page, category, start, end }) {
 		return Axios.get(PATH + '/account-book', {
-			params: { page, category, start, end },
+			params: {
+				page: page,
+				category: category,
+				start: start,
+				end: end,
+			},
 		});
 	},
 };

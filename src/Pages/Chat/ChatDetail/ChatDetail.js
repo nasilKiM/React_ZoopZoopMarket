@@ -3,17 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import { useSocket } from 'Context/socket';
 import MessageDetail from '../Message/Message';
+import { flexAllCenter } from 'Styles/common';
 
-const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
+const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
 	const [eventCheck, setEventCheck] = useState(true);
+
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
-
 	useEffect(() => {
 		const loadChatLog = async () => {
 			try {
@@ -24,24 +25,27 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			}
 		};
 		loadChatLog();
-	}, []);
+	}, [chatroomIdx]);
 
 	useEffect(() => {
 		so?.emit('join', { room_idx: chatroomIdx });
 		so?.on('receiveMessage', async data => {
 			try {
 				const res = await ChatApis.loadChatLog(data.room_idx);
-
 				setChat(res.data);
 			} catch (err) {
 				console.log(err);
 			}
 			setEventCheck(prev => !prev);
 		});
+		return () => {
+			so?.emit('leave', { room_idx: chatroomIdx });
+		};
 	}, []);
 
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
+		if (!inputMsg.current.value.trim()) return;
 		const message = {
 			title: itemRes?.title,
 			createdAt: itemRes?.createdAt,
@@ -70,22 +74,26 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 		inputMsg.current.value = '';
 	};
 
+	const pressEnter = e => {
+		// console.log(e.nativeEvent.isComposing);
+		// console.log(e.key);
+		// console.log(e.shiftKey);
+		if (e.key === 'Enter' && e.shiftKey) {
+			return;
+		} else if (e.key === 'Enter') {
+			onClickSendMsgBtn(e);
+		}
+	};
 	return (
 		<>
 			<S.ChattingTitle>
-				<img src="Assets/Images/bicycle.jpg" />
 				<div>
-					<S.CurrentChatting>
-						{/* <div>{chatDetail.product.title}</div>
-						<div> {chatDetail.product.status}</div> */}
-					</S.CurrentChatting>
-					<S.Price>
-						{/* <span>{chatDetail.product.price}</span> */}
-						{/* 판매자가 구매자를 구매확정했을경우에 보여야함
-					+ 후기남긴경우에는 후기수정하기가 떠야함. */}
-						{/* <button>후기 남기기</button>
-						<button>후기 수정하기</button> */}
-					</S.Price>
+					<img src={itemRes?.img_url} />
+					<div>
+						<div>{itemRes?.title}</div>
+						<span>{itemRes?.price}</span>
+					</div>
+					{/* <div> {itemRes?.status}</div> */}
 				</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
@@ -97,7 +105,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>
-					<textarea ref={inputMsg} autoFocus={true} />
+					<textarea ref={inputMsg} autoFocus={true} onKeyDown={pressEnter} />
 					<div>
 						<S.SubmitButton type="submit" onClick={onClickSendMsgBtn}>
 							전송
@@ -114,10 +122,10 @@ export default ChatDetail;
 const ChattingTitle = styled.div`
 	width: 100%;
 	height: 10%;
-	display: inline-flex;
-	align-items: center;
+	${flexAllCenter}
+	justify-content: space-between;
 	padding: 0 2rem;
-	background-color: ${({ theme }) => theme.color.subLightGreen};
+	background-color: ${({ theme }) => theme.color.primary[100]};
 	img {
 		min-width: 50px;
 		max-height: 50px;
@@ -129,20 +137,9 @@ const ChattingTitle = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-`;
-
-const CurrentChatting = styled.div`
-	width: 100%;
-	margin-bottom: 10px;
-	display: flex;
-	justify-content: space-between;
-	/* div {
-		margin-right: 15px;
-	} */
-`;
-
-const Price = styled.div`
-	justify-content: space-between;
+	& > div:nth-of-type(1) {
+		${flexAllCenter}
+	}
 `;
 
 const ChattingContent = styled.div`
@@ -186,6 +183,8 @@ const ChattingForm = styled.form`
 		outline: none;
 		font-family: 'Arial', sans-serif;
 		resize: none;
+		white-space: pre-wrap;
+		word-break: break-all;
 	}
 	div {
 		display: inline-flex;
@@ -208,8 +207,6 @@ const SubmitButton = styled.button`
 
 const S = {
 	ChattingTitle,
-	CurrentChatting,
-	Price,
 	ChattingContent,
 	ChattingFormContainer,
 	ChattingForm,

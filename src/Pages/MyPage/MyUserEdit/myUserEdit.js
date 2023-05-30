@@ -11,6 +11,7 @@ import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import CustomButton from 'Components/Buttons/button';
+import AlertModal from 'Components/Alert/alertModal';
 import { useQuery } from '@tanstack/react-query';
 
 const MyUserEdit = ({ userInfo }) => {
@@ -19,6 +20,8 @@ const MyUserEdit = ({ userInfo }) => {
 
 	const [address, setAddress] = useState();
 	const [nickMsg, setNickMsg] = useState('');
+	const [modal, setModal] = useState(false);
+	data && console.log(data);
 
 	const {
 		register,
@@ -38,8 +41,8 @@ const MyUserEdit = ({ userInfo }) => {
 
 		try {
 			await UserApi.userInfoEdit(infoEdit);
-			alert('회원정보가 변경되었습니다');
-			navigate('/mypage/item');
+
+			setModal(true);
 		} catch (err) {
 			alert(
 				err.response.data.message,
@@ -133,6 +136,12 @@ const MyUserEdit = ({ userInfo }) => {
 						>
 							저장하기
 						</S.Button>
+						{modal && (
+							<AlertModal
+								content={'회원정보가 변경되었습니다'}
+								props={'/mypage/item'}
+							/>
+						)}
 					</S.Form>
 				</S.Wrap>
 				<S.Wrap2>

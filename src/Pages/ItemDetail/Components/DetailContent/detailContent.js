@@ -25,12 +25,12 @@ const DetailContent = ({ state, item }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
-
 	const onClickChatStartBtn = async () => {
 		try {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 
 			const message = '채팅방을 시작합니다';
+
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
 				message,

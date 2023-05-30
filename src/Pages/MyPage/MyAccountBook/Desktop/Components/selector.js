@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 const AccountBookSelector = props => {
 	const { category, setCategory, year, setYear, month, setMonth } = props;
+
 	return (
-		<S.SelectorsZone>
-			<form>
+		<>
+			<S.SelectorsZone>
 				<S.LargeSelect
 					name="action_type"
 					id="action_type_select"
@@ -15,9 +16,7 @@ const AccountBookSelector = props => {
 					<option value="seller">판매</option>
 					<option value="buyer">구매</option>
 				</S.LargeSelect>
-			</form>
-			<S.RightSideSelectors>
-				<form>
+				<S.RightSideSelectors>
 					<S.LargeSelect
 						name="year"
 						id="year_select"
@@ -28,14 +27,13 @@ const AccountBookSelector = props => {
 						<option value="2022">2022 년</option>
 						<option value="2021">2021 년</option>
 					</S.LargeSelect>
-				</form>
-				<form>
 					<S.LargeSelect
 						name="month"
 						id="month_select"
 						value={month}
 						onChange={({ target: { value } }) => setMonth(String(value))}
 					>
+						<option value="none">=== 선택 ===</option>
 						<option value="01">1 월</option>
 						<option value="02">2 월</option>
 						<option value="03">3 월</option>
@@ -49,10 +47,9 @@ const AccountBookSelector = props => {
 						<option value="11">11 월</option>
 						<option value="12">12 월</option>
 					</S.LargeSelect>
-					{/* <CustomButton variant={"primary"} shape={"moreBtn"} size={"small"}>조회하기</CustomButton> */}
-				</form>
-			</S.RightSideSelectors>
-		</S.SelectorsZone>
+				</S.RightSideSelectors>
+			</S.SelectorsZone>
+		</>
 	);
 };
 
@@ -87,6 +84,9 @@ const LargeSelect = styled.select`
 	border-radius: 0.5em;
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	cursor: pointer;
+	:hover {
+		border: solid 3px red;
+	}
 	@media ${({ theme }) => theme.device.laptop} {
 		width: 15vw;
 		font-size: ${({ theme }) => theme.fontSize.sm};
@@ -98,7 +98,6 @@ const LargeSelect = styled.select`
 `;
 
 const S = {
-	// Wrapper,
 	SelectorsZone,
 	RightSideSelectors,
 	LargeSelect,

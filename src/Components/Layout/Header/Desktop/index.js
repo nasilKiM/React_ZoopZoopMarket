@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
@@ -13,7 +13,7 @@ import NewMessage from './Components/newMessage';
 import UserApi from 'Apis/userApi';
 import TokenService from 'Repository/TokenService';
 
-const WebHeader = () => {
+const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
@@ -23,10 +23,14 @@ const WebHeader = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
-	const toggleMenu = () => {
-		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
-	};
-
+	const [popupMsg, setPopupMsg] = useState();
+	useEffect(() => {
+		so?.emit('connect-user', { token: TokenService.getToken() });
+		so?.on('newMessage', data => {
+			setPopupMsg(data);
+		});
+	}, [so]);
+	console.log(1);
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -60,7 +64,9 @@ const WebHeader = () => {
 	return (
 		<>
 			<S.Wrapper>
-				<NewMessage />
+				{popupMsg && (
+					<NewMessage popupMsg={popupMsg} setPopupMsg={setPopupMsg} />
+				)}
 				<S.Container isMobile={isTablet}>
 					{isTablet ? (
 						<>

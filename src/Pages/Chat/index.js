@@ -7,7 +7,6 @@ import ChatDetail from './ChatDetail/ChatDetail';
 const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
-	const [isChatEntrance, setIsChatEntrance] = useState(false);
 	const [itemInfo, setItemInfo] = useState();
 
 	useEffect(() => {
@@ -37,14 +36,13 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 
 		getAllChatList();
 	}, []);
-
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
 				<ChatList
 					chatroomList={chatroomList}
 					setChatroomList={setChatroomList}
-					setIsChatEntrance={setIsChatEntrance}
+					chatroomIdx={chatroomIdx}
 					setChatroomIdx={setChatroomIdx}
 					idx={idx}
 					item={item}

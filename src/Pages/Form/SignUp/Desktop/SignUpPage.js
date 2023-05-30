@@ -5,7 +5,6 @@ import {
 } from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
@@ -14,17 +13,18 @@ import TokenService from 'Repository/TokenService';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import { useMutation } from '@tanstack/react-query';
+import AlertModal from 'Components/Alert/alertModal';
 
 const SignUpPage = () => {
-	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
+	const [modal, setModal] = useState(false);
+	const [loginModal, setLoginModal] = useState(false);
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
-			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
-			navigate('/main');
+			setLoginModal(true);
 		}
 	}, []);
 
@@ -39,8 +39,7 @@ const SignUpPage = () => {
 	// signUp mutation
 	const { mutate } = useMutation(info => UserApi.signup(info), {
 		onSuccess: () => {
-			alert('회원가입이 완료되었습니다.');
-			navigate('/form/login');
+			setModal(true);
 		},
 		onError: err => {
 			alert(err.response.data.message);
@@ -242,6 +241,18 @@ const SignUpPage = () => {
 							>
 								회원가입
 							</S.Button>
+							{modal && (
+								<AlertModal
+									content={'회원가입이 완료되었습니다.'}
+									props={'/form/login'}
+								/>
+							)}
+							{loginModal && (
+								<AlertModal
+									content={'이미 로그인 중입니다. 메인으로 이동합니다.'}
+									props={'/main'}
+								/>
+							)}
 						</S.BtnWrap>
 					</S.Form>
 				</S.Wrap>

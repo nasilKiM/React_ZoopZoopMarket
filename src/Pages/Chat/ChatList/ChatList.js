@@ -4,9 +4,8 @@ import styled from 'styled-components';
 
 const ChatList = ({
 	chatroomList,
-	setChatroomList,
-	setIsChatEntrance,
 	setChatroomIdx,
+	chatroomIdx,
 	idx,
 	item,
 	setItem,
@@ -25,8 +24,10 @@ const ChatList = ({
 							<ChatMessage
 								chat={chat}
 								setChatroomIdx={setChatroomIdx}
+								chatroomIdx={chatroomIdx}
 								item={item}
 								setItem={setItem}
+								setItemInfo={setItemInfo}
 							/>
 						);
 					})}
@@ -38,6 +39,7 @@ const ChatList = ({
 								chat={chat}
 								chatroomList={chatroomList}
 								setChatroomIdx={setChatroomIdx}
+								chatroomIdx={chatroomIdx}
 								setItem={setItem}
 								item={item}
 								setItemInfo={setItemInfo}

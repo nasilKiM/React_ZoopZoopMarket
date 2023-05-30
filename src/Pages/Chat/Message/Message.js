@@ -14,28 +14,18 @@ const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
 				const res = await UserApi.userInfo();
 				setMyNick(res.data.nick_name);
 			} catch (err) {
-				console.log(res);
+				console.log(err);
 			}
 		};
 		myInfo();
 	}, []);
+
 	useEffect(() => {
 		scrollRef.current.scrollIntoView({
-			behavior: 'smooth',
 			block: 'end',
 			inline: 'nearest',
 		});
-	}, [eventCheck]);
-
-	useEffect(() => {
-		setTimeout(() => {
-			scrollRef.current.scrollIntoView({
-				behavior: 'smooth',
-				block: 'end',
-				inline: 'nearest',
-			});
-		}, 100);
-	}, []);
+	}, [chat]);
 	return (
 		<div>
 			<div>

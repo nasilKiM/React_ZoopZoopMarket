@@ -1,20 +1,26 @@
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const ConfirmModal = ({ content, sub }) => {
+const ConfirmModal = ({ children }) => {
 	return (
-		<S.Container>
-			<S.Content>{content}</S.Content>
-			<S.Detail>{sub}</S.Detail>
-			<S.BtnContainer>
-				<S.NO>아니오</S.NO>
-				<S.OK>예</S.OK>
-			</S.BtnContainer>
-		</S.Container>
+		<S.Wrap>
+			<S.Container>{children}</S.Container>
+		</S.Wrap>
 	);
 };
 
 export default ConfirmModal;
+
+const Wrap = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, 0.7);
+	${flexAllCenter}
+`;
 
 const Container = styled.div`
 	width: 350px;
@@ -23,67 +29,11 @@ const Container = styled.div`
 	border: 3px double ${({ theme }) => theme.color.primary[400]};
 	border-radius: 10px;
 	padding: 40px 30px;
-	display: flex;
 	flex-direction: column;
 	margin-bottom: 50px;
 `;
 
-const Content = styled.div`
-	width: 100%;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	${flexAllCenter}
-	margin-bottom: 20px;
-`;
-
-const Detail = styled.div`
-	width: 100%;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	${flexAllCenter}
-	margin-bottom: 30px;
-`;
-
-const BtnContainer = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-`;
-
-const NO = styled.button`
-	width: 80px;
-	height: 30px;
-	border: none;
-	border-radius: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.white};
-	background-color: ${({ theme }) => theme.color.gray[100]};
-	cursor: pointer;
-	margin-right: 20px;
-	:hover {
-		background-color: ${({ theme }) => theme.color.gray[200]};
-		color: ${({ theme }) => theme.color.gray[300]};
-	}
-`;
-
-const OK = styled.button`
-	width: 100px;
-	height: 30px;
-	border: none;
-	border-radius: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.white};
-	background-color: ${({ theme }) => theme.color.primary[300]};
-	cursor: pointer;
-	:hover {
-		background-color: ${({ theme }) => theme.color.primary[400]};
-	}
-`;
-
 const S = {
+	Wrap,
 	Container,
-	Content,
-	Detail,
-	BtnContainer,
-	NO,
-	OK,
 };

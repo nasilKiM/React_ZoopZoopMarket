@@ -5,12 +5,14 @@ import styled from 'styled-components';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 import RecentProduct from 'Components/RecentCard';
+import { useSocket } from 'Context/socket';
 
 const LayOut = () => {
+	const so = useSocket();
 	return (
 		<>
 			<Wrapper>
-				<WebHeader />
+				<WebHeader so={so} />
 			</Wrapper>
 			<Outlet />
 			<BasicFooter />

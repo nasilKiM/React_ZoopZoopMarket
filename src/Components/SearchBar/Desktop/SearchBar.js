@@ -3,18 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { useState } from 'react';
+import AlertModal from 'Components/Alert/alertModal';
 
 const SearchBar = ({ props }) => {
 	const navigate = useNavigate();
 	const searchInputRef = useRef(null);
 	const location = useLocation();
 	const pathOption = location.pathname.split('/')[1];
+	const [modal, setModal] = useState(false);
 
 	const onSearch = async e => {
 		e.preventDefault();
 
 		if (!e.target.searchKey.value) {
-			return alert('검색어를 입력해주세요!');
+			return setModal(true);
 		}
 		try {
 			let searchWord = e.target.searchKey.value;
@@ -47,6 +50,15 @@ const SearchBar = ({ props }) => {
 					fontSize="20px"
 				/>
 			</S.GlassBtn>
+			{modal && (
+				<>
+					<AlertModal
+						content={'검색어를 입력해주세요!'}
+						props={'/main'}
+						setModal={setModal}
+					/>
+				</>
+			)}
 		</S.Wrap>
 	);
 };

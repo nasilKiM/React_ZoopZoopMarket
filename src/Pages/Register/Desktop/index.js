@@ -3,17 +3,19 @@ import UploadFiles from './Components/uploadFiles';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import FindAddress from 'Components/Address/Desktop/address';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 import { flexAlignCenter } from 'Styles/common';
 import KaMap from 'Components/Map/Map';
+import AlertModal from 'Components/Alert/alertModal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Category from './Components/category';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const [images, setImages] = useState([]);
-	const navigate = useNavigate();
+	const [modal, setModal] = useState(false);
+	const [regiModal, setRegiModal] = useState(false);
 
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
@@ -124,6 +126,7 @@ const RegisterPage = () => {
 						navigate('/main');
 					},
 				});
+				setModal(true);
 			} else {
 				if (images.length === 0) {
 					window.scrollTo(0, 0);
@@ -147,6 +150,7 @@ const RegisterPage = () => {
 						navigate('/main');
 					},
 				});
+				setRegiModal(true);
 			}
 		} catch (err) {
 			return console.log(err);
@@ -246,6 +250,12 @@ const RegisterPage = () => {
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
 			</S.Container>
+			{modal && (
+				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />
+			)}
+			{regiModal && (
+				<AlertModal content={'물품수정이 완료되었습니다.'} props={'/main'} />
+			)}
 		</S.Wrapper>
 	);
 };
