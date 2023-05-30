@@ -5,16 +5,13 @@ import YourMessage from './Components/YourChat';
 import DateDivide from './Components/DateDevide';
 
 const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
-	console.log(chat);
 	const scrollRef = useRef();
 	const [myNick, setMyNick] = useState();
 
-	console.log(myNick);
 	useEffect(() => {
 		const myInfo = async () => {
 			try {
 				const res = await UserApi.userInfo();
-				console.log(5555555555555, res);
 				setMyNick(res.data.nick_name);
 			} catch (err) {
 				console.log(res);
@@ -22,25 +19,24 @@ const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
 		};
 		myInfo();
 	}, []);
-	console.log(eventCheck);
+
 	useEffect(() => {
-		console.log(7877777775000);
-		scrollRef.current.scrollIntoView({
-			behavior: 'smooth',
-			block: 'end',
-			inline: 'nearest',
-		});
+		scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		// scrollRef.current?.scrollIntoView({
+		// 	block: 'end',
+		// 	inline: 'nearest',
+		// });
 	}, [eventCheck]);
 
 	useEffect(() => {
-		setTimeout(() => {
-			scrollRef.current.scrollIntoView({
-				behavior: 'smooth',
-				block: 'end',
-				inline: 'nearest',
-			});
-		}, 100);
-	}, []);
+		// scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		// scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		// console.log(scrollRef.current.scrollTop, scrollRef.current.scrollHeight);
+		scrollRef.current.scrollIntoView({
+			block: 'end',
+			inline: 'nearest',
+		});
+	}, [chat]);
 	return (
 		<div>
 			<div>

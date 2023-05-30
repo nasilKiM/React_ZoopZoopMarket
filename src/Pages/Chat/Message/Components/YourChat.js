@@ -52,6 +52,7 @@ const Wrapper = styled.div`
 			margin: 0 1px;
 		}
 	}
+	white-space: pre-wrap;
 `;
 
 const MessageContainer = styled.div`

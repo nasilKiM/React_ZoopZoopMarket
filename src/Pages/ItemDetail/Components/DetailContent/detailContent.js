@@ -11,34 +11,19 @@ import styled from 'styled-components';
 const DetailContent = ({ state, item, itemAllInfo }) => {
 	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
 	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-	console.log(itemAllInfo);
 	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
 
 	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
 
 	const so = useSocket();
-	console.log(111111111111111111, item);
-	console.log(222222222222222, itemAllInfo);
 	const onClickChatStartBtn = async () => {
 		try {
 			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 			console.log(setChatRoomRes);
-			// 같은 방에 join
-			// so?.emit('join', { room_idx: setChatRoomRes.data.idx });
+
 			const message = '채팅방을 시작합니다';
-			// const data = {
-			// 	title: item.title,
-			// 	createdAt: item.createdAt,
-			// 	prod_idx: item.idx,
-			// 	room_idx: setChatRoomRes.data.idx,
-			// 	nickName: item.User.nick_name,
-			// 	message,
-			// 	isSeller: itemAllInfo.isSeller,
-			// };
-			// // 이벤트 발생
-			// so.emit('sendMessage', data);
 
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,

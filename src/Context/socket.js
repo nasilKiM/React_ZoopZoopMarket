@@ -1,3 +1,4 @@
+import TokenService from 'Repository/TokenService';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 const socketContext = createContext();
@@ -9,7 +10,7 @@ const SocketProvider = ({ children }) => {
 	useEffect(() => {
 		if (socket) return;
 		setSocket(io(process.env.REACT_APP_BACKEND_URL));
-		console.log(socket);
+		socket?.emit('connect-user', { token: TokenService.getToken() });
 	}, []);
 
 	return (

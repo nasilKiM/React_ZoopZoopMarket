@@ -7,10 +7,7 @@ import ChatDetail from './ChatDetail/ChatDetail';
 const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
-	const [isChatEntrance, setIsChatEntrance] = useState(false);
 	const [itemInfo, setItemInfo] = useState();
-	console.log(itemInfo);
-	console.log(idx, item);
 	// const { data } = useQuery(['chatList'], () => {
 	// 	return axios.get('/chatList').then(res => {
 	// 		return res.data;
@@ -40,7 +37,6 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 
 		getChatList(idx);
 	}, []);
-	console.log(chatroomList);
 
 	useEffect(() => {
 		if (idx) return;
@@ -49,7 +45,6 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 				const res = await ChatApis.loadAllChatList(1);
 				console.log(res.data);
 				setChatroomList(res.data);
-				console.log('모든채팅');
 			} catch (err) {
 				console.log(err);
 			}
@@ -57,14 +52,13 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 
 		getAllChatList();
 	}, []);
-
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
 				<ChatList
 					chatroomList={chatroomList}
 					setChatroomList={setChatroomList}
-					setIsChatEntrance={setIsChatEntrance}
+					chatroomIdx={chatroomIdx}
 					setChatroomIdx={setChatroomIdx}
 					idx={idx}
 					item={item}

@@ -46,6 +46,7 @@ const Wrapper = styled.div`
 		border-radius: 10px;
 		line-height: 25px;
 	}
+	white-space: pre-wrap;
 `;
 
 const MessageContainer = styled.div`

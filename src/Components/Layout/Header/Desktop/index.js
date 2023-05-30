@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
@@ -12,6 +12,7 @@ import {
 import NewMessage from './Components/newMessage';
 import UserApi from 'Apis/userApi';
 import TokenService from 'Repository/TokenService';
+import { useSocket } from 'Context/socket';
 
 const WebHeader = () => {
 	const navigate = useNavigate();
@@ -22,6 +23,16 @@ const WebHeader = () => {
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
+	const [popupMsg, setPopupMsg] = useState();
+
+	const so = useSocket();
+	useEffect(() => {
+		so?.on('newMessage', data => {
+			console.log(data);
+			setPopupMsg(data);
+		});
+	}, []);
+
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -54,7 +65,9 @@ const WebHeader = () => {
 	return (
 		<>
 			<S.Wrapper>
-				<NewMessage />
+				{popupMsg && (
+					<NewMessage popupMsg={popupMsg} setPopupMsg={setPopupMsg} />
+				)}
 				<S.Container isMobile={isTablet}>
 					{isTablet ? (
 						<>

@@ -7,14 +7,14 @@ import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import { useSocket } from 'Context/socket';
-import { useMutation } from '@tanstack/react-query';
+import { QueryClient, useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 import { useForm } from 'react-hook-form';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const so = useSocket();
-	console.log(so);
+	const queryClient = new QueryClient();
 
 	const {
 		register,
@@ -33,6 +33,9 @@ const LoginPage = () => {
 		onSuccess: res => {
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			TokenService.setToken(res.data.tokenForHeader);
+			console.log(res.data.user.socket);
+			so?.emit('connect-user', { token: TokenService.getToken() });
+			// localStorage.setItem('socketId', res.data.user.socket);
 			navigate('/main');
 		},
 		onError: err => {
@@ -41,7 +44,7 @@ const LoginPage = () => {
 			);
 		},
 	});
-
+	console.log(queryClient);
 	const onSubmit = data => {
 		const loginInfo = {
 			email: data.email,
