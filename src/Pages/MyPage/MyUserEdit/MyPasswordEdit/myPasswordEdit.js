@@ -5,13 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import CustomButton from 'Components/Buttons/button';
+import AlertModal from 'Components/Alert/alertModal';
+import { useState } from 'react';
 
 const MyPasswordEdit = () => {
 	const navigate = useNavigate();
+	const [modal, setModal] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
+		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -23,8 +27,7 @@ const MyPasswordEdit = () => {
 
 		try {
 			await UserApi.userPasswordEdit(info);
-			alert('비밀번호가 변경되었습니다.');
-			navigate('/mypage');
+			setModal(true);
 		} catch (err) {
 			alert(err.response.data.message);
 		}
@@ -59,8 +62,8 @@ const MyPasswordEdit = () => {
 							{...register('confirmPW', {
 								required: true,
 								validate: value => {
-									if ('password' !== value) {
-										return '비밀번호가 일치하지 않습니다.';
+									if (getValues('password') !== value) {
+										return '비밀번호를 다시 확인해 주세요';
 									}
 								},
 							})}
@@ -77,6 +80,12 @@ const MyPasswordEdit = () => {
 					>
 						저장하기
 					</S.Button>
+					{modal && (
+						<AlertModal
+							content={'비밀번호가 변경되었습니다.'}
+							props={'/mypage'}
+						/>
+					)}
 				</S.Form>
 				<S.Text2 onClick={onClickExit}>취소하기</S.Text2>
 			</S.Wrap>

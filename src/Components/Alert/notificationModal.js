@@ -3,13 +3,26 @@ import styled from 'styled-components';
 
 const NotificationModal = ({ content }) => {
 	return (
-		<S.Container>
-			<S.Content>{content}</S.Content>
-		</S.Container>
+		<S.Wrap>
+			<S.Container>
+				<S.Content>{content}</S.Content>
+			</S.Container>
+		</S.Wrap>
 	);
 };
 
 export default NotificationModal;
+
+const Wrap = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, 0.7);
+	${flexAllCenter}
+`;
 
 const Container = styled.div`
 	width: 350px;
@@ -30,29 +43,8 @@ const Content = styled.div`
 	${flexAllCenter}
 `;
 
-const BtnContainer = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-`;
-
-const OK = styled.button`
-	width: 200px;
-	height: 30px;
-	border: none;
-	border-radius: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.white};
-	background-color: ${({ theme }) => theme.color.primary[300]};
-	cursor: pointer;
-	:hover {
-		background-color: ${({ theme }) => theme.color.primary[400]};
-	}
-`;
-
 const S = {
+	Wrap,
 	Container,
 	Content,
-	BtnContainer,
-	OK,
 };
