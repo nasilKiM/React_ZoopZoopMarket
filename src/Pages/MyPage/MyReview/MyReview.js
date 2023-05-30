@@ -1,7 +1,13 @@
+import { useQuery } from '@tanstack/react-query';
+import ReviewApi from 'Apis/reviewApi';
 import ReviewMessage from 'Components/Review/Review';
 import styled from 'styled-components';
 
 const MyReview = () => {
+	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
+
+	data && console.log('주람', data);
+
 	return (
 		<>
 			<Wrapper>

@@ -30,7 +30,6 @@ const AccountBookPage = () => {
 	);
 
 	const list = data?.data.payList;
-	console.log('wnfka', data, monthFirstDate, monthLastDate);
 
 	return (
 		<S.Wrapper>

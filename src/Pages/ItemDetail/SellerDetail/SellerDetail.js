@@ -19,22 +19,29 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	const itemAllInfo = product?.data;
 	const [isOpenModal, setIsOpenModal] = useState(false);
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (product) {
 			getChatList(idx);
 			setItem(product.data.searchProduct);
 		}
-		//product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 		return () => {
 			setItem();
 		};
-	}, []);
+	}, [idx]);
+	product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
+
+	const related =
+		product &&
+		item &&
+		product.data.relatedProduct.product.filter(arr => arr.idx !== item.idx);
+
 	//product && console.log(product.data.searchProduct.User.socket);
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
 	const so = useSocket();
-	so && console.log(so);
+	// so && console.log(so);
 
 	// const soldOut = async (index, socket) => {
 	// 	try {
@@ -54,7 +61,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			const res = await ChatApis.loadSpecificChatRoom(prodIdx);
 			const updatedChatroomList = [...listForSoldOut, res.data];
 			setListForSoldOut(updatedChatroomList);
-			console.log(updatedChatroomList);
+			// console.log(updatedChatroomList);
 		} catch (err) {
 			console.log(err);
 		}
@@ -69,8 +76,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			console.log('삭제 실패');
 		}
 	};
-
-	console.log('주람', item);
 
 	const onClickSoldOut = () => {
 		setIsOpenModal(true);
@@ -120,7 +125,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 						setItem={setItem}
 					/>
 				)}
-				<AnotherProduct />
+				<AnotherProduct product={related} isMine={true} />
 			</S.Wrapper>
 		)
 	);
