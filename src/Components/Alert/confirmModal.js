@@ -21,6 +21,7 @@ const Wrap = styled.div`
 	background-color: rgba(0, 0, 0, 0.7);
 	${flexAllCenter}
 `;
+
 const Container = styled.div`
 	width: 350px;
 	height: 180px;

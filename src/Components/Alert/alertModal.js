@@ -9,6 +9,7 @@ const AlertModal = ({ content, props, setModal }) => {
 		//확인 버튼을 누를때 같은 url 주소에 머물러야 할시 모달을 꺼줄 state
 		setModal(() => false);
 	};
+  
 	return (
 		<S.Wrap>
 			<S.Container>
@@ -22,6 +23,7 @@ const AlertModal = ({ content, props, setModal }) => {
 };
 
 export default AlertModal;
+
 
 const Wrap = styled.div`
 	position: fixed;
@@ -74,4 +76,10 @@ const OK = styled.button`
 	}
 `;
 
-const S = { Wrap, Container, Content, BtnContainer, OK };
+const S = {
+	Container,
+	Content,
+	BtnContainer,
+	OK,
+};
+

@@ -13,6 +13,7 @@ const NotificationModal = ({ content }) => {
 
 export default NotificationModal;
 
+
 const Wrap = styled.div`
 	position: fixed;
 	top: 0;
