@@ -11,16 +11,21 @@ import styled from 'styled-components';
 const MannerMeter = ({ ondo }) => {
 	const [state, setState] = useState(false);
 
+	const onClickMark = () => {
+		console.log(2);
+		setState(true);
+	};
+
 	return (
 		<S.Wrapper>
 			<div>{ondo}도</div>
 			{ondo >= 36.5 && (
-				<>
+				<S.Icon>
 					<FontAwesomeIcon
 						icon={faFaceSmileWink}
 						size="xl"
 						color="orange"
-						onMouseOver={() => setState(true)}
+						onClick={onClickMark}
 						onMouseOut={() => setState(false)}
 					/>
 					{state && (
@@ -29,7 +34,7 @@ const MannerMeter = ({ ondo }) => {
 							disapprovals. Everyone starts at 80
 						</S.MannerMeterExplain>
 					)}
-				</>
+				</S.Icon>
 			)}
 			{ondo < 36.5 && ondo >= 30 && (
 				<>
@@ -37,7 +42,7 @@ const MannerMeter = ({ ondo }) => {
 						icon={faFaceMeh}
 						size="xl"
 						color="orange"
-						onMouseOver={() => setState(true)}
+						onClick={onClickMark}
 						onMouseOut={() => setState(false)}
 					/>
 					{state && (
@@ -54,7 +59,7 @@ const MannerMeter = ({ ondo }) => {
 						icon={faFaceDizzy}
 						size="xl"
 						color="orange"
-						onMouseOver={() => setState(true)}
+						onClick={onClickMark}
 						onMouseOut={() => setState(false)}
 					/>
 					{state && (
@@ -72,18 +77,25 @@ const MannerMeter = ({ ondo }) => {
 export default MannerMeter;
 
 const Wrapper = styled.div`
+	position: relative;
 	${flexAllCenter};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	font-size: ${({ theme }) => theme.fontSize.md};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	& > div {
 		margin-right: 10px;
 	}
 	/* position: relative; */
 `;
 
+const Icon = styled.div`
+	width: 10px;
+	border-radius: 5px;
+	border-color: 1px solid orange;
+`;
+
 const MannerMeterExplain = styled.div`
 	background-color: #d9d9d9;
-	width: 320px;
+	width: 700px;
 	position: absolute;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	top: 40px;
@@ -95,5 +107,6 @@ const MannerMeterExplain = styled.div`
 
 const S = {
 	Wrapper,
+	Icon,
 	MannerMeterExplain,
 };

@@ -9,11 +9,12 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Axios } from 'Apis/@core';
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
+import ReviewApi from 'Apis/reviewApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const ReviewPage = () => {
+const ReviewEditPage = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
@@ -22,16 +23,29 @@ const ReviewPage = () => {
 
 	const target = useRecoilValue(reviewAtom);
 
+	console.log(target);
+
 	const { idx } = useParams();
-	const title = target.title;
-	const [content, setContent] = useState('');
-	const [ondo, setOndo] = useState(3);
+	const title = target && target.Review.title;
+	const [content, setContent] = useState(target.Review.content);
+	const [ondo, setOndo] = useState(target.Review.ondo - 33);
 	const [images, setImages] = useState([]);
+	const [newImg, setNewImg] = useState([]);
+	const [show, setShow] = useState(true);
+
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-	}, []);
+		const imgArr = [];
+		imgArr.push(target.Review.img_url);
+		setImages(imgArr);
+	}, [idx]);
+
+	const mutationEditReview = useMutation(data => {
+		return ReviewApi.editReview(data, target.Review.idx);
+	});
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -41,25 +55,29 @@ const ReviewPage = () => {
 		formData.append('title', title); // title: string
 		formData.append('content', content); // content: string
 		formData.append('ondo', ondo + 33); // ondo: number
+		[...newImg].forEach(element => {
+			formData.append('images', element);
+		});
 
-		for (let i = 0; i < images.length; i++) {
-			formData.append('images', images[i]); // images: File[]
-		}
-
+		const imgUrls = [];
+		console.log(images);
+		images.forEach((element, index) => {
+			if (index === 0) {
+				formData.append('main_url', element);
+			} else {
+				imgUrls.push(element);
+			}
+		});
+		formData.append('img_url', imgUrls.join());
 		try {
-			// POST 요청
-			const response = await Axios.post('/api/review', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-				params: {
-					payList_idx: idx,
+			// Patch 요청
+			mutationEditReview.mutate(formData, {
+				onSuccess: () => {
+					queryClient.invalidateQueries(['reviewDetail']);
+					alert('리뷰가 수정되었습니다.');
+					navigate(`/review/detail/${idx}`);
 				},
 			});
-
-			console.log(response.data);
-			alert('리뷰가 등록되었습니다.');
-			navigate('/mypage/review');
 		} catch (error) {
 			console.error(error.response.data.message);
 		}
@@ -106,11 +124,14 @@ const ReviewPage = () => {
 			<S.Wrapper>
 				<S.ReviewTitle>구매한 아이템</S.ReviewTitle>
 				<S.Target>
-					<S.TargetImg src={target.img_url} />
+					<S.TargetImg src={target.Product.img_url} />
 					<S.TargetContent>
-						<S.TargetTitle>{target.title}</S.TargetTitle>
+						<S.TargetTitle>{target.Product.title}</S.TargetTitle>
 						<S.TargetPrice>
-							{target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원
+							{target.Product.price == 0
+								? '무료나눔'
+								: target.Product.price.toLocaleString()}
+							원
 						</S.TargetPrice>
 					</S.TargetContent>
 				</S.Target>
@@ -140,15 +161,20 @@ const ReviewPage = () => {
 						onChange={event => setContent(event.target.value)}
 						placeholder="본문 내용을 입력해주세요."
 					></S.TxtArea>
-
-					<input
-						type="file"
-						accept="image/*"
-						multiple
-						onChange={event => setImages(event.target.files)}
-					/>
+					<S.ImgWrapper>
+						<input
+							type="file"
+							accept="image/*"
+							multiple
+							onChange={event => {
+								setShow(false);
+								setNewImg(event.target.files);
+							}}
+						/>
+						{show && <S.Preview src={images[0]} />}
+					</S.ImgWrapper>
 					<S.Container>
-						<S.RegisterBtn type="submit">등록하기</S.RegisterBtn>
+						<S.RegisterBtn type="submit">저장하기</S.RegisterBtn>
 					</S.Container>
 				</form>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
@@ -164,7 +190,7 @@ const ReviewPage = () => {
 	);
 };
 
-export default ReviewPage;
+export default ReviewEditPage;
 
 const Wrapper = styled.div`
 	width: 70%;
@@ -265,6 +291,16 @@ const TxtAreaTitle = styled.input`
 	}
 `;
 
+const ImgWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+const Preview = styled.img`
+	width: 100px;
+	height: 100px;
+	margin-top: 10px;
+`;
+
 const RegisterBtn = styled.button`
 	width: 200px;
 	height: 50px;
@@ -293,5 +329,7 @@ const S = {
 	Container,
 	TxtArea,
 	TxtAreaTitle,
+	ImgWrapper,
+	Preview,
 	RegisterBtn,
 };

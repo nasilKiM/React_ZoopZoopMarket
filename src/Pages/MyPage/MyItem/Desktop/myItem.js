@@ -34,6 +34,7 @@ const MyItemPage = () => {
 		setCategory(1);
 	};
 
+	data && console.log('check', data);
 	return (
 		<S.Div>
 			<S.CategoryZone>
@@ -45,13 +46,15 @@ const MyItemPage = () => {
 				</S.Category>
 			</S.CategoryZone>
 			<S.Wrapper>
-				<S.Container>
-					{data?.pages.map(page =>
-						page?.data.products.map(item => (
-							<ItemCard index={item.idx} products={item} isMine={true} />
-						)),
-					)}
-				</S.Container>
+				{data?.pages[0].data.products.length > 0 ? (
+					<S.Container>
+						data?.pages.map(page => page?.data.products.map(item => (
+						<ItemCard index={item.idx} products={item} isMine={true} />
+						)), )
+					</S.Container>
+				) : (
+					<S.Txt>등록된 아이템이 없습니다.</S.Txt>
+				)}
 				<div ref={ref}></div>
 			</S.Wrapper>
 		</S.Div>
@@ -108,10 +111,17 @@ const Category = styled.div`
 	color: ${({ category }) => (category ? '#FF3647' : 'black')};
 `;
 
+const Txt = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	margin-left: 30px;
+`;
+
 const S = {
 	Div,
 	Wrapper,
 	Container,
 	CategoryZone,
 	Category,
+	Txt,
 };

@@ -4,7 +4,6 @@ import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import { useQuery } from '@tanstack/react-query';
 import MyPageApi from 'Apis/myPageApi';
-import ReviewItemCard from 'Components/Card/Desktop/ReviewCard';
 
 const AccountBookPage = () => {
 	const [date, setDate] = useState(new Date());
@@ -29,8 +28,6 @@ const AccountBookPage = () => {
 		}),
 	);
 
-	const list = data?.data.payList;
-
 	return (
 		<S.Wrapper>
 			<AccountBookSelector
@@ -44,14 +41,6 @@ const AccountBookPage = () => {
 				setMonth={setMonth}
 			/>
 			<AccountBookDetailInfo year={year} month={month} />
-			{list &&
-				list.map(item => (
-					<ReviewItemCard
-						payIdx={item.idx}
-						item={item.Product}
-						isSeller={category}
-					/>
-				))}
 		</S.Wrapper>
 	);
 };

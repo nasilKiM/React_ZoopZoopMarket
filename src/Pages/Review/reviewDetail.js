@@ -7,11 +7,11 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Axios } from 'Apis/@core';
-import { useRecoilValue } from 'recoil';
-import { reviewAtom } from 'Atoms/review.atom';
+import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import ReviewApi from 'Apis/reviewApi';
+import { useQuery } from '@tanstack/react-query';
 
 const ReviewDetail = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -20,48 +20,31 @@ const ReviewDetail = () => {
 		},
 	}));
 
-	const target = useRecoilValue(reviewAtom);
-
-	const { idx } = useParams();
-	const title = target.title;
-	const [content, setContent] = useState('');
-	const [ondo, setOndo] = useState(3);
-	const [images, setImages] = useState([]);
 	const navigate = useNavigate();
+	const { idx } = useParams();
+	const { data } = useQuery(['reviewDetail'], () =>
+		ReviewApi.reviewDetail(idx),
+	);
+
+	const purchased = data?.data.PayList.Product;
+	const myReview = data?.data;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const handleSubmit = async e => {
-		e.preventDefault();
+	const onClickEdit = () => {
+		return navigate(`/review/edit/${idx}`);
+	};
 
-		// FormData 생성
-		const formData = new FormData();
-		formData.append('title', title); // title: string
-		formData.append('content', content); // content: string
-		formData.append('ondo', ondo + 33); // ondo: number
-
-		for (let i = 0; i < images.length; i++) {
-			formData.append('images', images[i]); // images: File[]
-		}
-
+	const onClickDelete = async () => {
 		try {
-			// POST 요청
-			const response = await Axios.post('/api/review', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-				params: {
-					payList_idx: idx,
-				},
-			});
-
-			console.log(response.data);
-			navigate('/mypage/account_book');
-		} catch (error) {
-			console.error(error.response.data.message);
+			await ReviewApi.deleteReview(idx);
+		} catch (err) {
+			console.log(err);
 		}
+		alert('리뷰가 삭제되었습니다.');
+		return navigate(`/mypage/review`);
 	};
 
 	const customIcons = {
@@ -100,56 +83,65 @@ const ReviewDetail = () => {
 		value: PropTypes.number.isRequired,
 	};
 
-	console.log(target);
-
 	return (
-		target && (
+		data && (
 			<S.Wrapper>
+				<S.EditBar>
+					<button onClick={onClickEdit}>수정</button>
+					<button onClick={onClickDelete}>삭제</button>
+				</S.EditBar>
 				<S.ReviewTitle>구매한 아이템</S.ReviewTitle>
 				<S.Target>
-					<S.TargetImg src={target.img_url} />
-					<S.TargetContent>
-						<S.TargetTitle>{target.title}</S.TargetTitle>
+					<S.TargetImg src={purchased.img_url} />
+					<S.TargetBox>
+						<S.TargetTitle>{purchased.title}</S.TargetTitle>
 						<S.TargetPrice>
-							{target.price == 0 ? '무료나눔' : target.price}
+							{purchased.price == 0
+								? '무료나눔'
+								: purchased.price.toLocaleString()}
+							원
 						</S.TargetPrice>
-					</S.TargetContent>
+					</S.TargetBox>
 				</S.Target>
-				<form onSubmit={handleSubmit}>
-					<S.ReviewTitle>아이콘을 클릭하여 만족도를 입력해주세요</S.ReviewTitle>
-					<span>
-						왼쪽부터 '매우불만족 - 불만족 - 보통 - 만족 - 매우만족' 순입니다.
-					</span>
-					<S.RatingWrapper>
+				<S.ReviewTitle>판매자 정보</S.ReviewTitle>
+				<S.Target>
+					<S.UserImg src={purchased.User.profile_url} />
+					<S.UserBox>
 						<div>
-							<StyledRating
-								name="highlight-selected-only"
-								value={ondo}
-								IconContainerComponent={IconContainer}
-								getLabelText={value => customIcons[value].label}
-								highlightSelectedOnly
-								onChange={(event, newValue) => {
-									setOndo(newValue);
-								}}
-							/>
+							<S.UserTitle>닉네임 : </S.UserTitle>
+							{purchased.User.nick_name}
 						</div>
-					</S.RatingWrapper>
-
-					<S.ReviewTitle>판매자 님과의 거래 후기를 남겨주세요.</S.ReviewTitle>
-					<S.TxtArea
-						value={content}
-						onChange={event => setContent(event.target.value)}
-						placeholder="본문 내용을 입력해주세요."
-					></S.TxtArea>
-
-					<input
-						type="file"
-						accept="image/*"
-						multiple
-						onChange={event => setImages(event.target.files)}
-					/>
-					<img src={images} />
-				</form>
+						<div>
+							<S.UserTitle>매너온도 : </S.UserTitle>
+							{purchased.User.Ondo.ondo}
+						</div>
+					</S.UserBox>
+				</S.Target>
+				<S.ReviewTitle>만족도</S.ReviewTitle>
+				<span>
+					왼쪽부터 '매우불만족 - 불만족 - 보통 - 만족 - 매우만족' 순입니다.
+				</span>
+				<S.RatingWrapper>
+					<div>
+						<StyledRating
+							name="highlight-selected-only"
+							value={myReview.ondo - 33}
+							IconContainerComponent={IconContainer}
+							getLabelText={value => customIcons[value].label}
+							highlightSelectedOnly
+						/>
+					</div>
+				</S.RatingWrapper>
+				<S.ReviewTitle>
+					{purchased.User.nick_name}님이 판매한 물건에 대한 후기입니다!
+				</S.ReviewTitle>
+				<S.TxtArea style={{ whiteSpace: 'pre-wrap' }}>
+					{myReview.content.replaceAll('\r,\n', '<br />')}
+				</S.TxtArea>
+				<S.ReviewImg
+					src={myReview.img_url}
+					onClick={() => window.open(`${myReview.img_url}`, '_blank')}
+				/>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>
 					구매한 아이템과 무관한 리뷰, 상대방에 대한 욕설, 비방, 명예훼손 등의
@@ -184,6 +176,25 @@ const Wrapper = styled.div`
 	}
 `;
 
+const EditBar = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	${flexAlignCenter}
+	justify-content: end;
+	padding-top: 20px;
+	> button {
+		border: none;
+		${flexAllCenter}
+		padding: 10px 30px;
+		background-color: #d9d9d9;
+		border-radius: 10px;
+		margin-left: 10px;
+		:hover {
+			background-color: ${({ theme }) => theme.color.primary[300]};
+			color: ${({ theme }) => theme.color.white};
+		}
+	}
+`;
+
 const Target = styled.div`
 	width: 100%;
 	display: flex;
@@ -195,7 +206,7 @@ const TargetImg = styled.img`
 	object-fit: cover;
 `;
 
-const TargetContent = styled.div`
+const TargetBox = styled.div`
 	width: 60%;
 	padding: 10px 30px 30px 30px;
 	display: flex;
@@ -222,6 +233,27 @@ const ReviewTitle = styled.h2`
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
+const UserBox = styled.div`
+	width: 60%;
+	padding: 10px 30px 30px 30px;
+	display: flex;
+	flex-direction: column;
+	> div {
+		margin-top: 10px;
+	}
+`;
+
+const UserImg = styled.img`
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+`;
+
+const UserTitle = styled.span`
+	width: 50px;
+`;
+
 const RatingWrapper = styled.div`
 	display: flex;
 	margin: 0 auto;
@@ -241,7 +273,7 @@ const Container = styled.div`
 	display: flex;
 `;
 
-const TxtArea = styled.textarea`
+const TxtArea = styled.div`
 	width: 100%;
 	height: 250px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
@@ -253,44 +285,40 @@ const TxtArea = styled.textarea`
 	}
 `;
 
-const TxtAreaTitle = styled.input`
-	width: 100%;
-	height: 50px;
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	padding: 20px;
-	:focus {
-		outline: none;
-	}
-`;
+// const TxtAreaTitle = styled.input`
+// 	width: 100%;
+// 	height: 50px;
+// 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+// 	font-size: ${({ theme }) => theme.fontSize.sm};
+// 	padding: 20px;
+// 	:focus {
+// 		outline: none;
+// 	}
+// `;
 
-const RegisterBtn = styled.button`
+const ReviewImg = styled.img`
 	width: 200px;
-	height: 50px;
-	border: none;
-	border-radius: 5px;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	background-color: ${({ theme }) => theme.color.subBeige};
-	margin-left: auto;
+	height: 100px;
+	object-fit: contain;
+	margin-top: 10px;
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	cursor: pointer;
-	:hover {
-		background-color: ${({ theme }) => theme.color.primary[400]};
-		color: ${({ theme }) => theme.color.white};
-	}
 `;
 
 const S = {
 	Wrapper,
+	EditBar,
 	Target,
 	TargetImg,
-	TargetContent,
+	TargetBox,
 	TargetTitle,
 	TargetPrice,
 	ReviewTitle,
+	UserBox,
+	UserImg,
+	UserTitle,
 	RatingWrapper,
 	Container,
 	TxtArea,
-	TxtAreaTitle,
-	RegisterBtn,
+	ReviewImg,
 };

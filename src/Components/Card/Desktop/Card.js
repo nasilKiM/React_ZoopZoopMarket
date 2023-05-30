@@ -30,8 +30,6 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 		}
 	};
 
-	products && console.log(products);
-
 	return (
 		products && (
 			<S.Wrapper>

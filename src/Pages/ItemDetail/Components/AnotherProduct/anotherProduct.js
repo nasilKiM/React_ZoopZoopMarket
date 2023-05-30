@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const AnotherProduct = ({ product, isMine }) => {
 	const hasRelated = product && product.length > 0;
-	console.log('연관상품 조회', product);
 
 	return (
 		<S.Wrapper>

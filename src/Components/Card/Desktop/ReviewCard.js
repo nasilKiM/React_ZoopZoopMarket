@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
-import ReviewApi from 'Apis/reviewApi';
 import { reviewAtom } from 'Atoms/review.atom';
 import {
 	flexAlignCenter,
@@ -12,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-const ReviewItemCard = ({ payIdx, item, isSeller }) => {
+const ReviewItemCard = ({ payIdx, item, original }) => {
 	const navigate = useNavigate();
 	const setReviewTarget = useSetRecoilState(reviewAtom);
 
@@ -21,36 +19,24 @@ const ReviewItemCard = ({ payIdx, item, isSeller }) => {
 		await ProductApi.addRecent(item.idx);
 	};
 
-	const onClickReviewDetail = idx => {
-		navigate(`/review/detail/${payIdx}`);
-		const forReviewDetail = data.data.reviewList.filter(
-			item => item.Product.idx === idx,
-		);
-		setReviewTarget(forReviewDetail);
+	const onClickReviewDetail = () => {
+		navigate(`/review/detail/${original.Review.idx}`);
+		setReviewTarget(original);
 	};
 
 	useEffect(() => {
 		setReviewTarget(item);
-	}, [isSeller]);
-
-	console.log('check', item);
+	}, []);
 
 	const onClickReview = () => {
 		return navigate(`/review/${payIdx}`);
 	};
 
-	const { data } = useQuery(['reviewList'], () => ReviewApi.reviewList());
-	data && console.log('이거', data);
+	const hasReview = original && original.Review !== null;
 
-	const hasReview = data?.data.reviewList.filter(item => {
-		return item.idx == 10;
-	});
+	const noReview = original && original.Review == null;
 
-	const noReview = data?.data.reviewList.filter(item => {
-		return item.Review == 'null';
-	});
-
-	data && console.log('여기', hasReview, noReview);
+	console.log('original', original);
 
 	return (
 		item && (
@@ -59,15 +45,15 @@ const ReviewItemCard = ({ payIdx, item, isSeller }) => {
 					<S.ItemImg src={item.img_url} />
 					<S.ItemInfo>
 						<S.ItemTitle>{item.title}</S.ItemTitle>
-						<S.ItemPrice>{item.price}</S.ItemPrice>
+						<S.ItemPrice>{item.price.toLocaleString()}원</S.ItemPrice>
 					</S.ItemInfo>
 					<S.BtnContainer>
-						<S.Btn onClick={onClickDetail}>아이템 보기</S.Btn>
-						{isSeller == 'buyer' && (
-							<S.Btn onClick={onClickReview}>리뷰 작성하기</S.Btn>
+						<S.Btn onClick={() => onClickDetail()}>아이템 보기</S.Btn>
+						{noReview && (
+							<S.Btn onClick={() => onClickReview()}>리뷰 작성하기</S.Btn>
 						)}
-						{isSeller == 'buyer' && (
-							<S.Btn onClick={onClickReviewDetail(item.idx)}>작성한 리뷰</S.Btn>
+						{hasReview && (
+							<S.Btn onClick={() => onClickReviewDetail()}>작성한 리뷰</S.Btn>
 						)}
 					</S.BtnContainer>
 				</S.Container>

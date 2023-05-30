@@ -1,24 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
 import ReviewApi from 'Apis/reviewApi';
-import ReviewMessage from 'Components/Review/Review';
+import ReviewItemCard from 'Components/Card/Desktop/ReviewCard';
 import styled from 'styled-components';
 
 const MyReview = () => {
 	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
 
-	data && console.log('주람', data);
+	const list = data?.data.reviewList;
+	const total = data?.data.reviewList.length;
 
 	return (
 		<>
 			<Wrapper>
 				{/* <span>지금까지 남긴 구매후기를 확인해보세요 🤓</span> */}
-				<Title>거래후기 총 00건</Title>
-				<Container>
-					<ReviewMessage />
-					<ReviewMessage />
-					<ReviewMessage />
-					<ReviewMessage />
-				</Container>
+				<Title>구매 총 {total}건</Title>
+				{list &&
+					list.map(item => (
+						<ReviewItemCard
+							payIdx={item.idx}
+							item={item.Product}
+							original={item}
+						/>
+					))}
 			</Wrapper>
 		</>
 	);
@@ -27,10 +30,6 @@ const MyReview = () => {
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 100%;
-`;
-
-const Container = styled.div`
 	width: 100%;
 `;
 

@@ -25,7 +25,6 @@ const MyProfile = () => {
 		try {
 			const res = await MyPageApi.myMainPage(); // userProfile => User(nickName, profileUrl), chatCount, likeCount, ondo, productsCount
 			setUserProfile(res);
-			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
@@ -54,7 +53,7 @@ const MyProfile = () => {
 	useEffect(() => {
 		getUserInfo();
 		getUserProfile();
-	}, []);
+	}, [profileImg]);
 
 	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
@@ -64,21 +63,19 @@ const MyProfile = () => {
 			{userInfo && userProfile && (
 				<S.Info>
 					<S.ImgWrap>
-						{userInfo && (
-							<S.Img
-								src={
-									userInfo.data.profile_url
+						<S.Img
+							src={
+								userInfo.data.profile_url
+									? profileImg
 										? profileImg
-											? profileImg
-											: userInfo.data.profile_url
-										: '/Assets/Images/기본 프로필.png'
-								}
-							/>
-						)}
+										: userInfo.data.profile_url
+									: '/Assets/Images/기본 프로필.png'
+							}
+						/>
 						<S.ProfileImg>
 							<S.FontAwesomeIconImg
 								icon={faCamera}
-								style={{ color: '#ffffff', fontSize: '20px' }}
+								style={{ color: '#ffffff', fontSize: '15px' }}
 								onClick={handleClick}
 							/>
 							<input
@@ -137,15 +134,18 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 20vh;
+	height: 30%;
 `;
 
 const Info = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	/* justify-content: center; */
 	margin-top: 60px;
 	margin-left: 20px;
+	margin-bottom: 20px;
+	padding-left: 10px;
+	border: 1px solid wheat;
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 80vw;
 		margin-left: 0;
@@ -171,7 +171,6 @@ const Img = styled.img`
 
 const ImgWrap = styled.div`
 	position: relative;
-	margin-right: 50px;
 	@media ${({ theme }) => theme.device.tablet} {
 		margin: 0px;
 	}
@@ -241,7 +240,7 @@ const InfoTitle = styled.div`
 const InfoContent = styled.div`
 	margin-left: 10px;
 	min-width: max-content;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
