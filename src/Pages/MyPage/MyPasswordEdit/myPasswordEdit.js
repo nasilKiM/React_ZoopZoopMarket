@@ -50,21 +50,9 @@ const SignUpPage = () => {
 		}
 	};
 
-	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
 	}, [watch('email')]);
-
-	const onCheckNick = async e => {
-		e.preventDefault();
-		const value = getValues('nick');
-		try {
-			const res = await UserApi.checkNickname(value);
-			setNickMsg(res.data.message);
-		} catch (err) {
-			setNickMsg(err.response.data.message);
-		}
-	};
 
 	useEffect(() => {
 		setNickMsg();
