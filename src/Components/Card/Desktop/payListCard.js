@@ -5,7 +5,6 @@ const PayListCard = ({item}) => {
     item && console.log('item', item);
 
     const {title, price, img_url} = item.Product;
-    console.log(title, price, img_url);
 
 	return (
 		<S.Wrapper>

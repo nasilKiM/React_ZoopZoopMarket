@@ -15,8 +15,6 @@ const ItemCard = ({ index, products, isMine }) => {
 		navigate(`/item_detail/${index}`);
 	};
 
-	// products && console.log('이건 카드로 전달된 product', products);
-
 	const onClickEdit = e => {
 		e.preventDefault();
 		navigate(`/register/${products.idx}`);

@@ -5,7 +5,7 @@ import AccountBookDetailInfo from './Components/detailInfo';
 import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
 
 const AccountBookPage = () => {
-	const [category, setCategory] = useState('seller'); // params_category
+	const [category, setCategory] = useState('seller');
 	const [date, setDate] = useState(new Date());
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -13,15 +13,12 @@ const AccountBookPage = () => {
 	useEffect(()=>{
 		setDate(`${year}-0${month}-01`)
 	}, [year, month])
-	console.log('//////', date, year, month); // 확인용
 
 	const specificMonth = new Date(year, month, 0);
 	const lastDay = specificMonth.getDate();
 
-	const start = `${year}-0${month}-01`; // params_start
-	const end = `${year}-0${month}-${lastDay}`; // params_end
-
-	console.log('&&&&&&&&&카테고리 날짜', category, start, end); // 확인용
+	const start = `${year}-0${month}-01`;
+	const end = `${year}-0${month}-${lastDay}`;
 
 	const res = getAccountBook({
 		page: 1,
@@ -29,7 +26,6 @@ const AccountBookPage = () => {
 		start,
 		end,
 	})
-	res && console.log('###########과연', res);
 
 	return(
 	  <S.Wrapper>

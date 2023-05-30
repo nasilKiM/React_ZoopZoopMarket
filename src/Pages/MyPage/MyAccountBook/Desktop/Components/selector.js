@@ -6,20 +6,16 @@ const AccountBookSelector = props => {
 	return (
 	  <>
 		<S.SelectorsZone>
-			{/* <form> */}
 				<S.LargeSelect
 					name="action_type"
 					id="action_type_select"
 					value={category}
 					onChange={({ target: { value } }) => setCategory(String(value))}
 				>
-					{/* <option value="total">전체</option> */}
 					<option value="sell">판매</option>
 					<option value="purchase">구매</option>
 				</S.LargeSelect>
-			{/* </form> */}
 			<S.RightSideSelectors>
-				{/* <form> */}
 					<S.LargeSelect
 						name="year"
 						id="year_select"
@@ -30,8 +26,6 @@ const AccountBookSelector = props => {
 						<option value="2022">2022 년</option>
 						<option value="2021">2021 년</option>
 					</S.LargeSelect>
-				{/* </form> */}
-				{/* <form> */}
 					<S.LargeSelect
 						name="month"
 						id="month_select"
@@ -52,11 +46,8 @@ const AccountBookSelector = props => {
 						<option value="11">11 월</option>
 						<option value="12">12 월</option>
 					</S.LargeSelect>
-					{/* <CustomButton variant={"primary"} shape={"moreBtn"} size={"small"}>조회하기</CustomButton> */}
-				{/* </form> */}
 			</S.RightSideSelectors>
 		</S.SelectorsZone>
-		{/* <button onClick={onClickGetInfo}>확인</button> */}
 	  </>	
 	);
 };
@@ -106,7 +97,6 @@ const LargeSelect = styled.select`
 `;
 
 const S = {
-	// Wrapper,
 	SelectorsZone,
 	RightSideSelectors,
 	LargeSelect,

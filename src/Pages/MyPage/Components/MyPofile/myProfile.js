@@ -14,7 +14,7 @@ const MyProfile = () => {
 
 	const getUserInfo = async () => {
 		try {
-			const res = await UserApi.userInfo(); // userInfo => email, nick_name, phone, profile_url, region, x, y
+			const res = await UserApi.userInfo();
 			setUserInfo(res);
 		} catch (err) {
 			console.log(err);
@@ -23,9 +23,8 @@ const MyProfile = () => {
 
 	const getUserProfile = async () => {
 		try {
-			const res = await MyPageApi.myMainPage(); // userProfile => User(nickName, profileUrl), chatCount, likeCount, ondo, productsCount
+			const res = await MyPageApi.myMainPage();
 			setUserProfile(res);
-			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
@@ -40,8 +39,7 @@ const MyProfile = () => {
 		setProfileImg(imageUrl);
 
 		try {
-			const res = await UserApi.userProfileEdit(formData);
-			console.log(res);
+			await UserApi.userProfileEdit(formData);
 		} catch (error) {
 			console.log(error);
 		}

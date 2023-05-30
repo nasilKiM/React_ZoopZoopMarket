@@ -6,8 +6,6 @@ import moment from 'moment';
 import PayListCard from 'Components/Card/Desktop/payListCard';
 
 const AccountBookDetailInfo = ({ category, date, setDate, year, month, data }) => {
-	
-	data && console.log(data);
 
 	let saleDateArr = [];
 	data && data.payList.map(item => {
