@@ -176,7 +176,7 @@ const WebHeader = () => {
 							{showOptions && (
 								<MenuOptions onClick={() => setShowOptions(false)}>
 									<S.Menu>
-										<MenuOption to={'/mypage'}>마이페이지</MenuOption>
+										<MenuOption to={'/mypage/item'}>마이페이지</MenuOption>
 									</S.Menu>
 									<S.Menu>
 										<MenuOption onClick={logout}>로그아웃</MenuOption>
