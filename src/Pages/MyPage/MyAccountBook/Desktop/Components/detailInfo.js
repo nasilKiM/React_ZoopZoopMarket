@@ -4,9 +4,9 @@ import 'react-calendar/dist/Calendar.css';
 import './styles.css';
 import moment from 'moment';
 import { PurchaseMockData, SaleMockData } from './mock';
+import PayListCard from 'Components/Card/Desktop/payListCard';
 
-const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
-	
+const AccountBookDetailInfo = ({ category, date, setDate, year, month, data }) => {
 	// mock data 활용 코드
 	let saleDateArr = [];
 	SaleMockData['payList'].map(item => {
@@ -20,29 +20,46 @@ const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
 		purchaseDateArr.push(saleDate.split('T')[0]);
 	});
 
+	data && console.log(data);
+
 	return (
+		<>
 		<S.Wrap>
 			<S.PreviewWrap>
+				<S.PreviewContent1>
+					<S.Date>{year}년 {month}월</S.Date>
+					  {/* <div>
+						{ category === "판매" ?
+						<S.Div1>
+							<div>수입</div>
+							<div><span>{data && data.amount.thisMonthSaleAmount === null ? 0 : data.amount.thisMonthSaleAmount}</span>원</div>
+							<div><span>{data && data.payList.length}건</span></div>
+						</S.Div1>
+						:
+						<S.Div1>
+							<div>지출</div>
+							<div><span>{data && data.amount.thisMonthSaleAmount}</span>원</div>
+							<div><span>{data && data.amount.thisMonthPurchaseAmount === null ? 0 : data.amount.thisMonthPurchaseAmount}</span>원</div>
+							<div><span>{data && data.payList.length}건</span></div>
+						</S.Div1>
+						}
+					  </div> */}
+				</S.PreviewContent1>
 				<S.PreviewContent>
-					<S.Text>
-						{year}년 {month}월에는 이렇게 거래했어요 :)
-					</S.Text>
-				</S.PreviewContent>
-				<S.PreviewContent>
-					<S.SummaryContent1>
+					{/* <S.SummaryContent1>
 						판매건수
 						<br />
 						구매건수
 						<br />
-					</S.SummaryContent1>
-					<S.SummaryContent2>
+						</S.SummaryContent1>
+						<S.SummaryContent2>
 						{SaleMockData.count}건<br />
 						{PurchaseMockData.count}건<br />
-					</S.SummaryContent2>
-					<S.SummaryContent2>
+						</S.SummaryContent2>
+						<S.SummaryContent2>
 						{SaleMockData['amount'].thisMonthSaleAmount}원<br />
 						{PurchaseMockData['amount'].thisMonthPurchaseAmount}원<br />
-					</S.SummaryContent2>
+					</S.SummaryContent2> */}
 				</S.PreviewContent>
 			</S.PreviewWrap>
 			<Calendar
@@ -53,19 +70,26 @@ const AccountBookDetailInfo = ({ date, setDate, year, month }) => {
 				tileContent={({ date }) => {
 					if (saleDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
 						return (
-								<div className="sale"></div>
-						);
-					}
-					if (purchaseDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
-						return (
+							<div className="sale"></div>
+							);
+						}
+						if (purchaseDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
+							return (
 								<div className="purchase"></div>
-						);
-					}
-				}}
-			/>
+								);
+							}
+						}}
+						/>
 			{/* <span>선택한 날짜</span>
           {date.getDate()} */}
 		</S.Wrap>
+		<S.DetailTitle>세부내역</S.DetailTitle>
+		<div>
+			{data && data.payList.map(item => (
+				<PayListCard item={item}/>
+			))}
+		</div>
+		</>
 	);
 };
 
@@ -76,18 +100,37 @@ const Wrap = styled.div`
 	justify-content: space-between;
 `;
 
+const Date = styled.div`
+	padding-left: 30px;
+	color: ${({theme}) => theme.color.primary[400]};
+	font-size: ${({theme}) => theme.fontSize.md};
+`;
+
+const PreviewContent1 = styled.div`
+	height: 80px;
+	display: flex;
+	align-items: center;
+	& > div:nth-child(2) {
+		margin-left: 70px;
+	}
+`;
+
+const Div1 = styled.div`
+	display: flex;
+`;
+
 // 거래내역 박스
 const PreviewWrap = styled.div`
 	width: 48%;
-	height: 65vh;
+	height: 550px;
 	box-shadow: 0px 0px 20px #e0e0e0;
 	border-radius: 15px;
 	background-color: ${({ theme }) => theme.color.primary[100]};
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 	padding-top: 30px;
 	& > div:nth-child(1) {
+		padding-bottom: 30px;
 		border-bottom: solid 3px ${({ theme }) => theme.color.gray[100]};
-		align-items: center;
 	}
 	& > div:nth-child(2) {
 		margin-top: 30px;
@@ -177,10 +220,17 @@ const Graph = styled.div`
 	background-color: ${({ theme }) => theme.color.subBeige};
 `;
 
+const DetailTitle = styled.div`
+	margin: 100px 0 50px;
+`;
+
 const S = {
 	Wrap,
+	Date,
+	PreviewContent1,
 	PreviewWrap,
 	PreviewContent,
+	Div1,
 	Month,
 	Text,
 	SummaryContent1,
@@ -189,4 +239,5 @@ const S = {
 	MonthButtonsZone,
 	MonthButton,
 	Graph,
+	DetailTitle
 };

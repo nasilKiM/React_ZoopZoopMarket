@@ -1,29 +1,8 @@
-import MyPageApi from 'Apis/myPageApi';
-import { useState } from 'react';
 import styled from 'styled-components';
 
 const AccountBookSelector = props => {
-	const { year, setYear, month, setMonth } = props;
-
-	const specificMonth = new Date(year, month, 0);
-	const lastDay = specificMonth.getDate();
-
+	const { category, setCategory, year, setYear, month, setMonth } = props;
 	
-	// 백엔드 통신에 필요한 params
-	const [category, setCategory] = useState(); // params_category
-	const start = `${year}-${month}-1`; // params_start
-	const end = `${year}-${month}-${lastDay}`; // params_end
-
-	// console.log(monthFirstDate, monthLastDate); // 확인용
-
-	const onClickGetInfo = async () => {
-		try {
-			await MyPageApi.accountBook({ category, start, end}) // page도 param. 아마 useInfiniteQuery 써야할 듯
-		} catch (err) {
-			console.log(err)
-		}
-	};
-
 	return (
 	  <>
 		<S.SelectorsZone>
@@ -77,7 +56,7 @@ const AccountBookSelector = props => {
 				{/* </form> */}
 			</S.RightSideSelectors>
 		</S.SelectorsZone>
-		<button onClick={onClickGetInfo}>확인</button>
+		{/* <button onClick={onClickGetInfo}>확인</button> */}
 	  </>	
 	);
 };
@@ -113,6 +92,9 @@ const LargeSelect = styled.select`
 	border-radius: 0.5em;
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	cursor: pointer;
+	:hover {
+		border: solid 3px red;
+	}
 	@media ${({ theme }) => theme.device.laptop} {
 		width: 15vw;
 		font-size: ${({ theme }) => theme.fontSize.sm};

@@ -31,6 +31,7 @@ const LoginPage = () => {
 
 	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {
+			console.log('//////쏘켓', res.data); // 확인용
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			TokenService.setToken(res.data.tokenForHeader);
 			navigate('/main');
