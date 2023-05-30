@@ -20,35 +20,38 @@ const MannerMeter = ({ ondo }) => {
 		<S.Wrapper>
 			<div>{ondo}도</div>
 			{ondo >= 36.5 && (
-				<S.Icon>
+				<>
 					<FontAwesomeIcon
 						icon={faFaceSmileWink}
 						size="xl"
-						color="orange"
+						color="blue"
 						onClick={onClickMark}
 						onMouseOut={() => setState(false)}
 					/>
 					{state && (
-						<S.MannerMeterExplain>
-							Manner Meter is calculated using a mix of reviews, praises and
-							disapprovals. Everyone starts at 80
-						</S.MannerMeterExplain>
+						<S.Icon>
+							<S.MannerMeterExplain>
+								매너 온도는 36도부터 시작되며 거래하면서 받은 리뷰에 의해 변동이
+								생깁니다. 활발한 거래와 좋은 리뷰로 온도를 높여보세요!
+							</S.MannerMeterExplain>
+						</S.Icon>
 					)}
-				</S.Icon>
+				</>
 			)}
 			{ondo < 36.5 && ondo >= 30 && (
 				<>
 					<FontAwesomeIcon
 						icon={faFaceMeh}
 						size="xl"
-						color="orange"
+						color="green"
 						onClick={onClickMark}
 						onMouseOut={() => setState(false)}
 					/>
 					{state && (
 						<S.MannerMeterExplain>
-							Manner Meter is calculated using a mix of reviews, praises and
-							disapprovals. Everyone starts at 80
+							매너 온도의 시작은 36도! 거래하면서 받은 리뷰에 의해 변동됩니다.
+							<br />
+							활발한 거래와 좋은 리뷰로 온도를 높여보세요!
 						</S.MannerMeterExplain>
 					)}
 				</>
@@ -64,8 +67,8 @@ const MannerMeter = ({ ondo }) => {
 					/>
 					{state && (
 						<S.MannerMeterExplain>
-							Manner Meter is calculated using a mix of reviews, praises and
-							disapprovals. Everyone starts at 80
+							매너 온도는 36도부터 시작되며 거래하면서 받은 리뷰에 의해 변동이
+							생깁니다. 활발한 거래와 좋은 리뷰로 온도를 높여보세요!
 						</S.MannerMeterExplain>
 					)}
 				</>
@@ -94,11 +97,12 @@ const Icon = styled.div`
 `;
 
 const MannerMeterExplain = styled.div`
-	background-color: #d9d9d9;
-	width: 700px;
+	background-color: ${({ theme }) => theme.color.primary[100]};
+	width: 400px;
 	position: absolute;
 	font-size: ${({ theme }) => theme.fontSize.xs};
-	top: 40px;
+	padding: 15px;
+	top: 30px;
 	left: 50px;
 	text-align: center;
 	line-height: 20px;

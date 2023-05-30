@@ -58,6 +58,8 @@ const MyProfile = () => {
 	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
 
+	console.log('프로필', userProfile);
+
 	return (
 		<S.Wrapper>
 			{userInfo && userProfile && (
@@ -108,7 +110,12 @@ const MyProfile = () => {
 						<S.List>
 							<S.InfoTitle>내 등록템</S.InfoTitle>
 							<S.InfoContent>
-								<span>{userProfile.data.productsCount}</span> 개
+								<span>
+									{userProfile.data.productsCount
+										? userProfile.data.productsCount
+										: 0}
+								</span>{' '}
+								개
 							</S.InfoContent>
 						</S.List>
 						<S.List>
@@ -133,19 +140,20 @@ const MyProfile = () => {
 export default MyProfile;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
 	height: 30%;
+	padding-bottom: 30px;
+	margin: 0 auto;
 `;
 
 const Info = styled.div`
 	display: flex;
 	align-items: center;
-	/* justify-content: center; */
 	margin-top: 60px;
 	margin-left: 20px;
-	margin-bottom: 20px;
 	padding-left: 10px;
-	border: 1px solid wheat;
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 80vw;
 		margin-left: 0;
@@ -253,7 +261,7 @@ const InfoContent = styled.div`
 
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 		@media ${({ theme }) => theme.device.tablet} {
 			font-size: ${({ theme }) => theme.fontSize.sm};
