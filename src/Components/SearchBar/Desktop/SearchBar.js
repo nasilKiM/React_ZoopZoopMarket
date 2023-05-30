@@ -2,18 +2,21 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import AlertModal from 'Components/Alert/alertModal';
 
 const SearchBar = ({ props }) => {
 	// props가 search면 search_list페이지로,
 	//marketPrice면 market_price페이지로 전달되어 오면
 	//navigate에 props를 전달하여 해당 props에 맞는 페이지로 이동하고 싶었으나 모든 컴포넌트에서 props를 선언해줘야 하는 부분이라 충돌이 우려되어 아직 안함.
 	const navigate = useNavigate();
+	const [modal, setModal] = useState(false);
 
 	const onSearch = async e => {
 		e.preventDefault();
 
 		if (!e.target.searchKey.value) {
-			return alert('검색어를 입력해주세요!');
+			return setModal(true);
 		}
 		try {
 			let searchWord = e.target.searchKey.value;
@@ -35,6 +38,15 @@ const SearchBar = ({ props }) => {
 					fontSize="20px"
 				/>
 			</S.GlassBtn>
+			{modal && (
+				<>
+					<AlertModal
+						content={'검색어를 입력해주세요!'}
+						props={'/main'}
+						setModal={setModal}
+					/>
+				</>
+			)}
 		</S.Wrap>
 	);
 };

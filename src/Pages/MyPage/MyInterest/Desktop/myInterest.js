@@ -4,12 +4,12 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
+import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
-	console.log(data);
 
 	useEffect(() => {
 		if (!inView) {
@@ -20,6 +20,7 @@ const MyInterestPage = () => {
 
 	return (
 		<>
+			<NotificationModal />
 			{isLoading ? (
 				<div>로딩</div> // 임시 로딩
 			) : (
@@ -49,7 +50,7 @@ const Wrap = styled.div`
 
 const Container = styled.div`
 	width: 100%;
-	${gridColumn(4)}
+	${gridColumn(3)}
 	${gridAllCenter}
 	// 선영님 코드
 	/* @media ${({ theme }) => theme.device.tablet} {

@@ -1,21 +1,19 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
-import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
-import { flexSpaceBetween } from 'Styles/common';
+import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+import ProductApi from 'Apis/productApi';
+import ConfirmModal from 'Components/Alert/confirmModal';
 
 const ItemCard = ({ index, products, isMine }) => {
 	const navigate = useNavigate();
-	const { prod_idx } = useParams();
-
-	console.log(prod_idx);
+	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);
 	};
-
-	// products && console.log('이건 카드로 전달된 product', products);
 
 	const onClickEdit = e => {
 		e.preventDefault();
@@ -23,13 +21,17 @@ const ItemCard = ({ index, products, isMine }) => {
 	};
 
 	const onClickDelete = async () => {
+		console.log(products.idx);
 		try {
-			if (confirm('물품을 삭제하시겠습니까?') == false) return console.log(1);
 			await ProductApi.deletePost(products.idx);
-			alert('물품이 삭제되었습니다.');
+			setModal(false);
 		} catch {
 			console.log('삭제 실패');
 		}
+	};
+
+	const onClickModal = () => {
+		setModal(true);
 	};
 
 	return (
@@ -59,11 +61,20 @@ const ItemCard = ({ index, products, isMine }) => {
 					{isMine && (
 						<S.BtnSection>
 							<S.Btn onClick={onClickEdit}>수정</S.Btn>
-							<S.Btn onClick={onClickDelete}>삭제</S.Btn>
+							<S.Btn onClick={onClickModal}>삭제</S.Btn>
 						</S.BtnSection>
 					)}
 				</S.Container>
 				{products.status === '판매완료' ? <SoldoutCard /> : ''}
+				{modal && (
+					<ConfirmModal>
+						<S.Content>물품을 삭제하시겠습니까?</S.Content>
+						<S.BtnContainer>
+							<S.NO onClick={() => setModal(false)}>취소</S.NO>
+							<S.OK onClick={onClickDelete}>삭제</S.OK>
+						</S.BtnContainer>
+					</ConfirmModal>
+				)}
 			</S.Wrapper>
 		)
 	);
@@ -193,6 +204,50 @@ const Btn = styled.button`
 	}
 `;
 
+const Content = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	${flexAllCenter}
+	margin-bottom: 50px;
+`;
+
+const BtnContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
+const NO = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	cursor: pointer;
+	margin-right: 20px;
+	:hover {
+		background-color: ${({ theme }) => theme.color.gray[200]};
+		color: ${({ theme }) => theme.color.gray[300]};
+	}
+`;
+
+const OK = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.primary[300]};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+	}
+`;
+
 const S = {
 	Wrapper,
 	Heart,
@@ -204,4 +259,8 @@ const S = {
 	ItemTag,
 	BtnSection,
 	Btn,
+	Content,
+	BtnContainer,
+	NO,
+	OK,
 };
