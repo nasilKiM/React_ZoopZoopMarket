@@ -94,7 +94,7 @@ const MyProfile = () => {
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>닉네임</S.InfoTitle>
-							{/* <S.InfoContent>{User.nickName}</S.InfoContent> */}
+							<S.InfoContent>{User.nickName}</S.InfoContent>
 						</S.List>
 						<S.List>
 							<S.InfoTitle>매너온도</S.InfoTitle>
