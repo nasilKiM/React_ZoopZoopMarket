@@ -60,10 +60,10 @@ const ProductApi = {
 		});
 	},
 
-	soldOut(prod_idx, socket) {
+	soldOut(prod_idx, token) {
 		return Axios.post(PATH + '/sale-complete', {
 			prod_idx,
-			socket,
+			token,
 		});
 	},
 

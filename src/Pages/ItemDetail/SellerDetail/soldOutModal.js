@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 const SoldOutModal = ({ roomData, onClose, idx }) => {
 	const navigate = useNavigate();
-	const soldOut = async (prod_idx, socket) => {
+	const soldOut = async (prod_idx, token) => {
 		try {
-			const response = await ProductApi.soldOut(prod_idx, socket);
+			const response = await ProductApi.soldOut(prod_idx, token);
 			if (response.status === 200) {
 				console.log('물품판매됨', response);
 			}
@@ -27,7 +27,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 								유저명: {room.User.nick_name}
 								<S.CheckBuyer
 									onClick={() => {
-										soldOut(idx, room.User.socket);
+										soldOut(idx, room.User.token);
 									}}
 								>
 									V
