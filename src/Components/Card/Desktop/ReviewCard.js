@@ -1,30 +1,78 @@
+import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
-import React from 'react';
+import ReviewApi from 'Apis/reviewApi';
+import { reviewAtom } from 'Atoms/review.atom';
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-const ReviewItemCard = () => {
+const ReviewItemCard = ({ payIdx, item, isSeller }) => {
 	const navigate = useNavigate();
+	const setReviewTarget = useSetRecoilState(reviewAtom);
 
-	const onClickCard = async () => {
-		navigate(`/item_detail/${index}`);
-		await ProductApi.addRecent(index);
+	const onClickDetail = async () => {
+		navigate(`/item_detail/${item.idx}`);
+		await ProductApi.addRecent(item.idx);
 	};
-	// console.log(products);
+
+	const onClickReviewDetail = idx => {
+		navigate(`/review/detail/${payIdx}`);
+		const forReviewDetail = data.data.reviewList.filter(
+			item => item.Product.idx === idx,
+		);
+		setReviewTarget(forReviewDetail);
+	};
+
+	useEffect(() => {
+		setReviewTarget(item);
+	}, [isSeller]);
+
+	console.log('check', item);
+
+	const onClickReview = () => {
+		return navigate(`/review/${payIdx}`);
+	};
+
+	const { data } = useQuery(['reviewList'], () => ReviewApi.reviewList());
+	data && console.log('이거', data);
+
+	const hasReview = data?.data.reviewList.filter(item => {
+		return item.idx == 10;
+	});
+
+	const noReview = data?.data.reviewList.filter(item => {
+		return item.Review == 'null';
+	});
+
+	data && console.log('여기', hasReview, noReview);
 
 	return (
-		<S.Wrapper>
-			{/*onClick={() => navigate(`/detail/${item.id}`)} */}
-			<S.Container onClick={onClickCard}>
-				<S.ItemImg src="Assets/Images/bicycle.jpg" />
-				<S.ItemInfo>
-					<S.ItemTitle>[제목] 제목이 들어갑니다.</S.ItemTitle>
-					<S.ItemPrice>130,000 원</S.ItemPrice>
-					<S.ItemTag>#태그 #태그2 #태그3</S.ItemTag>
-					<div></div>
-				</S.ItemInfo>
-			</S.Container>
-		</S.Wrapper>
+		item && (
+			<S.Wrapper>
+				<S.Container>
+					<S.ItemImg src={item.img_url} />
+					<S.ItemInfo>
+						<S.ItemTitle>{item.title}</S.ItemTitle>
+						<S.ItemPrice>{item.price}</S.ItemPrice>
+					</S.ItemInfo>
+					<S.BtnContainer>
+						<S.Btn onClick={onClickDetail}>아이템 보기</S.Btn>
+						{isSeller == 'buyer' && (
+							<S.Btn onClick={onClickReview}>리뷰 작성하기</S.Btn>
+						)}
+						{isSeller == 'buyer' && (
+							<S.Btn onClick={onClickReviewDetail(item.idx)}>작성한 리뷰</S.Btn>
+						)}
+					</S.BtnContainer>
+				</S.Container>
+			</S.Wrapper>
+		)
 
 		// )
 	);
@@ -33,48 +81,69 @@ const ReviewItemCard = () => {
 export default ReviewItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	${flexSpaceBetween}
+	margin-top: 20px;
 `;
 
 const Container = styled.div`
-	display: flex;
+	${flexAlignCenter}
 	width: 100%;
-	min-width: 400px;
-	max-height: 200px;
-	border-radius: 5px;
-	cursor: pointer;
+	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	padding: 10px 20px;
+	position: relative;
+	:hover {
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px;
+	}
 `;
 
 const ItemImg = styled.img`
-	min-width: 120px;
-	max-height: 120px;
-	margin: 15px 15px 15px 25px;
+	width: 50px;
+	height: 50px;
 	object-fit: cover;
 `;
 
 const ItemInfo = styled.div`
-	padding-left: 20px;
+	padding-left: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 `;
 
 const ItemTitle = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	padding-bottom: 15px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	padding-bottom: 10px;
+	width: 200px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const ItemPrice = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	padding-bottom: 15px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	color: ${({ theme }) => theme.color.gray[300]};
 `;
 
-const ItemTag = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	overflow: hidden;
-	padding-bottom: 10px;
+const BtnContainer = styled.div`
+	${flexAllCenter}
+	position: absolute;
+	right: 10px;
+`;
+
+const Btn = styled.button`
+	border: none;
+	border-radius: 10px;
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	height: 30px;
+	margin-left: 10px;
+	padding: 20px 15px;
+	cursor: pointer;
+	${flexAllCenter}
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[100]};
+	}
 `;
 
 const S = {
@@ -84,5 +153,6 @@ const S = {
 	ItemInfo,
 	ItemTitle,
 	ItemPrice,
-	ItemTag,
+	BtnContainer,
+	Btn,
 };

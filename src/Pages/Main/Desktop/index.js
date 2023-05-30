@@ -24,12 +24,10 @@ const DesktopMainPage = () => {
 			</S.Wrapper>
 			{/* MockData용
          <Preview category={0} products={data}></Preview>
-         <Preview category={1} products={data}></Preview> */}
-
+		<Preview category={1} products={data}></Preview> */}
 			<S.PreviewBg>
 				<Preview category={0}></Preview>
 			</S.PreviewBg>
-			<S.Blank></S.Blank>
 			<S.PreviewBg>
 				<Preview category={1}></Preview>
 			</S.PreviewBg>
@@ -61,6 +59,7 @@ const PreviewBg = styled.div`
 	width: 100%;
 	background-color: ${({ theme }) => theme.color.bg};
 	padding: 30px 0;
+	margin-bottom: 50px;
 	> * {
 		width: 70%;
 		min-width: 414px;
@@ -80,11 +79,6 @@ const Banner = styled.div`
 	width: 100%;
 	height: 500px;
 	background-color: gray;
-`;
-
-const Blank = styled.div`
-	width: 100%;
-	height: 50px;
 `;
 
 const TitleBox = styled.div`
@@ -113,7 +107,6 @@ const CategoryWrapper = styled.div`
 const S = {
 	Cover,
 	Wrapper,
-	Blank,
 	TitleBox,
 	PreviewBg,
 	SearchSection,

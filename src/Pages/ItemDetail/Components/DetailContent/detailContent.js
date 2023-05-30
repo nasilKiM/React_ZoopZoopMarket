@@ -25,13 +25,13 @@ const DetailContent = ({ state, item }) => {
 	const navigate = useNavigate();
 
 	const so = useSocket();
-	console.log(111111111111111111, item);
+	// console.log(111111111111111111, item);
 	// console.log(222222222222222, itemAllInfo);
 	const onClickChatStartBtn = async () => {
 		try {
 			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
-			console.log(setChatRoomRes);
+			// console.log(setChatRoomRes);
 			// 같은 방에 join
 			// so?.emit('join', { room_idx: setChatRoomRes.data.idx });
 			const message = '채팅방을 시작합니다';
@@ -52,7 +52,7 @@ const DetailContent = ({ state, item }) => {
 				message,
 			});
 			navigate('/chat');
-			console.log(saveMsgRes.data);
+			// console.log(saveMsgRes.data);
 			// navigate('/chat');
 			// so.on('receiveMessage', data => {
 			// 	console.log(data);
@@ -87,7 +87,6 @@ const DetailContent = ({ state, item }) => {
 			// }
 		}
 	};
-	console.log('주람', item);
 
 	return (
 		<>

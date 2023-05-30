@@ -1,6 +1,6 @@
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
 import { flexSpaceBetween } from 'Styles/common';
@@ -8,6 +8,7 @@ import ProductApi from 'Apis/productApi';
 
 const ItemCard = ({ index, products, isMine }) => {
 	const navigate = useNavigate();
+	const { prod_idx } = useParams();
 
 	const onClickCard = () => {
 		navigate(`/item_detail/${index}`);

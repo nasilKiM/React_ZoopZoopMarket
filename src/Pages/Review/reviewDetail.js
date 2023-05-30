@@ -13,7 +13,7 @@ import { Axios } from 'Apis/@core';
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
 
-const ReviewPage = () => {
+const ReviewDetail = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
@@ -100,6 +100,8 @@ const ReviewPage = () => {
 		value: PropTypes.number.isRequired,
 	};
 
+	console.log(target);
+
 	return (
 		target && (
 			<S.Wrapper>
@@ -146,9 +148,7 @@ const ReviewPage = () => {
 						multiple
 						onChange={event => setImages(event.target.files)}
 					/>
-					<S.Container>
-						<S.RegisterBtn type="submit">등록하기</S.RegisterBtn>
-					</S.Container>
+					<img src={images} />
 				</form>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>
@@ -163,7 +163,7 @@ const ReviewPage = () => {
 	);
 };
 
-export default ReviewPage;
+export default ReviewDetail;
 
 const Wrapper = styled.div`
 	width: 70%;

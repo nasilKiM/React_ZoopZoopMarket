@@ -28,7 +28,7 @@ const MyInterestPage = () => {
 						{data.pages.map(page =>
 							page.data.LikeList.map(list => (
 								<S.Card>
-									<ItemCard index={list.idx} products={list.Product} />
+									<ItemCard index={list.Product.idx} products={list.Product} />
 								</S.Card>
 							)),
 						)}

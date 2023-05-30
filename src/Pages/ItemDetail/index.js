@@ -12,9 +12,9 @@ const ItemDetailPage = () => {
 			console.log(err);
 		},
 	});
-  
-  const client = useQueryClient();
-	
+
+	const client = useQueryClient();
+
 	const { mutate } = useMutation(() => ProductApi.addRecent(idx), {
 		onSuccess: () => {
 			client.invalidateQueries(['recent']);
@@ -24,7 +24,6 @@ const ItemDetailPage = () => {
 	useEffect(() => {
 		mutate(data?.data.searchProduct.idx);
 	}, []);
-
 
 	data && console.log(data);
 	useEffect(() => {

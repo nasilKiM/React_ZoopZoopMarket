@@ -12,8 +12,8 @@ const AccountBookSelector = props => {
 					onChange={({ target: { value } }) => setCategory(String(value))}
 				>
 					{/* <option value="total">전체</option> */}
-					<option value="sell">판매</option>
-					<option value="purchase">구매</option>
+					<option value="seller">판매</option>
+					<option value="buyer">구매</option>
 				</S.LargeSelect>
 			</form>
 			<S.RightSideSelectors>
@@ -67,11 +67,11 @@ const SelectorsZone = styled.div`
 			margin-right: 15px;
 		}
 	}
-	`;
+`;
 
 const RightSideSelectors = styled.div`
 	display: flex;
-	`;
+`;
 
 const LargeSelect = styled.select`
 	-moz-appearance: none;
