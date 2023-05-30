@@ -31,6 +31,7 @@ const Img = styled.div`
 const ItemImg = styled.img`
 	width: 80%;
 	height: 100px;
+	object-fit: cover;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	cursor: pointer;
 	:hover {

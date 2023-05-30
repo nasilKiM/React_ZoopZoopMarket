@@ -113,6 +113,15 @@ const ItemDetailPageSkeleton = () => {
 						animation="wave"
 					/>
 				</Content>
+				<Map>
+					<Skeleton
+						variant="rounded"
+						width="100%"
+						height={300}
+						color="black"
+						animation="wave"
+					/>
+				</Map>
 			</Wrapper>
 
 			<Blank></Blank>
@@ -205,6 +214,10 @@ const Content = styled.div`
 	padding-top: 20px;
 	height: 200px;
 	border-bottom: 2px solid ${({ theme }) => theme.color.gray[100]};
+`;
+
+const Map = styled.div`
+	width: 100%;
 `;
 
 const S = {
