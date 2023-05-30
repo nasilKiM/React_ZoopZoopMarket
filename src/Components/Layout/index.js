@@ -12,12 +12,12 @@ const LayOut = () => {
 			<Wrapper>
 				<WebHeader />
 			</Wrapper>
-			<RecentWrap>
-				<RecentProduct />
-			</RecentWrap>
 			<Outlet />
 			<BasicFooter />
 			<TopBtn />
+			<RecentWrap>
+				<RecentProduct />
+			</RecentWrap>
 			<Link to={'/register'}>
 				<BtnSection>
 					<RegisterBtn />
@@ -49,4 +49,7 @@ const RecentWrap = styled.div`
 	top: 500px;
 	right: 130px;
 	z-index: 100;
+	@media (max-width: 1000px) {
+		display: none;
+	}
 `;

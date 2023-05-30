@@ -3,24 +3,17 @@ import ProductApi from 'Apis/productApi';
 import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
-import { theme } from 'Styles/theme';
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-	CartesianGrid,
-	Legend,
-	Line,
-	LineChart,
-	Tooltip,
-	XAxis,
-	YAxis,
-} from 'recharts';
-import styled from 'styled-components';
+
+import dayjs from 'dayjs';
+import Chart from './chart';
 
 const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
-	//console.log(word);
+	const today = dayjs().format('YYYY-MM-DD');
 	// const [priceList, setItemList] = useRecoilState(itemPriceState);
 	const start = '2023-05-20';
 	const end = '2023-06-02';
@@ -48,16 +41,15 @@ const DesktopMarketPrice = () => {
 	// 	const data = await ProductApi.searchMarket(keyword, start, end);
 	// 	return data;
 	// };
-	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE'], () =>
-		ProductApi.searchMarket('라면', start, end),
+	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE', word], () =>
+		ProductApi.searchMarket(word, start, end),
 	);
-	data && console.log(data);
+
+	//data && console.log(data);
+
 	// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
-
 	//console.log('시세 검색 단어: ', word);
-
 	// console.log(priceList);
-
 	// const data = [
 	// 	{ date: '2023-04-30', price: 3000 },
 	// 	{ date: '2023-05-01', price: 3500 },
@@ -74,56 +66,77 @@ const DesktopMarketPrice = () => {
 	// ]; 실제 데이터도 이 형태로 담겨져서 옴
 
 	const formatData = data => {
-		return data.map(({ date, price }) => {
-			const [month, day] = date.split('-').slice(1);
-			const formattedMonth = month.replace(/^0+/, ''); // 0으로 시작하는 부분 제거
+		// return data.map(({ date, price }) => {
+		// 	const [month, day] = date.split('-').slice(1);
+		// 	const formattedMonth = month.replace(/^0+/, ''); // 0으로 시작하는 부분 제거
+		// 	return {
+		// 		date: `${formattedMonth}-${day}`,
+		// 		price: price !== undefined ? price : 0,
+		// 	};
+		// });
+		return data.map(product => {
+			const date = product.date.split('-');
+			const month = parseInt(date[1]);
+			const day = parseInt(date[2]);
 			return {
-				date: `${formattedMonth}-${day}`,
-				price: price !== undefined ? price : 0,
+				date: `${month}-${day}`,
+				avgPrice: product.avgPrice,
 			};
 		});
 	}; //데이터에서 날짜의 월일만 빼서 다시 저장하는 함수.
+
 	const arr =
-		data?.data.prod_idx?.cumulativeAvgPrice &&
-		formatData(data.data.prod_idx.cumulativeAvgPrice);
+		data?.data?.cumulativeAvgPrice && formatData(data.data.cumulativeAvgPrice);
 	//console.log(arr);
-	const groupingData = (data, groupSize) => {
-		const result = [];
-		let group = [];
 
-		for (let i = 0; i < data.length; i++) {
-			group.push(data[i]);
+	// const groupingData = (data, groupSize) => {
+	// 	const result = [];
+	// 	let group = [];
 
-			if (group.length === groupSize || i === data.length - 1) {
-				const firstDate = group[0].date;
-				const lastDate = group[group.length - 1].date;
-				const avgPrice = (
-					group.reduce((sum, item) => sum + item.price, 0) / group.length
-				).toFixed(2);
-				result.push({
-					group: `${firstDate}~${lastDate}`,
-					avgPrice: parseFloat(avgPrice),
-				});
-				group = [];
-			}
-		}
+	// 	for (let i = 0; i < data.length; i++) {
+	// 		group.push(data[i]);
 
-		return result;
-	}; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
+	// 		if (group.length === groupSize || i === data.length - 1) {
+	// 			const firstDate = group[0].date;
+	// 			const lastDate = group[group.length - 1].date;
+	// 			const avgPrice = (
+	// 				group.reduce((sum, item) => sum + item.price, 0) / group.length
+	// 			).toFixed(2);
+	// 			result.push({
+	// 				group: `${firstDate}~${lastDate}`,
+	// 				avgPrice: parseFloat(avgPrice),
+	// 			});
+	// 			group = [];
+	// 		}
+	// 	}
 
-	const groupedData = arr?.length && groupingData(arr, 2);
+	// 	return result;
+	// }; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
+
+	// const groupedData = arr?.length && groupingData(arr, 2);
+	// console.log(groupedData);
 
 	let average = 0;
-	if (data && data.data.prod_idx.cumulativeAvgPrice) {
-		for (let i = 0; i < data.data.prod_idx.cumulativeAvgPrice.length; i++) {
-			average += data.data.prod_idx.cumulativeAvgPrice[i].avgPrice;
-		}
-		average = (average / data.length).toFixed(0);
+	if (data && data.data.cumulativeAvgPrice) {
+		const forLastData = data.data.cumulativeAvgPrice.length - 1;
+		average = data.data.cumulativeAvgPrice[forLastData].avgPrice;
 	}
 
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	// //반응형
 	//console.log(average);
+
+	// 차트 크기 반응형
+	let chartWidth = viewportSize.width * 0.9;
+	let chartHeight = viewportSize.width * 0.5 * 0.5;
+
+	if (viewportSize.width >= 1500) {
+		chartWidth = viewportSize.width * 0.65;
+	} else if (viewportSize.width < 900) {
+		chartWidth = viewportSize.width * 0.9;
+		chartHeight = viewportSize.width * 0.8 * 0.7;
+	}
+
 	return (
 		<>
 			{isSuccess && (
@@ -146,9 +159,9 @@ const DesktopMarketPrice = () => {
 						</S.SearchBarContainer>
 					</S.UpperPart>
 					<S.ChartContainer>
-						<LineChart
-							width={viewportSize.width * 0.6}
-							height={viewportSize.width * 0.6 * 0.6}
+						{/* <LineChart
+							width={chartWidth}
+							height={chartHeight}
 							data={groupedData}
 						>
 							<CartesianGrid strokeDasharray="3 3" />
@@ -162,7 +175,12 @@ const DesktopMarketPrice = () => {
 								stroke={theme.color.primary[300]}
 								activeDot={{ r: 7 }}
 							/>
-						</LineChart>
+						</LineChart> */}
+						<Chart
+							chartWidth={chartWidth}
+							chartHeight={chartHeight}
+							data={arr}
+						></Chart>
 					</S.ChartContainer>
 					{isNaN(average) ? (
 						<S.Average>검색어가 입력되지 않았습니다.</S.Average>
@@ -173,7 +191,7 @@ const DesktopMarketPrice = () => {
 						</S.Average>
 					)}
 					<S.RecentlyClosed>
-						최근 거래 종료 품목
+						<S.Title>최근 거래 종료 품목</S.Title>
 						<S.ItemList>
 							{itemList.map(item => (
 								<ItemCard key={item} />
@@ -191,12 +209,18 @@ export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
 	width: 70%;
-	/* min-width: 700px; */
+	min-width: 414px;
 	max-width: 1200px;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	@media screen and (max-width: 700px) {
+		width: 95%;
+	}
+	@media screen and (max-width: 900px) {
+		width: 90%;
+	}
 `;
 const UpperPart = styled.div`
 	width: 100%;
@@ -211,6 +235,9 @@ const UpperPart = styled.div`
 const LeftPart = styled.div`
 	width: 60%;
 	margin-left: 20px;
+	@media screen and (max-width: 720px) {
+		width: 100%;
+	}
 `;
 const Title = styled.div`
 	text-align: start;
@@ -219,26 +246,28 @@ const Title = styled.div`
 	@media screen and (max-width: 720px) {
 		text-align: center;
 		font-size: ${({ theme }) => theme.fontSize.base};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 	margin-top: 40px;
 `;
 const SubTitle = styled.div`
-	margin-top: 10px;
+	margin-top: 15px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	@media screen and (max-width: 920px) {
-		font-size: ${({ theme }) => theme.fontSize.xs};
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		color: ${({ theme }) => theme.color.gray[300]};
 	}
 `;
 const ChartContainer = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: 50px;
 `;
 const Average = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	margin-top: 10px;
+	margin-top: 30px;
 	display: flex;
 	justify-content: center;
 `;
@@ -246,8 +275,9 @@ const Average = styled.div`
 const RecentlyClosed = styled.div`
 	margin-top: 80px;
 	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
+
 const ItemList = styled.div`
 	display: flex;
 	flex-wrap: wrap;
@@ -260,11 +290,11 @@ const ResultWord = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
-	width: 240px;
+	width: 250px;
 	margin-top: 45px;
 	margin-right: 10px;
 	@media screen and (max-width: 720px) {
-		width: 200px;
+		width: 220px;
 		margin: 0 auto;
 		margin-top: 25px;
 	}

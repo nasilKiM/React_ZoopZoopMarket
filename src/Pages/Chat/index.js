@@ -3,8 +3,6 @@ import ChatList from './ChatList/ChatList';
 import { useEffect, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 import ChatDetail from './ChatDetail/ChatDetail';
-import { userSocketAtom } from 'Atoms/socket.atom';
-import { useRecoilState } from 'recoil';
 
 const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
@@ -43,8 +41,6 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 		getChatList(idx);
 	}, []);
 
-	const [socketData, setSocketData] = useRecoilState(userSocketAtom);
-
 	// chats.map(chat => {
 	// 	const { User, isSeller, product } = chat;
 	// 	if (isSeller) {
@@ -66,18 +62,6 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 				console.log('모든채팅');
 				console.log(res.data.chats);
 				console.log(socketData);
-				res &&
-					res.data.chats.map(chat => {
-						const { User, isSeller, product } = chat;
-						if (isSeller) {
-							setSocketData(prevData => ({
-								...prevData,
-								userNickName: User.nick_name,
-								userSocket: User.socket,
-								productIdx: product.idx,
-							}));
-						}
-					});
 			} catch (err) {
 				console.log(err);
 			}

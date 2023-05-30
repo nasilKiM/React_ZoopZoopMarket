@@ -22,6 +22,11 @@ const WebHeader = () => {
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
+
+	const toggleMenu = () => {
+		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
+	};
+
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -84,7 +89,13 @@ const WebHeader = () => {
 													무료 나눔
 												</S.Menu>
 
-												<S.Menu to="/market_price">실시간 시세</S.Menu>
+												<S.Menu
+													onClick={() => {
+														navigate(`/market_price`);
+													}}
+												>
+													실시간 시세
+												</S.Menu>
 											</MenuOpen>
 										</div>
 									</>
