@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import TokenService from 'Repository/TokenService';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FORM_TYPE } from 'Consts/FormType';
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
@@ -10,9 +10,13 @@ import { useSocket } from 'Context/socket';
 import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 import { useForm } from 'react-hook-form';
+import AlertModal from 'Components/Alert/alertModal';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const [modal, setModal] = useState(false);
+	const [loginModal, setLoginModal] = useState(false);
+
 	const so = useSocket();
 	console.log(so);
 
@@ -24,17 +28,14 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (TokenService.getToken()) {
-			alert('이미 로그인 중입니다. 메인으로 이동합니다.');
-			navigate('/main');
+			setLoginModal(true);
 		}
 	}, []);
 
-	const { mutate } = useMutation(loginInfo => UserApi.login(loginInfo), {
+	const { mutate, data } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {
-			console.log('//////쏘켓', res.data); // 확인용
-			alert(`${res.data.user.nickName}님 안녕하세요.`);
+			setModal(true);
 			TokenService.setToken(res.data.tokenForHeader);
-			navigate('/main');
 		},
 		onError: err => {
 			alert(
@@ -77,6 +78,18 @@ const LoginPage = () => {
 						<S.LoginBtn size={'submitBtn'} shape={'submitBtn'} disabled={!full}>
 							로그인하기
 						</S.LoginBtn>
+						{modal && (
+							<AlertModal
+								content={`${data.data.user.nickName}님 안녕하세요!`}
+								props={'/main'}
+							/>
+						)}
+						{loginModal && (
+							<AlertModal
+								content={'이미 로그인 중입니다. 메인으로 이동합니다.'}
+								props={'/main'}
+							/>
+						)}
 						<S.WrapPW>
 							<S.FindPassword>비밀번호 재설정</S.FindPassword>
 						</S.WrapPW>

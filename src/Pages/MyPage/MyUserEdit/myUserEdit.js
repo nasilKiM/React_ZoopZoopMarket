@@ -7,12 +7,14 @@ import FindAddress from 'Components/Address/Desktop/address';
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import CustomButton from 'Components/Buttons/button';
+import AlertModal from 'Components/Alert/alertModal';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
+	const [modal, setModal] = useState(false);
 
 	const {
 		register,
@@ -32,8 +34,7 @@ const MyUserEdit = ({ userInfo }) => {
 
 		try {
 			await UserApi.userInfoEdit(infoEdit);
-			alert('회원정보가 변경되었습니다');
-			navigate('/mypage');
+			setModal(true);
 		} catch (err) {
 			alert(
 				err.response.data.message,
@@ -89,7 +90,7 @@ const MyUserEdit = ({ userInfo }) => {
 		<>
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-						{/* <S.Grid1>
+					{/* <S.Grid1>
 							<S.Title>* 아이디</S.Title>
 							<S.Input
 								{...register('email', FORM_TYPE.EMAIL)}
@@ -153,6 +154,12 @@ const MyUserEdit = ({ userInfo }) => {
 					>
 						저장하기
 					</S.Button>
+					{modal && (
+						<AlertModal
+							content={'회원정보가 변경되었습니다'}
+							props={'/mypage'}
+						/>
+					)}
 				</S.Form>
 			</S.Wrap>
 			<S.Wrap2>

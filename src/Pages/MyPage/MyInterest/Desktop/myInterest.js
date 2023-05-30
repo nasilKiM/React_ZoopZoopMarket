@@ -4,12 +4,12 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
+import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
-	console.log(data);
 
 	useEffect(() => {
 		if (!inView) {
@@ -20,6 +20,7 @@ const MyInterestPage = () => {
 
 	return (
 		<>
+			<NotificationModal />
 			{isLoading ? (
 				<div>로딩</div> // 임시 로딩
 			) : (
@@ -28,7 +29,7 @@ const MyInterestPage = () => {
 						{data.pages.map(page =>
 							page.data.LikeList.map(list => (
 								<S.Card>
-									<ItemCard index={list.idx} products={list.Product} />
+									<ItemCard index={list.Product.idx} products={list.Product} />
 								</S.Card>
 							)),
 						)}
