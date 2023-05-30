@@ -8,7 +8,6 @@ const HeaderMenu = () => {
 
 	const onClickBtn = () => {
 		setBtnState(prev => !prev);
-		console.log(btnState);
 	};
 	return (
 		<S.Wrapper>

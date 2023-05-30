@@ -10,7 +10,6 @@ const HeartBtn = ({ like, idx }) => {
 			const response = await ProductApi.likedBtn(index);
 			if (response.status === 200) {
 				setLiked(prev => !prev);
-				console.log('관심상품등록됨', liked);
 			}
 		} catch (error) {
 			console.log('에러', error);

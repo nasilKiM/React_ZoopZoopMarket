@@ -13,17 +13,11 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
-	console.log(itemRes);
-	console.log(chat);
-	console.log(111111111111111, isSeller);
-	console.log(3333333, itemInfo);
 
 	useEffect(() => {
-		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
-				console.log(res.data);
 				setChat(res.data);
 			} catch (err) {
 				console.log(err);
@@ -35,33 +29,16 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	useEffect(() => {
 		so?.emit('join', { room_idx: chatroomIdx });
 		so?.on('receiveMessage', async data => {
-			console.log(data);
 			try {
 				const res = await ChatApis.loadChatLog(data.room_idx);
-				console.log(res.data);
+
 				setChat(res.data);
 			} catch (err) {
 				console.log(err);
 			}
 			setEventCheck(prev => !prev);
 		});
-		// return () => {
-		// 	so.emit('leave', { room_idx: chatroomIdx });
-		// };
 	}, []);
-
-	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
-	// emit은 이벤트 발생 on 이벤트 생성
-
-	// useEffect(() => {
-	// 	so.on('receiveMessage', async data => {
-	// 		const res = await ChatApis.saveMsg(data);
-	// 		so.on('newMessage', data => {
-	// 			console.log(data);
-	// 		});
-	// 	});
-	// }, []);
-	console.log(item);
 
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
@@ -74,27 +51,23 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			message: inputMsg.current.value,
 			isSeller: itemSeller,
 		};
-		console.log(message);
 		so?.emit('sendMessage', message);
 		try {
 			const res = await ChatApis.saveMsg({
 				room_idx: message.room_idx,
 				message: message.message,
 			});
-			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
 		try {
 			const res = await ChatApis.loadChatLog(message.room_idx);
-			console.log(res.data);
 			setChat(res.data);
 		} catch (err) {
 			console.log(err);
 		}
 		setEventCheck(prev => !prev);
 		inputMsg.current.value = '';
-		console.log('클릭');
 	};
 
 	return (

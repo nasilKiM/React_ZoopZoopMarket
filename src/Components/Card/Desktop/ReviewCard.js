@@ -36,8 +36,6 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 
 	const noReview = original && original.Review == null;
 
-	console.log('original', original);
-
 	return (
 		item && (
 			<S.Wrapper>

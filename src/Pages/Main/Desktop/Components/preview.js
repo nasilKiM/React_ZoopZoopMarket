@@ -5,7 +5,6 @@ import ProductApi from 'Apis/productApi';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-//import ItemCardMock from 'Components/Card/Desktop/Card copy';
 import ItemCard from 'Components/Card/Desktop/Card';
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
@@ -57,15 +56,6 @@ const Preview = ({ category }) => {
 			setSlidesToShow(2);
 		}
 	};
-
-	// useEffect(() => {
-	//    const fetchData = async () => {
-	//       const res = await ProductApi.mainList();
-	//       setData(res.data);
-	//    };
-	//    fetchData();
-	// }, []);
-	// console.log(data);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);

@@ -15,22 +15,12 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 		try {
 			const response = await ProductApi.soldOut(prod_idx, token);
 			if (response.status === 200) {
-				console.log('물품판매됨', response);
 			}
 			navigate('/mypage');
 		} catch (error) {
 			console.log('에러', error);
 		}
 	};
-	// try {
-	// 	const response = await ProductApi.soldOut(prod_idx, token);
-	// 	if (response.status === 200) {
-	// 		console.log('물품판매됨', response);
-	// 	}
-	// 	navigate('/mypage');
-	// } catch (error) {
-	// 	console.log('에러', error);
-	// }
 
 	return (
 		<S.Wrapper>

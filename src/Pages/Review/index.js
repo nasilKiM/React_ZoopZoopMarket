@@ -56,8 +56,6 @@ const ReviewPage = () => {
 					payList_idx: idx,
 				},
 			});
-
-			console.log(response.data);
 			alert('리뷰가 등록되었습니다.');
 			navigate('/mypage/review');
 		} catch (error) {

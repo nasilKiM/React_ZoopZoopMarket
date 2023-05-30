@@ -22,7 +22,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 
 	const onClickDelete = async () => {
 		try {
-			if (confirm('물품을 삭제하시겠습니까?') == false) return console.log(1);
+			if (confirm('물품을 삭제하시겠습니까?') == false) return;
 			await ProductApi.deletePost(products.idx);
 			alert('물품이 삭제되었습니다.');
 		} catch {

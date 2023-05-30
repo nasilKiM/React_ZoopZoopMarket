@@ -20,7 +20,6 @@ const MobileFindAddress = ({ setter }) => {
 		setPopup(!popup);
 	};
 
-	console.log('주소 찾기 결과 ----->', address);
 	setter(address);
 	return (
 		<div className="address_search">

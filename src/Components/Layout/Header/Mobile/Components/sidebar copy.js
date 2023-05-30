@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 const MobileSideBar = ({ xPosition, setXpostion, setMenuIsOpen }) => {
 	const { page } = useParams();
-	page && console.log(page);
 
 	useEffect(() => {
 		if (page) {

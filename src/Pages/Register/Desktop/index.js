@@ -34,7 +34,6 @@ const RegisterPage = () => {
 	const productIdx = async () => {
 		try {
 			const res = await ProductApi.detail(idx);
-			console.log('res', res);
 			setValue('price', res.data.searchProduct.price);
 			setPrice(res.data.searchProduct.price);
 			setTags(
@@ -60,7 +59,7 @@ const RegisterPage = () => {
 
 	const handleKeyDown = e => {
 		if (e.keyCode === 13) {
-			clearErrors('tag'); // 에러초기화
+			clearErrors('tag');
 			e.preventDefault();
 			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
 			const check = tags.filter(tag => tag === newTag);
@@ -112,8 +111,6 @@ const RegisterPage = () => {
 				formData.append('images', element);
 			});
 
-			console.log('확인', data.mainImg);
-
 			if (!idx) {
 				if (data.mainImg.length === 0) {
 					window.scrollTo(0, 0);
@@ -155,10 +152,6 @@ const RegisterPage = () => {
 			return console.log(err);
 		}
 	};
-
-	useEffect(() => {
-		console.log(tags);
-	}, [tags]);
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>

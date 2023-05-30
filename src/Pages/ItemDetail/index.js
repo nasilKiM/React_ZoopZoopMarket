@@ -27,7 +27,6 @@ const ItemDetailPage = () => {
 		mutate(data?.data.searchProduct.idx);
 	}, []);
 
-	data && console.log(data);
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);

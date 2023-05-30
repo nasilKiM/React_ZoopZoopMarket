@@ -12,7 +12,6 @@ const ChatList = ({
 	setItem,
 	setItemInfo,
 }) => {
-	console.log('chatList', chatroomList);
 	return (
 		<>
 			<S.LeftUpperBar>

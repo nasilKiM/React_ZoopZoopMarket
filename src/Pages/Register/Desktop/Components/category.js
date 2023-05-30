@@ -120,16 +120,6 @@ const Category = ({ setTags, tags }) => {
 		nextArrow: <NextArrow />,
 	};
 	const [fixedTags, setFixedTags] = useState([]);
-	// const sendTag = category => {
-	// 	if (category) {
-	// 		setFixedTags(category);
-	// 		const tag = [];
-	// 		//console.log(fixedTags);
-	// 		fixedTags && tag.push(fixedTags);
-	// 		//console.log('>>>>>>>>>>', tag);
-	// 		fixedTags && setTags(tag);
-	// 	}
-	// };
 	useEffect(() => {
 		if (fixedTags.length > 0) {
 			const tag = [fixedTags];

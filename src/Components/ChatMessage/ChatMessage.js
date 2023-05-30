@@ -10,27 +10,20 @@ const ChatMessage = ({
 	item,
 	setItemInfo,
 }) => {
-	console.log(chat);
 	const now = new Date();
-	console.log(now.toLocaleTimeString());
 	const timeStamp = new Date(chat.lastMessageCreatedAt);
 	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
-		console.log(item);
-		console.log(setItemInfo);
+
 		if (item) return;
 		try {
 			const res = await ProductApi.detail(chat.product.idx);
-			console.log(res);
+
 			setItemInfo(res.data);
 		} catch (err) {
 			console.log(err);
 		}
-		console.log('채팅방클릭!!!!!!!!!!!!!');
 	};
-
-	// console.log(chat.User.socket);
-	// console.log(chat.User.nick_name);
 
 	return (
 		<>

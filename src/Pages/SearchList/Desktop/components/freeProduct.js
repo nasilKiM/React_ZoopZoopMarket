@@ -5,14 +5,6 @@ import SearchList from './searchList';
 
 const FreeProduct = ({ word, data }) => {
 	const navigate = useNavigate();
-
-	// const { data } = useQuery(['SEARCH_FREE', word], () => {
-	// 	return ProductApi.searchItems(1, word, 1);
-	// 	//useInfinteQuery 안에 내용사용해서 적용해보기
-	// });
-
-	//data && console.log(data);
-
 	const goWholeList = () => {
 		navigate(`${1}`, { state: data });
 	};

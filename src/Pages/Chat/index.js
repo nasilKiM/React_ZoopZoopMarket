@@ -9,29 +9,12 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomList, setChatroomList] = useState();
 	const [isChatEntrance, setIsChatEntrance] = useState(false);
 	const [itemInfo, setItemInfo] = useState();
-	console.log(itemInfo);
-	console.log(idx, item);
-	// const { data } = useQuery(['chatList'], () => {
-	// 	return axios.get('/chatList').then(res => {
-	// 		return res.data;
-	// 	});
-	// });
-	// console.log('----->', data);
-
-	// const { data: message } = useQuery(['chatDetail', chatroomIdx], () => {
-	// 	return axios.get(`/chatDetail/${chatroomIdx}`).then(res => {
-	// 		return res.data;
-	// 	});
-	// });
-	// console.log('message', message);
-	// console.log('chatroomIdx', chatroomIdx);
 
 	useEffect(() => {
 		if (!idx) return;
 		const getChatList = async prodIdx => {
 			try {
 				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
-				console.log(res.data);
 				setChatroomList(res.data);
 			} catch (err) {
 				console.log(err);
@@ -41,35 +24,18 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 		getChatList(idx);
 	}, []);
 
-	// chats.map(chat => {
-	// 	const { User, isSeller, product } = chat;
-	// 	if (isSeller) {
-	// 		setSocketData(prevData => ({
-	// 			...prevData,
-	// 			[User.nick_name]: User.socket,
-	// 			productIdx: product.idx,
-	// 		}));
-	// 	}
-	// });
-
 	useEffect(() => {
 		if (idx) return;
 		const getAllChatList = async () => {
 			try {
 				const res = await ChatApis.loadAllChatList(1);
-				console.log(res.data);
 				setChatroomList(res.data);
-				console.log('모든채팅');
-				console.log(res.data.chats);
-				console.log(socketData);
 			} catch (err) {
 				console.log(err);
 			}
 		};
 
 		getAllChatList();
-
-		// chatroomList && updateAtomValue(chatroomList.chats);
 	}, []);
 
 	return (

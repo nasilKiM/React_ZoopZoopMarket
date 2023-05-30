@@ -22,9 +22,6 @@ const ReviewEditPage = () => {
 	}));
 
 	const target = useRecoilValue(reviewAtom);
-
-	console.log(target);
-
 	const { idx } = useParams();
 	const title = target && target.Review.title;
 	const [content, setContent] = useState(target.Review.content);
@@ -60,7 +57,6 @@ const ReviewEditPage = () => {
 		});
 
 		const imgUrls = [];
-		console.log(images);
 		images.forEach((element, index) => {
 			if (index === 0) {
 				formData.append('main_url', element);

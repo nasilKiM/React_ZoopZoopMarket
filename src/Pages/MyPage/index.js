@@ -16,15 +16,9 @@ const MyPage = () => {
 export default MyPage;
 
 const Container = styled.div`
-	width: 70%;
+	width: 100%;
 	margin: 0 auto;
 	padding-bottom: 50px;
-	@media ${({ theme }) => theme.device.laptop} {
-		width: 90%;
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 95%;
-	}
 `;
 
 const S = {

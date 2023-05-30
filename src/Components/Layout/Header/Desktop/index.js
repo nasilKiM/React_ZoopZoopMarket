@@ -46,14 +46,13 @@ const WebHeader = () => {
 
 	const logout = async () => {
 		const res = await UserApi.logout();
-		console.log(res);
+
 		TokenService.removeToken();
 		navigate('/');
 		setShowOptions(false);
 	};
 
 	const myPage = () => {
-		console.log('클릭!!!!');
 		navigate('/mypage');
 		setShowOptions(false);
 	};
@@ -79,8 +78,7 @@ const WebHeader = () => {
 												<S.Menu
 													key={1}
 													onClick={() => {
-														console.log('2');
-														navigate(`/search_list/${word}}/0`);
+														return navigate(`/search_list/${word}}/0`);
 													}}
 												>
 													중고 거래
@@ -91,7 +89,7 @@ const WebHeader = () => {
 
 												<S.Menu
 													onClick={() => {
-														navigate(`/market_price`);
+														return navigate(`/market_price`);
 													}}
 												>
 													실시간 시세
@@ -133,7 +131,7 @@ const WebHeader = () => {
 								<S.Menu
 									key={0}
 									onClick={() => {
-										navigate(`/search_list/${word}/1`);
+										return navigate(`/search_list/${word}/1`);
 									}}
 								>
 									무료 나눔
@@ -141,8 +139,7 @@ const WebHeader = () => {
 
 								<S.Menu
 									onClick={() => {
-										console.log('3');
-										navigate(`/market_price`);
+										return navigate(`/market_price`);
 									}}
 								>
 									실시간 시세

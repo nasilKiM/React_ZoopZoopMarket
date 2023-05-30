@@ -15,13 +15,8 @@ const DesktopMarketPrice = () => {
 	const today = dayjs().format('YYYY-MM-DD');
 	const start = '2023-05-20';
 	const end = '2023-06-02';
-	console.log(today);
 	const monthsAgo = dayjs().subtract(1, 'month').format('YYYY-MM-DD');
-	console.log(monthsAgo);
-
-	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
-	//리팩토링때 고칠예정. 오히려 skeleton에서는 state로 반응형 안짬 ㅎㅎ.
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -29,7 +24,7 @@ const DesktopMarketPrice = () => {
 		};
 
 		window.addEventListener('resize', handleResize);
-		handleResize(); // 컴포넌트 마운트 시 초기 크기 설정
+		handleResize();
 
 		return () => {
 			window.removeEventListener('resize', handleResize);
@@ -50,11 +45,10 @@ const DesktopMarketPrice = () => {
 				avgPrice: product.avgPrice,
 			};
 		});
-	}; //데이터에서 날짜의 월일만 빼서 다시 저장하는 함수.
+	};
 
 	const arr =
 		data?.data?.cumulativeAvgPrice && formatData(data.data.cumulativeAvgPrice);
-	//console.log(arr);
 
 	let average = 0;
 	let roundedAverage = 0;
@@ -65,11 +59,6 @@ const DesktopMarketPrice = () => {
 		roundedAverage = numberAverage.toFixed(2);
 	}
 
-	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	// //반응형
-	//console.log(average);
-
-	// 차트 크기 반응형
 	let chartWidth = viewportSize.width * 0.9;
 	let chartHeight = viewportSize.width * 0.5 * 0.5;
 
@@ -118,11 +107,6 @@ const DesktopMarketPrice = () => {
 					)}
 					<S.RecentlyClosed>
 						<S.Title>최근 거래 종료 품목</S.Title>
-						{/* <S.ItemList>
-							{itemList.map(item => (
-								<ItemCard key={item} />
-							))}
-						</S.ItemList> */}
 						<RecentSoldOut word={word} />
 					</S.RecentlyClosed>
 				</S.Wrapper>

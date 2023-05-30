@@ -16,7 +16,7 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-	console.log(word);
+
 	const res = useInfiniteSearch(word.split(','), selected);
 
 	useEffect(() => {
@@ -24,8 +24,6 @@ const WholeListPage = () => {
 	}, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
 
 	const { data, isLoading, isSuccess } = res;
-	// console.log('res----->', res);
-	//console.log(data.pages[0].data.pagination.count);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);

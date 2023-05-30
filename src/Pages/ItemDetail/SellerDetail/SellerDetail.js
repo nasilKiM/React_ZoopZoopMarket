@@ -28,32 +28,17 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			setItem();
 		};
 	}, [idx]);
-	product && console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', product);
 
 	const related =
 		product &&
 		item &&
 		product.data.relatedProduct.product.filter(arr => arr.idx !== item.idx);
 
-	//product && console.log(product.data.searchProduct.User.socket);
 	const onClickDetailAndChatBar = e => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
 	const so = useSocket();
-	// so && console.log(so);
-
-	// const soldOut = async (index, socket) => {
-	// 	try {
-	// 		const response = await ProductApi.soldOut(index, socket);
-	// 		if (response.status === 200) {
-	// 			console.log('물품판매됨', response);
-	// 		}
-	// 		navigate('/mypage');
-	// 	} catch (error) {
-	// 		console.log('에러', error);
-	// 	}
-	// };
 	const [listForSoldOut, setListForSoldOut] = useState([]);
 
 	const getChatList = async prodIdx => {
@@ -61,7 +46,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 			const res = await ChatApis.loadSpecificChatRoom(prodIdx);
 			const updatedChatroomList = [...listForSoldOut, res.data];
 			setListForSoldOut(updatedChatroomList);
-			// console.log(updatedChatroomList);
 		} catch (err) {
 			console.log(err);
 		}

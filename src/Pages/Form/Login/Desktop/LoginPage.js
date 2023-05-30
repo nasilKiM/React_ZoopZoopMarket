@@ -14,7 +14,6 @@ import { useForm } from 'react-hook-form';
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const so = useSocket();
-	console.log(so);
 
 	const {
 		register,

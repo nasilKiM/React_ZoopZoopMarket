@@ -36,37 +36,32 @@ const MyItemPage = () => {
 
 	data && console.log('check', data);
 	return (
-		<S.Div>
-			<S.CategoryZone>
-				<S.Category category={category === 0} onClick={onClickSaleCategory}>
-					중고 물품
-				</S.Category>
-				<S.Category category={category === 1} onClick={onClickFreeCategory}>
-					무료 나눔
-				</S.Category>
-			</S.CategoryZone>
-			<S.Wrapper>
-				{data?.pages[0].data.products &&
-				data.pages[0].data.products.length > 0 ? (
-					<S.Container>
-						{data.pages.map(page =>
-							page.data.products.map(item => (
-								<ItemCard
-									key={item.idx}
-									index={item.idx}
-									products={item}
-									isMine={true}
-								/>
-							)),
-						)}
-					</S.Container>
-				) : (
-					<S.Txt>등록된 아이템이 없습니다.</S.Txt>
-				)}
-
-				<div ref={ref}></div>
-			</S.Wrapper>
-		</S.Div>
+		data && (
+			<S.Div>
+				<S.CategoryZone>
+					<S.Category category={category === 0} onClick={onClickSaleCategory}>
+						중고 물품
+					</S.Category>
+					<S.Category category={category === 1} onClick={onClickFreeCategory}>
+						무료 나눔
+					</S.Category>
+				</S.CategoryZone>
+				<S.Wrapper>
+					{data.pages[0].data.products.length > 0 ? (
+						<S.Container>
+							{data.pages.map(page => {
+								return page.data.products.map(item => (
+									<ItemCard index={item.idx} products={item} isMine={true} />
+								));
+							})}
+						</S.Container>
+					) : (
+						<S.Txt>등록된 아이템이 없습니다.</S.Txt>
+					)}
+					<div ref={ref}></div>
+				</S.Wrapper>
+			</S.Div>
+		)
 	);
 };
 
@@ -74,6 +69,9 @@ export default MyItemPage;
 
 const Div = styled.div`
 	margin: 0 auto;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
 `;
 
 const Wrapper = styled.div`
@@ -115,7 +113,7 @@ const Category = styled.div`
 	height: 30px;
 	${flexAllCenter}
 	:hover {
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	color: ${({ category }) => (category ? '#FF3647' : 'black')};
 `;

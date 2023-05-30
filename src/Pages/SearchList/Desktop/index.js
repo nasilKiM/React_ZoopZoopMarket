@@ -15,17 +15,6 @@ const DesktopSearchList = () => {
 		setSelected(option);
 	};
 
-	// useEffect(async () => {
-	// 	const res = await ProductApi.getRecent();
-	// 	return console.log('마따따비', res);
-	// }, []);
-
-	// const { data } = useQuery(['product'], () => {
-	// 	return MockAxios.get('/product').then(res => {
-	// 		return res.data;
-	// 	});
-	// }); //목데이터용
-
 	useEffect(() => {
 		if (selected <= 1) {
 			navigate(`${selected}`);
@@ -39,11 +28,6 @@ const DesktopSearchList = () => {
 	const usedData = useQuery(['SEARCH_USED', word], () => {
 		return ProductApi.searchItems(1, word, 0);
 	});
-
-	// if (freeData && usedData) {
-	// 	productCount =
-	// 		freeData.data.pagination.count + usedData.data.pagination.count;
-	// }
 
 	const { data, isSuccess, isLoading } = useQuery(['SEARCH_ALL', word], () => {
 		return ProductApi.searchItems(1, word);
