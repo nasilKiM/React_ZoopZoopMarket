@@ -3,12 +3,14 @@ import WebHeader from './Header/Desktop';
 import BasicFooter from './Footer';
 import styled from 'styled-components';
 import RecentProduct from 'Components/RecentCard';
+import { useSocket } from 'Context/socket';
 
 const LayOut = () => {
+	const so = useSocket();
 	return (
 		<>
 			<Wrapper>
-				<WebHeader />
+				<WebHeader so={so} />
 			</Wrapper>
 			<RecentWrap>
 				<RecentProduct />

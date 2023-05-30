@@ -15,7 +15,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
-	console.log(so);
 	useEffect(() => {
 		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {

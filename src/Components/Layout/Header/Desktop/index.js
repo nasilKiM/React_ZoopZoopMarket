@@ -12,9 +12,8 @@ import {
 import NewMessage from './Components/newMessage';
 import UserApi from 'Apis/userApi';
 import TokenService from 'Repository/TokenService';
-import { useSocket } from 'Context/socket';
 
-const WebHeader = () => {
+const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
@@ -23,16 +22,17 @@ const WebHeader = () => {
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
-	const [popupMsg, setPopupMsg] = useState();
 
-	const so = useSocket();
+	const [popupMsg, setPopupMsg] = useState();
+	console.log(33333, so);
 	useEffect(() => {
+		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			console.log(data);
 			setPopupMsg(data);
 		});
-	}, []);
-
+	}, [so]);
+	console.log(1);
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>

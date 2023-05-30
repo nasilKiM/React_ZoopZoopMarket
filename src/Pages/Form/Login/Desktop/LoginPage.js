@@ -33,9 +33,7 @@ const LoginPage = () => {
 		onSuccess: res => {
 			alert(`${res.data.user.nickName}님 안녕하세요.`);
 			TokenService.setToken(res.data.tokenForHeader);
-			console.log(res.data.user.socket);
 			so?.emit('connect-user', { token: TokenService.getToken() });
-			// localStorage.setItem('socketId', res.data.user.socket);
 			navigate('/main');
 		},
 		onError: err => {
