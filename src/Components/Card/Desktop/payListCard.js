@@ -5,6 +5,7 @@ const PayListCard = ({item}) => {
     item && console.log('item', item);
 
     const {title, price, img_url} = item.Product;
+    console.log(title, price, img_url);
 
 	return (
 		<S.Wrapper>
@@ -20,20 +21,19 @@ const PayListCard = ({item}) => {
                 </>
             }
 		</S.Wrapper>
-
-		// )
 	);
 };
 
 export default PayListCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	width: 1000px;
+    height: 100%;
 `;
 
 const Container = styled.div`
-	display: flex;
-	width: 100%;
+	width: 1000px;
+    height: 500px;
 	min-width: 400px;
 	max-height: 200px;
 	border-radius: 5px;

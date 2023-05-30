@@ -58,7 +58,7 @@ export default AccountBookPage;
 const Wrapper = styled.div`
 	margin: 0 auto 300px;
 	width: 100%;
-	height: 500px;
+	height: 100%;
 	font-family: 'Nanum_extraBold';
 	@media ${({ theme }) => theme.device.laptop} {
 		width: 90%;
