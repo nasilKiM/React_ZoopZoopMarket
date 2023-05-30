@@ -24,11 +24,9 @@ const WebHeader = ({ so }) => {
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
 	const [popupMsg, setPopupMsg] = useState();
-	console.log(33333, so);
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
-			console.log(data);
 			setPopupMsg(data);
 		});
 	}, [so]);

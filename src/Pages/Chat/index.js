@@ -8,27 +8,12 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
-	// const { data } = useQuery(['chatList'], () => {
-	// 	return axios.get('/chatList').then(res => {
-	// 		return res.data;
-	// 	});
-	// });
-	// console.log('----->', data);
-
-	// const { data: message } = useQuery(['chatDetail', chatroomIdx], () => {
-	// 	return axios.get(`/chatDetail/${chatroomIdx}`).then(res => {
-	// 		return res.data;
-	// 	});
-	// });
-	// console.log('message', message);
-	// console.log('chatroomIdx', chatroomIdx);
 
 	useEffect(() => {
 		if (!idx) return;
 		const getChatList = async prodIdx => {
 			try {
 				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
-				console.log(res.data);
 				setChatroomList(res.data);
 			} catch (err) {
 				console.log(err);
@@ -43,7 +28,6 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 		const getAllChatList = async () => {
 			try {
 				const res = await ChatApis.loadAllChatList(1);
-				console.log(res.data);
 				setChatroomList(res.data);
 			} catch (err) {
 				console.log(err);

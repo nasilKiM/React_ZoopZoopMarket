@@ -39,7 +39,6 @@ const ChatMessage = ({
 		} catch (err) {
 			console.log(err);
 		}
-		console.log('채팅방클릭!!!!!!!!!!!!!');
 	};
 
 	return (

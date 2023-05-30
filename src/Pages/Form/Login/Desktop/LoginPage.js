@@ -42,7 +42,6 @@ const LoginPage = () => {
 			);
 		},
 	});
-	console.log(queryClient);
 	const onSubmit = data => {
 		const loginInfo = {
 			email: data.email,

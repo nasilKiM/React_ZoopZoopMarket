@@ -21,7 +21,6 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		try {
 			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
-			console.log(setChatRoomRes);
 
 			const message = '채팅방을 시작합니다';
 
@@ -30,39 +29,9 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 				message,
 			});
 			navigate('/chat');
-			console.log(saveMsgRes.data);
-			// navigate('/chat');
-			// so.on('receiveMessage', data => {
-			// 	console.log(data);
-			// });
 		} catch (err) {
 			navigate('/chat');
-			// console.log('11111111111111111111');
-			// so.emit('sendMessage', '채팅방생성');
-			// so.on('receiveMessage', data => {
-			// 	console.log(data);
-			// });
 			console.log(err);
-			// console.log(!itemAllInfo.chat[0].lastMessage);
-			// alert('이미 채팅방을 생성하였습니다');
-			// if (!itemAllInfo.chat[0].lastMessage) {
-			// 	const message = '채팅방을 시작합니다';
-			// 	const data = {
-			// 		title: item.title,
-			// 		createdAt: item.createdAt,
-			// 		prod_idx: item.idx,
-			// 		room_idx: res.data.idx,
-			// 		nickName: item.User.nick_name,
-			// 		message,
-			// 		isSeller: itemAllInfo.isSeller,
-			// 	};
-			// 	console.log('에러');
-			// 	so.emit('sendMessage', data);
-			// 	so.on('receiveMessage', data => {
-			// 		console.log(data);
-			// 	});
-			// 	alert('다시 생성합니다');
-			// }
 		}
 	};
 

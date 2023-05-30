@@ -14,24 +14,13 @@ const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
 				const res = await UserApi.userInfo();
 				setMyNick(res.data.nick_name);
 			} catch (err) {
-				console.log(res);
+				console.log(err);
 			}
 		};
 		myInfo();
 	}, []);
 
 	useEffect(() => {
-		scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-		// scrollRef.current?.scrollIntoView({
-		// 	block: 'end',
-		// 	inline: 'nearest',
-		// });
-	}, [eventCheck]);
-
-	useEffect(() => {
-		// scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-		// scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-		// console.log(scrollRef.current.scrollTop, scrollRef.current.scrollHeight);
 		scrollRef.current.scrollIntoView({
 			block: 'end',
 			inline: 'nearest',
