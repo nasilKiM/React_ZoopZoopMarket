@@ -46,15 +46,24 @@ const MyItemPage = () => {
 				</S.Category>
 			</S.CategoryZone>
 			<S.Wrapper>
-				{data?.pages[0].data.products.length > 0 ? (
+				{data?.pages[0].data.products &&
+				data.pages[0].data.products.length > 0 ? (
 					<S.Container>
-						data?.pages.map(page => page?.data.products.map(item => (
-						<ItemCard index={item.idx} products={item} isMine={true} />
-						)), )
+						{data.pages.map(page =>
+							page.data.products.map(item => (
+								<ItemCard
+									key={item.idx}
+									index={item.idx}
+									products={item}
+									isMine={true}
+								/>
+							)),
+						)}
 					</S.Container>
 				) : (
 					<S.Txt>등록된 아이템이 없습니다.</S.Txt>
 				)}
+
 				<div ref={ref}></div>
 			</S.Wrapper>
 		</S.Div>

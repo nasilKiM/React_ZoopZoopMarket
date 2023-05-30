@@ -4,6 +4,13 @@ import styled from 'styled-components';
 
 const SoldOutModal = ({ roomData, onClose, idx }) => {
 	const navigate = useNavigate();
+	const selectBuyer = async (prod_idx, token, nick_name) => {
+		const confirmed = window.confirm(`${nick_name}에게 판매를 하시겠습니까?`);
+		if (confirmed) {
+			await soldOut(prod_idx, token);
+		}
+	};
+
 	const soldOut = async (prod_idx, token) => {
 		try {
 			const response = await ProductApi.soldOut(prod_idx, token);
@@ -15,6 +22,15 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 			console.log('에러', error);
 		}
 	};
+	// try {
+	// 	const response = await ProductApi.soldOut(prod_idx, token);
+	// 	if (response.status === 200) {
+	// 		console.log('물품판매됨', response);
+	// 	}
+	// 	navigate('/mypage');
+	// } catch (error) {
+	// 	console.log('에러', error);
+	// }
 
 	return (
 		<S.Wrapper>
@@ -27,7 +43,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 								유저명: {room.User.nick_name}
 								<S.CheckBuyer
 									onClick={() => {
-										soldOut(idx, room.User.token);
+										selectBuyer(idx, room.User.token, room.User.nick_name);
 									}}
 								>
 									V
@@ -63,6 +79,7 @@ const BuyerList = styled.div`
 	border: 3px solid pink;
 `;
 const CheckBuyer = styled.div`
+	margin-left: 30px;
 	border: 5px solid blue;
 	cursor: pointer;
 `;

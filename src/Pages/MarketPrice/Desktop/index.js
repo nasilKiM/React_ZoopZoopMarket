@@ -1,23 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
-import ItemCard from 'Components/Card/Desktop/Card';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import dayjs from 'dayjs';
 import Chart from './chart';
+import RecentSoldOut from './recentSoldout';
 
 const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
 	const today = dayjs().format('YYYY-MM-DD');
-	// const [priceList, setItemList] = useRecoilState(itemPriceState);
 	const start = '2023-05-20';
 	const end = '2023-06-02';
-	//console.log(word);
+	console.log(today);
+	const monthsAgo = dayjs().subtract(1, 'month').format('YYYY-MM-DD');
+	console.log(monthsAgo);
 
 	//let data = [];
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
@@ -36,44 +36,11 @@ const DesktopMarketPrice = () => {
 		};
 	}, []);
 
-	// console.log(viewportSize);
-	// const search = async (keyword, start, end) => {
-	// 	const data = await ProductApi.searchMarket(keyword, start, end);
-	// 	return data;
-	// };
 	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE', word], () =>
-		ProductApi.searchMarket(word, start, end),
+		ProductApi.searchMarket(word, monthsAgo, today),
 	);
 
-	//data && console.log(data);
-
-	// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
-	//console.log('시세 검색 단어: ', word);
-	// console.log(priceList);
-	// const data = [
-	// 	{ date: '2023-04-30', price: 3000 },
-	// 	{ date: '2023-05-01', price: 3500 },
-	// 	{ date: '2023-05-02', price: 2500 },
-	// 	{ date: '2023-05-03', price: 3800 },
-	// 	{ date: '2023-05-04', price: 9000 },
-	// 	{ date: '2023-05-05', price: 3900 },
-	// 	{ date: '2023-05-06', price: 4200 },
-	// 	{ date: '2023-05-07', price: 4200 },
-	// 	{ date: '2023-05-08', price: 3800 },
-	// 	{ date: '2023-05-09', price: 4200 },
-	// 	{ date: '2023-05-11', price: 3800 },
-	// 	{ date: '2023-05-11', price: 4200 },
-	// ]; 실제 데이터도 이 형태로 담겨져서 옴
-
 	const formatData = data => {
-		// return data.map(({ date, price }) => {
-		// 	const [month, day] = date.split('-').slice(1);
-		// 	const formattedMonth = month.replace(/^0+/, ''); // 0으로 시작하는 부분 제거
-		// 	return {
-		// 		date: `${formattedMonth}-${day}`,
-		// 		price: price !== undefined ? price : 0,
-		// 	};
-		// });
 		return data.map(product => {
 			const date = product.date.split('-');
 			const month = parseInt(date[1]);
@@ -89,37 +56,13 @@ const DesktopMarketPrice = () => {
 		data?.data?.cumulativeAvgPrice && formatData(data.data.cumulativeAvgPrice);
 	//console.log(arr);
 
-	// const groupingData = (data, groupSize) => {
-	// 	const result = [];
-	// 	let group = [];
-
-	// 	for (let i = 0; i < data.length; i++) {
-	// 		group.push(data[i]);
-
-	// 		if (group.length === groupSize || i === data.length - 1) {
-	// 			const firstDate = group[0].date;
-	// 			const lastDate = group[group.length - 1].date;
-	// 			const avgPrice = (
-	// 				group.reduce((sum, item) => sum + item.price, 0) / group.length
-	// 			).toFixed(2);
-	// 			result.push({
-	// 				group: `${firstDate}~${lastDate}`,
-	// 				avgPrice: parseFloat(avgPrice),
-	// 			});
-	// 			group = [];
-	// 		}
-	// 	}
-
-	// 	return result;
-	// }; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
-
-	// const groupedData = arr?.length && groupingData(arr, 2);
-	// console.log(groupedData);
-
 	let average = 0;
+	let roundedAverage = 0;
 	if (data && data.data.cumulativeAvgPrice) {
 		const forLastData = data.data.cumulativeAvgPrice.length - 1;
 		average = data.data.cumulativeAvgPrice[forLastData].avgPrice;
+		const numberAverage = parseFloat(average);
+		roundedAverage = numberAverage.toFixed(2);
 	}
 
 	const itemList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -159,44 +102,28 @@ const DesktopMarketPrice = () => {
 						</S.SearchBarContainer>
 					</S.UpperPart>
 					<S.ChartContainer>
-						{/* <LineChart
-							width={chartWidth}
-							height={chartHeight}
-							data={groupedData}
-						>
-							<CartesianGrid strokeDasharray="3 3" />
-							<XAxis dataKey="group" />
-							<YAxis />
-							<Tooltip />
-							<Legend />
-							<Line
-								type="monotone"
-								dataKey="avgPrice"
-								stroke={theme.color.primary[300]}
-								activeDot={{ r: 7 }}
-							/>
-						</LineChart> */}
 						<Chart
 							chartWidth={chartWidth}
 							chartHeight={chartHeight}
 							data={arr}
 						></Chart>
 					</S.ChartContainer>
-					{isNaN(average) ? (
+					{average == 0 ? (
 						<S.Average>검색어가 입력되지 않았습니다.</S.Average>
 					) : (
 						<S.Average>
-							평균 시세는
-							<S.ResultWord>{average}원</S.ResultWord> 입니다.
+							"{word}" 의 평균 시세는
+							<S.ResultWord>{roundedAverage}원</S.ResultWord> 입니다.
 						</S.Average>
 					)}
 					<S.RecentlyClosed>
 						<S.Title>최근 거래 종료 품목</S.Title>
-						<S.ItemList>
+						{/* <S.ItemList>
 							{itemList.map(item => (
 								<ItemCard key={item} />
 							))}
-						</S.ItemList>
+						</S.ItemList> */}
+						<RecentSoldOut word={word} />
 					</S.RecentlyClosed>
 				</S.Wrapper>
 			)}
@@ -249,6 +176,7 @@ const Title = styled.div`
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 	margin-top: 40px;
+	margin-bottom: 20px;
 `;
 const SubTitle = styled.div`
 	margin-top: 15px;
@@ -329,6 +257,26 @@ dataKey props를 통해 그래프의 데이터를 설정합니다. stroke props�
 activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원형으로 표시됩니다.
 */
 
+//data && console.log(data);
+
+// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
+//console.log('시세 검색 단어: ', word);
+// console.log(priceList);
+// const data = [
+// 	{ date: '2023-04-30', price: 3000 },
+// 	{ date: '2023-05-01', price: 3500 },
+// 	{ date: '2023-05-02', price: 2500 },
+// 	{ date: '2023-05-03', price: 3800 },
+// 	{ date: '2023-05-04', price: 9000 },
+// 	{ date: '2023-05-05', price: 3900 },
+// 	{ date: '2023-05-06', price: 4200 },
+// 	{ date: '2023-05-07', price: 4200 },
+// 	{ date: '2023-05-08', price: 3800 },
+// 	{ date: '2023-05-09', price: 4200 },
+// 	{ date: '2023-05-11', price: 3800 },
+// 	{ date: '2023-05-11', price: 4200 },
+// ]; 실제 데이터도 이 형태로 담겨져서 옴
+
 // useEffect(() => {
 // 	const fetchItems = async () => {
 // 		try {
@@ -361,3 +309,30 @@ activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원�
 // 	};
 // 	fetchItems();
 // }, []);
+
+// const groupingData = (data, groupSize) => {
+// 	const result = [];
+// 	let group = [];
+
+// 	for (let i = 0; i < data.length; i++) {
+// 		group.push(data[i]);
+
+// 		if (group.length === groupSize || i === data.length - 1) {
+// 			const firstDate = group[0].date;
+// 			const lastDate = group[group.length - 1].date;
+// 			const avgPrice = (
+// 				group.reduce((sum, item) => sum + item.price, 0) / group.length
+// 			).toFixed(2);
+// 			result.push({
+// 				group: `${firstDate}~${lastDate}`,
+// 				avgPrice: parseFloat(avgPrice),
+// 			});
+// 			group = [];
+// 		}
+// 	}
+
+// 	return result;
+// }; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
+
+// const groupedData = arr?.length && groupingData(arr, 2);
+// console.log(groupedData);

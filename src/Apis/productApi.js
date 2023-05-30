@@ -50,12 +50,13 @@ const ProductApi = {
 		return Axios.delete(PATH + '/viewed-list', { params: { prod_idx } });
 	},
 
-	searchItems(page, searchWord, selected) {
+	searchItems(page, searchWord, selected, status) {
 		return Axios.get(PATH + '/search', {
 			params: {
 				category: selected,
 				keyword: searchWord,
 				page: page,
+				status: status,
 			},
 		});
 	},
