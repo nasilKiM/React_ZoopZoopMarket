@@ -8,10 +8,18 @@ import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item, itemAllInfo }) => {
-	const created = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
-	const diff = dayjs().diff(item && dayjs(item.createdAt), 'day');
-	const date = diff === 0 ? '오늘' : diff < 4 ? `${diff}일전` : created;
+const DetailContent = ({ state, item }) => {
+	const today = dayjs();
+	const created = item && dayjs(item.createdAt);
+	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
+	const diff = today.diff(created, 'day', true);
+
+	const date =
+		diff.toFixed() == 0
+			? '오늘'
+			: diff < 4
+			? `${diff.toFixed()}일전`
+			: cleanDate;
 
 	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
@@ -19,7 +27,6 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 	const so = useSocket();
 	const onClickChatStartBtn = async () => {
 		try {
-			// 채팅방생성
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 
 			const message = '채팅방을 시작합니다';
@@ -52,20 +59,24 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 								{item.description.replaceAll('\r,\n', '<br />')}
 							</div>
 							<div>
-								<div onClick={onClickChatStartBtn}>채팅하기</div>
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
+								{item.status == '판매중' && (
+									<div onClick={onClickChatStartBtn}>채팅하기</div>
+								)}
+								{item.status == '판매중' && (
+									<div>
+										<HeartBtn like={item.liked} idx={item.idx} />
+									</div>
+								)}
 							</div>
+							{item.status == '판매완료' && (
+								<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+							)}
 						</S.BuyerWrapper>
 				  )
 				: item && (
 						<S.SellerWrapper isDesktop={isDesktop}>
 							<div>
 								<div>{item.title}</div>
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
 							</div>
 							<div>
 								{item.ProductsTags.map(item => (
@@ -119,7 +130,9 @@ const BuyerWrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 		padding-top: 20px;
-		min-height: 150px;
+		min-height: 180px;
+		line-height: 30px;
+		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
 	// 카테고리
 	& > div:nth-of-type(5) {
@@ -146,6 +159,15 @@ const BuyerWrapper = styled.div`
 	}
 `;
 
+const solidOut = styled.div`
+	width: 100%;
+	padding: 15px;
+	${flexAllCenter}
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.black};
+`;
+
 const SellerWrapper = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	margin: 25px 10px;
@@ -158,11 +180,6 @@ const SellerWrapper = styled.div`
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
-		//하트
-		& > div:last-child {
-			width: 40px;
-			height: 40px;
-		}
 	}
 	//가격
 	& > div:nth-of-type(3) {
@@ -172,9 +189,11 @@ const SellerWrapper = styled.div`
 	//본문
 	& > div:nth-of-type(4) {
 		padding-top: 20px;
-		min-height: 150px;
+		min-height: 180px;
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
+		line-height: 30px;
+		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
 	//태그
 	& > div:nth-of-type(2) {
@@ -194,5 +213,6 @@ const SellerWrapper = styled.div`
 
 const S = {
 	BuyerWrapper,
+	solidOut,
 	SellerWrapper,
 };

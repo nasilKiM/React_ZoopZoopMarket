@@ -15,7 +15,7 @@ const MobileRegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 
 	return (
-		<S.Wrapper onSubmit={handleSubmit(data => console.log(data))}>
+		<S.Wrapper>
 			<UploadFiles />
 			<S.Blank></S.Blank>
 			<S.Line>

@@ -140,7 +140,7 @@ const Category = () => {
 						{categories.map(category => (
 							<CategoryContainer
 								onClick={() => {
-									navigate(`/search_list/${category.keyword}/0`);
+									navigate(`/search_list/${category.name}/0`);
 								}}
 							>
 								<CategoryItem key={category.id}>
@@ -163,6 +163,44 @@ const CategoryWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 70px;
+		background: linear-gradient(
+			to right,
+			rgba(260, 260, 260, 1) 0%,
+			rgba(128, 128, 128, 0) 100%
+		);
+		z-index: 1;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 70px;
+		background: linear-gradient(
+			to left,
+			rgba(260, 260, 260, 1) 0%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		z-index: 1;
+	}
+
+	&::before {
+		left: 0;
+	}
+
+	&::after {
+		right: 0;
+	}
 `;
 
 const CategoryContainer = styled.div`

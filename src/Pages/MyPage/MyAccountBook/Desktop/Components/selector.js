@@ -2,20 +2,21 @@ import styled from 'styled-components';
 
 const AccountBookSelector = props => {
 	const { category, setCategory, year, setYear, month, setMonth } = props;
-	
+
 	return (
-	  <>
-		<S.SelectorsZone>
+		<>
+			<S.SelectorsZone>
 				<S.LargeSelect
 					name="action_type"
 					id="action_type_select"
 					value={category}
 					onChange={({ target: { value } }) => setCategory(String(value))}
 				>
-					<option value="sell">판매</option>
-					<option value="purchase">구매</option>
+					{/* <option value="total">전체</option> */}
+					<option value="seller">판매</option>
+					<option value="buyer">구매</option>
 				</S.LargeSelect>
-			<S.RightSideSelectors>
+				<S.RightSideSelectors>
 					<S.LargeSelect
 						name="year"
 						id="year_select"
@@ -46,9 +47,9 @@ const AccountBookSelector = props => {
 						<option value="11">11 월</option>
 						<option value="12">12 월</option>
 					</S.LargeSelect>
-			</S.RightSideSelectors>
-		</S.SelectorsZone>
-	  </>	
+				</S.RightSideSelectors>
+			</S.SelectorsZone>
+		</>
 	);
 };
 
@@ -63,11 +64,11 @@ const SelectorsZone = styled.div`
 			margin-right: 15px;
 		}
 	}
-	`;
+`;
 
 const RightSideSelectors = styled.div`
 	display: flex;
-	`;
+`;
 
 const LargeSelect = styled.select`
 	-moz-appearance: none;

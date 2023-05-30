@@ -1,25 +1,28 @@
 import ItemCard from 'Components/Card/Desktop/Card';
-import MobileCard from 'Components/Card/Mobile/MobileCard';
-import { flexAllCenter } from 'Styles/common';
-import { isDesktop } from 'react-device-detect';
+import { flexAlignCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const AnotherProduct = () => {
+const AnotherProduct = ({ product, isMine }) => {
+	const hasRelated = product && product.length > 0;
+
 	return (
 		<S.Wrapper>
 			<div>연관상품</div>
-			{isDesktop ? (
+			{hasRelated ? (
 				<S.ProductList>
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
+					{product.map(prod => {
+						return (
+							<ItemCard
+								index={prod.idx}
+								products={prod}
+								isMine={isMine}
+								isRelated={true}
+							/>
+						);
+					})}
 				</S.ProductList>
 			) : (
-				<div>
-					<MobileCard />
-					<MobileCard />
-				</div>
+				<div>연관된 아이템이 없습니다.</div>
 			)}
 		</S.Wrapper>
 	);
@@ -37,7 +40,7 @@ const Wrapper = styled.div`
 `;
 
 const ProductList = styled.div`
-	${flexAllCenter}
+	${flexAlignCenter}
 `;
 
 const S = {

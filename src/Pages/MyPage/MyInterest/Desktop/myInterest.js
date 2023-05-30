@@ -44,8 +44,10 @@ const MyInterestPage = () => {
 export default MyInterestPage;
 
 const Wrap = styled.div`
-	width: 100%;
 	margin: 0 auto;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
 `;
 
 const Container = styled.div`

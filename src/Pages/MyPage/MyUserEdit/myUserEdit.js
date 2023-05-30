@@ -1,4 +1,8 @@
-import { flexAllCenter } from 'Styles/common';
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -8,13 +12,16 @@ import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
+import { useQuery } from '@tanstack/react-query';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
+
 	const [address, setAddress] = useState();
-	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
 	const [modal, setModal] = useState(false);
+	data && console.log(data);
 
 	const {
 		register,
@@ -34,6 +41,7 @@ const MyUserEdit = ({ userInfo }) => {
 
 		try {
 			await UserApi.userInfoEdit(infoEdit);
+
 			setModal(true);
 		} catch (err) {
 			alert(
@@ -43,22 +51,6 @@ const MyUserEdit = ({ userInfo }) => {
 		}
 	};
 
-	// zoopzoop의 아이디는 이메일로, 아이디를 변경할수 없도록 해야할지 전체 논의 필요 (우선은 스웨거 상 아이디 변경 가능하도록 되어 있어 추가해놓음)
-	const onCheckId = async e => {
-		e.preventDefault();
-		const value = getValues('email');
-		try {
-			const res = await UserApi.checkEmail(value);
-			setIdMsg(res.data.message);
-		} catch (err) {
-			setIdMsg(err.response.data.message);
-		}
-	};
-
-	useEffect(() => {
-		setIdMsg('');
-	}, [getValues('email')]);
-
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -66,6 +58,7 @@ const MyUserEdit = ({ userInfo }) => {
 			const res = await UserApi.checkNickname(value);
 			setNickMsg(res.data.message);
 		} catch (err) {
+			console.log(err);
 			setNickMsg(err.response.data.message);
 		}
 	};
@@ -75,97 +68,87 @@ const MyUserEdit = ({ userInfo }) => {
 	}, [getValues('nick')]);
 
 	useEffect(() => {
-		setValue('email', userInfo?.email);
-		setValue('nick', userInfo?.nick_name);
-		setValue('phone', userInfo?.phone);
+		setValue('email', data.data.email);
+		setValue('nick', data.data.nick_name);
+		setValue('phone', data.data.phone);
+		setAddress(data.data.region);
 	}, []);
 
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
 	};
 
-	const full = !errors.email && !errors.phone && address;
+	const full = !errors.nick && address;
 
 	return (
-		<>
-			<S.Wrap>
-				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					{/* <S.Grid1>
+		data && (
+			<>
+				<S.Wrap>
+					<S.Form onSubmit={handleSubmit(onSubmit)}>
+						<S.Container>
 							<S.Title>* 아이디</S.Title>
+							<S.idDiv>{data.data.email}</S.idDiv>
+						</S.Container>
+						<S.Container>
+							<S.Title>* 닉네임</S.Title>
 							<S.Input
-								{...register('email', FORM_TYPE.EMAIL)}
-								placeholder="E-mail"
+								{...register('nick', FORM_TYPE.NICKNAME)}
+								placeholder="Nick_Name"
 							/>
 							<S.CheckBtn
-									disabled={errors.email || !'email'}
-									onClick={onCheckId}
-									shape={'checkBtn'}
-									size={'checkBtn'}
+								disabled={errors.nick || !'nick'}
+								onClick={onCheckNick}
+								shape={'checkBtn'}
+								size={'checkBtn'}
 							>
 								중복확인
 							</S.CheckBtn>
-						</S.Grid1> */}
-					{errors.email && <S.Error>{errors.email.message}</S.Error>}
-					{<S.Error>{idMsg}</S.Error>}
-					<S.Grid1>
-						<S.Title>* 닉네임</S.Title>
-						<S.Input
-							{...register('nick', FORM_TYPE.NICKNAME)}
-							placeholder="Nick_Name"
-						/>
-						<S.CheckBtn
-							disabled={errors.nick || !'nick'}
-							onClick={onCheckNick}
-							shape={'checkBtn'}
-							size={'checkBtn'}
+						</S.Container>
+						{errors.nick && <S.Error>{nickMsg}</S.Error>}
+						<S.Container>
+							<S.Title>* 전화번호</S.Title>
+							<S.PhoneInput
+								maxLength="13"
+								minLength={13}
+								{...register('phone', {
+									onChange: e => {
+										setValue(
+											'phone',
+											e.target.value
+												.replace(/[^0-9]/g, '')
+												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
+										);
+									},
+								})}
+								placeholder="010-0000-0000"
+							/>
+						</S.Container>
+						<S.Container>
+							<S.Title>* 주소</S.Title>
+							<S.addressDiv>{address}</S.addressDiv>
+							<FindAddress setter={setAddress} region={userInfo?.region} />
+						</S.Container>
+						<S.Button
+							type="submit"
+							disabled={!full}
+							size={'submitBtn'}
+							shape={'submitBtn'}
 						>
-							중복확인
-						</S.CheckBtn>
-					</S.Grid1>
-					{<S.Error>{nickMsg}</S.Error>}
-					<S.Grid2>
-						<S.Title2>* 전화번호</S.Title2>
-						<S.Input
-							maxLength="13"
-							{...register('phone', {
-								onChange: e => {
-									setValue(
-										'phone',
-										e.target.value
-											.replace(/[^0-9]/g, '')
-											.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
-									);
-								},
-							})}
-							placeholder="010-0000-0000"
-						/>
-					</S.Grid2>
-					{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
-					<S.Grid3>
-						<S.Title>* 주소</S.Title>
-						<div>{address}</div>
-						<FindAddress setter={setAddress} region={userInfo?.region} />
-					</S.Grid3>
-					<S.Button
-						type="submit"
-						disabled={!full}
-						size={'submitBtn'}
-						shape={'submitBtn'}
-					>
-						저장하기
-					</S.Button>
-					{modal && (
-						<AlertModal
-							content={'회원정보가 변경되었습니다'}
-							props={'/mypage'}
-						/>
-					)}
-				</S.Form>
-			</S.Wrap>
-			<S.Wrap2>
-				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
-			</S.Wrap2>
-		</>
+							저장하기
+						</S.Button>
+						{modal && (
+							<AlertModal
+								content={'회원정보가 변경되었습니다'}
+								props={'/mypage/item'}
+							/>
+						)}
+					</S.Form>
+				</S.Wrap>
+				<S.Wrap2>
+					<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
+				</S.Wrap2>
+			</>
+		)
 	);
 };
 
@@ -190,22 +173,59 @@ const Form = styled.form`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding: 40px 15vw;
+	padding: 40px;
 `;
 
 const Input = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	padding-left: 10px;
+	width: 60%;
+	height: 30px;
+`;
+
+const PhoneInput = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-radius: 10px;
+	padding-left: 10px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	width: 80%;
+	height: 40px;
+`;
+
+const idDiv = styled.div`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	border-radius: 10px;
+	padding-left: 10px;
+	width: 80%;
+	height: 40px;
+	${flexAlignCenter}
+`;
+
+const addressDiv = styled.div`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	border-radius: 10px;
+	padding-left: 10px;
+	margin-right: 10px;
+	width: 60%;
+	height: 40px;
+	${flexAlignCenter}
 `;
 
 const CheckBtn = styled(CustomButton)`
-	min-width: max-content;
-	background: none;
+	width: 100px;
+	height: 40px;
+	background: ${({ theme }) => theme.color.primary[200]};
+	color: ${({ theme }) => theme.color.white};
 	margin-left: 10px;
-	border: 2px solid ${({ theme }) => theme.color.primary[400]};
-	&:hover {
-		color: ${({ theme }) => theme.color.fontColor[100]};
-		background-color: ${({ theme }) => theme.color.primary[400]};
+	border: none;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		background-color: ${({ theme }) => theme.color.primary[300]};
 	}
 `;
 
@@ -213,8 +233,8 @@ const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 100%;
 	background: linear-gradient(
-		${({ theme }) => theme.color.primary[400]},
-		${({ theme }) => theme.color.primary[200]}
+		${({ theme }) => theme.color.primary[200]},
+		${({ theme }) => theme.color.primary[300]}
 	);
 	border: none;
 	color: ${({ theme }) => theme.color.fontColor[100]};
@@ -227,7 +247,10 @@ const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.primary};
-	margin-bottom: 15px;
+	/* position: absolute;
+	top: 10px; */
+	width: 60%;
+	border: 2px solid aqua;
 `;
 
 const Text = styled.div`
@@ -240,41 +263,18 @@ const Text = styled.div`
 	}
 `;
 
-const Grid1 = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 4.1fr 1fr;
-	grid-auto-rows: 5.5vh;
-	grid-gap: 20px;
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
 	margin-bottom: 10px;
-`;
-
-const Grid2 = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 7.6fr;
-	grid-auto-rows: 5.5vh;
-	grid-gap: 40px;
-	margin-bottom: 25px;
-`;
-
-const Grid3 = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 6fr 1.1fr;
-	grid-auto-rows: 5.5vh;
-	grid-gap: 18px;
-	justify-content: center;
+	position: relative;
 `;
 
 const Title = styled.div`
-	width: 10vw;
-	min-width: max-content;
-	${flexAllCenter}
-	margin-right: 22px;
-`;
-
-const Title2 = styled.div`
-	width: 10vw;
-	min-width: max-content;
-	${flexAllCenter}
+	min-width: 90px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px
 `;
 
 const S = {
@@ -282,13 +282,13 @@ const S = {
 	Wrap2,
 	Form,
 	Input,
+	PhoneInput,
+	idDiv,
+	addressDiv,
 	CheckBtn,
 	Button,
 	Error,
 	Text,
-	Grid1,
-	Grid2,
-	Grid3,
+	Container,
 	Title,
-	Title2,
 };

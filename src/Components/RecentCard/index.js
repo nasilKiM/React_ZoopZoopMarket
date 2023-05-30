@@ -23,6 +23,7 @@ const RecentProduct = () => {
 				<FontAwesomeIcon icon={faAngleUp} />
 			</S.Next>
 		),
+
 		prevArrow: (
 			<S.Pre>
 				<FontAwesomeIcon icon={faAngleDown} />
@@ -52,6 +53,9 @@ const Wrap = styled.div`
 	flex-direction: column;
 	position: relative;
 	background-color: white;
+	position: fixed;
+	right: 10px;
+	bottom: 150px;
 `;
 const RecentWord = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.base};

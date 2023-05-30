@@ -52,31 +52,31 @@ const MyProfile = () => {
 	useEffect(() => {
 		getUserInfo();
 		getUserProfile();
-	}, []);
+	}, [profileImg]);
 
 	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
+
+	console.log('프로필', userProfile);
 
 	return (
 		<S.Wrapper>
 			{userInfo && userProfile && (
 				<S.Info>
 					<S.ImgWrap>
-						{userInfo && (
-							<S.Img
-								src={
-									userInfo.data.profile_url
+						<S.Img
+							src={
+								userInfo.data.profile_url
+									? profileImg
 										? profileImg
-											? profileImg
-											: userInfo.data.profile_url
-										: '/Assets/Images/기본 프로필.png'
-								}
-							/>
-						)}
+										: userInfo.data.profile_url
+									: '/Assets/Images/기본 프로필.png'
+							}
+						/>
 						<S.ProfileImg>
 							<S.FontAwesomeIconImg
 								icon={faCamera}
-								style={{ color: '#ffffff', fontSize: '20px' }}
+								style={{ color: '#ffffff', fontSize: '15px' }}
 								onClick={handleClick}
 							/>
 							<input
@@ -92,7 +92,7 @@ const MyProfile = () => {
 					<S.Detail>
 						<S.List>
 							<S.InfoTitle>닉네임</S.InfoTitle>
-							<S.InfoContent>{User.nickName}</S.InfoContent>
+							{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
 						</S.List>
 						<S.List>
 							<S.InfoTitle>매너온도</S.InfoTitle>
@@ -109,7 +109,12 @@ const MyProfile = () => {
 						<S.List>
 							<S.InfoTitle>내 등록템</S.InfoTitle>
 							<S.InfoContent>
-								<span>{userProfile.data.productsCount}</span> 개
+								<span>
+									{userProfile.data.productsCount
+										? userProfile.data.productsCount
+										: 0}
+								</span>{' '}
+								개
 							</S.InfoContent>
 						</S.List>
 						<S.List>
@@ -134,16 +139,20 @@ const MyProfile = () => {
 export default MyProfile;
 
 const Wrapper = styled.div`
-	width: 100%;
-	height: 20vh;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
+	height: 30%;
+	padding-bottom: 30px;
+	margin: 0 auto;
 `;
 
 const Info = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	margin-top: 60px;
 	margin-left: 20px;
+	padding-left: 10px;
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 80vw;
 		margin-left: 0;
@@ -169,7 +178,6 @@ const Img = styled.img`
 
 const ImgWrap = styled.div`
 	position: relative;
-	margin-right: 50px;
 	@media ${({ theme }) => theme.device.tablet} {
 		margin: 0px;
 	}
@@ -239,7 +247,7 @@ const InfoTitle = styled.div`
 const InfoContent = styled.div`
 	margin-left: 10px;
 	min-width: max-content;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
@@ -252,7 +260,7 @@ const InfoContent = styled.div`
 
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
-		font-size: ${({ theme }) => theme.fontSize.md};
+		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 		@media ${({ theme }) => theme.device.tablet} {
 			font-size: ${({ theme }) => theme.fontSize.sm};

@@ -9,10 +9,10 @@ const AccountBookPage = () => {
 	const [date, setDate] = useState(new Date());
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [month, setMonth] = useState(new Date().getMonth() + 1);
-	
-	useEffect(()=>{
-		setDate(`${year}-0${month}-01`)
-	}, [year, month])
+
+	useEffect(() => {
+		setDate(`${year}-0${month}-01`);
+	}, [year, month]);
 
 	const specificMonth = new Date(year, month, 0);
 	const lastDay = specificMonth.getDate();
@@ -25,28 +25,28 @@ const AccountBookPage = () => {
 		category,
 		start,
 		end,
-	})
+	});
 
-	return(
-	  <S.Wrapper>
-		<AccountBookSelector
-			category={category}
-			setCategory={setCategory}
-			year={year}
-			setYear={setYear}
-			month={month}
-			setMonth={setMonth}
+	return (
+		<S.Wrapper>
+			<AccountBookSelector
+				category={category}
+				setCategory={setCategory}
+				year={year}
+				setYear={setYear}
+				month={month}
+				setMonth={setMonth}
 			/>
-		<AccountBookDetailInfo
-			category={category}
-			date={date}
-			setDate={setDate}
-			year={year}
-			month={month}
-			data={res.data}
-		/>
-	  </S.Wrapper>
-	) 
+			<AccountBookDetailInfo
+				category={category}
+				date={date}
+				setDate={setDate}
+				year={year}
+				month={month}
+				data={res.data}
+			/>
+		</S.Wrapper>
+	);
 };
 
 export default AccountBookPage;

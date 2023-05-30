@@ -28,7 +28,6 @@ const GlobalStyles = createGlobalStyle`
     }
 	body{
 		font-family: 'Nanum_regular';
-		min-height: 100vh;
 	}
 	button: {
 		border: none;

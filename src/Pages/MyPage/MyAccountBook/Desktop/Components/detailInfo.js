@@ -5,67 +5,104 @@ import './styles.css';
 import moment from 'moment';
 import PayListCard from 'Components/Card/Desktop/payListCard';
 
-const AccountBookDetailInfo = ({ category, date, setDate, year, month, data }) => {
-
+const AccountBookDetailInfo = ({
+	category,
+	date,
+	setDate,
+	year,
+	month,
+	data,
+}) => {
 	let saleDateArr = [];
-	data && data.payList.map(item => {
-		const saleDate = item.createdAt;
-		saleDateArr.push(saleDate.split('T')[0]);
-	});
+	data &&
+		data.payList.map(item => {
+			const saleDate = item.createdAt;
+			saleDateArr.push(saleDate.split('T')[0]);
+		});
 
 	let purchaseDateArr = [];
-	data && data.payList.map(item => {
-		const saleDate = item.createdAt;
-		purchaseDateArr.push(saleDate.split('T')[0]);
-	});
-
+	data &&
+		data.payList.map(item => {
+			const saleDate = item.createdAt;
+			purchaseDateArr.push(saleDate.split('T')[0]);
+		});
+	data && console.log(data);
 	return (
 		<>
-		<S.Wrap>
-			<S.PreviewWrap>
-				<S.PreviewContent1>
-					<S.Date>{year}년 {month}월</S.Date>
-					  <div>
-						<S.Div1>
-							<div>수입</div>
-							{data && <div><span>{data.amount.thisMonthSaleAmount === null ? 0 : data.amount.thisMonthSaleAmount.toLocaleString('ko-KR')}</span>원</div>}
-							{data && <div><span>{data.payList.length}</span> 건</div>}
-						</S.Div1>
-						<S.Div1>
-							<div>지출</div>
-							{data && <div><span>{data.amount.thisMonthPurchaseAmount === null ? 0 : data.amount.thisMonthPurchaseAmount.toLocaleString('ko-KR')}</span>원</div>}
-							{data && <div><span>{data.payList.length}</span> 건</div>}
-						</S.Div1>
-					  </div>
-				</S.PreviewContent1>
-				<S.PreviewContent>
-				</S.PreviewContent>
-			</S.PreviewWrap>
-			<Calendar
-				value={date}
-				onChange={setDate}
-				className="react-calendar"
-				formatDay={(locale, date) => moment(date).format('D')}
-				tileContent={({ date }) => {
-					if (saleDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
-						return (
-							<div className="sale"></div>
-							);
+			<S.Wrap>
+				<S.PreviewWrap>
+					<S.PreviewContent1>
+						<S.Date>
+							{year}년 {month}월
+						</S.Date>
+						<div>
+							<S.Div1>
+								<div>수입</div>
+								{data && (
+									<div>
+										<span>
+											{data.amount.thisMonthSaleAmount === null
+												? 0
+												: data.amount.thisMonthSaleAmount.toLocaleString(
+														'ko-KR',
+												  )}
+										</span>
+										원
+									</div>
+								)}
+								{data && (
+									<div>
+										<span>{data.payList.length}</span> 건
+									</div>
+								)}
+							</S.Div1>
+							<S.Div1>
+								<div>지출</div>
+								{data && (
+									<div>
+										<span>
+											{data.amount.thisMonthPurchaseAmount === null
+												? 0
+												: data.amount.thisMonthPurchaseAmount.toLocaleString(
+														'ko-KR',
+												  )}
+										</span>
+										원
+									</div>
+								)}
+								{data && (
+									<div>
+										<span>{data.payList.length}</span> 건
+									</div>
+								)}
+							</S.Div1>
+						</div>
+					</S.PreviewContent1>
+					<S.PreviewContent></S.PreviewContent>
+				</S.PreviewWrap>
+				<Calendar
+					value={date}
+					onChange={setDate}
+					className="react-calendar"
+					formatDay={(locale, date) => moment(date).format('D')}
+					tileContent={({ date }) => {
+						if (
+							saleDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))
+						) {
+							return <div className="sale"></div>;
 						}
-						if (purchaseDateArr.find(day => day === moment(date).format('YYYY-MM-DD'))) {
-							return (
-								<div className="purchase"></div>
-								);
-							}
-						}}
-						/>
-		</S.Wrap>
-		<S.DetailTitle>세부내역</S.DetailTitle>
-		<div>
-			{data && data.payList.map(item => (
-				<PayListCard item={item}/>
-			))}
-		</div>
+						if (
+							purchaseDateArr.find(
+								day => day === moment(date).format('YYYY-MM-DD'),
+							)
+						) {
+							return <div className="purchase"></div>;
+						}
+					}}
+				/>
+			</S.Wrap>
+			<S.DetailTitle>세부내역</S.DetailTitle>
+			<div>{data && data.payList.map(item => <PayListCard item={item} />)}</div>
 		</>
 	);
 };
@@ -81,8 +118,8 @@ const Wrap = styled.div`
 
 const Date = styled.div`
 	padding-left: 50px;
-	color: ${({theme}) => theme.color.primary[400]};
-	font-size: ${({theme}) => theme.fontSize.md};
+	color: ${({ theme }) => theme.color.primary[400]};
+	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 const PreviewContent1 = styled.div`
@@ -100,7 +137,7 @@ const Div1 = styled.div`
 
 	& > div:nth-child(1) {
 		margin-right: 30px;
-		color: ${({theme}) => theme.color.gray[300]};
+		color: ${({ theme }) => theme.color.gray[300]};
 	}
 	& > div:nth-child(2) {
 		margin-right: 20px;
@@ -109,8 +146,8 @@ const Div1 = styled.div`
 
 	& > div:nth-child(3) {
 		& > span {
-			color: ${({theme}) => theme.color.primary[200]};
-			font-size: ${({theme}) => theme.fontSize.md};
+			color: ${({ theme }) => theme.color.primary[200]};
+			font-size: ${({ theme }) => theme.fontSize.md};
 		}
 	}
 `;
@@ -240,5 +277,5 @@ const S = {
 	MonthButtonsZone,
 	MonthButton,
 	Graph,
-	DetailTitle
+	DetailTitle,
 };

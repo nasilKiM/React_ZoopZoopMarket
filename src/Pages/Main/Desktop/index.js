@@ -1,10 +1,7 @@
-import styled from 'styled-components';
-import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
-import { Link } from 'react-router-dom';
 //import { MockAxios } from 'Apis/@core';
 //import { useQuery } from 'react-query';
 // import { Category, Preview } from '@mui/icons-material';
-import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
+import styled from 'styled-components';
 import Preview from './Components/preview';
 import Category from './Components/category';
 
@@ -27,21 +24,13 @@ const DesktopMainPage = () => {
 			</S.Wrapper>
 			{/* MockData용
          <Preview category={0} products={data}></Preview>
-         <Preview category={1} products={data}></Preview> */}
-
+		<Preview category={1} products={data}></Preview> */}
 			<S.PreviewBg>
 				<Preview category={0}></Preview>
 			</S.PreviewBg>
-			<S.Blank></S.Blank>
 			<S.PreviewBg>
 				<Preview category={1}></Preview>
 			</S.PreviewBg>
-			<TopBtn />
-			<Link to={'/register'}>
-				<S.BtnSection>
-					<RegisterBtn />
-				</S.BtnSection>
-			</Link>
 		</S.Cover>
 	);
 };
@@ -59,7 +48,7 @@ const Wrapper = styled.div`
 	@media (max-width: 700px) {
 		width: 95%;
 	}
-	@media (max-width: 800px) {
+	@media (max-width: 900px) {
 		width: 90%;
 	}
 	margin: 0 auto;
@@ -70,6 +59,7 @@ const PreviewBg = styled.div`
 	width: 100%;
 	background-color: ${({ theme }) => theme.color.bg};
 	padding: 30px 0;
+	margin-bottom: 50px;
 	> * {
 		width: 70%;
 		min-width: 414px;
@@ -91,11 +81,6 @@ const Banner = styled.div`
 	background-color: gray;
 `;
 
-const Blank = styled.div`
-	width: 100%;
-	height: 50px;
-`;
-
 const TitleBox = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
@@ -114,11 +99,6 @@ const SearchSection = styled.div`
 	justify-content: center;
 `;
 
-const BtnSection = styled.div`
-	width: 50px;
-	height: 50px;
-`;
-
 const CategoryWrapper = styled.div`
 	padding-bottom: 20px;
 	margin-bottom: 30px;
@@ -127,9 +107,7 @@ const CategoryWrapper = styled.div`
 const S = {
 	Cover,
 	Wrapper,
-	Blank,
 	TitleBox,
 	PreviewBg,
 	SearchSection,
-	BtnSection,
 };

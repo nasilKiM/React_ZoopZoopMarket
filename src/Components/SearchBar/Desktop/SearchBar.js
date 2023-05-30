@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import AlertModal from 'Components/Alert/alertModal';
 
 const SearchBar = ({ props }) => {
-	// props가 search면 search_list페이지로,
-	//marketPrice면 market_price페이지로 전달되어 오면
-	//navigate에 props를 전달하여 해당 props에 맞는 페이지로 이동하고 싶었으나 모든 컴포넌트에서 props를 선언해줘야 하는 부분이라 충돌이 우려되어 아직 안함.
 	const navigate = useNavigate();
+	const searchInputRef = useRef(null);
+	const location = useLocation();
+	const pathOption = location.pathname.split('/')[1];
 	const [modal, setModal] = useState(false);
 
 	const onSearch = async e => {
@@ -21,15 +22,26 @@ const SearchBar = ({ props }) => {
 		try {
 			let searchWord = e.target.searchKey.value;
 			navigate(`/${props}/${searchWord}`);
-			// navigate(`/${props}/${searchWord}`);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
+	useEffect(() => {
+		if (pathOption == 'search_list') {
+			return;
+		} else {
+			searchInputRef.current.value = '';
+		}
+	}, [pathOption]);
+
 	return (
 		<S.Wrap onSubmit={onSearch}>
-			<S.SearchInput placeholder="검색어를 입력해주세요" name="searchKey" />
+			<S.SearchInput
+				placeholder="검색어를 입력해주세요"
+				name="searchKey"
+				ref={searchInputRef}
+			/>
 			<S.GlassBtn type="submit">
 				<FontAwesomeIcon
 					icon={faMagnifyingGlass}

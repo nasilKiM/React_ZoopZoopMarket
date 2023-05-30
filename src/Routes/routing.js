@@ -22,6 +22,8 @@ import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdi
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 import MyReview from 'Pages/MyPage/MyReview/MyReview';
 import ChattingPage from 'Pages/Chat';
+import ReviewDetail from 'Pages/Review/reviewDetail';
+import ReviewEditPage from 'Pages/Review/reviewEdit';
 
 const router = createBrowserRouter([
 	{
@@ -124,8 +126,16 @@ const router = createBrowserRouter([
 				element: <WholeListPage />,
 			},
 			{
-				path: 'review',
+				path: 'review/:idx',
 				element: <ReviewPage />,
+			},
+			{
+				path: 'review/edit/:idx',
+				element: <ReviewEditPage />,
+			},
+			{
+				path: 'review/detail/:idx',
+				element: <ReviewDetail />,
 			},
 		],
 	},

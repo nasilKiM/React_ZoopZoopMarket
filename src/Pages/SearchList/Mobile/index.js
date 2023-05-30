@@ -6,9 +6,7 @@ import styled from 'styled-components';
 
 const MobileSearchList = () => {
 	const location = useLocation();
-	// const categoryData = location.state?.categoryData;
 	const categoryData = new URLSearchParams(location.search).get('categoryData');
-	//console.log(categoryData);
 	const [selected, setSelected] = useState(parseInt(categoryData));
 	let selectedItem = '';
 	const itemList = [1, 2, 3, 4];
@@ -23,9 +21,7 @@ const MobileSearchList = () => {
 		<S.MobileWrapper>
 			<S.Wrapper>
 				<S.Container>
-					<S.SearchBarContainer>
-						{/* <MobileSearchBar></MobileSearchBar> */}
-					</S.SearchBarContainer>
+					<S.SearchBarContainer></S.SearchBarContainer>
 					<S.CategoryBox>
 						<S.Category
 							onClick={() => setSelected(0)}

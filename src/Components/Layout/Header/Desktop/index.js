@@ -50,14 +50,15 @@ const WebHeader = ({ so }) => {
 
 	const logout = async () => {
 		const res = await UserApi.logout();
-		console.log(res);
+
 		TokenService.removeToken();
 		navigate('/');
+		setShowOptions(false);
 	};
 
 	const myPage = () => {
-		console.log('클릭!!!!');
 		navigate('/mypage');
+		setShowOptions(false);
 	};
 
 	return (
@@ -83,8 +84,7 @@ const WebHeader = ({ so }) => {
 												<S.Menu
 													key={1}
 													onClick={() => {
-														console.log('2');
-														navigate(`/search_list/${word}}/0`);
+														return navigate(`/search_list/${word}}/0`);
 													}}
 												>
 													중고 거래
@@ -93,7 +93,13 @@ const WebHeader = ({ so }) => {
 													무료 나눔
 												</S.Menu>
 
-												<S.Menu to="/market_price">실시간 시세</S.Menu>
+												<S.Menu
+													onClick={() => {
+														return navigate(`/market_price`);
+													}}
+												>
+													실시간 시세
+												</S.Menu>
 											</MenuOpen>
 										</div>
 									</>
@@ -131,7 +137,7 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={0}
 									onClick={() => {
-										navigate(`/search_list/${word}/1`);
+										return navigate(`/search_list/${word}/1`);
 									}}
 								>
 									무료 나눔
@@ -139,8 +145,7 @@ const WebHeader = ({ so }) => {
 
 								<S.Menu
 									onClick={() => {
-										console.log('3');
-										navigate(`/market_price`);
+										return navigate(`/market_price`);
 									}}
 								>
 									실시간 시세
@@ -168,7 +173,6 @@ const WebHeader = ({ so }) => {
 					)}
 					<S.Icon>
 						<Link
-							// to={'/mypage'}
 							onMouseOver={() => {
 								setIsHover(true);
 							}}
@@ -219,6 +223,9 @@ const Wrapper = styled.div`
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
 	}
 
 	font-family: 'Nanum_extraBold';

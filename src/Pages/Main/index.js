@@ -1,14 +1,17 @@
-import { isDesktop, isMobile } from 'react-device-detect';
+import { useEffect, useState } from 'react';
 import DesktopMainPage from './Desktop';
-import MobileMain from './Mobile';
+import MainPageSkeleton from './Desktop/Components/mainSkeleton';
 
 const MainPage = () => {
-	return (
-		<div>
-			{isMobile ? <MobileMain></MobileMain> : null}
-			{isDesktop ? <DesktopMainPage></DesktopMainPage> : null}
-		</div>
-	);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}, []);
+
+	return <div>{isLoading ? <MainPageSkeleton /> : <DesktopMainPage />}</div>;
 };
 
 export default MainPage;

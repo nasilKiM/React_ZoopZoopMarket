@@ -3,15 +3,15 @@ import { Axios } from './@core';
 const PATH = '/api/product';
 
 const ProductApi = {
-	register(title, price, description, category, region, tag, images) {
-		return Axios.post(PATH, {
-			title,
-			price,
-			description,
-			category,
-			region,
-			tag,
-			images,
+	registerPost(data) {
+		return Axios.post(PATH, data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
+		});
+	},
+
+	editPost(data) {
+		return Axios.patch(PATH, data, {
+			headers: { 'Content-Type': 'multipart/form-data' },
 		});
 	},
 
@@ -50,20 +50,21 @@ const ProductApi = {
 		return Axios.delete(PATH + '/viewed-list', { params: { prod_idx } });
 	},
 
-	searchItems(page, searchWord, selected) {
+	searchItems(page, searchWord, selected, status) {
 		return Axios.get(PATH + '/search', {
 			params: {
 				category: selected,
 				keyword: searchWord,
 				page: page,
+				status: status,
 			},
 		});
 	},
 
-	soldOut(prod_idx, socket) {
+	soldOut(prod_idx, token) {
 		return Axios.post(PATH + '/sale-complete', {
 			prod_idx,
-			socket,
+			token,
 		});
 	},
 

@@ -4,10 +4,21 @@ import DetailContent from '../Components/DetailContent/detailContent';
 import { flexAllCenter } from 'Styles/common';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import KaMap from 'Components/Map/Map';
+import { useEffect } from 'react';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
+	const related =
+		product &&
+		product.data.relatedProduct.product.filter(
+			related => related.idx !== item.idx,
+		);
 	const itemAllInfo = product?.data;
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		item && (
 			<S.Wrapper>
@@ -19,7 +30,7 @@ const BuyerDetailPage = ({ state, product }) => {
 					<div>거래장소 : {item.region}</div>
 					<KaMap address={item.region} />
 				</S.MapContent>
-				<AnotherProduct />
+				<AnotherProduct product={related} />
 			</S.Wrapper>
 		)
 	);

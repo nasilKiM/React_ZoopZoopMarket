@@ -3,7 +3,6 @@ import UserApi from 'Apis/userApi';
 
 const emailCheck = async email => {
 	const res = await UserApi.checkEmail(email);
-	console.log(res);
 	return res.data;
 };
 

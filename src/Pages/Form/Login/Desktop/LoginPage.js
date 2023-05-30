@@ -7,7 +7,7 @@ import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import { useSocket } from 'Context/socket';
-import { QueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 import { useForm } from 'react-hook-form';
 import AlertModal from 'Components/Alert/alertModal';
@@ -18,7 +18,6 @@ const LoginPage = () => {
 	const [loginModal, setLoginModal] = useState(false);
 
 	const so = useSocket();
-	const queryClient = new QueryClient();
 
 	const {
 		register,
@@ -37,7 +36,6 @@ const LoginPage = () => {
 			setModal(true);
 			TokenService.setToken(res.data.tokenForHeader);
 			so?.emit('connect-user', { token: TokenService.getToken() });
-			navigate('/main');
 		},
 		onError: err => {
 			alert(
@@ -56,7 +54,7 @@ const LoginPage = () => {
 	const full = !errors.email && !errors.password;
 	return (
 		<>
-			<S.Logo src="/Assets/web_logo.png"></S.Logo>
+			<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 			<S.Div>
 				<S.Wrap>
 					<S.Header>

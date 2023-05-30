@@ -5,6 +5,7 @@ import FreeProduct from './components/freeProduct';
 import UsedProduct from './components/usedProduct';
 import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
+import IndexSkeleton from '../../Skeleton/page/searchIndexSkele';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -13,17 +14,6 @@ const DesktopSearchList = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-
-	// useEffect(async () => {
-	// 	const res = await ProductApi.getRecent();
-	// 	return console.log('마따따비', res);
-	// }, []);
-
-	// const { data } = useQuery(['product'], () => {
-	// 	return MockAxios.get('/product').then(res => {
-	// 		return res.data;
-	// 	});
-	// }); //목데이터용
 
 	useEffect(() => {
 		if (selected <= 1) {
@@ -38,15 +28,8 @@ const DesktopSearchList = () => {
 	const usedData = useQuery(['SEARCH_USED', word], () => {
 		return ProductApi.searchItems(1, word, 0);
 	});
-	let productCount = 0;
 
-	// if (freeData && usedData) {
-	// 	productCount =
-	// 		freeData.data.pagination.count + usedData.data.pagination.count;
-	// }
-	freeData && console.log(freeData);
-
-	const { data } = useQuery(['SEARCH_ALL', word], () => {
+	const { data, isSuccess, isLoading } = useQuery(['SEARCH_ALL', word], () => {
 		return ProductApi.searchItems(1, word);
 	});
 
@@ -74,12 +57,12 @@ const DesktopSearchList = () => {
 							무료
 						</S.SelectBox>
 					</S.SelectContainer>
-					{data && (
+					{isSuccess && data && (
 						<S.ResultContainer>
-							{productCount > 0 ? (
+							{data.data.pagination.count > 0 ? (
 								<S.ResultText>
-									<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과
-									(총 {productCount}개)
+									<S.ResultWord>"{word}"</S.ResultWord>에 대한 통합 검색 결과 (
+									총 {data.data.pagination.count}개 )
 								</S.ResultText>
 							) : (
 								<S.ResultText>
@@ -102,54 +85,59 @@ const DesktopSearchList = () => {
 					)}
 				</S.Container>
 			</S.Wrapper>
+
+			{isLoading && <IndexSkeleton></IndexSkeleton>}
 		</>
 	);
 };
 
 export default DesktopSearchList;
 
-const refDiv = styled.div`
-	border: 4px solid red;
-`;
-
 const Wrapper = styled.div`
 	width: 70%;
-	/* max-width: 1000px; */
-	/* min-width: 700px; */
+	min-width: 414px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 	margin: 0 auto;
 `;
 
 const Container = styled.div`
+	width: 100%;
 	margin: 0 auto;
 `;
 
-const SearchBarContainer = styled.div`
+// 메뉴(통합/중고/무료)
+const SelectContainer = styled.div`
 	display: flex;
-	justify-content: center;
-	padding-top: 40px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ResultText = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	margin-top: 40px;
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	margin-top: 30px;
+	margin-left: 20px;
+	/* @media screen and (max-width: 767px) {
+		flex-direction: column;
+	} */
 `;
-const ResultWord = styled.div`
-	color: ${({ theme }) => theme.color.primary[300]};
-`;
-const ResultContainer = styled.div``;
 
 const CategoryBox = styled.div`
 	cursor: pointer;
-
 	margin-top: 40px;
 `;
 
 const Category = styled.div`
 	margin-top: 40px;
-	font-size: ${({ theme }) => theme.fontSize.big};
+	margin-bottom: 10px;
+	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	margin-bottom: 40px;
 `;
 
 const Wall = styled.div`
@@ -164,17 +152,6 @@ const ItemList = styled.div`
 	margin-top: 30px;
 	margin-bottom: 30px;
 `;
-const SampleCard = styled.div`
-	width: 200px;
-	height: 400px;
-	border: 1px solid black;
-`;
-
-const SelectContainer = styled.div`
-	display: flex;
-	margin-top: 20px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
-`;
 
 const SelectBox = styled.div`
 	cursor: pointer;
@@ -186,6 +163,13 @@ const SelectBox = styled.div`
 			: ({ theme }) => theme.color.black};
 `;
 
+const ResultWord = styled.div`
+	color: ${({ theme }) => theme.color.primary[300]};
+`;
+const ResultContainer = styled.div`
+	width: 100%;
+`;
+
 const S = {
 	Wrapper,
 	Container,
@@ -194,9 +178,6 @@ const S = {
 	Category,
 	Wall,
 	ItemList,
-	SearchBarContainer,
-	SampleCard,
-	refDiv,
 	SelectContainer,
 	SelectBox,
 	ResultWord,

@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProductApi from 'Apis/productApi';
+import { useState } from 'react';
 import { useEffect } from 'react';
-//import ItemCardMock from 'Components/Card/Desktop/Card copy';
-import ItemCard from 'Components/Card/Desktop/Card';
 import { useQuery } from '@tanstack/react-query';
+import ItemCard from 'Components/Card/Desktop/Card';
+import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
 
 const Preview = ({ category }) => {
@@ -47,25 +46,16 @@ const Preview = ({ category }) => {
 			setSlidesToShow(4);
 		} else if (window.innerWidth >= 1100) {
 			setSlidesToShow(3);
-		} else if (window.innerWidth >= 868) {
+		} else if (window.innerWidth >= 800) {
 			setSlidesToShow(3);
 		} else if (window.innerWidth >= 580) {
-			setSlidesToShow(3);
+			setSlidesToShow(2);
 		} else if (window.innerWidth >= 414) {
 			setSlidesToShow(2);
 		} else {
 			setSlidesToShow(2);
 		}
 	};
-
-	// useEffect(() => {
-	//    const fetchData = async () => {
-	//       const res = await ProductApi.mainList();
-	//       setData(res.data);
-	//    };
-	//    fetchData();
-	// }, []);
-	// console.log(data);
 
 	useEffect(() => {
 		window.addEventListener('resize', handleResize);
@@ -79,7 +69,6 @@ const Preview = ({ category }) => {
 				<S.CategoryBox>{categoryDeclare}</S.CategoryBox>
 				<S.SpaceBetween>
 					<S.CategoryText>{categoryText}</S.CategoryText>
-					<S.More> 더보기 &gt; </S.More>
 				</S.SpaceBetween>
 			</S.UpperSwiper>
 			<SwiperWrapper>
@@ -103,6 +92,9 @@ const Wrapper = styled.div`
 	min-width: 414px;
 	@media (max-width: 700px) {
 		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
 	}
 	margin: 0 auto;
 	padding-top: 50px;
@@ -128,15 +120,6 @@ const CategoryBox = styled.div`
 const CategoryText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-top: 10px;
-`;
-
-const More = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	justify-content: flex-end;
-	cursor: pointer;
-	:hover {
-		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	}
 `;
 
 const SwiperWrapper = styled.div`
@@ -194,5 +177,4 @@ const S = {
 	SpaceBetween,
 	CategoryBox,
 	CategoryText,
-	More,
 };

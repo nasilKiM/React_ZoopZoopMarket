@@ -16,7 +16,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
 	useEffect(() => {
-		// 채팅 목록을 마운트시 불러오기
 		const loadChatLog = async () => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
@@ -43,9 +42,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 			so?.emit('leave', { room_idx: chatroomIdx });
 		};
 	}, []);
-
-	// 소켓 최초1회 리랜더링 재연결x (disconnect까지) (전역화)
-	// emit은 이벤트 발생 on 이벤트 생성
 
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();

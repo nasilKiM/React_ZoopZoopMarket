@@ -1,10 +1,17 @@
 import { flexAllCenter } from 'Styles/common';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SoldoutCard = () => {
+const SoldoutCard = ({ index }) => {
+	const navigate = useNavigate();
+
+	const onClickCard = () => {
+		navigate(`/item_detail/${index}`);
+	};
+
 	return (
-		<S.Container>
+		<S.Container onClick={onClickCard}>
 			<div>판매완료</div>
 		</S.Container>
 	);
@@ -24,10 +31,10 @@ const Container = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
-	/* ${flexAllCenter} */
 	display: flex;
 	align-items: end;
 	justify-content: center;
+	cursor: pointer;
 	:hover {
 		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
 		transition: all 0.3s ease 0s;

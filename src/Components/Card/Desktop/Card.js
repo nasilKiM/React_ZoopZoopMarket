@@ -7,12 +7,13 @@ import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
 import ProductApi from 'Apis/productApi';
 import ConfirmModal from 'Components/Alert/confirmModal';
 
-const ItemCard = ({ index, products, isMine }) => {
+const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
-		navigate(`/item_detail/${index}`);
+		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		return navigate(`/item_detail/${index}`);
 	};
 
 	const onClickEdit = e => {
@@ -21,7 +22,6 @@ const ItemCard = ({ index, products, isMine }) => {
 	};
 
 	const onClickDelete = async () => {
-		console.log(products.idx);
 		try {
 			await ProductApi.deletePost(products.idx);
 			setModal(false);
@@ -58,7 +58,7 @@ const ItemCard = ({ index, products, isMine }) => {
 								))}
 						</S.ItemInfo>
 					</div>
-					{isMine && (
+					{isMine && !isRelated && (
 						<S.BtnSection>
 							<S.Btn onClick={onClickEdit}>수정</S.Btn>
 							<S.Btn onClick={onClickModal}>삭제</S.Btn>
