@@ -5,30 +5,41 @@ import styled from 'styled-components';
 const ChatMessage = ({
 	chat,
 	chatroomList,
+	chatroomIdx,
 	setChatroomIdx,
 	setItem,
 	item,
 	setItemInfo,
 }) => {
-	console.log(chat);
 	const now = new Date();
-	console.log(now.toLocaleTimeString());
 	const timeStamp = new Date(chat.lastMessageCreatedAt);
+	let date;
+	if (
+		now.getFullYear() === timeStamp.getFullYear() &&
+		now.getMonth() === timeStamp.getMonth() &&
+		now.getDate() === timeStamp.getDate()
+	) {
+		const AMPM = timeStamp.getHours() >= 12 ? '오후' : '오전';
+		date = `${AMPM} ${timeStamp.getHours()}시 ${timeStamp.getMinutes()}분`;
+	} else if (
+		now.getFullYear() === timeStamp.getFullYear() &&
+		now.getMonth() === timeStamp.getMonth() &&
+		now.getDate() - timeStamp.getDate() === 1
+	) {
+		date = '어제';
+	} else {
+		date = timeStamp.toLocaleDateString();
+	}
 	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
-		console.log(item);
-		console.log(setItemInfo);
 		if (item) return;
 		try {
 			const res = await ProductApi.detail(chat.product.idx);
-			console.log(res);
 			setItemInfo(res.data);
 		} catch (err) {
 			console.log(err);
 		}
-		console.log('채팅방클릭!!!!!!!!!!!!!');
 	};
-	console.log(chat);
 
 	return (
 		<>
@@ -38,7 +49,7 @@ const ChatMessage = ({
 					<div>{chat.lastMessage}</div>
 				</div>
 				<div>
-					<div>{chat.lastMessageCreatedAt}</div>
+					<div>{date}</div>
 				</div>
 			</S.ChatContent>
 		</>
@@ -56,6 +67,9 @@ const ChatContent = styled.div`
 	/* background-color: red; */
 	cursor: pointer;
 	& > div:first-child {
+		& > div {
+			margin: 10px 0;
+		}
 	}
 	& > div:last-child {
 		font-size: ${({ theme }) => theme.fontSize.xs};
