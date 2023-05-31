@@ -75,26 +75,26 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 	};
 
 	const pressEnter = e => {
-		// console.log(e.nativeEvent.isComposing);
+		console.log(e.nativeEvent.isComposing);
 		// console.log(e.key);
 		// console.log(e.shiftKey);
+		if (e.nativeEvent.isComposing) return;
 		if (e.key === 'Enter' && e.shiftKey) {
 			return;
 		} else if (e.key === 'Enter') {
 			onClickSendMsgBtn(e);
 		}
 	};
+	console.log(itemRes);
 	return (
 		<>
 			<S.ChattingTitle>
 				<div>
 					<img src={itemRes?.img_url} />
-					<div>
-						<div>{itemRes?.title}</div>
-						<span>{itemRes?.price}</span>
-					</div>
+					<div>{itemRes?.title}</div>
 					{/* <div> {itemRes?.status}</div> */}
 				</div>
+				<div>{itemRes?.price.toLocaleString()}원</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
 				<MessageDetail
@@ -133,12 +133,20 @@ const ChattingTitle = styled.div`
 		object-fit: fill;
 		margin-right: 15px;
 	}
-	span {
+	& > div {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		word-break: break-all;
 	}
+
 	& > div:nth-of-type(1) {
 		${flexAllCenter}
+		&>div {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			width: 150px;
+		}
 	}
 `;
 
