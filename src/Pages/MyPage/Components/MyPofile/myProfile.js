@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
 import MyPageApi from 'Apis/myPageApi';
+import { useQuery } from '@tanstack/react-query';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -12,14 +13,7 @@ const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
 
-	const getUserInfo = async () => {
-		try {
-			const res = await UserApi.userInfo();
-			setUserInfo(res);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
 
 	const getUserProfile = async () => {
 		try {
@@ -50,14 +44,13 @@ const MyProfile = () => {
 	};
 
 	useEffect(() => {
-		getUserInfo();
 		getUserProfile();
-	}, [profileImg]);
+		setUserInfo(data);
+	}, [profileImg, data]);
 
-	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
 
-	console.log('프로필', userProfile);
+	data && console.log('프로필', data);
 
 	return (
 		<S.Wrapper>
@@ -102,7 +95,7 @@ const MyProfile = () => {
 						</S.List>
 						<S.List>
 							<S.InfoTitle>활동지역</S.InfoTitle>
-							<S.InfoContent>#{region}</S.InfoContent>
+							<S.InfoContent>#{data.data.region}</S.InfoContent>
 						</S.List>
 					</S.Detail>
 					<S.Detail>

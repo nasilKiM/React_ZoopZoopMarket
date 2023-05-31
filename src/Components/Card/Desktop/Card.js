@@ -10,7 +10,6 @@ import ConfirmModal from 'Components/Alert/confirmModal';
 const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
-	console.log('wnfka', index, products, isMine, isRelated);
 
 	const onClickCard = () => {
 		if (isRelated) navigate(`/item_detail/${products.idx}`);
@@ -55,7 +54,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
-										<span className="tag-link">#{tagObj.Tag.tag}</span>
+										<a className="tag-link">#{tagObj.Tag.tag}</a>
 									</S.ItemTag>
 								))}
 						</S.ItemInfo>
@@ -179,7 +178,7 @@ const ItemTag = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	span {
+	a {
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;

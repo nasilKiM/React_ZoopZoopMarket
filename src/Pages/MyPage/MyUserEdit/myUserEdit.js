@@ -92,11 +92,11 @@ const MyUserEdit = ({ userInfo }) => {
 	}, [getValues('nick')]);
 
 	useEffect(() => {
-		setValue('email', data.data.email);
-		setValue('nick', data.data.nick_name);
-		setValue('phone', data.data.phone);
-		setAddress(data.data.region);
-	}, []);
+		setValue('email', data?.data.email);
+		setValue('nick', data?.data.nick_name);
+		setValue('phone', data?.data.phone);
+		setAddress(data?.data.region);
+	}, [data]);
 
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
@@ -287,6 +287,7 @@ const Text = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	color: ${({ theme }) => theme.color.primary[400]};
 	padding-bottom: 5px;
+	height: 20px;
 	:hover {
 		border-bottom: 3px double ${({ theme }) => theme.color.primary[200]};
 		color: ${({ theme }) => theme.color.primary[500]};
