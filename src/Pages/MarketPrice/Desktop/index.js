@@ -19,6 +19,7 @@ const DesktopMarketPrice = () => {
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		const handleResize = () => {
 			setViewportSize({ width: window.innerWidth, height: window.innerHeight });
 		};

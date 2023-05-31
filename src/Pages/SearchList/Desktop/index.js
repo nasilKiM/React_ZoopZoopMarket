@@ -16,6 +16,7 @@ const DesktopSearchList = () => {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (selected <= 1) {
 			navigate(`${selected}`);
 		}

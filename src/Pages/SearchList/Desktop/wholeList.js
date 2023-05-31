@@ -27,6 +27,7 @@ const WholeListPage = () => {
 		searchWord = '전체';
 	}
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		res.refetch();
 	}, [category]);
 
