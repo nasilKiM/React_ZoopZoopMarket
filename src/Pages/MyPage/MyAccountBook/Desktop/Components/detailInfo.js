@@ -33,7 +33,8 @@ const AccountBookDetailInfo = ({
 				<S.PreviewWrap>
 					<S.PreviewContent1>
 						<S.Date>
-							{year}년 {month}월
+							{/* {year}년 {month}월 */}
+							2023년 5월
 						</S.Date>
 						<div>
 							<S.Div1>
@@ -43,7 +44,7 @@ const AccountBookDetailInfo = ({
 										<span>
 											{data.amount.thisMonthSaleAmount === null
 												? 0
-												: data.amount.thisMonthSaleAmount.toLocaleString(
+												: parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
 														'ko-KR',
 												  )}
 										</span>
@@ -63,7 +64,7 @@ const AccountBookDetailInfo = ({
 										<span>
 											{data.amount.thisMonthPurchaseAmount === null
 												? 0
-												: data.amount.thisMonthPurchaseAmount.toLocaleString(
+												: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
 														'ko-KR',
 												  )}
 										</span>
