@@ -20,8 +20,8 @@ const FooterWrap = styled.div`
 	background-color: ${({ theme }) => theme.color.primary[200]};
 	padding-top: 30px;
 	font-family: 'Nanum_extraBold';
-	position: fixed;
-	bottom: 0;
+	position: absolute;
+	margin-top: 100px;
 `;
 
 const FooterText = styled.div`
