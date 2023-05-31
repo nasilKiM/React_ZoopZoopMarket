@@ -10,9 +10,11 @@ import ConfirmModal from 'Components/Alert/confirmModal';
 const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
+	console.log('wnfka', index, products, isMine, isRelated);
 
 	const onClickCard = () => {
 		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		console.log(index);
 		return navigate(`/item_detail/${index}`);
 	};
 

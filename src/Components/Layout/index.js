@@ -20,11 +20,11 @@ const LayOut = () => {
 			<RecentWrap>
 				<RecentProduct />
 			</RecentWrap>
-			<Link to={'/register'}>
-				<BtnSection>
+			<BtnSection>
+				<Link to={'/register'}>
 					<RegisterBtn />
-				</BtnSection>
-			</Link>
+				</Link>
+			</BtnSection>
 		</>
 	);
 };

@@ -51,7 +51,7 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
 	width: 100%;
-	object-fit: cover;
+	object-fit: contain;
 `;
 const S = {
 	Wrapper,
