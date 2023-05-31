@@ -7,7 +7,7 @@ const BannerAd = () => {
 	const settings = {
 		dots: true,
 		infinite: true,
-		speed: 1000,
+		speed: 1500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		autoplay: true,

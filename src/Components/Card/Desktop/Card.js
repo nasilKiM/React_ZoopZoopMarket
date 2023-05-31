@@ -128,7 +128,7 @@ const Heart = styled.div`
 	height: 32px;
 	top: 10px;
 	left: 80%;
-	z-index: 99;
+	z-index: 90;
 `;
 
 const ItemImg = styled.img`

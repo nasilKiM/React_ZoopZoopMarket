@@ -55,7 +55,7 @@ const Wrap = styled.div`
 	background-color: white;
 	position: fixed;
 	right: 10px;
-	bottom: 150px;
+	bottom: 250px;
 `;
 const RecentWord = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.base};

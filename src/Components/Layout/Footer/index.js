@@ -17,11 +17,11 @@ export default BasicFooter;
 const FooterWrap = styled.div`
 	width: 100%;
 	height: 200px;
-	position: absolute;
 	background-color: ${({ theme }) => theme.color.primary[200]};
 	padding-top: 30px;
 	font-family: 'Nanum_extraBold';
-	margin-top: 100px;
+	position: fixed;
+	bottom: 0;
 `;
 
 const FooterText = styled.div`

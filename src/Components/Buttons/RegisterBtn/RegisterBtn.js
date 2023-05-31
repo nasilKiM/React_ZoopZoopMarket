@@ -30,6 +30,7 @@ const Wrap = styled.div`
 	position: fixed;
 	right: 35px;
 	bottom: 40px;
+	z-index: 105;
 `;
 
 const Button = styled.button`

@@ -30,7 +30,16 @@ const MyReview = () => {
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 70%;
+	max-width: 1200px;
+	min-width: 414px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 850px) {
+		width: 90%;
+	}
+	margin: 0 auto;
 `;
 
 const Title = styled.div`
