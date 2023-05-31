@@ -61,6 +61,10 @@ const WebHeader = ({ so }) => {
 		setShowOptions(false);
 	};
 
+	const toggleMenu = () => {
+		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
+	};
+
 	return (
 		<>
 			<S.Wrapper>
