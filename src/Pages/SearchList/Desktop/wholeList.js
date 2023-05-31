@@ -142,8 +142,12 @@ const Container = styled.div`
 	@media (max-width: 800px) {
 		width: 90%;
 	}
+	@media screen and (max-height: 767px) {
+		grid-template-rows: repeat(1, minmax(300px, 1fr));
+	}
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(1, minmax(220px, 1fr));
+
 		width: 220px;
 		margin: 20px auto;
 		column-gap: 20px;
