@@ -21,16 +21,19 @@ const WebHeader = ({ so }) => {
 	const [showOptions, setShowOptions] = useState();
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	//메뉴창 오픈
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
 	const [popupMsg, setPopupMsg] = useState();
+
+	//채팅전역
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
 		});
 	}, [so]);
-	console.log(1);
+
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -59,6 +62,10 @@ const WebHeader = ({ so }) => {
 	const myPage = () => {
 		navigate('/mypage');
 		setShowOptions(false);
+	};
+
+	const toggleMenu = () => {
+		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
 	};
 
 	return (
@@ -272,6 +279,9 @@ const MenuOpen = styled.div`
 const TabletDiv = styled.div`
 	width: 100%;
 	margin-left: 50px;
+	@media (max-width: 700px) {
+		margin-left: 20px;
+	}
 `;
 const MenuList = styled.div`
 	display: flex;
@@ -319,6 +329,9 @@ const Icon = styled.div`
 const Logo = styled.img`
 	max-width: 200px;
 	margin-right: 20px;
+	@media (max-width: 700px) {
+		margin-right: 15px;
+	}
 `;
 
 const CategoryIcon = styled.img`
@@ -361,7 +374,6 @@ const CloseButton = styled.button`
 
 const MenuOptions = styled.div`
 	position: absolute;
-
 	top: 90%;
 	height: 70px;
 	transform: translateX(-20%);

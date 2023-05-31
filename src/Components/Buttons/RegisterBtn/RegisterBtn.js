@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const RegisterBtn = () => {
+	const navigate = useNavigate();
+
+	const onClick = () => {
+		navigate('/register');
+	};
+
 	return (
-		<S.Wrap>
+		<S.Wrap onClick={onClick}>
 			<S.Button />
 		</S.Wrap>
 	);
@@ -23,6 +30,7 @@ const Wrap = styled.div`
 	position: fixed;
 	right: 35px;
 	bottom: 40px;
+	z-index: 105;
 `;
 
 const Button = styled.button`
