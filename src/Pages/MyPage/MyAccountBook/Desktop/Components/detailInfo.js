@@ -113,14 +113,24 @@ export default AccountBookDetailInfo;
 const Wrap = styled.div`
 	display: flex;
 	justify-content: space-between;
-	/* height: 100%;
-	margin: 0 auto; */
+	height: 100%;
+	margin: 0 auto;
 `;
 
-const Date = styled.div`
-	padding-left: 50px;
-	color: ${({ theme }) => theme.color.primary[400]};
-	font-size: ${({ theme }) => theme.fontSize.md};
+const PreviewWrap = styled.div`
+	width: 48%;
+	height: 100px;
+	box-shadow: 0px 0px 20px #e0e0e0;
+	border-radius: 15px;
+	padding-top: 30px;
+	& > div:nth-child(1) {
+		padding-bottom: 30px;
+		border-bottom: solid 3px ${({ theme }) => theme.color.gray[100]};
+	}
+	& > div:nth-child(2) {
+		margin-top: 30px;
+		height: 250px;
+	}
 `;
 
 const PreviewContent1 = styled.div`
@@ -130,6 +140,12 @@ const PreviewContent1 = styled.div`
 	& > div:nth-child(2) {
 		margin-left: 100px;
 	}
+`;
+
+const Date = styled.div`
+	padding-left: 50px;
+	color: ${({ theme }) => theme.color.primary[400]};
+	font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 const Div1 = styled.div`
@@ -157,24 +173,7 @@ const Div2 = styled.div`
 	display: flex;
 `;
 
-// 거래내역 박스
-const PreviewWrap = styled.div`
-	width: 48%;
-	height: 100px;
-	box-shadow: 0px 0px 20px #e0e0e0;
-	border-radius: 15px;
-	/* background-color: ${({ theme }) => theme.color.primary[100]}; */
-	/* margin-bottom: 30px; */
-	padding-top: 30px;
-	& > div:nth-child(1) {
-		padding-bottom: 30px;
-		border-bottom: solid 3px ${({ theme }) => theme.color.gray[100]};
-	}
-	& > div:nth-child(2) {
-		margin-top: 30px;
-		height: 250px;
-	}
-`;
+
 
 const PreviewContent = styled.div`
 	/* width: 90%;
