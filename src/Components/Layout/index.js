@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import WebHeader from './Header/Desktop';
 import BasicFooter from './Footer';
 import styled from 'styled-components';
@@ -21,9 +21,7 @@ const LayOut = () => {
 				<RecentProduct />
 			</RecentWrap>
 			<BtnSection>
-				<Link to={'/register'}>
-					<RegisterBtn />
-				</Link>
+				<RegisterBtn />
 			</BtnSection>
 		</>
 	);
