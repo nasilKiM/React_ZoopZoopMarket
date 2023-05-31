@@ -16,11 +16,10 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-	const searchKey = word.split('·')[0];
 
 	const res =
 		word == ','
-			? useInfiniteSearch(word.split(','), category, '판매중')
+			? useInfiniteSearch(word.split(',')[0], category, '판매중')
 			: useInfiniteSearch(word.split('·')[0], category, '판매중');
 	let searchWord = word;
 	if (word == ',') {
@@ -153,7 +152,6 @@ const Container = styled.div`
 	}
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(1, minmax(220px, 1fr));
-
 		width: 220px;
 		margin: 20px auto;
 		column-gap: 20px;
@@ -171,6 +169,7 @@ const Container = styled.div`
 	}
 	@media screen and (min-width: 1500px) {
 		grid-template-columns: repeat(4, minmax(280px, 1fr));
+		column-gap: 20px;
 		row-gap: 40px;
 	}
 `;

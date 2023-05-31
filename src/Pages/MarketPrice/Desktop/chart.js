@@ -27,6 +27,7 @@ const Chart = ({ chartWidth, chartHeight, data, average }) => {
 			<YAxis
 				tickFormatter={value => value.toLocaleString()}
 				domain={[0, maxDomain]}
+				width={100}
 			/>
 			<Tooltip formatter={value => `${value}${unitOfMoney}`} />
 			<Legend />
