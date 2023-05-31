@@ -24,10 +24,9 @@ const MyPasswordEdit = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = async datas => {
+	const onSubmit = async data => {
 		const info = {
-			pw: datas.password,
-			confirmPW: datas.confirmPW,
+			pw: data.password,
 		};
 
 		try {
@@ -59,7 +58,6 @@ const MyPasswordEdit = () => {
 								{...register('password', FORM_TYPE.PASSWORD)}
 								placeholder="특수문자, 영어, 숫자 포함 8자이상"
 								type="password"
-								onChange={() => setChange(true)}
 							/>
 							{errors.password && <S.Error>{errors.password.message}</S.Error>}
 						</S.Box>
@@ -73,12 +71,11 @@ const MyPasswordEdit = () => {
 									validate: value => {
 										if (getValues('password') !== value) {
 											return '비밀번호를 다시 확인해 주세요';
-										}
+										} else setChange(true);
 									},
 								})}
 								placeholder="PW check"
 								type="password"
-								onChange={() => setChange(true)}
 							/>
 							{errors.confirmPW && (
 								<S.Error>{errors.confirmPW.message}</S.Error>
@@ -96,7 +93,7 @@ const MyPasswordEdit = () => {
 					{modal && (
 						<AlertModal
 							content={'비밀번호가 변경되었습니다.'}
-							props={'/mypage'}
+							props={'/mypage/user_edit'}
 						/>
 					)}
 				</S.Form>

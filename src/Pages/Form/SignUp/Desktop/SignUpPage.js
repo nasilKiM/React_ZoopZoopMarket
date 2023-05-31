@@ -19,6 +19,7 @@ const SignUpPage = () => {
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
+	const [phoneMsg, setPhoneMsg] = useState('');
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
 
@@ -33,6 +34,8 @@ const SignUpPage = () => {
 		handleSubmit,
 		setValue,
 		getValues,
+		setError,
+		clearErrors,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -47,6 +50,15 @@ const SignUpPage = () => {
 	});
 
 	const onSubmit = data => {
+		const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+		if (!phoneRegExp.test(data.phone)) {
+			setPhoneMsg('핸드폰 번호 양식이 일치하지 않습니다.');
+			return setError('phone', {
+				shouldFocus: true,
+			});
+		} else {
+			clearErrors('phone');
+		}
 		const info = {
 			email: data.email,
 			pw: data.password,
@@ -130,13 +142,6 @@ const SignUpPage = () => {
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 						{<S.Error>{idMsg}</S.Error>}
-						{/* {isLoading ? (
-							<div></div>
-						) : (
-							<S.Error>
-								{error ? error.response.data.message : data.message}
-							</S.Error>
-						)} */}
 
 						<S.InputWrap>
 							<S.ItemWrap>
@@ -196,8 +201,7 @@ const SignUpPage = () => {
 								</S.CheckBtn>
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
-						{<S.Error>{nickMsg}</S.Error>}
-						{errors.nick && <S.Error>{errors.nick.message}</S.Error>}
+						{nickMsg && <S.Error>{nickMsg}</S.Error>}
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -209,6 +213,8 @@ const SignUpPage = () => {
 									maxLength="13"
 									{...register('phone', {
 										onChange: e => {
+											setPhoneMsg('');
+											clearErrors('phone');
 											setValue(
 												'phone',
 												e.target.value
@@ -221,7 +227,7 @@ const SignUpPage = () => {
 								/>
 							</S.InputBoxWrap>
 						</S.InputWrap>
-						{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
+						{phoneMsg && <S.Error>{phoneMsg}</S.Error>}
 						<S.InputWrapBtn>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>

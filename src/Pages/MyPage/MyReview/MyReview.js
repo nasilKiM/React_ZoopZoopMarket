@@ -30,7 +30,13 @@ const MyReview = () => {
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 70%;
+	min-width: 700px;
+	max-width: 1200px;
+	margin: 0 auto;
+	@media ${({ theme }) => theme.device.tablet} {
+		min-width: 400px;
+	}
 `;
 
 const Title = styled.div`
