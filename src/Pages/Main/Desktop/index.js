@@ -4,6 +4,7 @@
 import styled from 'styled-components';
 import Preview from './Components/preview';
 import Category from './Components/category';
+import BannerAd from './Components/bannerAd';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
@@ -16,7 +17,9 @@ const DesktopMainPage = () => {
 	return (
 		<S.Cover>
 			<S.Wrapper>
-				<Banner></Banner>
+				<Banner>
+					<BannerAd />
+				</Banner>
 				<CategoryWrapper>
 					<TitleBox>카테고리별 상품찾기</TitleBox>
 					<Category />
@@ -77,8 +80,8 @@ const PreviewBg = styled.div`
 
 const Banner = styled.div`
 	width: 100%;
-	height: 500px;
-	background-color: gray;
+	/* height: 500px;
+	background-color: gray; */
 `;
 
 const TitleBox = styled.div`
