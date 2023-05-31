@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const AlertModal = ({ content, props, setModal }) => {
 	const navigate = useNavigate();
+
 	const onClickAlert = () => {
 		if (!setModal) return navigate(`${props}`);
 		//확인 버튼을 누를때 같은 url 주소에 머물러야 할시 모달을 꺼줄 state
@@ -35,7 +36,7 @@ const Wrap = styled.div`
 	${flexAllCenter}
 `;
 
-const Container = styled.div`
+const Container = styled.form`
 	width: 350px;
 	height: 150px;
 	background-color: ${({ theme }) => theme.color.white};

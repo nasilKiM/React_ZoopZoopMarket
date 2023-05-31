@@ -24,7 +24,7 @@ const shapeCSS = {
 			border: none;
 		}
 	`,
-		checkBtn: css`
+	checkBtn: css`
 		border-radius: 10px;
 		&:disabled {
 			background: ${({ theme }) => theme.color.gray[200]};
@@ -54,11 +54,11 @@ const sizeCSS = {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	`,
 	checkBtn: css`
-	width: 6vw;
-	height: 5vh;
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	font-weight: ${({ theme }) => theme.fontWeight.normal};
-`,
+		width: 6vw;
+		height: 5vh;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.normal};
+	`,
 
 	small: css`
 		width: 40px;
@@ -92,4 +92,3 @@ export const PropsBtn = styled.button`
     ${({ size }) => sizeCSS[size]}
 	cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 `;
-

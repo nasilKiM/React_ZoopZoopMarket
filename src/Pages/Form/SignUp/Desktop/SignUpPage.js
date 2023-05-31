@@ -312,6 +312,7 @@ const BtnWrap = styled.div`
 const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 82%;
+	font-family: 'Nanum_extraBold';
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
 		${({ theme }) => theme.color.primary[200]}
@@ -339,6 +340,7 @@ const InputBoxWrap = styled.div`
 const InputCustom = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -348,6 +350,7 @@ const InputHalf = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
 	width: 74%;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -403,10 +406,10 @@ const Address = styled.div`
 `;
 
 const CheckBtn = styled(CustomButton)`
-	font-weight: normal;
 	min-height: 45px;
 	width: 120px;
 	background: none;
+	font-family: 'Nanum_regular';
 	margin-left: 10px;
 	border: 2px solid ${({ theme }) => theme.color.primary[400]};
 	&:hover {
