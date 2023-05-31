@@ -37,7 +37,8 @@ const LoginPage = () => {
 			setModal(true);
 			setTimeout(() => {
 				setModal(false);
-			}, 500);
+				navigate('/main');
+			}, 2000);
 			TokenService.setToken(res.data.tokenForHeader);
 			so?.emit('connect-user', { token: TokenService.getToken() });
 		},
@@ -84,7 +85,6 @@ const LoginPage = () => {
 						{modal && (
 							<NotificationModal
 								content={`${data.data.user.nickName}님 안녕하세요!`}
-								props={'/main'}
 							/>
 						)}
 						{loginModal && (

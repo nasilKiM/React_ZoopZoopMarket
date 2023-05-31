@@ -1,10 +1,7 @@
 import { flexAllCenter } from 'Styles/common';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const NotificationModal = ({ content, props, setModal }) => {
-	const navigate = useNavigate();
-
+const NotificationModal = ({ content }) => {
 	return (
 		<S.Wrap>
 			<S.Container>
