@@ -53,7 +53,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
-										<a className="tag-link">#{tagObj.Tag.tag}</a>
+										<span className="tag-link">#{tagObj.Tag.tag}</span>
 									</S.ItemTag>
 								))}
 						</S.ItemInfo>
@@ -177,7 +177,7 @@ const ItemTag = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	a {
+	span {
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;

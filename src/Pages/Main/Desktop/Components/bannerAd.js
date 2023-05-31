@@ -7,7 +7,7 @@ const BannerAd = () => {
 	const settings = {
 		dots: true,
 		infinite: true,
-		speed: 500,
+		speed: 1000,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		autoplay: true,
@@ -51,7 +51,8 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
 	width: 100%;
-	object-fit: cover;
+	height: 500px;
+	object-fit: contain;
 `;
 const S = {
 	Wrapper,

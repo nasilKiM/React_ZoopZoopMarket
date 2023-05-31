@@ -80,8 +80,8 @@ const PreviewBg = styled.div`
 
 const Banner = styled.div`
 	width: 100%;
-	/* height: 500px;
-	background-color: gray; */
+	/* height: 500px; */
+	/*background-color: gray; */
 `;
 
 const TitleBox = styled.div`

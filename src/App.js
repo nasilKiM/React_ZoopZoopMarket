@@ -3,8 +3,6 @@ import router from './Routes/routing';
 import GlobalStyles from 'Styles/global';
 import { ThemeProvider } from 'styled-components';
 import { RecoilRoot } from 'recoil';
-// import { isDesktop } from 'react-device-detect';
-// import m_router from 'Routes/routing-m';
 import { theme } from 'Styles/theme';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
