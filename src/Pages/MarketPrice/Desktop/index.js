@@ -25,6 +25,7 @@ const DesktopMarketPrice = () => {
 
 		window.addEventListener('resize', handleResize);
 		handleResize();
+		window.scrollTo(0, 0);
 
 		return () => {
 			window.removeEventListener('resize', handleResize);
@@ -40,9 +41,16 @@ const DesktopMarketPrice = () => {
 			const date = product.date.split('-');
 			const month = parseInt(date[1]);
 			const day = parseInt(date[2]);
+			let avgPrice = parseInt(product.avgPrice);
+			if (avgPrice > 100000000) {
+				avgPrice = Math.floor(avgPrice / 100000000); // 10,000 단위로 버림 처리
+			} else if (avgPrice > 10000) {
+				avgPrice = Math.floor(avgPrice / 10000);
+			}
+
 			return {
 				date: `${month}-${day}`,
-				avgPrice: product.avgPrice,
+				avgPrice: avgPrice.toFixed(0),
 			};
 		});
 	};
@@ -55,12 +63,18 @@ const DesktopMarketPrice = () => {
 	if (data && data.data.cumulativeAvgPrice) {
 		const forLastData = data.data.cumulativeAvgPrice.length - 1;
 		average = data.data.cumulativeAvgPrice[forLastData].avgPrice;
-		const numberAverage = parseFloat(average);
-		roundedAverage = numberAverage.toFixed(2);
+		let numberAverage = parseInt(average);
+		if (numberAverage > 100000000) {
+			numberAverage = Math.floor(numberAverage / 100000000);
+			roundedAverage = `${numberAverage.toLocaleString()}억원`; // 10,000 단위로 버림 처리
+		} else if (numberAverage > 10000) {
+			numberAverage = Math.floor(numberAverage / 10000);
+			roundedAverage = `${numberAverage.toLocaleString()}만원`;
+		}
 	}
 
 	let chartWidth = viewportSize.width * 0.9;
-	let chartHeight = viewportSize.width * 0.5 * 0.5;
+	let chartHeight = viewportSize.width * 0.5 * 0.5 * 1.2;
 
 	if (viewportSize.width >= 1500) {
 		chartWidth = viewportSize.width * 0.65;
@@ -91,23 +105,26 @@ const DesktopMarketPrice = () => {
 						</S.SearchBarContainer>
 					</S.UpperPart>
 					<S.ChartContainer>
-						<Chart
-							chartWidth={chartWidth}
-							chartHeight={chartHeight}
-							data={arr}
-						></Chart>
+						{word && (
+							<Chart
+								chartWidth={chartWidth}
+								chartHeight={chartHeight}
+								data={arr}
+								average={parseInt(average).toFixed(0)}
+							></Chart>
+						)}
 					</S.ChartContainer>
 					{average == 0 ? (
 						<S.Average>검색어가 입력되지 않았습니다.</S.Average>
 					) : (
 						<S.Average>
-							"{word}" 의 평균 시세는
-							<S.ResultWord>{roundedAverage}원</S.ResultWord> 입니다.
+							<S.ResultWord>"{word}"</S.ResultWord>의 평균 시세는
+							<S.ResultWord>{roundedAverage}</S.ResultWord> 입니다.
 						</S.Average>
 					)}
 					<S.RecentlyClosed>
 						<S.Title>최근 거래 종료 품목</S.Title>
-						<RecentSoldOut word={word} />
+						{word && <RecentSoldOut word={word} />}
 					</S.RecentlyClosed>
 				</S.Wrapper>
 			)}
