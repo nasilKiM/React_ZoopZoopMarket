@@ -16,8 +16,12 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
+	const searchKey = word.split('·')[0];
 
-	const res = useInfiniteSearch(word.split(','), category, '판매중');
+	const res =
+		word == ','
+			? useInfiniteSearch(word.split(','), category, '판매중')
+			: useInfiniteSearch(word.split('·')[0], category, '판매중');
 	let searchWord = word;
 	if (word == ',') {
 		searchWord = '전체';
@@ -27,7 +31,6 @@ const WholeListPage = () => {
 	}, [category]);
 
 	const { data, isLoading, isSuccess } = res;
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (selected == 1) {
@@ -80,19 +83,21 @@ const WholeListPage = () => {
 					</S.SelectBox>
 				</S.BoxContainer>
 			</S.SelectContainer>
-			<S.ResultContainer>
-				{isSuccess && data && data.pages[0].data.product[0] ? (
-					<S.ResultText>
-						<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 {categoryResult}{' '}
-						검색 결과
-					</S.ResultText>
-				) : (
-					<S.ResultText>
-						<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 검색 결과가
-						없습니다.
-					</S.ResultText>
-				)}
-			</S.ResultContainer>
+			{isSuccess && (
+				<S.ResultContainer>
+					{data && data.pages[0].data.product[0] ? (
+						<S.ResultText>
+							<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한{' '}
+							{categoryResult} 검색 결과
+						</S.ResultText>
+					) : (
+						<S.ResultText>
+							<S.ResultWord>"{searchWord}"</S.ResultWord> {categoryResult}에
+							대한 검색 결과가 없습니다.
+						</S.ResultText>
+					)}
+				</S.ResultContainer>
+			)}
 			{isSuccess && (
 				<S.Container>
 					{data &&

@@ -12,12 +12,12 @@ const categories = [
 	},
 	{
 		id: 2,
-		name: '생활/주방가전',
+		name: '생활·주방가전',
 		icon: '/Assets/Icon/Category/2.생활주방가전.png',
 	},
 	{
 		id: 3,
-		name: '가구/인테리어',
+		name: '가구·인테리어',
 		icon: '/Assets/Icon/Category/3.가구.png',
 	},
 	{
@@ -32,7 +32,7 @@ const categories = [
 	},
 	{
 		id: 6,
-		name: '스포츠/레저',
+		name: '스포츠·레저',
 		icon: '/Assets/Icon/Category/6.스포츠.png',
 	},
 	{
@@ -47,17 +47,17 @@ const categories = [
 	},
 	{
 		id: 9,
-		name: '남성패션/잡화',
+		name: '남성패션·잡화',
 		icon: '/Assets/Icon/Category/9.남성패션.png',
 	},
 	{
 		id: 10,
-		name: '게임/취미',
+		name: '게임·취미',
 		icon: '/Assets/Icon/Category/10.게임.png',
 	},
 	{
 		id: 11,
-		name: '뷰티/미용',
+		name: '뷰티·미용',
 		icon: '/Assets/Icon/Category/11.뷰티미용.png',
 	},
 	{
@@ -67,7 +67,7 @@ const categories = [
 	},
 	{
 		id: 13,
-		name: '도서/티켓/음반',
+		name: '도서·티켓·음반',
 		icon: '/Assets/Icon/Category/13.도서티켓음반.png',
 	},
 	{

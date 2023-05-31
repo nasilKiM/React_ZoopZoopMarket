@@ -1,6 +1,23 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 
+export const useInfiniteSearch = (word, selected, status) => {
+	const res = useInfiniteQuery(
+		['SEARCH_ITEMS', word, selected],
+		({ pageParam = 1 }) =>
+			ProductApi.searchItems(pageParam, word, selected, status),
+		{
+			getNextPageParam: lastPage => {
+				return lastPage.data.pagination.curPage + 1;
+			},
+		},
+	);
+	return res;
+};
+
+/*
+
+
 export const useInfiniteSearch = (words, selected, status) => {
 	const res = useInfiniteQuery(
 		['SEARCH_ITEMS', words, selected],
@@ -30,3 +47,5 @@ export const useInfiniteSearch = (words, selected, status) => {
 	);
 	return res;
 };
+
+*/
