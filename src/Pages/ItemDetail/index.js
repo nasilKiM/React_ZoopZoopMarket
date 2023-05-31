@@ -38,6 +38,7 @@ const ItemDetailPage = () => {
 			setIsLoading(false);
 		}, 2000);
 	}, []);
+	data && console.log('test', isSeller, data, idx);
 
 	return (
 		<>
