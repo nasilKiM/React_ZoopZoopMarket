@@ -9,6 +9,7 @@ import { useSocket } from 'Context/socket';
 
 const LayOut = () => {
 	const so = useSocket();
+
 	return (
 		<>
 			<Container>

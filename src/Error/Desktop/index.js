@@ -39,9 +39,16 @@ const ImageContainer = styled.div`
 	display: flex;
 	justify-content: center;
 `;
+
 const ErrorImage = styled.img`
 	width: 400px;
 	margin-top: 100px;
+	@media (max-width: 700px) {
+		width: 220px;
+	}
+	@media (max-width: 900px) {
+		width: 300px;
+	}
 `;
 
 const Text = styled.div`

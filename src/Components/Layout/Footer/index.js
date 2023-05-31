@@ -30,6 +30,10 @@ const FooterText = styled.div`
 	@media (max-width: 800px) {
 		margin-left: 100px;
 	}
+	@media (max-width: 600px) {
+		margin-left: 30px;
+		line-height: 2rem;
+	}
 `;
 
 const Text1 = styled.div`
@@ -39,6 +43,9 @@ const Text1 = styled.div`
 
 const Logo = styled.img`
 	max-width: 250px;
+	@media (max-width: 800px) {
+		width: 200px;
+	}
 `;
 
 const Text3 = styled.div`

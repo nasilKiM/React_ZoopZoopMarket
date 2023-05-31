@@ -16,10 +16,10 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Cover>
+			<Banner>
+				<BannerAd />
+			</Banner>
 			<S.Wrapper>
-				<Banner>
-					<BannerAd />
-				</Banner>
 				<CategoryWrapper>
 					<TitleBox>카테고리별 상품찾기</TitleBox>
 					<Category />
@@ -46,7 +46,7 @@ const Cover = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 360px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -80,8 +80,8 @@ const PreviewBg = styled.div`
 
 const Banner = styled.div`
 	width: 100%;
-	/* height: 500px; */
-	/*background-color: gray; */
+	max-height: 500px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const TitleBox = styled.div`
