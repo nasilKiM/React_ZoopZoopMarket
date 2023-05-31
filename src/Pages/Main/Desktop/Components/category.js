@@ -100,31 +100,31 @@ const categories = [
 const Category = () => {
 	const settings = {
 		dots: false,
-		arrows: false,
+		arrows: true,
 		infinite: true,
 		speed: 0,
 		slidesToShow: 8,
-		slidesToScroll: 8,
+		slidesToScroll: 1,
 		responsive: [
 			{
 				breakpoint: 968,
 				settings: {
 					slidesToShow: 6,
-					slidesToScroll: 6,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 768,
 				settings: {
 					slidesToShow: 5,
-					slidesToScroll: 5,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 368,
 				settings: {
 					slidesToShow: 4,
-					slidesToScroll: 4,
+					slidesToScroll: 1,
 				},
 			},
 		],

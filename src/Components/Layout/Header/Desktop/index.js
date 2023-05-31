@@ -21,15 +21,22 @@ const WebHeader = ({ so }) => {
 	const [showOptions, setShowOptions] = useState();
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	//메뉴창 오픈
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
 	const [popupMsg, setPopupMsg] = useState();
+
+	//채팅전역
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
 		});
 	}, [so]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> d9d1958ea42f08021401e8972d7dc71b9fafb34e
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -80,7 +87,7 @@ const WebHeader = ({ so }) => {
 											icon={faXmark}
 											color="gray"
 											cursor="pointer"
-											fontSize="40px"
+											fontSize="35px"
 										/>
 										<div disabled={!MenuIsOpen}>
 											<MenuOpen>
@@ -116,7 +123,7 @@ const WebHeader = ({ so }) => {
 										icon={faBars}
 										color="gray"
 										cursor="pointer"
-										fontSize="30px"
+										fontSize="25px"
 									/>
 								)}
 							</div>
@@ -226,7 +233,7 @@ export default WebHeader;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -241,14 +248,6 @@ const Wrapper = styled.div`
 	justify-content: center;
 	margin: 0 auto;
 	padding-bottom: 5px;
-
-	& > div:second-child {
-		width: 376px;
-		height: 500px;
-		position: absolute;
-		left: 0px;
-		transition: 1s;
-	}
 `;
 
 const Container = styled.div`
@@ -279,11 +278,13 @@ const MenuOpen = styled.div`
 const TabletDiv = styled.div`
 	width: 100%;
 	margin-left: 50px;
+	@media (max-width: 700px) {
+		margin-left: 20px;
+	}
 `;
 const MenuList = styled.div`
 	display: flex;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 55px;
 `;
 
 const Menu = styled.div`
@@ -304,6 +305,9 @@ const Icon = styled.div`
 	justify-content: flex-end;
 	gap: 15px;
 	align-items: center;
+	@media (max-width: 700px) {
+		gap: 10px;
+	}
 	button {
 		display: inline-block;
 		color: ${({ theme }) => theme.color.black};
@@ -320,17 +324,30 @@ const Icon = styled.div`
 		&:hover {
 			background-color: ${({ theme }) => theme.color.primary[300]};
 		}
+		@media (max-width: 700px) {
+			width: 75px;
+			padding: 11px 9px;
+			font-size: ${({ theme }) => theme.fontSize.xs};
+		}
 	}
 `;
 
 const Logo = styled.img`
+	width: 100%;
+	min-width: 120px;
 	max-width: 200px;
 	margin-right: 20px;
+	@media (max-width: 700px) {
+		padding-right: 10px;
+	}
 `;
 
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
+	@media (max-width: 700px) {
+		width: 35px;
+	}
 `;
 
 const ModalOverlay = styled.div`
@@ -368,7 +385,6 @@ const CloseButton = styled.button`
 
 const MenuOptions = styled.div`
 	position: absolute;
-
 	top: 90%;
 	height: 70px;
 	transform: translateX(-20%);

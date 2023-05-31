@@ -9,13 +9,17 @@ import { useSocket } from 'Context/socket';
 
 const LayOut = () => {
 	const so = useSocket();
+
 	return (
 		<>
-			<Wrapper>
+			<Container>
 				<WebHeader so={so} />
-			</Wrapper>
-			<Outlet />
+			</Container>
+			<ContentWrapper>
+				<Outlet />
+			</ContentWrapper>
 			<BasicFooter />
+			<FooterWrapper></FooterWrapper>
 			<TopBtn />
 			<RecentWrap>
 				<RecentProduct />
@@ -29,7 +33,12 @@ const LayOut = () => {
 
 export default LayOut;
 
-const Wrapper = styled.div`
+const ContentWrapper = styled.div`
+	min-height: 100vh;
+	position: relative;
+`;
+
+const Container = styled.div`
 	height: 12vh;
 	position: sticky;
 	top: 0;
@@ -39,6 +48,11 @@ const Wrapper = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 `;
 
+const FooterWrapper = styled.div`
+	position: relative;
+	transform: translateY(-100%);
+`;
+
 const BtnSection = styled.div`
 	width: 50px;
 	height: 50px;
@@ -46,8 +60,6 @@ const BtnSection = styled.div`
 
 const RecentWrap = styled.div`
 	position: fixed;
-	bottom: 150px;
-	right: 100px;
 	z-index: 100;
 	@media (max-width: 1000px) {
 		display: none;
