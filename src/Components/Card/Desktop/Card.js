@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
-import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+import {
+	flexAllCenter,
+	flexJustifyCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 import ProductApi from 'Apis/productApi';
 import ConfirmModal from 'Components/Alert/confirmModal';
 
@@ -83,19 +87,20 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	/* display: flex; */
 	position: relative;
+	${flexJustifyCenter}
 `;
 
 const Container = styled.div`
 	width: 100%;
-	min-width: 200px;
-	max-width: 280px;
+	/* min-width: 200px;
+	max-width: 280px; */
 	height: 370px;
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {

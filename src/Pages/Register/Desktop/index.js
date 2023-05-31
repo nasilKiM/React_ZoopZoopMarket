@@ -122,11 +122,9 @@ const RegisterPage = () => {
 				mutationPost.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
-						alert('물품등록이 완료되었습니다.');
-						navigate('/main');
+						setModal(true);
 					},
 				});
-				setModal(true);
 			} else {
 				if (images.length === 0) {
 					window.scrollTo(0, 0);
@@ -146,11 +144,9 @@ const RegisterPage = () => {
 				mutationEdit.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
-						alert('물품수정이 완료되었습니다.');
-						navigate('/main');
+						setRegiModal(true);
 					},
 				});
-				setRegiModal(true);
 			}
 		} catch (err) {
 			return console.log(err);
