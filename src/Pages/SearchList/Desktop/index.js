@@ -22,15 +22,15 @@ const DesktopSearchList = () => {
 	}, [selected]);
 
 	const freeData = useQuery(['SEARCH_FREE', word], () => {
-		return ProductApi.searchItems(1, word, 1);
+		return ProductApi.searchItems(1, word, 1, '판매중');
 	});
 
 	const usedData = useQuery(['SEARCH_USED', word], () => {
-		return ProductApi.searchItems(1, word, 0);
+		return ProductApi.searchItems(1, word, 0, '판매중');
 	});
 
 	const { data, isSuccess, isLoading } = useQuery(['SEARCH_ALL', word], () => {
-		return ProductApi.searchItems(1, word);
+		return ProductApi.searchItems(1, word, '', '판매중');
 	});
 
 	return (

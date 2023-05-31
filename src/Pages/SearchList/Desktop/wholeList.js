@@ -17,8 +17,8 @@ const WholeListPage = () => {
 		setSelected(option);
 	};
 
-	const res = useInfiniteSearch(word.split(','), category);
-	let searchWord = '';
+	const res = useInfiniteSearch(word.split(','), category, '판매중');
+	let searchWord = word;
 	if (word == ',') {
 		searchWord = '전체';
 	}
@@ -41,7 +41,7 @@ const WholeListPage = () => {
 
 	let categoryResult = '';
 
-	category == 0 ? (categoryResult = '중고물품') : (categoryResult = '무료물품');
+	category == 0 ? (categoryResult = '중고템') : (categoryResult = '무료템');
 	useEffect(() => {
 		if (!inView) {
 			return;
@@ -49,8 +49,7 @@ const WholeListPage = () => {
 
 		res.fetchNextPage();
 	}, [inView]);
-	//400px
-	//data && console.log(data.pages[0].data.product[0]);
+
 	const convertedCategory = CategoryConverter(word.split(','));
 
 	//const searchWord = word === ',' ? '전체' : word;
@@ -82,15 +81,15 @@ const WholeListPage = () => {
 				</S.BoxContainer>
 			</S.SelectContainer>
 			<S.ResultContainer>
-				{word.split(',').length < 2 ? (
-					<S.ResultText>
-						<S.ResultWord>"{word}1"</S.ResultWord>에 대한 {categoryResult} 검색
-						결과
-					</S.ResultText>
-				) : (
+				{isSuccess && data && data.pages[0].data.product[0] ? (
 					<S.ResultText>
 						<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 {categoryResult}{' '}
 						검색 결과
+					</S.ResultText>
+				) : (
+					<S.ResultText>
+						<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한 검색 결과가
+						없습니다.
 					</S.ResultText>
 				)}
 			</S.ResultContainer>
