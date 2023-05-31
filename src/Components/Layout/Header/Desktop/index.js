@@ -33,10 +33,6 @@ const WebHeader = ({ so }) => {
 			setPopupMsg(data);
 		});
 	}, [so]);
-<<<<<<< HEAD
-=======
-
->>>>>>> d9d1958ea42f08021401e8972d7dc71b9fafb34e
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
