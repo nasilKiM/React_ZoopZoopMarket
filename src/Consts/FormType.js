@@ -32,6 +32,7 @@ export const FORM_TYPE = {
 
 	NICKNAME: {
 		required: '닉네임을 입력해주세요',
+		minLength: { value: 1 },
 		maxLength: { value: 10, message: '닉네임은 최대 10자입니다' },
 		pattern: {
 			value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,

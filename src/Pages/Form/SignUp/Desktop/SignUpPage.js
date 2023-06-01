@@ -33,6 +33,7 @@ const SignUpPage = () => {
 		handleSubmit,
 		setValue,
 		getValues,
+		watch,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -83,7 +84,7 @@ const SignUpPage = () => {
 	};
 
 	useEffect(() => {
-		setNickMsg();
+		setNickMsg('');
 	}, [getValues('nick')]);
 
 	const full =
@@ -116,7 +117,7 @@ const SignUpPage = () => {
 									placeholder="E-mail"
 								/>
 								<S.CheckBtn
-									disabled={errors.email || !getValues('email')}
+									disabled={errors.email || !watch('email')}
 									onClick={onCheckId}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -176,7 +177,7 @@ const SignUpPage = () => {
 									placeholder="Nick_Name"
 								/>
 								<S.CheckBtn
-									disabled={errors.nick || !getValues('nick')}
+									disabled={errors.nick || !watch('nick')}
 									onClick={onCheckNick}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -198,7 +199,7 @@ const SignUpPage = () => {
 									maxLength="13"
 									{...register('phone', 
 										{
-										required: true,	
+										required: '전화번호를 입력해주세요',	
 										onChange: e => {
 											setValue(
 												'phone',
