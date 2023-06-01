@@ -186,6 +186,9 @@ const ItemTitle = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const ItemPrice = styled.span`
