@@ -24,6 +24,7 @@ import MyReview from 'Pages/MyPage/MyReview/MyReview';
 import ChattingPage from 'Pages/Chat';
 import ReviewDetail from 'Pages/Review/reviewDetail';
 import ReviewEditPage from 'Pages/Review/reviewEdit';
+import ScrollToTop from 'Components/ScrollToTop/ScrollToTop';
 
 const router = createBrowserRouter([
 	{
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
 	{
 		element: (
 			<PrivateRoute>
+				<ScrollToTop />
 				<LayOut />
 			</PrivateRoute>
 		),

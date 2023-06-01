@@ -22,9 +22,15 @@ export default DesktopError;
 
 const Wrapper = styled.div`
 	width: 70%;
+	min-width: 414px;
 	max-width: 1200px;
-	min-width: 700px;
 	margin: 0 auto;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 `;
 
 const ImageContainer = styled.div`
@@ -33,9 +39,16 @@ const ImageContainer = styled.div`
 	display: flex;
 	justify-content: center;
 `;
+
 const ErrorImage = styled.img`
 	width: 400px;
 	margin-top: 100px;
+	@media (max-width: 700px) {
+		width: 220px;
+	}
+	@media (max-width: 900px) {
+		width: 300px;
+	}
 `;
 
 const Text = styled.div`
@@ -51,7 +64,7 @@ const Emphasize = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.big};
 `;
 const ButtonBox = styled.div`
-	width: 40%;
+	width: 50%;
 	margin: 0 auto;
 	padding: 10px;
 	display: flex;
