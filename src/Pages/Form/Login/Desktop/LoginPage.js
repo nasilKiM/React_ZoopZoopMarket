@@ -119,6 +119,9 @@ const Logo = styled.img`
 	${flexJustifyCenter}
 	margin: 50px auto 0;
 	max-width: 300px;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 200px;
+	}
 `;
 
 const Wrap = styled.div`

@@ -72,7 +72,7 @@ const Sticky = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
 	height: 40px;
 	${flexAllCenter}

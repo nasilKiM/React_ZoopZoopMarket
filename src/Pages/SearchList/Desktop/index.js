@@ -115,7 +115,7 @@ const SelectContainer = styled.div`
 const BoxContainer = styled.div`
 	width: 70%;
 	display: flex;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 
 	margin: 0 auto;
@@ -142,10 +142,6 @@ const ResultText = styled.div`
 	@media (max-width: 800px) {
 		width: 90%;
 	}
-	/* @media screen and (max-width: 767px) {
-		flex-direction: column;
-	} */
-
 `;
 
 const CategoryBox = styled.div`
@@ -159,7 +155,7 @@ const Category = styled.div`
 	width: 100%;
 	display: flex;
 	margin-top: 30px;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	margin: 0 auto;
 	margin-top: 40px;
