@@ -16,7 +16,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
+		pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
+	});
 
 	const [address, setAddress] = useState();
 	const [phoneMessage, setPhoneMessage] = useState();
@@ -48,7 +50,6 @@ const MyUserEdit = ({ userInfo }) => {
 				shouldFocus: true,
 			});
 		} else {
-			console.log('통과');
 			clearErrors('phone');
 		}
 
@@ -82,14 +83,9 @@ const MyUserEdit = ({ userInfo }) => {
 			const res = await UserApi.checkNickname(value);
 			setNickMessage(res.data.message);
 		} catch (err) {
-			console.log(err);
 			setNickMessage(err.response.data.message);
 		}
 	};
-
-	useEffect(() => {
-		setNickMessage();
-	}, [getValues('nick')]);
 
 	useEffect(() => {
 		setValue('email', data?.data.email);
@@ -129,6 +125,7 @@ const MyUserEdit = ({ userInfo }) => {
 								onClick={onCheckNick}
 								shape={'checkBtn'}
 								size={'checkBtn'}
+								type="button"
 							>
 								중복확인
 							</S.CheckBtn>

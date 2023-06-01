@@ -158,13 +158,13 @@ const ItemImg = styled.img`
 	top: -35px;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
 	@media (min-width: 350px) {
-		height: 205px;
+		height: 200px;
 	}
 	@media (min-width: 600px) {
-		height: 210px;
+		height: 205px;
 	}
 	@media (min-width: 900px) {
-		height: 220px;
+		height: 210px;
 	}
 	@media (min-width: 1200px) {
 		height: 250px;

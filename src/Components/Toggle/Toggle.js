@@ -65,9 +65,8 @@ export default ToggleBar;
 const Sticky = styled.div`
 	width: 100%;
 	position: fixed;
-	top: 95px;
 	z-index: 100;
-	height: 44px;
+	height: 40px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 

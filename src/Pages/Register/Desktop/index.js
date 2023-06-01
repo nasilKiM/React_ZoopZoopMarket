@@ -217,6 +217,7 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
+					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>

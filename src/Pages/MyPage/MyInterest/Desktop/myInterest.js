@@ -24,15 +24,22 @@ const MyInterestPage = () => {
 				<div>로딩</div> // 임시 로딩
 			) : (
 				<S.Wrap>
-					<S.Container>
-						{data.pages.map(page =>
-							page.data.LikeList.map(list => (
-								<S.Card>
-									<ItemCard index={list.Product.idx} products={list.Product} />
-								</S.Card>
-							)),
-						)}
-					</S.Container>
+					{data.pages[0].data.LikeList.length <= 0 ? (
+						<S.Txt>등록된 관심템이 없습니다.</S.Txt>
+					) : (
+						<S.Container>
+							{data.pages.map(page =>
+								page.data.LikeList.map(list => (
+									<S.Card>
+										<ItemCard
+											index={list.Product.idx}
+											products={list.Product}
+										/>
+									</S.Card>
+								)),
+							)}
+						</S.Container>
+					)}
 					<div ref={ref}></div>
 				</S.Wrap>
 			)}
@@ -82,9 +89,18 @@ const HeartZone = styled.div`
 	background-color: lightgray;
 `;
 
+const Txt = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-top: 30px;
+	margin-left: 0px;
+`;
+
 const S = {
 	Container,
 	Card,
 	HeartZone,
 	Wrap,
+	Txt,
 };

@@ -20,14 +20,14 @@ const Preview = ({ category }) => {
 			? `${data && data.data.region}에 있는 줍줍템을 확인하세요!`
 			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
-	const [slidesToShow, setSlidesToShow] = useState(3);
+	const [slidesToShow, setSlidesToShow] = useState(2);
 
 	const sliderSettings = {
 		infinite: true,
 		dots: false,
 		speed: 500,
 		slidesToShow: slidesToShow,
-		slidesToScroll: 3,
+		slidesToScroll: 1,
 
 		nextArrow: (
 			<Div>
@@ -71,15 +71,24 @@ const Preview = ({ category }) => {
 					<S.CategoryText>{categoryText}</S.CategoryText>
 				</S.SpaceBetween>
 			</S.UpperSwiper>
-			<SwiperWrapper>
-				<Slider {...sliderSettings}>
+			{products?.length <= 3 ? (
+				<S.TempSlider>
 					{products?.map(item => (
-						<ItemCard key={item} products={item} index={item.idx} />
+						<ItemCard key={item.idx} products={item} index={item.idx} />
 					))}
-					{/* <ItemCard key={item} products={item} index={item.idx} /> */}
-					{/* <ItemCardMock key={item} products={item} index={index} /> */}
-				</Slider>
-			</SwiperWrapper>
+				</S.TempSlider>
+			) : (
+				<SwiperWrapper>
+					<Slider {...sliderSettings}>
+						{products?.map(item => (
+							<ItemCard key={item.idx} products={item} index={item.idx} />
+						))}
+
+						{/* <ItemCard key={item} products={item} index={item.idx} /> */}
+						{/* <ItemCardMock key={item} products={item} index={index} /> */}
+					</Slider>
+				</SwiperWrapper>
+			)}
 		</S.Wrapper>
 	);
 };
@@ -91,7 +100,7 @@ const Wrapper = styled.div`
 	max-width: 1200px;
 	min-width: 350px;
 	@media (max-width: 700px) {
-		width: 95%;
+		width: 100%;
 	}
 	@media (max-width: 900px) {
 		width: 90%;
@@ -120,6 +129,12 @@ const CategoryBox = styled.div`
 const CategoryText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-top: 10px;
+`;
+
+const TempSlider = styled.div`
+	display: flex;
+	justify-content: center;
+	gap: 20px;
 `;
 
 const SwiperWrapper = styled.div`
@@ -152,6 +167,10 @@ const Div = styled.div`
 		left: -6px;
 		top: 7px;
 	}
+	@media (max-width: 700px) {
+		right: 0px;
+		background-color: rgba(217, 217, 217, 0.8);
+	}
 `;
 const DivPre = styled.div`
 	width: 40px;
@@ -169,11 +188,16 @@ const DivPre = styled.div`
 		right: -6px;
 		top: 7px;
 	}
+	@media (max-width: 700px) {
+		left: 0px;
+		background-color: rgba(217, 217, 217, 0.8);
+	}
 `;
 
 const S = {
 	Wrapper,
 	UpperSwiper,
+	TempSlider,
 	SpaceBetween,
 	CategoryBox,
 	CategoryText,
