@@ -13,7 +13,6 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 
 	const onClickCard = () => {
 		if (isRelated) navigate(`/item_detail/${products.idx}`);
-		console.log(index);
 		return navigate(`/item_detail/${index}`);
 	};
 
@@ -66,7 +65,11 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 						</S.BtnSection>
 					)}
 				</S.Container>
-				{products.status === '판매완료' ? <SoldoutCard /> : ''}
+				{products.status === '판매완료' ? (
+					<SoldoutCard index={products.idx} />
+				) : (
+					''
+				)}
 				{modal && (
 					<ConfirmModal>
 						<S.Content>물품을 삭제하시겠습니까?</S.Content>
