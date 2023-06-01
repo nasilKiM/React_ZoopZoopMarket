@@ -8,17 +8,17 @@ import styled from 'styled-components';
 const SoldOutModal = ({ roomData, onClose, idx }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
-	let user = '';
-	let prodIdx = '';
-	let userToken = '';
-	const selectBuyer = (prod_idx, token, nick_name) => {
+	const [buyerInfo, setBuyerInfo] = useState({
+		token: '',
+		nick_name: '',
+	});
+	console.log(roomData[0]);
+	const selectBuyer = (token, nick_name) => {
 		setModal(true);
-		user = nick_name;
-		prodIdx = prod_idx;
-		userToken = token;
-	};
-	const onClickModal = () => {
-		setModal(true);
+		setBuyerInfo({
+			token: token,
+			nick_name: nick_name,
+		});
 	};
 
 	const soldOut = async (prod_idx, token) => {
@@ -35,11 +35,19 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 	return (
 		<S.Wrapper>
 			<S.Container>
-				<S.Text>
-					<S.Intro>구매자를 선택해주세요.</S.Intro>
+				{roomData[0] === undefined ? (
+					<S.Text>
+						<S.Intro>구매자를 선택해주세요.</S.Intro>
 
-					<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
-				</S.Text>
+						<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
+					</S.Text>
+				) : (
+					<S.Text>
+						<S.Intro>구매자가 아직 없습니다.</S.Intro>
+
+						<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
+					</S.Text>
+				)}
 
 				{roomData &&
 					roomData.map(arr =>
@@ -49,7 +57,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 
 								<S.CheckBuyer
 									onClick={() => {
-										selectBuyer(idx, room.User.token, room.User.nick_name);
+										selectBuyer(room.User.token, room.User.nick_name);
 									}}
 								>
 									V
@@ -60,10 +68,10 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 			</S.Container>
 			{modal && (
 				<ConfirmModal>
-					<S.Content>{user}에게 판매하시겠습니까? </S.Content>
+					<S.Content>{buyerInfo.nick_name}에게 판매하시겠습니까? </S.Content>
 					<S.BtnContainer>
 						<S.NO onClick={() => setModal(false)}>취소</S.NO>
-						<S.OK onClick={() => soldOut(prodIdx, userToken)}>삭제</S.OK>
+						<S.OK onClick={() => soldOut(idx, buyerInfo.token)}>판매</S.OK>
 					</S.BtnContainer>
 				</ConfirmModal>
 			)}
