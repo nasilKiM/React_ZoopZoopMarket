@@ -8,7 +8,7 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
-	console.log(chatroomIdx);
+
 	useEffect(() => {
 		if (!idx) return;
 		const getChatList = async prodIdx => {
@@ -60,9 +60,7 @@ const ChattingPage = ({ idx, item, setItem, isSeller }) => {
 						itemInfo={itemInfo}
 					/>
 				)}
-				{!chatroomIdx && (
-					<div> 채팅선택 안했을때의 메세지 : 채팅을 선택해주세요.</div>
-				)}
+				{!chatroomIdx && <div>채팅을 선택해주세요.</div>}
 			</S.ChatRightContainer>
 		</S.ChatContainer>
 	);

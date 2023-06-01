@@ -40,15 +40,18 @@ const ChatMessage = ({
 			console.log(err);
 		}
 	};
-
+	console.log(chat);
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>
 				<div>
 					<div>{chat.User.nick_name}</div>
-					<div>{chat.lastMessage}</div>
+					<div>
+						<div>{chat.lastMessage}</div>
+					</div>
 				</div>
 				<div>
+					{!chat.isRead && <div>New!</div>}
 					<div>{date}</div>
 				</div>
 			</S.ChatContent>
@@ -72,6 +75,12 @@ const ChatContent = styled.div`
 	}
 	& > div:last-child {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		& > div {
+			margin: 10px 0;
+		}
+		& > div:first-child {
+			font-weight: ${({ theme }) => theme.fontWeight.bold};
+		}
 	}
 `;
 

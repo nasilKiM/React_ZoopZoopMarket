@@ -11,6 +11,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 	const [send, setSend] = useState();
 	const [receiveMsg, setReceiveMsg] = useState();
 	const [eventCheck, setEventCheck] = useState(true);
+	console.log(chat);
 
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
@@ -85,7 +86,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 			onClickSendMsgBtn(e);
 		}
 	};
-	console.log(itemRes);
+
 	return (
 		<>
 			<S.ChattingTitle>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
@@ -9,9 +9,9 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import NewMessage from './Components/newMessage';
 import UserApi from 'Apis/userApi';
 import TokenService from 'Repository/TokenService';
+import NewMessage from './Components/newMessage';
 
 const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
@@ -24,13 +24,15 @@ const WebHeader = ({ so }) => {
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
 	const [popupMsg, setPopupMsg] = useState();
+	const location = useLocation();
+
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
 		});
 	}, [so]);
-	console.log(1);
+
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -68,7 +70,7 @@ const WebHeader = ({ so }) => {
 	return (
 		<>
 			<S.Wrapper>
-				{popupMsg && (
+				{popupMsg && !(location.pathname === '/chat') && (
 					<NewMessage popupMsg={popupMsg} setPopupMsg={setPopupMsg} />
 				)}
 				<S.Container isMobile={isTablet}>

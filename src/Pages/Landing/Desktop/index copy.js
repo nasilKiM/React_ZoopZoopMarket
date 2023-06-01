@@ -40,7 +40,7 @@ const LandingPage = () => {
 		// 2초 후에 컨텐츠를 보여줍니다.
 		const timer = setTimeout(() => {
 			setShowContent(true);
-		}, 1000);
+		}, 500);
 
 		return () => clearTimeout(timer);
 	}, []);

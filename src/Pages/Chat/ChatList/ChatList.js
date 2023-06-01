@@ -10,6 +10,7 @@ const ChatList = ({
 	item,
 	setItem,
 	setItemInfo,
+	setChatArr,
 }) => {
 	return (
 		<>
@@ -28,6 +29,7 @@ const ChatList = ({
 								item={item}
 								setItem={setItem}
 								setItemInfo={setItemInfo}
+								setChatArr={setChatArr}
 							/>
 						);
 					})}
