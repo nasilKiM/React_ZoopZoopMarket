@@ -1,10 +1,11 @@
-import ChatProfile from 'Components/Profile/Desktop/chatProfile';
+import Profile from 'Components/Profile/Desktop/profile';
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const YourMessage = ({ msg }) => {
 	const createdAt = new Date(msg.createdAt);
 	const AMPM = createdAt.getHours() >= 12 ? '오후' : '오전';
+	console.log(msg);
 	return (
 		<S.Wrapper>
 			{/* <S.MessageContainer>{
@@ -18,7 +19,7 @@ const YourMessage = ({ msg }) => {
 				</S.MessageTimeUnreadContainer>
 			</S.MessageContainer>} */}
 			<div>
-				<ChatProfile />
+				<Profile userProfileUrl={msg?.User.profile_url} />
 			</div>
 			<div>{msg.message}</div>
 			<div>
@@ -37,7 +38,11 @@ const Wrapper = styled.div`
 	/* background-color: ${({ theme }) => theme.color.primary[100]}; */
 	justify-content: left;
 	margin: 20px 0;
-	& > :nth-child(2) {
+	& > div:first-child {
+		width: 45px;
+		height: 45px;
+	}
+	& > div:nth-child(2) {
 		word-break: break-all;
 		background-color: ${({ theme }) => theme.color.primary[100]};
 		line-height: 25px;
