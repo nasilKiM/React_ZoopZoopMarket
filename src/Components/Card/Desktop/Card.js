@@ -19,7 +19,8 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 		if (products.idx === undefined) {
 			return;
 		}
-		if (isRelated && products.idx !== undefined) navigate(`/item_detail/${products.idx}`);
+		if (isRelated && products.idx !== undefined)
+			navigate(`/item_detail/${products.idx}`);
 		return navigate(`/item_detail/${index}`);
 	};
 
@@ -185,6 +186,9 @@ const ItemTitle = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const ItemPrice = styled.span`
