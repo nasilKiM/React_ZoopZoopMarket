@@ -204,6 +204,10 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+		padding: 20px 10px 20px 10px;
+	}
 `;
 
 const Input = styled.input`
@@ -213,6 +217,9 @@ const Input = styled.input`
 	padding-left: 15px;
 	width: 80%;
 	height: 40px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 
 const PhoneInput = styled.input`

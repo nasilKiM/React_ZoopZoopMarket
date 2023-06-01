@@ -48,8 +48,7 @@ const MyPasswordEdit = () => {
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.Txt>
-						{' '}
-						90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!
+						90일마다 비밀번호를 변경하여 <br /> 소중한 개인정보를 보호하세요!
 					</S.Txt>
 					<S.Container>
 						<S.Title>* 비밀번호</S.Title>
@@ -122,6 +121,10 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+		padding: 20px 10px 20px 10px;
+	}
 `;
 
 const Input = styled.input`
@@ -147,6 +150,9 @@ const Button = styled(CustomButton)`
 	:disabled {
 		background: ${({ theme }) => theme.color.gray[200]};
 	}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-top: 10px;
+	}
 `;
 
 const Error = styled.div`
@@ -165,12 +171,14 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-	min-width: 90px;
+	min-width: 95px;
 	margin-right: 10px;
 	${flexAlignCenter}
 	padding-left: 10px;
 	@media ${({ theme }) => theme.device.tablet} {
 		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 `;
 
@@ -180,6 +188,11 @@ const Txt = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-bottom: 40px;
+	line-height: 30px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.base};
+		margin-bottom: 20px;
+	}
 `;
 
 const Text = styled.div`
@@ -199,6 +212,9 @@ const Box = styled.div`
 	width: 80%;
 	${flexAlignCenter}
 	position: relative;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 70%;
+	}
 `;
 
 const S = {

@@ -61,7 +61,7 @@ const BtnSection = styled.div`
 const RecentWrap = styled.div`
 	position: fixed;
 	z-index: 100;
-	@media (max-width: 1000px) {
+	@media (max-width: 1100px) {
 		display: none;
 	}
 `;
