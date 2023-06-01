@@ -68,7 +68,6 @@ const Sticky = styled.div`
 	top: 120px;
 	z-index: 100;
 	height: 44px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const Wrapper = styled.div`
