@@ -1,7 +1,7 @@
-import { flexAllCenter } from 'Styles/common';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { flexAllCenter } from 'Styles/common';
+
+import { useNavigate } from 'react-router-dom';
 
 const SoldoutCard = ({ index }) => {
 	const navigate = useNavigate();

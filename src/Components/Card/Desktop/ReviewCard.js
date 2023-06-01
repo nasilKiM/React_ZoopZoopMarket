@@ -1,14 +1,17 @@
-import ProductApi from 'Apis/productApi';
-import { reviewAtom } from 'Atoms/review.atom';
+import styled from 'styled-components';
 import {
 	flexAlignCenter,
 	flexAllCenter,
 	flexSpaceBetween,
 } from 'Styles/common';
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { reviewAtom } from 'Atoms/review.atom';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import ProductApi from 'Apis/productApi';
 
 const ReviewItemCard = ({ payIdx, item, original }) => {
 	const navigate = useNavigate();
