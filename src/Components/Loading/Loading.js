@@ -1,6 +1,6 @@
-import MobileLoading from './Mobile/Loading';
+import DesktopLoading from './Desktop/Loading';
 
 const LoadingPage = () => {
-	return <MobileLoading></MobileLoading>;
+	return <DesktopLoading />;
 };
 export default LoadingPage;

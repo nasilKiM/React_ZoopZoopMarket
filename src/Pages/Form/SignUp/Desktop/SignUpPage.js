@@ -210,9 +210,8 @@ const SignUpPage = () => {
 								<S.InputCustom
 									shape={'littleShape'}
 									maxLength="13"
-									{...register('phone', 
-										{
-										required: '전화번호를 입력해주세요',	
+									{...register('phone', {
+										required: '전화번호를 입력해주세요',
 										onChange: e => {
 											setPhoneMsg('');
 											clearErrors('phone');
@@ -226,9 +225,9 @@ const SignUpPage = () => {
 										validate: value => {
 											if (value.length !== 13) {
 												return '전화번호 11자리를 입력해주세요';
-											}}
-										}
-									)}
+											}
+										},
+									})}
 									placeholder="010-0000-0000"
 								/>
 							</S.InputBoxWrap>
@@ -284,6 +283,9 @@ const Logo = styled.img`
 	${flexJustifyCenter}
 	margin: 50px auto 0;
 	max-width: 300px;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 200px;
+	}
 `;
 
 const Wrap = styled.div`
