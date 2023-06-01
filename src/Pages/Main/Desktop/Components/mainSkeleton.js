@@ -91,7 +91,7 @@ const Cover = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -114,7 +114,7 @@ const PreviewBg = styled.div`
 	padding: 30px 0;
 	> * {
 		width: 70%;
-		min-width: 414px;
+		min-width: 350px;
 		max-width: 1200px;
 		@media (max-width: 700px) {
 			width: 95%;
@@ -134,7 +134,7 @@ const Blank = styled.div`
 
 const SkeletonCategoryContainer = styled.div`
 	width: 100%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 `;
 
@@ -150,7 +150,7 @@ const SkeletonContainer = styled.div`
 	display: flex;
 	margin-top: 30px;
 	width: 100%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;

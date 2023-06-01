@@ -95,7 +95,7 @@ export default DesktopSearchList;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -123,9 +123,6 @@ const ResultText = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	margin-top: 30px;
 	margin-left: 20px;
-	/* @media screen and (max-width: 767px) {
-		flex-direction: column;
-	} */
 `;
 
 const CategoryBox = styled.div`

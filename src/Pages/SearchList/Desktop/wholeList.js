@@ -107,7 +107,7 @@ const refDiv = styled.div``;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
