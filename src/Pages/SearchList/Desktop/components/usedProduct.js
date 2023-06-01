@@ -5,11 +5,6 @@ import SearchList from './searchList';
 
 const UsedProduct = ({ word, data }) => {
 	const navigate = useNavigate();
-
-	// const { data } = useQuery(['SEARCH_USED', word], () => {
-	// 	return ProductApi.searchItems(1, word, 0);
-	// });
-
 	const goWholeList = () => {
 		navigate(`${0}`);
 	};
@@ -121,14 +116,11 @@ const S = {
 
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
-		//1330이하일때만 적용
 		display: none;
 	}
 `;
 const NoteBook16 = styled.div`
 	@media screen and (max-width: 1001px), (min-width: 1499px) {
-		//1069이하일때만 적용
-		//1330이상일때만 적용
 		display: none;
 	}
 `;

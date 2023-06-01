@@ -5,7 +5,6 @@ const SearchList = ({ products }) => {
 	return (
 		<S.Wrapper>
 			<ItemCard index={products.idx} products={products} />
-			{/* <ItemCardMock index={products} products={products} /> */}
 		</S.Wrapper>
 	);
 };

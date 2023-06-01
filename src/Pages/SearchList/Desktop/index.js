@@ -106,7 +106,6 @@ const Container = styled.div`
 	margin: 0 auto;
 `;
 
-// 메뉴(통합/중고/무료)
 const SelectContainer = styled.div`
 	display: flex;
 	background-color: ${({ theme }) => theme.color.gray[100]};
@@ -145,7 +144,6 @@ const ResultText = styled.div`
 	/* @media screen and (max-width: 767px) {
 		flex-direction: column;
 	} */
-
 `;
 
 const CategoryBox = styled.div`

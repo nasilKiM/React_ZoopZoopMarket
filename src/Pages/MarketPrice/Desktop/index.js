@@ -3,7 +3,6 @@ import ProductApi from 'Apis/productApi';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import Chart from './chart';
@@ -13,26 +12,7 @@ const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
 	const today = dayjs().format('YYYY-MM-DD');
-	const start = '2023-05-20';
-	const end = '2023-06-02';
 	const monthsAgo = dayjs().subtract(1, 'month').format('YYYY-MM-DD');
-	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-		const handleResize = () => {
-			setViewportSize({ width: window.innerWidth, height: window.innerHeight });
-		};
-
-		window.addEventListener('resize', handleResize);
-		handleResize();
-		window.scrollTo(0, 0);
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
-
 	const { data, isLoading, isSuccess } = useQuery(['SEARCH_PRICE', word], () =>
 		ProductApi.searchMarket(word, monthsAgo, today),
 	);
@@ -44,7 +24,7 @@ const DesktopMarketPrice = () => {
 			const day = parseInt(date[2]);
 			let avgPrice = parseInt(product.avgPrice);
 			if (avgPrice > 100000000) {
-				avgPrice = Math.floor(avgPrice / 100000000); // 10,000 단위로 버림 처리
+				avgPrice = Math.floor(avgPrice / 100000000);
 			} else if (avgPrice > 10000) {
 				avgPrice = Math.floor(avgPrice / 10000);
 			}
@@ -67,21 +47,11 @@ const DesktopMarketPrice = () => {
 		let numberAverage = parseInt(average);
 		if (numberAverage > 100000000) {
 			numberAverage = Math.floor(numberAverage / 100000000);
-			roundedAverage = `${numberAverage.toLocaleString()}억원`; // 10,000 단위로 버림 처리
+			roundedAverage = `${numberAverage.toLocaleString()}억원`;
 		} else if (numberAverage > 10000) {
 			numberAverage = Math.floor(numberAverage / 10000);
 			roundedAverage = `${numberAverage.toLocaleString()}만원`;
 		}
-	}
-
-	let chartWidth = viewportSize.width * 0.9;
-	let chartHeight = viewportSize.width * 0.5 * 0.5 * 1.2;
-
-	if (viewportSize.width >= 1500) {
-		chartWidth = viewportSize.width * 0.65;
-	} else if (viewportSize.width < 900) {
-		chartWidth = viewportSize.width * 0.9;
-		chartHeight = viewportSize.width * 0.8 * 0.7;
 	}
 
 	return (
@@ -107,12 +77,7 @@ const DesktopMarketPrice = () => {
 					</S.UpperPart>
 					<S.ChartContainer>
 						{word && (
-							<Chart
-								chartWidth={chartWidth}
-								chartHeight={chartHeight}
-								data={arr}
-								average={parseInt(average).toFixed(0)}
-							></Chart>
+							<Chart data={arr} average={parseInt(average).toFixed(0)}></Chart>
 						)}
 					</S.ChartContainer>
 					{average == 0 ? (
@@ -242,99 +207,3 @@ const S = {
 	ResultWord,
 	SearchBarContainer,
 };
-
-/* 라이브러리 사용법 npm i recharts
-<LineChart> : Recharts에서 제공하는 선 그래프를 그리기 위한 컨테이너입니다. width와 height props를 통해 그래프의 크기를 설정할 수 있습니다.
-<CartesianGrid> : 그래프 내에 격자무늬를 생성하기 위한 컴포넌트입니다. strokeDasharray props를 통해 점선으로 설정되어 있습니다.
-<XAxis> : x축을 설정하는 컴포넌트입니다. dataKey props를 통해 x축에 대한 데이터를 설정합니다.
- dataKey에 "day"를 전달하게 되는데, 이를 문자열 리터럴로 감싸는 이유는 dataKey prop이 문자열 타입이기 때문입니다.
- 
-<YAxis> : y축을 설정하는 컴포넌트입니다.
-<Tooltip> : 마우스를 이용해 그래프의 데이터를 보여주는 툴팁 컴포넌트입니다.
-
-<Legend> : 그래프에 대한 범례를 표시하기 위한 컴포넌트입니다.
-
-<Line> : 선 그래프를 그리기 위한 컴포넌트입니다. type props를 통해 그래프의 모양을 설정할 수 있으며, 
-dataKey props를 통해 그래프의 데이터를 설정합니다. stroke props를 통해 선의 색상을 설정할 수 있습니다. 
-activeDot props를 통해 마우스로 해당 데이터를 클릭했을 때 원형으로 표시됩니다.
-*/
-
-//data && console.log(data);
-
-// data && console.log(data.data.prod_idx.cumulativeAvgPrice);
-//console.log('시세 검색 단어: ', word);
-// console.log(priceList);
-// const data = [
-// 	{ date: '2023-04-30', price: 3000 },
-// 	{ date: '2023-05-01', price: 3500 },
-// 	{ date: '2023-05-02', price: 2500 },
-// 	{ date: '2023-05-03', price: 3800 },
-// 	{ date: '2023-05-04', price: 9000 },
-// 	{ date: '2023-05-05', price: 3900 },
-// 	{ date: '2023-05-06', price: 4200 },
-// 	{ date: '2023-05-07', price: 4200 },
-// 	{ date: '2023-05-08', price: 3800 },
-// 	{ date: '2023-05-09', price: 4200 },
-// 	{ date: '2023-05-11', price: 3800 },
-// 	{ date: '2023-05-11', price: 4200 },
-// ]; 실제 데이터도 이 형태로 담겨져서 옴
-
-// useEffect(() => {
-// 	const fetchItems = async () => {
-// 		try {
-// 			const response = await axios.get('Mock/ItemData/items.json');
-// 			const items = response.data.itemList.filter(
-// 				item => item.category === 1 && item.isSold === true,
-// 			);
-// 			const sortedItems = items.sort((a, b) => {
-// 				return new Date(a.createdAt) - new Date(b.createdAt);
-// 			});
-// 			setItemList(sortedItems);
-// 			//
-// 			const itemsByMonth = {};
-// 			sortedItems.forEach(item => {
-// 				const month = new Date(item.createdAt).getMonth();
-// 				if (!itemsByMonth[month]) {
-// 					itemsByMonth[month] = [];
-// 				}
-// 				itemsByMonth[month].push(item);
-// 			});
-// 			for (let month in itemsByMonth) {
-// 				const monthItems = itemsByMonth[month];
-// 				const total = monthItems.reduce((sum, item) => sum + item.price, 0);
-// 				const average = total / monthItems.length;
-// 				//console.log(`${Number(month) + 1}월 평균 가격: ${average}`);
-// 			}
-// 		} catch (error) {
-// 			console.error(error);
-// 		}
-// 	};
-// 	fetchItems();
-// }, []);
-
-// const groupingData = (data, groupSize) => {
-// 	const result = [];
-// 	let group = [];
-
-// 	for (let i = 0; i < data.length; i++) {
-// 		group.push(data[i]);
-
-// 		if (group.length === groupSize || i === data.length - 1) {
-// 			const firstDate = group[0].date;
-// 			const lastDate = group[group.length - 1].date;
-// 			const avgPrice = (
-// 				group.reduce((sum, item) => sum + item.price, 0) / group.length
-// 			).toFixed(2);
-// 			result.push({
-// 				group: `${firstDate}~${lastDate}`,
-// 				avgPrice: parseFloat(avgPrice),
-// 			});
-// 			group = [];
-// 		}
-// 	}
-
-// 	return result;
-// }; //배열을 전달 받아서 안에 객체들을 원하는SIZE만큼 그룹화 하고 평균 값을 저장.
-
-// const groupedData = arr?.length && groupingData(arr, 2);
-// console.log(groupedData);

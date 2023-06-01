@@ -132,8 +132,6 @@ const Container = styled.div`
 const ResultText = styled.div`
 	display: flex;
 	margin-top: 40px;
-	//margin-left: 40px;
-	/* flex-direction: column; */
 	@media screen and (max-width: 767px) {
 		flex-direction: column;
 	}
@@ -154,7 +152,6 @@ const S = {
 
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
-		//1330이하일때만 적용
 		display: none;
 	}
 `;

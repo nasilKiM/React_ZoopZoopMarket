@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
 import SearchList from './components/searchList';
 import { useInView } from 'react-intersection-observer';
-import CategoryConverter from './components/categoryConverter';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 const WholeListPage = () => {
 	const { word } = useParams();
-	const { category } = useParams(); //useParams는 다 string으로 변환.
+	const { category } = useParams();
 	const [selected, setSelected] = useState(category);
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const navigate = useNavigate();
@@ -28,6 +27,7 @@ const WholeListPage = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		res.refetch();
+		setSelected(category);
 	}, [category]);
 
 	const { data, isLoading, isSuccess } = res;
@@ -52,10 +52,6 @@ const WholeListPage = () => {
 
 		res.fetchNextPage();
 	}, [inView]);
-
-	const convertedCategory = CategoryConverter(word.split(','));
-
-	//const searchWord = word === ',' ? '전체' : word;
 
 	return (
 		<S.Wrapper>
@@ -231,4 +227,3 @@ const S = {
 	BoxContainer,
 	ResultContainer,
 };
-
