@@ -16,7 +16,10 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
-		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		if (products.idx === undefined) {
+			return;
+		}
+		if (isRelated && products.idx !== undefined) navigate(`/item_detail/${products.idx}`);
 		return navigate(`/item_detail/${index}`);
 	};
 

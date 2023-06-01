@@ -6,11 +6,9 @@ import moment from 'moment';
 import PayListCard from 'Components/Card/Desktop/payListCard';
 
 const AccountBookDetailInfo = ({
-	category,
+	thisMonth,
 	date,
 	setDate,
-	year,
-	month,
 	data,
 }) => {
 	let saleDateArr = [];
@@ -26,15 +24,13 @@ const AccountBookDetailInfo = ({
 			const saleDate = item.createdAt;
 			purchaseDateArr.push(saleDate.split('T')[0]);
 		});
-	data && console.log(data);
 	return (
 		<>
 			<S.Wrap>
 				<S.PreviewWrap>
 					<S.PreviewContent1>
 						<S.Date>
-							{/* {year}년 {month}월 */}
-							2023년 5월
+							2023년 {thisMonth}월
 						</S.Date>
 						<div>
 							<S.Div1>
@@ -126,17 +122,27 @@ const PreviewWrap = styled.div`
 	& > div:nth-child(1) {
 		padding-bottom: 30px;
 		border-bottom: solid 3px ${({ theme }) => theme.color.gray[100]};
+		@media ${({ theme }) => theme.device.laptop} {
+		}
+		@media ${({ theme }) => theme.device.tablet} {
+			padding-bottom: 20px;
+		}
+		@media ${({ theme }) => theme.device.mobile} {
+			padding-bottom: 10px;
+		}
 	}
 	& > div:nth-child(2) {
 		margin-top: 30px;
 		height: 250px;
 	}
+	
 `;
 
 const PreviewContent1 = styled.div`
 	height: 80px;
 	display: flex;
 	align-items: center;
+	min-width: min-content;
 	& > div:nth-child(2) {
 		margin-left: 100px;
 	}
@@ -146,12 +152,13 @@ const Date = styled.div`
 	padding-left: 50px;
 	color: ${({ theme }) => theme.color.primary[400]};
 	font-size: ${({ theme }) => theme.fontSize.md};
+	min-width: min-content;
 `;
 
 const Div1 = styled.div`
 	display: flex;
 	line-height: 2rem;
-
+	min-width: min-content;
 	& > div:nth-child(1) {
 		margin-right: 30px;
 		color: ${({ theme }) => theme.color.gray[300]};
@@ -171,6 +178,7 @@ const Div1 = styled.div`
 
 const Div2 = styled.div`
 	display: flex;
+	min-width: min-content;
 `;
 
 
