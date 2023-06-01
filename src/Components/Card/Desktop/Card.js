@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
-import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+import {
+	flexAllCenter,
+	flexJustifyCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 import ProductApi from 'Apis/productApi';
 import ConfirmModal from 'Components/Alert/confirmModal';
 
@@ -12,7 +16,10 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
-		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		if (products.idx === undefined) {
+			return;
+		}
+		if (isRelated && products.idx !== undefined) navigate(`/item_detail/${products.idx}`);
 		return navigate(`/item_detail/${index}`);
 	};
 
@@ -87,42 +94,49 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	/* display: flex; */
 	position: relative;
+	${flexJustifyCenter}
 `;
 
 const Container = styled.div`
 	width: 100%;
-	min-width: 200px;
+	min-width: 160px;
 	max-width: 280px;
 	height: 370px;
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {
 		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
 		transition: all 0.3s ease 0s;
 	}
-	@media (min-width: 414px) {
-		width: 200px;
+	@media (min-width: 350px) {
+		width: 160px;
+		height: 315px;
 	}
 	@media (min-width: 600px) {
-		width: 210px;
+		width: 200px;
+		height: 320px;
 	}
 	@media (min-width: 900px) {
 		width: 220px;
+		height: 330px;
 	}
 	@media (min-width: 1100px) {
 		width: 230px;
+		height: 340px;
 	}
 	@media (min-width: 1200px) {
 		width: 240px;
+		height: 350px;
 	}
 	@media (min-width: 1350px) {
 		width: 280px;
+		height: 370px;
 	}
 `;
 
@@ -138,11 +152,22 @@ const Heart = styled.div`
 const ItemImg = styled.img`
 	width: 100%;
 	height: 250px;
-	max-height: 250px;
 	object-fit: cover;
 	position: relative;
 	top: -35px;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
+	@media (min-width: 350px) {
+		height: 205px;
+	}
+	@media (min-width: 600px) {
+		height: 210px;
+	}
+	@media (min-width: 900px) {
+		height: 220px;
+	}
+	@media (min-width: 1200px) {
+		height: 250px;
+	}
 `;
 
 const ItemInfo = styled.div`

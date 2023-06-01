@@ -122,16 +122,10 @@ const RegisterPage = () => {
 				mutationPost.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
-						alert('물품등록이 완료되었습니다.');
-						navigate('/main');
+						setModal(true);
 					},
 				});
-				setModal(true);
 			} else {
-				if (images.length === 0) {
-					window.scrollTo(0, 0);
-					return alert('이미지를 등록해주세요.');
-				}
 				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
@@ -146,11 +140,9 @@ const RegisterPage = () => {
 				mutationEdit.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
-						alert('물품수정이 완료되었습니다.');
-						navigate('/main');
+						setRegiModal(true);
 					},
 				});
-				setRegiModal(true);
 			}
 		} catch (err) {
 			return console.log(err);
@@ -264,7 +256,7 @@ export default RegisterPage;
 
 const Wrapper = styled.form`
 	width: 60%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media screen and (max-width: 1100px) {
 		width: 70%;
@@ -375,14 +367,12 @@ const AddressTitleContainer = styled.div`
 `;
 
 const AddressMap = styled.div`
-	/* width: 680px; */
 	width: 100%;
 	position: relative;
 	margin: 0 auto;
 `;
 
 const Address = styled.div`
-	/* width: 450px; */
 	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
@@ -443,7 +433,6 @@ const RegisterBtn = styled.button`
 
 const TagWrapper = styled.div`
 	width: 90%;
-	/* height: 30px; */
 	${flexAlignCenter}
 	flex-wrap: wrap;
 	padding: 0 10px;
@@ -482,7 +471,6 @@ const TagContent = styled.span`
 
 const DelTag = styled.button`
 	width: 20px;
-	/* margin-left: 10px; */
 	border: none;
 	background: none;
 	display: flex;

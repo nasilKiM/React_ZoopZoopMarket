@@ -123,9 +123,8 @@ const Wrapper = styled.div`
 const BoxContainer = styled.div`
 	width: 70%;
 	display: flex;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
-
 	margin: 0 auto;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -233,25 +232,3 @@ const S = {
 	ResultContainer,
 };
 
-// // const res = useInfiniteSearch(word, selected);
-
-// //const { data } = res;
-
-// let selectedItem = '';
-
-// if (selected === 0) {
-// 	selectedItem = '중고물품';
-// } else if (selected === 1) {
-// 	selectedItem = '무료나눔';
-// }
-
-// // useEffect(() => {
-// // 	res.refetch(); // 현재 쿼리를 다시 실행하여 새로운 데이터를 가져오는 함수.
-// // }, [selected]); // refetch 함수는 react-query 내부적으로 캐시를 업데이트.
-
-// // useEffect(() => {
-// // 	if (!inView) {
-// // 		return;
-// // 	}
-// // 	res.fetchNextPage();
-// // }, [inView]);

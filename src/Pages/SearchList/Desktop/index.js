@@ -145,6 +145,7 @@ const ResultText = styled.div`
 	/* @media screen and (max-width: 767px) {
 		flex-direction: column;
 	} */
+
 `;
 
 const CategoryBox = styled.div`

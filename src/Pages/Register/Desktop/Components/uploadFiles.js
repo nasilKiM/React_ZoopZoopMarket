@@ -182,7 +182,7 @@ const MainImgContainer = styled.div`
 		height: 250px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 400px;
+		width: 350px;
 		height: 200px;
 	}
 `;
@@ -203,7 +203,7 @@ const SmallImgBox = styled.div`
 		width: 600px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 400px;
+		width: 350px;
 	}
 `;
 

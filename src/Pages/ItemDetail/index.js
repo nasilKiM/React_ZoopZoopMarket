@@ -37,7 +37,7 @@ const ItemDetailPage = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false);
-		}, 2000);
+		}, 500);
 	}, []);
 	data && console.log('test', isSeller, data, idx);
 

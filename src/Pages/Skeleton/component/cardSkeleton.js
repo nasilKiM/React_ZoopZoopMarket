@@ -21,7 +21,7 @@ export default CardSkeleton;
 
 const SkeletonBox = styled.div`
 	width: 100%;
-	min-width: 200px;
+	min-width: 160px;
 	max-width: 280px;
 	height: 370px;
 	border-radius: 10px;

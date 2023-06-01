@@ -36,10 +36,11 @@ const SignUpPage = () => {
 		getValues,
 		setError,
 		clearErrors,
+		watch,
+
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	// signUp mutation
 	const { mutate } = useMutation(info => UserApi.signup(info), {
 		onSuccess: () => {
 			setModal(true);
@@ -69,10 +70,8 @@ const SignUpPage = () => {
 		mutate(info);
 	};
 
-	// 이메일 중복체크
 	const onCheckId = async e => {
 		e.preventDefault();
-		// refetch(data);
 		const value = getValues('email');
 		try {
 			const res = await UserApi.checkEmail(value);
@@ -82,12 +81,10 @@ const SignUpPage = () => {
 		}
 	};
 
-	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
 	}, [getValues('email')]);
 
-	// 닉네임 중복체크
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -100,14 +97,16 @@ const SignUpPage = () => {
 	};
 
 	useEffect(() => {
-		setNickMsg();
+		setNickMsg('');
 	}, [getValues('nick')]);
 
 	const full =
 		!errors.email &&
 		!errors.password &&
 		!errors.confirmPW &&
+		'phone' &&
 		!errors.phone &&
+		!errors.nick &&
 		address;
 
 	return (
@@ -131,7 +130,7 @@ const SignUpPage = () => {
 									placeholder="E-mail"
 								/>
 								<S.CheckBtn
-									disabled={errors.email || !'email'}
+									disabled={errors.email || !watch('email')}
 									onClick={onCheckId}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -192,7 +191,7 @@ const SignUpPage = () => {
 									placeholder="Nick_Name"
 								/>
 								<S.CheckBtn
-									disabled={errors.nick || !'nick'}
+									disabled={errors.nick || !watch('nick')}
 									onClick={onCheckNick}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -211,7 +210,9 @@ const SignUpPage = () => {
 								<S.InputCustom
 									shape={'littleShape'}
 									maxLength="13"
-									{...register('phone', {
+									{...register('phone', 
+										{
+										required: '전화번호를 입력해주세요',	
 										onChange: e => {
 											setPhoneMsg('');
 											clearErrors('phone');
@@ -222,7 +223,12 @@ const SignUpPage = () => {
 													.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
 											);
 										},
-									})}
+										validate: value => {
+											if (value.length !== 13) {
+												return '전화번호 11자리를 입력해주세요';
+											}}
+										}
+									)}
 									placeholder="010-0000-0000"
 								/>
 							</S.InputBoxWrap>
@@ -318,6 +324,7 @@ const BtnWrap = styled.div`
 const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 82%;
+	font-family: 'Nanum_extraBold';
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
 		${({ theme }) => theme.color.primary[200]}
@@ -345,6 +352,7 @@ const InputBoxWrap = styled.div`
 const InputCustom = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -354,6 +362,7 @@ const InputHalf = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
 	width: 74%;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -409,10 +418,10 @@ const Address = styled.div`
 `;
 
 const CheckBtn = styled(CustomButton)`
-	font-weight: normal;
 	min-height: 45px;
 	width: 120px;
 	background: none;
+	font-family: 'Nanum_regular';
 	margin-left: 10px;
 	border: 2px solid ${({ theme }) => theme.color.primary[400]};
 	&:hover {
