@@ -36,7 +36,6 @@ const SignUpPage = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	// signUp mutation
 	const { mutate } = useMutation(info => UserApi.signup(info), {
 		onSuccess: () => {
 			setModal(true);
@@ -57,10 +56,8 @@ const SignUpPage = () => {
 		mutate(info);
 	};
 
-	// 이메일 중복체크
 	const onCheckId = async e => {
 		e.preventDefault();
-		// refetch(data);
 		const value = getValues('email');
 		try {
 			const res = await UserApi.checkEmail(value);
@@ -70,12 +67,10 @@ const SignUpPage = () => {
 		}
 	};
 
-	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
 	}, [getValues('email')]);
 
-	// 닉네임 중복체크
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -95,7 +90,9 @@ const SignUpPage = () => {
 		!errors.email &&
 		!errors.password &&
 		!errors.confirmPW &&
+		'phone' &&
 		!errors.phone &&
+		!errors.nick &&
 		address;
 
 	return (
@@ -119,7 +116,7 @@ const SignUpPage = () => {
 									placeholder="E-mail"
 								/>
 								<S.CheckBtn
-									disabled={errors.email || !'email'}
+									disabled={errors.email || !getValues('email')}
 									onClick={onCheckId}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -130,14 +127,6 @@ const SignUpPage = () => {
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 						{<S.Error>{idMsg}</S.Error>}
-						{/* {isLoading ? (
-							<div></div>
-						) : (
-							<S.Error>
-								{error ? error.response.data.message : data.message}
-							</S.Error>
-						)} */}
-
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -187,7 +176,7 @@ const SignUpPage = () => {
 									placeholder="Nick_Name"
 								/>
 								<S.CheckBtn
-									disabled={errors.nick || !'nick'}
+									disabled={errors.nick || !getValues('nick')}
 									onClick={onCheckNick}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -207,7 +196,9 @@ const SignUpPage = () => {
 								<S.InputCustom
 									shape={'littleShape'}
 									maxLength="13"
-									{...register('phone', {
+									{...register('phone', 
+										{
+										required: true,	
 										onChange: e => {
 											setValue(
 												'phone',
@@ -216,7 +207,12 @@ const SignUpPage = () => {
 													.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
 											);
 										},
-									})}
+										validate: value => {
+											if (value.length !== 13) {
+												return '전화번호 11자리를 입력해주세요';
+											}}
+										}
+									)}
 									placeholder="010-0000-0000"
 								/>
 							</S.InputBoxWrap>
