@@ -4,7 +4,6 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
-// import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
@@ -21,7 +20,7 @@ const MyInterestPage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div>로딩</div> // 임시 로딩
+				<div>로딩</div>
 			) : (
 				<S.Wrap>
 					{data.pages[0].data.LikeList.length <= 0 ? (
@@ -89,18 +88,8 @@ const HeartZone = styled.div`
 	background-color: lightgray;
 `;
 
-const Txt = styled.div`
-	width: 100%;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-top: 30px;
-	margin-left: 0px;
-`;
-
 const S = {
 	Container,
-	Card,
-	HeartZone,
 	Wrap,
 	Txt,
 };
