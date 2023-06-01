@@ -4,15 +4,18 @@ import {
 	flexSpaceBetween,
 } from 'Styles/common';
 import styled from 'styled-components';
+
+import FindAddress from 'Components/Address/Desktop/address';
+import AlertModal from 'Components/Alert/alertModal';
+import CustomButton from 'Components/Buttons/button';
+
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import FindAddress from 'Components/Address/Desktop/address';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
-import CustomButton from 'Components/Buttons/button';
-import AlertModal from 'Components/Alert/alertModal';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
@@ -204,16 +207,45 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
-		padding: 20px 10px 20px 10px;
-	} */
 	@media ${({ theme }) => theme.device.tablet} {
 		padding: 20px;
 	}
-	/* @media (max-width: 660px) {
-		padding: 10px;
-	} */
+`;
+
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.div`
+	min-width: 90px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media ${({ theme }) => theme.device.tablet} {
+		min-width: 70px;
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+`;
+
+const Box = styled.div`
+	width: 80%;
+	${flexAlignCenter}
+	position: relative;
+`;
+
+const idDiv = styled.div`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	border-radius: 10px;
+	padding-left: 15px;
+	width: 100%;
+	height: 40px;
+	${flexAlignCenter}
 `;
 
 const Input = styled.input`
@@ -228,6 +260,19 @@ const Input = styled.input`
 	}
 `;
 
+const CheckBtn = styled(CustomButton)`
+	width: 100px;
+	height: 40px;
+	background: ${({ theme }) => theme.color.primary[200]};
+	color: ${({ theme }) => theme.color.white};
+	margin-left: 10px;
+	border: none;
+	:hover {
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		background-color: ${({ theme }) => theme.color.primary[300]};
+	}
+`;
+
 const PhoneInput = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
@@ -235,17 +280,6 @@ const PhoneInput = styled.input`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	width: 100%;
 	height: 40px;
-`;
-
-const idDiv = styled.div`
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	background-color: ${({ theme }) => theme.color.gray[200]};
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	border-radius: 10px;
-	padding-left: 15px;
-	width: 100%;
-	height: 40px;
-	${flexAlignCenter}
 `;
 
 const addressDiv = styled.div`
@@ -257,19 +291,6 @@ const addressDiv = styled.div`
 	${flexAlignCenter}
 	@media ${({ theme }) => theme.device.tablet} {
 		margin-right: 10px;
-	}
-`;
-
-const CheckBtn = styled(CustomButton)`
-	width: 100px;
-	height: 40px;
-	background: ${({ theme }) => theme.color.primary[200]};
-	color: ${({ theme }) => theme.color.white};
-	margin-left: 10px;
-	border: none;
-	:hover {
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-		background-color: ${({ theme }) => theme.color.primary[300]};
 	}
 `;
 
@@ -311,43 +332,18 @@ const Text = styled.div`
 	}
 `;
 
-const Container = styled.div`
-	${flexSpaceBetween}
-	width: 100%;
-	margin-bottom: 30px;
-`;
-
-const Box = styled.div`
-	width: 80%;
-	${flexAlignCenter}
-	position: relative;
-`;
-
-const Title = styled.div`
-	min-width: 90px;
-	margin-right: 10px;
-	${flexAlignCenter}
-	padding-left: 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	@media ${({ theme }) => theme.device.tablet} {
-		min-width: 70px;
-		margin-right: 5px;
-		font-size: ${({ theme }) => theme.fontSize.sm};
-	}
-`;
-
 const S = {
 	Wrap,
 	Form,
-	Input,
-	PhoneInput,
+	Container,
+	Title,
+	Box,
 	idDiv,
-	addressDiv,
+	Input,
 	CheckBtn,
+	PhoneInput,
+	addressDiv,
 	Button,
 	Error,
 	Text,
-	Container,
-	Box,
-	Title,
 };

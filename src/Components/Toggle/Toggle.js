@@ -1,4 +1,5 @@
 import { flexAllCenter } from 'Styles/common';
+
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -88,13 +89,6 @@ const Wrapper = styled.div`
 	@media ${({ theme }) => theme.device.tablet} {
 		min-width: 350px;
 	}
-	/* @media ${({ theme }) => theme.device.mobile} {
-		width: 90%;
-		left: 0;
-	} */
-	/* @media (max-width: 660px) {
-		padding: 10px;
-	} */
 `;
 
 const Menu = styled.div`

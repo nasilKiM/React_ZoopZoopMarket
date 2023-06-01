@@ -1,13 +1,15 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProductApi from 'Apis/productApi';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import ItemCard from 'Components/Card/Desktop/Card';
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
+
+import ItemCard from 'Components/Card/Desktop/Card';
+
+import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
 
 const Preview = ({ category }) => {
 	const { data } = useQuery(['mainList'], () => ProductApi.mainList());
@@ -27,7 +29,7 @@ const Preview = ({ category }) => {
 		dots: false,
 		speed: 500,
 		slidesToShow: slidesToShow,
-		slidesToScroll: 3,
+		slidesToScroll: 1,
 
 		nextArrow: (
 			<Div>
@@ -76,8 +78,6 @@ const Preview = ({ category }) => {
 					{products?.map(item => (
 						<ItemCard key={item} products={item} index={item.idx} />
 					))}
-					{/* <ItemCard key={item} products={item} index={item.idx} /> */}
-					{/* <ItemCardMock key={item} products={item} index={index} /> */}
 				</Slider>
 			</SwiperWrapper>
 		</S.Wrapper>
@@ -131,9 +131,7 @@ const SwiperWrapper = styled.div`
 		display: none;
 	}
 	.slick-slide div {
-		//슬라이더  컨텐츠
 		cursor: pointer;
-		/* background-color: ${({ theme }) => theme.color.gray[100]}; */
 	}
 `;
 const Div = styled.div`
