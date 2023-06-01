@@ -109,13 +109,13 @@ const MyUserEdit = ({ userInfo }) => {
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.Container>
-						<S.Title>* 아이디</S.Title>
+						<S.Title>아이디</S.Title>
 						<S.Box>
 							<S.idDiv>{data.data.email}</S.idDiv>
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 닉네임</S.Title>
+						<S.Title>닉네임</S.Title>
 						<S.Box>
 							<S.Input
 								{...register('nick', FORM_TYPE.NICKNAME)}
@@ -136,7 +136,7 @@ const MyUserEdit = ({ userInfo }) => {
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 전화번호</S.Title>
+						<S.Title>전화번호</S.Title>
 						<S.Box>
 							<S.PhoneInput
 								maxLength="13"
@@ -158,7 +158,7 @@ const MyUserEdit = ({ userInfo }) => {
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 주소</S.Title>
+						<S.Title>주소</S.Title>
 						<S.Box>
 							<S.addressDiv>{address}</S.addressDiv>
 							<FindAddress setter={setAddress} region={userInfo?.region} />
@@ -196,7 +196,7 @@ const Wrap = styled.div`
 
 const Form = styled.form`
 	width: 60%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
@@ -204,6 +204,16 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
+	/* @media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+		padding: 20px 10px 20px 10px;
+	} */
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 20px;
+	}
+	/* @media (max-width: 660px) {
+		padding: 10px;
+	} */
 `;
 
 const Input = styled.input`
@@ -213,6 +223,9 @@ const Input = styled.input`
 	padding-left: 15px;
 	width: 80%;
 	height: 40px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 
 const PhoneInput = styled.input`
@@ -242,6 +255,9 @@ const addressDiv = styled.div`
 	height: 40px;
 	min-width: 130px;
 	${flexAlignCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 10px;
+	}
 `;
 
 const CheckBtn = styled(CustomButton)`
@@ -312,8 +328,11 @@ const Title = styled.div`
 	margin-right: 10px;
 	${flexAlignCenter}
 	padding-left: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	@media ${({ theme }) => theme.device.tablet} {
+		min-width: 70px;
 		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 

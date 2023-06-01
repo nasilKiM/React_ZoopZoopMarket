@@ -70,7 +70,7 @@ export default MyItemPage;
 const Div = styled.div`
 	margin: 0 auto;
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
 `;
 

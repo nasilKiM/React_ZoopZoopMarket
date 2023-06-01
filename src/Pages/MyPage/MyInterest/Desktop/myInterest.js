@@ -4,7 +4,6 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
-// import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
@@ -21,15 +20,13 @@ const MyInterestPage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div>로딩</div> // 임시 로딩
+				<div>로딩</div>
 			) : (
 				<S.Wrap>
 					<S.Container>
 						{data.pages.map(page =>
 							page.data.LikeList.map(list => (
-								<S.Card>
-									<ItemCard index={list.Product.idx} products={list.Product} />
-								</S.Card>
+								<ItemCard index={list.Product.idx} products={list.Product} />
 							)),
 						)}
 					</S.Container>
@@ -72,19 +69,7 @@ const Container = styled.div`
 	}
 `;
 
-const Card = styled.div`
-	width: 100%;
-`;
-
-const HeartZone = styled.div`
-	width: 250px;
-	height: 80px;
-	background-color: lightgray;
-`;
-
 const S = {
 	Container,
-	Card,
-	HeartZone,
 	Wrap,
 };

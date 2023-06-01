@@ -173,7 +173,7 @@ const ResultText = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	margin: 0 auto;
 	margin-top: 30px;

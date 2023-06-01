@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
 import MyPageApi from 'Apis/myPageApi';
 import { useQuery } from '@tanstack/react-query';
+import { flexSpaceBetween } from 'Styles/common';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -133,51 +134,51 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
-	/* height: 30%; */
+	padding-top: 60px;
 	padding-bottom: 30px;
 	margin: 0 auto;
 `;
 
 const Info = styled.div`
-	display: flex;
-	align-items: center;
-	margin-top: 60px;
-	margin-left: 20px;
-	padding-left: 10px;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 80vw;
-		margin-left: 0;
+	${flexSpaceBetween}
+	flex-wrap: wrap;
+	width: 100%;
+	max-width: 700px;
+	padding: 0 30px;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 0 40px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		width: 80vw;
-		margin-left: 0;
-	} */
+		padding: 0 20px;
+	}
+	@media (max-width: 660px) {
+		padding: 0 5px;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+`;
+
+const ImgWrap = styled.div`
+	position: relative;
+	margin-right: 10px;
 `;
 
 const Img = styled.img`
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
-	object-position: center;
 	border-radius: 50%;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 14vw;
+	border: 1px solid ${({ theme }) => theme.color.gray[100]};
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 85px;
+		height: 85px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		width: 13vw;
-	} */
-`;
-
-const ImgWrap = styled.div`
-	position: relative;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		margin: 0px;
+		width: 70px;
+		height: 70px;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		margin: 0px;
-	} */
 `;
 
 const ProfileImg = styled.div`
@@ -188,54 +189,48 @@ const ProfileImg = styled.div`
 	bottom: 0;
 	right: 0;
 	cursor: pointer;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		padding: 2vw;
-		border-radius: 50%;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 10px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		padding: 1vw;
-		bottom: 100px;
-		border-radius: 50%;
-	} */
+		padding: 5px;
+	}
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
+	font-size: 30px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 3vw;
+		font-size: 20px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 5px;
+		font-size: 8px;
 	}
 `;
+
 const Detail = styled.div`
-	margin-left: 60px;
-	line-height: 2rem;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		margin-left: 30px;
+	line-height: 40px;
+	margin-left: 10px;
+	@media (max-width: 660px) {
+		line-height: 30px;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 10px;
-	} */
 `;
 
 const List = styled.div`
-	height: max-content;
 	display: flex;
-	margin: 5px;
 `;
 
 const InfoTitle = styled.div`
 	width: 80px;
-	min-width: max-content;
-	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
-	/* @media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		width: 60px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
-	} */
+		min-width: 60px;
+	}
 `;
 
 const InfoContent = styled.div`
@@ -243,25 +238,25 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	/* @media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
 		margin-left: 0;
-	} */
+	}
 
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		/* @media ${({ theme }) => theme.device.tablet} {
+		@media ${({ theme }) => theme.device.tablet} {
 			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
 		@media ${({ theme }) => theme.device.mobile} {
 			font-size: ${({ theme }) => theme.fontSize.xs};
-		} */
+		}
 	}
 `;
 

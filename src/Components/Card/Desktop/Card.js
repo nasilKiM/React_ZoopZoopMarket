@@ -1,15 +1,15 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SoldoutCard from './CardSoldout';
-import {
-	flexAllCenter,
-	flexJustifyCenter,
-	flexSpaceBetween,
-} from 'Styles/common';
-import ProductApi from 'Apis/productApi';
+import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+
+import { useNavigate } from 'react-router-dom';
+
+import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import ConfirmModal from 'Components/Alert/confirmModal';
+import SoldoutCard from './CardSoldout';
+
+import { useState } from 'react';
+
+import ProductApi from 'Apis/productApi';
 
 const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();
@@ -47,7 +47,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
+						{!isMine && <HeartBtn like={products.liked} idx={products.idx} />}
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
@@ -61,7 +61,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
-										<a className="tag-link">#{tagObj.Tag.tag}</a>
+										<span className="tag-link">#{tagObj.Tag.tag}</span>
 									</S.ItemTag>
 								))}
 						</S.ItemInfo>
@@ -95,9 +95,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	/* display: flex; */
 	position: relative;
-	${flexJustifyCenter}
 `;
 
 const Container = styled.div`
@@ -108,7 +106,6 @@ const Container = styled.div`
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
-	/* margin-right: 10px; */
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {
@@ -158,16 +155,19 @@ const ItemImg = styled.img`
 	top: -35px;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
 	@media (min-width: 350px) {
-		height: 205px;
+		height: 200px;
 	}
 	@media (min-width: 600px) {
-		height: 210px;
+		height: 200px;
 	}
 	@media (min-width: 900px) {
-		height: 220px;
+		height: 200px;
 	}
 	@media (min-width: 1200px) {
-		height: 250px;
+		height: 240px;
+	}
+	@media (min-width: 1350px) {
+		height: 240px;
 	}
 `;
 
@@ -199,18 +199,13 @@ const ItemPrice = styled.span`
 `;
 
 const ItemTag = styled.span`
-	display: inline-block;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	background-color: ${({ theme }) => theme.color.gray[100]};
 	border-radius: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
-	/* flex-shrink: 0; */
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	a {
+	span {
+		max-width: 100px;
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;

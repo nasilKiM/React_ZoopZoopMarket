@@ -103,7 +103,7 @@ export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	margin: 0 auto;
 	display: flex;
