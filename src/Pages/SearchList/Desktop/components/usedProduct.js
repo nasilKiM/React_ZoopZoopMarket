@@ -89,24 +89,22 @@ const Container = styled.div`
 const CardContainer = styled.div`
 	display: grid;
 	width: 100%;
-
 	justify-content: center;
 	margin-top: 30px;
-
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(2, minmax(250px, 1fr));
-		column-gap: 10px;
-		row-gap: 10px;
+		grid-template-columns: repeat(1, minmax(220px, 1fr));
+		row-gap: 20px;
+		width: 220px;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {
 		grid-template-columns: repeat(2, minmax(260px, 1fr));
 		column-gap: 20px;
-		row-gap: 20px;
+		row-gap: 30px;
 	}
 	@media screen and (min-width: 1001px) and (max-width: 1499px) {
 		grid-template-columns: repeat(3, minmax(270px, 1fr));
 		column-gap: 20px;
-		row-gap: 30px;
+		row-gap: 35px;
 	}
 	@media screen and (min-width: 1500px) {
 		grid-template-columns: repeat(4, minmax(280px, 1fr));

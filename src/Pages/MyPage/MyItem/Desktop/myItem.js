@@ -34,7 +34,7 @@ const MyItemPage = () => {
 		setCategory(1);
 	};
 
-	data && console.log('check', data);
+	// data && console.log('check', data);
 	return (
 		data && (
 			<S.Div>

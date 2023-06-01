@@ -14,13 +14,13 @@ const categories = [
 	},
 	{
 		id: 2,
-		name: '생활/주방가전',
+		name: '생활·주방가전',
 		icon: '/Assets/Icon/Category/2.생활주방가전.png',
 		keyword: '전자렌지,오븐,밥솥,청소기',
 	},
 	{
 		id: 3,
-		name: '가구/인테리어',
+		name: '가구·인테리어',
 		icon: '/Assets/Icon/Category/3.가구.png',
 		keyword: '침대,매트리스,소파,테이블,화장대,거울,선반,서랍,식탁,의자,책상',
 	},
@@ -38,7 +38,7 @@ const categories = [
 	},
 	{
 		id: 6,
-		name: '스포츠/레저',
+		name: '스포츠·레저',
 		icon: '/Assets/Icon/Category/6.스포츠.png',
 		keyword: '테니스,축구,야구,농구,공,수영',
 	},
@@ -56,19 +56,19 @@ const categories = [
 	},
 	{
 		id: 9,
-		name: '남성패션/잡화',
+		name: '남성패션·잡화',
 		icon: '/Assets/Icon/Category/9.남성패션.png',
 		keyword: '남성구두,남성지갑,와이셔츠,정장,양복,남성지갑',
 	},
 	{
 		id: 10,
-		name: '게임/취미',
+		name: '게임·취미',
 		icon: '/Assets/Icon/Category/10.게임.png',
 		keyword: '닌텐도,플레이스테이션,게임기,취미',
 	},
 	{
 		id: 11,
-		name: '뷰티/미용',
+		name: '뷰티·미용',
 		icon: '/Assets/Icon/Category/11.뷰티미용.png',
 		keyword: '뷰티,미용,립스틱,화장품,파우더,고데기,드라이기',
 	},
@@ -80,7 +80,7 @@ const categories = [
 	},
 	{
 		id: 13,
-		name: '도서/티켓/음반',
+		name: '도서·티켓·음반',
 		icon: '/Assets/Icon/Category/13.도서티켓음반.png',
 		keyword: '도서,티켓,음반,CD,콘서트',
 	},

@@ -16,21 +16,22 @@ const DesktopSearchList = () => {
 	};
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (selected <= 1) {
 			navigate(`${selected}`);
 		}
 	}, [selected]);
 
 	const freeData = useQuery(['SEARCH_FREE', word], () => {
-		return ProductApi.searchItems(1, word, 1);
+		return ProductApi.searchItems(1, word.split('·')[0], 1, '판매중');
 	});
 
 	const usedData = useQuery(['SEARCH_USED', word], () => {
-		return ProductApi.searchItems(1, word, 0);
+		return ProductApi.searchItems(1, word.split('·')[0], 0, '판매중');
 	});
 
 	const { data, isSuccess, isLoading } = useQuery(['SEARCH_ALL', word], () => {
-		return ProductApi.searchItems(1, word);
+		return ProductApi.searchItems(1, word.split('·')[0], '', '판매중');
 	});
 
 	return (
@@ -38,24 +39,26 @@ const DesktopSearchList = () => {
 			<S.Wrapper>
 				<S.Container>
 					<S.SelectContainer>
-						<S.SelectBox
-							isSelected={selected === 2}
-							onClick={() => onSelectBoxClick(2)}
-						>
-							통합
-						</S.SelectBox>
-						<S.SelectBox
-							isSelected={selected === 0}
-							onClick={() => onSelectBoxClick(0)}
-						>
-							중고
-						</S.SelectBox>
-						<S.SelectBox
-							isSelected={selected === 1}
-							onClick={() => onSelectBoxClick(1)}
-						>
-							무료
-						</S.SelectBox>
+						<S.BoxContainer>
+							<S.SelectBox
+								isSelected={selected === 2}
+								onClick={() => onSelectBoxClick(2)}
+							>
+								통합
+							</S.SelectBox>
+							<S.SelectBox
+								isSelected={selected === 0}
+								onClick={() => onSelectBoxClick(0)}
+							>
+								중고
+							</S.SelectBox>
+							<S.SelectBox
+								isSelected={selected === 1}
+								onClick={() => onSelectBoxClick(1)}
+							>
+								무료
+							</S.SelectBox>
+						</S.BoxContainer>
 					</S.SelectContainer>
 					{isSuccess && data && (
 						<S.ResultContainer>
@@ -94,15 +97,7 @@ const DesktopSearchList = () => {
 export default DesktopSearchList;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
+	width: 100%;
 	margin: 0 auto;
 `;
 
@@ -117,12 +112,40 @@ const SelectContainer = styled.div`
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
+const BoxContainer = styled.div`
+	width: 70%;
+	display: flex;
+	min-width: 414px;
+	max-width: 1200px;
+
+	margin: 0 auto;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+`;
+
 const ResultText = styled.div`
+	width: 100%;
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	min-width: 414px;
+	max-width: 1200px;
+	margin: 0 auto;
 	margin-top: 30px;
-	margin-left: 20px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+	/* @media screen and (max-width: 767px) {
+		flex-direction: column;
+	} */
+
 `;
 
 const CategoryBox = styled.div`
@@ -131,16 +154,22 @@ const CategoryBox = styled.div`
 `;
 
 const Category = styled.div`
-	margin-top: 40px;
-	margin-bottom: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-`;
-
-const Wall = styled.div`
-	border-right: 1px solid black;
-	border-color: ${({ theme }) => theme.color.primary};
-	margin: 0 15px;
+	width: 100%;
+	display: flex;
+	margin-top: 30px;
+	min-width: 414px;
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 40px;
+	margin-bottom: 10px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 `;
 
 const ItemList = styled.div`
@@ -164,7 +193,14 @@ const ResultWord = styled.div`
 	color: ${({ theme }) => theme.color.primary[300]};
 `;
 const ResultContainer = styled.div`
-	width: 100%;
+	margin: 0 auto;
+	width: 70%;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
 `;
 
 const S = {
@@ -173,10 +209,10 @@ const S = {
 	ResultText,
 	CategoryBox,
 	Category,
-	Wall,
 	ItemList,
 	SelectContainer,
 	SelectBox,
 	ResultWord,
 	ResultContainer,
+	BoxContainer,
 };

@@ -60,7 +60,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
-										<span className="tag-link">#{tagObj.Tag.tag}</span>
+										<a className="tag-link">#{tagObj.Tag.tag}</a>
 									</S.ItemTag>
 								))}
 						</S.ItemInfo>
@@ -72,7 +72,11 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 						</S.BtnSection>
 					)}
 				</S.Container>
-				{products.status === '판매완료' ? <SoldoutCard /> : ''}
+				{products.status === '판매완료' ? (
+					<SoldoutCard index={products.idx} />
+				) : (
+					''
+				)}
 				{modal && (
 					<ConfirmModal>
 						<S.Content>물품을 삭제하시겠습니까?</S.Content>
@@ -202,7 +206,7 @@ const ItemTag = styled.span`
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	span {
+	a {
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;

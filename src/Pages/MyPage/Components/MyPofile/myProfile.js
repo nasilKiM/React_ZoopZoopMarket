@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
 import MyPageApi from 'Apis/myPageApi';
+import { useQuery } from '@tanstack/react-query';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -12,14 +13,7 @@ const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
 
-	const getUserInfo = async () => {
-		try {
-			const res = await UserApi.userInfo();
-			setUserInfo(res);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
 
 	const getUserProfile = async () => {
 		try {
@@ -50,14 +44,13 @@ const MyProfile = () => {
 	};
 
 	useEffect(() => {
-		getUserInfo();
 		getUserProfile();
-	}, [profileImg]);
+		setUserInfo(data);
+	}, [profileImg, data]);
 
-	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
 
-	console.log('프로필', userProfile);
+	data && console.log('프로필', data);
 
 	return (
 		<S.Wrapper>
@@ -102,7 +95,7 @@ const MyProfile = () => {
 						</S.List>
 						<S.List>
 							<S.InfoTitle>활동지역</S.InfoTitle>
-							<S.InfoContent>#{region}</S.InfoContent>
+							<S.InfoContent>#{data.data.region}</S.InfoContent>
 						</S.List>
 					</S.Detail>
 					<S.Detail>
@@ -142,7 +135,7 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 700px;
 	max-width: 1200px;
-	height: 30%;
+	/* height: 30%; */
 	padding-bottom: 30px;
 	margin: 0 auto;
 `;
@@ -153,37 +146,38 @@ const Info = styled.div`
 	margin-top: 60px;
 	margin-left: 20px;
 	padding-left: 10px;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		width: 80vw;
 		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		width: 80vw;
 		margin-left: 0;
-	}
+	} */
 `;
 
 const Img = styled.img`
 	width: 100px;
+	height: 100px;
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		width: 14vw;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		width: 13vw;
-	}
+	} */
 `;
 
 const ImgWrap = styled.div`
 	position: relative;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		margin: 0px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 0px;
-	}
+	} */
 `;
 
 const ProfileImg = styled.div`
@@ -194,7 +188,7 @@ const ProfileImg = styled.div`
 	bottom: 0;
 	right: 0;
 	cursor: pointer;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		padding: 2vw;
 		border-radius: 50%;
 	}
@@ -202,7 +196,7 @@ const ProfileImg = styled.div`
 		padding: 1vw;
 		bottom: 100px;
 		border-radius: 50%;
-	}
+	} */
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
@@ -216,12 +210,12 @@ const FontAwesomeIconImg = styled(FontAwesomeIcon)`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		margin-left: 30px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: 10px;
-	}
+	} */
 `;
 
 const List = styled.div`
@@ -236,12 +230,12 @@ const InfoTitle = styled.div`
 	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
-	}
+	} */
 `;
 
 const InfoContent = styled.div`
@@ -249,25 +243,25 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
 		margin-left: 0;
-	}
+	} */
 
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		@media ${({ theme }) => theme.device.tablet} {
+		/* @media ${({ theme }) => theme.device.tablet} {
 			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
 		@media ${({ theme }) => theme.device.mobile} {
 			font-size: ${({ theme }) => theme.fontSize.xs};
-		}
+		} */
 	}
 `;
 

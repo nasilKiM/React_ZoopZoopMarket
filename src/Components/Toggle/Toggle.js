@@ -63,9 +63,11 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Sticky = styled.div`
-	position: relative;
+	width: 100%;
+	position: fixed;
+	top: 120px;
 	z-index: 100;
-	height: 40px;
+	height: 44px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
