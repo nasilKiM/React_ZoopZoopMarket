@@ -85,6 +85,9 @@ const Wrapper = styled.div`
 	@media ${({ theme }) => theme.device.tablet} {
 		min-width: 500px;
 	}
+	@media ${({ theme }) => theme.device.mobile} {
+		min-width: 200px;
+	}
 `;
 
 const Menu = styled.div`
