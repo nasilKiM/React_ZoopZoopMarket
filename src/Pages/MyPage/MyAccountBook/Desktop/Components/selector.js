@@ -12,7 +12,6 @@ const AccountBookSelector = props => {
 					value={category}
 					onChange={({ target: { value } }) => setCategory(String(value))}
 				>
-					{/* <option value="total">전체</option> */}
 					<option value="seller">판매</option>
 					<option value="buyer">구매</option>
 				</S.LargeSelect>

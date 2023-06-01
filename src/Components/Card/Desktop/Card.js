@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SoldoutCard from './CardSoldout';
-import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+import {
+	flexAllCenter,
+	flexJustifyCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 import ProductApi from 'Apis/productApi';
 import ConfirmModal from 'Components/Alert/confirmModal';
 
@@ -12,7 +16,10 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
-		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		if (products.idx === undefined) {
+			return;
+		}
+		if (isRelated && products.idx !== undefined) navigate(`/item_detail/${products.idx}`);
 		return navigate(`/item_detail/${index}`);
 	};
 
@@ -83,8 +90,9 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
+	/* display: flex; */
 	position: relative;
+	${flexJustifyCenter}
 `;
 
 const Container = styled.div`
@@ -95,7 +103,7 @@ const Container = styled.div`
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {

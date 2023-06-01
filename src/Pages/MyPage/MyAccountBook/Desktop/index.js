@@ -9,6 +9,7 @@ const AccountBookPage = () => {
 	const [date, setDate] = useState(new Date());
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [month, setMonth] = useState(new Date().getMonth() + 1);
+	const thisMonth = new Date().getMonth() + 1
 
 	useEffect(() => {
 		setDate(`${year}-0${month}-01`);
@@ -44,6 +45,7 @@ const AccountBookPage = () => {
 				year={year}
 				month={month}
 				data={res.data}
+				thisMonth={thisMonth}
 			/>
 		</S.Wrapper>
 	);
@@ -53,7 +55,7 @@ export default AccountBookPage;
 
 const Wrapper = styled.div`
 	margin: 0 auto 300px;
-	width: 100%;
+	width: 60vw;
 	height: 100%;
 	font-family: 'Nanum_extraBold';
 	@media ${({ theme }) => theme.device.laptop} {
