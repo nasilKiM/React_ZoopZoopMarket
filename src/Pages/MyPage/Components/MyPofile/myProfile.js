@@ -133,11 +133,16 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
-	/* height: 30%; */
 	padding-bottom: 30px;
 	margin: 0 auto;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const Info = styled.div`
@@ -146,14 +151,12 @@ const Info = styled.div`
 	margin-top: 60px;
 	margin-left: 20px;
 	padding-left: 10px;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 80vw;
+	@media ${({ theme }) => theme.device.tablet} {
 		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		width: 80vw;
 		margin-left: 0;
-	} */
+	}
 `;
 
 const Img = styled.img`
@@ -162,12 +165,14 @@ const Img = styled.img`
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 14vw;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 85px;
+		height: 85px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		width: 13vw;
-	} */
+		width: 70px;
+		height: 70px;
+	}
 `;
 
 const ImgWrap = styled.div`
@@ -188,15 +193,12 @@ const ProfileImg = styled.div`
 	bottom: 0;
 	right: 0;
 	cursor: pointer;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		padding: 2vw;
-		border-radius: 50%;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 10px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		padding: 1vw;
-		bottom: 100px;
-		border-radius: 50%;
-	} */
+		padding: 5px;
+	}
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
@@ -210,12 +212,13 @@ const FontAwesomeIconImg = styled(FontAwesomeIcon)`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
-	/* @media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.tablet} {
 		margin-left: 30px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: 10px;
-	} */
+		line-height: 1rem;
+	}
 `;
 
 const List = styled.div`
@@ -230,12 +233,14 @@ const InfoTitle = styled.div`
 	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
-	/* @media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		width: 60px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
-	} */
+		width: 40px;
+	}
 `;
 
 const InfoContent = styled.div`
@@ -243,25 +248,25 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	/* @media ${({ theme }) => theme.device.tablet} {
+	@media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: ${({ theme }) => theme.fontSize.es};
 		margin-left: 0;
-	} */
+	}
 
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		/* @media ${({ theme }) => theme.device.tablet} {
+		@media ${({ theme }) => theme.device.tablet} {
 			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
 		@media ${({ theme }) => theme.device.mobile} {
 			font-size: ${({ theme }) => theme.fontSize.xs};
-		} */
+		}
 	}
 `;
 

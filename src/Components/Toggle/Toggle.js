@@ -83,8 +83,8 @@ const Wrapper = styled.div`
 	position: fixed;
 	top: 12vh;
 	justify-content: center;
-	/* left: 50%;
-	transform: translateX(-50%); */
+	left: 50%;
+	transform: translateX(-50%);
 	@media ${({ theme }) => theme.device.tablet} {
 		min-width: 500px;
 	}
