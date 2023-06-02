@@ -110,7 +110,7 @@ const Category = () => {
 	const settings = {
 		dots: false,
 		infinite: true,
-		speed: 0,
+		speed: 500,
 		swipe: false,
 		slidesToShow: 8,
 		slidesToScroll: 2,
