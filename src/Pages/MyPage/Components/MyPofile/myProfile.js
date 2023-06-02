@@ -9,6 +9,7 @@ import MannerMeter from 'Components/Icon/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -16,7 +17,9 @@ const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
 
-	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
+	const { data, isSuccess, isLoading } = useQuery(['userInfo'], () =>
+		UserApi.userInfo(),
+	);
 
 	const getUserProfile = async () => {
 		try {
@@ -54,81 +57,86 @@ const MyProfile = () => {
 	const { User, ondo } = userProfile && userProfile.data;
 
 	return (
-		<S.Wrapper>
-			{userInfo && userProfile && (
-				<S.Info>
-					<S.ImgWrap>
-						<S.Img
-							src={
-								userInfo.data.profile_url
-									? profileImg
-										? profileImg
-										: userInfo.data.profile_url
-									: '/Assets/Images/기본 프로필.png'
-							}
-						/>
-						<S.ProfileImg>
-							<S.FontAwesomeIconImg
-								icon={faCamera}
-								style={{ color: '#ffffff', fontSize: '15px' }}
-								onClick={handleClick}
-							/>
-							<input
-								type="file"
-								accept="image/jpg, image/jpeg, image/png"
-								multiple
-								ref={photoInput}
-								style={{ display: 'none' }}
-								onChange={e => profileImgEdit(e)}
-							/>
-						</S.ProfileImg>
-					</S.ImgWrap>
-					<S.DetailWrapper>
-						<S.Detail>
-							<S.List>
-								<S.InfoTitle>닉네임</S.InfoTitle>
-								{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
-							</S.List>
-							<S.List>
-								<S.InfoTitle>매너온도</S.InfoTitle>
-								<S.InfoContent>
-									<MannerMeter ondo={ondo} />
-								</S.InfoContent>
-							</S.List>
-							<S.List>
-								<S.InfoTitle>활동지역</S.InfoTitle>
-								<S.InfoContent>#{data.data.region}</S.InfoContent>
-							</S.List>
-						</S.Detail>
-						<S.Detail>
-							<S.List>
-								<S.InfoTitle>내 등록템</S.InfoTitle>
-								<S.InfoContent>
-									<span>
-										{userProfile.data.productsCount
-											? userProfile.data.productsCount
-											: 0}
-									</span>{' '}
-									개
-								</S.InfoContent>
-							</S.List>
-							<S.List>
-								<S.InfoTitle>내 관심템</S.InfoTitle>
-								<S.InfoContent>
-									<span>{userProfile.data.likeCount}</span> 개
-								</S.InfoContent>
-							</S.List>
-							<S.List>
-								<S.InfoTitle>채팅</S.InfoTitle>
-								<S.InfoContent>
-									<span>{userProfile.data.chatCount}</span> 건
-								</S.InfoContent>
-							</S.List>
-						</S.Detail>
-					</S.DetailWrapper>
-				</S.Info>
+		<>
+			{isSuccess && (
+				<S.Wrapper>
+					{userInfo && userProfile && (
+						<S.Info>
+							<S.ImgWrap>
+								<S.Img
+									src={
+										userInfo.data.profile_url
+											? profileImg
+												? profileImg
+												: userInfo.data.profile_url
+											: '/Assets/Images/기본 프로필.png'
+									}
+								/>
+								<S.ProfileImg>
+									<S.FontAwesomeIconImg
+										icon={faCamera}
+										style={{ color: '#ffffff', fontSize: '15px' }}
+										onClick={handleClick}
+									/>
+									<input
+										type="file"
+										accept="image/jpg, image/jpeg, image/png"
+										multiple
+										ref={photoInput}
+										style={{ display: 'none' }}
+										onChange={e => profileImgEdit(e)}
+									/>
+								</S.ProfileImg>
+							</S.ImgWrap>
+							<S.DetailWrapper>
+								<S.Detail>
+									<S.List>
+										<S.InfoTitle>닉네임</S.InfoTitle>
+										{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
+									</S.List>
+									<S.List>
+										<S.InfoTitle>매너온도</S.InfoTitle>
+										<S.InfoContent>
+											<MannerMeter ondo={ondo} />
+										</S.InfoContent>
+									</S.List>
+									<S.List>
+										<S.InfoTitle>활동지역</S.InfoTitle>
+										<S.InfoContent>#{data.data.region}</S.InfoContent>
+									</S.List>
+								</S.Detail>
+								<S.Detail>
+									<S.List>
+										<S.InfoTitle>내 등록템</S.InfoTitle>
+										<S.InfoContent>
+											<span>
+												{userProfile.data.productsCount
+													? userProfile.data.productsCount
+													: 0}
+											</span>{' '}
+											개
+										</S.InfoContent>
+									</S.List>
+									<S.List>
+										<S.InfoTitle>내 관심템</S.InfoTitle>
+										<S.InfoContent>
+											<span>{userProfile.data.likeCount}</span> 개
+										</S.InfoContent>
+									</S.List>
+									<S.List>
+										<S.InfoTitle>채팅</S.InfoTitle>
+										<S.InfoContent>
+											<span>{userProfile.data.chatCount}</span> 건
+										</S.InfoContent>
+									</S.List>
+								</S.Detail>
+							</S.DetailWrapper>
+						</S.Info>
+					)}
+				</S.Wrapper>
 			)}
-		</S.Wrapper>
+			{isLoading && <MyProfileSkeleton />}
+		</>
 	);
 };
 

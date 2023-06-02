@@ -7,11 +7,12 @@ import { useInView } from 'react-intersection-observer';
 
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import styled from 'styled-components';
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0);
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, refetch } = res;
+	const { data, fetchNextPage, refetch, isLoading, isSuccess } = res;
 	const [ref, isView] = useInView();
 
 	useEffect(() => {
@@ -38,32 +39,35 @@ const MyItemPage = () => {
 	};
 
 	return (
-		data && (
-			<S.Div>
-				<S.CategoryZone>
-					<S.Category category={category === 0} onClick={onClickSaleCategory}>
-						중고 물품
-					</S.Category>
-					<S.Category category={category === 1} onClick={onClickFreeCategory}>
-						무료 나눔
-					</S.Category>
-				</S.CategoryZone>
-				<S.Wrapper>
-					{data.pages[0].data.products.length > 0 ? (
-						<S.Container>
-							{data.pages.map(page => {
-								return page.data.products.map(item => (
-									<ItemCard index={item.idx} products={item} isMine={true} />
-								));
-							})}
-						</S.Container>
-					) : (
-						<S.Txt>등록된 아이템이 없습니다.</S.Txt>
-					)}
-					<div ref={ref}></div>
-				</S.Wrapper>
-			</S.Div>
-		)
+		<>
+			{isSuccess && (
+				<S.Div>
+					<S.CategoryZone>
+						<S.Category category={category === 0} onClick={onClickSaleCategory}>
+							중고 물품
+						</S.Category>
+						<S.Category category={category === 1} onClick={onClickFreeCategory}>
+							무료 나눔
+						</S.Category>
+					</S.CategoryZone>
+					<S.Wrapper>
+						{data.pages[0].data.products.length > 0 ? (
+							<S.Container>
+								{data.pages.map(page => {
+									return page.data.products.map(item => (
+										<ItemCard index={item.idx} products={item} isMine={true} />
+									));
+								})}
+							</S.Container>
+						) : (
+							<S.Txt>등록된 아이템이 없습니다.</S.Txt>
+						)}
+						<div ref={ref}></div>
+					</S.Wrapper>
+				</S.Div>
+			)}
+			{isLoading && <WholeListSkeleton />}
+		</>
 	);
 };
 
