@@ -9,6 +9,7 @@ import ItemDetailPageSkeleton from './Components/itemDetailSkeleton';
 const ItemDetailPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const { idx } = useParams();
+	console.log(idx);
 	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
 		onError: err => {
 			console.log(err);
@@ -38,6 +39,7 @@ const ItemDetailPage = () => {
 			setIsLoading(false);
 		}, 500);
 	}, []);
+	data && console.log('test', isSeller, data, idx);
 
 	return (
 		<>

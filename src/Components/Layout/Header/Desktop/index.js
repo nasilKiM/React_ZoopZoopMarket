@@ -33,7 +33,6 @@ const WebHeader = ({ so }) => {
 			setPopupMsg(data);
 		});
 	}, [so]);
-
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
@@ -91,12 +90,17 @@ const WebHeader = ({ so }) => {
 												<S.Menu
 													key={1}
 													onClick={() => {
-														return navigate(`/search_list/${word}}/0`);
+														return navigate(`/search_list/${word}/0`);
 													}}
 												>
 													중고 거래
 												</S.Menu>
-												<S.Menu key={0} to="/search_list">
+												<S.Menu
+													key={0}
+													onClick={() => {
+														return navigate(`/search_list/${word}/1`);
+													}}
+												>
 													무료 나눔
 												</S.Menu>
 
@@ -135,8 +139,7 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={1}
 									onClick={() => {
-										console.log('3');
-										navigate(`/search_list/${word}/0`);
+										return navigate(`/search_list/${word}/0`);
 									}}
 								>
 									중고 거래

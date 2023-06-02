@@ -55,9 +55,10 @@ const AccountBookSelector = props => {
 export default AccountBookSelector;
 
 const SelectorsZone = styled.div`
+	width: 80%;
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0 30px;
+	margin: 50px auto 30px;
 	form {
 		&:nth-child(1) {
 			margin-right: 15px;
@@ -73,9 +74,10 @@ const LargeSelect = styled.select`
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
-	width: 140px;
+	width: 100px;
 	height: 40px;
-	font-size: ${({ theme }) => theme.fontSize.md};
+	margin-left: 10px;
+	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;
 	text-align-last: center;

@@ -256,7 +256,7 @@ export default RegisterPage;
 
 const Wrapper = styled.form`
 	width: 60%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media screen and (max-width: 1100px) {
 		width: 70%;
@@ -367,14 +367,12 @@ const AddressTitleContainer = styled.div`
 `;
 
 const AddressMap = styled.div`
-	/* width: 680px; */
 	width: 100%;
 	position: relative;
 	margin: 0 auto;
 `;
 
 const Address = styled.div`
-	/* width: 450px; */
 	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
@@ -435,7 +433,6 @@ const RegisterBtn = styled.button`
 
 const TagWrapper = styled.div`
 	width: 90%;
-	/* height: 30px; */
 	${flexAlignCenter}
 	flex-wrap: wrap;
 	padding: 0 10px;
@@ -474,7 +471,6 @@ const TagContent = styled.span`
 
 const DelTag = styled.button`
 	width: 20px;
-	/* margin-left: 10px; */
 	border: none;
 	background: none;
 	display: flex;

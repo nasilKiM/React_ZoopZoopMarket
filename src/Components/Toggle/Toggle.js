@@ -63,10 +63,11 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Sticky = styled.div`
-	position: relative;
+	width: 100%;
+	position: fixed;
+	top: 120px;
 	z-index: 100;
-	height: 40px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	height: 44px;
 `;
 
 const Wrapper = styled.div`
@@ -86,7 +87,8 @@ const Wrapper = styled.div`
 		min-width: 500px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		min-width: 200px;
+		/* min-width: 100px; */
+		min-width: 100%;
 	}
 `;
 
@@ -102,6 +104,13 @@ const Menu = styled.div`
 	:hover {
 		cursor: pointer;
 		background-color: ${({ theme }) => theme.color.gray[200]};
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: ${({ theme }) => theme.fontSize.es};
+		width: max-content;
 	}
 `;
 

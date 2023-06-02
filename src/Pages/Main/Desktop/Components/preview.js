@@ -89,7 +89,7 @@ export default Preview;
 const Wrapper = styled.div`
 	width: 100%;
 	max-width: 1200px;
-	min-width: 414px;
+	min-width: 350px;
 	@media (max-width: 700px) {
 		width: 95%;
 	}

@@ -1,10 +1,14 @@
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import UserApi from 'Apis/userApi';
+import MyPageApi from 'Apis/myPageApi';
+
+import MannerMeter from 'Components/Icon/Icon';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import UserApi from 'Apis/userApi';
-import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import MannerMeter from 'Components/Icon/Icon';
-import MyPageApi from 'Apis/myPageApi';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -12,14 +16,7 @@ const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
 
-	const getUserInfo = async () => {
-		try {
-			const res = await UserApi.userInfo();
-			setUserInfo(res);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
 
 	const getUserProfile = async () => {
 		try {
@@ -50,14 +47,11 @@ const MyProfile = () => {
 	};
 
 	useEffect(() => {
-		getUserInfo();
 		getUserProfile();
-	}, [profileImg]);
+		setUserInfo(data);
+	}, [profileImg, data]);
 
-	const { region } = userInfo && userInfo.data;
 	const { User, ondo } = userProfile && userProfile.data;
-
-	console.log('프로필', userProfile);
 
 	return (
 		<S.Wrapper>
@@ -102,7 +96,7 @@ const MyProfile = () => {
 						</S.List>
 						<S.List>
 							<S.InfoTitle>활동지역</S.InfoTitle>
-							<S.InfoContent>#{region}</S.InfoContent>
+							<S.InfoContent>#{data.data.region}</S.InfoContent>
 						</S.List>
 					</S.Detail>
 					<S.Detail>
@@ -140,40 +134,33 @@ export default MyProfile;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
-	height: 30%;
 	padding-bottom: 30px;
 	margin: 0 auto;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
+	}
 `;
 
 const Info = styled.div`
 	display: flex;
 	align-items: center;
+	width: 100%;
 	margin-top: 60px;
 	margin-left: 20px;
 	padding-left: 10px;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 80vw;
-		margin-left: 0;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 80vw;
-		margin-left: 0;
-	}
 `;
 
 const Img = styled.img`
 	width: 100px;
+	height: 100px;
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 14vw;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 13vw;
-	}
 `;
 
 const ImgWrap = styled.div`
