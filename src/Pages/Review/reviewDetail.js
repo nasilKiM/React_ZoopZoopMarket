@@ -1,5 +1,8 @@
-import styled from 'styled-components';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import ReviewApi from 'Apis/reviewApi';
 import PropTypes from 'prop-types';
+
 import { styled as mui } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -7,19 +10,12 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
-import ReviewApi from 'Apis/reviewApi';
-import { useQuery } from '@tanstack/react-query';
+import styled from 'styled-components';
 
 const ReviewDetail = () => {
-	const StyledRating = mui(Rating)(({ theme }) => ({
-		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-			color: theme.palette.action.disabled,
-		},
-	}));
-
 	const navigate = useNavigate();
 	const { idx } = useParams();
 	const { data } = useQuery(['reviewDetail'], () =>
@@ -29,22 +25,30 @@ const ReviewDetail = () => {
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
-	const onClickEdit = () => {
+	const StyledRating = mui(Rating)(({ theme }) => ({
+		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+			color: theme.palette.action.disabled,
+		},
+	}));
+	const onClickEdit = e => {
+		e.preventDefault();
 		return navigate(`/review/edit/${idx}`);
 	};
 
+	const mutationDeleteReview = useMutation(() => {
+		return ReviewApi.deleteReview(idx);
+	});
+
 	const onClickDelete = async () => {
 		try {
-			await ReviewApi.deleteReview(idx);
+			await mutationDeleteReview.mutateAsync();
+			// await ReviewApi.deleteReview(idx);
+			alert('리뷰가 삭제되었습니다.');
+			navigate('/mypage/review');
 		} catch (err) {
 			console.log(err);
+			navigate('/mypage/review');
 		}
-		alert('리뷰가 삭제되었습니다.');
-		return navigate(`/mypage/review`);
 	};
 
 	const customIcons = {
@@ -87,8 +91,8 @@ const ReviewDetail = () => {
 		data && (
 			<S.Wrapper>
 				<S.EditBar>
-					<button onClick={onClickEdit}>수정</button>
-					<button onClick={onClickDelete}>삭제</button>
+					<button onClick={() => onClickEdit()}>수정</button>
+					<button onClick={() => onClickDelete()}>삭제</button>
 				</S.EditBar>
 				<S.ReviewTitle>구매한 아이템</S.ReviewTitle>
 				<S.Target>
@@ -195,6 +199,16 @@ const EditBar = styled.div`
 	}
 `;
 
+const ReviewTitle = styled.h2`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	margin-bottom: 15px;
+	margin-top: 50px;
+	text-align: left;
+	padding: 10px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+`;
+
 const Target = styled.div`
 	width: 100%;
 	display: flex;
@@ -223,14 +237,11 @@ const TargetPrice = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 `;
 
-const ReviewTitle = styled.h2`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	margin-bottom: 15px;
-	margin-top: 50px;
-	text-align: left;
-	padding: 10px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+const UserImg = styled.img`
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
 `;
 
 const UserBox = styled.div`
@@ -241,13 +252,6 @@ const UserBox = styled.div`
 	> div {
 		margin-top: 10px;
 	}
-`;
-
-const UserImg = styled.img`
-	width: 100px;
-	height: 100px;
-	object-fit: cover;
-	border-radius: 50%;
 `;
 
 const UserTitle = styled.span`
@@ -266,11 +270,13 @@ const RatingWrapper = styled.div`
 	}
 `;
 
-const Container = styled.div`
-	width: 100%;
-	margin: 0 auto;
-	padding: 10px;
-	display: flex;
+const ReviewImg = styled.img`
+	width: 200px;
+	height: 100px;
+	object-fit: contain;
+	margin-top: 10px;
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	cursor: pointer;
 `;
 
 const TxtArea = styled.div`
@@ -285,40 +291,19 @@ const TxtArea = styled.div`
 	}
 `;
 
-// const TxtAreaTitle = styled.input`
-// 	width: 100%;
-// 	height: 50px;
-// 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-// 	font-size: ${({ theme }) => theme.fontSize.sm};
-// 	padding: 20px;
-// 	:focus {
-// 		outline: none;
-// 	}
-// `;
-
-const ReviewImg = styled.img`
-	width: 200px;
-	height: 100px;
-	object-fit: contain;
-	margin-top: 10px;
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	cursor: pointer;
-`;
-
 const S = {
 	Wrapper,
 	EditBar,
+	ReviewTitle,
 	Target,
 	TargetImg,
 	TargetBox,
 	TargetTitle,
 	TargetPrice,
-	ReviewTitle,
-	UserBox,
 	UserImg,
+	UserBox,
 	UserTitle,
 	RatingWrapper,
-	Container,
 	TxtArea,
 	ReviewImg,
 };
