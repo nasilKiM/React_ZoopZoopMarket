@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import ProductApi from 'Apis/productApi';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import ChatApis from 'Apis/chatApis';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
@@ -59,14 +60,21 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	const onClickSoldOut = () => {
 		setIsOpenModal(true);
 	};
+
 	const onCloseModal = () => {
 		setIsOpenModal(false);
 	};
 
+	const { data: room } = useQuery(['SPECIFIC_CHAT_ROOM', idx], () =>
+		ChatApis.loadSpecificChatRoom(idx),
+	);
+
 	return (
 		item && (
 			<S.Wrapper>
-				{isOpenModal && <SoldOutModal onClose={onCloseModal} idx={idx} />}
+				{isOpenModal && (
+					<SoldOutModal onClose={onCloseModal} room={room.data} />
+				)}
 				<S.EditBar>
 					{item.status == '판매중' && (
 						<div onClick={onClickSoldOut}>판매완료 변경</div>
