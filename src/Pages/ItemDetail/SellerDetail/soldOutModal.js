@@ -1,24 +1,27 @@
-import ProductApi from 'Apis/productApi';
-import ConfirmModal from 'Components/Alert/confirmModal';
-import { flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import ProductApi from 'Apis/productApi';
+
+import ConfirmModal from 'Components/Alert/confirmModal';
+
 import styled from 'styled-components';
+import { flexAllCenter } from 'Styles/common';
 
 const SoldOutModal = ({ roomData, onClose, idx }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
-	let user = '';
-	let prodIdx = '';
-	let userToken = '';
-	const selectBuyer = (prod_idx, token, nick_name) => {
+	const [buyerInfo, setBuyerInfo] = useState({
+		token: '',
+		nick_name: '',
+	});
+	console.log(roomData[0]);
+	const selectBuyer = (token, nick_name) => {
 		setModal(true);
-		user = nick_name;
-		prodIdx = prod_idx;
-		userToken = token;
-	};
-	const onClickModal = () => {
-		setModal(true);
+		setBuyerInfo({
+			token: token,
+			nick_name: nick_name,
+		});
 	};
 
 	const soldOut = async (prod_idx, token) => {
@@ -35,11 +38,19 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 	return (
 		<S.Wrapper>
 			<S.Container>
-				<S.Text>
-					<S.Intro>구매자를 선택해주세요.</S.Intro>
+				{roomData[0] === undefined ? (
+					<S.Text>
+						<S.Intro>구매자를 선택해주세요.</S.Intro>
 
-					<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
-				</S.Text>
+						<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
+					</S.Text>
+				) : (
+					<S.Text>
+						<S.Intro>구매자가 아직 없습니다.</S.Intro>
+
+						<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
+					</S.Text>
+				)}
 
 				{roomData &&
 					roomData.map(arr =>
@@ -49,7 +60,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 
 								<S.CheckBuyer
 									onClick={() => {
-										selectBuyer(idx, room.User.token, room.User.nick_name);
+										selectBuyer(room.User.token, room.User.nick_name);
 									}}
 								>
 									V
@@ -60,10 +71,10 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 			</S.Container>
 			{modal && (
 				<ConfirmModal>
-					<S.Content>{user}에게 판매하시겠습니까? </S.Content>
+					<S.Content>{buyerInfo.nick_name}에게 판매하시겠습니까? </S.Content>
 					<S.BtnContainer>
 						<S.NO onClick={() => setModal(false)}>취소</S.NO>
-						<S.OK onClick={() => soldOut(prodIdx, userToken)}>삭제</S.OK>
+						<S.OK onClick={() => soldOut(idx, buyerInfo.token)}>판매</S.OK>
 					</S.BtnContainer>
 				</ConfirmModal>
 			)}
@@ -89,27 +100,6 @@ const Container = styled.div`
 	position: relative;
 	background-color: white;
 `;
-const BuyerList = styled.div`
-	border-radius: 10px;
-	display: flex;
-	margin-bottom: 15px;
-	margin-left: 15px;
-	justify-content: space-between;
-`;
-const NickName = styled.div`
-	padding: 3px 5px;
-`;
-const CheckBuyer = styled.div`
-	margin: 0 25px;
-	border: none;
-	cursor: pointer;
-	background-color: ${({ theme }) => theme.color.primary[400]};
-	color: ${({ theme }) => theme.color.white};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	padding: 4px 5px;
-	border-radius: 5px;
-`;
-
 const Text = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.md};
@@ -138,6 +128,27 @@ const CloseBtn = styled.button`
 		color: ${({ theme }) => theme.color.white};
 	}
 `;
+const BuyerList = styled.div`
+	border-radius: 10px;
+	display: flex;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	justify-content: space-between;
+`;
+const NickName = styled.div`
+	padding: 3px 5px;
+`;
+const CheckBuyer = styled.div`
+	margin: 0 25px;
+	border: none;
+	cursor: pointer;
+	background-color: ${({ theme }) => theme.color.primary[400]};
+	color: ${({ theme }) => theme.color.white};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	padding: 4px 5px;
+	border-radius: 5px;
+`;
+
 const Content = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};

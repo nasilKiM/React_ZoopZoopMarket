@@ -1,15 +1,17 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
-import SearchList from './components/searchList';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import CategoryConverter from './components/categoryConverter';
+
+import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
+
+import SearchList from './components/searchList';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
+
+import styled from 'styled-components';
 
 const WholeListPage = () => {
 	const { word } = useParams();
-	const { category } = useParams(); //useParams는 다 string으로 변환.
+	const { category } = useParams();
 	const [selected, setSelected] = useState(category);
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const navigate = useNavigate();
@@ -28,6 +30,7 @@ const WholeListPage = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		res.refetch();
+		setSelected(category);
 	}, [category]);
 
 	const { data, isLoading, isSuccess } = res;
@@ -52,10 +55,6 @@ const WholeListPage = () => {
 
 		res.fetchNextPage();
 	}, [inView]);
-
-	const convertedCategory = CategoryConverter(word.split(','));
-
-	//const searchWord = word === ',' ? '전체' : word;
 
 	return (
 		<S.Wrapper>
@@ -84,7 +83,7 @@ const WholeListPage = () => {
 				</S.BoxContainer>
 			</S.SelectContainer>
 			{isSuccess && (
-				<S.ResultContainer>
+				<>
 					{data && data.pages[0].data.product[0] ? (
 						<S.ResultText>
 							<S.ResultWord>"{searchWord}"</S.ResultWord>에 대한{' '}
@@ -96,7 +95,7 @@ const WholeListPage = () => {
 							대한 검색 결과가 없습니다.
 						</S.ResultText>
 					)}
-				</S.ResultContainer>
+				</>
 			)}
 			{isSuccess && (
 				<S.Container>
@@ -114,12 +113,20 @@ const WholeListPage = () => {
 	);
 };
 export default WholeListPage;
-const refDiv = styled.div``;
 
 const Wrapper = styled.div`
 	width: 100%;
 	margin: 0 auto;
 `;
+
+const SelectContainer = styled.div`
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	display: flex;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+`;
+
 const BoxContainer = styled.div`
 	width: 70%;
 	display: flex;
@@ -132,6 +139,37 @@ const BoxContainer = styled.div`
 	@media (max-width: 800px) {
 		width: 90%;
 	}
+`;
+
+const SelectBox = styled.div`
+	cursor: pointer;
+	margin: 10px 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ isSelected }) =>
+		isSelected
+			? ({ theme }) => theme.color.primary[300]
+			: ({ theme }) => theme.color.black};
+`;
+
+const ResultText = styled.div`
+	width: 70%;
+	display: flex;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	min-width: 350px;
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 30px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+`;
+
+const ResultWord = styled.div`
+	color: ${({ theme }) => theme.color.primary[300]};
 `;
 
 const Container = styled.div`
@@ -172,62 +210,16 @@ const Container = styled.div`
 		row-gap: 40px;
 	}
 `;
-const ResultText = styled.div`
-	width: 70%;
-	display: flex;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
-	margin-top: 30px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
-`;
-const ResultWord = styled.div`
-	color: ${({ theme }) => theme.color.primary[300]};
-`;
 
-const SelectContainer = styled.div`
-	width: 100%;
-	height: 40px;
-	text-align: center;
-	display: flex;
+const refDiv = styled.div``;
 
-	background-color: ${({ theme }) => theme.color.gray[100]};
-`;
-
-const SelectBox = styled.div`
-	cursor: pointer;
-	margin: 10px 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ isSelected }) =>
-		isSelected
-			? ({ theme }) => theme.color.primary[300]
-			: ({ theme }) => theme.color.black};
-`;
-const ResultContainer = styled.div`
-	/* margin: 0 auto;
-	width: 70%;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	} */
-`;
 const S = {
 	Wrapper,
-	Container,
+	SelectContainer,
+	BoxContainer,
+	SelectBox,
 	ResultText,
 	ResultWord,
-	SelectContainer,
-	SelectBox,
+	Container,
 	refDiv,
-	BoxContainer,
-	ResultContainer,
 };

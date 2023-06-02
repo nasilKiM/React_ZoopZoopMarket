@@ -155,7 +155,6 @@ const Img = styled.img`
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
-	object-position: center;
 	border-radius: 50%;
 `;
 
@@ -177,11 +176,12 @@ const ProfileImg = styled.div`
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
+	font-size: 30px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 3vw;
+		font-size: 20px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 5px;
+		font-size: 8px;
 	}
 `;
 
@@ -202,15 +202,11 @@ const Detail = styled.div`
 `;
 
 const List = styled.div`
-	height: max-content;
 	display: flex;
-	margin: 5px;
 `;
 
 const InfoTitle = styled.div`
 	width: 80px;
-	min-width: max-content;
-	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
 	@media ${({ theme }) => theme.device.tablet} {
