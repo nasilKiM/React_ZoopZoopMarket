@@ -1,11 +1,14 @@
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import UserApi from 'Apis/userApi';
+import MyPageApi from 'Apis/myPageApi';
+
+import MannerMeter from 'Components/Icon/Icon';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import UserApi from 'Apis/userApi';
-import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import MannerMeter from 'Components/Icon/Icon';
-import MyPageApi from 'Apis/myPageApi';
-import { useQuery } from '@tanstack/react-query';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -150,14 +153,6 @@ const Info = styled.div`
 	margin-top: 60px;
 	margin-left: 20px;
 	padding-left: 10px;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 80vw;
-		margin-left: 0;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100vw;
-		margin-left: 0;
-	} */
 `;
 
 const Img = styled.img`
@@ -166,12 +161,6 @@ const Img = styled.img`
 	object-fit: cover;
 	object-position: center;
 	border-radius: 50%;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		width: 14vw;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 13vw;
-	} */
 `;
 
 const ImgWrap = styled.div`

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
+import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
+
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
-import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
-import dayjs from 'dayjs';
 import DetailCard from './Components/detailCard';
+
+import dayjs from 'dayjs';
+
+import styled from 'styled-components';
 
 const AccountBookPage = () => {
 	const [category, setCategory] = useState('seller');

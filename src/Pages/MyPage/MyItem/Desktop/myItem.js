@@ -1,12 +1,15 @@
-import ItemCard from 'Components/Card/Desktop/Card';
-import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
-import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import { useEffect, useState } from 'react';
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+
+import ItemCard from 'Components/Card/Desktop/Card';
+
 import { useInView } from 'react-intersection-observer';
+
+import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
 import styled from 'styled-components';
 
 const MyItemPage = () => {
-	const [category, setCategory] = useState(0); // 0:중고 1:무료
+	const [category, setCategory] = useState(0);
 	const res = useInfiniteMyItem(category);
 	const { data, fetchNextPage, refetch } = res;
 	const [ref, isView] = useInView();
@@ -34,7 +37,6 @@ const MyItemPage = () => {
 		setCategory(1);
 	};
 
-	// data && console.log('check', data);
 	return (
 		data && (
 			<S.Div>
