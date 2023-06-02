@@ -12,17 +12,20 @@ import CustomButton from 'Components/Buttons/button';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
 import { FORM_TYPE } from 'Consts/FormType';
+import useUserInfo from 'Hooks/Queries/get-user-info';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
-		pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
-	});
+	// const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
+	// 	pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
+	// });
+
+	const { data } = useUserInfo();
 
 	const [address, setAddress] = useState();
 	const [phoneMessage, setPhoneMessage] = useState();
@@ -92,10 +95,12 @@ const MyUserEdit = ({ userInfo }) => {
 	};
 
 	useEffect(() => {
-		setValue('email', data?.data.email);
-		setValue('nick', data?.data.nick_name);
-		setValue('phone', data?.data.phone);
-		setAddress(data?.data.region);
+		if (data) {
+			setValue('email', data.email);
+			setValue('nick', data.nick_name);
+			setValue('phone', data.phone);
+			setAddress(data.region);
+		}
 	}, [data]);
 
 	const onClickPasswordChange = () => {
@@ -111,7 +116,7 @@ const MyUserEdit = ({ userInfo }) => {
 					<S.Container>
 						<S.Title>아이디</S.Title>
 						<S.Box>
-							<S.idDiv>{data.data.email}</S.idDiv>
+							<S.idDiv>{data.email}</S.idDiv>
 						</S.Box>
 					</S.Container>
 					<S.Container>
