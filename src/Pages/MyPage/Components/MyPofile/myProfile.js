@@ -1,11 +1,14 @@
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import UserApi from 'Apis/userApi';
+import MyPageApi from 'Apis/myPageApi';
+
+import MannerMeter from 'Components/Icon/Icon';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import UserApi from 'Apis/userApi';
-import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import MannerMeter from 'Components/Icon/Icon';
-import MyPageApi from 'Apis/myPageApi';
-import { useQuery } from '@tanstack/react-query';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -219,7 +222,6 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};

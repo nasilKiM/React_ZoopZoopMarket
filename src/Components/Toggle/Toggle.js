@@ -86,7 +86,10 @@ const Wrapper = styled.div`
 	left: 50%;
 	transform: translateX(-50%);
 	@media ${({ theme }) => theme.device.tablet} {
-		min-width: 350px;
+		min-width: 500px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		min-width: 100%;
 	}
 `;
 
@@ -104,7 +107,11 @@ const Menu = styled.div`
 		background-color: ${({ theme }) => theme.color.gray[200]};
 	}
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({ theme }) => theme.fontSize.micro};
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: ${({ theme }) => theme.fontSize.es};
+		width: max-content;
 	}
 `;
 
