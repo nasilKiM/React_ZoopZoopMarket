@@ -1,15 +1,19 @@
-import { RouterProvider } from 'react-router-dom';
-import router from './Routes/routing';
-import GlobalStyles from 'Styles/global';
-import { ThemeProvider } from 'styled-components';
-import { RecoilRoot } from 'recoil';
-import { theme } from 'Styles/theme';
 import { Suspense } from 'react';
+import { RouterProvider } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import ApiCustomError from 'Apis/@error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import SocketProvider from 'Context/socket';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import ApiCustomError from 'Apis/@error';
+
+import { RecoilRoot } from 'recoil';
+import SocketProvider from 'Context/socket';
+import { ThemeProvider } from 'styled-components';
+
+import router from './Routes/routing';
+
+import GlobalStyles from 'Styles/global';
+import { theme } from 'Styles/theme';
 
 function App() {
 	const queryClient = new QueryClient();

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
-
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import DetailCard from './Components/detailCard';
 
-import dayjs from 'dayjs';
+import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
 
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 const AccountBookPage = () => {
@@ -51,11 +50,7 @@ const AccountBookPage = () => {
 				month={month}
 				setMonth={setMonth}
 			/>
-			<DetailCard
-				data={res.data}
-				year={year}
-				month={month}
-			/>
+			<DetailCard data={res.data} year={year} month={month} />
 		</S.Wrapper>
 	);
 };
@@ -74,5 +69,5 @@ const DetailTitle = styled.div`
 
 const S = {
 	Wrapper,
-	DetailTitle
+	DetailTitle,
 };

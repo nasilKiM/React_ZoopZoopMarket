@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
 
-import styled from 'styled-components';
 import useGetChatList from 'Hooks/Queries/get-chat-list';
 import useGetAllChatList from 'Hooks/Queries/get-allchat-list';
+import styled from 'styled-components';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();

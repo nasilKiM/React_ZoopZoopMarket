@@ -1,5 +1,6 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
+
 import styled from 'styled-components';
 
 const Post = ({ setAddress, setPopup }) => {
@@ -27,7 +28,7 @@ const Post = ({ setAddress, setPopup }) => {
 	};
 
 	const postCodeStyle = {
-		width: '550px',
+		width: '100%',
 		padding: '7px',
 	};
 
@@ -62,6 +63,9 @@ const Modal = styled.div`
 	background-color: ${({ theme }) => theme.color.white};
 	border-radius: 8px;
 	padding-top: 40px;
+	@media (max-width: 1100px) {
+		width: 350px;
+	}
 `;
 
 const CloseBtn = styled.button`

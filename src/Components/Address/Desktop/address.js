@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+
 import Post from './post';
+
 import styled from 'styled-components';
 
 const FindAddress = ({ setter }) => {

@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
 import ChatApis from 'Apis/chatApis';
-import { useSocket } from 'Context/socket';
 
 import MessageDetail from '../Message/Message';
 
+import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
+
 import useGetChatLog from 'Hooks/Queries/get-chat-log';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {

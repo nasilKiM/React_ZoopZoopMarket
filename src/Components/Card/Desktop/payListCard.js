@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const PayListCard = ({item}) => {
+const PayListCard = ({ item }) => {
 	const { title, price, img_url } = item.Product;
 	return (
 		<S.Wrapper>

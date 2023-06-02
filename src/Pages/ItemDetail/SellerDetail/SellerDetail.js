@@ -1,5 +1,9 @@
-import styled from 'styled-components';
-import { flexAllCenter } from 'Styles/common';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
+import ChatApis from 'Apis/chatApis';
 
 import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
@@ -7,12 +11,9 @@ import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import SoldOutModal from './soldOutModal';
 import ChattingPage from 'Pages/Chat';
 
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
-import ProductApi from 'Apis/productApi';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import ChatApis from 'Apis/chatApis';
+import { flexAllCenter } from 'Styles/common';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
