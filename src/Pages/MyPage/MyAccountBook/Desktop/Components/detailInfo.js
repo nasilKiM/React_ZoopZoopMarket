@@ -1,7 +1,7 @@
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import './styles.css';
 import styled from 'styled-components';
 
