@@ -168,7 +168,7 @@ const Div = styled.div`
 		left: -6px;
 		top: 7px;
 	}
-	@media (max-width: 700px) {
+	@media (max-width: 600px) {
 		right: 0px;
 		background-color: rgba(217, 217, 217, 0.8);
 	}
@@ -189,7 +189,7 @@ const DivPre = styled.div`
 		right: -6px;
 		top: 7px;
 	}
-	@media (max-width: 700px) {
+	@media (max-width: 600px) {
 		left: 0px;
 		background-color: rgba(217, 217, 217, 0.8);
 	}

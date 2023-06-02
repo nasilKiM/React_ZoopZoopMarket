@@ -164,7 +164,7 @@ const ResultText = styled.div`
 		width: 95%;
 	}
 	@media (max-width: 800px) {
-		width: 90%;
+		width: 95%;
 	}
 `;
 
@@ -184,13 +184,12 @@ const Container = styled.div`
 	@media (max-width: 800px) {
 		width: 90%;
 	}
-	@media screen and (max-height: 767px) {
-		grid-template-rows: repeat(1, minmax(300px, 1fr));
+	@media screen and (max-width: 400px) {
+		grid-template-rows: repeat(2, minmax(160px, 1fr));
+		margin: 0;
 	}
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(1, minmax(220px, 1fr));
-		width: 220px;
-		margin: 20px auto;
+		grid-template-columns: repeat(2, minmax(210px, 1fr));
 		column-gap: 20px;
 		row-gap: 20px;
 	}

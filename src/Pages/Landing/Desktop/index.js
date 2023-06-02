@@ -5,12 +5,6 @@ import styled from 'styled-components';
 const LandingPage = () => {
 	const [showContent, setShowContent] = useState(false);
 	const [hoveredIndex, setHoveredIndex] = useState(-1);
-	const [hoveredImageSize, setHoveredImageSize] = useState({
-		width: 0,
-		height: 0,
-		top: 0,
-		left: 0,
-	});
 
 	useEffect(() => {
 		// 2초 후에 컨텐츠를 보여줍니다.
@@ -21,10 +15,8 @@ const LandingPage = () => {
 		return () => clearTimeout(timer);
 	}, []);
 
-	const handleMouseOver = (index, event) => {
-		const { width, height, top, left } = event.target.getBoundingClientRect();
+	const handleMouseOver = index => {
 		setHoveredIndex(index);
-		setHoveredImageSize({ width, height, top, left });
 	};
 
 	const handleMouseOut = () => {
@@ -50,64 +42,74 @@ const LandingPage = () => {
 				</S.LandingHeader>
 
 				<S.Section1>
-					<Title>
-						원하는 상품은 ? 줍줍마켓 <br /> 싫증난 물건도 ? 줍줍마켓
-						<br /> ... <br />
-					</Title>
+					<S.Title>
+						원하는 상품은 ? <span>줍줍마켓 ! </span>
+						<br /> 물건을 팔때도 ? <span>줍줍마켓 ! </span>
+					</S.Title>
 				</S.Section1>
 				<S.Section2>
 					<S.White>
 						<div
-							onMouseOver={event => handleMouseOver(0, event)}
+							onMouseOver={() => handleMouseOver(0)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/w_baseball.png" />
+							{hoveredIndex !== 0 ? (
+								<img src="/Assets/Images/Landing/0_baseball_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_0.png" />
+							)}
 						</div>
 						<div
-							onMouseOver={event => handleMouseOver(1, event)}
+							onMouseOver={() => handleMouseOver(1)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/w_eyeball.png" />
+							{hoveredIndex !== 1 ? (
+								<img src="/Assets/Images/Landing/1_eyeball_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_1.png" />
+							)}
 						</div>
 						<div
-							onMouseOver={event => handleMouseOver(2, event)}
+							onMouseOver={() => handleMouseOver(2)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/w_couch.png" />
+							{hoveredIndex !== 2 ? (
+								<img src="/Assets/Images/Landing/2_couch_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_2.png" />
+							)}
 						</div>
 						<div
-							onMouseOver={event => handleMouseOver(3, event)}
+							onMouseOver={() => handleMouseOver(3)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/w_child.png" />
+							{hoveredIndex !== 3 ? (
+								<img src="/Assets/Images/Landing/3_stroller_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_3.png" />
+							)}
 						</div>
 						<div
-							onMouseOver={event => handleMouseOver(4, event)}
+							onMouseOver={() => handleMouseOver(4)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/w_heel.png" />
+							{hoveredIndex !== 4 ? (
+								<img src="/Assets/Images/Landing/4_heel_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_4.png" />
+							)}
 						</div>
 						<div
-							onMouseOver={event => handleMouseOver(5, event)}
+							onMouseOver={() => handleMouseOver(5)}
 							onMouseOut={handleMouseOut}
 						>
-							<img src="/Assets/Images/Landing/testcat.png" />
+							{hoveredIndex !== 5 ? (
+								<img src="/Assets/Images/Landing/5_cat_edit.png" />
+							) : (
+								<img src="/Assets/Images/Landing/hover_image_5.png" />
+							)}
 						</div>
 					</S.White>
-					<S.HoverWhite>
-						{hoveredIndex !== -1 && (
-							<img
-								src={`/Assets/Images/Landing/hover_image_${hoveredIndex}.png`}
-								alt={`Hovered Image ${hoveredIndex}`}
-								style={{
-									width: `${hoveredImageSize.width}px`,
-									height: `${hoveredImageSize.height}px`,
-									top: `${hoveredImageSize.top}px`,
-									left: `${hoveredImageSize.left}px`,
-								}}
-							/>
-						)}
-					</S.HoverWhite>
 				</S.Section2>
 			</S.ContentWrapper>
 		</S.Wrapper>
@@ -198,6 +200,15 @@ const Section1 = styled.section`
 `;
 const Title = styled.div`
 	font-size: 24px;
+	span {
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		:hover {
+			color: ${({ theme }) => theme.color.primary[300]};
+		}
+	}
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.md};
+	}
 `;
 
 const Section2 = styled.section`
@@ -208,12 +219,11 @@ const Section2 = styled.section`
 `;
 
 const White = styled.div`
-	width: 100%;
 	// 야구배트
 	& > div:nth-of-type(1) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 230px;
+		max-width: 200px;
 		bottom: 8%;
 		left: 8%;
 	}
@@ -221,9 +231,9 @@ const White = styled.div`
 	& > div:nth-of-type(2) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 130px;
+		max-width: 230px;
 		top: 20%;
-		left: 30%;
+		left: 20%;
 	}
 	// 소파
 	& > div:nth-of-type(3) > img {
@@ -237,17 +247,17 @@ const White = styled.div`
 	& > div:nth-of-type(4) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 275px;
-		bottom: 5%;
+		max-width: 310px;
+		bottom: 10%;
 		left: 27%;
 	}
 	// 하이힐
 	& > div:nth-of-type(5) > img {
 		position: absolute;
 		width: 100%;
-		max-width: 300px;
+		max-width: 200px;
 		bottom: 15%;
-		right: 30%;
+		right: 32%;
 	}
 	// 쪼밥이
 	& > div:nth-of-type(6) > img {
@@ -257,155 +267,204 @@ const White = styled.div`
 		bottom: 7%;
 		right: 8%;
 	}
-	// 반응형
-	@media (max-width: 768px) {
-		//야구배트
+	@media (max-width: 1100px) {
+		// 야구배트
 		& > div:nth-of-type(1) > img {
-			width: 70%;
-			max-width: 150px;
-			top: 30%;
-			left: 5%;
+			position: absolute;
+			width: 100%;
+			max-width: 180px;
+			bottom: 8%;
+			left: 8%;
 		}
 		// 눈알
 		& > div:nth-of-type(2) > img {
-			width: 40%;
-			max-width: 90px;
-			top: 35%;
-			left: 45%;
+			position: absolute;
+			width: 100%;
+			max-width: 230px;
+			top: 20%;
+			left: 15%;
 		}
 		// 소파
 		& > div:nth-of-type(3) > img {
-			width: 90%;
-			max-width: 350px;
-			top: 5%;
+			position: absolute;
+			width: 100%;
+			max-width: 400px;
+			top: 10%;
 			right: 5%;
 		}
 		// 유모차
 		& > div:nth-of-type(4) > img {
-			width: 50%;
-			max-width: 180px;
-			top: 50%;
-			left: 55%;
+			position: absolute;
+			width: 100%;
+			max-width: 310px;
+			bottom: 10%;
+			left: 27%;
 		}
 		// 하이힐
 		& > div:nth-of-type(5) > img {
-			width: 40%;
+			position: absolute;
+			width: 100%;
 			max-width: 180px;
-			bottom: 5%;
-			left: 10%;
+			top: 35%;
+			right: 32%;
 		}
 		// 쪼밥이
 		& > div:nth-of-type(6) > img {
+			position: absolute;
 			width: 100%;
-			max-width: 120px;
-			bottom: 5.5%;
-			right: 10.5%;
+			max-width: 180px;
+			bottom: 7%;
+			right: 8%;
 		}
 	}
-`;
-
-const OverlayImage = styled.img`
-	position: relative;
-	z-index: 1;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	:hover {
-		opacity: 1;
-	}
-`;
-
-const HoverWhite = styled.div`
-	//야구배트
-	& > div:nth-of-type(1) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 165px;
-		bottom: 11%;
-		left: 10%;
-	}
-	// 눈알
-	& > div:nth-of-type(2) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 310px;
-		top: 12%;
-		left: 24.3%;
-	}
-	// 소파
-	& > div:nth-of-type(3) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 450px;
-		top: 13%;
-		right: 18%;
-	}
-	// 유모차
-	& > div:nth-of-type(4) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 275px;
-		bottom: 7.5%;
-		left: 25.5%;
-	}
-	// 하이힐
-	& > div:nth-of-type(5) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 180px;
-		bottom: 17%;
-		right: 34.5%;
-	}
-	// 쪼밥이
-	& > div:nth-of-type(6) > img {
-		position: absolute;
-		width: 100%;
-		max-width: 330px;
-		bottom: 2.4%;
-		right: 3.65%;
-	}
-	// 반응형
 	@media (max-width: 768px) {
-		//야구배트
+		// 야구배트
 		& > div:nth-of-type(1) > img {
-			width: 70%;
-			max-width: 100px;
-			top: 33%;
-			left: 10%;
+			position: absolute;
+			width: 100%;
+			max-width: 180px;
+			top: 8%;
+			left: 8%;
 		}
 		// 눈알
 		& > div:nth-of-type(2) > img {
+			position: absolute;
 			width: 100%;
-			max-width: 210px;
-			top: 29.7%;
-			left: 31.6%;
+			max-width: 230px;
+			top: 42%;
+			left: 50%;
 		}
 		// 소파
 		& > div:nth-of-type(3) > img {
-			width: 90%;
-			max-width: 300px;
-			top: 6%;
-			right: 10%;
+			position: absolute;
+			width: 100%;
+			max-width: 420px;
+			top: 10%;
+			right: 5%;
 		}
 		// 유모차
 		& > div:nth-of-type(4) > img {
-			width: 50%;
-			max-width: 180px;
-			top: 48.5%;
-			left: 52%;
+			position: absolute;
+			width: 100%;
+			max-width: 250px;
+			bottom: 5%;
+			left: 5%;
 		}
 		// 하이힐
 		& > div:nth-of-type(5) > img {
-			width: 40%;
-			max-width: 110px;
-			bottom: 6%;
-			left: 15%;
+			position: absolute;
+			width: 100%;
+			max-width: 150px;
+			top: 70%;
+			right: 32%;
 		}
 		// 쪼밥이
 		& > div:nth-of-type(6) > img {
-			width: 50%;
-			width: 220px;
-			bottom: 2%;
-			right: 0%;
+			position: absolute;
+			width: 100%;
+			max-width: 150px;
+			bottom: 7%;
+			right: 5%;
+		}
+	}
+	@media (max-width: 550px) {
+		// 야구배트
+		& > div:nth-of-type(1) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 120px;
+			top: 8%;
+			left: 8%;
+		}
+		// 눈알
+		& > div:nth-of-type(2) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 180px;
+			top: 32%;
+			left: 50%;
+		}
+		// 소파
+		& > div:nth-of-type(3) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 250px;
+			top: 10%;
+			right: 5%;
+		}
+		// 유모차
+		& > div:nth-of-type(4) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 200px;
+			bottom: 5%;
+			left: 5%;
+		}
+		// 하이힐
+		& > div:nth-of-type(5) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 120px;
+			top: 48%;
+			right: 52%;
+		}
+		// 쪼밥이
+		& > div:nth-of-type(6) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 130px;
+			bottom: 17%;
+			right: 5%;
+		}
+	}
+	@media (max-width: 370px) {
+		// 야구배트
+		& > div:nth-of-type(1) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 100px;
+			top: 20%;
+			left: 8%;
+		}
+		// 눈알
+		& > div:nth-of-type(2) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 150px;
+			top: 32%;
+			left: 50%;
+		}
+		// 소파
+		& > div:nth-of-type(3) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 250px;
+			top: 10%;
+			right: 5%;
+		}
+		// 유모차
+		& > div:nth-of-type(4) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 200px;
+			bottom: 5%;
+			left: 5%;
+		}
+		// 하이힐
+		& > div:nth-of-type(5) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 120px;
+			top: 48%;
+			right: 52%;
+		}
+		// 쪼밥이
+		& > div:nth-of-type(6) > img {
+			position: absolute;
+			width: 100%;
+			max-width: 120px;
+			bottom: 20%;
+			right: 5%;
 		}
 	}
 `;
@@ -416,9 +475,9 @@ const S = {
 	LandingHeader,
 	LogoImage,
 	Section1,
+	Title,
 	GoToLogin,
 	GoToSignup,
 	Section2,
 	White,
-	HoverWhite,
 };
