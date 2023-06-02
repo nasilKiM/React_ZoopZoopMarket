@@ -84,11 +84,15 @@ const CategorySelector = ({ setTags, tags }) => {
 
 	const handleCategoryChange = event => {
 		const selectedCategory = event.target.value;
-		setFixedTags(selectedCategory);
+		const isCategorySelected = tags.some(tag => tag[0] === selectedCategory);
 
-		if (selectedCategory !== '') {
-			const tag = [selectedCategory];
-			setTags([...tags, tag]);
+		if (!isCategorySelected) {
+			setFixedTags(selectedCategory);
+
+			if (selectedCategory !== '') {
+				const tag = [selectedCategory];
+				setTags([...tags, tag]);
+			}
 		}
 	};
 

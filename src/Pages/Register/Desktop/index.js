@@ -9,11 +9,10 @@ import UploadFiles from './Components/uploadFiles';
 import FindAddress from 'Components/Address/Desktop/address';
 import KaMap from 'Components/Map/Map';
 import AlertModal from 'Components/Alert/alertModal';
-// import Category from './Components/category';
+import CategorySelector from './Components/categorySelector';
 
 import { flexAlignCenter } from 'Styles/common';
 import styled from 'styled-components';
-import CategorySelector from './Components/category copy';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
