@@ -1,13 +1,12 @@
-import styled from 'styled-components';
-import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
-
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import ConfirmModal from 'Components/Alert/confirmModal';
 import SoldoutCard from './CardSoldout';
 
-import { useState } from 'react';
+import styled from 'styled-components';
+import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
 
 import ProductApi from 'Apis/productApi';
 
@@ -156,12 +155,13 @@ const ItemImg = styled.img`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
 	@media (min-width: 350px) {
 		height: 200px;
+		height: 200px;
 	}
 	@media (min-width: 600px) {
-		height: 200px;
+		height: 205px;
 	}
 	@media (min-width: 900px) {
-		height: 200px;
+		height: 210px;
 	}
 	@media (min-width: 1200px) {
 		height: 240px;
@@ -278,8 +278,8 @@ const OK = styled.button`
 
 const S = {
 	Wrapper,
-	Heart,
 	Container,
+	Heart,
 	ItemImg,
 	ItemInfo,
 	ItemTitle,

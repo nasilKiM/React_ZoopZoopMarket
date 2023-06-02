@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import styled from 'styled-components';
 
 const UploadFiles = ({ register, images, setImages }) => {
@@ -194,6 +195,36 @@ const MainImgSection = styled.img`
 	object-fit: cover;
 `;
 
+const DelBtn = styled.div`
+	width: 30px;
+	height: 30px;
+	top: 6px;
+	right: 6px;
+	border-radius: 15px;
+	border: none;
+	background-color: ${({ theme }) => theme.color.primary[400]};
+	position: absolute;
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.lg};
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	:hover {
+		width: 32px;
+		height: 32px;
+		cursor: pointer;
+	}
+	@media screen and (max-width: 768px) {
+		width: 20px;
+		height: 20px;
+		:hover {
+			width: 22px;
+			height: 22px;
+			cursor: pointer;
+		}
+	}
+`;
+
 const SmallImgBox = styled.div`
 	width: 700px;
 	display: flex;
@@ -230,36 +261,6 @@ const SmallImgSection = styled.img`
 	object-fit: cover;
 `;
 
-const DelBtn = styled.div`
-	width: 30px;
-	height: 30px;
-	top: 6px;
-	right: 6px;
-	border-radius: 15px;
-	border: none;
-	background-color: ${({ theme }) => theme.color.primary[400]};
-	position: absolute;
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.lg};
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	:hover {
-		width: 32px;
-		height: 32px;
-		cursor: pointer;
-	}
-	@media screen and (max-width: 768px) {
-		width: 20px;
-		height: 20px;
-		:hover {
-			width: 22px;
-			height: 22px;
-			cursor: pointer;
-		}
-	}
-`;
-
 const Count = styled.span`
 	margin: 20px 0;
 	display: flex;
@@ -270,14 +271,15 @@ const Count = styled.span`
 		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
+
 const S = {
 	Wrapper,
 	ImgContainer,
 	MainImgContainer,
 	MainImgSection,
+	DelBtn,
 	SmallImgBox,
 	SmallImgContainer,
 	SmallImgSection,
-	DelBtn,
 	Count,
 };

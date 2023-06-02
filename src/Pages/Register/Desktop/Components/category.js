@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import styled from 'styled-components';
 
 const categories = [
 	{
@@ -130,18 +132,18 @@ const Category = ({ setTags, tags }) => {
 	const CategorySlider = () => {
 		return (
 			<>
-				<CategoryWrapper>
+				<S.CategoryWrapper>
 					<Slider {...settings}>
 						{categories.map(category => (
-							<CategoryContainer onClick={() => setFixedTags(category.name)}>
-								<CategoryItem key={category.id}>
-									<CategoryIcon src={category.icon} alt={category.name} />
-									<ItemName>{category.name}</ItemName>
-								</CategoryItem>
-							</CategoryContainer>
+							<S.CategoryContainer onClick={() => setFixedTags(category.name)}>
+								<S.CategoryItem key={category.id}>
+									<S.CategoryIcon src={category.icon} alt={category.name} />
+									<S.ItemName>{category.name}</S.ItemName>
+								</S.CategoryItem>
+							</S.CategoryContainer>
 						))}
 					</Slider>
-				</CategoryWrapper>
+				</S.CategoryWrapper>
 			</>
 		);
 	};
@@ -188,3 +190,11 @@ const ItemName = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-align: center;
 `;
+
+const S = {
+	CategoryWrapper,
+	CategoryContainer,
+	CategoryItem,
+	CategoryIcon,
+	ItemName,
+};

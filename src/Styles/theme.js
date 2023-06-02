@@ -47,10 +47,10 @@ const fontWeight = {
 
 // media query
 const deviceWidth = {
-	mobile: 414,
+	mobile: 350,
 	tablet: 768,
 	laptop: 1000,
-	pc: 1440
+	pc: 1440,
 };
 
 const device = {

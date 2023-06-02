@@ -1,15 +1,18 @@
-import styled from 'styled-components';
-import UploadFiles from './Components/uploadFiles';
-import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import FindAddress from 'Components/Address/Desktop/address';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
-import { flexAlignCenter } from 'Styles/common';
+
+import UploadFiles from './Components/uploadFiles';
+import FindAddress from 'Components/Address/Desktop/address';
 import KaMap from 'Components/Map/Map';
 import AlertModal from 'Components/Alert/alertModal';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Category from './Components/category';
+
+import { flexAlignCenter } from 'Styles/common';
+import styled from 'styled-components';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -217,6 +220,7 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
+					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
@@ -270,13 +274,6 @@ const Blank = styled.div`
 	height: 20px;
 `;
 
-const Container = styled.div`
-	width: 100%;
-	margin: 0 auto;
-	padding: 10px;
-	display: flex;
-`;
-
 const Line = styled.div`
 	width: 100%;
 	display: flex;
@@ -326,107 +323,6 @@ const InputBox = styled.input`
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
 	@media screen and (max-width: 768px) {
-		font-size: ${({ theme }) => theme.fontSize.sm};
-	}
-`;
-
-const Error = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.xs};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.error};
-	margin-left: 30px;
-	margin-top: 5px;
-	position: absolute;
-	right: 50px;
-	top: 10px;
-	@media (max-width: 1100px) {
-		right: 50px;
-		top: 10px;
-	}
-	@media (max-width: 768px) {
-		left: -20px;
-		top: 40px;
-	}
-`;
-
-const AddressWrapper = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	padding: 0 10px 30px 10px;
-	position: relative;
-	margin: 0 auto;
-`;
-
-const AddressTitleContainer = styled.div`
-	width: 100%;
-	display: flex;
-	margin-bottom: 10px;
-	align-items: center;
-	justify-content: space-between;
-`;
-
-const AddressMap = styled.div`
-	width: 100%;
-	position: relative;
-	margin: 0 auto;
-`;
-
-const Address = styled.div`
-	width: 100%;
-	padding: 10px;
-	font-size: ${({ theme }) => theme.fontSize.md};
-	@media (max-width: 768px) {
-		font-size: ${({ theme }) => theme.fontSize.sm};
-	}
-`;
-
-const ContentBox = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 0 10px 30px 10px;
-	position: relative;
-	margin: 0 auto;
-	@media (max-width: 768px) {
-		padding: 0 10px 10px 10px;
-	}
-`;
-
-const TxtArea = styled.textarea`
-	width: 100%;
-	margin-top: -15px;
-	height: 400px;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	padding: 20px;
-	:focus {
-		outline: none;
-	}
-	@media (max-width: 768px) {
-		font-size: ${({ theme }) => theme.fontSize.sm};
-		height: 250px;
-	}
-`;
-
-const RegisterBtn = styled.button`
-	width: 150px;
-	height: 50px;
-	border: none;
-	background: ${({ theme }) => theme.color.primary[200]};
-	border-radius: 5px;
-	color: ${({ theme }) => theme.color.white};
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-left: auto;
-	margin-bottom: 50px;
-	cursor: pointer;
-	:hover {
-		background-color: ${({ theme }) => theme.color.primary[400]};
-	}
-	@media (max-width: 768px) {
-		width: 110px;
-		height: 30px;
 		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
@@ -484,25 +380,126 @@ const DelTag = styled.button`
 	}
 `;
 
+const AddressWrapper = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 0 10px 30px 10px;
+	position: relative;
+	margin: 0 auto;
+`;
+
+const AddressTitleContainer = styled.div`
+	width: 100%;
+	display: flex;
+	margin-bottom: 10px;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+const Address = styled.div`
+	width: 100%;
+	padding: 10px;
+	font-size: ${({ theme }) => theme.fontSize.md};
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+`;
+
+const Error = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.error};
+	margin-left: 30px;
+	margin-top: 5px;
+	position: absolute;
+	right: 50px;
+	top: 10px;
+	@media (max-width: 1100px) {
+		right: 50px;
+		top: 10px;
+	}
+	@media (max-width: 768px) {
+		left: -20px;
+		top: 40px;
+	}
+`;
+
+const ContentBox = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 10px 30px 10px;
+	position: relative;
+	margin: 0 auto;
+	@media (max-width: 768px) {
+		padding: 0 10px 10px 10px;
+	}
+`;
+
+const TxtArea = styled.textarea`
+	width: 100%;
+	margin-top: -15px;
+	height: 400px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	padding: 20px;
+	:focus {
+		outline: none;
+	}
+	@media (max-width: 768px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		height: 250px;
+	}
+`;
+
+const Container = styled.div`
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	display: flex;
+`;
+
+const RegisterBtn = styled.button`
+	width: 150px;
+	height: 50px;
+	border: none;
+	background: ${({ theme }) => theme.color.primary[200]};
+	border-radius: 5px;
+	color: ${({ theme }) => theme.color.white};
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-left: auto;
+	margin-bottom: 50px;
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+	}
+	@media (max-width: 768px) {
+		width: 110px;
+		height: 30px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+`;
+
 const S = {
 	Wrapper,
 	Blank,
-	Container,
-	RegisterBtn,
 	Line,
 	Mark,
 	Title,
 	InputContainer,
 	InputBox,
-	Error,
-	AddressWrapper,
-	AddressTitleContainer,
-	Address,
-	AddressMap,
-	ContentBox,
-	TxtArea,
 	TagWrapper,
 	TagBox,
 	TagContent,
 	DelTag,
+	AddressWrapper,
+	AddressTitleContainer,
+	Address,
+	Error,
+	ContentBox,
+	TxtArea,
+	Container,
+	RegisterBtn,
 };

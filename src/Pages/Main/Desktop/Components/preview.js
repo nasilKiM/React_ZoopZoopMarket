@@ -1,6 +1,17 @@
+import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
+
+import ItemCard from 'Components/Card/Desktop/Card';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74b78337459ef055df81c964889fc5b43aa1df1f
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
 
@@ -22,7 +33,7 @@ const Preview = ({ category }) => {
 			? `${data && data.data.region}에 있는 줍줍템을 확인하세요!`
 			: `회원님 주변의 무료나눔 물품을 놓치지 마세요!`;
 
-	const [slidesToShow, setSlidesToShow] = useState(3);
+	const [slidesToShow, setSlidesToShow] = useState(2);
 
 	const sliderSettings = {
 		infinite: true,
@@ -73,13 +84,29 @@ const Preview = ({ category }) => {
 					<S.CategoryText>{categoryText}</S.CategoryText>
 				</S.SpaceBetween>
 			</S.UpperSwiper>
-			<SwiperWrapper>
-				<Slider {...sliderSettings}>
+			{products?.length <= 3 ? (
+				<S.TempSlider>
 					{products?.map(item => (
-						<ItemCard key={item} products={item} index={item.idx} />
+						<ItemCard key={item.idx} products={item} index={item.idx} />
 					))}
+<<<<<<< HEAD
 				</Slider>
 			</SwiperWrapper>
+=======
+				</S.TempSlider>
+			) : (
+				<S.SliderWrapper>
+					<Slider {...sliderSettings}>
+						{products?.map(item => (
+							<ItemCard key={item.idx} products={item} index={item.idx} />
+						))}
+
+						{/* <ItemCard key={item} products={item} index={item.idx} /> */}
+						{/* <ItemCardMock key={item} products={item} index={index} /> */}
+					</Slider>
+				</S.SliderWrapper>
+			)}
+>>>>>>> 74b78337459ef055df81c964889fc5b43aa1df1f
 		</S.Wrapper>
 	);
 };
@@ -91,7 +118,7 @@ const Wrapper = styled.div`
 	max-width: 1200px;
 	min-width: 350px;
 	@media (max-width: 700px) {
-		width: 95%;
+		width: 100%;
 	}
 	@media (max-width: 900px) {
 		width: 90%;
@@ -106,23 +133,30 @@ const UpperSwiper = styled.div`
 	margin-bottom: 20px;
 `;
 
+const CategoryBox = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const SpaceBetween = styled.div`
 	${flexAlignCenter}
 	justify-content: space-between;
 	padding-right: 10px;
 `;
 
-const CategoryBox = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.primary};
-`;
 const CategoryText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-top: 10px;
 `;
 
-const SwiperWrapper = styled.div`
+const TempSlider = styled.div`
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+`;
+
+const SliderWrapper = styled.div`
 	width: 100%;
 	position: relative;
 	.slick-prev::before,
@@ -150,6 +184,10 @@ const Div = styled.div`
 		left: -6px;
 		top: 7px;
 	}
+	@media (max-width: 700px) {
+		right: 0px;
+		background-color: rgba(217, 217, 217, 0.8);
+	}
 `;
 const DivPre = styled.div`
 	width: 40px;
@@ -167,12 +205,18 @@ const DivPre = styled.div`
 		right: -6px;
 		top: 7px;
 	}
+	@media (max-width: 700px) {
+		left: 0px;
+		background-color: rgba(217, 217, 217, 0.8);
+	}
 `;
 
 const S = {
 	Wrapper,
 	UpperSwiper,
-	SpaceBetween,
 	CategoryBox,
+	SpaceBetween,
 	CategoryText,
+	TempSlider,
+	SliderWrapper,
 };

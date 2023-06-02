@@ -127,6 +127,46 @@ const Form = styled.form`
 	}
 `;
 
+const Txt = styled.div`
+	${flexAllCenter}
+	color : ${({ theme }) => theme.color.primary[200]};
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-bottom: 40px;
+	line-height: 30px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.base};
+		margin-bottom: 20px;
+	}
+`;
+
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.div`
+	min-width: 95px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px;
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+`;
+
+const Box = styled.div`
+	width: 80%;
+	${flexAlignCenter}
+	position: relative;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 70%;
+	}
+`;
+
 const Input = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
@@ -164,37 +204,6 @@ const Error = styled.div`
 	left: 15px;
 `;
 
-const Container = styled.div`
-	${flexSpaceBetween}
-	width: 100%;
-	margin-bottom: 30px;
-`;
-
-const Title = styled.div`
-	min-width: 95px;
-	margin-right: 10px;
-	${flexAlignCenter}
-	padding-left: 10px;
-	@media ${({ theme }) => theme.device.tablet} {
-		margin-right: 5px;
-		font-size: ${({ theme }) => theme.fontSize.sm};
-		font-weight: ${({ theme }) => theme.fontWeight.bold};
-	}
-`;
-
-const Txt = styled.div`
-	${flexAllCenter}
-	color : ${({ theme }) => theme.color.primary[200]};
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-bottom: 40px;
-	line-height: 30px;
-	@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({ theme }) => theme.fontSize.base};
-		margin-bottom: 20px;
-	}
-`;
-
 const Text = styled.div`
 	margin-top: 40px;
 	font-size: ${({ theme }) => theme.fontSize.base};
@@ -208,24 +217,15 @@ const Text = styled.div`
 	}
 `;
 
-const Box = styled.div`
-	width: 80%;
-	${flexAlignCenter}
-	position: relative;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 70%;
-	}
-`;
-
 const S = {
 	Wrap,
 	Form,
+	Txt,
+	Container,
+	Title,
+	Box,
 	Input,
 	Button,
 	Error,
-	Container,
-	Title,
-	Txt,
 	Text,
-	Box,
 };

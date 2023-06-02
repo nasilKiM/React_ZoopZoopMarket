@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import CustomButton from '../button';
+
+import styled from 'styled-components';
 
 const EditBtns = () => {
 	return (

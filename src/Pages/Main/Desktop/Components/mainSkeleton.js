@@ -1,7 +1,9 @@
 import React from 'react';
+
+import { Skeleton } from '@mui/material';
+
 import { theme } from 'Styles/theme';
 import styled from 'styled-components';
-import { Skeleton } from '@mui/material';
 
 const MainPageSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4];
@@ -13,9 +15,9 @@ const MainPageSkeleton = () => {
 	}
 
 	return (
-		<Cover>
-			<Wrapper>
-				<Banner>
+		<S.Cover>
+			<S.Wrapper>
+				<S.Banner>
 					<Skeleton
 						variant="rounded"
 						width="100%"
@@ -23,9 +25,9 @@ const MainPageSkeleton = () => {
 						color="black"
 						animation="wave"
 					/>
-				</Banner>
+				</S.Banner>
 				<S.SkeletonCategoryContainer>
-					<TitleCategoryWrapper>
+					<S.TitleCategoryWrapper>
 						{skeletonCategory.slice(0, maxSkeletonCategories).map(index => (
 							<S.CategoryBox key={index}>
 								<Skeleton
@@ -39,10 +41,10 @@ const MainPageSkeleton = () => {
 								/>
 							</S.CategoryBox>
 						))}
-					</TitleCategoryWrapper>
+					</S.TitleCategoryWrapper>
 				</S.SkeletonCategoryContainer>
-			</Wrapper>
-			<PreviewBg>
+			</S.Wrapper>
+			<S.PreviewBg>
 				<S.SkeletonContainer>
 					{skeletonArray.map(index => (
 						<S.SkeletonBox>
@@ -59,9 +61,9 @@ const MainPageSkeleton = () => {
 						</S.SkeletonBox>
 					))}
 				</S.SkeletonContainer>
-			</PreviewBg>
+			</S.PreviewBg>
 			<Blank></Blank>
-			<PreviewBg>
+			<S.PreviewBg>
 				<S.SkeletonContainer>
 					{skeletonArray.map(index => (
 						<S.SkeletonBox>
@@ -78,8 +80,8 @@ const MainPageSkeleton = () => {
 						</S.SkeletonBox>
 					))}
 				</S.SkeletonContainer>
-			</PreviewBg>
-		</Cover>
+			</S.PreviewBg>
+		</S.Cover>
 	);
 };
 
@@ -108,6 +110,27 @@ const Banner = styled.div`
 	padding-bottom: 20px;
 `;
 
+const SkeletonCategoryContainer = styled.div`
+	width: 100%;
+	min-width: 350px;
+	max-width: 1200px;
+`;
+
+const TitleCategoryWrapper = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding-bottom: 30px;
+`;
+
+const CategoryBox = styled.div`
+	width: 60px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+`;
+
 const PreviewBg = styled.div`
 	width: 100%;
 	background-color: ${({ theme }) => theme.color.bg};
@@ -127,25 +150,6 @@ const PreviewBg = styled.div`
 	}
 `;
 
-const Blank = styled.div`
-	width: 100%;
-	height: 50px;
-`;
-
-const SkeletonCategoryContainer = styled.div`
-	width: 100%;
-	min-width: 350px;
-	max-width: 1200px;
-`;
-
-const TitleCategoryWrapper = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	padding-bottom: 30px;
-`;
-
 const SkeletonContainer = styled.div`
 	display: flex;
 	margin-top: 30px;
@@ -163,13 +167,6 @@ const SkeletonContainer = styled.div`
 	}
 `;
 
-const CategoryBox = styled.div`
-	width: 60px;
-	height: 60px;
-	display: flex;
-	align-items: center;
-`;
-
 const SkeletonBox = styled.div`
 	width: 100%;
 	min-width: 200px;
@@ -179,9 +176,19 @@ const SkeletonBox = styled.div`
 	padding: 10px;
 `;
 
+const Blank = styled.div`
+	width: 100%;
+	height: 50px;
+`;
+
 const S = {
+	Cover,
+	Wrapper,
+	Banner,
 	SkeletonCategoryContainer,
-	SkeletonContainer,
+	TitleCategoryWrapper,
 	CategoryBox,
+	PreviewBg,
+	SkeletonContainer,
 	SkeletonBox,
 };

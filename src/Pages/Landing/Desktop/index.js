@@ -4,6 +4,13 @@ import styled from 'styled-components';
 
 const LandingPage = () => {
 	const [showContent, setShowContent] = useState(false);
+	const [hoveredIndex, setHoveredIndex] = useState(-1);
+	const [hoveredImageSize, setHoveredImageSize] = useState({
+		width: 0,
+		height: 0,
+		top: 0,
+		left: 0,
+	});
 
 	useEffect(() => {
 		// 2초 후에 컨텐츠를 보여줍니다.
@@ -13,6 +20,16 @@ const LandingPage = () => {
 
 		return () => clearTimeout(timer);
 	}, []);
+
+	const handleMouseOver = (index, event) => {
+		const { width, height, top, left } = event.target.getBoundingClientRect();
+		setHoveredIndex(index);
+		setHoveredImageSize({ width, height, top, left });
+	};
+
+	const handleMouseOut = () => {
+		setHoveredIndex(-1);
+	};
 
 	return (
 		<S.Wrapper>
@@ -40,44 +57,56 @@ const LandingPage = () => {
 				</S.Section1>
 				<S.Section2>
 					<S.White>
-						<div>
+						<div
+							onMouseOver={event => handleMouseOver(0, event)}
+							onMouseOut={handleMouseOut}
+						>
 							<img src="/Assets/Images/Landing/w_baseball.png" />
 						</div>
-						<div>
-							<img src="/Assets/Images/Landing/w_eyeball.png" />={' '}
+						<div
+							onMouseOver={event => handleMouseOver(1, event)}
+							onMouseOut={handleMouseOut}
+						>
+							<img src="/Assets/Images/Landing/w_eyeball.png" />
 						</div>
-						<div>
+						<div
+							onMouseOver={event => handleMouseOver(2, event)}
+							onMouseOut={handleMouseOut}
+						>
 							<img src="/Assets/Images/Landing/w_couch.png" />
 						</div>
-						<div>
+						<div
+							onMouseOver={event => handleMouseOver(3, event)}
+							onMouseOut={handleMouseOut}
+						>
 							<img src="/Assets/Images/Landing/w_child.png" />
 						</div>
-						<div>
+						<div
+							onMouseOver={event => handleMouseOver(4, event)}
+							onMouseOut={handleMouseOut}
+						>
 							<img src="/Assets/Images/Landing/w_heel.png" />
 						</div>
-						<div>
-							<img src="/Assets/Images/Landing/w_cat.png" />
+						<div
+							onMouseOver={event => handleMouseOver(5, event)}
+							onMouseOut={handleMouseOut}
+						>
+							<img src="/Assets/Images/Landing/testcat.png" />
 						</div>
 					</S.White>
 					<S.HoverWhite>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_baseball.png" />
-						</div>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_eyeball.png" />={' '}
-						</div>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_couch.png" />
-						</div>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_child.png" />
-						</div>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_heel.png" />
-						</div>
-						<div>
-							<OverlayImage src="/Assets/Images/Landing/c_cat.png" />
-						</div>
+						{hoveredIndex !== -1 && (
+							<img
+								src={`/Assets/Images/Landing/hover_image_${hoveredIndex}.png`}
+								alt={`Hovered Image ${hoveredIndex}`}
+								style={{
+									width: `${hoveredImageSize.width}px`,
+									height: `${hoveredImageSize.height}px`,
+									top: `${hoveredImageSize.top}px`,
+									left: `${hoveredImageSize.left}px`,
+								}}
+							/>
+						)}
 					</S.HoverWhite>
 				</S.Section2>
 			</S.ContentWrapper>

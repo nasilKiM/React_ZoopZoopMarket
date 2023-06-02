@@ -1,6 +1,9 @@
-import UserApi from 'Apis/userApi';
-import TokenService from 'Repository/TokenService';
 import { Link, useNavigate } from 'react-router-dom';
+
+import UserApi from 'Apis/userApi';
+
+import TokenService from 'Repository/TokenService';
+
 import styled from 'styled-components';
 
 const MenuBar = () => {
@@ -66,6 +69,12 @@ const Container = styled.div`
 	justify-content: center;
 `;
 
+const LeftMenu = styled.div`
+	width: 100%;
+	display: flex;
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+`;
+
 const Menu = styled(Link)`
 	color: ${({ theme }) => theme.color.black};
 	height: 20px;
@@ -74,11 +83,6 @@ const Menu = styled(Link)`
 	:hover {
 		color: ${({ theme }) => theme.color.primary[400]};
 	}
-`;
-const LeftMenu = styled.div`
-	width: 100%;
-	display: flex;
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const RightMenu = styled.div`

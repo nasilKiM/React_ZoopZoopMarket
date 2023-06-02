@@ -102,7 +102,7 @@ const WholeListPage = () => {
 					{data &&
 						data.pages.map(pageItems =>
 							pageItems.data.product.map(product => (
-								<SearchList products={product} />
+								<SearchList key={product.idx} products={product} />
 							)),
 						)}
 				</S.Container>
