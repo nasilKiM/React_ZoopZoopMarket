@@ -1,15 +1,12 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+
 import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
 
+import styled from 'styled-components';
+
 const UsedProduct = ({ word, data }) => {
 	const navigate = useNavigate();
-
-	// const { data } = useQuery(['SEARCH_USED', word], () => {
-	// 	return ProductApi.searchItems(1, word, 0);
-	// });
-
 	const goWholeList = () => {
 		navigate(`${0}`);
 	};
@@ -80,12 +77,7 @@ const Wrapper = styled.div`
 	flex-wrap: wrap;
 	justify-content: space-around;
 `;
-const Container = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	margin-top: 30px;
-`;
+
 const CardContainer = styled.div`
 	display: grid;
 	width: 100%;
@@ -113,22 +105,26 @@ const CardContainer = styled.div`
 	}
 `;
 
+const Container = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 30px;
+`;
+
 const S = {
 	Wrapper,
-	Container,
 	CardContainer,
+	Container,
 };
 
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
-		//1330이하일때만 적용
 		display: none;
 	}
 `;
 const NoteBook16 = styled.div`
 	@media screen and (max-width: 1001px), (min-width: 1499px) {
-		//1069이하일때만 적용
-		//1330이상일때만 적용
 		display: none;
 	}
 `;

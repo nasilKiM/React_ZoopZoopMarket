@@ -1,4 +1,5 @@
 import { theme } from 'Styles/theme';
+import { useEffect, useState } from 'react';
 import {
 	CartesianGrid,
 	Legend,
@@ -9,7 +10,34 @@ import {
 	YAxis,
 } from 'recharts';
 
-const Chart = ({ chartWidth, chartHeight, data, average }) => {
+const Chart = ({ data, average }) => {
+	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+		const handleResize = () => {
+			setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+		window.scrollTo(0, 0);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	let chartWidth = viewportSize.width * 0.6;
+	let chartHeight = viewportSize.width * 0.5 * 0.5 * 1.2;
+
+	if (viewportSize.width >= 1500) {
+		chartWidth = viewportSize.width * 0.65;
+	} else if (viewportSize.width < 900) {
+		chartWidth = viewportSize.width * 0.9;
+		chartHeight = viewportSize.width * 0.8 * 0.7;
+	}
+
 	let maxDomain = 0;
 	let unitOfMoney = '원';
 	if (average > 100000000) {

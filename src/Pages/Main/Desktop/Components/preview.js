@@ -8,7 +8,6 @@ import ItemCard from 'Components/Card/Desktop/Card';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
 
@@ -150,9 +149,7 @@ const SliderWrapper = styled.div`
 		display: none;
 	}
 	.slick-slide div {
-		//슬라이더  컨텐츠
 		cursor: pointer;
-		/* background-color: ${({ theme }) => theme.color.gray[100]}; */
 	}
 `;
 const Div = styled.div`

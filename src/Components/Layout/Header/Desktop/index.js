@@ -179,12 +179,12 @@ const WebHeader = ({ so }) => {
 							/>
 							{isModalOpen && (
 								<Modal>
-									<SearchBar props={props} />
+									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 								</Modal>
 							)}
 						</Link>
 					) : (
-						<SearchBar props={props} />
+						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
 					<S.Icon>
 						<Link
@@ -223,7 +223,7 @@ const WebHeader = ({ so }) => {
 
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-					<SearchBar props={props} />
+					<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 				</Modal>
 			)}
 		</>

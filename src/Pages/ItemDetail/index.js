@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
+
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ItemDetailPageSkeleton from './Components/itemDetailSkeleton';
 
 const ItemDetailPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const { idx } = useParams();
-	console.log(idx);
 	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
 		onError: err => {
 			console.log(err);
@@ -39,7 +40,6 @@ const ItemDetailPage = () => {
 			setIsLoading(false);
 		}, 500);
 	}, []);
-	data && console.log('test', isSeller, data, idx);
 
 	return (
 		<>

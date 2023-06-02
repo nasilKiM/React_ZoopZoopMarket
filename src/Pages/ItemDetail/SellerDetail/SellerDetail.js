@@ -1,25 +1,30 @@
 import styled from 'styled-components';
 import { flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import ProductApi from 'Apis/productApi';
-import ChattingPage from 'Pages/Chat';
+
 import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
-import { useSocket } from 'Context/socket';
 import SoldOutModal from './soldOutModal';
+import ChattingPage from 'Pages/Chat';
+
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import ProductApi from 'Apis/productApi';
 import ChatApis from 'Apis/chatApis';
+import { useMutation } from '@tanstack/react-query';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
-	const isSeller = product?.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
-	const navigate = useNavigate();
-	const itemAllInfo = product?.data;
 	const [isOpenModal, setIsOpenModal] = useState(false);
+
+	const isSeller = product?.data.isSeller;
+	const itemAllInfo = product?.data;
+
+	const navigate = useNavigate();
+
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		if (product) {
 			getChatList(idx);
 			setItem(product.data.searchProduct);
@@ -38,7 +43,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
-	const so = useSocket();
 	const [listForSoldOut, setListForSoldOut] = useState([]);
 
 	const getChatList = async prodIdx => {
@@ -51,9 +55,14 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		}
 	};
 
+	const mutationDeletePost = useMutation(() => {
+		return ProductApi.deletePost(item.idx);
+	});
+
 	const deletePost = async () => {
 		try {
 			await ProductApi.deletePost(item.idx);
+			// await mutationDeletePost.mutate();
 			alert('물품이 삭제되었습니다.');
 			navigate('/main');
 		} catch {
