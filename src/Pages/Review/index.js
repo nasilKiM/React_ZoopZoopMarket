@@ -1,5 +1,12 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+
+import ReviewApi from 'Apis/reviewApi';
 import PropTypes from 'prop-types';
+
+import { useRecoilValue } from 'recoil';
+import { reviewAtom } from 'Atoms/review.atom';
 import { styled as mui } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -7,57 +14,51 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Axios } from 'Apis/@core';
-import { useRecoilValue } from 'recoil';
-import { reviewAtom } from 'Atoms/review.atom';
+
+import styled from 'styled-components';
+import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewPage = () => {
+	const target = useRecoilValue(reviewAtom);
+	const navigate = useNavigate();
+	const { idx } = useParams();
+
+	const title = target.title;
+	const [content, setContent] = useState('');
+	const [ondo, setOndo] = useState(3);
+	const [images, setImages] = useState([]);
+	const [postModal, setPostModal] = useState(false);
+
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
 		},
 	}));
 
-	const target = useRecoilValue(reviewAtom);
-
-	const { idx } = useParams();
-	const title = target.title;
-	const [content, setContent] = useState('');
-	const [ondo, setOndo] = useState(3);
-	const [images, setImages] = useState([]);
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
+	const mutationPostReview = useMutation(data => {
+		return ReviewApi.postReview(data, idx);
+	});
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 
-		// FormData 생성
 		const formData = new FormData();
-		formData.append('title', title); // title: string
-		formData.append('content', content); // content: string
-		formData.append('ondo', ondo + 33); // ondo: number
+		formData.append('title', title);
+		formData.append('content', content);
+		formData.append('ondo', ondo + 33);
 
 		for (let i = 0; i < images.length; i++) {
-			formData.append('images', images[i]); // images: File[]
+			formData.append('images', images[i]);
 		}
 
 		try {
-			// POST 요청
-			const response = await Axios.post('/api/review', formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
-				params: {
-					payList_idx: idx,
+			await mutationPostReview.mutate(formData, {
+				onSuccess: () => {
+					setPostModal(true);
+					//alert('리뷰가 등록되었습니다.');
+					//navigate('/mypage/review');
 				},
 			});
-			alert('리뷰가 등록되었습니다.');
-			navigate('/mypage/review');
 		} catch (error) {
 			console.error(error.response.data.message);
 		}
@@ -148,6 +149,13 @@ const ReviewPage = () => {
 					<S.Container>
 						<S.RegisterBtn type="submit">등록하기</S.RegisterBtn>
 					</S.Container>
+					{postModal && (
+						<AlertModal
+							content={'리뷰가 등록되었습니다.'}
+							props={'/mypage/review'}
+							// setModal={setPostModal}
+						/>
+					)}
 				</form>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>

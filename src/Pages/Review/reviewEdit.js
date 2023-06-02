@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import ReviewApi from 'Apis/reviewApi';
 import PropTypes from 'prop-types';
+
 import { styled as mui } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -7,12 +11,11 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
-import ReviewApi from 'Apis/reviewApi';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import styled from 'styled-components';
 
 const ReviewEditPage = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -23,6 +26,11 @@ const ReviewEditPage = () => {
 
 	const target = useRecoilValue(reviewAtom);
 	const { idx } = useParams();
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+
+	target && console.log(target);
+
 	const title = target && target.Review.title;
 	const [content, setContent] = useState(target.Review.content);
 	const [ondo, setOndo] = useState(target.Review.ondo - 33);
@@ -30,11 +38,10 @@ const ReviewEditPage = () => {
 	const [newImg, setNewImg] = useState([]);
 	const [show, setShow] = useState(true);
 
-	const navigate = useNavigate();
-	const queryClient = useQueryClient();
+	const hasOriginalImg = target?.Review.img_url !== 'null';
+	const hasNewImg = target?.Review.ReviewImages.length > 0;
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		const imgArr = [];
 		imgArr.push(target.Review.img_url);
 		setImages(imgArr);
@@ -167,7 +174,10 @@ const ReviewEditPage = () => {
 								setNewImg(event.target.files);
 							}}
 						/>
-						{show && <S.Preview src={images[0]} />}
+						{show && hasOriginalImg && <S.Preview src={images[0]} />}
+						{show && hasNewImg && (
+							<S.Preview src={target.Review.ReviewImages[0].img_url} />
+						)}
 					</S.ImgWrapper>
 					<S.Container>
 						<S.RegisterBtn type="submit">저장하기</S.RegisterBtn>
