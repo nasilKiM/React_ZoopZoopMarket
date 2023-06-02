@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
@@ -7,15 +7,32 @@ import ConfirmModal from 'Components/Alert/confirmModal';
 
 import styled from 'styled-components';
 import { flexAllCenter } from 'Styles/common';
+import ChatApis from 'Apis/chatApis';
+import { useQuery } from '@tanstack/react-query';
 
-const SoldOutModal = ({ roomData, onClose, idx }) => {
+const SoldOutModal = ({ onClose, idx }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 	const [buyerInfo, setBuyerInfo] = useState({
 		token: '',
 		nick_name: '',
 	});
-	console.log(roomData[0]);
+	const [listForSoldOut, setListForSoldOut] = useState([]);
+
+	const { data, isLoading } = useQuery(['SPECIFIC_CHAT_ROOM', idx], () =>
+		ChatApis.loadSpecificChatRoom(idx),
+	);
+
+	const getChatList = () => {
+		const updatedChatroomList = [...listForSoldOut, data.data];
+		setListForSoldOut(updatedChatroomList);
+		//console.log(isSuccess);
+	};
+
+	useEffect(() => {
+		data && getChatList(idx);
+	}, []);
+
 	const selectBuyer = (token, nick_name) => {
 		setModal(true);
 		setBuyerInfo({
@@ -38,7 +55,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 	return (
 		<S.Wrapper>
 			<S.Container>
-				{roomData[0] === undefined ? (
+				{listForSoldOut.length > 0 ? (
 					<S.Text>
 						<S.Intro>구매자를 선택해주세요.</S.Intro>
 
@@ -52,8 +69,8 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 					</S.Text>
 				)}
 
-				{roomData &&
-					roomData.map(arr =>
+				{listForSoldOut &&
+					listForSoldOut.map(arr =>
 						arr.map(room => (
 							<S.BuyerList key={room.User.nick_name}>
 								<S.NickName>{room.User.nick_name}</S.NickName>
@@ -69,6 +86,7 @@ const SoldOutModal = ({ roomData, onClose, idx }) => {
 						)),
 					)}
 			</S.Container>
+
 			{modal && (
 				<ConfirmModal>
 					<S.Content>{buyerInfo.nick_name}에게 판매하시겠습니까? </S.Content>

@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import ProductApi from 'Apis/productApi';
-import ChatApis from 'Apis/chatApis';
 import { useMutation } from '@tanstack/react-query';
 
 const SellerDetailPage = ({ state, product, idx }) => {
@@ -26,7 +25,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	useEffect(() => {
 		if (product) {
-			getChatList(idx);
 			setItem(product.data.searchProduct);
 		}
 		return () => {
@@ -43,17 +41,6 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
-	const [listForSoldOut, setListForSoldOut] = useState([]);
-
-	const getChatList = async prodIdx => {
-		try {
-			const res = await ChatApis.loadSpecificChatRoom(prodIdx);
-			const updatedChatroomList = [...listForSoldOut, res.data];
-			setListForSoldOut(updatedChatroomList);
-		} catch (err) {
-			console.log(err);
-		}
-	};
 
 	const mutationDeletePost = useMutation(() => {
 		return ProductApi.deletePost(item.idx);
@@ -61,8 +48,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 
 	const deletePost = async () => {
 		try {
-			await ProductApi.deletePost(item.idx);
-			// await mutationDeletePost.mutate();
+			await mutationDeletePost.mutateAsync();
 			alert('물품이 삭제되었습니다.');
 			navigate('/main');
 		} catch {
@@ -80,13 +66,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	return (
 		item && (
 			<S.Wrapper>
-				{isOpenModal && (
-					<SoldOutModal
-						roomData={listForSoldOut}
-						onClose={onCloseModal}
-						idx={idx}
-					/>
-				)}
+				{isOpenModal && <SoldOutModal onClose={onCloseModal} idx={idx} />}
 				<S.EditBar>
 					{item.status == '판매중' && (
 						<div onClick={onClickSoldOut}>판매완료 변경</div>
