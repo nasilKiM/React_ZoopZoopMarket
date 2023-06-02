@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { flexAllCenter } from 'Styles/common';
-
-=======
->>>>>>> 74b78337459ef055df81c964889fc5b43aa1df1f
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
