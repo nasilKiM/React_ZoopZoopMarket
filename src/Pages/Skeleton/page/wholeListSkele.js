@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import CardSkeleton from '../component/cardSkeleton';
+
+import styled from 'styled-components';
 
 const WholeListSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];

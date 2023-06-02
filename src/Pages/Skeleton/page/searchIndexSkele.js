@@ -1,6 +1,7 @@
+import CardSkeleton from '../component/cardSkeleton';
+
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
-import CardSkeleton from '../component/cardSkeleton';
 
 const IndexSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8];

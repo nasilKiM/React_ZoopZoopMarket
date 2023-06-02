@@ -1,7 +1,9 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+
 import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
+
+import styled from 'styled-components';
 
 const FreeProduct = ({ word, data }) => {
 	const navigate = useNavigate();
@@ -76,12 +78,7 @@ const Wrapper = styled.div`
 	flex-wrap: wrap;
 	justify-content: space-around;
 `;
-const Container = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	margin-top: 30px;
-`;
+
 const CardContainer = styled.div`
 	display: grid;
 	width: 100%;
@@ -108,10 +105,18 @@ const CardContainer = styled.div`
 		row-gap: 40px;
 	}
 `;
+
+const Container = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 30px;
+`;
+
 const S = {
 	Wrapper,
-	Container,
 	CardContainer,
+	Container,
 };
 
 const Desktop = styled.div`

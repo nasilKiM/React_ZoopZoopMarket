@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
+
 import BuyerDetailPage from './BuyerDetail/BuyerDetail';
 import SellerDetailPage from './SellerDetail/SellerDetail';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ItemDetailPageSkeleton from './Components/itemDetailSkeleton';
 
 const ItemDetailPage = () => {

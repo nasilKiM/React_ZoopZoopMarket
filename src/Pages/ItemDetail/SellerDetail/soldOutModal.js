@@ -1,9 +1,12 @@
-import ProductApi from 'Apis/productApi';
-import ConfirmModal from 'Components/Alert/confirmModal';
-import { flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import ProductApi from 'Apis/productApi';
+
+import ConfirmModal from 'Components/Alert/confirmModal';
+
 import styled from 'styled-components';
+import { flexAllCenter } from 'Styles/common';
 
 const SoldOutModal = ({ roomData, onClose, idx }) => {
 	const navigate = useNavigate();
@@ -97,27 +100,6 @@ const Container = styled.div`
 	position: relative;
 	background-color: white;
 `;
-const BuyerList = styled.div`
-	border-radius: 10px;
-	display: flex;
-	margin-bottom: 15px;
-	margin-left: 15px;
-	justify-content: space-between;
-`;
-const NickName = styled.div`
-	padding: 3px 5px;
-`;
-const CheckBuyer = styled.div`
-	margin: 0 25px;
-	border: none;
-	cursor: pointer;
-	background-color: ${({ theme }) => theme.color.primary[400]};
-	color: ${({ theme }) => theme.color.white};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	padding: 4px 5px;
-	border-radius: 5px;
-`;
-
 const Text = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.md};
@@ -146,6 +128,27 @@ const CloseBtn = styled.button`
 		color: ${({ theme }) => theme.color.white};
 	}
 `;
+const BuyerList = styled.div`
+	border-radius: 10px;
+	display: flex;
+	margin-bottom: 15px;
+	margin-left: 15px;
+	justify-content: space-between;
+`;
+const NickName = styled.div`
+	padding: 3px 5px;
+`;
+const CheckBuyer = styled.div`
+	margin: 0 25px;
+	border: none;
+	cursor: pointer;
+	background-color: ${({ theme }) => theme.color.primary[400]};
+	color: ${({ theme }) => theme.color.white};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	padding: 4px 5px;
+	border-radius: 5px;
+`;
+
 const Content = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};

@@ -1,7 +1,9 @@
+import BarSkeleton from '../component/barSkeleton';
+
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
+
 import { theme } from 'Styles/theme';
-import BarSkeleton from '../component/barSkeleton';
 
 const MarketPriceSkeleton = () => {
 	const viewportWidth = window.innerWidth;

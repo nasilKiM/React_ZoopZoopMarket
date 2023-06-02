@@ -1,4 +1,5 @@
 import ItemCard from 'Components/Card/Desktop/Card';
+
 import styled from 'styled-components';
 
 const SearchList = ({ products }) => {

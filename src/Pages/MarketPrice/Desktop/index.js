@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+
 import ProductApi from 'Apis/productApi';
+
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
+import Chart from './components/chart';
+import RecentSoldOut from './components/recentSoldout';
+
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import Chart from './chart';
-import RecentSoldOut from './recentSoldout';
 
 const DesktopMarketPrice = () => {
 	const props = 'market_price';

@@ -1,10 +1,12 @@
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import AlertModal from 'Components/Alert/alertModal';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
 const SearchBar = ({ props, setIsModalOpen }) => {
 	const navigate = useNavigate();
