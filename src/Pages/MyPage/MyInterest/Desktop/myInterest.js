@@ -29,12 +29,7 @@ const MyInterestPage = () => {
 						<S.Container>
 							{data.pages.map(page =>
 								page.data.LikeList.map(list => (
-									<S.Card>
-										<ItemCard
-											index={list.Product.idx}
-											products={list.Product}
-										/>
-									</S.Card>
+									<ItemCard index={list.Product.idx} products={list.Product} />
 								)),
 							)}
 						</S.Container>
@@ -76,16 +71,6 @@ const Container = styled.div`
 		${gridColumn(3)}
 		${gridGap.tablet}
 	}
-`;
-
-const Card = styled.div`
-	width: 100%;
-`;
-
-const HeartZone = styled.div`
-	width: 250px;
-	height: 80px;
-	background-color: lightgray;
 `;
 
 const Txt = styled.div`
