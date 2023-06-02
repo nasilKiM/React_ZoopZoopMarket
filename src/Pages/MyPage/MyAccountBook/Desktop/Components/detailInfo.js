@@ -23,44 +23,43 @@ const AccountBookDetailInfo = ({
 			const saleDate = item.createdAt;
 			purchaseDateArr.push(saleDate.split('T')[0]);
 		});
-	console.log('////', data);
 	return (
 		<>
 			<S.Wrap>
 				<S.PreviewWrap>
 					<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
-					{data && <div>
+					<div>
 						<S.Flex>
 							<div>총 수입총액</div>
 							<div>
-								<S.Amount>
+								{data && <S.Amount>
 									{data.amount.totalSaleAmount === null
 										? 0
 										: parseInt(data.amount.totalSaleAmount).toLocaleString(
 											'ko-KR',
 										)}
-								</S.Amount>
+								</S.Amount>}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex>
 							<div>총 지출총액</div>
 							<div>
-								<S.Amount>
+								{data && <S.Amount>
 									{data.amount.totalPurchaseAmount === null
 										? 0
 										: parseInt(data.amount.totalPurchaseAmount).toLocaleString(
 											'ko-KR',
 										)}
-								</S.Amount>
+								</S.Amount>}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex2>
 							<div>총 수익</div>
-							<div><S.Amount>{data.amount.totalSaleAmount - data.amount.totalPurchaseAmount}</S.Amount>원</div>
+							{data && <div><S.Amount>{data.amount.totalSaleAmount - data.amount.totalPurchaseAmount}</S.Amount>원</div>}
 						</S.Flex2>
-					</div>}
+					</div>
 				</S.PreviewWrap>
 				<Calendar
 					value={date}
