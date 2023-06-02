@@ -1,9 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 const categories = [
 	{
@@ -135,22 +137,22 @@ const Category = () => {
 
 		return (
 			<>
-				<CategoryWrapper>
+				<S.CategoryWrapper>
 					<Slider {...settings}>
 						{categories.map(category => (
-							<CategoryContainer
+							<S.CategoryContainer
 								onClick={() => {
 									navigate(`/search_list/${category.name}/0`);
 								}}
 							>
-								<CategoryItem key={category.id}>
-									<CategoryIcon src={category.icon} alt={category.name} />
-									<ItemName>{category.name}</ItemName>
-								</CategoryItem>
-							</CategoryContainer>
+								<S.CategoryItem key={category.id}>
+									<S.CategoryIcon src={category.icon} alt={category.name} />
+									<S.ItemName>{category.name}</S.ItemName>
+								</S.CategoryItem>
+							</S.CategoryContainer>
 						))}
 					</Slider>
-				</CategoryWrapper>
+				</S.CategoryWrapper>
 			</>
 		);
 	};
@@ -165,42 +167,6 @@ const CategoryWrapper = styled.div`
 	text-align: center;
 	position: relative;
 	overflow: hidden;
-
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 70px;
-		background: linear-gradient(
-			to right,
-			rgba(260, 260, 260, 1) 0%,
-			rgba(128, 128, 128, 0) 100%
-		);
-		z-index: 1;
-	}
-
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 70px;
-		background: linear-gradient(
-			to left,
-			rgba(260, 260, 260, 1) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
-		z-index: 1;
-	}
-
-	&::before {
-		left: 0;
-	}
-
-	&::after {
-		right: 0;
-	}
 `;
 
 const CategoryContainer = styled.div`
@@ -215,6 +181,9 @@ const CategoryItem = styled.div`
 	text-align: center;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	color: #555;
+	@media (max-width: 700px) {
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
 `;
 
 const CategoryIcon = styled.img`
@@ -235,3 +204,11 @@ const ItemName = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-align: center;
 `;
+
+const S = {
+	CategoryWrapper,
+	CategoryContainer,
+	CategoryItem,
+	CategoryIcon,
+	ItemName,
+};

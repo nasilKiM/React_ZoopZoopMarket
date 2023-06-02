@@ -83,47 +83,49 @@ const MyProfile = () => {
 							/>
 						</S.ProfileImg>
 					</S.ImgWrap>
-					<S.Detail>
-						<S.List>
-							<S.InfoTitle>닉네임</S.InfoTitle>
-							{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
-						</S.List>
-						<S.List>
-							<S.InfoTitle>매너온도</S.InfoTitle>
-							<S.InfoContent>
-								<MannerMeter ondo={ondo} />
-							</S.InfoContent>
-						</S.List>
-						<S.List>
-							<S.InfoTitle>활동지역</S.InfoTitle>
-							<S.InfoContent>#{data.data.region}</S.InfoContent>
-						</S.List>
-					</S.Detail>
-					<S.Detail>
-						<S.List>
-							<S.InfoTitle>내 등록템</S.InfoTitle>
-							<S.InfoContent>
-								<span>
-									{userProfile.data.productsCount
-										? userProfile.data.productsCount
-										: 0}
-								</span>{' '}
-								개
-							</S.InfoContent>
-						</S.List>
-						<S.List>
-							<S.InfoTitle>내 관심템</S.InfoTitle>
-							<S.InfoContent>
-								<span>{userProfile.data.likeCount}</span> 개
-							</S.InfoContent>
-						</S.List>
-						<S.List>
-							<S.InfoTitle>채팅</S.InfoTitle>
-							<S.InfoContent>
-								<span>{userProfile.data.chatCount}</span> 건
-							</S.InfoContent>
-						</S.List>
-					</S.Detail>
+					<S.DetailWrapper>
+						<S.Detail>
+							<S.List>
+								<S.InfoTitle>닉네임</S.InfoTitle>
+								{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
+							</S.List>
+							<S.List>
+								<S.InfoTitle>매너온도</S.InfoTitle>
+								<S.InfoContent>
+									<MannerMeter ondo={ondo} />
+								</S.InfoContent>
+							</S.List>
+							<S.List>
+								<S.InfoTitle>활동지역</S.InfoTitle>
+								<S.InfoContent>#{data.data.region}</S.InfoContent>
+							</S.List>
+						</S.Detail>
+						<S.Detail>
+							<S.List>
+								<S.InfoTitle>내 등록템</S.InfoTitle>
+								<S.InfoContent>
+									<span>
+										{userProfile.data.productsCount
+											? userProfile.data.productsCount
+											: 0}
+									</span>{' '}
+									개
+								</S.InfoContent>
+							</S.List>
+							<S.List>
+								<S.InfoTitle>내 관심템</S.InfoTitle>
+								<S.InfoContent>
+									<span>{userProfile.data.likeCount}</span> 개
+								</S.InfoContent>
+							</S.List>
+							<S.List>
+								<S.InfoTitle>채팅</S.InfoTitle>
+								<S.InfoContent>
+									<span>{userProfile.data.chatCount}</span> 건
+								</S.InfoContent>
+							</S.List>
+						</S.Detail>
+					</S.DetailWrapper>
 				</S.Info>
 			)}
 		</S.Wrapper>
@@ -133,43 +135,36 @@ const MyProfile = () => {
 export default MyProfile;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
+	width: 100%;
 	padding-bottom: 30px;
 	margin: 0 auto;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
+	display: flex;
+	justify-content: center;
 `;
 
 const Info = styled.div`
-	display: flex;
+	min-width: 350px;
+	max-width: 1200px;
+	margin: 70px 0px 0px 0px;
 	align-items: center;
-	width: 100%;
-	margin-top: 60px;
-	margin-left: 20px;
-	padding-left: 10px;
+	display: flex;
+	@media screen and (max-width: 600px) {
+		width: 100%;
+		flex-direction: column;
+	}
 `;
 
 const Img = styled.img`
 	width: 100px;
 	height: 100px;
 	object-fit: cover;
-	object-position: center;
 	border-radius: 50%;
 `;
 
 const ImgWrap = styled.div`
 	position: relative;
-	@media ${({ theme }) => theme.device.tablet} {
-		margin: 0px;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		margin: 0px;
+	@media screen and (max-width: 600px) {
+		margin-bottom: 20px;
 	}
 `;
 
@@ -181,53 +176,44 @@ const ProfileImg = styled.div`
 	bottom: 0;
 	right: 0;
 	cursor: pointer;
-	@media ${({ theme }) => theme.device.tablet} {
-		padding: 2vw;
-		border-radius: 50%;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		padding: 1vw;
-		bottom: 100px;
-		border-radius: 50%;
-	}
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
+	font-size: 30px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 3vw;
+		font-size: 20px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 5px;
+		font-size: 8px;
 	}
 `;
+
+const DetailWrapper = styled.div`
+	display: flex;
+	@media screen and (max-width: 600px) {
+		justify-content: center;
+	}
+`;
+
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
 	@media ${({ theme }) => theme.device.tablet} {
-		margin-left: 30px;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 10px;
+		width: 100%;
+		margin-left: 20px;
 	}
 `;
 
 const List = styled.div`
-	height: max-content;
 	display: flex;
-	margin: 5px;
 `;
 
 const InfoTitle = styled.div`
 	width: 80px;
-	min-width: max-content;
-	height: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({ theme }) => theme.fontSize.xs};
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: ${({ theme }) => theme.fontSize.es};
+		width: 60px;
 	}
 `;
 
@@ -236,25 +222,10 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({ theme }) => theme.fontSize.xs};
-		margin-left: 0;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: ${({ theme }) => theme.fontSize.es};
-		margin-left: 0;
-	}
-
 	& > span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		@media ${({ theme }) => theme.device.tablet} {
-			font-size: ${({ theme }) => theme.fontSize.sm};
-		}
-		@media ${({ theme }) => theme.device.mobile} {
-			font-size: ${({ theme }) => theme.fontSize.xs};
-		}
 	}
 `;
 
@@ -262,6 +233,7 @@ const S = {
 	Wrapper,
 	Info,
 	Detail,
+	DetailWrapper,
 	ProfileImg,
 	ImgWrap,
 	List,

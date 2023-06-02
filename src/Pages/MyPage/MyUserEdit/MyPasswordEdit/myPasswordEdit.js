@@ -51,11 +51,10 @@ const MyPasswordEdit = () => {
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.Txt>
-						{' '}
-						90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!
+						90일마다 비밀번호를 변경하여 <br /> 소중한 개인정보를 보호하세요!
 					</S.Txt>
 					<S.Container>
-						<S.Title>* 비밀번호</S.Title>
+						<S.Title>비밀번호</S.Title>
 						<S.Box>
 							<S.Input
 								{...register('password', FORM_TYPE.PASSWORD)}
@@ -66,7 +65,7 @@ const MyPasswordEdit = () => {
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 비밀번호 확인</S.Title>
+						<S.Title>비밀번호 확인</S.Title>
 						<S.Box>
 							<S.Input
 								{...register('confirmPW', {
@@ -117,7 +116,7 @@ const Wrap = styled.div`
 
 const Form = styled.form`
 	width: 60%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
@@ -125,6 +124,50 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+		padding: 20px 10px 20px 10px;
+	}
+`;
+
+const Txt = styled.div`
+	${flexAllCenter}
+	color : ${({ theme }) => theme.color.primary[200]};
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-bottom: 40px;
+	line-height: 30px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.base};
+		margin-bottom: 20px;
+	}
+`;
+
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.div`
+	min-width: 95px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px;
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+`;
+
+const Box = styled.div`
+	width: 80%;
+	${flexAlignCenter}
+	position: relative;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 70%;
+	}
 `;
 
 const Input = styled.input`
@@ -150,6 +193,9 @@ const Button = styled(CustomButton)`
 	:disabled {
 		background: ${({ theme }) => theme.color.gray[200]};
 	}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-top: 10px;
+	}
 `;
 
 const Error = styled.div`
@@ -159,30 +205,6 @@ const Error = styled.div`
 	position: absolute;
 	top: 50px;
 	left: 15px;
-`;
-
-const Container = styled.div`
-	${flexSpaceBetween}
-	width: 100%;
-	margin-bottom: 30px;
-`;
-
-const Title = styled.div`
-	min-width: 90px;
-	margin-right: 10px;
-	${flexAlignCenter}
-	padding-left: 10px;
-	@media ${({ theme }) => theme.device.tablet} {
-		margin-right: 5px;
-	}
-`;
-
-const Txt = styled.div`
-	${flexAllCenter}
-	color : ${({ theme }) => theme.color.primary[200]};
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-bottom: 40px;
 `;
 
 const Text = styled.div`
@@ -198,21 +220,15 @@ const Text = styled.div`
 	}
 `;
 
-const Box = styled.div`
-	width: 80%;
-	${flexAlignCenter}
-	position: relative;
-`;
-
 const S = {
 	Wrap,
 	Form,
+	Txt,
+	Container,
+	Title,
+	Box,
 	Input,
 	Button,
 	Error,
-	Container,
-	Title,
-	Txt,
 	Text,
-	Box,
 };

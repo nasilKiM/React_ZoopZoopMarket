@@ -4,7 +4,6 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
-// import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
@@ -21,18 +20,20 @@ const MyInterestPage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div>로딩</div> // 임시 로딩
+				<div>로딩</div>
 			) : (
 				<S.Wrap>
-					<S.Container>
-						{data.pages.map(page =>
-							page.data.LikeList.map(list => (
-								<S.Card>
+					{data.pages[0].data.LikeList.length <= 0 ? (
+						<S.Txt>등록된 관심템이 없습니다.</S.Txt>
+					) : (
+						<S.Container>
+							{data.pages.map(page =>
+								page.data.LikeList.map(list => (
 									<ItemCard index={list.Product.idx} products={list.Product} />
-								</S.Card>
-							)),
-						)}
-					</S.Container>
+								)),
+							)}
+						</S.Container>
+					)}
 					<div ref={ref}></div>
 				</S.Wrap>
 			)}
@@ -72,19 +73,15 @@ const Container = styled.div`
 	}
 `;
 
-const Card = styled.div`
+const Txt = styled.div`
 	width: 100%;
-`;
-
-const HeartZone = styled.div`
-	width: 250px;
-	height: 80px;
-	background-color: lightgray;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-left: 30px;
 `;
 
 const S = {
 	Container,
-	Card,
-	HeartZone,
 	Wrap,
+	Txt,
 };

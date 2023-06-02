@@ -1,15 +1,3 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
-
-import UserApi from 'Apis/userApi';
-
-import { FORM_TYPE } from 'Consts/FormType';
-import FindAddress from 'Components/Address/Desktop/address';
-import CustomButton from 'Components/Buttons/button';
-import AlertModal from 'Components/Alert/alertModal';
-
 import {
 	flexAlignCenter,
 	flexAllCenter,
@@ -17,9 +5,24 @@ import {
 } from 'Styles/common';
 import styled from 'styled-components';
 
+import FindAddress from 'Components/Address/Desktop/address';
+import AlertModal from 'Components/Alert/alertModal';
+import CustomButton from 'Components/Buttons/button';
+
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+import UserApi from 'Apis/userApi';
+
+import { FORM_TYPE } from 'Consts/FormType';
+
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
+		pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
+	});
 
 	const [address, setAddress] = useState();
 	const [phoneMessage, setPhoneMessage] = useState();
@@ -51,7 +54,6 @@ const MyUserEdit = ({ userInfo }) => {
 				shouldFocus: true,
 			});
 		} else {
-			console.log('통과');
 			clearErrors('phone');
 		}
 
@@ -85,14 +87,9 @@ const MyUserEdit = ({ userInfo }) => {
 			const res = await UserApi.checkNickname(value);
 			setNickMessage(res.data.message);
 		} catch (err) {
-			console.log(err);
 			setNickMessage(err.response.data.message);
 		}
 	};
-
-	useEffect(() => {
-		setNickMessage();
-	}, [getValues('nick')]);
 
 	useEffect(() => {
 		setValue('email', data?.data.email);
@@ -112,13 +109,13 @@ const MyUserEdit = ({ userInfo }) => {
 			<S.Wrap>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
 					<S.Container>
-						<S.Title>* 아이디</S.Title>
+						<S.Title>아이디</S.Title>
 						<S.Box>
 							<S.idDiv>{data.data.email}</S.idDiv>
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 닉네임</S.Title>
+						<S.Title>닉네임</S.Title>
 						<S.Box>
 							<S.Input
 								{...register('nick', FORM_TYPE.NICKNAME)}
@@ -139,7 +136,7 @@ const MyUserEdit = ({ userInfo }) => {
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 전화번호</S.Title>
+						<S.Title>전화번호</S.Title>
 						<S.Box>
 							<S.PhoneInput
 								maxLength="13"
@@ -161,7 +158,7 @@ const MyUserEdit = ({ userInfo }) => {
 						</S.Box>
 					</S.Container>
 					<S.Container>
-						<S.Title>* 주소</S.Title>
+						<S.Title>주소</S.Title>
 						<S.Box>
 							<S.addressDiv>{address}</S.addressDiv>
 							<FindAddress setter={setAddress} region={userInfo?.region} />
@@ -199,7 +196,7 @@ const Wrap = styled.div`
 
 const Form = styled.form`
 	width: 60%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
@@ -207,24 +204,34 @@ const Form = styled.form`
 	align-items: center;
 	flex-direction: column;
 	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 20px;
+	}
 `;
 
-const Input = styled.input`
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	border-radius: 10px;
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	padding-left: 15px;
-	width: 80%;
-	height: 40px;
-`;
-
-const PhoneInput = styled.input`
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	border-radius: 10px;
-	padding-left: 15px;
-	font-size: ${({ theme }) => theme.fontSize.sm};
+const Container = styled.div`
+	${flexSpaceBetween}
 	width: 100%;
-	height: 40px;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.div`
+	min-width: 90px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media ${({ theme }) => theme.device.tablet} {
+		min-width: 70px;
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+`;
+
+const Box = styled.div`
+	width: 80%;
+	${flexAlignCenter}
+	position: relative;
 `;
 
 const idDiv = styled.div`
@@ -238,13 +245,16 @@ const idDiv = styled.div`
 	${flexAlignCenter}
 `;
 
-const addressDiv = styled.div`
+const Input = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-radius: 10px;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	padding-left: 15px;
-	margin-right: 30px;
+	width: 80%;
 	height: 40px;
-	min-width: 130px;
-	${flexAlignCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 
 const CheckBtn = styled(CustomButton)`
@@ -257,6 +267,27 @@ const CheckBtn = styled(CustomButton)`
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		background-color: ${({ theme }) => theme.color.primary[300]};
+	}
+`;
+
+const PhoneInput = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-radius: 10px;
+	padding-left: 15px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	width: 100%;
+	height: 40px;
+`;
+
+const addressDiv = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	padding-left: 15px;
+	margin-right: 30px;
+	height: 40px;
+	min-width: 130px;
+	${flexAlignCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 10px;
 	}
 `;
 
@@ -298,40 +329,18 @@ const Text = styled.div`
 	}
 `;
 
-const Container = styled.div`
-	${flexSpaceBetween}
-	width: 100%;
-	margin-bottom: 30px;
-`;
-
-const Box = styled.div`
-	width: 80%;
-	${flexAlignCenter}
-	position: relative;
-`;
-
-const Title = styled.div`
-	min-width: 90px;
-	margin-right: 10px;
-	${flexAlignCenter}
-	padding-left: 10px;
-	@media ${({ theme }) => theme.device.tablet} {
-		margin-right: 5px;
-	}
-`;
-
 const S = {
 	Wrap,
 	Form,
-	Input,
-	PhoneInput,
+	Container,
+	Title,
+	Box,
 	idDiv,
-	addressDiv,
+	Input,
 	CheckBtn,
+	PhoneInput,
+	addressDiv,
 	Button,
 	Error,
 	Text,
-	Container,
-	Box,
-	Title,
 };

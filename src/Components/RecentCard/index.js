@@ -1,12 +1,14 @@
+import RecentCard from './recentCard';
+import useRecentProduct from 'Hooks/Queries/get-recent-product';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { flexAllCenter } from 'Styles/common';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
-import RecentCard from './recentCard';
-import useRecentProduct from 'Hooks/Queries/get-recent-product';
 
 const RecentProduct = () => {
 	const res = useRecentProduct();
@@ -34,11 +36,19 @@ const RecentProduct = () => {
 	return (
 		<S.Wrap>
 			<S.RecentWord>최근 본 상품</S.RecentWord>
-			<StyledSlider {...sliderSetting}>
-				{res.data?.productList.map(item => (
-					<RecentCard item={item} />
-				))}
-			</StyledSlider>
+			{res.data?.productList.length <= 2 ? (
+				<TempSlider>
+					{res.data?.productList.map(item => (
+						<RecentCard item={item} />
+					))}
+				</TempSlider>
+			) : (
+				<StyledSlider {...sliderSetting}>
+					{res.data?.productList.map(item => (
+						<RecentCard item={item} />
+					))}
+				</StyledSlider>
+			)}
 		</S.Wrap>
 	);
 };
@@ -76,6 +86,13 @@ const Next = styled.div`
 	padding-bottom: 15px;
 	text-align: center;
 	width: 100%;
+`;
+
+const TempSlider = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
 `;
 
 const StyledSlider = styled(Slider)`

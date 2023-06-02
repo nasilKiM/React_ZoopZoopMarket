@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
+
 import FreeProduct from './components/freeProduct';
 import UsedProduct from './components/usedProduct';
-import { useQuery } from '@tanstack/react-query';
-import ProductApi from 'Apis/productApi';
 import IndexSkeleton from '../../Skeleton/page/searchIndexSkele';
+
+import styled from 'styled-components';
 
 const DesktopSearchList = () => {
 	const [selected, setSelected] = useState(2);
@@ -106,7 +109,6 @@ const Container = styled.div`
 	margin: 0 auto;
 `;
 
-// 메뉴(통합/중고/무료)
 const SelectContainer = styled.div`
 	display: flex;
 	background-color: ${({ theme }) => theme.color.gray[100]};
@@ -115,7 +117,7 @@ const SelectContainer = styled.div`
 const BoxContainer = styled.div`
 	width: 70%;
 	display: flex;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 
 	margin: 0 auto;
@@ -126,7 +128,26 @@ const BoxContainer = styled.div`
 		width: 90%;
 	}
 `;
+const SelectBox = styled.div`
+	cursor: pointer;
+	margin: 10px 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ isSelected }) =>
+		isSelected
+			? ({ theme }) => theme.color.primary[300]
+			: ({ theme }) => theme.color.black};
+`;
 
+const ResultContainer = styled.div`
+	margin: 0 auto;
+	width: 70%;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+`;
 const ResultText = styled.div`
 	width: 100%;
 	display: flex;
@@ -142,24 +163,18 @@ const ResultText = styled.div`
 	@media (max-width: 800px) {
 		width: 90%;
 	}
-	/* @media screen and (max-width: 767px) {
-		flex-direction: column;
-	} */
-
 `;
 
-const CategoryBox = styled.div`
-	cursor: pointer;
-	margin-top: 40px;
+const ResultWord = styled.div`
+	color: ${({ theme }) => theme.color.primary[300]};
 `;
-
 const Category = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	width: 100%;
 	display: flex;
 	margin-top: 30px;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	margin: 0 auto;
 	margin-top: 40px;
@@ -172,47 +187,14 @@ const Category = styled.div`
 	}
 `;
 
-const ItemList = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	margin-top: 30px;
-	margin-bottom: 30px;
-`;
-
-const SelectBox = styled.div`
-	cursor: pointer;
-	margin: 10px 10px;
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ isSelected }) =>
-		isSelected
-			? ({ theme }) => theme.color.primary[300]
-			: ({ theme }) => theme.color.black};
-`;
-
-const ResultWord = styled.div`
-	color: ${({ theme }) => theme.color.primary[300]};
-`;
-const ResultContainer = styled.div`
-	margin: 0 auto;
-	width: 70%;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
-`;
-
 const S = {
 	Wrapper,
 	Container,
-	ResultText,
-	CategoryBox,
-	Category,
-	ItemList,
 	SelectContainer,
-	SelectBox,
-	ResultWord,
-	ResultContainer,
 	BoxContainer,
+	SelectBox,
+	ResultContainer,
+	ResultText,
+	ResultWord,
+	Category,
 };

@@ -1,27 +1,30 @@
 import styled from 'styled-components';
 import { flexAllCenter } from 'Styles/common';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import ProductApi from 'Apis/productApi';
-import ChattingPage from 'Pages/Chat';
+
 import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
-import { useSocket } from 'Context/socket';
 import SoldOutModal from './soldOutModal';
-import ChatApis from 'Apis/chatApis';
+import ChattingPage from 'Pages/Chat';
+
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import ProductApi from 'Apis/productApi';
+import { useMutation } from '@tanstack/react-query';
 
 const SellerDetailPage = ({ state, product, idx }) => {
 	const [item, setItem] = useState();
-	const isSeller = product?.data.isSeller;
 	const [detailState, setDetailState] = useState('상세정보');
-	const navigate = useNavigate();
-	const itemAllInfo = product?.data;
 	const [isOpenModal, setIsOpenModal] = useState(false);
+
+	const isSeller = product?.data.isSeller;
+	const itemAllInfo = product?.data;
+
+	const navigate = useNavigate();
+
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		if (product) {
-			getChatList(idx);
 			setItem(product.data.searchProduct);
 		}
 		return () => {
@@ -38,22 +41,14 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		const { innerText } = e.target;
 		setDetailState(innerText);
 	};
-	const so = useSocket();
-	const [listForSoldOut, setListForSoldOut] = useState([]);
 
-	const getChatList = async prodIdx => {
-		try {
-			const res = await ChatApis.loadSpecificChatRoom(prodIdx);
-			const updatedChatroomList = [...listForSoldOut, res.data];
-			setListForSoldOut(updatedChatroomList);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	const mutationDeletePost = useMutation(() => {
+		return ProductApi.deletePost(item.idx);
+	});
 
 	const deletePost = async () => {
 		try {
-			await ProductApi.deletePost(item.idx);
+			await mutationDeletePost.mutateAsync();
 			alert('물품이 삭제되었습니다.');
 			navigate('/main');
 		} catch {
@@ -71,13 +66,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 	return (
 		item && (
 			<S.Wrapper>
-				{isOpenModal && (
-					<SoldOutModal
-						roomData={listForSoldOut}
-						onClose={onCloseModal}
-						idx={idx}
-					/>
-				)}
+				{isOpenModal && <SoldOutModal onClose={onCloseModal} idx={idx} />}
 				<S.EditBar>
 					{item.status == '판매중' && (
 						<div onClick={onClickSoldOut}>판매완료 변경</div>
@@ -102,12 +91,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 				{detailState === '상세정보' ? (
 					<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
 				) : (
-					<ChattingPage
-						idx={idx}
-						item={item}
-						isSeller={isSeller}
-						setItem={setItem}
-					/>
+					<ChattingPage idx={idx} item={item} isSeller={isSeller} />
 				)}
 				<AnotherProduct product={related} isMine={true} />
 			</S.Wrapper>
@@ -119,12 +103,11 @@ export default SellerDetailPage;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
 	}
-	/* border: 1px solid; */
 	margin: 0 auto;
 `;
 

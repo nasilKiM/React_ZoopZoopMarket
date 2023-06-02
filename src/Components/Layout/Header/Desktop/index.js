@@ -1,17 +1,22 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { Link, useNavigate } from 'react-router-dom';
+
+import UserApi from 'Apis/userApi';
+
+import TokenService from 'Repository/TokenService';
+
+import NewMessage from './Components/newMessage';
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+
+import styled from 'styled-components';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import NewMessage from './Components/newMessage';
-import UserApi from 'Apis/userApi';
-import TokenService from 'Repository/TokenService';
 
 const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
@@ -37,12 +42,12 @@ const WebHeader = ({ so }) => {
 		return (
 			<>
 				{isOpen && (
-					<ModalOverlay>
-						<ModalContent>
-							<CloseButton onClick={onClose}>&times;</CloseButton>
+					<S.ModalOverlay>
+						<S.ModalContent>
+							<S.CloseButton onClick={onClose}>&times;</S.CloseButton>
 							{children}
-						</ModalContent>
-					</ModalOverlay>
+						</S.ModalContent>
+					</S.ModalOverlay>
 				)}
 			</>
 		);
@@ -70,7 +75,7 @@ const WebHeader = ({ so }) => {
 	return (
 		<>
 			<S.Wrapper>
-				{popupMsg && (
+				{popupMsg && !(location.pathname === '/chat') && (
 					<NewMessage popupMsg={popupMsg} setPopupMsg={setPopupMsg} />
 				)}
 				<S.Container isMobile={isTablet}>
@@ -86,7 +91,7 @@ const WebHeader = ({ so }) => {
 											fontSize="35px"
 										/>
 										<div disabled={!MenuIsOpen}>
-											<MenuOpen>
+											<S.MenuOpen>
 												<S.Menu
 													key={1}
 													onClick={() => {
@@ -111,7 +116,7 @@ const WebHeader = ({ so }) => {
 												>
 													실시간 시세
 												</S.Menu>
-											</MenuOpen>
+											</S.MenuOpen>
 										</div>
 									</>
 								) : (
@@ -123,11 +128,11 @@ const WebHeader = ({ so }) => {
 									/>
 								)}
 							</div>
-							<TabletDiv>
+							<S.TabletDiv>
 								<Link to={'/main'}>
 									<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 								</Link>
-							</TabletDiv>
+							</S.TabletDiv>
 						</>
 					) : (
 						<>
@@ -174,12 +179,12 @@ const WebHeader = ({ so }) => {
 							/>
 							{isModalOpen && (
 								<Modal>
-									<SearchBar props={props} />
+									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 								</Modal>
 							)}
 						</Link>
 					) : (
-						<SearchBar props={props} />
+						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
 					<S.Icon>
 						<Link
@@ -190,7 +195,7 @@ const WebHeader = ({ so }) => {
 								setIsHover(false);
 							}}
 						>
-							<CategoryIcon
+							<S.CategoryIcon
 								src={
 									isHover
 										? '/Assets/Images/default_Profile_edit3.png'
@@ -199,14 +204,14 @@ const WebHeader = ({ so }) => {
 								onClick={() => setShowOptions(!showOptions)}
 							/>
 							{showOptions && (
-								<MenuOptions onClick={() => setShowOptions(false)}>
+								<S.MenuOptionWrapper onClick={() => setShowOptions(false)}>
 									<S.Menu>
 										<MenuOption to={'/mypage/item'}>마이페이지</MenuOption>
 									</S.Menu>
 									<S.Menu>
 										<MenuOption onClick={logout}>로그아웃</MenuOption>
 									</S.Menu>
-								</MenuOptions>
+								</S.MenuOptionWrapper>
 							)}
 						</Link>
 						<Link to={'/chat'}>
@@ -218,7 +223,7 @@ const WebHeader = ({ so }) => {
 
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-					<SearchBar props={props} />
+					<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 				</Modal>
 			)}
 		</>
@@ -271,18 +276,6 @@ const MenuOpen = styled.div`
 	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
 `;
 
-const TabletDiv = styled.div`
-	width: 100%;
-	margin-left: 50px;
-	@media (max-width: 700px) {
-		margin-left: 20px;
-	}
-`;
-const MenuList = styled.div`
-	display: flex;
-	padding-left: 55px;
-`;
-
 const Menu = styled.div`
 	color: ${({ theme }) => theme.color.black};
 	height: 20px;
@@ -293,6 +286,29 @@ const Menu = styled.div`
 	:hover {
 		color: ${({ theme }) => theme.color.primary[400]};
 	}
+`;
+
+const TabletDiv = styled.div`
+	width: 100%;
+	margin-left: 50px;
+	@media (max-width: 700px) {
+		margin-left: 20px;
+	}
+`;
+
+const Logo = styled.img`
+	width: 100%;
+	min-width: 120px;
+	max-width: 200px;
+	margin-right: 20px;
+	@media (max-width: 700px) {
+		padding-right: 10px;
+	}
+`;
+
+const MenuList = styled.div`
+	display: flex;
+	padding-left: 55px;
 `;
 
 const Icon = styled.div`
@@ -328,21 +344,37 @@ const Icon = styled.div`
 	}
 `;
 
-const Logo = styled.img`
-	width: 100%;
-	min-width: 120px;
-	max-width: 200px;
-	margin-right: 20px;
-	@media (max-width: 700px) {
-		padding-right: 10px;
-	}
-`;
-
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
 	@media (max-width: 700px) {
 		width: 35px;
+	}
+`;
+
+const MenuOptionWrapper = styled.div`
+	position: absolute;
+	top: 90%;
+	height: 70px;
+	transform: translateX(-20%);
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	text-align: center;
+	align-items: center;
+	padding-top: 10px;
+	padding-left: 10px;
+`;
+
+const MenuOption = styled(Link)`
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.3s;
+	margin: 5px;
+	display: block;
+
+	&:hover {
+		background-color: lightgray;
 	}
 `;
 
@@ -379,38 +411,19 @@ const CloseButton = styled.button`
 	font-size: 60px;
 `;
 
-const MenuOptions = styled.div`
-	position: absolute;
-	top: 90%;
-	height: 70px;
-	transform: translateX(-20%);
-	background-color: ${({ theme }) => theme.color.gray[100]};
-	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
-	text-align: center;
-	align-items: center;
-	padding-top: 10px;
-	padding-left: 10px;
-`;
-
-const MenuOption = styled(Link)`
-	cursor: pointer;
-	text-decoration: none;
-	transition: background-color 0.3s;
-	margin: 5px;
-	display: block;
-
-	&:hover {
-		background-color: lightgray;
-	}
-`;
-
 const S = {
 	Wrapper,
 	Container,
-	MenuList,
+	MenuOpen,
 	Menu,
-	Icon,
+	TabletDiv,
 	Logo,
+	MenuList,
+	Icon,
 	CategoryIcon,
+	MenuOptionWrapper,
+	MenuOption,
+	ModalOverlay,
+	ModalContent,
+	CloseButton,
 };

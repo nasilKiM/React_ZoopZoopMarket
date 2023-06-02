@@ -72,8 +72,11 @@ export default MyItemPage;
 const Div = styled.div`
 	margin: 0 auto;
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 95%;
+	}
 `;
 
 const Wrapper = styled.div`
@@ -127,6 +130,7 @@ const Category = styled.div`
 const Txt = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	margin-left: 30px;
 `;
 

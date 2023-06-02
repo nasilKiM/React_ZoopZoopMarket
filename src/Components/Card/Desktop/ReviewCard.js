@@ -1,14 +1,17 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import ProductApi from 'Apis/productApi';
+
 import { reviewAtom } from 'Atoms/review.atom';
+import { useSetRecoilState } from 'recoil';
+
+import styled from 'styled-components';
 import {
 	flexAlignCenter,
 	flexAllCenter,
 	flexSpaceBetween,
 } from 'Styles/common';
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
 
 const ReviewItemCard = ({ payIdx, item, original }) => {
 	const navigate = useNavigate();
@@ -26,7 +29,7 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 
 	useEffect(() => {
 		setReviewTarget(item);
-	}, []);
+	}, [item]);
 
 	const onClickReview = () => {
 		return navigate(`/review/${payIdx}`);
@@ -57,8 +60,6 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 				</S.Container>
 			</S.Wrapper>
 		)
-
-		// )
 	);
 };
 
@@ -67,11 +68,13 @@ export default ReviewItemCard;
 const Wrapper = styled.div`
 	${flexSpaceBetween}
 	margin-top: 20px;
+	max-width: 800px;
 `;
 
 const Container = styled.div`
 	${flexAlignCenter}
 	width: 100%;
+	min-width: 350px;
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	padding: 10px 20px;
@@ -92,6 +95,9 @@ const ItemInfo = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	@media (max-width: 680px) {
+		padding-left: 15px;
+	}
 `;
 
 const ItemTitle = styled.div`
@@ -103,17 +109,31 @@ const ItemTitle = styled.div`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	@media (max-width: 680px) {
+		width: 120px;
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
+	@media (max-width: 560px) {
+		width: 100px;
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
 `;
 
 const ItemPrice = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
+	@media (max-width: 680px) {
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
 `;
 
 const BtnContainer = styled.div`
 	${flexAllCenter}
 	position: absolute;
 	right: 10px;
+	@media (max-width: 800px) {
+		top: 10px;
+	}
 `;
 
 const Btn = styled.button`
@@ -127,6 +147,10 @@ const Btn = styled.button`
 	${flexAllCenter}
 	:hover {
 		background-color: ${({ theme }) => theme.color.primary[100]};
+	}
+	@media (max-width: 800px) {
+		padding: 5px;
+		font-size: ${({ theme }) => theme.fontSize.es};
 	}
 `;
 
