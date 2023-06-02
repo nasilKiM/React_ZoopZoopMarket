@@ -9,14 +9,14 @@ import TokenService from 'Repository/TokenService';
 import NewMessage from './Components/newMessage';
 import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 
+import styled from 'styled-components';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-
-import styled from 'styled-components';
 
 const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
@@ -75,7 +75,7 @@ const WebHeader = ({ so }) => {
 	return (
 		<>
 			<S.Wrapper>
-				{popupMsg && (
+				{popupMsg && !(location.pathname === '/chat') && (
 					<NewMessage popupMsg={popupMsg} setPopupMsg={setPopupMsg} />
 				)}
 				<S.Container isMobile={isTablet}>

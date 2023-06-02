@@ -1,1 +1,5 @@
-export const QUERY_KEY = {};
+export const QUERY_KEY = {
+	GET_CHAT: 'GET_CHAT',
+	GET_ALL_CHAT: 'GET_ALL_CHAT',
+	GET_CHAT_LOG: 'GET_CHAT_LOG',
+};
