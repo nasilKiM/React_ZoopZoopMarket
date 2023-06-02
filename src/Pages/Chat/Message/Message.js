@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 import MyMessage from './Components/MyChat';
 import YourMessage from './Components/YourChat';
 import DateDivide from './Components/DateDevide';
+import dayjs from 'dayjs';
 
-const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
+const MessageDetail = ({ chat }) => {
 	const scrollRef = useRef();
 	const [myNick, setMyNick] = useState();
 
@@ -31,10 +32,10 @@ const MessageDetail = ({ chat, eventCheck, setEventCheck }) => {
 			<div>
 				{chat?.map((msg, idx) => {
 					let isDate = false;
-					const created = new Date(chat[idx].createdAt);
+					const created = dayjs(chat[idx].createdAt);
 					if (idx !== chat.length - 1) {
-						const nextCreated = new Date(chat[idx + 1].createdAt);
-						created.toLocaleDateString() === nextCreated.toLocaleDateString()
+						const nextCreated = dayjs(chat[idx + 1].createdAt);
+						created.format('YYYY-MM-DD') === nextCreated.format('YYYY-MM-DD')
 							? isDate
 							: (isDate = true);
 					}

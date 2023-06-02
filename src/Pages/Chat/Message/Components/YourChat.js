@@ -1,23 +1,15 @@
 import Profile from 'Components/Profile/Desktop/profile';
-import { flexAllCenter } from 'Styles/common';
+
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
+import { flexAllCenter } from 'Styles/common';
+
 const YourMessage = ({ msg }) => {
-	const createdAt = new Date(msg.createdAt);
-	const AMPM = createdAt.getHours() >= 12 ? '오후' : '오전';
-	console.log(msg);
+	const createdAt = dayjs(msg.createdAt);
+	const AMPM = createdAt.hour() >= 12 ? '오후' : '오전';
 	return (
 		<S.Wrapper>
-			{/* <S.MessageContainer>{
-				<div>
-					<ChatProfile />
-				</div>
-				<S.Message>{msg.message}</S.Message>
-				<S.MessageTimeUnreadContainer>
-					<S.Unread>{isRead ? 0 : 1}</S.Unread>
-					<S.MessageTime>{msg.createdAt}</S.MessageTime>
-				</S.MessageTimeUnreadContainer>
-			</S.MessageContainer>} */}
 			<div>
 				<Profile userProfileUrl={msg?.User.profile_url} />
 			</div>
@@ -25,7 +17,7 @@ const YourMessage = ({ msg }) => {
 			<div>
 				<span>{AMPM}</span>
 				<span>
-					{createdAt.getHours()}:{createdAt.getMinutes()}
+					{createdAt.hour()}:{createdAt.minute()}
 				</span>
 			</div>
 		</S.Wrapper>
@@ -35,7 +27,6 @@ const YourMessage = ({ msg }) => {
 export default YourMessage;
 const Wrapper = styled.div`
 	${flexAllCenter}
-	/* background-color: ${({ theme }) => theme.color.primary[100]}; */
 	justify-content: left;
 	margin: 20px 0;
 	& > div:first-child {
@@ -60,53 +51,6 @@ const Wrapper = styled.div`
 	white-space: pre-wrap;
 `;
 
-const MessageContainer = styled.div`
-	display: inline-flex;
-	justify-content: left;
-	align-items: flex-end;
-	width: 100%;
-	padding: 0 1rem;
-	margin-bottom: 15px;
-	& div {
-		width: 50px;
-		height: 50px;
-	}
-`;
-
-const Message = styled.span`
-	max-width: 60%;
-	padding: 0.5rem 1rem;
-	border-radius: 0.5rem;
-	background-color: white;
-	word-break: break-all;
-	white-space: pre-line;
-`;
-
-const MessageTimeUnreadContainer = styled.div`
-	display: inline-flex;
-	flex-direction: column;
-	align-items: flex-end;
-	height: 100%;
-	margin: 0 0.5rem 0 0.5rem;
-`;
-
-const Unread = styled.span`
-	color: red;
-	font-size: ${({ theme }) => theme.fontSize.micro};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-`;
-
-const MessageTime = styled.span`
-	margin-top: 0.25rem;
-	color: grey;
-	font-size: ${({ theme }) => theme.fontSize.micro};
-`;
-
 const S = {
-	MessageContainer,
-	Message,
-	MessageTimeUnreadContainer,
-	Unread,
-	MessageTime,
 	Wrapper,
 };

@@ -91,12 +91,7 @@ const SellerDetailPage = ({ state, product, idx }) => {
 				{detailState === '상세정보' ? (
 					<DetailContent state={state} item={item} itemAllInfo={itemAllInfo} />
 				) : (
-					<ChattingPage
-						idx={idx}
-						item={item}
-						isSeller={isSeller}
-						setItem={setItem}
-					/>
+					<ChattingPage idx={idx} item={item} isSeller={isSeller} />
 				)}
 				<AnotherProduct product={related} isMine={true} />
 			</S.Wrapper>

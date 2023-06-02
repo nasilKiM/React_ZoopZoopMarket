@@ -1,34 +1,21 @@
 import ProductApi from 'Apis/productApi';
-import { flexAllCenter } from 'Styles/common';
+import dayjs from 'dayjs';
+
 import styled from 'styled-components';
 
-const ChatMessage = ({
-	chat,
-	chatroomList,
-	chatroomIdx,
-	setChatroomIdx,
-	setItem,
-	item,
-	setItemInfo,
-}) => {
-	const now = new Date();
-	const timeStamp = new Date(chat.lastMessageCreatedAt);
-	let date;
-	if (
-		now.getFullYear() === timeStamp.getFullYear() &&
-		now.getMonth() === timeStamp.getMonth() &&
-		now.getDate() === timeStamp.getDate()
-	) {
-		const AMPM = timeStamp.getHours() >= 12 ? '오후' : '오전';
-		date = `${AMPM} ${timeStamp.getHours()}시 ${timeStamp.getMinutes()}분`;
-	} else if (
-		now.getFullYear() === timeStamp.getFullYear() &&
-		now.getMonth() === timeStamp.getMonth() &&
-		now.getDate() - timeStamp.getDate() === 1
-	) {
+import { flexAllCenter } from 'Styles/common';
+
+let date;
+const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
+	const now = dayjs();
+	const timeStamp = dayjs(chat.lastMessageCreatedAt);
+	if (now.diff(timeStamp, 'day') === 0) {
+		const AMPM = timeStamp.hour() >= 12 ? '오후' : '오전';
+		date = `${AMPM} ${timeStamp.hour()}시 ${timeStamp.minute()}분`;
+	} else if (now.diff(timeStamp, 'day') === 1) {
 		date = '어제';
 	} else {
-		date = timeStamp.toLocaleDateString();
+		date = timeStamp.format('YYYY.MM.DD');
 	}
 	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
@@ -46,9 +33,12 @@ const ChatMessage = ({
 			<S.ChatContent onClick={onClickChat}>
 				<div>
 					<div>{chat.User.nick_name}</div>
-					<div>{chat.lastMessage}</div>
+					<div>
+						<div>{chat.lastMessage}</div>
+					</div>
 				</div>
 				<div>
+					{!chat.isRead && <div>New!</div>}
 					<div>{date}</div>
 				</div>
 			</S.ChatContent>
@@ -72,6 +62,12 @@ const ChatContent = styled.div`
 	}
 	& > div:last-child {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		& > div {
+			margin: 10px 0;
+		}
+		& > div:first-child {
+			font-weight: ${({ theme }) => theme.fontWeight.bold};
+		}
 	}
 `;
 
