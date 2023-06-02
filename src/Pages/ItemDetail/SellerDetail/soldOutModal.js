@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
@@ -7,35 +7,19 @@ import ConfirmModal from 'Components/Alert/confirmModal';
 
 import styled from 'styled-components';
 import { flexAllCenter } from 'Styles/common';
-import ChatApis from 'Apis/chatApis';
-import { useQuery } from '@tanstack/react-query';
 
-const SoldOutModal = ({ onClose, idx }) => {
+const SoldOutModal = ({ onClose, room }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 	const [buyerInfo, setBuyerInfo] = useState({
 		token: '',
 		nick_name: '',
 	});
-	const [listForSoldOut, setListForSoldOut] = useState([]);
 
-	const { data, isLoading } = useQuery(['SPECIFIC_CHAT_ROOM', idx], () =>
-		ChatApis.loadSpecificChatRoom(idx),
-	);
-
-	const getChatList = () => {
-		const updatedChatroomList = [...listForSoldOut, data.data];
-		setListForSoldOut(updatedChatroomList);
-		//console.log(isSuccess);
-	};
-
-	useEffect(() => {
-		data && getChatList(idx);
-	}, []);
-
-	const selectBuyer = (token, nick_name) => {
+	const selectBuyer = (idx, token, nick_name) => {
 		setModal(true);
 		setBuyerInfo({
+			idx: idx,
 			token: token,
 			nick_name: nick_name,
 		});
@@ -45,17 +29,24 @@ const SoldOutModal = ({ onClose, idx }) => {
 		try {
 			const response = await ProductApi.soldOut(prod_idx, token);
 			if (response.status === 200) {
+				navigate('/mypage');
 			}
-			navigate('/mypage');
 		} catch (error) {
 			console.log('에러', error);
 		}
+	};
+	const onCancel = () => {
+		setModal(false);
+	};
+
+	const onConfirm = (idx, token) => {
+		soldOut(idx, token);
 	};
 
 	return (
 		<S.Wrapper>
 			<S.Container>
-				{listForSoldOut.length > 0 ? (
+				{room.length > 0 ? (
 					<S.Text>
 						<S.Intro>구매자를 선택해주세요.</S.Intro>
 
@@ -64,35 +55,38 @@ const SoldOutModal = ({ onClose, idx }) => {
 				) : (
 					<S.Text>
 						<S.Intro>구매자가 아직 없습니다.</S.Intro>
-
 						<S.CloseBtn onClick={onClose}>x</S.CloseBtn>
 					</S.Text>
 				)}
 
-				{listForSoldOut &&
-					listForSoldOut.map(arr =>
-						arr.map(room => (
-							<S.BuyerList key={room.User.nick_name}>
-								<S.NickName>{room.User.nick_name}</S.NickName>
+				{room &&
+					room.map(room => (
+						<S.BuyerList key={room.User.nick_name}>
+							<S.NickName>{room.User.nick_name}</S.NickName>
 
-								<S.CheckBuyer
-									onClick={() => {
-										selectBuyer(room.User.token, room.User.nick_name);
-									}}
-								>
-									V
-								</S.CheckBuyer>
-							</S.BuyerList>
-						)),
-					)}
+							<S.CheckBuyer
+								onClick={() => {
+									selectBuyer(
+										room.Product.idx,
+										room.User.token,
+										room.User.nick_name,
+									);
+								}}
+							>
+								V
+							</S.CheckBuyer>
+						</S.BuyerList>
+					))}
 			</S.Container>
 
 			{modal && (
 				<ConfirmModal>
 					<S.Content>{buyerInfo.nick_name}에게 판매하시겠습니까? </S.Content>
 					<S.BtnContainer>
-						<S.NO onClick={() => setModal(false)}>취소</S.NO>
-						<S.OK onClick={() => soldOut(idx, buyerInfo.token)}>판매</S.OK>
+						<S.NO onClick={onCancel}>취소</S.NO>
+						<S.OK onClick={() => onConfirm(buyerInfo.idx, buyerInfo.token)}>
+							판매
+						</S.OK>
 					</S.BtnContainer>
 				</ConfirmModal>
 			)}
