@@ -11,7 +11,9 @@ const RecentSoldOut = ({ word }) => {
 	return (
 		<S.Wrapper>
 			{data &&
-				data.data.product.map(product => <SearchList products={product} />)}
+				data.data.product.map((product, index) => (
+					<SearchList products={product} key={index} />
+				))}
 		</S.Wrapper>
 	);
 };
@@ -21,12 +23,11 @@ const Wrapper = styled.div`
 	width: 100%;
 	display: grid;
 	justify-items: center;
-	margin-top: 30px;
 	margin-bottom: 30px;
 
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(1, minmax(200px, 1fr));
-		row-gap: 30px;
+		grid-template-columns: repeat(2, minmax(200px, 1fr));
+		row-gap: 15px;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {
 		grid-template-columns: repeat(2, minmax(250px, 1fr));
