@@ -19,6 +19,7 @@ const SignUpPage = () => {
 	const [address, setAddress] = useState();
 	const [idMsg, setIdMsg] = useState('');
 	const [nickMsg, setNickMsg] = useState('');
+	const [phoneMsg, setPhoneMsg] = useState('');
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
 
@@ -33,10 +34,13 @@ const SignUpPage = () => {
 		handleSubmit,
 		setValue,
 		getValues,
+		setError,
+		clearErrors,
+		watch,
+
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
-	// signUp mutation
 	const { mutate } = useMutation(info => UserApi.signup(info), {
 		onSuccess: () => {
 			setModal(true);
@@ -47,6 +51,15 @@ const SignUpPage = () => {
 	});
 
 	const onSubmit = data => {
+		const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+		if (!phoneRegExp.test(data.phone)) {
+			setPhoneMsg('핸드폰 번호 양식이 일치하지 않습니다.');
+			return setError('phone', {
+				shouldFocus: true,
+			});
+		} else {
+			clearErrors('phone');
+		}
 		const info = {
 			email: data.email,
 			pw: data.password,
@@ -57,10 +70,8 @@ const SignUpPage = () => {
 		mutate(info);
 	};
 
-	// 이메일 중복체크
 	const onCheckId = async e => {
 		e.preventDefault();
-		// refetch(data);
 		const value = getValues('email');
 		try {
 			const res = await UserApi.checkEmail(value);
@@ -70,12 +81,10 @@ const SignUpPage = () => {
 		}
 	};
 
-	// input 값에 변화가 생길때 msg 칸을 비워주는
 	useEffect(() => {
 		setIdMsg('');
 	}, [getValues('email')]);
 
-	// 닉네임 중복체크
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
@@ -88,14 +97,16 @@ const SignUpPage = () => {
 	};
 
 	useEffect(() => {
-		setNickMsg();
+		setNickMsg('');
 	}, [getValues('nick')]);
 
 	const full =
 		!errors.email &&
 		!errors.password &&
 		!errors.confirmPW &&
+		'phone' &&
 		!errors.phone &&
+		!errors.nick &&
 		address;
 
 	return (
@@ -119,7 +130,7 @@ const SignUpPage = () => {
 									placeholder="E-mail"
 								/>
 								<S.CheckBtn
-									disabled={errors.email || !'email'}
+									disabled={errors.email || !watch('email')}
 									onClick={onCheckId}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -130,13 +141,6 @@ const SignUpPage = () => {
 						</S.InputWrapBtn>
 						{errors.email && <S.Error>{errors.email.message}</S.Error>}
 						{<S.Error>{idMsg}</S.Error>}
-						{/* {isLoading ? (
-							<div></div>
-						) : (
-							<S.Error>
-								{error ? error.response.data.message : data.message}
-							</S.Error>
-						)} */}
 
 						<S.InputWrap>
 							<S.ItemWrap>
@@ -187,7 +191,7 @@ const SignUpPage = () => {
 									placeholder="Nick_Name"
 								/>
 								<S.CheckBtn
-									disabled={errors.nick || !'nick'}
+									disabled={errors.nick || !watch('nick')}
 									onClick={onCheckNick}
 									shape={'submitBtn'}
 									size={'submitBtn'}
@@ -196,8 +200,7 @@ const SignUpPage = () => {
 								</S.CheckBtn>
 							</S.InputBoxWrap>
 						</S.InputWrapBtn>
-						{<S.Error>{nickMsg}</S.Error>}
-						{errors.nick && <S.Error>{errors.nick.message}</S.Error>}
+						{nickMsg && <S.Error>{nickMsg}</S.Error>}
 						<S.InputWrap>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -208,7 +211,10 @@ const SignUpPage = () => {
 									shape={'littleShape'}
 									maxLength="13"
 									{...register('phone', {
+										required: '전화번호를 입력해주세요',
 										onChange: e => {
+											setPhoneMsg('');
+											clearErrors('phone');
 											setValue(
 												'phone',
 												e.target.value
@@ -216,12 +222,17 @@ const SignUpPage = () => {
 													.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
 											);
 										},
+										validate: value => {
+											if (value.length !== 13) {
+												return '전화번호 11자리를 입력해주세요';
+											}
+										},
 									})}
 									placeholder="010-0000-0000"
 								/>
 							</S.InputBoxWrap>
 						</S.InputWrap>
-						{errors.phone && <S.Error>{errors.phone.message}</S.Error>}
+						{phoneMsg && <S.Error>{phoneMsg}</S.Error>}
 						<S.InputWrapBtn>
 							<S.ItemWrap>
 								<S.Mark>*</S.Mark>
@@ -272,6 +283,9 @@ const Logo = styled.img`
 	${flexJustifyCenter}
 	margin: 50px auto 0;
 	max-width: 300px;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 200px;
+	}
 `;
 
 const Wrap = styled.div`
@@ -312,6 +326,7 @@ const BtnWrap = styled.div`
 const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 82%;
+	font-family: 'Nanum_extraBold';
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
 		${({ theme }) => theme.color.primary[200]}
@@ -339,6 +354,7 @@ const InputBoxWrap = styled.div`
 const InputCustom = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -348,6 +364,7 @@ const InputHalf = styled(Input)`
 	min-height: 45px;
 	margin: 10px;
 	width: 74%;
+	font-family: 'Nanum_regular';
 	border: 2px solid ${({ theme }) => theme.color.gray[100]};
 	@media ${({ theme }) => theme.device.mobile} {
 		margin: 10px 0;
@@ -403,10 +420,10 @@ const Address = styled.div`
 `;
 
 const CheckBtn = styled(CustomButton)`
-	font-weight: normal;
 	min-height: 45px;
 	width: 120px;
 	background: none;
+	font-family: 'Nanum_regular';
 	margin-left: 10px;
 	border: 2px solid ${({ theme }) => theme.color.primary[400]};
 	&:hover {

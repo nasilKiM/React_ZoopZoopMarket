@@ -1,9 +1,23 @@
 import { useEffect, useState } from 'react';
+
 import DesktopMainPage from './Desktop';
 import MainPageSkeleton from './Desktop/Components/mainSkeleton';
 
 const MainPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
+
+	const preventGoBack = () => {
+		history.pushState(null, '', location.href);
+	};
+
+	useEffect(() => {
+		history.pushState(null, '', location.href);
+		window.addEventListener('popstate', preventGoBack);
+
+		return () => {
+			window.removeEventListener('popstate', preventGoBack);
+		};
+	}, []);
 
 	useEffect(() => {
 		setTimeout(() => {

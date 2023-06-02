@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 
 const TopBtn = () => {
 	const [scroll, setScroll] = useState(0);
@@ -38,12 +40,12 @@ const TopBtn = () => {
 
 	return (
 		showBtn && (
-			<Wrap onClick={scrollTop}>
+			<S.Wrap onClick={scrollTop}>
 				<div>
 					<FontAwesomeIcon icon={faAngleUp} />
 				</div>
 				<div>Top</div>
-			</Wrap>
+			</S.Wrap>
 		)
 	);
 };
@@ -64,4 +66,9 @@ const Wrap = styled.div`
 	position: fixed;
 	right: 35px;
 	bottom: 90px;
+	z-index: 105;
 `;
+
+const S = {
+	Wrap,
+};

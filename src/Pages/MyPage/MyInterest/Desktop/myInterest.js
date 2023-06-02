@@ -4,7 +4,6 @@ import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import ItemCard from 'Components/Card/Desktop/Card';
-import NotificationModal from 'Components/Alert/notificationModal';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMy();
@@ -20,20 +19,21 @@ const MyInterestPage = () => {
 
 	return (
 		<>
-			<NotificationModal />
 			{isLoading ? (
-				<div>로딩</div> // 임시 로딩
+				<div>로딩</div>
 			) : (
 				<S.Wrap>
-					<S.Container>
-						{data.pages.map(page =>
-							page.data.LikeList.map(list => (
-								<S.Card>
+					{data.pages[0].data.LikeList.length <= 0 ? (
+						<S.Txt>등록된 관심템이 없습니다.</S.Txt>
+					) : (
+						<S.Container>
+							{data.pages.map(page =>
+								page.data.LikeList.map(list => (
 									<ItemCard index={list.Product.idx} products={list.Product} />
-								</S.Card>
-							)),
-						)}
-					</S.Container>
+								)),
+							)}
+						</S.Container>
+					)}
 					<div ref={ref}></div>
 				</S.Wrap>
 			)}
@@ -46,53 +46,42 @@ export default MyInterestPage;
 const Wrap = styled.div`
 	margin: 0 auto;
 	width: 70%;
-	min-width: 700px;
-	max-width: 1200px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const Container = styled.div`
 	width: 100%;
 	${gridColumn(3)}
 	${gridAllCenter}
-	// 선영님 코드
-	/* @media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(3)}
-		${gridGap.tablet}
-	}
+	
 	@media ${({ theme }) => theme.device.mobile} {
 		${gridColumn(2)}
 		${gridGap.mobile}
-	} */
-	@media ${({ theme }) => theme.device.pc} {
-		min-width: 200px; // pc -> laptop 사이즈 줄어들떼 카드 최소 사이즈 적용 안되는 이슈 있음
-	}
-	@media ${({ theme }) => theme.device.laptop} {
-		${gridColumn(3)}
-		min-width: 200px;
 	}
 	@media ${({ theme }) => theme.device.tablet} {
 		${gridColumn(2)}
-		min-width: 200px;
+		${gridGap.tablet}
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(1)}
-		min-width: 200px;
+	@media ${({ theme }) => theme.device.laptop} {
+		${gridColumn(3)}
+		${gridGap.tablet}
 	}
 `;
 
-const Card = styled.div`
+const Txt = styled.div`
 	width: 100%;
-`;
-
-const HeartZone = styled.div`
-	width: 250px;
-	height: 80px;
-	background-color: lightgray;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-left: 30px;
 `;
 
 const S = {
 	Container,
-	Card,
-	HeartZone,
 	Wrap,
+	Txt,
 };

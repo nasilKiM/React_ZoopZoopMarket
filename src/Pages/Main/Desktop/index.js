@@ -1,10 +1,11 @@
 //import { MockAxios } from 'Apis/@core';
 //import { useQuery } from 'react-query';
 // import { Category, Preview } from '@mui/icons-material';
-import styled from 'styled-components';
 import Preview from './Components/preview';
 import Category from './Components/category';
 import BannerAd from './Components/bannerAd';
+
+import styled from 'styled-components';
 
 const DesktopMainPage = () => {
 	//mockData용 =============
@@ -16,10 +17,10 @@ const DesktopMainPage = () => {
 
 	return (
 		<S.Cover>
+			<S.Banner>
+				<BannerAd />
+			</S.Banner>
 			<S.Wrapper>
-				<Banner>
-					<BannerAd />
-				</Banner>
 				<CategoryWrapper>
 					<TitleBox>카테고리별 상품찾기</TitleBox>
 					<Category />
@@ -44,9 +45,15 @@ const Cover = styled.div`
 	width: 100%;
 `;
 
+const Banner = styled.div`
+	width: 100%;
+	max-height: 500px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+`;
+
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 360px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -58,6 +65,19 @@ const Wrapper = styled.div`
 	padding-top: 10px;
 `;
 
+const CategoryWrapper = styled.div`
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+`;
+
+const TitleBox = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[400]};
+	padding-top: 30px;
+	padding-bottom: 30px;
+`;
+
 const PreviewBg = styled.div`
 	width: 100%;
 	background-color: ${({ theme }) => theme.color.bg};
@@ -65,7 +85,7 @@ const PreviewBg = styled.div`
 	margin-bottom: 50px;
 	> * {
 		width: 70%;
-		min-width: 414px;
+		min-width: 350px;
 		max-width: 1200px;
 		@media (max-width: 700px) {
 			width: 95%;
@@ -78,39 +98,10 @@ const PreviewBg = styled.div`
 	}
 `;
 
-const Banner = styled.div`
-	width: 100%;
-	/* height: 500px;
-	background-color: gray; */
-`;
-
-const TitleBox = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.primary[400]};
-	padding-top: 30px;
-	padding-bottom: 30px;
-`;
-
-const SearchSection = styled.div`
-	width: 100%;
-	border-top: 3px double ${({ theme }) => theme.color.subBeigeGreen};
-	border-bottom: 3px double ${({ theme }) => theme.color.subBeigeGreen};
-	padding: 40px 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`;
-
-const CategoryWrapper = styled.div`
-	padding-bottom: 20px;
-	margin-bottom: 30px;
-`;
-
 const S = {
 	Cover,
+	Banner,
 	Wrapper,
 	TitleBox,
 	PreviewBg,
-	SearchSection,
 };

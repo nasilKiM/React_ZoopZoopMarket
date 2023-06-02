@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import styled from 'styled-components';
 
 const categories = [
 	{
@@ -12,12 +14,12 @@ const categories = [
 	},
 	{
 		id: 2,
-		name: '생활/주방가전',
+		name: '생활·주방가전',
 		icon: '/Assets/Icon/Category/2.생활주방가전.png',
 	},
 	{
 		id: 3,
-		name: '가구/인테리어',
+		name: '가구·인테리어',
 		icon: '/Assets/Icon/Category/3.가구.png',
 	},
 	{
@@ -32,7 +34,7 @@ const categories = [
 	},
 	{
 		id: 6,
-		name: '스포츠/레저',
+		name: '스포츠·레저',
 		icon: '/Assets/Icon/Category/6.스포츠.png',
 	},
 	{
@@ -47,17 +49,17 @@ const categories = [
 	},
 	{
 		id: 9,
-		name: '남성패션/잡화',
+		name: '남성패션·잡화',
 		icon: '/Assets/Icon/Category/9.남성패션.png',
 	},
 	{
 		id: 10,
-		name: '게임/취미',
+		name: '게임·취미',
 		icon: '/Assets/Icon/Category/10.게임.png',
 	},
 	{
 		id: 11,
-		name: '뷰티/미용',
+		name: '뷰티·미용',
 		icon: '/Assets/Icon/Category/11.뷰티미용.png',
 	},
 	{
@@ -67,7 +69,7 @@ const categories = [
 	},
 	{
 		id: 13,
-		name: '도서/티켓/음반',
+		name: '도서·티켓·음반',
 		icon: '/Assets/Icon/Category/13.도서티켓음반.png',
 	},
 	{
@@ -130,18 +132,18 @@ const Category = ({ setTags, tags }) => {
 	const CategorySlider = () => {
 		return (
 			<>
-				<CategoryWrapper>
+				<S.CategoryWrapper>
 					<Slider {...settings}>
 						{categories.map(category => (
-							<CategoryContainer onClick={() => setFixedTags(category.name)}>
-								<CategoryItem key={category.id}>
-									<CategoryIcon src={category.icon} alt={category.name} />
-									<ItemName>{category.name}</ItemName>
-								</CategoryItem>
-							</CategoryContainer>
+							<S.CategoryContainer onClick={() => setFixedTags(category.name)}>
+								<S.CategoryItem key={category.id}>
+									<S.CategoryIcon src={category.icon} alt={category.name} />
+									<S.ItemName>{category.name}</S.ItemName>
+								</S.CategoryItem>
+							</S.CategoryContainer>
 						))}
 					</Slider>
-				</CategoryWrapper>
+				</S.CategoryWrapper>
 			</>
 		);
 	};
@@ -188,3 +190,11 @@ const ItemName = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-align: center;
 `;
+
+const S = {
+	CategoryWrapper,
+	CategoryContainer,
+	CategoryItem,
+	CategoryIcon,
+	ItemName,
+};

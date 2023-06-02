@@ -10,33 +10,38 @@ const MyReview = () => {
 	const total = data?.data.reviewList.length;
 
 	return (
-		<>
-			<Wrapper>
-				{/* <span>지금까지 남긴 구매후기를 확인해보세요 🤓</span> */}
-				<Title>구매 총 {total}건</Title>
-				{list &&
-					list.map(item => (
-						<ReviewItemCard
-							payIdx={item.idx}
-							item={item.Product}
-							original={item}
-						/>
-					))}
-			</Wrapper>
-		</>
+		<Wrapper>
+			<Title>구매 총 {total}건</Title>
+			{list &&
+				list.map(item => (
+					<ReviewItemCard
+						payIdx={item.idx}
+						item={item.Product}
+						original={item}
+					/>
+				))}
+		</Wrapper>
 	);
 };
 
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 100%;
+	width: 70%;
+	max-width: 1200px;
+	min-width: 350px;
+	margin: 0 auto;
 `;
 
 const Title = styled.div`
 	width: 100%;
-	height: 50px;
-	padding: 50px 0;
-	font-size: ${({ theme }) => theme.fontSize.base};
+	padding: 15px;
+	margin-top: 20px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	@media ${({ theme }) => theme.device.mobile} {
+		padding: 10px;
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;

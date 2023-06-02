@@ -4,34 +4,58 @@ import {
 	flexSpaceBetween,
 } from 'Styles/common';
 import styled from 'styled-components';
+
+import FindAddress from 'Components/Address/Desktop/address';
+import AlertModal from 'Components/Alert/alertModal';
+import CustomButton from 'Components/Buttons/button';
+
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import FindAddress from 'Components/Address/Desktop/address';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import UserApi from 'Apis/userApi';
 import { FORM_TYPE } from 'Consts/FormType';
-import CustomButton from 'Components/Buttons/button';
-import AlertModal from 'Components/Alert/alertModal';
-import { useQuery } from '@tanstack/react-query';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	const { data } = useQuery(['userInfo'], () => UserApi.userInfo());
+	const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
+		pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
+	});
 
 	const [address, setAddress] = useState();
-	const [nickMsg, setNickMsg] = useState('');
+	const [phoneMessage, setPhoneMessage] = useState();
+	const [nickMessage, setNickMessage] = useState('');
 	const [modal, setModal] = useState(false);
-	data && console.log(data);
+	const [change, setChange] = useState(false);
+
+	const queryClient = useQueryClient();
 
 	const {
 		register,
 		handleSubmit,
+		setError,
+		clearErrors,
 		setValue,
 		getValues,
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
+	const mutationUser = useMutation(data => {
+		return UserApi.userInfoEdit(data);
+	});
+
 	const onSubmit = async data => {
+		const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+		if (!phoneRegExp.test(data.phone)) {
+			setPhoneMessage('핸드폰 번호 양식이 일치하지 않습니다.');
+			return setError('phone', {
+				shouldFocus: true,
+			});
+		} else {
+			clearErrors('phone');
+		}
+
 		const infoEdit = {
 			email: data.email,
 			nickName: data.nick,
@@ -40,9 +64,13 @@ const MyUserEdit = ({ userInfo }) => {
 		};
 
 		try {
-			await UserApi.userInfoEdit(infoEdit);
-
-			setModal(true);
+			mutationUser.mutate(infoEdit, {
+				onSuccess: () => {
+					queryClient.invalidateQueries(['userInfo']);
+					setModal(true);
+					navigate('/mypage/user_edit');
+				},
+			});
 		} catch (err) {
 			alert(
 				err.response.data.message,
@@ -56,44 +84,44 @@ const MyUserEdit = ({ userInfo }) => {
 		const value = getValues('nick');
 		try {
 			const res = await UserApi.checkNickname(value);
-			setNickMsg(res.data.message);
+			setNickMessage(res.data.message);
 		} catch (err) {
-			console.log(err);
-			setNickMsg(err.response.data.message);
+			setNickMessage(err.response.data.message);
 		}
 	};
 
 	useEffect(() => {
-		setNickMsg();
-	}, [getValues('nick')]);
-
-	useEffect(() => {
-		setValue('email', data.data.email);
-		setValue('nick', data.data.nick_name);
-		setValue('phone', data.data.phone);
-		setAddress(data.data.region);
-	}, []);
+		setValue('email', data?.data.email);
+		setValue('nick', data?.data.nick_name);
+		setValue('phone', data?.data.phone);
+		setAddress(data?.data.region);
+	}, [data]);
 
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
 	};
 
-	const full = !errors.nick && address;
+	const full = !errors.nick && !errors.phone && change;
 
 	return (
 		data && (
-			<>
-				<S.Wrap>
-					<S.Form onSubmit={handleSubmit(onSubmit)}>
-						<S.Container>
-							<S.Title>* 아이디</S.Title>
+			<S.Wrap>
+				<S.Form onSubmit={handleSubmit(onSubmit)}>
+					<S.Container>
+						<S.Title>아이디</S.Title>
+						<S.Box>
 							<S.idDiv>{data.data.email}</S.idDiv>
-						</S.Container>
-						<S.Container>
-							<S.Title>* 닉네임</S.Title>
+						</S.Box>
+					</S.Container>
+					<S.Container>
+						<S.Title>닉네임</S.Title>
+						<S.Box>
 							<S.Input
 								{...register('nick', FORM_TYPE.NICKNAME)}
-								placeholder="Nick_Name"
+								onChange={() => {
+									setChange(true);
+									setNickMessage('');
+								}}
 							/>
 							<S.CheckBtn
 								disabled={errors.nick || !'nick'}
@@ -103,51 +131,55 @@ const MyUserEdit = ({ userInfo }) => {
 							>
 								중복확인
 							</S.CheckBtn>
-						</S.Container>
-						{errors.nick && <S.Error>{nickMsg}</S.Error>}
-						<S.Container>
-							<S.Title>* 전화번호</S.Title>
+							{nickMessage && <S.Error>{nickMessage}</S.Error>}
+						</S.Box>
+					</S.Container>
+					<S.Container>
+						<S.Title>전화번호</S.Title>
+						<S.Box>
 							<S.PhoneInput
 								maxLength="13"
-								minLength={13}
 								{...register('phone', {
 									onChange: e => {
+										setPhoneMessage('');
 										setValue(
 											'phone',
 											e.target.value
 												.replace(/[^0-9]/g, '')
 												.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`),
-										);
+										),
+											setChange(true);
 									},
 								})}
 								placeholder="010-0000-0000"
 							/>
-						</S.Container>
-						<S.Container>
-							<S.Title>* 주소</S.Title>
+							{phoneMessage && <S.Error>{phoneMessage}</S.Error>}
+						</S.Box>
+					</S.Container>
+					<S.Container>
+						<S.Title>주소</S.Title>
+						<S.Box>
 							<S.addressDiv>{address}</S.addressDiv>
 							<FindAddress setter={setAddress} region={userInfo?.region} />
-						</S.Container>
-						<S.Button
-							type="submit"
-							disabled={!full}
-							size={'submitBtn'}
-							shape={'submitBtn'}
-						>
-							저장하기
-						</S.Button>
-						{modal && (
-							<AlertModal
-								content={'회원정보가 변경되었습니다'}
-								props={'/mypage/item'}
-							/>
-						)}
-					</S.Form>
-				</S.Wrap>
-				<S.Wrap2>
-					<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
-				</S.Wrap2>
-			</>
+						</S.Box>
+					</S.Container>
+					<S.Button
+						type="submit"
+						disabled={!full}
+						size={'submitBtn'}
+						shape={'submitBtn'}
+					>
+						저장하기
+					</S.Button>
+					{modal && (
+						<AlertModal
+							content={'회원정보가 변경되었습니다'}
+							props={'/mypage/item'}
+						/>
+					)}
+				</S.Form>
+				<S.Text onClick={onClickPasswordChange}>비밀번호 변경하기</S.Text>
+			</S.Wrap>
 		)
 	);
 };
@@ -161,37 +193,44 @@ const Wrap = styled.div`
 	${flexAllCenter}
 `;
 
-const Wrap2 = styled.div`
-	width: 100%;
-	${flexAllCenter}
-	margin: 0 auto;
-`;
-
 const Form = styled.form`
+	width: 60%;
+	min-width: 350px;
+	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding: 40px;
+	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		padding: 20px;
+	}
 `;
 
-const Input = styled.input`
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	border-radius: 10px;
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	padding-left: 10px;
-	width: 60%;
-	height: 30px;
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
+	margin-bottom: 30px;
 `;
 
-const PhoneInput = styled.input`
-	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	border-radius: 10px;
+const Title = styled.div`
+	min-width: 90px;
+	margin-right: 10px;
+	${flexAlignCenter}
 	padding-left: 10px;
-	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	@media ${({ theme }) => theme.device.tablet} {
+		min-width: 70px;
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+`;
+
+const Box = styled.div`
 	width: 80%;
-	height: 40px;
+	${flexAlignCenter}
+	position: relative;
 `;
 
 const idDiv = styled.div`
@@ -199,21 +238,22 @@ const idDiv = styled.div`
 	background-color: ${({ theme }) => theme.color.gray[200]};
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	border-radius: 10px;
-	padding-left: 10px;
-	width: 80%;
+	padding-left: 15px;
+	width: 100%;
 	height: 40px;
 	${flexAlignCenter}
 `;
 
-const addressDiv = styled.div`
+const Input = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
-	font-size: ${({ theme }) => theme.fontSize.sm};
 	border-radius: 10px;
-	padding-left: 10px;
-	margin-right: 10px;
-	width: 60%;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	padding-left: 15px;
+	width: 80%;
 	height: 40px;
-	${flexAlignCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 
 const CheckBtn = styled(CustomButton)`
@@ -229,66 +269,77 @@ const CheckBtn = styled(CustomButton)`
 	}
 `;
 
+const PhoneInput = styled.input`
+	border: 1px solid ${({ theme }) => theme.color.gray[200]};
+	border-radius: 10px;
+	padding-left: 15px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	width: 100%;
+	height: 40px;
+`;
+
+const addressDiv = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	padding-left: 15px;
+	margin-right: 30px;
+	height: 40px;
+	min-width: 130px;
+	${flexAlignCenter}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 10px;
+	}
+`;
+
 const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 100%;
-	background: linear-gradient(
-		${({ theme }) => theme.color.primary[200]},
-		${({ theme }) => theme.color.primary[300]}
-	);
+	background: ${({ theme }) => theme.color.primary[200]};
 	border: none;
 	color: ${({ theme }) => theme.color.fontColor[100]};
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100%;
+	:hover {
+		cursor: pointer;
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		background-color: ${({ theme }) => theme.color.primary[300]};
+	}
+	:disabled {
+		background: ${({ theme }) => theme.color.gray[200]};
 	}
 `;
 
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
-	/* position: absolute;
-	top: 10px; */
-	width: 60%;
-	border: 2px solid aqua;
+	color: ${({ theme }) => theme.color.error};
+	position: absolute;
+	top: 50px;
+	left: 15px;
 `;
 
 const Text = styled.div`
-	margin-top: 30px;
+	margin-top: 40px;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	color: ${({ theme }) => theme.color.primary[300]};
+	color: ${({ theme }) => theme.color.primary[400]};
+	padding-bottom: 5px;
+	height: 20px;
 	:hover {
+		border-bottom: 3px double ${({ theme }) => theme.color.primary[200]};
 		color: ${({ theme }) => theme.color.primary[500]};
 		cursor: pointer;
 	}
 `;
 
-const Container = styled.div`
-	${flexSpaceBetween}
-	width: 100%;
-	margin-bottom: 10px;
-	position: relative;
-`;
-
-const Title = styled.div`
-	min-width: 90px;
-	margin-right: 10px;
-	${flexAlignCenter}
-	padding-left: 10px
-`;
-
 const S = {
 	Wrap,
-	Wrap2,
 	Form,
-	Input,
-	PhoneInput,
+	Container,
+	Title,
+	Box,
 	idDiv,
-	addressDiv,
+	Input,
 	CheckBtn,
+	PhoneInput,
+	addressDiv,
 	Button,
 	Error,
 	Text,
-	Container,
-	Title,
 };

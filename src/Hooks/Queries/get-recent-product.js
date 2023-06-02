@@ -10,11 +10,6 @@ const useRecentProduct = () => {
 	const { isLoading, isError, data, refetch, error } = useQuery(
 		['recent'],
 		() => recentPrd(),
-		{
-			onSuccess: data => {
-				console.log(data);
-			},
-		},
 	);
 
 	return { isLoading, isError, data, refetch, error };

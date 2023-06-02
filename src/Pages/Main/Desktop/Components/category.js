@@ -1,9 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 const categories = [
 	{
@@ -14,13 +16,13 @@ const categories = [
 	},
 	{
 		id: 2,
-		name: '생활/주방가전',
+		name: '생활·주방가전',
 		icon: '/Assets/Icon/Category/2.생활주방가전.png',
 		keyword: '전자렌지,오븐,밥솥,청소기',
 	},
 	{
 		id: 3,
-		name: '가구/인테리어',
+		name: '가구·인테리어',
 		icon: '/Assets/Icon/Category/3.가구.png',
 		keyword: '침대,매트리스,소파,테이블,화장대,거울,선반,서랍,식탁,의자,책상',
 	},
@@ -38,7 +40,7 @@ const categories = [
 	},
 	{
 		id: 6,
-		name: '스포츠/레저',
+		name: '스포츠·레저',
 		icon: '/Assets/Icon/Category/6.스포츠.png',
 		keyword: '테니스,축구,야구,농구,공,수영',
 	},
@@ -56,19 +58,19 @@ const categories = [
 	},
 	{
 		id: 9,
-		name: '남성패션/잡화',
+		name: '남성패션·잡화',
 		icon: '/Assets/Icon/Category/9.남성패션.png',
 		keyword: '남성구두,남성지갑,와이셔츠,정장,양복,남성지갑',
 	},
 	{
 		id: 10,
-		name: '게임/취미',
+		name: '게임·취미',
 		icon: '/Assets/Icon/Category/10.게임.png',
 		keyword: '닌텐도,플레이스테이션,게임기,취미',
 	},
 	{
 		id: 11,
-		name: '뷰티/미용',
+		name: '뷰티·미용',
 		icon: '/Assets/Icon/Category/11.뷰티미용.png',
 		keyword: '뷰티,미용,립스틱,화장품,파우더,고데기,드라이기',
 	},
@@ -80,7 +82,7 @@ const categories = [
 	},
 	{
 		id: 13,
-		name: '도서/티켓/음반',
+		name: '도서·티켓·음반',
 		icon: '/Assets/Icon/Category/13.도서티켓음반.png',
 		keyword: '도서,티켓,음반,CD,콘서트',
 	},
@@ -100,31 +102,31 @@ const categories = [
 const Category = () => {
 	const settings = {
 		dots: false,
-		arrows: false,
+		arrows: true,
 		infinite: true,
 		speed: 0,
 		slidesToShow: 8,
-		slidesToScroll: 8,
+		slidesToScroll: 1,
 		responsive: [
 			{
 				breakpoint: 968,
 				settings: {
 					slidesToShow: 6,
-					slidesToScroll: 6,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 768,
 				settings: {
 					slidesToShow: 5,
-					slidesToScroll: 5,
+					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 368,
 				settings: {
 					slidesToShow: 4,
-					slidesToScroll: 4,
+					slidesToScroll: 1,
 				},
 			},
 		],
@@ -135,22 +137,22 @@ const Category = () => {
 
 		return (
 			<>
-				<CategoryWrapper>
+				<S.CategoryWrapper>
 					<Slider {...settings}>
 						{categories.map(category => (
-							<CategoryContainer
+							<S.CategoryContainer
 								onClick={() => {
 									navigate(`/search_list/${category.name}/0`);
 								}}
 							>
-								<CategoryItem key={category.id}>
-									<CategoryIcon src={category.icon} alt={category.name} />
-									<ItemName>{category.name}</ItemName>
-								</CategoryItem>
-							</CategoryContainer>
+								<S.CategoryItem key={category.id}>
+									<S.CategoryIcon src={category.icon} alt={category.name} />
+									<S.ItemName>{category.name}</S.ItemName>
+								</S.CategoryItem>
+							</S.CategoryContainer>
 						))}
 					</Slider>
-				</CategoryWrapper>
+				</S.CategoryWrapper>
 			</>
 		);
 	};
@@ -165,42 +167,6 @@ const CategoryWrapper = styled.div`
 	text-align: center;
 	position: relative;
 	overflow: hidden;
-
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 70px;
-		background: linear-gradient(
-			to right,
-			rgba(260, 260, 260, 1) 0%,
-			rgba(128, 128, 128, 0) 100%
-		);
-		z-index: 1;
-	}
-
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 70px;
-		background: linear-gradient(
-			to left,
-			rgba(260, 260, 260, 1) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
-		z-index: 1;
-	}
-
-	&::before {
-		left: 0;
-	}
-
-	&::after {
-		right: 0;
-	}
 `;
 
 const CategoryContainer = styled.div`
@@ -215,6 +181,9 @@ const CategoryItem = styled.div`
 	text-align: center;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	color: #555;
+	@media (max-width: 700px) {
+		font-size: ${({ theme }) => theme.fontSize.es};
+	}
 `;
 
 const CategoryIcon = styled.img`
@@ -235,3 +204,11 @@ const ItemName = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-align: center;
 `;
+
+const S = {
+	CategoryWrapper,
+	CategoryContainer,
+	CategoryItem,
+	CategoryIcon,
+	ItemName,
+};

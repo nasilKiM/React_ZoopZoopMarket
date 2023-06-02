@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import CardSkeleton from '../component/cardSkeleton';
+
+import styled from 'styled-components';
 
 const WholeListSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -47,7 +48,7 @@ const SkeletonContainer = styled.div`
 
 const Wrapper = styled.div`
 	width: 100%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;

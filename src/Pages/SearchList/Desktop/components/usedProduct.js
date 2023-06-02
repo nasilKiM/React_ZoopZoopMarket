@@ -1,15 +1,12 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+
 import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
 
+import styled from 'styled-components';
+
 const UsedProduct = ({ word, data }) => {
 	const navigate = useNavigate();
-
-	// const { data } = useQuery(['SEARCH_USED', word], () => {
-	// 	return ProductApi.searchItems(1, word, 0);
-	// });
-
 	const goWholeList = () => {
 		navigate(`${0}`);
 	};
@@ -66,7 +63,7 @@ const UsedProduct = ({ word, data }) => {
 export default UsedProduct;
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -80,33 +77,26 @@ const Wrapper = styled.div`
 	flex-wrap: wrap;
 	justify-content: space-around;
 `;
-const Container = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	margin-top: 30px;
-`;
+
 const CardContainer = styled.div`
 	display: grid;
 	width: 100%;
-
 	justify-content: center;
 	margin-top: 30px;
-
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(2, minmax(250px, 1fr));
-		column-gap: 10px;
-		row-gap: 10px;
+		grid-template-columns: repeat(1, minmax(220px, 1fr));
+		row-gap: 20px;
+		width: 220px;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {
 		grid-template-columns: repeat(2, minmax(260px, 1fr));
 		column-gap: 20px;
-		row-gap: 20px;
+		row-gap: 30px;
 	}
 	@media screen and (min-width: 1001px) and (max-width: 1499px) {
 		grid-template-columns: repeat(3, minmax(270px, 1fr));
 		column-gap: 20px;
-		row-gap: 30px;
+		row-gap: 35px;
 	}
 	@media screen and (min-width: 1500px) {
 		grid-template-columns: repeat(4, minmax(280px, 1fr));
@@ -115,22 +105,26 @@ const CardContainer = styled.div`
 	}
 `;
 
+const Container = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 30px;
+`;
+
 const S = {
 	Wrapper,
-	Container,
 	CardContainer,
+	Container,
 };
 
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
-		//1330이하일때만 적용
 		display: none;
 	}
 `;
 const NoteBook16 = styled.div`
 	@media screen and (max-width: 1001px), (min-width: 1499px) {
-		//1069이하일때만 적용
-		//1330이상일때만 적용
 		display: none;
 	}
 `;

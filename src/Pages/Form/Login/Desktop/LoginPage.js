@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 import { useForm } from 'react-hook-form';
 import AlertModal from 'Components/Alert/alertModal';
+import NotificationModal from 'Components/Alert/notificationModal';
 
 const LoginPage = () => {
 	const navigate = useNavigate();
@@ -34,6 +35,10 @@ const LoginPage = () => {
 	const { mutate, data } = useMutation(loginInfo => UserApi.login(loginInfo), {
 		onSuccess: res => {
 			setModal(true);
+			setTimeout(() => {
+				setModal(false);
+				navigate('/main');
+			}, 2000);
 			TokenService.setToken(res.data.tokenForHeader);
 			so?.emit('connect-user', { token: TokenService.getToken() });
 		},
@@ -78,9 +83,8 @@ const LoginPage = () => {
 							로그인하기
 						</S.LoginBtn>
 						{modal && (
-							<AlertModal
+							<NotificationModal
 								content={`${data.data.user.nickName}님 안녕하세요!`}
-								props={'/main'}
 							/>
 						)}
 						{loginModal && (
@@ -89,9 +93,6 @@ const LoginPage = () => {
 								props={'/main'}
 							/>
 						)}
-						<S.WrapPW>
-							<S.FindPassword>비밀번호 재설정</S.FindPassword>
-						</S.WrapPW>
 						<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
 						<S.SignUpBtn
 							size={'submitBtn'}
@@ -118,6 +119,9 @@ const Logo = styled.img`
 	${flexJustifyCenter}
 	margin: 50px auto 0;
 	max-width: 300px;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 200px;
+	}
 `;
 
 const Wrap = styled.div`
@@ -154,6 +158,7 @@ const Form = styled.form`
 const InputWrap = styled(Input)`
 	width: 400px;
 	min-height: 45px;
+	font-family: 'Nanum_regular';
 	margin: 10px;
 	@media ${({ theme }) => theme.device.mobile} {
 		width: 100%;
@@ -165,6 +170,7 @@ const LoginBtn = styled(CustomButton)`
 	border: none;
 	min-height: 50px;
 	width: 400px;
+	font-family: 'Nanum_bold';
 	color: ${({ theme }) => theme.color.fontColor[100]};
 	background: linear-gradient(
 		${({ theme }) => theme.color.primary[400]},
@@ -174,33 +180,21 @@ const LoginBtn = styled(CustomButton)`
 		width: 100%;
 	}
 `;
-const WrapPW = styled.div`
-	width: 400px;
-	margin: 10px 0 60px 0;
-	text-align: end;
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100%;
-	}
-`;
 
-const FindPassword = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.fontColor[200]};
-	cursor: pointer;
-`;
 const SingUp = styled.p`
 	${flexAllCenter}
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	color: ${({ theme }) => theme.color.fontColor[200]};
 	padding-bottom: 20px;
+	margin-top: 70px;
 `;
 
 const SignUpBtn = styled(CustomButton)`
 	min-height: 50px;
 	border: none;
 	width: 400px;
+	font-family: 'Nanum_regular';
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	:hover {
 		background: ${({ theme }) => theme.color.primary[100]};
@@ -233,6 +227,4 @@ const S = {
 	SignUpBtn,
 	Error,
 	LoginBtn,
-	FindPassword,
-	WrapPW,
 };

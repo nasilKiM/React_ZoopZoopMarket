@@ -1,7 +1,7 @@
-import { flexAllCenter } from 'Styles/common';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const ToggleBar = () => {
@@ -63,7 +63,9 @@ const ToggleBar = () => {
 export default ToggleBar;
 
 const Sticky = styled.div`
-	position: relative;
+	width: 100%;
+	position: fixed;
+	top: 12vh;
 	z-index: 100;
 	height: 40px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
@@ -71,7 +73,7 @@ const Sticky = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 700px;
+	min-width: 350px;
 	max-width: 1200px;
 	height: 40px;
 	${flexAllCenter}
@@ -80,10 +82,11 @@ const Wrapper = styled.div`
 	grid-template-columns: repeat(5, 1fr);
 	position: fixed;
 	top: 12vh;
+	justify-content: center;
 	left: 50%;
 	transform: translateX(-50%);
 	@media ${({ theme }) => theme.device.tablet} {
-		min-width: 500px;
+		min-width: 350px;
 	}
 `;
 
@@ -99,6 +102,9 @@ const Menu = styled.div`
 	:hover {
 		cursor: pointer;
 		background-color: ${({ theme }) => theme.color.gray[200]};
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.micro};
 	}
 `;
 

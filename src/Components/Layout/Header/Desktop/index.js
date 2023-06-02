@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserApi from 'Apis/userApi';
 
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-import NewMessage from './Components/newMessage';
 import TokenService from 'Repository/TokenService';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import NewMessage from './Components/newMessage';
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+
 import styled from 'styled-components';
-import { useMediaQuery } from 'react-responsive';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
@@ -24,28 +26,28 @@ const WebHeader = ({ so }) => {
 	const [showOptions, setShowOptions] = useState();
 	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	//메뉴창 오픈
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 
 	const [popupMsg, setPopupMsg] = useState();
-	const location = useLocation();
 
+	//채팅전역
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
 		});
 	}, [so]);
-
 	const Modal = ({ isOpen, onClose, children }) => {
 		return (
 			<>
 				{isOpen && (
-					<ModalOverlay>
-						<ModalContent>
-							<CloseButton onClick={onClose}>&times;</CloseButton>
+					<S.ModalOverlay>
+						<S.ModalContent>
+							<S.CloseButton onClick={onClose}>&times;</S.CloseButton>
 							{children}
-						</ModalContent>
-					</ModalOverlay>
+						</S.ModalContent>
+					</S.ModalOverlay>
 				)}
 			</>
 		);
@@ -86,19 +88,24 @@ const WebHeader = ({ so }) => {
 											icon={faXmark}
 											color="gray"
 											cursor="pointer"
-											fontSize="40px"
+											fontSize="35px"
 										/>
 										<div disabled={!MenuIsOpen}>
-											<MenuOpen>
+											<S.MenuOpen>
 												<S.Menu
 													key={1}
 													onClick={() => {
-														return navigate(`/search_list/${word}}/0`);
+														return navigate(`/search_list/${word}/0`);
 													}}
 												>
 													중고 거래
 												</S.Menu>
-												<S.Menu key={0} to="/search_list">
+												<S.Menu
+													key={0}
+													onClick={() => {
+														return navigate(`/search_list/${word}/1`);
+													}}
+												>
 													무료 나눔
 												</S.Menu>
 
@@ -109,7 +116,7 @@ const WebHeader = ({ so }) => {
 												>
 													실시간 시세
 												</S.Menu>
-											</MenuOpen>
+											</S.MenuOpen>
 										</div>
 									</>
 								) : (
@@ -117,15 +124,15 @@ const WebHeader = ({ so }) => {
 										icon={faBars}
 										color="gray"
 										cursor="pointer"
-										fontSize="30px"
+										fontSize="25px"
 									/>
 								)}
 							</div>
-							<TabletDiv>
+							<S.TabletDiv>
 								<Link to={'/main'}>
 									<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 								</Link>
-							</TabletDiv>
+							</S.TabletDiv>
 						</>
 					) : (
 						<>
@@ -137,8 +144,7 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={1}
 									onClick={() => {
-										console.log('3');
-										navigate(`/search_list/${word}/0`);
+										return navigate(`/search_list/${word}/0`);
 									}}
 								>
 									중고 거래
@@ -173,12 +179,12 @@ const WebHeader = ({ so }) => {
 							/>
 							{isModalOpen && (
 								<Modal>
-									<SearchBar props={props} />
+									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 								</Modal>
 							)}
 						</Link>
 					) : (
-						<SearchBar props={props} />
+						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
 					<S.Icon>
 						<Link
@@ -189,7 +195,7 @@ const WebHeader = ({ so }) => {
 								setIsHover(false);
 							}}
 						>
-							<CategoryIcon
+							<S.CategoryIcon
 								src={
 									isHover
 										? '/Assets/Images/default_Profile_edit3.png'
@@ -198,14 +204,14 @@ const WebHeader = ({ so }) => {
 								onClick={() => setShowOptions(!showOptions)}
 							/>
 							{showOptions && (
-								<MenuOptions onClick={() => setShowOptions(false)}>
+								<S.MenuOptionWrapper onClick={() => setShowOptions(false)}>
 									<S.Menu>
 										<MenuOption to={'/mypage/item'}>마이페이지</MenuOption>
 									</S.Menu>
 									<S.Menu>
 										<MenuOption onClick={logout}>로그아웃</MenuOption>
 									</S.Menu>
-								</MenuOptions>
+								</S.MenuOptionWrapper>
 							)}
 						</Link>
 						<Link to={'/chat'}>
@@ -217,7 +223,7 @@ const WebHeader = ({ so }) => {
 
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-					<SearchBar props={props} />
+					<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 				</Modal>
 			)}
 		</>
@@ -228,7 +234,7 @@ export default WebHeader;
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 	@media (max-width: 700px) {
 		width: 95%;
@@ -243,14 +249,6 @@ const Wrapper = styled.div`
 	justify-content: center;
 	margin: 0 auto;
 	padding-bottom: 5px;
-
-	& > div:second-child {
-		width: 376px;
-		height: 500px;
-		position: absolute;
-		left: 0px;
-		transition: 1s;
-	}
 `;
 
 const Container = styled.div`
@@ -278,16 +276,6 @@ const MenuOpen = styled.div`
 	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
 `;
 
-const TabletDiv = styled.div`
-	width: 100%;
-	margin-left: 50px;
-`;
-const MenuList = styled.div`
-	display: flex;
-	padding-left: 5px;
-	padding-right: 5px;
-`;
-
 const Menu = styled.div`
 	color: ${({ theme }) => theme.color.black};
 	height: 20px;
@@ -300,12 +288,38 @@ const Menu = styled.div`
 	}
 `;
 
+const TabletDiv = styled.div`
+	width: 100%;
+	margin-left: 50px;
+	@media (max-width: 700px) {
+		margin-left: 20px;
+	}
+`;
+
+const Logo = styled.img`
+	width: 100%;
+	min-width: 120px;
+	max-width: 200px;
+	margin-right: 20px;
+	@media (max-width: 700px) {
+		padding-right: 10px;
+	}
+`;
+
+const MenuList = styled.div`
+	display: flex;
+	padding-left: 55px;
+`;
+
 const Icon = styled.div`
 	flex: ${props => (props.isMobile ? 1 : 2)};
 	display: flex;
 	justify-content: flex-end;
 	gap: 15px;
 	align-items: center;
+	@media (max-width: 700px) {
+		gap: 10px;
+	}
 	button {
 		display: inline-block;
 		color: ${({ theme }) => theme.color.black};
@@ -322,17 +336,46 @@ const Icon = styled.div`
 		&:hover {
 			background-color: ${({ theme }) => theme.color.primary[300]};
 		}
+		@media (max-width: 700px) {
+			width: 75px;
+			padding: 11px 9px;
+			font-size: ${({ theme }) => theme.fontSize.xs};
+		}
 	}
-`;
-
-const Logo = styled.img`
-	max-width: 200px;
-	margin-right: 20px;
 `;
 
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
+	@media (max-width: 700px) {
+		width: 35px;
+	}
+`;
+
+const MenuOptionWrapper = styled.div`
+	position: absolute;
+	top: 90%;
+	height: 70px;
+	transform: translateX(-20%);
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	text-align: center;
+	align-items: center;
+	padding-top: 10px;
+	padding-left: 10px;
+`;
+
+const MenuOption = styled(Link)`
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.3s;
+	margin: 5px;
+	display: block;
+
+	&:hover {
+		background-color: lightgray;
+	}
 `;
 
 const ModalOverlay = styled.div`
@@ -368,39 +411,19 @@ const CloseButton = styled.button`
 	font-size: 60px;
 `;
 
-const MenuOptions = styled.div`
-	position: absolute;
-
-	top: 90%;
-	height: 70px;
-	transform: translateX(-20%);
-	background-color: ${({ theme }) => theme.color.gray[100]};
-	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
-	border-radius: 5px;
-	text-align: center;
-	align-items: center;
-	padding-top: 10px;
-	padding-left: 10px;
-`;
-
-const MenuOption = styled(Link)`
-	cursor: pointer;
-	text-decoration: none;
-	transition: background-color 0.3s;
-	margin: 5px;
-	display: block;
-
-	&:hover {
-		background-color: lightgray;
-	}
-`;
-
 const S = {
 	Wrapper,
 	Container,
-	MenuList,
+	MenuOpen,
 	Menu,
-	Icon,
+	TabletDiv,
 	Logo,
+	MenuList,
+	Icon,
 	CategoryIcon,
+	MenuOptionWrapper,
+	MenuOption,
+	ModalOverlay,
+	ModalContent,
+	CloseButton,
 };

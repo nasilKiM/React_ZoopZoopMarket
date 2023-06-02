@@ -1,18 +1,25 @@
-import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import SoldoutCard from './CardSoldout';
-import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
-import ProductApi from 'Apis/productApi';
+
+import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import ConfirmModal from 'Components/Alert/confirmModal';
+import SoldoutCard from './CardSoldout';
+
+import styled from 'styled-components';
+import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+
+import ProductApi from 'Apis/productApi';
 
 const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 
 	const onClickCard = () => {
-		if (isRelated) navigate(`/item_detail/${products.idx}`);
+		if (products.idx === undefined) {
+			return;
+		}
+		if (isRelated && products.idx !== undefined)
+			navigate(`/item_detail/${products.idx}`);
 		return navigate(`/item_detail/${index}`);
 	};
 
@@ -39,7 +46,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						<HeartBtn like={products.liked} idx={products.idx} />
+						{!isMine && <HeartBtn like={products.liked} idx={products.idx} />}
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />
@@ -53,7 +60,7 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 							{products.ProductsTags &&
 								products.ProductsTags.map(tagObj => (
 									<S.ItemTag key={tagObj.idx}>
-										<a className="tag-link">#{tagObj.Tag.tag}</a>
+										<span className="tag-link">#{tagObj.Tag.tag}</span>
 									</S.ItemTag>
 								))}
 						</S.ItemInfo>
@@ -65,7 +72,11 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 						</S.BtnSection>
 					)}
 				</S.Container>
-				{products.status === '판매완료' ? <SoldoutCard /> : ''}
+				{products.status === '판매완료' ? (
+					<SoldoutCard index={products.idx} />
+				) : (
+					''
+				)}
 				{modal && (
 					<ConfirmModal>
 						<S.Content>물품을 삭제하시겠습니까?</S.Content>
@@ -83,42 +94,46 @@ const ItemCard = ({ index, products, isMine, isRelated }) => {
 export default ItemCard;
 
 const Wrapper = styled.div`
-	display: flex;
 	position: relative;
 `;
 
 const Container = styled.div`
 	width: 100%;
-	min-width: 200px;
+	min-width: 160px;
 	max-width: 280px;
 	height: 370px;
 	overflow: hidden;
 	background-color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
-	margin-right: 10px;
 	border-radius: 10px;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
 	:hover {
 		box-shadow: rgba(100, 111, 124, 0.2) 0px 5px 10px;
 		transition: all 0.3s ease 0s;
 	}
-	@media (min-width: 414px) {
-		width: 200px;
+	@media (min-width: 350px) {
+		width: 160px;
+		height: 315px;
 	}
 	@media (min-width: 600px) {
-		width: 210px;
+		width: 200px;
+		height: 320px;
 	}
 	@media (min-width: 900px) {
 		width: 220px;
+		height: 330px;
 	}
 	@media (min-width: 1100px) {
 		width: 230px;
+		height: 340px;
 	}
 	@media (min-width: 1200px) {
 		width: 240px;
+		height: 350px;
 	}
 	@media (min-width: 1350px) {
 		width: 280px;
+		height: 370px;
 	}
 `;
 
@@ -128,17 +143,32 @@ const Heart = styled.div`
 	height: 32px;
 	top: 10px;
 	left: 80%;
-	z-index: 99;
+	z-index: 90;
 `;
 
 const ItemImg = styled.img`
 	width: 100%;
 	height: 250px;
-	max-height: 250px;
 	object-fit: cover;
 	position: relative;
 	top: -35px;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[100]};
+	@media (min-width: 350px) {
+		height: 200px;
+		height: 200px;
+	}
+	@media (min-width: 600px) {
+		height: 205px;
+	}
+	@media (min-width: 900px) {
+		height: 210px;
+	}
+	@media (min-width: 1200px) {
+		height: 240px;
+	}
+	@media (min-width: 1350px) {
+		height: 240px;
+	}
 `;
 
 const ItemInfo = styled.div`
@@ -156,6 +186,9 @@ const ItemTitle = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const ItemPrice = styled.span`
@@ -166,18 +199,13 @@ const ItemPrice = styled.span`
 `;
 
 const ItemTag = styled.span`
-	display: inline-block;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	background-color: ${({ theme }) => theme.color.gray[100]};
 	border-radius: 5px;
 	margin-right: 5px;
 	margin-bottom: 10px;
-	/* flex-shrink: 0; */
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	a {
+	span {
+		max-width: 100px;
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;
@@ -250,8 +278,8 @@ const OK = styled.button`
 
 const S = {
 	Wrapper,
-	Heart,
 	Container,
+	Heart,
 	ItemImg,
 	ItemInfo,
 	ItemTitle,

@@ -1,4 +1,8 @@
-import { flexAllCenter } from 'Styles/common';
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +15,7 @@ import { useState } from 'react';
 const MyPasswordEdit = () => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
+	const [change, setChange] = useState(false);
 
 	const {
 		register,
@@ -22,14 +27,13 @@ const MyPasswordEdit = () => {
 	const onSubmit = async data => {
 		const info = {
 			pw: data.password,
-			confirmPW: data.confirmPW,
 		};
 
 		try {
 			await UserApi.userPasswordEdit(info);
 			setModal(true);
 		} catch (err) {
-			alert(err.response.data.message);
+			console.log(err);
 		}
 	};
 
@@ -37,41 +41,46 @@ const MyPasswordEdit = () => {
 		navigate('/mypage/user_edit');
 	};
 
-	const full = !errors.password && !errors.confirmPW;
+	const full = !errors.password && !errors.confirmPW && change;
 
 	return (
 		<>
 			<S.Wrap>
-				<S.Text>
-					{' '}
-					90일마다 비밀번호를 변경하여 소중한 개인정보를 보호하세요!
-				</S.Text>
 				<S.Form onSubmit={handleSubmit(onSubmit)}>
-					<S.Grid1>
-						<S.Title>* 비밀번호</S.Title>
-						<S.Input
-							{...register('password', FORM_TYPE.PASSWORD)}
-							placeholder="특수문자, 영어, 숫자 포함 8자이상"
-							type="password"
-						/>
-					</S.Grid1>
-					{errors.password && <S.Error>{errors.password.message}</S.Error>}
-					<S.Grid1>
-						<S.Title>* 비밀번호 확인</S.Title>
-						<S.Input
-							{...register('confirmPW', {
-								required: true,
-								validate: value => {
-									if (getValues('password') !== value) {
-										return '비밀번호를 다시 확인해 주세요';
-									}
-								},
-							})}
-							placeholder="PW check"
-							type="password"
-						/>
-					</S.Grid1>
-					{errors.confirmPW && <S.Error>{errors.confirmPW.message}</S.Error>}
+					<S.Txt>
+						90일마다 비밀번호를 변경하여 <br /> 소중한 개인정보를 보호하세요!
+					</S.Txt>
+					<S.Container>
+						<S.Title>비밀번호</S.Title>
+						<S.Box>
+							<S.Input
+								{...register('password', FORM_TYPE.PASSWORD)}
+								placeholder="특수문자, 영어, 숫자 포함 8자이상"
+								type="password"
+							/>
+							{errors.password && <S.Error>{errors.password.message}</S.Error>}
+						</S.Box>
+					</S.Container>
+					<S.Container>
+						<S.Title>비밀번호 확인</S.Title>
+						<S.Box>
+							<S.Input
+								{...register('confirmPW', {
+									required: true,
+									validate: value => {
+										if (getValues('password') !== value) {
+											return '비밀번호를 다시 확인해 주세요';
+										} else setChange(true);
+									},
+								})}
+								placeholder="PW check"
+								type="password"
+							/>
+							{errors.confirmPW && (
+								<S.Error>{errors.confirmPW.message}</S.Error>
+							)}
+						</S.Box>
+					</S.Container>
 					<S.Button
 						type="submit"
 						disabled={!full}
@@ -83,11 +92,11 @@ const MyPasswordEdit = () => {
 					{modal && (
 						<AlertModal
 							content={'비밀번호가 변경되었습니다.'}
-							props={'/mypage'}
+							props={'/mypage/user_edit'}
 						/>
 					)}
 				</S.Form>
-				<S.Text2 onClick={onClickExit}>취소하기</S.Text2>
+				<S.Text onClick={onClickExit}>취소하기</S.Text>
 			</S.Wrap>
 		</>
 	);
@@ -103,72 +112,106 @@ const Wrap = styled.div`
 `;
 
 const Form = styled.form`
+	width: 60%;
+	min-width: 350px;
+	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding: 40px 15vw;
+	padding: 50px;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+		padding: 20px 10px 20px 10px;
+	}
+`;
+
+const Txt = styled.div`
+	${flexAllCenter}
+	color : ${({ theme }) => theme.color.primary[200]};
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-bottom: 40px;
+	line-height: 30px;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({ theme }) => theme.fontSize.base};
+		margin-bottom: 20px;
+	}
+`;
+
+const Container = styled.div`
+	${flexSpaceBetween}
+	width: 100%;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.div`
+	min-width: 95px;
+	margin-right: 10px;
+	${flexAlignCenter}
+	padding-left: 10px;
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-right: 5px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+	}
+`;
+
+const Box = styled.div`
+	width: 80%;
+	${flexAlignCenter}
+	position: relative;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 70%;
+	}
 `;
 
 const Input = styled.input`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
+	padding-left: 15px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	width: 100%;
+	height: 40px;
 `;
 
 const Button = styled(CustomButton)`
 	margin-top: 20px;
 	width: 100%;
-	background: linear-gradient(
-		${({ theme }) => theme.color.primary[400]},
-		${({ theme }) => theme.color.primary[200]}
-	);
+	background: ${({ theme }) => theme.color.primary[200]};
 	border: none;
 	color: ${({ theme }) => theme.color.fontColor[100]};
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100%;
+	:hover {
+		cursor: pointer;
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		background-color: ${({ theme }) => theme.color.primary[300]};
+	}
+	:disabled {
+		background: ${({ theme }) => theme.color.gray[200]};
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		margin-top: 10px;
 	}
 `;
 
 const Error = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	color: ${({ theme }) => theme.color.primary};
-	margin-bottom: 15px;
-`;
-
-const Grid1 = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 4fr;
-	grid-auto-rows: 5.5vh;
-	grid-gap: 20px;
-	margin-bottom: 3vh;
-`;
-
-const Title = styled.div`
-	width: 10vw;
-	min-width: max-content;
-	${flexAllCenter}
-	margin-right: 22px;
-`;
-
-const Title2 = styled.div`
-	min-width: max-content;
-	${flexAllCenter}
+	color: ${({ theme }) => theme.color.error};
+	position: absolute;
+	top: 50px;
+	left: 15px;
 `;
 
 const Text = styled.div`
-	margin-bottom: 3vh;
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: ${({ theme }) => theme.fontSize.es};
-	}
-`;
-
-const Text2 = styled.div`
-	margin-top: 30px;
+	margin-top: 40px;
 	font-size: ${({ theme }) => theme.fontSize.base};
-	color: ${({ theme }) => theme.color.primary[300]};
+	color: ${({ theme }) => theme.color.primary[400]};
+	padding-bottom: 5px;
+	height: 20px;
 	:hover {
+		border-bottom: 3px double ${({ theme }) => theme.color.primary[200]};
 		color: ${({ theme }) => theme.color.primary[500]};
 		cursor: pointer;
 	}
@@ -177,12 +220,12 @@ const Text2 = styled.div`
 const S = {
 	Wrap,
 	Form,
+	Txt,
+	Container,
+	Title,
+	Box,
 	Input,
 	Button,
 	Error,
-	Grid1,
-	Title,
-	Title2,
 	Text,
-	Text2,
 };

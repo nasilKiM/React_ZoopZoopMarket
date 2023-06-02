@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import styled from 'styled-components';
 
 const UploadFiles = ({ register, images, setImages }) => {
@@ -182,48 +183,12 @@ const MainImgContainer = styled.div`
 		height: 250px;
 	}
 	@media screen and (max-width: 768px) {
-		width: 400px;
+		width: 350px;
 		height: 200px;
 	}
 `;
 
 const MainImgSection = styled.img`
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
-	object-fit: cover;
-`;
-
-const SmallImgBox = styled.div`
-	width: 700px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	@media screen and (max-width: 1100px) {
-		width: 600px;
-	}
-	@media screen and (max-width: 768px) {
-		width: 400px;
-	}
-`;
-
-const SmallImgContainer = styled.div`
-	width: 173px;
-	height: 120px;
-	position: relative;
-	margin-top: 2px;
-	border: 2px solid ${({ theme }) => theme.color.primary[100]};
-	@media screen and (max-width: 1100px) {
-		width: 148px;
-		height: 90px;
-	}
-	@media screen and (max-width: 768px) {
-		width: 98px;
-		height: 60px;
-	}
-`;
-
-const SmallImgSection = styled.img`
 	width: 100%;
 	height: 100%;
 	cursor: pointer;
@@ -260,6 +225,42 @@ const DelBtn = styled.div`
 	}
 `;
 
+const SmallImgBox = styled.div`
+	width: 700px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@media screen and (max-width: 1100px) {
+		width: 600px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 350px;
+	}
+`;
+
+const SmallImgContainer = styled.div`
+	width: 173px;
+	height: 120px;
+	position: relative;
+	margin-top: 2px;
+	border: 2px solid ${({ theme }) => theme.color.primary[100]};
+	@media screen and (max-width: 1100px) {
+		width: 148px;
+		height: 90px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 98px;
+		height: 60px;
+	}
+`;
+
+const SmallImgSection = styled.img`
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	object-fit: cover;
+`;
+
 const Count = styled.span`
 	margin: 20px 0;
 	display: flex;
@@ -270,14 +271,15 @@ const Count = styled.span`
 		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
+
 const S = {
 	Wrapper,
 	ImgContainer,
 	MainImgContainer,
 	MainImgSection,
+	DelBtn,
 	SmallImgBox,
 	SmallImgContainer,
 	SmallImgSection,
-	DelBtn,
 	Count,
 };

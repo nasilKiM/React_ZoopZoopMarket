@@ -1,6 +1,7 @@
+import CardSkeleton from '../component/cardSkeleton';
+
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
-import CardSkeleton from '../component/cardSkeleton';
 
 const IndexSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -110,7 +111,7 @@ const SkeletonContainer = styled.div`
 
 const Wrapper = styled.div`
 	width: 70%;
-	min-width: 414px;
+	min-width: 350px;
 	max-width: 1200px;
 
 	@media (max-width: 700px) {
@@ -132,8 +133,6 @@ const Container = styled.div`
 const ResultText = styled.div`
 	display: flex;
 	margin-top: 40px;
-	//margin-left: 40px;
-	/* flex-direction: column; */
 	@media screen and (max-width: 767px) {
 		flex-direction: column;
 	}
@@ -154,7 +153,6 @@ const S = {
 
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
-		//1330이하일때만 적용
 		display: none;
 	}
 `;

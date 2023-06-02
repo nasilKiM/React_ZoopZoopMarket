@@ -1,10 +1,13 @@
-import { flexAllCenter } from 'Styles/common';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ProductApi from 'Apis/productApi';
+
+import { flexAllCenter } from 'Styles/common';
+import styled from 'styled-components';
 
 const RecentCard = item => {
 	const navigate = useNavigate();
