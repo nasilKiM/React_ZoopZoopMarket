@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PayListCard = ({item}) => {
-    item && console.log('item', item);
+    // item && console.log('item', item);
 
     const {title, price, img_url} = item.Product;
 

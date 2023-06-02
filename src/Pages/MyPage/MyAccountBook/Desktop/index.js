@@ -3,33 +3,42 @@ import styled from 'styled-components';
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
+import dayjs from 'dayjs';
+import DetailCard from './Components/detailCard';
 
 const AccountBookPage = () => {
 	const [category, setCategory] = useState('seller');
-	const [date, setDate] = useState(new Date());
-	const [year, setYear] = useState(new Date().getFullYear());
-	const [month, setMonth] = useState(new Date().getMonth() + 1);
-	const thisMonth = new Date().getMonth() + 1
+	const now = dayjs();
+	const [date, setDate] = useState(now);
+	const [year, setYear] = useState(now.get('year'));
+	const [month, setMonth] = useState(now.get('month'));
+	const thisMonth = now.get('month');
 
 	useEffect(() => {
-		setDate(`${year}-0${month}-01`);
-	}, [year, month]);
+		setDate(`${year}-${month}-01`);
+	}, [month]);
 
 	const specificMonth = new Date(year, month, 0);
 	const lastDay = specificMonth.getDate();
 
-	const start = `${year}-0${month}-01`;
-	const end = `${year}-0${month}-${lastDay}`;
-
 	const res = getAccountBook({
 		page: 1,
 		category,
-		start,
-		end,
+		start: `${year}-${month}-01`,
+		end: `${year}-${month}-${lastDay}`,
 	});
 
 	return (
 		<S.Wrapper>
+			<AccountBookDetailInfo
+				category={category}
+				date={date}
+				setDate={setDate}
+				year={year}
+				month={month}
+				thisMonth={thisMonth}
+				data={res.data}
+			/>
 			<AccountBookSelector
 				category={category}
 				setCategory={setCategory}
@@ -38,14 +47,10 @@ const AccountBookPage = () => {
 				month={month}
 				setMonth={setMonth}
 			/>
-			<AccountBookDetailInfo
-				category={category}
-				date={date}
-				setDate={setDate}
+			<DetailCard
+				data={res.data}
 				year={year}
 				month={month}
-				data={res.data}
-				thisMonth={thisMonth}
 			/>
 		</S.Wrapper>
 	);
@@ -57,16 +62,13 @@ const Wrapper = styled.div`
 	margin: 0 auto 300px;
 	width: 60vw;
 	height: 100%;
-	font-family: 'Nanum_extraBold';
-	@media ${({ theme }) => theme.device.laptop} {
-		width: 90%;
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
-		display: inline;
-	}
+`;
+
+const DetailTitle = styled.div`
+	margin: 50px 0;
 `;
 
 const S = {
 	Wrapper,
+	DetailTitle
 };

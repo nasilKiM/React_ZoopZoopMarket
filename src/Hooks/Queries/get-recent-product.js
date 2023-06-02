@@ -12,7 +12,6 @@ const useRecentProduct = () => {
 		() => recentPrd(),
 		{
 			onSuccess: data => {
-				console.log(data);
 			},
 		},
 	);
