@@ -27,7 +27,6 @@ const SkeletonContainer = styled.div`
 		grid-template-columns: repeat(1, minmax(280px, 1fr));
 		row-gap: 10px;
 		width: 80%;
-		border: 1px solid green;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {
 		grid-template-columns: repeat(2, minmax(280px, 1fr));
