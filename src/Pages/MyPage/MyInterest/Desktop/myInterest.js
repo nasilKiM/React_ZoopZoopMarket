@@ -88,6 +88,13 @@ const HeartZone = styled.div`
 	background-color: lightgray;
 `;
 
+const Txt = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-left: 30px;
+`;
+
 const S = {
 	Container,
 	Wrap,
