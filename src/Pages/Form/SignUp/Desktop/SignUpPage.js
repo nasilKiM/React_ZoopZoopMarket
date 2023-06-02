@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useBeforeUnload } from 'react-router-dom';
 
 import UserApi from 'Apis/userApi';
 
@@ -27,9 +26,14 @@ const SignUpPage = () => {
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
 
-	const preventClose = (e) => {
-		useBeforeUnload((e) => e.preventDefault());
-		return "변경사항이 저장되지 않을 수 있습니다."
+	// const preventClose = (e) => {
+	// 	useBeforeUnload((e) => e.preventDefault());
+	// 	return "변경사항이 저장되지 않을 수 있습니다."
+	// };
+
+	const preventClose = (e:BeforeUnloadEvent) => {
+		e.preventDefault();
+		e.returnValue = "변경사항이 저장되지 않을 수 있습니다."
 	};
 
 	useEffect(() => {
