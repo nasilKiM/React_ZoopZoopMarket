@@ -300,6 +300,7 @@ const Title = styled.span`
 	}
 	@media screen and (max-width: 768px) {
 		min-width: 30px;
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 

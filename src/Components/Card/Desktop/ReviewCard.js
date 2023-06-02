@@ -29,7 +29,7 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 
 	useEffect(() => {
 		setReviewTarget(item);
-	}, []);
+	}, [item]);
 
 	const onClickReview = () => {
 		return navigate(`/review/${payIdx}`);

@@ -144,6 +144,12 @@ const Heart = styled.div`
 	top: 10px;
 	left: 80%;
 	z-index: 90;
+	@media (max-width: 600px) {
+		position: relative;
+		width: 30px;
+		height: 30px;
+		left: 75%;
+	}
 `;
 
 const ItemImg = styled.img`
