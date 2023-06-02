@@ -30,6 +30,7 @@ const Preview = ({ category }) => {
 		speed: 500,
 		slidesToShow: slidesToShow,
 		slidesToScroll: 1,
+		swipe: false,
 
 		nextArrow: (
 			<Div>
@@ -110,6 +111,7 @@ const Wrapper = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
 `;
+
 const UpperSwiper = styled.div`
 	width: 100%;
 	flex-direction: column;
@@ -152,6 +154,7 @@ const SliderWrapper = styled.div`
 		cursor: pointer;
 	}
 `;
+
 const Div = styled.div`
 	width: 40px;
 	height: 40px;
@@ -173,6 +176,7 @@ const Div = styled.div`
 		background-color: rgba(217, 217, 217, 0.8);
 	}
 `;
+
 const DivPre = styled.div`
 	width: 40px;
 	height: 40px;

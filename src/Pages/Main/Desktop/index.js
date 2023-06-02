@@ -66,7 +66,6 @@ const Wrapper = styled.div`
 `;
 
 const CategoryWrapper = styled.div`
-	padding-bottom: 20px;
 	margin-bottom: 30px;
 `;
 
