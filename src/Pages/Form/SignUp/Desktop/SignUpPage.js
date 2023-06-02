@@ -26,14 +26,9 @@ const SignUpPage = () => {
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
 
-	// const preventClose = (e) => {
-	// 	useBeforeUnload((e) => e.preventDefault());
-	// 	return "변경사항이 저장되지 않을 수 있습니다."
-	// };
-
-	const preventClose = (e:BeforeUnloadEvent) => {
+	const preventClose = (e) => {
 		e.preventDefault();
-		e.returnValue = "변경사항이 저장되지 않을 수 있습니다."
+		e.returnValue = ""
 	};
 
 	useEffect(() => {
