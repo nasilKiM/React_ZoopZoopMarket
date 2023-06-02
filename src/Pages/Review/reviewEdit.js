@@ -11,11 +11,12 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
 
 import styled from 'styled-components';
+import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewEditPage = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -26,7 +27,6 @@ const ReviewEditPage = () => {
 
 	const target = useRecoilValue(reviewAtom);
 	const { idx } = useParams();
-	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
 	target && console.log(target);
@@ -37,6 +37,7 @@ const ReviewEditPage = () => {
 	const [images, setImages] = useState([]);
 	const [newImg, setNewImg] = useState([]);
 	const [show, setShow] = useState(true);
+	const [postModal, setPostModal] = useState(false);
 
 	const hasOriginalImg = target?.Review.img_url !== 'null';
 	const hasNewImg = target?.Review.ReviewImages.length > 0;
@@ -77,8 +78,9 @@ const ReviewEditPage = () => {
 			mutationEditReview.mutate(formData, {
 				onSuccess: () => {
 					queryClient.invalidateQueries(['reviewDetail']);
-					alert('리뷰가 수정되었습니다.');
-					navigate(`/review/detail/${idx}`);
+					// alert('리뷰가 수정되었습니다.');
+					// navigate(`/review/detail/${idx}`);
+					setPostModal(true);
 				},
 			});
 		} catch (error) {
@@ -182,6 +184,12 @@ const ReviewEditPage = () => {
 					<S.Container>
 						<S.RegisterBtn type="submit">저장하기</S.RegisterBtn>
 					</S.Container>
+					{postModal && (
+						<AlertModal
+							content={'리뷰가 수정되었습니다.'}
+							props={`/review/detail/${idx}`}
+						/>
+					)}
 				</form>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>

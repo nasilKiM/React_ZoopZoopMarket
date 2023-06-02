@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
@@ -20,7 +20,7 @@ import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const { idx } = useParams();
 
 	const title = target.title;
@@ -55,8 +55,6 @@ const ReviewPage = () => {
 			await mutationPostReview.mutate(formData, {
 				onSuccess: () => {
 					setPostModal(true);
-					//alert('리뷰가 등록되었습니다.');
-					//navigate('/mypage/review');
 				},
 			});
 		} catch (error) {
@@ -153,7 +151,6 @@ const ReviewPage = () => {
 						<AlertModal
 							content={'리뷰가 등록되었습니다.'}
 							props={'/mypage/review'}
-							// setModal={setPostModal}
 						/>
 					)}
 				</form>
