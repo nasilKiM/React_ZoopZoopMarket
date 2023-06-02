@@ -19,6 +19,12 @@ const ReviewApi = {
 		});
 	},
 
+	postReview(data, idx) {
+		return Axios.post(PATH, data, {
+			params: { payList_idx: idx },
+		});
+	},
+
 	editReview(data, idx) {
 		return Axios.patch(PATH, data, {
 			headers: { 'Content-Type': 'multipart/form-data' },
@@ -31,15 +37,5 @@ const ReviewApi = {
 			params: { review_idx: idx },
 		});
 	},
-
-	// editReview({ title, content, ondo, img_url, main_url, images }) {
-	// 	return Axios.patch(
-	// 		PATH,
-	// 		{ title, content, ondo, img_url, main_url, images },
-	// 		{
-	// 			headers: { 'Content-Type': 'multipart/form-data' },
-	// 		},
-	// 	);
-	// },
 };
 export default ReviewApi;
