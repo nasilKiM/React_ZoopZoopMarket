@@ -7,39 +7,38 @@ const DetailCard = ({data, year, month}) => {
                 <S.Date>
 					{year}년 {month}월
 				</S.Date>
-					{data && 
                     <div>
 						<S.Flex>
 							<div>당월 수입</div>
 							<div>
-								<S.Amount>
+								{data && <S.Amount>
                                     {data.amount.thisMonthSaleAmount === null
 									    ? 0
 									    : parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
 									    	'ko-KR',
 									    )}
-								</S.Amount>
+								</S.Amount>}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex>
 							<div>당월 지출</div>
 							<div>
-								<S.Amount>
+								{data && <S.Amount>
                                     {data.amount.thisMonthPurchaseAmount === null
 										? 0
 										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
 														'ko-KR',
 										)}
-								</S.Amount>
+								</S.Amount>}
 								원
 							</div>
 						</S.Flex>
                         <S.Flex2>
 							<div>당월 수익</div>
-							<div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>
+							{data && <div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>}
 						</S.Flex2>
-					</div>}
+					</div>
 				</S.PreviewWrap>
         <S.Wrap>
             <S.DetailTitle>세부내역</S.DetailTitle>
