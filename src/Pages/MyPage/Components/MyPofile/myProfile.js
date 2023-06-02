@@ -1,36 +1,34 @@
-import { useEffect, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useRef, useState } from 'react';
 
 import UserApi from 'Apis/userApi';
-import MyPageApi from 'Apis/myPageApi';
 
 import MannerMeter from 'Components/Icon/Icon';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import useUserInfo from 'Hooks/Queries/get-user-info';
+import useMyUserInfo from 'Hooks/Queries/get-mypage-mainPage';
+import { useMutation } from '@tanstack/react-query';
 import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 
 const MyProfile = () => {
-	const [userInfo, setUserInfo] = useState('');
-	const [userProfile, setUserProfile] = useState('');
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
+	const { data, refetch, isLoading, isSuccess } = useUserInfo();
+	const { data: myData } = useMyUserInfo();
 
-	const { data, isSuccess, isLoading } = useQuery(['userInfo'], () =>
-		UserApi.userInfo(),
+	const { mutate } = useMutation(
+		formData => UserApi.userProfileEdit(formData),
+		{
+			onSuccess: () => {
+				refetch();
+			},
+		},
 	);
 
-	const getUserProfile = async () => {
-		try {
-			const res = await MyPageApi.myMainPage();
-			setUserProfile(res);
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const profileImgEdit = async e => {
+	const profileImgEdit = e => {
+		if (!e.target.files[0]) return;
 		const formData = new FormData();
 		const file = e.target.files[0];
 		formData.append('profile_url', file);
@@ -38,37 +36,26 @@ const MyProfile = () => {
 		const imageUrl = URL.createObjectURL(file);
 		setProfileImg(imageUrl);
 
-		try {
-			await UserApi.userProfileEdit(formData);
-		} catch (error) {
-			console.log(error);
-		}
+		mutate(formData);
 	};
 
 	const handleClick = () => {
 		photoInput.current.click();
 	};
 
-	useEffect(() => {
-		getUserProfile();
-		setUserInfo(data);
-	}, [profileImg, data]);
-
-	const { User, ondo } = userProfile && userProfile.data;
-
 	return (
 		<>
 			{isSuccess && (
 				<S.Wrapper>
-					{userInfo && userProfile && (
+					{myData && (
 						<S.Info>
 							<S.ImgWrap>
 								<S.Img
 									src={
-										userInfo.data.profile_url
+										data.profile_url
 											? profileImg
 												? profileImg
-												: userInfo.data.profile_url
+												: data.profile_url
 											: '/Assets/Images/기본 프로필.png'
 									}
 								/>
@@ -92,17 +79,19 @@ const MyProfile = () => {
 								<S.Detail>
 									<S.List>
 										<S.InfoTitle>닉네임</S.InfoTitle>
-										{User && <S.InfoContent>{User.nickName}</S.InfoContent>}
+										{myData.User && (
+											<S.InfoContent>{myData.User.nickName}</S.InfoContent>
+										)}
 									</S.List>
 									<S.List>
 										<S.InfoTitle>매너온도</S.InfoTitle>
 										<S.InfoContent>
-											<MannerMeter ondo={ondo} />
+											<MannerMeter ondo={myData.ondo} />
 										</S.InfoContent>
 									</S.List>
 									<S.List>
 										<S.InfoTitle>활동지역</S.InfoTitle>
-										<S.InfoContent>#{data.data.region}</S.InfoContent>
+										<S.InfoContent>#{data.region}</S.InfoContent>
 									</S.List>
 								</S.Detail>
 								<S.Detail>
@@ -110,9 +99,7 @@ const MyProfile = () => {
 										<S.InfoTitle>내 등록템</S.InfoTitle>
 										<S.InfoContent>
 											<span>
-												{userProfile.data.productsCount
-													? userProfile.data.productsCount
-													: 0}
+												{myData.productsCount ? myData.productsCount : 0}
 											</span>{' '}
 											개
 										</S.InfoContent>
@@ -120,13 +107,13 @@ const MyProfile = () => {
 									<S.List>
 										<S.InfoTitle>내 관심템</S.InfoTitle>
 										<S.InfoContent>
-											<span>{userProfile.data.likeCount}</span> 개
+											<span>{myData.likeCount}</span> 개
 										</S.InfoContent>
 									</S.List>
 									<S.List>
 										<S.InfoTitle>채팅</S.InfoTitle>
 										<S.InfoContent>
-											<span>{userProfile.data.chatCount}</span> 건
+											<span>{myData.chatCount}</span> 건
 										</S.InfoContent>
 									</S.List>
 								</S.Detail>
