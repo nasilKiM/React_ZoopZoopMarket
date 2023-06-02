@@ -1,17 +1,22 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import TokenService from 'Repository/TokenService';
 import { useEffect, useState } from 'react';
-import { FORM_TYPE } from 'Consts/FormType';
-import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+
+import UserApi from 'Apis/userApi';
+
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
-import { useSocket } from 'Context/socket';
-import { useMutation } from '@tanstack/react-query';
-import UserApi from 'Apis/userApi';
-import { useForm } from 'react-hook-form';
 import AlertModal from 'Components/Alert/alertModal';
 import NotificationModal from 'Components/Alert/notificationModal';
+
+import styled from 'styled-components';
+import { useSocket } from 'Context/socket';
+
+import TokenService from 'Repository/TokenService';
+import { FORM_TYPE } from 'Consts/FormType';
+
+import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 
 const LoginPage = () => {
 	const navigate = useNavigate();

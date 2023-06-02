@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
+import styled from 'styled-components';
 
 import { theme } from 'Styles/theme';
 

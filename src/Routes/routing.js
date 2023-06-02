@@ -1,30 +1,32 @@
 import { createBrowserRouter } from 'react-router-dom';
+
+import PrivateRoute from './private';
+
 import LandingPage from '../Pages/Landing';
 import FormPage from '../Pages/Form';
 import MarketPricePage from '../Pages/MarketPrice';
 import MyPage from '../Pages/MyPage';
 import MyItemPage from '../Pages/MyPage/MyItem/Desktop/myItem';
 import SearchListPage from '../Pages/SearchList';
-import LayOut from '../Components/Layout';
 import LoginPage from 'Pages/Form/Login/Desktop/LoginPage';
 import SignUpPage from 'Pages/Form/SignUp/Desktop/SignUpPage';
 import ItemDetailPage from 'Pages/ItemDetail';
 import RegisterPage from 'Pages/Register/Desktop';
 import MyInterestPage from 'Pages/MyPage/MyInterest/Desktop/myInterest';
-import ErrorPage from 'Error';
 import AccountBookPage from 'Pages/MyPage/MyAccountBook/Desktop';
 import MainPage from 'Pages/Main';
 import ReviewPage from 'Pages/Review';
 import YourProfile from 'Pages/YourProfile/Desktop';
 import WholeListPage from 'Pages/SearchList/Desktop/wholeList';
-import PrivateRoute from './private';
 import MyPasswordEdit from 'Pages/MyPage/MyUserEdit/MyPasswordEdit/myPasswordEdit';
 import MyUserEdit from 'Pages/MyPage/MyUserEdit/myUserEdit';
 import MyReview from 'Pages/MyPage/MyReview/MyReview';
 import ChattingPage from 'Pages/Chat';
 import ReviewDetail from 'Pages/Review/reviewDetail';
 import ReviewEditPage from 'Pages/Review/reviewEdit';
+import LayOut from '../Components/Layout';
 import ScrollToTop from 'Components/ScrollToTop/ScrollToTop';
+import ErrorPage from 'Error';
 
 const router = createBrowserRouter([
 	{

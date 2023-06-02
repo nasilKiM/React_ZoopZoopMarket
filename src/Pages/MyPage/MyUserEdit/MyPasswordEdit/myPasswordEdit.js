@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import UserApi from 'Apis/userApi';
 
-import { FORM_TYPE } from 'Consts/FormType';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
+
+import { FORM_TYPE } from 'Consts/FormType';
 
 import {
 	flexAlignCenter,

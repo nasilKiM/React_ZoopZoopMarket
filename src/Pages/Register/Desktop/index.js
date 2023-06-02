@@ -11,8 +11,9 @@ import KaMap from 'Components/Map/Map';
 import AlertModal from 'Components/Alert/alertModal';
 import CategorySelector from './Components/categorySelector';
 
-import { flexAlignCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAlignCenter } from 'Styles/common';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');

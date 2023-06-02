@@ -1,6 +1,6 @@
-import ChatApis from 'Apis/chatApis';
-
 import { useQuery } from '@tanstack/react-query';
+
+import ChatApis from 'Apis/chatApis';
 
 import { QUERY_KEY } from 'Consts/QueryKey';
 

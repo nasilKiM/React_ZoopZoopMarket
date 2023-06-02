@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSocket } from 'Context/socket';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -8,6 +7,8 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 
 import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
+
+import { useSocket } from 'Context/socket';
 
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';

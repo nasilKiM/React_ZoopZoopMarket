@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Desktop/Card';
 
-import { useInView } from 'react-intersection-observer';
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
 
 import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
+
 import styled from 'styled-components';
 
 const MyItemPage = () => {

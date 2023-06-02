@@ -1,5 +1,5 @@
-import { theme } from 'Styles/theme';
 import { useEffect, useState } from 'react';
+
 import {
 	CartesianGrid,
 	Legend,
@@ -10,6 +10,8 @@ import {
 	YAxis,
 } from 'recharts';
 import styled from 'styled-components';
+
+import { theme } from 'Styles/theme';
 
 const Chart = ({ data, average }) => {
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
