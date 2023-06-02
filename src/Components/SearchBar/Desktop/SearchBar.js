@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import AlertModal from 'Components/Alert/alertModal';
 
-const SearchBar = ({ props }) => {
+const SearchBar = ({ props, setIsModalOpen }) => {
 	const navigate = useNavigate();
 	const searchInputRef = useRef(null);
 	const location = useLocation();
@@ -22,6 +22,7 @@ const SearchBar = ({ props }) => {
 		try {
 			let searchWord = e.target.searchKey.value;
 			navigate(`/${props}/${searchWord}`);
+			setIsModalOpen(false);
 		} catch (err) {
 			console.log(err);
 		}
