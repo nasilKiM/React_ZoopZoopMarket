@@ -1,9 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 const categories = [
 	{
@@ -135,22 +137,22 @@ const Category = () => {
 
 		return (
 			<>
-				<CategoryWrapper>
+				<S.CategoryWrapper>
 					<Slider {...settings}>
 						{categories.map(category => (
-							<CategoryContainer
+							<S.CategoryContainer
 								onClick={() => {
 									navigate(`/search_list/${category.name}/0`);
 								}}
 							>
-								<CategoryItem key={category.id}>
-									<CategoryIcon src={category.icon} alt={category.name} />
-									<ItemName>{category.name}</ItemName>
-								</CategoryItem>
-							</CategoryContainer>
+								<S.CategoryItem key={category.id}>
+									<S.CategoryIcon src={category.icon} alt={category.name} />
+									<S.ItemName>{category.name}</S.ItemName>
+								</S.CategoryItem>
+							</S.CategoryContainer>
 						))}
 					</Slider>
-				</CategoryWrapper>
+				</S.CategoryWrapper>
 			</>
 		);
 	};
@@ -202,3 +204,11 @@ const ItemName = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	text-align: center;
 `;
+
+const S = {
+	CategoryWrapper,
+	CategoryContainer,
+	CategoryItem,
+	CategoryIcon,
+	ItemName,
+};

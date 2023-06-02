@@ -1,24 +1,25 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
-const PayListCard = ({item}) => {
-    item && console.log('item', item);
+const PayListCard = ({ item }) => {
+	item && console.log('item', item);
 
-    const {title, price, img_url} = item.Product;
+	const { title, price, img_url } = item.Product;
 
 	return (
 		<S.Wrapper>
-            { item &&
-                <>                
-                    <S.Container>
-                        <S.ItemImg src={img_url} />
-                        <S.ItemInfo>
-                            <S.ItemTitle>{title}</S.ItemTitle>
-                            <S.ItemPrice>{price} 원</S.ItemPrice>
-                        </S.ItemInfo>
-                    </S.Container>
-                </>
-            }
+			{item && (
+				<>
+					<S.Container>
+						<S.ItemImg src={img_url} />
+						<S.ItemInfo>
+							<S.ItemTitle>{title}</S.ItemTitle>
+							<S.ItemPrice>{price} 원</S.ItemPrice>
+						</S.ItemInfo>
+					</S.Container>
+				</>
+			)}
 		</S.Wrapper>
 	);
 };
@@ -27,12 +28,12 @@ export default PayListCard;
 
 const Wrapper = styled.div`
 	width: 1000px;
-    height: 100%;
+	height: 100%;
 `;
 
 const Container = styled.div`
 	width: 1000px;
-    height: 500px;
+	height: 500px;
 	min-width: 400px;
 	max-height: 200px;
 	border-radius: 5px;

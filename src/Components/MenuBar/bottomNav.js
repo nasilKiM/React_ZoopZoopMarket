@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faHouse,
@@ -7,8 +9,8 @@ import {
 	faUser,
 	faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 const BottomNav = () => {
 	const [checked, setChecked] = useState(1);

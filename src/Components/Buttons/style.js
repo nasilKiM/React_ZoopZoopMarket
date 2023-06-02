@@ -1,5 +1,6 @@
-import { flexAllCenter } from 'Styles/common';
 import styled, { css } from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const variantCSS = {
 	primary: css`

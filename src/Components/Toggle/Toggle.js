@@ -1,7 +1,7 @@
-import { flexAllCenter } from 'Styles/common';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const ToggleBar = () => {

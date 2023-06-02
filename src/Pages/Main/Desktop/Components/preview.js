@@ -1,11 +1,14 @@
+import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import ProductApi from 'Apis/productApi';
+
+import ItemCard from 'Components/Card/Desktop/Card';
+
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProductApi from 'Apis/productApi';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import ItemCard from 'Components/Card/Desktop/Card';
+
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
 
@@ -78,7 +81,7 @@ const Preview = ({ category }) => {
 					))}
 				</S.TempSlider>
 			) : (
-				<SwiperWrapper>
+				<S.SliderWrapper>
 					<Slider {...sliderSettings}>
 						{products?.map(item => (
 							<ItemCard key={item.idx} products={item} index={item.idx} />
@@ -87,7 +90,7 @@ const Preview = ({ category }) => {
 						{/* <ItemCard key={item} products={item} index={item.idx} /> */}
 						{/* <ItemCardMock key={item} products={item} index={index} /> */}
 					</Slider>
-				</SwiperWrapper>
+				</S.SliderWrapper>
 			)}
 		</S.Wrapper>
 	);
@@ -115,17 +118,18 @@ const UpperSwiper = styled.div`
 	margin-bottom: 20px;
 `;
 
+const CategoryBox = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary};
+`;
+
 const SpaceBetween = styled.div`
 	${flexAlignCenter}
 	justify-content: space-between;
 	padding-right: 10px;
 `;
 
-const CategoryBox = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	color: ${({ theme }) => theme.color.primary};
-`;
 const CategoryText = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	margin-top: 10px;
@@ -137,7 +141,7 @@ const TempSlider = styled.div`
 	gap: 20px;
 `;
 
-const SwiperWrapper = styled.div`
+const SliderWrapper = styled.div`
 	width: 100%;
 	position: relative;
 	.slick-prev::before,
@@ -197,8 +201,9 @@ const DivPre = styled.div`
 const S = {
 	Wrapper,
 	UpperSwiper,
-	TempSlider,
-	SpaceBetween,
 	CategoryBox,
+	SpaceBetween,
 	CategoryText,
+	TempSlider,
+	SliderWrapper,
 };

@@ -1,12 +1,14 @@
+import RecentCard from './recentCard';
+import useRecentProduct from 'Hooks/Queries/get-recent-product';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { flexAllCenter } from 'Styles/common';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
-import RecentCard from './recentCard';
-import useRecentProduct from 'Hooks/Queries/get-recent-product';
 
 const RecentProduct = () => {
 	const res = useRecentProduct();
