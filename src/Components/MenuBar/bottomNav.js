@@ -34,7 +34,6 @@ const BottomNav = () => {
 			>
 				<FontAwesomeIcon
 					icon={faHouse}
-					// color="white"
 					cursor="pointer"
 					fontSize="25px"
 				/>
@@ -43,7 +42,6 @@ const BottomNav = () => {
 			<S.NavBtn to="/market_price" id="2" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faChartLine}
-					// color="white"
 					cursor="pointer"
 					fontSize="25px"
 				/>
@@ -62,7 +60,6 @@ const BottomNav = () => {
 			<S.NavBtn to="/chat" id="3" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faCommentDots}
-					// color="white"
 					cursor="pointer"
 					fontSize="25px"
 				/>
@@ -71,7 +68,6 @@ const BottomNav = () => {
 			<S.NavBtn to="/mypage" id="4" ref={currentRef}>
 				<FontAwesomeIcon
 					icon={faUser}
-					// color="white"
 					cursor="pointer"
 					fontSize="25px"
 				/>

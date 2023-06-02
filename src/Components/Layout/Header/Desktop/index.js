@@ -24,14 +24,10 @@ const WebHeader = ({ so }) => {
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
 	const [showOptions, setShowOptions] = useState();
-	//검색창 모달
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	//메뉴창 오픈
 	const [MenuIsOpen, setMenuIsOpen] = useState();
-
 	const [popupMsg, setPopupMsg] = useState();
 
-	//채팅전역
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {

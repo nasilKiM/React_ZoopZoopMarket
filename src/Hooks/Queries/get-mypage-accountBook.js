@@ -4,15 +4,9 @@ import MyPageApi from "Apis/myPageApi"
 
 import { queryConfig } from "./@config"
 
-// const accountBook = async ({page, category, start, end}) => {
-//     const res = await MyPageApi.accountBook({page, category, start, end})
-//     return res.data;
-// };
-
 const useGetAccountBook = ({page, category, start, end}) => {
     const { isLoading, isError, data, error } = useQuery(
         ['accountBook', page, category, start, end], 
-        // () => accountBook({page, category, start, end}), 
         () => MyPageApi.accountBook({page, category, start, end}),
         queryConfig,
     );

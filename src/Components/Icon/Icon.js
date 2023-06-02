@@ -86,7 +86,6 @@ const Wrapper = styled.div`
 	& > div {
 		margin-right: 10px;
 	}
-	/* position: relative; */
 `;
 
 const Icon = styled.div`
