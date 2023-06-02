@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import MannerMeter from 'Components/Icon/Icon';
 import MyPageApi from 'Apis/myPageApi';
 import { useQuery } from '@tanstack/react-query';
-import { flexSpaceBetween } from 'Styles/common';
 
 const MyProfile = () => {
 	const [userInfo, setUserInfo] = useState('');
@@ -150,11 +149,6 @@ const Info = styled.div`
 		width: 100%;
 		flex-direction: column;
 	}
-`;
-
-const ImgWrap = styled.div`
-	position: relative;
-	margin-right: 10px;
 `;
 
 const Img = styled.img`

@@ -8,19 +8,8 @@ import ItemCard from 'Components/Card/Desktop/Card';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-<<<<<<< HEAD
-=======
-
->>>>>>> 74b78337459ef055df81c964889fc5b43aa1df1f
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
-
-import ItemCard from 'Components/Card/Desktop/Card';
-
-import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-
-import ProductApi from 'Apis/productApi';
 
 const Preview = ({ category }) => {
 	const { data } = useQuery(['mainList'], () => ProductApi.mainList());
@@ -89,10 +78,6 @@ const Preview = ({ category }) => {
 					{products?.map(item => (
 						<ItemCard key={item.idx} products={item} index={item.idx} />
 					))}
-<<<<<<< HEAD
-				</Slider>
-			</SwiperWrapper>
-=======
 				</S.TempSlider>
 			) : (
 				<S.SliderWrapper>
@@ -106,7 +91,6 @@ const Preview = ({ category }) => {
 					</Slider>
 				</S.SliderWrapper>
 			)}
->>>>>>> 74b78337459ef055df81c964889fc5b43aa1df1f
 		</S.Wrapper>
 	);
 };
