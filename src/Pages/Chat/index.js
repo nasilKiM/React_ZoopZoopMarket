@@ -1,53 +1,37 @@
-import styled from 'styled-components';
-import ChatList from './ChatList/ChatList';
 import { useEffect, useState } from 'react';
-import ChatApis from 'Apis/chatApis';
+
+import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
 
-const ChattingPage = ({ idx, item, setItem, isSeller }) => {
+import styled from 'styled-components';
+import useGetChatList from 'Hooks/Queries/get-chat-list';
+import useGetAllChatList from 'Hooks/Queries/get-allchat-list';
+
+const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
 
+	const { data: getChatList } = useGetChatList(idx);
+	const { data: getAllChatList } = useGetAllChatList(1);
+
 	useEffect(() => {
 		if (!idx) return;
-		const getChatList = async prodIdx => {
-			try {
-				const res = await ChatApis.loadSpecificChatRoom(prodIdx);
-				setChatroomList(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
-		getChatList(idx);
-	}, []);
+		setChatroomList(getChatList?.data);
+	}, [getChatList]);
 
 	useEffect(() => {
 		if (idx) return;
-		const getAllChatList = async () => {
-			try {
-				const res = await ChatApis.loadAllChatList(1);
-				setChatroomList(res.data);
-				console.log(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
-		getAllChatList();
-	}, []);
+		setChatroomList(getAllChatList?.data);
+	}, [getAllChatList]);
 	return (
 		<S.ChatContainer>
 			<S.ChatLeftContainer>
 				<ChatList
 					chatroomList={chatroomList}
-					setChatroomList={setChatroomList}
-					chatroomIdx={chatroomIdx}
 					setChatroomIdx={setChatroomIdx}
 					idx={idx}
 					item={item}
-					setItem={setItem}
 					setItemInfo={setItemInfo}
 				/>
 			</S.ChatLeftContainer>

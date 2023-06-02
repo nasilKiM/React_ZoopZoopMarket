@@ -1,17 +1,10 @@
 import ChatMessage from 'Components/ChatMessage/ChatMessage';
-import { flexAllCenter } from 'Styles/common';
+
 import styled from 'styled-components';
 
-const ChatList = ({
-	chatroomList,
-	setChatroomIdx,
-	chatroomIdx,
-	idx,
-	item,
-	setItem,
-	setItemInfo,
-	setChatArr,
-}) => {
+import { flexAllCenter } from 'Styles/common';
+
+const ChatList = ({ chatroomList, setChatroomIdx, idx, item, setItemInfo }) => {
 	return (
 		<>
 			<S.LeftUpperBar>
@@ -25,11 +18,8 @@ const ChatList = ({
 							<ChatMessage
 								chat={chat}
 								setChatroomIdx={setChatroomIdx}
-								chatroomIdx={chatroomIdx}
 								item={item}
-								setItem={setItem}
 								setItemInfo={setItemInfo}
-								setChatArr={setChatArr}
 							/>
 						);
 					})}
@@ -39,10 +29,7 @@ const ChatList = ({
 						return (
 							<ChatMessage
 								chat={chat}
-								chatroomList={chatroomList}
 								setChatroomIdx={setChatroomIdx}
-								chatroomIdx={chatroomIdx}
-								setItem={setItem}
 								item={item}
 								setItemInfo={setItemInfo}
 							/>
@@ -59,7 +46,6 @@ const LeftUpperBar = styled.div`
 	${flexAllCenter}
 	height: 10%;
 	background-color: ${({ theme }) => theme.color.primary[400]};
-	/* border: 2px solid ${({ theme }) => theme.color.primary}; */
 	color: white;
 	cursor: pointer;
 	border-radius: 5px 0 0 0;

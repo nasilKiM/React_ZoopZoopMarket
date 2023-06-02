@@ -1,31 +1,40 @@
-import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
+
 import ChatApis from 'Apis/chatApis';
 import { useSocket } from 'Context/socket';
-import MessageDetail from '../Message/Message';
-import { flexAllCenter } from 'Styles/common';
 
-const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
+import MessageDetail from '../Message/Message';
+
+import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
+import useGetChatLog from 'Hooks/Queries/get-chat-log';
+
+const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
-	const [send, setSend] = useState();
-	const [receiveMsg, setReceiveMsg] = useState();
-	const [eventCheck, setEventCheck] = useState(true);
-	console.log(chat);
 
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
+
+	const { data: loadChatLog } = useGetChatLog(chatroomIdx);
+	console.log(chatroomIdx);
+
+	// loadChatLog && console.log(loadChatLog);
+	console.log(chat);
+
 	useEffect(() => {
-		const loadChatLog = async () => {
-			try {
-				const res = await ChatApis.loadChatLog(chatroomIdx);
-				setChat(res.data);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		loadChatLog();
+		// const loadChatLog = async () => {
+		// 	try {
+		// 		const res = await ChatApis.loadChatLog(chatroomIdx);
+		// 		setChat(res.data);
+		// 	} catch (err) {
+		// 		console.log(err);
+		// 	}
+		// };
+		// loadChatLog();
+		setChat(loadChatLog?.data);
 	}, [chatroomIdx]);
 
 	useEffect(() => {
@@ -37,7 +46,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 			} catch (err) {
 				console.log(err);
 			}
-			setEventCheck(prev => !prev);
 		});
 		return () => {
 			so?.emit('leave', { room_idx: chatroomIdx });
@@ -71,14 +79,10 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 		} catch (err) {
 			console.log(err);
 		}
-		setEventCheck(prev => !prev);
 		inputMsg.current.value = '';
 	};
 
 	const pressEnter = e => {
-		console.log(e.nativeEvent.isComposing);
-		// console.log(e.key);
-		// console.log(e.shiftKey);
 		if (e.nativeEvent.isComposing) return;
 		if (e.key === 'Enter' && e.shiftKey) {
 			return;
@@ -93,16 +97,11 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo, setIsOpen }) => {
 				<div>
 					<img src={itemRes?.img_url} />
 					<div>{itemRes?.title}</div>
-					{/* <div> {itemRes?.status}</div> */}
 				</div>
 				<div>{itemRes?.price.toLocaleString()}원</div>
 			</S.ChattingTitle>
 			<S.ChattingContent>
-				<MessageDetail
-					chat={chat}
-					eventCheck={eventCheck}
-					setEventCheck={setEventCheck}
-				/>
+				<MessageDetail chat={chat} />
 			</S.ChattingContent>
 			<S.ChattingFormContainer>
 				<S.ChattingForm>

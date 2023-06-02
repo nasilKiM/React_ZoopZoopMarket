@@ -1,17 +1,20 @@
+import { useEffect, useState } from 'react';
+
+import UserApi from 'Apis/userApi';
+
+import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+import NewMessage from './Components/newMessage';
+import TokenService from 'Repository/TokenService';
+
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
 import { useMediaQuery } from 'react-responsive';
-import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import UserApi from 'Apis/userApi';
-import TokenService from 'Repository/TokenService';
-import NewMessage from './Components/newMessage';
 
 const WebHeader = ({ so }) => {
 	const navigate = useNavigate();
