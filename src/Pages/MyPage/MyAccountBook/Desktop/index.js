@@ -64,7 +64,7 @@ export default AccountBookPage;
 
 const Wrapper = styled.div`
 	margin: 0 auto 300px;
-	width: 60vw;
+	width: 100%;
 	height: 100%;
 `;
 

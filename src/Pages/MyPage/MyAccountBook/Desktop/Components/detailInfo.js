@@ -89,7 +89,7 @@ const AccountBookDetailInfo = ({
 export default AccountBookDetailInfo;
 
 const Wrap = styled.div`
-	width: 100%;
+	width: 60%;
 	margin: 0 auto;
 `;
 

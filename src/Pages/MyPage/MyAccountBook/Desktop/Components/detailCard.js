@@ -52,7 +52,7 @@ const DetailCard = ({data, year, month}) => {
 export default DetailCard;
 
 const Wrap = styled.div`
-    width: 80%;
+    width: 100%;
 	height: 28vh;
 	margin: 0 auto 30px;
     color: ${({theme}) => theme.color.primary[300]};
