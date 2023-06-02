@@ -19,6 +19,12 @@ const ReviewApi = {
 		});
 	},
 
+	postReview(data, idx) {
+		return Axios.post(PATH, data, {
+			params: { payList_idx: idx },
+		});
+	},
+
 	editReview(data, idx) {
 		return Axios.patch(PATH, data, {
 			headers: { 'Content-Type': 'multipart/form-data' },

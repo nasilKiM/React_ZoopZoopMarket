@@ -24,14 +24,16 @@ const ReviewDetail = () => {
 
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
+	const hasOriginalImg = myReview.img_url !== 'null';
+	const hasNewImg = myReview.ReviewImages.length > 0;
+	console.log(myReview);
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
 		},
 	}));
-	const onClickEdit = e => {
-		e.preventDefault();
+	const onClickEdit = () => {
 		return navigate(`/review/edit/${idx}`);
 	};
 
@@ -42,12 +44,10 @@ const ReviewDetail = () => {
 	const onClickDelete = async () => {
 		try {
 			await mutationDeleteReview.mutateAsync();
-			// await ReviewApi.deleteReview(idx);
 			alert('리뷰가 삭제되었습니다.');
 			navigate('/mypage/review');
 		} catch (err) {
 			console.log(err);
-			navigate('/mypage/review');
 		}
 	};
 
@@ -142,10 +142,18 @@ const ReviewDetail = () => {
 				<S.TxtArea style={{ whiteSpace: 'pre-wrap' }}>
 					{myReview.content.replaceAll('\r,\n', '<br />')}
 				</S.TxtArea>
-				<S.ReviewImg
-					src={myReview.img_url}
-					onClick={() => window.open(`${myReview.img_url}`, '_blank')}
-				/>
+				{hasOriginalImg && (
+					<S.ReviewImg
+						src={myReview.img_url}
+						onClick={() => window.open(`${myReview.img_url}`, '_blank')}
+					/>
+				)}
+				{hasNewImg && (
+					<S.ReviewImg
+						src={myReview.ReviewImages[0].imgUrl}
+						onClick={() => window.open(`${myReview.img_url}`, '_blank')}
+					/>
+				)}
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>
 					구매한 아이템과 무관한 리뷰, 상대방에 대한 욕설, 비방, 명예훼손 등의
@@ -177,6 +185,7 @@ const Wrapper = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.sm};
 		color: ${({ theme }) => theme.color.gray[400]};
 		margin-bottom: 10px;
+		line-height: 20px;
 	}
 `;
 
@@ -285,7 +294,6 @@ const TxtArea = styled.div`
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	padding: 20px;
-
 	:focus {
 		outline: none;
 	}
