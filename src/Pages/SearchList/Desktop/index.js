@@ -33,7 +33,7 @@ const DesktopSearchList = () => {
 		return ProductApi.searchItems(1, word.split('·')[0], 0, '판매중');
 	});
 
-	const { data, isSuccess, isLoading } = useQuery(['SEARCH_ALL', word], () => {
+	const { data, isSuccess } = useQuery(['SEARCH_ALL', word], () => {
 		return ProductApi.searchItems(1, word.split('·')[0], '', '판매중');
 	});
 
@@ -63,7 +63,7 @@ const DesktopSearchList = () => {
 							</S.SelectBox>
 						</S.BoxContainer>
 					</S.SelectContainer>
-					{isSuccess && data && (
+					{isSuccess && (
 						<S.ResultContainer>
 							{data.data.pagination.count > 0 ? (
 								<S.ResultText>
@@ -92,7 +92,7 @@ const DesktopSearchList = () => {
 				</S.Container>
 			</S.Wrapper>
 
-			{isLoading && <IndexSkeleton></IndexSkeleton>}
+			{!isSuccess && <IndexSkeleton></IndexSkeleton>}
 		</>
 	);
 };
