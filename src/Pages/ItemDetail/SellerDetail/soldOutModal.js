@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ProductApi from 'Apis/productApi';
-
 import ConfirmModal from 'Components/Alert/confirmModal';
+import { useSoldOutMutation } from 'Hooks/Queries/get-soldOut';
 
 import styled from 'styled-components';
 
@@ -26,16 +25,16 @@ const SoldOutModal = ({ onClose, room }) => {
 		});
 	};
 
+	const mutation = useSoldOutMutation();
+
 	const soldOut = async (prod_idx, token) => {
 		try {
-			const response = await ProductApi.soldOut(prod_idx, token);
-			if (response.status === 200) {
-				navigate('/mypage');
-			}
+			await mutation.mutateAsync({ prod_idx, token });
 		} catch (error) {
 			console.log('에러', error);
 		}
 	};
+
 	const onCancel = () => {
 		setModal(false);
 	};
@@ -95,6 +94,7 @@ const SoldOutModal = ({ onClose, room }) => {
 	);
 };
 export default SoldOutModal;
+
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
