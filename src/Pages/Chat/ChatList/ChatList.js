@@ -44,7 +44,7 @@ export default ChatList;
 
 const LeftUpperBar = styled.div`
 	${flexAllCenter}
-	height: 10%;
+	height: 11%;
 	background-color: ${({ theme }) => theme.color.primary[400]};
 	color: white;
 	cursor: pointer;
@@ -52,7 +52,7 @@ const LeftUpperBar = styled.div`
 `;
 
 const ListContainer = styled.div`
-	height: 90%;
+	height: 89%;
 	display: flex;
 	flex-direction: column;
 	overflow-y: scroll;

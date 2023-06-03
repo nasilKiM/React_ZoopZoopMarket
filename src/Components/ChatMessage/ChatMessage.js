@@ -57,6 +57,7 @@ const ChatContent = styled.div`
 	cursor: pointer;
 	& > div:first-child {
 		& > div {
+			font-size: ${({ theme }) => theme.fontSize.sm};
 			margin: 10px 0;
 		}
 	}
