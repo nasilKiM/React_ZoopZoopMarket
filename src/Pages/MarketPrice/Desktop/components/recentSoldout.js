@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
+
 import SearchList from 'Pages/SearchList/Desktop/components/searchList';
+
 import styled from 'styled-components';
 
 const RecentSoldOut = ({ word }) => {

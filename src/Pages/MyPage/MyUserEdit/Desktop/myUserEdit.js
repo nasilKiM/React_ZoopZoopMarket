@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import Line from './Components/line';
 import LineWithBtn from './Components/lineWithBtn';
+import Line from './Components/line';
+
+import styled from 'styled-components';
 
 const MyUserEdit = () => {
 	return (

@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
-import PropTypes from 'prop-types';
+
+import AlertModal from 'Components/Alert/alertModal';
 
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
@@ -14,9 +15,9 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-
 import styled from 'styled-components';
-import AlertModal from 'Components/Alert/alertModal';
+
+import PropTypes from 'prop-types';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);

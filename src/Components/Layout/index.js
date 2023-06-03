@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
-import { useSocket } from 'Context/socket';
-
 import WebHeader from './Header/Desktop';
 import BasicFooter from './Footer';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 import RecentProduct from 'Components/RecentCard';
+
+import { useSocket } from 'Context/socket';
 
 import styled from 'styled-components';
 

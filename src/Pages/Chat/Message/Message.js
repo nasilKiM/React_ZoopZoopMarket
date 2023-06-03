@@ -1,8 +1,11 @@
-import UserApi from 'Apis/userApi';
 import { useEffect, useRef, useState } from 'react';
+
+import UserApi from 'Apis/userApi';
+
 import MyMessage from './Components/MyChat';
 import YourMessage from './Components/YourChat';
 import DateDivide from './Components/DateDevide';
+
 import dayjs from 'dayjs';
 
 const MessageDetail = ({ chat }) => {
