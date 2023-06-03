@@ -112,7 +112,7 @@ const Category = () => {
 		infinite: true,
 		speed: 500,
 		swipe: false,
-		slidesToShow: 8,
+		slidesToShow: 9,
 		slidesToScroll: 2,
 		responsive: [
 			{

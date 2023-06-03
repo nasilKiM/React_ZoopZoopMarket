@@ -47,7 +47,6 @@ const Cover = styled.div`
 
 const Banner = styled.div`
 	width: 100%;
-	max-height: 500px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 

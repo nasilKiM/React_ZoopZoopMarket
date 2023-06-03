@@ -6,6 +6,8 @@ import styled from 'styled-components';
 const MyReview = () => {
 	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
 
+	data && console.log('->', data);
+
 	const list = data?.data.reviewList;
 	const total = data?.data.reviewList.length;
 
