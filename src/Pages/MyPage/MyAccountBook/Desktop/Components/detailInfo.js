@@ -10,25 +10,25 @@ const AccountBookDetailInfo = ({
 	setDate,
 	data,
 }) => {
-	let saleDateArr = [];
-	data &&
-		data.payList.map(item => {
-			const saleDate = item.createdAt;
-			saleDateArr.push(saleDate.split('T')[0]);
-		});
+	// let saleDateArr = [];
+	// data &&
+	// 	data.payList.map(item => {
+	// 		const saleDate = item.createdAt;
+	// 		saleDateArr.push(saleDate.split('T')[0]);
+	// 	});
 
-	let purchaseDateArr = [];
-	data &&
-		data.payList.map(item => {
-			const saleDate = item.createdAt;
-			purchaseDateArr.push(saleDate.split('T')[0]);
-		});
+	// let purchaseDateArr = [];
+	// data &&
+	// 	data.payList.map(item => {
+	// 		const saleDate = item.createdAt;
+	// 		purchaseDateArr.push(saleDate.split('T')[0]);
+	// 	});
 	return (
 		<>
 			<S.Wrap>
 				<S.PreviewWrap>
 					<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
-					<div>
+					{/* <div>
 						<S.Flex>
 							<div>총 수입총액</div>
 							<div>
@@ -59,27 +59,27 @@ const AccountBookDetailInfo = ({
 							<div>총 수익</div>
 							{data && <div><S.Amount>{data.amount.totalSaleAmount - data.amount.totalPurchaseAmount}</S.Amount>원</div>}
 						</S.Flex2>
-					</div>
+					</div> */}
 				</S.PreviewWrap>
 				<Calendar
 					value={date}
 					onChange={setDate}
 					className="react-calendar"
 					formatDay={(locale, date) => dayjs(date).format('D')}
-					tileContent={({ date }) => {
-						if (
-							saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						) {
-							return <div className="sale"></div>;
-						}
-						if (
-							purchaseDateArr.find(
-								day => day === dayjs(date).format('YYYY-MM-DD'),
-							)
-						) {
-							return <div className="purchase"></div>;
-						}
-					}}
+					// tileContent={({ date }) => {
+					// 	if (
+					// 		saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+					// 	) {
+					// 		return <div className="sale"></div>;
+					// 	}
+					// 	if (
+					// 		purchaseDateArr.find(
+					// 			day => day === dayjs(date).format('YYYY-MM-DD'),
+					// 		)
+					// 	) {
+					// 		return <div className="purchase"></div>;
+					// 	}
+					// }}
 				/>
 			</S.Wrap>
 		</>
@@ -91,6 +91,12 @@ export default AccountBookDetailInfo;
 const Wrap = styled.div`
 	width: 60%;
 	margin: 0 auto;
+	@media screen and (max-width: 1000px) {
+		width: 80%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 100%;
+	}
 `;
 
 const PreviewWrap = styled.div`

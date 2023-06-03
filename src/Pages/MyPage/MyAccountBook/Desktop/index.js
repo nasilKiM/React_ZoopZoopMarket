@@ -1,15 +1,14 @@
 import { useState } from 'react';
 
-// import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
-
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import DetailCard from './Components/detailCard';
 
+import useGetAccountBook from 'Hooks/Queries/get-mypage-accountBook';
+
 import dayjs from 'dayjs';
 
 import styled from 'styled-components';
-import useGetAccountBook from 'Hooks/Queries/get-mypage-accountBook';
 
 const AccountBookPage = () => {
 	const [category, setCategory] = useState('seller');
@@ -23,18 +22,10 @@ const AccountBookPage = () => {
 
 	const start = `${year}-${month}-01`
 	const end = `${year}-${month}-${lastDay}`
-	console.log(category, start, end); // 확인용
+	// console.log(category, start, end); // 확인용
 
 	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-	getAccountBook && console.log(getAccountBook);
-
-	// const res = getAccountBook({
-	// 	page: 1,
-	// 	category,
-	// 	start,
-	// 	end
-	// });
-	// res && console.log(res);
+	getAccountBook && console.log(getAccountBook.data); // 확인용
 
 	return (
 		<S.Wrapper>

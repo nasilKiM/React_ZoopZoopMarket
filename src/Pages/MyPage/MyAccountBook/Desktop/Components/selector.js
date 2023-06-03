@@ -59,6 +59,12 @@ const SelectorsZone = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin: 50px auto 30px;
+	@media screen and (max-width: 1000px) {
+		width: 70%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 80%;
+	}
 `;
 
 const RightSideSelectors = styled.div`

@@ -6,7 +6,7 @@ import { queryConfig } from "./@config"
 
 const useGetAccountBook = ({page, category, start, end}) => {
     const { isLoading, isError, data, error } = useQuery(
-        ['accountBook', page, category, start, end], 
+        ['accountBook'], 
         () => MyPageApi.accountBook({page, category, start, end}),
         queryConfig,
     );

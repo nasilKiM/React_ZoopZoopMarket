@@ -10,6 +10,12 @@
   font-size: 0.5rem;
   color: #a9a9a9;
   margin: 0 auto;
+  @media screen and (max-width: 1000px) {
+		width: 80%;
+	};
+	@media screen and (max-width: 600px) {
+		width: 80%;
+	};
   }
 
   /* .react-calendar__tile {
