@@ -59,11 +59,7 @@ const MyProfile = () => {
 									}
 								/>
 								<S.ProfileImg>
-									<S.FontAwesomeIconImg
-										icon={faCamera}
-										style={{ color: '#ffffff', fontSize: '15px' }}
-										onClick={handleClick}
-									/>
+									<S.FontAwesomeIconImg icon={faCamera} onClick={handleClick} />
 									<input
 										type="file"
 										accept="image/jpg, image/jpeg, image/png"
@@ -172,9 +168,10 @@ const ProfileImg = styled.div`
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
-	font-size: 30px;
+	color: #ffffff;
+	font-size: 15px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 20px;
+		font-size: 12px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: 8px;
