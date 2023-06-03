@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
 
-import SearchList from './components/searchList';
+import SearchList from './searchList';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 import styled from 'styled-components';
@@ -33,7 +33,7 @@ const WholeListPage = () => {
 		setSelected(category);
 	}, [category]);
 
-	const { data, isLoading, isSuccess } = res;
+	const { data, isSuccess } = res;
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (selected == 1) {
@@ -107,7 +107,7 @@ const WholeListPage = () => {
 						)}
 				</S.Container>
 			)}
-			{isLoading && <WholeListSkeleton />}
+			{!isSuccess && <WholeListSkeleton />}
 			<S.refDiv ref={ref}></S.refDiv>
 		</S.Wrapper>
 	);

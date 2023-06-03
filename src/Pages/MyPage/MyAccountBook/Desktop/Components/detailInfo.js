@@ -1,30 +1,30 @@
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
+
+// import 'react-calendar/dist/Calendar.css';
+import './styles.css';
 import styled from 'styled-components';
 
-import 'react-calendar/dist/Calendar.css';
-import './styles.css';
-
 const AccountBookDetailInfo = ({ date, setDate, data }) => {
-	let saleDateArr = [];
-	data &&
-		data.payList.map(item => {
-			const saleDate = item.createdAt;
-			saleDateArr.push(saleDate.split('T')[0]);
-		});
+	// let saleDateArr = [];
+	// data &&
+	// 	data.payList.map(item => {
+	// 		const saleDate = item.createdAt;
+	// 		saleDateArr.push(saleDate.split('T')[0]);
+	// 	});
 
-	let purchaseDateArr = [];
-	data &&
-		data.payList.map(item => {
-			const saleDate = item.createdAt;
-			purchaseDateArr.push(saleDate.split('T')[0]);
-		});
+	// let purchaseDateArr = [];
+	// data &&
+	// 	data.payList.map(item => {
+	// 		const saleDate = item.createdAt;
+	// 		purchaseDateArr.push(saleDate.split('T')[0]);
+	// 	});
 	return (
 		<>
 			<S.Wrap>
 				<S.PreviewWrap>
 					<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
-					<div>
+					{/* <div>
 						<S.Flex>
 							<div>총 수입총액</div>
 							<div>
@@ -67,27 +67,27 @@ const AccountBookDetailInfo = ({ date, setDate, data }) => {
 								</div>
 							)}
 						</S.Flex2>
-					</div>
+					</div> */}
 				</S.PreviewWrap>
 				<Calendar
 					value={date}
 					onChange={setDate}
 					className="react-calendar"
 					formatDay={(locale, date) => dayjs(date).format('D')}
-					tileContent={({ date }) => {
-						if (
-							saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						) {
-							return <div className="sale"></div>;
-						}
-						if (
-							purchaseDateArr.find(
-								day => day === dayjs(date).format('YYYY-MM-DD'),
-							)
-						) {
-							return <div className="purchase"></div>;
-						}
-					}}
+					// tileContent={({ date }) => {
+					// 	if (
+					// 		saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+					// 	) {
+					// 		return <div className="sale"></div>;
+					// 	}
+					// 	if (
+					// 		purchaseDateArr.find(
+					// 			day => day === dayjs(date).format('YYYY-MM-DD'),
+					// 		)
+					// 	) {
+					// 		return <div className="purchase"></div>;
+					// 	}
+					// }}
 				/>
 			</S.Wrap>
 		</>
@@ -97,8 +97,14 @@ const AccountBookDetailInfo = ({ date, setDate, data }) => {
 export default AccountBookDetailInfo;
 
 const Wrap = styled.div`
-	width: 100%;
+	width: 60%;
 	margin: 0 auto;
+	@media screen and (max-width: 1000px) {
+		width: 80%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 100%;
+	}
 `;
 
 const PreviewWrap = styled.div`

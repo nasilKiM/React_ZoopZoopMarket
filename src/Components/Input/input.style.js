@@ -1,14 +1,11 @@
 import styled, { css } from 'styled-components';
-// input 타입 지정해주는 곳
 const variantCSS = {
-	// 밑줄만 있는 인풋
 	primaryBottom: css`
 		border: none;
 		border-bottom: 2px solid ${({ theme }) => theme.color.gray[200]};
 	`,
 };
 
-// border-radius
 const shapeCSS = {
 	default: css``,
 	littleShape: css`

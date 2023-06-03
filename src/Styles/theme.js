@@ -2,8 +2,8 @@ const color = {
 	primary: {
 		100: '#FFD1D1',
 		200: '#FF9494',
-		300: '#F87474', // focus 색깔
-		400: '#FF3647', // 대표 색깔
+		300: '#F87474',
+		400: '#FF3647',
 		500: '#FF0000',
 	},
 	subColor: '#FFECEC',
@@ -11,7 +11,7 @@ const color = {
 	fontColor: {
 		100: '#FFFFFF',
 		200: '#646F7C',
-		300: '#181D1F', // basic Text
+		300: '#181D1F',
 	},
 	error: '#FF0000',
 	success: '#028202',
@@ -20,7 +20,7 @@ const color = {
 	bg: 'rgb(238, 241, 245)',
 	gray: {
 		100: '#E9E9E9',
-		200: '#D9D9D9', // basic gray
+		200: '#D9D9D9',
 		300: '#656565',
 		400: '#333',
 	},
@@ -45,7 +45,6 @@ const fontWeight = {
 	bolder: '900',
 };
 
-// media query
 const deviceWidth = {
 	mobile: 350,
 	tablet: 768,

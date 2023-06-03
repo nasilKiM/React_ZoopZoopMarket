@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
+	// const navigate = useNavigate();
 	const { idx } = useParams();
 
 	const title = target.title;
@@ -55,8 +56,6 @@ const ReviewPage = () => {
 			mutationPostReview.mutate(formData, {
 				onSuccess: () => {
 					setPostModal(true);
-					//alert('리뷰가 등록되었습니다.');
-					//navigate('/mypage/review');
 				},
 			});
 		} catch (error) {
@@ -153,7 +152,6 @@ const ReviewPage = () => {
 						<AlertModal
 							content={'리뷰가 등록되었습니다.'}
 							props={'/mypage/review'}
-							// setModal={setPostModal}
 						/>
 					)}
 				</form>

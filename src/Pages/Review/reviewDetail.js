@@ -25,8 +25,8 @@ const ReviewDetail = () => {
 
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
-	const hasOriginalImg = myReview.img_url !== 'null';
-	const hasNewImg = myReview.ReviewImages.length > 0;
+	const hasOriginalImg = myReview?.img_url !== 'null';
+	const hasNewImg = myReview?.ReviewImages.length > 0;
 	console.log(myReview);
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
