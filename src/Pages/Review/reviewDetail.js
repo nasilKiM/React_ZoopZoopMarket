@@ -15,8 +15,11 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { useState } from 'react';
+import ConfirmModal from 'Components/Alert/confirmModal';
 
 const ReviewDetail = () => {
+	const [modal, setModal] = useState(false);
 	const navigate = useNavigate();
 	const { idx } = useParams();
 	const { data } = useQuery(['reviewDetail'], () =>
@@ -45,11 +48,15 @@ const ReviewDetail = () => {
 	const onClickDelete = async () => {
 		try {
 			await mutationDeleteReview.mutateAsync();
-			alert('리뷰가 삭제되었습니다.');
+			setModal(false);
 			navigate('/mypage/review');
 		} catch (err) {
 			console.log(err);
 		}
+	};
+
+	const onClickModal = () => {
+		setModal(true);
 	};
 
 	const customIcons = {
@@ -93,8 +100,17 @@ const ReviewDetail = () => {
 			<S.Wrapper>
 				<S.EditBar>
 					<button onClick={() => onClickEdit()}>수정</button>
-					<button onClick={() => onClickDelete()}>삭제</button>
+					<button onClick={onClickModal}>삭제</button>
 				</S.EditBar>
+				{modal && (
+					<ConfirmModal>
+						<S.Content>리뷰를 삭제하시겠습니까?</S.Content>
+						<S.BtnContainer>
+							<S.NO onClick={() => setModal(false)}>취소</S.NO>
+							<S.OK onClick={() => onClickDelete()}>삭제</S.OK>
+						</S.BtnContainer>
+					</ConfirmModal>
+				)}
 				<S.ReviewTitle>구매한 아이템</S.ReviewTitle>
 				<S.Target>
 					<S.TargetImg src={purchased.img_url} />
@@ -300,6 +316,50 @@ const TxtArea = styled.div`
 	}
 `;
 
+const Content = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	${flexAllCenter}
+	margin-bottom: 50px;
+`;
+
+const BtnContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
+const NO = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	cursor: pointer;
+	margin-right: 20px;
+	:hover {
+		background-color: ${({ theme }) => theme.color.gray[200]};
+		color: ${({ theme }) => theme.color.gray[300]};
+	}
+`;
+
+const OK = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.primary[300]};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+	}
+`;
+
 const S = {
 	Wrapper,
 	EditBar,
@@ -315,4 +375,8 @@ const S = {
 	RatingWrapper,
 	TxtArea,
 	ReviewImg,
+	Content,
+	BtnContainer,
+	NO,
+	OK,
 };
