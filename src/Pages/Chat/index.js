@@ -13,6 +13,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
+	const [showChatDetail, setShowChatDetail] = useState(true);
 
 	const { data: getChatList } = useGetChatList(idx);
 	const { data: getAllChatList } = useGetAllChatList(1);
@@ -26,9 +27,14 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 		if (idx) return;
 		setChatroomList(getAllChatList?.data);
 	}, [getAllChatList]);
+
+	const handleChatDetailToggle = () => {
+		setShowChatDetail(true);
+	};
+
 	return (
 		<S.ChatContainer>
-			<S.ChatLeftContainer>
+			<S.ChatLeftContainer show={showChatDetail}>
 				<ChatList
 					chatroomList={chatroomList}
 					setChatroomIdx={setChatroomIdx}
@@ -37,7 +43,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 					setItemInfo={setItemInfo}
 				/>
 			</S.ChatLeftContainer>
-			<S.ChatRightContainer>
+			<S.ChatRightContainer show={showChatDetail}>
 				{chatroomIdx && (
 					<ChatDetail
 						chatroomIdx={chatroomIdx}
@@ -46,8 +52,11 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 						itemInfo={itemInfo}
 					/>
 				)}
-				{!chatroomIdx && <div>채팅을 선택해주세요.</div>}
+				{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
 			</S.ChatRightContainer>
+			<S.ToggleButton onClick={handleChatDetailToggle}>
+				{showChatDetail ? '<' : '>'}
+			</S.ToggleButton>
 		</S.ChatContainer>
 	);
 };
@@ -65,10 +74,15 @@ const ChatContainer = styled.div`
 	border-radius: 10px;
 	border: solid lightgrey 1px;
 	margin-top: 50px;
-	@media (max-width: 800px) {
+	@media (max-width: 700px) {
+		width: 100%;
+		min-width: 350px;
+		overflow: hidden;
+	}
+	/* @media (max-width: 800px) {
 		flex-direction: column;
 		border: none;
-	}
+	} */
 `;
 
 const ChatLeftContainer = styled.div`
@@ -78,6 +92,13 @@ const ChatLeftContainer = styled.div`
 	width: 50%;
 	height: 100%;
 	min-height: 500px;
+	max-height: 1000px;
+	@media (max-width: 700px) {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		display: none;
+	}
 `;
 
 const ChatRightContainer = styled.div`
@@ -88,10 +109,46 @@ const ChatRightContainer = styled.div`
 	width: 50%;
 	height: 100%;
 	min-height: 500px;
+	max-height: 1000px;
+	@media (max-width: 700px) {
+		width: 100%;
+		z-index: 98;
+		position: relative;
+	}
+`;
+
+const NoChat = styled.div`
+	width: 100%;
+	background-color: white;
+	border: 1px solid gray;
+	text-align: center;
+`;
+
+const ToggleButton = styled.div`
+	position: absolute;
+	cursor: pointer;
+	top: 30px;
+	padding: 5px 7px;
+	border-radius: 20%;
+	background-color: gray;
+	left: ${props => (props.show ? 'calc(50% - 20px)' : '5px')};
+	transform: translateY(-50%);
+	color: white;
+	border: none;
+	font-size: 20px;
+	display: none;
+	text-align: center;
+	align-items: center;
+	z-index: 98;
+	@media (max-width: 700px) {
+		display: block;
+	}
 `;
 
 const S = {
 	ChatContainer,
 	ChatLeftContainer,
 	ChatRightContainer,
+	NoChat,
+	ToggleButton,
 };

@@ -18,10 +18,6 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
 
-	console.log(chatroomIdx);
-
-	console.log(chat);
-
 	useEffect(() => {
 		const loadChatLog = async () => {
 			try {
@@ -92,6 +88,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	return (
 		<>
 			<S.ChattingTitle>
+				<S.Prev>&lt;</S.Prev>
 				<div>
 					<img src={itemRes?.img_url} />
 					<div>{itemRes?.title}</div>
@@ -125,6 +122,9 @@ const ChattingTitle = styled.div`
 	justify-content: space-between;
 	padding: 0 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
+	@media (max-width: 800px) {
+		padding: 0 15px;
+	}
 	img {
 		width: 40px;
 		height: 40px;
@@ -132,26 +132,32 @@ const ChattingTitle = styled.div`
 		object-fit: cover;
 		margin-right: 15px;
 	}
-	& > div {
+	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		word-break: break-all;
-
 		@media (max-width: 800px) {
 			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
 	}
 
-	& > div:nth-of-type(1) {
+	& > div:nth-of-type(2) {
 		${flexAllCenter}
-		&>div {
+		flex: 3;
+		& > div {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			width: 150px;
+			min-width: 150px;
+			max-width: 200px;
 		}
 	}
+	& > div:nth-of-type(3) {
+		flex: 1;
+	}
 `;
+
+const Prev = styled.div``;
 
 const ChattingContent = styled.div`
 	width: 100%;
@@ -218,6 +224,7 @@ const SubmitButton = styled.button`
 
 const S = {
 	ChattingTitle,
+	Prev,
 	ChattingContent,
 	ChattingFormContainer,
 	ChattingForm,
