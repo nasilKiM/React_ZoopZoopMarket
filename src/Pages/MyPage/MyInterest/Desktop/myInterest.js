@@ -56,20 +56,20 @@ const Wrap = styled.div`
 
 const Container = styled.div`
 	width: 100%;
-	${gridColumn(3)}
+	${gridColumn(4)}
 	${gridAllCenter}
 	
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
-		${gridGap.mobile}
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(2)}
-		${gridGap.tablet}
-	}
 	@media ${({ theme }) => theme.device.laptop} {
 		${gridColumn(3)}
 		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+		${gridGap.mobile}
 	}
 `;
 
