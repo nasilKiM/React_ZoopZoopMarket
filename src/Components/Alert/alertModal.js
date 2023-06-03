@@ -7,7 +7,6 @@ const AlertModal = ({ content, props, setModal }) => {
 
 	const onClickAlert = () => {
 		if (!setModal) return navigate(`${props}`);
-		//확인 버튼을 누를때 같은 url 주소에 머물러야 할시 모달을 꺼줄 state
 		setModal(() => false);
 	};
 

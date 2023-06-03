@@ -3,7 +3,8 @@ import styled from "styled-components";
 const DetailCard = ({data, year, month}) => {
     return (
       <>
-            <S.PreviewWrap>
+        <S.Wrapper>
+		    <S.PreviewWrap>
                 <S.Date>
 					{year}년 {month}월
 				</S.Date>
@@ -40,16 +41,22 @@ const DetailCard = ({data, year, month}) => {
 						</S.Flex2>
 					</div>
 				</S.PreviewWrap>
-        <S.Wrap>
-            <S.DetailTitle>세부내역</S.DetailTitle>
+			<S.Wrap>
+				<S.DetailTitle>세부내역</S.DetailTitle>
 
-			<div>{data && data.payList.map(item => <PayListCard item={item} />)}</div>
-        </S.Wrap>
+				<div>{data && data.payList.map(item => <PayListCard item={item} />)}</div>
+			</S.Wrap>
+		</S.Wrapper>	
       </>
     )
 };
 
 export default DetailCard;
+
+const Wrapper = styled.div`
+	width: 60%;
+	margin: 0 auto;
+`;
 
 const Wrap = styled.div`
     width: 80%;
@@ -107,6 +114,7 @@ const Date = styled.div`
 `;
 
 const S = {
+	Wrapper,
     Wrap,
     PreviewWrap,
     Flex,

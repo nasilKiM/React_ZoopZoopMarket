@@ -1,7 +1,7 @@
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import './styles.css';
 import styled from 'styled-components';
 
@@ -89,7 +89,7 @@ const AccountBookDetailInfo = ({
 export default AccountBookDetailInfo;
 
 const Wrap = styled.div`
-	width: 100%;
+	width: 60%;
 	margin: 0 auto;
 `;
 

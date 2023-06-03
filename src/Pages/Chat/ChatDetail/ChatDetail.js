@@ -20,20 +20,9 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 
 	const { data: loadChatLog } = useGetChatLog(chatroomIdx);
 	console.log(chatroomIdx);
-
-	// loadChatLog && console.log(loadChatLog);
 	console.log(chat);
 
 	useEffect(() => {
-		// const loadChatLog = async () => {
-		// 	try {
-		// 		const res = await ChatApis.loadChatLog(chatroomIdx);
-		// 		setChat(res.data);
-		// 	} catch (err) {
-		// 		console.log(err);
-		// 	}
-		// };
-		// loadChatLog();
 		setChat(loadChatLog?.data);
 	}, [chatroomIdx]);
 
