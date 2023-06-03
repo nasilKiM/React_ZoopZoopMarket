@@ -4,18 +4,6 @@ import styled from 'styled-components';
 
 const Post = ({ setAddress, setPopup }) => {
 	const complete = data => {
-		/*
-		data 객체 중 쓸만한 정보는
-			address: full 도로명 주소
-			autoJibunAddress: full 지번 주소
-			bname: 동 (ex.역삼동)
-			sido: 서울(시 생략) || 경기(도 생략)
-			sigungu: 강남구 || 의정부시
-			zonecode: 우편번호
-
-		이며 현재 fullAddress로 설정해둔 값은 동까지의 정보입니다.
-			ex. 서울 강남구 역삼동 || 경기 의정부시 가능동
-		*/
 		let fullAddress = data.address;
 
 		if (data.addressType === 'R') {

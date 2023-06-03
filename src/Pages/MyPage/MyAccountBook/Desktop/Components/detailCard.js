@@ -1,9 +1,11 @@
+// import PayListCard from "Components/Card/Desktop/payListCard";
 import styled from "styled-components";
 
 const DetailCard = ({data, year, month}) => {
     return (
       <>
-            <S.PreviewWrap>
+        <S.Wrapper>
+		    <S.PreviewWrap>
                 <S.Date>
 					{year}년 {month}월
 				</S.Date>
@@ -11,45 +13,63 @@ const DetailCard = ({data, year, month}) => {
 						<S.Flex>
 							<div>당월 수입</div>
 							<div>
-								{data && <S.Amount>
+								{/* {data && <S.Amount>
                                     {data.amount.thisMonthSaleAmount === null
 									    ? 0
 									    : parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
 									    	'ko-KR',
 									    )}
-								</S.Amount>}
+								</S.Amount>} */}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex>
 							<div>당월 지출</div>
 							<div>
-								{data && <S.Amount>
+								{/* {data && <S.Amount>
                                     {data.amount.thisMonthPurchaseAmount === null
 										? 0
 										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
 														'ko-KR',
 										)}
-								</S.Amount>}
+								</S.Amount>} */}
 								원
 							</div>
 						</S.Flex>
                         <S.Flex2>
 							<div>당월 수익</div>
-							{data && <div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>}
+							{/* {data && <div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>} */}
 						</S.Flex2>
 					</div>
 				</S.PreviewWrap>
-        <S.Wrap>
-            <S.DetailTitle>세부내역</S.DetailTitle>
-
-			<div>{data && data.payList.map(item => <PayListCard item={item} />)}</div>
-        </S.Wrap>
+			<S.Wrap>
+				<S.DetailTitle>세부내역</S.DetailTitle>
+				{/* {data && <div>{data.payList.map(item => <PayListCard item={item} />)}</div>} */}
+			</S.Wrap>
+			<S.Container>
+					<S.ItemImg />
+					<S.ItemInfo>
+						<S.ItemTitle>제목</S.ItemTitle>
+						<S.ItemPrice>가격</S.ItemPrice>
+					</S.ItemInfo>
+				</S.Container>
+		</S.Wrapper>	
       </>
     )
 };
 
 export default DetailCard;
+
+const Wrapper = styled.div`
+	width: 60%;
+	margin: 0 auto;
+	@media screen and (max-width: 1000px) {
+		width: 80%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 100%;
+	}
+`;
 
 const Wrap = styled.div`
     width: 80%;
@@ -98,20 +118,68 @@ const Amount = styled.span`
 `;
 
 const DetailTitle = styled.div`
-	margin: 50px 0;
+	margin: 50px 0 0;
     `;
 
 const Date = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.md};
 	min-width: min-content;
 `;
 
+const Container = styled.div`
+	width: 80%;
+	height: 500px;
+	max-height: 200px;
+	border-radius: 5px;
+	cursor: pointer;
+	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+
+	margin: 0 auto;
+	@media screen and (max-width: 1000px) {
+		width: 80%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 90%;
+	}
+`;
+
+const ItemImg = styled.img`
+	min-width: 120px;
+	max-height: 120px;
+	margin: 15px 15px 15px 25px;
+	object-fit: cover;
+`;
+
+const ItemInfo = styled.div`
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+`;
+
+const ItemTitle = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	padding-bottom: 15px;
+`;
+
+const ItemPrice = styled.span`
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+	padding-bottom: 15px;
+`;
+
 const S = {
+	Wrapper,
     Wrap,
     PreviewWrap,
     Flex,
     Flex2,
     Amount,
     DetailTitle,
-    Date
+    Date,
+
+	Container,
+	ItemImg,
+	ItemInfo,
+	ItemTitle,
+	ItemPrice
 }

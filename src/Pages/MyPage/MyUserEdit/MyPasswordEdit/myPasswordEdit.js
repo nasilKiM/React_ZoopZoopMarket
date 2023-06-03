@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
@@ -27,17 +28,20 @@ const MyPasswordEdit = () => {
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
+	const { mutate } = useMutation(info => UserApi.userPasswordEdit(info), {
+		onSuccess: () => {
+			setModal(true);
+		},
+		onError: err => {
+			alert(err.response.data.message);
+		}
+	})
+
 	const onSubmit = async data => {
 		const info = {
 			pw: data.password,
 		};
-
-		try {
-			await UserApi.userPasswordEdit(info);
-			setModal(true);
-		} catch (err) {
-			console.log(err);
-		}
+		mutate(info);
 	};
 
 	const onClickExit = () => {

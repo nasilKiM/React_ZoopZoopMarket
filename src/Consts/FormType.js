@@ -1,5 +1,3 @@
-// form type 설정
-
 export const FORM_TYPE = {
 	EMAIL: {
 		required: 'email을 입력해주세요',
