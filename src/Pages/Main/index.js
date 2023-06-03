@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import DesktopMainPage from './Desktop';
-import MainPageSkeleton from './Desktop/Components/mainSkeleton';
+import MainPageSkeleton from '../Skeleton/page/mainSkeleton';
 
 const MainPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
