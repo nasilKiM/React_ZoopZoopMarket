@@ -35,6 +35,7 @@ const WebHeader = ({ so }) => {
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
+			console.log(data);
 			setPopupMsg(data);
 		});
 	}, [so]);
