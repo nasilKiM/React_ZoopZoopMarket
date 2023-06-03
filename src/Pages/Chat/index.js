@@ -5,7 +5,9 @@ import ChatDetail from './ChatDetail/ChatDetail';
 
 import useGetChatList from 'Hooks/Queries/get-chat-list';
 import useGetAllChatList from 'Hooks/Queries/get-allchat-list';
+
 import styled from 'styled-components';
+import { flexAlignCenter } from 'Styles/common';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
@@ -53,19 +55,21 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 export default ChattingPage;
 
 const ChatContainer = styled.div`
-	display: flex;
+	${flexAlignCenter}
 	width: 60%;
 	height: 70vh;
-	min-width: 800px;
+	min-width: 750px;
 	max-width: 1000px;
-	min-height: 700px;
+	min-height: 500px;
 	max-height: 800px;
-	justify-content: center;
-	align-items: center;
 	margin: 0 auto;
 	border-radius: 10px;
 	border: solid lightgrey 1px;
 	margin-top: 50px;
+	@media (max-width: 1000px) {
+		flex-direction: column;
+		border: none;
+	}
 `;
 
 const ChatLeftContainer = styled.div`
@@ -74,6 +78,7 @@ const ChatLeftContainer = styled.div`
 	align-items: center;
 	width: 50%;
 	height: 100%;
+	min-height: 500px;
 `;
 
 const ChatRightContainer = styled.div`
@@ -83,6 +88,7 @@ const ChatRightContainer = styled.div`
 	align-items: center;
 	width: 50%;
 	height: 100%;
+	min-height: 500px;
 `;
 
 const S = {

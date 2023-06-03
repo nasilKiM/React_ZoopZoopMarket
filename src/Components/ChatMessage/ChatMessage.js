@@ -38,7 +38,7 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 					</div>
 				</div>
 				<div>
-					{!chat.isRead && <div>New!</div>}
+					{!chat.isRead && <S.NewMessage>New!</S.NewMessage>}
 					<div>{date}</div>
 				</div>
 			</S.ChatContent>
@@ -71,29 +71,14 @@ const ChatContent = styled.div`
 	}
 `;
 
-const ChatContentUpper = styled.div`
-	width: 100%;
-	min-width: 300px;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-`;
-
-const NickName = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-`;
-
-const ChatContentdown = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	text-align: right;
+const NewMessage = styled.div`
+	background-color: ${({ theme }) => theme.color.primary[200]};
+	border-radius: 10px;
+	padding: 5px;
+	${flexAllCenter}
 `;
 
 const S = {
 	ChatContent,
-	ChatContentUpper,
-	NickName,
-	ChatContentdown,
+	NewMessage,
 };

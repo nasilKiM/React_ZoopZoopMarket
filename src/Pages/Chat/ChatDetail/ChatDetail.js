@@ -3,13 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 
 import MessageDetail from '../Message/Message';
+// import useGetChatLog from 'Hooks/Queries/get-chat-log';
 
 import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
-
-import useGetChatLog from 'Hooks/Queries/get-chat-log';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
@@ -19,22 +18,20 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
 
-	const { data: loadChatLog } = useGetChatLog(chatroomIdx);
 	console.log(chatroomIdx);
 
-	// loadChatLog && console.log(loadChatLog);
 	console.log(chat);
 
 	useEffect(() => {
-		// const loadChatLog = async () => {
-		// 	try {
-		// 		const res = await ChatApis.loadChatLog(chatroomIdx);
-		// 		setChat(res.data);
-		// 	} catch (err) {
-		// 		console.log(err);
-		// 	}
-		// };
-		// loadChatLog();
+		const loadChatLog = async () => {
+			try {
+				const res = await ChatApis.loadChatLog(chatroomIdx);
+				setChat(res.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		loadChatLog();
 		setChat(loadChatLog?.data);
 	}, [chatroomIdx]);
 
@@ -123,6 +120,7 @@ export default ChatDetail;
 const ChattingTitle = styled.div`
 	width: 100%;
 	height: 10%;
+	min-width: 300px;
 	${flexAllCenter}
 	justify-content: space-between;
 	padding: 0 2rem;
