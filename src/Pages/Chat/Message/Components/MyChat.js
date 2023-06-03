@@ -24,7 +24,7 @@ export default MyMessage;
 const Wrapper = styled.div`
 	${flexAllCenter}
 	justify-content: right;
-	margin: 20px 0;
+	margin: 5px 0;
 	align-items: end;
 	& > div:first-child {
 		font-size: ${({ theme }) => theme.fontSize.es};
@@ -36,7 +36,8 @@ const Wrapper = styled.div`
 	& > div:last-child {
 		word-break: break-all;
 		background-color: ${({ theme }) => theme.color.primary[100]};
-		padding: 5px;
+		font-size: ${({ theme }) => theme.fontSize.xs};
+		padding: 7px 15px;
 		border-radius: 10px;
 		line-height: 25px;
 	}

@@ -1,15 +1,15 @@
 // import PayListCard from "Components/Card/Desktop/payListCard";
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const DetailCard = ({data, year, month}) => {
-    return (
-      <>
-        <S.Wrapper>
-		    <S.PreviewWrap>
-                <S.Date>
-					{year}년 {month}월
-				</S.Date>
-                    <div>
+const DetailCard = ({ data, year, month }) => {
+	return (
+		<>
+			<S.Wrapper>
+				<S.PreviewWrap>
+					<S.Date>
+						{year}년 {month}월
+					</S.Date>
+					<div>
 						<S.Flex>
 							<div>당월 수입</div>
 							<div>
@@ -36,26 +36,26 @@ const DetailCard = ({data, year, month}) => {
 								원
 							</div>
 						</S.Flex>
-                        <S.Flex2>
+						<S.Flex2>
 							<div>당월 수익</div>
 							{/* {data && <div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>} */}
 						</S.Flex2>
 					</div>
 				</S.PreviewWrap>
-			<S.Wrap>
-				<S.DetailTitle>세부내역</S.DetailTitle>
-				{/* {data && <div>{data.payList.map(item => <PayListCard item={item} />)}</div>} */}
-			</S.Wrap>
-			<S.Container>
+				<S.Wrap>
+					<S.DetailTitle>세부내역</S.DetailTitle>
+					{/* {data && <div>{data.payList.map(item => <PayListCard item={item} />)}</div>} */}
+				</S.Wrap>
+				<S.Container>
 					<S.ItemImg />
 					<S.ItemInfo>
 						<S.ItemTitle>제목</S.ItemTitle>
 						<S.ItemPrice>가격</S.ItemPrice>
 					</S.ItemInfo>
 				</S.Container>
-		</S.Wrapper>	
-      </>
-    )
+			</S.Wrapper>
+		</>
+	);
 };
 
 export default DetailCard;
@@ -72,11 +72,11 @@ const Wrapper = styled.div`
 `;
 
 const Wrap = styled.div`
-    width: 80%;
+	width: 80%;
 	height: 28vh;
 	margin: 0 auto 30px;
-    color: ${({theme}) => theme.color.primary[300]};
-    font-weight: ${({theme}) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const PreviewWrap = styled.div`
@@ -89,7 +89,7 @@ const PreviewWrap = styled.div`
 		display: flex;
 		justify-content: center;
 		margin-bottom: 30px;
-		font-weight: ${({theme}) => theme.fontWeight.bold};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	& > div:nth-child(2) {
 		margin: 0 auto;
@@ -101,25 +101,25 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
-`
+`;
 
 const Flex2 = styled.div`
 	display: flex;
 	margin: 1.3rem auto 1.3rem;
 	width: 50%;
 	justify-content: space-between;
-	border-top: solid 2px ${({theme}) => theme.color.gray[200]};
+	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
 	padding-top: 1rem;
-`
+`;
 
 const Amount = styled.span`
-	color: ${({theme}) => theme.color.primary[300]};
-	font-weight: ${({theme}) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const DetailTitle = styled.div`
 	margin: 50px 0 0;
-    `;
+`;
 
 const Date = styled.div`
 	min-width: min-content;
@@ -169,17 +169,17 @@ const ItemPrice = styled.span`
 
 const S = {
 	Wrapper,
-    Wrap,
-    PreviewWrap,
-    Flex,
-    Flex2,
-    Amount,
-    DetailTitle,
-    Date,
+	Wrap,
+	PreviewWrap,
+	Flex,
+	Flex2,
+	Amount,
+	DetailTitle,
+	Date,
 
 	Container,
 	ItemImg,
 	ItemInfo,
 	ItemTitle,
-	ItemPrice
-}
+	ItemPrice,
+};

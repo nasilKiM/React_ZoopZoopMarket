@@ -1,7 +1,7 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
-import PropTypes from 'prop-types';
 
 import { styled as mui } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
@@ -10,10 +10,11 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+import PropTypes from 'prop-types';
 
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
-import styled from 'styled-components';
 
 const ReviewDetail = () => {
 	const navigate = useNavigate();
@@ -24,8 +25,8 @@ const ReviewDetail = () => {
 
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
-	const hasOriginalImg = myReview.img_url !== 'null';
-	const hasNewImg = myReview.ReviewImages.length > 0;
+	const hasOriginalImg = myReview?.img_url !== 'null';
+	const hasNewImg = myReview?.ReviewImages.length > 0;
 	console.log(myReview);
 
 	const StyledRating = mui(Rating)(({ theme }) => ({

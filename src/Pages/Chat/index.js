@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
 
-import styled from 'styled-components';
 import useGetChatList from 'Hooks/Queries/get-chat-list';
 import useGetAllChatList from 'Hooks/Queries/get-allchat-list';
+
+import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
@@ -55,17 +56,16 @@ export default ChattingPage;
 
 const ChatContainer = styled.div`
 	${flexAlignCenter}
-	width: 60%;
-	height: 70vh;
+	width: 70%;
+	height: 75vh;
 	min-width: 750px;
 	max-width: 1000px;
 	min-height: 500px;
-	max-height: 800px;
 	margin: 0 auto;
 	border-radius: 10px;
 	border: solid lightgrey 1px;
 	margin-top: 50px;
-	@media (max-width: 1000px) {
+	@media (max-width: 800px) {
 		flex-direction: column;
 		border: none;
 	}

@@ -1,7 +1,8 @@
 import ItemCard from 'Components/Card/Desktop/Card';
 
-import { flexAlignCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAlignCenter } from 'Styles/common';
 
 const AnotherProduct = ({ product, isMine }) => {
 	const hasRelated = product && product.length > 0;

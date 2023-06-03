@@ -47,7 +47,6 @@ const Cover = styled.div`
 
 const Banner = styled.div`
 	width: 100%;
-	max-height: 500px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
@@ -66,7 +65,6 @@ const Wrapper = styled.div`
 `;
 
 const CategoryWrapper = styled.div`
-	padding-bottom: 20px;
 	margin-bottom: 30px;
 `;
 

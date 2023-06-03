@@ -28,17 +28,18 @@ export default YourMessage;
 const Wrapper = styled.div`
 	${flexAllCenter}
 	justify-content: left;
-	margin: 20px 0;
+	margin: 5px 0;
 	& > div:first-child {
 		width: 45px;
 		height: 45px;
 	}
 	& > div:nth-child(2) {
 		word-break: break-all;
+		font-size: ${({ theme }) => theme.fontSize.xs};
 		background-color: ${({ theme }) => theme.color.primary[100]};
 		line-height: 25px;
 		margin-left: 5px;
-		padding: 5px;
+		padding: 7px 15px;
 		border-radius: 10px;
 	}
 	& > div:nth-child(3) {

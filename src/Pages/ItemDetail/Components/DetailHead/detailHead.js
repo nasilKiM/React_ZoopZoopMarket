@@ -1,9 +1,10 @@
-import MannerMeter from 'Components/Icon/Icon';
 import ProductImg from './ProductImg/productImg';
+import MannerMeter from 'Components/Icon/Icon';
 import Profile from 'Components/Profile/Desktop/profile';
 
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const DetailHead = ({ item }) => {
 	return (

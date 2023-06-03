@@ -54,7 +54,8 @@
 		"eject": "react-scripts eject",
 		"lint": "eslint . --ext .js,.jsx",
 		"lint:fix": "eslint . --ext .js,.jsx --fix",
-		"format": "prettier --write --cache \"src/**/*.{js,jsx}\""
+		"format": "prettier --write --cache \"src/**/*.{js,jsx}\"",
+		"format:fix": "prettier --write --ignore-path .gitignore ."
 	},
 	"eslintConfig": {
 		"extends": [
@@ -77,6 +78,7 @@
 	"devDependencies": {
 		"@tanstack/react-query-devtools": "^4.29.11",
 		"eslint": "^8.36.0",
+		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-simple-import-sort": "^10.0.0",

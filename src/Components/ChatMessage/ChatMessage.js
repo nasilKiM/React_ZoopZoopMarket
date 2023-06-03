@@ -1,6 +1,6 @@
 import ProductApi from 'Apis/productApi';
-import dayjs from 'dayjs';
 
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
@@ -57,6 +57,7 @@ const ChatContent = styled.div`
 	cursor: pointer;
 	& > div:first-child {
 		& > div {
+			font-size: ${({ theme }) => theme.fontSize.sm};
 			margin: 10px 0;
 		}
 	}

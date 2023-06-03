@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
 
 const recentPrd = async () => {
@@ -11,8 +12,7 @@ const useRecentProduct = () => {
 		['recent'],
 		() => recentPrd(),
 		{
-			onSuccess: data => {
-			},
+			onSuccess: data => {},
 		},
 	);
 

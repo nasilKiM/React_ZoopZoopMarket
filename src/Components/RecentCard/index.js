@@ -1,5 +1,6 @@
-import RecentCard from './recentCard';
 import useRecentProduct from 'Hooks/Queries/get-recent-product';
+
+import RecentCard from './recentCard';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
