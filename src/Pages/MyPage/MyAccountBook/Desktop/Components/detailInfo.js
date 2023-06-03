@@ -5,11 +5,7 @@ import dayjs from 'dayjs';
 import './styles.css';
 import styled from 'styled-components';
 
-const AccountBookDetailInfo = ({
-	date,
-	setDate,
-	data,
-}) => {
+const AccountBookDetailInfo = ({ date, setDate, data }) => {
 	// let saleDateArr = [];
 	// data &&
 	// 	data.payList.map(item => {
@@ -32,32 +28,44 @@ const AccountBookDetailInfo = ({
 						<S.Flex>
 							<div>총 수입총액</div>
 							<div>
-								{data && <S.Amount>
-									{data.amount.totalSaleAmount === null
-										? 0
-										: parseInt(data.amount.totalSaleAmount).toLocaleString(
-											'ko-KR',
-										)}
-								</S.Amount>}
+								{data && (
+									<S.Amount>
+										{data.amount.totalSaleAmount === null
+											? 0
+											: parseInt(data.amount.totalSaleAmount).toLocaleString(
+													'ko-KR',
+											  )}
+									</S.Amount>
+								)}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex>
 							<div>총 지출총액</div>
 							<div>
-								{data && <S.Amount>
-									{data.amount.totalPurchaseAmount === null
-										? 0
-										: parseInt(data.amount.totalPurchaseAmount).toLocaleString(
-											'ko-KR',
-										)}
-								</S.Amount>}
+								{data && (
+									<S.Amount>
+										{data.amount.totalPurchaseAmount === null
+											? 0
+											: parseInt(
+													data.amount.totalPurchaseAmount,
+											  ).toLocaleString('ko-KR')}
+									</S.Amount>
+								)}
 								원
 							</div>
 						</S.Flex>
 						<S.Flex2>
 							<div>총 수익</div>
-							{data && <div><S.Amount>{data.amount.totalSaleAmount - data.amount.totalPurchaseAmount}</S.Amount>원</div>}
+							{data && (
+								<div>
+									<S.Amount>
+										{data.amount.totalSaleAmount -
+											data.amount.totalPurchaseAmount}
+									</S.Amount>
+									원
+								</div>
+							)}
 						</S.Flex2>
 					</div> */}
 				</S.PreviewWrap>
@@ -109,7 +117,7 @@ const PreviewWrap = styled.div`
 		display: flex;
 		justify-content: center;
 		margin-bottom: 30px;
-		font-weight: ${({theme}) => theme.fontWeight.bold};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 	& > div:nth-child(2) {
 		margin: 0 auto;
@@ -121,20 +129,20 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
-`
+`;
 
 const Flex2 = styled.div`
 	display: flex;
 	margin: 1.3rem auto 1.3rem;
 	width: 50%;
 	justify-content: space-between;
-	border-top: solid 2px ${({theme}) => theme.color.gray[200]};
+	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
 	padding-top: 1rem;
-`
+`;
 
 const Amount = styled.span`
-	color: ${({theme}) => theme.color.primary[300]};
-	font-weight: ${({theme}) => theme.fontWeight.bolder};
+	color: ${({ theme }) => theme.color.primary[300]};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const S = {
@@ -142,5 +150,5 @@ const S = {
 	PreviewWrap,
 	Flex,
 	Flex2,
-	Amount
+	Amount,
 };

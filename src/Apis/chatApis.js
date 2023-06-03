@@ -6,6 +6,7 @@ const ChatApis = {
 	setChatRoom(prod_idx) {
 		return Axios.post(PATH, { prod_idx });
 	},
+
 	readChatMsg(room_idx) {
 		return Axios.post(PATH + '/readall', null, {
 			params: {
@@ -13,9 +14,11 @@ const ChatApis = {
 			},
 		});
 	},
+
 	saveMsg({ room_idx, message }) {
 		return Axios.post(PATH + '/send', { room_idx, message });
 	},
+
 	loadChatLog(room_idx) {
 		return Axios.get(PATH + '/chat-log', {
 			params: {
@@ -23,13 +26,15 @@ const ChatApis = {
 			},
 		});
 	},
+
 	loadAllChatList(page) {
 		return Axios.get(PATH + '/chat-room-list', {
 			params: {
 				page,
 			},
 		});
-	}, 
+	},
+
 	loadSpecificChatRoom(prod_idx) {
 		return Axios.get(PATH + '/product-chat-list', {
 			params: {

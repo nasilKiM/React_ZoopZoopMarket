@@ -1,10 +1,13 @@
-import styled from 'styled-components';
+import { useEffect } from 'react';
+
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
-import { flexAllCenter } from 'Styles/common';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
 import KaMap from 'Components/Map/Map';
-import { useEffect } from 'react';
+
+import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;

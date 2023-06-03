@@ -1,7 +1,9 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+
+import styled from 'styled-components';
 
 const MobileSearchBar = () => {
 	const [click, setClick] = useState(false);

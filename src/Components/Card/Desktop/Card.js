@@ -5,10 +5,10 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import ConfirmModal from 'Components/Alert/confirmModal';
 import SoldoutCard from './CardSoldout';
 
+import ProductApi from 'Apis/productApi';
+
 import styled from 'styled-components';
 import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
-
-import ProductApi from 'Apis/productApi';
 
 const ItemCard = ({ index, products, isMine, isRelated }) => {
 	const navigate = useNavigate();

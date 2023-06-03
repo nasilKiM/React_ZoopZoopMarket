@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 import ChatApis from 'Apis/chatApis';
-import { useSocket } from 'Context/socket';
 
 import MessageDetail from '../Message/Message';
+// import useGetChatLog from 'Hooks/Queries/get-chat-log';
 
+import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
@@ -117,23 +118,27 @@ export default ChatDetail;
 
 const ChattingTitle = styled.div`
 	width: 100%;
-	height: 10%;
+	height: 11%;
 	min-width: 300px;
 	${flexAllCenter}
 	justify-content: space-between;
 	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
 	img {
-		width: 50px;
-		height: 50px;
-		border-radius: 15%;
-		object-fit: fill;
+		width: 40px;
+		height: 40px;
+		border-radius: 5%;
+		object-fit: cover;
 		margin-right: 15px;
 	}
 	& > div {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		word-break: break-all;
+
+		@media (max-width: 800px) {
+			font-size: ${({ theme }) => theme.fontSize.sm};
+		}
 	}
 
 	& > div:nth-of-type(1) {
@@ -152,7 +157,7 @@ const ChattingContent = styled.div`
 	width: 100%;
 	padding: 1rem;
 	flex: 8 0;
-	background-color: ${({ theme }) => theme.color.subBeigeGreen};
+	background-color: ${({ theme }) => theme.color.gray[100]};
 	overflow-y: scroll;
 	::-webkit-scrollbar {
 		width: 8px;

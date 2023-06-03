@@ -6,12 +6,15 @@ const UserApi = {
 	login({ email, pw }) {
 		return Axios.post(PATH + '/login', { email, pw });
 	},
+
 	logout() {
 		return Axios.get(PATH + '/logout');
 	},
+
 	signup({ email, pw, nickName, phone, region }) {
 		return Axios.post(PATH, { email, pw, nickName, phone, region });
 	},
+
 	checkEmail(email) {
 		return Axios.get(PATH + '/check/email', {
 			params: {
@@ -19,6 +22,7 @@ const UserApi = {
 			},
 		});
 	},
+
 	checkNickname(nickname) {
 		return Axios.get(PATH + '/check/nickname', {
 			params: {
@@ -26,12 +30,15 @@ const UserApi = {
 			},
 		});
 	},
+
 	refreshToken() {
 		return Axios.get(PATH + '/refreshToken');
 	},
+
 	userInfo() {
 		return Axios.get(PATH + '/info');
 	},
+
 	userInfoEdit({ email, region, nickName, phone }) {
 		return Axios.patch(PATH, {
 			email,
@@ -40,6 +47,7 @@ const UserApi = {
 			phone,
 		});
 	},
+
 	userProfileEdit(image) {
 		return Axios.patch(PATH + '/profile', image, {
 			headers: {
