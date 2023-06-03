@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
@@ -13,30 +13,39 @@ import styled from 'styled-components';
 const AccountBookPage = () => {
 	const [category, setCategory] = useState('seller');
 	const now = dayjs();
-	const [date, setDate] = useState(now.format());
+	const [date, setDate] = useState(now.format('YYYY-MM'));
 	const [year, setYear] = useState(now.year());
-	const [month, setMonth] = useState(now.month()+1);
+	const [month, setMonth] = useState(now.format('MM'));
 
 	const firstDay = dayjs(`${year}-${month}-01`);
 	const lastDay = firstDay.daysInMonth().toString()
 
 	const start = `${year}-${month}-01`
 	const end = `${year}-${month}-${lastDay}`
-	// console.log(category, start, end); // 확인용
 
 	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-	getAccountBook && console.log(getAccountBook.data); // 확인용
+	getAccountBook && console.log("데이터", getAccountBook); // 확인용
 
+	useEffect(() => {
+		setDate(`${year}-${month}`)
+	}, [year, month]);
+
+	useEffect(()=>{
+		// const arr = date.split('-');
+		// console.log('kkkkkkk', arr[1]);
+		// console.log(month)
+		// setMonth(arr[1]);
+		// console.log(typeof(date))
+	},[date])
 	return (
 		<S.Wrapper>
-			<AccountBookDetailInfo
-				category={category}
+			{getAccountBook && <AccountBookDetailInfo
 				date={date}
 				setDate={setDate}
-				year={year}
-				month={month}
-				data={getAccountBook}
-			/>
+				data={getAccountBook.data}
+				setYear={setYear}
+				setMonth={setMonth}
+			/>}
 			<AccountBookSelector
 				category={category}
 				setCategory={setCategory}
@@ -45,11 +54,11 @@ const AccountBookPage = () => {
 				month={month}
 				setMonth={setMonth}
 			/>
-			<DetailCard
-				data={getAccountBook}
+			{getAccountBook && <DetailCard
+				data={getAccountBook.data}
 				year={year}
 				month={month}
-			/>
+			/>}
 		</S.Wrapper>
 	);
 };
