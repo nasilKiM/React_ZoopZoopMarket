@@ -8,8 +8,6 @@ import styled from 'styled-components';
 const NewMessage = ({ popupMsg, setPopupMsg }) => {
 	const [itemInfo, setItemInfo] = useState();
 
-	useEffect(() => {}, [popupMsg]);
-
 	useEffect(() => {
 		const ProductInfo = async () => {
 			try {
