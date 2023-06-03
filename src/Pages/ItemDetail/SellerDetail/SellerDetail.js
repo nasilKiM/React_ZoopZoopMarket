@@ -15,7 +15,7 @@ import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
 
-const SellerDetailPage = ({ state, product, idx }) => {
+const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 	const [item, setItem] = useState();
 	const [detailState, setDetailState] = useState('상세정보');
 	const [isOpenModal, setIsOpenModal] = useState(false);
@@ -74,7 +74,11 @@ const SellerDetailPage = ({ state, product, idx }) => {
 		item && (
 			<S.Wrapper>
 				{isOpenModal && (
-					<SoldOutModal onClose={onCloseModal} room={room.data} />
+					<SoldOutModal
+						onClose={onCloseModal}
+						room={room.data}
+						setStatus={setStatus}
+					/>
 				)}
 				<S.EditBar>
 					{item.status == '판매중' && (
