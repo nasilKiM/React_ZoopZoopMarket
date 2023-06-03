@@ -1,4 +1,4 @@
-import useRecentProduct from 'Hooks/Queries/get-recent-product';
+import { useRecentProduct } from 'Hooks/Queries/get-product-query';
 
 import RecentCard from './recentCard';
 

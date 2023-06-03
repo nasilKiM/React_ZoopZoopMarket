@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
 
-import useGetChatList from 'Hooks/Queries/get-chat-list';
-import useGetAllChatList from 'Hooks/Queries/get-allchat-list';
+import { useGetAllChatList, useGetChatList } from 'Hooks/Queries/get-chat-query';
 
 import styled from 'styled-components';
 import { flexAlignCenter } from 'Styles/common';

@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Desktop/Card';
 
-import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
 
 import {
 	flexAllCenter,

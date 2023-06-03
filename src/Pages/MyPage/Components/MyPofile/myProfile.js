@@ -7,8 +7,8 @@ import MannerMeter from 'Components/Icon/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import useUserInfo from 'Hooks/Queries/get-user-info';
-import useMyUserInfo from 'Hooks/Queries/get-mypage-mainPage';
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
+import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
 import { useMutation } from '@tanstack/react-query';
 import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 

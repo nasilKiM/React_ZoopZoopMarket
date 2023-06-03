@@ -5,12 +5,12 @@ import ItemCard from 'Components/Card/Desktop/Card';
 
 import styled from 'styled-components';
 
-import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
+import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
 
 import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
 
 const MyInterestPage = () => {
-	const res = useInfiniteMy();
+	const res = useInfiniteMyInterest();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
 

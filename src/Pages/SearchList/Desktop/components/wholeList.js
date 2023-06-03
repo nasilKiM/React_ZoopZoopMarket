@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 
-import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
+import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-query';
 
 import SearchList from './searchList';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';

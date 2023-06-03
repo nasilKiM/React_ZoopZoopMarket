@@ -4,7 +4,7 @@ import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import DetailCard from './Components/detailCard';
 
-import useGetAccountBook from 'Hooks/Queries/get-mypage-accountBook';
+import { useGetAccountBook } from 'Hooks/Queries/get-mypage-query';
 
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -28,13 +28,6 @@ const AccountBookPage = () => {
 		setDate(`${year}-${month}`)
 	}, [year, month]);
 
-	useEffect(()=>{
-		// const arr = date.split('-');
-		// console.log('kkkkkkk', arr[1]);
-		// console.log(month)
-		// setMonth(arr[1]);
-		// console.log(typeof(date))
-	},[date])
 	return (
 		<S.Wrapper>
 			{getAccountBook && <AccountBookDetailInfo

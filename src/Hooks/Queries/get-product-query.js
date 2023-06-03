@@ -21,3 +21,20 @@ export const getMainList = () => {
 
 	return { mainList };
 };
+
+const recentPrd = async () => {
+	const res = await ProductApi.getRecent();
+	return res.data;
+};
+
+export const useRecentProduct = () => {
+	const { isLoading, isError, data, refetch, error } = useQuery(
+		['recent'],
+		() => recentPrd(),
+		{
+			onSuccess: data => {},
+		},
+	);
+
+	return { isLoading, isError, data, refetch, error };
+};
