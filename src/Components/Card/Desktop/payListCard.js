@@ -6,7 +6,7 @@ const PayListCard = ({item}) => {
 	const { title, price, img_url } = item.Product;
 	return (
 		<S.Wrapper>
-			{/* {item && (
+			{item && (
 				<>
 					<S.Container>
 						<S.ItemImg src={img_url} />
@@ -16,14 +16,7 @@ const PayListCard = ({item}) => {
 						</S.ItemInfo>
 					</S.Container>
 				</>
-			)} */}
-					<S.Container>
-						<S.ItemImg />
-						<S.ItemInfo>
-							<S.ItemTitle>제목</S.ItemTitle>
-							<S.ItemPrice>가격</S.ItemPrice>
-						</S.ItemInfo>
-					</S.Container>
+			)}
 		</S.Wrapper>
 	);
 };
@@ -31,18 +24,18 @@ const PayListCard = ({item}) => {
 export default PayListCard;
 
 const Wrapper = styled.div`
-	width: 1000px;
-	height: 100%;
+	width: 100%;
+	margin: 0 auto;
 `;
 
 const Container = styled.div`
-	width: 1000px;
+	width: 100%;
 	height: 500px;
-	min-width: 400px;
 	max-height: 200px;
 	border-radius: 5px;
 	cursor: pointer;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	margin: 0 auto;
 `;
 
 const ItemImg = styled.img`
@@ -53,7 +46,7 @@ const ItemImg = styled.img`
 `;
 
 const ItemInfo = styled.div`
-	padding-left: 20px;
+	/* padding-left: 20px; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

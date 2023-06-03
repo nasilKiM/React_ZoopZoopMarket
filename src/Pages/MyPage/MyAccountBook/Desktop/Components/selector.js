@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const AccountBookSelector = props => {
 	const { category, setCategory, year, setYear, month, setMonth } = props;
-
 	return (
 		<>
 			<S.SelectorsZone>
@@ -23,8 +22,8 @@ const AccountBookSelector = props => {
 						onChange={({ target: { value } }) => setYear(String(value))}
 					>
 						<option value="2023">2023 년</option>
-						<option value="2022">2022 년</option>
-						<option value="2021">2021 년</option>
+						<option value="2024">2024 년</option>
+						<option value="2025">2025 년</option>
 					</S.LargeSelect>
 					<S.LargeSelect
 						name="month"
@@ -32,7 +31,6 @@ const AccountBookSelector = props => {
 						value={month}
 						onChange={({ target: { value } }) => setMonth(String(value))}
 					>
-						<option value="none">=== 선택 ===</option>
 						<option value="01">1 월</option>
 						<option value="02">2 월</option>
 						<option value="03">3 월</option>
