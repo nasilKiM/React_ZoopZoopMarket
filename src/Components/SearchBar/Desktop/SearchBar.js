@@ -42,6 +42,7 @@ const SearchBar = ({ props, setIsModalOpen }) => {
 	return (
 		<S.Wrap onSubmit={onSearch}>
 			<S.SearchInput
+				autoFocus
 				placeholder="검색어를 입력해주세요"
 				name="searchKey"
 				ref={searchInputRef}
