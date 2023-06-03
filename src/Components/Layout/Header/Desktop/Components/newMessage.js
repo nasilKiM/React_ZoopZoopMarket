@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
 
@@ -6,6 +7,7 @@ import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const NewMessage = ({ popupMsg, setPopupMsg }) => {
+	const navigate = useNavigate();
 	const [itemInfo, setItemInfo] = useState();
 
 	useEffect(() => {
@@ -28,8 +30,12 @@ const NewMessage = ({ popupMsg, setPopupMsg }) => {
 		};
 	}, [popupMsg]);
 
+	const handleClickPopupMsg = () => {
+		navigate('/chat')
+	}
+
 	return (
-		<S.Wrapper>
+		<S.Wrapper onClick={handleClickPopupMsg}>
 			<div>
 				<img src={itemInfo?.searchProduct.img_url} />
 			</div>
@@ -65,6 +71,7 @@ const Wrapper = styled.div`
 			height: 100px;
 		}
 	}
+	cursor: pointer;
 `;
 
 const S = {

@@ -8,6 +8,7 @@ import MessageDetail from '../Message/Message';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
+import { useNavigate } from 'react-router-dom';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
@@ -17,9 +18,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
 
-	console.log(chatroomIdx);
-
-	console.log(chat);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadChatLog = async () => {
@@ -91,7 +90,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	return (
 		<>
 			<S.ChattingTitle>
-				<div>
+				<div onClick={() => navigate(`/item_detail/${itemRes?.idx}`)}>
 					<img src={itemRes?.img_url} />
 					<div>{itemRes?.title}</div>
 				</div>
@@ -122,11 +121,11 @@ const ChattingTitle = styled.div`
 	min-width: 300px;
 	${flexAllCenter}
 	justify-content: space-between;
-	padding: 0 2rem;
+	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
 	img {
-		min-width: 50px;
-		max-height: 50px;
+		width: 50px;
+		height: 50px;
 		border-radius: 15%;
 		object-fit: fill;
 		margin-right: 15px;
@@ -138,7 +137,8 @@ const ChattingTitle = styled.div`
 	}
 
 	& > div:nth-of-type(1) {
-		${flexAllCenter}
+		${flexAllCenter};
+		cursor:pointer;
 		&>div {
 			overflow: hidden;
 			text-overflow: ellipsis;

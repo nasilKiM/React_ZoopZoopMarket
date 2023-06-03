@@ -49,6 +49,7 @@ const LeftUpperBar = styled.div`
 	color: white;
 	cursor: pointer;
 	border-radius: 5px 0 0 0;
+	padding: 2rem;
 `;
 
 const ListContainer = styled.div`
