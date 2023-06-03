@@ -145,7 +145,7 @@ const Title = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	margin-top: 40px;
+	margin-top: 30px;
 	margin-bottom: 20px;
 `;
 const SubTitle = styled.div`
@@ -161,6 +161,7 @@ const ChartContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-top: 50px;
+	align-items: center;
 `;
 const Average = styled.div`
 	width: 100%;
@@ -171,7 +172,7 @@ const Average = styled.div`
 `;
 
 const RecentlyClosed = styled.div`
-	margin-top: 80px;
+	margin-top: 40px;
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;

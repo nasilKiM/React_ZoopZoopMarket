@@ -1,15 +1,16 @@
-import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
 import FindAddress from 'Components/Address/Desktop/address';
-import { FORM_TYPE } from 'Consts/FormType';
-import TokenService from 'Repository/TokenService';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
+
+import { FORM_TYPE } from 'Consts/FormType';
+import TokenService from 'Repository/TokenService';
 
 import {
 	flexAlignCenter,
@@ -26,20 +27,20 @@ const SignUpPage = () => {
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
 
-	const preventClose = (e) => {
+	const preventClose = e => {
 		e.preventDefault();
-		e.returnValue = ""
+		e.returnValue = '';
 	};
 
 	useEffect(() => {
 		(() => {
-			window.addEventListener("beforeunload", preventClose);    
+			window.addEventListener('beforeunload', preventClose);
 		})();
-	
+
 		return () => {
-			window.removeEventListener("beforeunload", preventClose);
+			window.removeEventListener('beforeunload', preventClose);
 		};
-	},[]);
+	}, []);
 
 	useEffect(() => {
 		if (TokenService.getToken()) {

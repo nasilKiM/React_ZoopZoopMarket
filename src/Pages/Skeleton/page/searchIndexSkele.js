@@ -22,28 +22,28 @@ const IndexSkeleton = () => {
 				<Desktop>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 8).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</Desktop>
 				<NoteBook16>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 6).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</NoteBook16>
 				<NoteBook14>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 4).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</NoteBook14>
 				<Tablet>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 2).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</Tablet>
@@ -51,28 +51,28 @@ const IndexSkeleton = () => {
 				<Desktop>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 8).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</Desktop>
 				<NoteBook16>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 6).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</NoteBook16>
 				<NoteBook14>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 4).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</NoteBook14>
 				<Tablet>
 					<S.SkeletonContainer>
 						{skeletonArray.slice(0, 2).map(index => (
-							<CardSkeleton />
+							<CardSkeleton key={index} />
 						))}
 					</S.SkeletonContainer>
 				</Tablet>

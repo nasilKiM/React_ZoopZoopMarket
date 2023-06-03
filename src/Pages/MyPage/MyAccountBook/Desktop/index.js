@@ -7,7 +7,6 @@ import DetailCard from './Components/detailCard';
 import useGetAccountBook from 'Hooks/Queries/get-mypage-accountBook';
 
 import dayjs from 'dayjs';
-
 import styled from 'styled-components';
 
 const AccountBookPage = () => {
@@ -16,15 +15,14 @@ const AccountBookPage = () => {
 	const [date, setDate] = useState(now.format('YYYY-MM'));
 	const [year, setYear] = useState(now.year());
 	const [month, setMonth] = useState(now.format('MM'));
-
+  
 	const firstDay = dayjs(`${year}-${month}-01`);
-	const lastDay = firstDay.daysInMonth().toString()
+	const lastDay = firstDay.daysInMonth().toString();
 
 	const start = `${year}-${month}-01`
 	const end = `${year}-${month}-${lastDay}`
 
 	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-	getAccountBook && console.log("데이터", getAccountBook); // 확인용
 
 	useEffect(() => {
 		setDate(`${year}-${month}`)
@@ -76,5 +74,5 @@ const DetailTitle = styled.div`
 
 const S = {
 	Wrapper,
-	DetailTitle
+	DetailTitle,
 };

@@ -10,11 +10,12 @@ import styled from 'styled-components';
 import useUserInfo from 'Hooks/Queries/get-user-info';
 import useMyUserInfo from 'Hooks/Queries/get-mypage-mainPage';
 import { useMutation } from '@tanstack/react-query';
+import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 
 const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
-	const { data, refetch, isLoading } = useUserInfo();
+	const { data, refetch, isLoading, isSuccess } = useUserInfo();
 	const { data: myData } = useMyUserInfo();
 
 	const { mutate } = useMutation(
@@ -44,9 +45,9 @@ const MyProfile = () => {
 
 	return (
 		<>
-			{!isLoading && (
+			{isSuccess && (
 				<S.Wrapper>
-					{data && myData && (
+					{myData && (
 						<S.Info>
 							<S.ImgWrap>
 								<S.Img
@@ -117,6 +118,7 @@ const MyProfile = () => {
 					)}
 				</S.Wrapper>
 			)}
+			{isLoading && <MyProfileSkeleton />}
 		</>
 	);
 };

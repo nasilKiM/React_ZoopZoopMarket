@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSocket } from 'Context/socket';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -9,10 +7,12 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
 
+import { useSocket } from 'Context/socket';
+
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item }) => {
+const DetailContent = ({ state, item, itemAllInfo }) => {
 	const today = dayjs();
 	const created = item && dayjs(item.createdAt);
 	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
@@ -22,19 +22,29 @@ const DetailContent = ({ state, item }) => {
 		diff.toFixed() == 0
 			? '오늘'
 			: diff < 4
-			? `${diff.toFixed()}일전`
-			: cleanDate;
+				? `${diff.toFixed()}일전`
+				: cleanDate;
 
-	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
-
 	const so = useSocket();
+
 	const onClickChatStartBtn = async () => {
 		try {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 
 			const message = '채팅방을 시작합니다';
 
+			const data = {
+				title: item?.title,
+				createdAt: item?.createdAt,
+				prod_idx: item?.idx,
+				room_idx: setChatRoomRes.data.idx,
+				nickName: item?.User.nick_name,
+				message,
+				isSeller: itemAllInfo?.isSeller,
+			};
+
+			so?.emit('sendMessage', data);
 			const saveMsgRes = await ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
 				message,
@@ -50,50 +60,50 @@ const DetailContent = ({ state, item }) => {
 		<>
 			{!state
 				? item && (
-						<S.BuyerWrapper isDesktop={isDesktop}>
-							<div>{item.title}</div>
-							<div>
-								{item.ProductsTags.map(item => (
-									<span>#{item.Tag.tag}</span>
-								))}
-								<div>|</div> {date}
-							</div>
-							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div style={{ whiteSpace: 'pre-wrap' }}>
-								{item.description.replaceAll('\r,\n', '<br />')}
-							</div>
-							<div>
-								{item.status == '판매중' && (
-									<div onClick={onClickChatStartBtn}>채팅하기</div>
-								)}
-								{item.status == '판매중' && (
-									<div>
-										<HeartBtn like={item.liked} idx={item.idx} />
-									</div>
-								)}
-							</div>
-							{item.status == '판매완료' && (
-								<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+					<S.BuyerWrapper isDesktop={isDesktop}>
+						<div>{item.title}</div>
+						<div>
+							{item.ProductsTags.map(item => (
+								<span>#{item.Tag.tag}</span>
+							))}
+							<div>|</div> {date}
+						</div>
+						<div>{item.price.toLocaleString('ko-KR')}원</div>
+						<div style={{ whiteSpace: 'pre-wrap' }}>
+							{item.description.replaceAll('\r,\n', '<br />')}
+						</div>
+						<div>
+							{item.status == '판매중' && (
+								<div onClick={onClickChatStartBtn}>채팅하기</div>
 							)}
-						</S.BuyerWrapper>
-				  )
+							{item.status == '판매중' && (
+								<div>
+									<HeartBtn like={item.liked} idx={item.idx} />
+								</div>
+							)}
+						</div>
+						{item.status == '판매완료' && (
+							<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+						)}
+					</S.BuyerWrapper>
+				)
 				: item && (
-						<S.SellerWrapper isDesktop={isDesktop}>
-							<div>
-								<div>{item.title}</div>
-							</div>
-							<div>
-								{item.ProductsTags.map(item => (
-									<span>#{item.Tag.tag}</span>
-								))}
-								<div>|</div> {date}
-							</div>
-							<div>{item.price.toLocaleString('ko-KR')}원</div>
-							<div style={{ whiteSpace: 'pre-wrap' }}>
-								{item.description.replaceAll('\r,\n', '<br />')}
-							</div>
-						</S.SellerWrapper>
-				  )}
+					<S.SellerWrapper isDesktop={isDesktop}>
+						<div>
+							<div>{item.title}</div>
+						</div>
+						<div>
+							{item.ProductsTags.map(item => (
+								<span>#{item.Tag.tag}</span>
+							))}
+							<div>|</div> {date}
+						</div>
+						<div>{item.price.toLocaleString('ko-KR')}원</div>
+						<div style={{ whiteSpace: 'pre-wrap' }}>
+							{item.description.replaceAll('\r,\n', '<br />')}
+						</div>
+					</S.SellerWrapper>
+				)}
 		</>
 	);
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Skeleton } from '@mui/material';
+import styled from 'styled-components';
 
 import { theme } from 'Styles/theme';
-import styled from 'styled-components';
 
 const MainPageSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4];
