@@ -1,17 +1,23 @@
 import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 
-// import 'react-calendar/dist/Calendar.css';
 import './styles.css';
 import styled from 'styled-components';
 
-const AccountBookDetailInfo = ({ date, setDate, data }) => {
-	// let saleDateArr = [];
-	// data &&
-	// 	data.payList.map(item => {
-	// 		const saleDate = item.createdAt;
-	// 		saleDateArr.push(saleDate.split('T')[0]);
-	// 	});
+const AccountBookDetailInfo = ({
+	date,
+	setDate,
+	data,
+	setYear,
+	setMonth
+}) => {
+
+	let saleDateArr = [];
+	data &&
+		data.payList.map(item => {
+			const saleDate = item.createdAt;
+			saleDateArr.push(saleDate.split('T')[0]);
+		});
 
 	// let purchaseDateArr = [];
 	// data &&
@@ -19,12 +25,13 @@ const AccountBookDetailInfo = ({ date, setDate, data }) => {
 	// 		const saleDate = item.createdAt;
 	// 		purchaseDateArr.push(saleDate.split('T')[0]);
 	// 	});
+	
 	return (
 		<>
 			<S.Wrap>
 				<S.PreviewWrap>
 					<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
-					{/* <div>
+					<div>
 						<S.Flex>
 							<div>총 수입총액</div>
 							<div>
@@ -67,27 +74,43 @@ const AccountBookDetailInfo = ({ date, setDate, data }) => {
 								</div>
 							)}
 						</S.Flex2>
-					</div> */}
+					</div>
+
 				</S.PreviewWrap>
 				<Calendar
 					value={date}
 					onChange={setDate}
 					className="react-calendar"
-					formatDay={(locale, date) => dayjs(date).format('D')}
-					// tileContent={({ date }) => {
-					// 	if (
-					// 		saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
-					// 	) {
-					// 		return <div className="sale"></div>;
-					// 	}
-					// 	if (
-					// 		purchaseDateArr.find(
-					// 			day => day === dayjs(date).format('YYYY-MM-DD'),
-					// 		)
-					// 	) {
-					// 		return <div className="purchase"></div>;
-					// 	}
-					// }}
+					// formatDay={(locale, date) => dayjs(date).format('D')}
+					tileContent={({ date }) => {
+						if (
+							saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+						) {
+							return <div className="sale"></div>;
+						}
+						// if (
+						// 	purchaseDateArr.find(
+						// 		day => day === dayjs(date).format('YYYY-MM-DD'),
+						// 	)
+						// ) {
+						// 	return <div className="purchase"></div>;
+						// }
+					}}
+					onDrillDown={(e)=>{
+						console.log(e);
+						setMonth(`0${e.activeStartDate.getMonth()+1}`)
+						setYear(e.activeStartDate.getFullYear())
+					}}
+					// 전역 빼놓기
+					onActiveStartDateChange={(e)=>{
+						if(e.action==='next' || e.action==='prev'){
+							setMonth(`0${e.activeStartDate.getMonth()+1}`)
+						} 
+						else if(e.action==='next2' || e.action==='prev2') {
+							console.log(e);
+							setYear(e.activeStartDate.getFullYear())
+						}
+					}}
 				/>
 			</S.Wrap>
 		</>
