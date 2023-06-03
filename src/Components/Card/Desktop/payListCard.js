@@ -6,7 +6,7 @@ const PayListCard = ({ item }) => {
 	const { title, price, img_url } = item.Product;
 	return (
 		<S.Wrapper>
-			{item && (
+			{/* {item && (
 				<>
 					<S.Container>
 						<S.ItemImg src={img_url} />
@@ -16,7 +16,14 @@ const PayListCard = ({ item }) => {
 						</S.ItemInfo>
 					</S.Container>
 				</>
-			)}
+			)} */}
+					<S.Container>
+						<S.ItemImg />
+						<S.ItemInfo>
+							<S.ItemTitle>제목</S.ItemTitle>
+							<S.ItemPrice>가격</S.ItemPrice>
+						</S.ItemInfo>
+					</S.Container>
 		</S.Wrapper>
 	);
 };

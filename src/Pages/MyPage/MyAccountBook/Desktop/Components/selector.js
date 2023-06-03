@@ -55,19 +55,23 @@ const AccountBookSelector = props => {
 export default AccountBookSelector;
 
 const SelectorsZone = styled.div`
-	width: 80%;
+	width: 48%;
 	display: flex;
 	justify-content: space-between;
 	margin: 50px auto 30px;
-	form {
-		&:nth-child(1) {
-			margin-right: 15px;
-		}
+	@media screen and (max-width: 1000px) {
+		width: 70%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 80%;
 	}
 `;
 
 const RightSideSelectors = styled.div`
 	display: flex;
+	& > select:nth-child(2) {
+		margin-left: 10px;
+	}
 `;
 
 const LargeSelect = styled.select`
@@ -76,7 +80,6 @@ const LargeSelect = styled.select`
 	appearance: none;
 	width: 100px;
 	height: 40px;
-	margin-left: 10px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;

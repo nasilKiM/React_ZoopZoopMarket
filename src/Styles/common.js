@@ -37,7 +37,6 @@ export const title = css`
 	font-weight: bold;
 `;
 
-// grid
 export const gridAllCenter = css`
 	display: grid;
 	justify-items: center;

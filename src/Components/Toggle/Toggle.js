@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { flexAllCenter } from 'Styles/common';
@@ -10,10 +9,6 @@ const ToggleBar = () => {
 
 	const PathNameArr = location.pathname.split('/');
 	const current = PathNameArr[2];
-
-	useEffect(() => {
-		navigate('/mypage/item');
-	}, []);
 
 	const toggleMenu = [
 		{

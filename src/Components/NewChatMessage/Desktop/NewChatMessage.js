@@ -15,7 +15,6 @@ const NewChatWrap = styled.div`
 	display: flex;
 	width: 100vw;
 	height: 100vh;
-	/* background-color: rgba(255, 255, 255, 0.5); */ // 배경화면 딤드처리 논의 필요
 `;
 
 const Message = styled.div`
