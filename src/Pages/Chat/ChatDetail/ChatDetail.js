@@ -9,6 +9,7 @@ import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
+import { useNavigate } from 'react-router-dom';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
@@ -17,6 +18,8 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadChatLog = async () => {
@@ -87,8 +90,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 
 	return (
 		<>
-			<S.ChattingTitle>
-				<S.Prev>&lt;</S.Prev>
+			<S.ChattingTitle onClick={() => navigate(`/item_detail/${itemRes?.idx}`)}>
 				<div>
 					<img src={itemRes?.img_url} />
 					<div>{itemRes?.title}</div>
@@ -120,7 +122,7 @@ const ChattingTitle = styled.div`
 	min-width: 300px;
 	${flexAllCenter}
 	justify-content: space-between;
-	padding: 0 2rem;
+	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
 	@media (max-width: 800px) {
 		padding: 0 15px;
@@ -132,7 +134,7 @@ const ChattingTitle = styled.div`
 		object-fit: cover;
 		margin-right: 15px;
 	}
-	& > div:nth-of-type(1) {
+	& > div {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		word-break: break-all;
@@ -141,23 +143,22 @@ const ChattingTitle = styled.div`
 		}
 	}
 
-	& > div:nth-of-type(2) {
-		${flexAllCenter}
-		flex: 3;
+	& > div:nth-of-type(1) {
+		${flexAllCenter};
+		cursor: pointer;
 		& > div {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			min-width: 150px;
+			min-width: 120px;
 			max-width: 200px;
 		}
 	}
-	& > div:nth-of-type(3) {
-		flex: 1;
+	& > div:nth-of-type(2) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 `;
-
-const Prev = styled.div``;
 
 const ChattingContent = styled.div`
 	width: 100%;
@@ -224,7 +225,6 @@ const SubmitButton = styled.button`
 
 const S = {
 	ChattingTitle,
-	Prev,
 	ChattingContent,
 	ChattingFormContainer,
 	ChattingForm,
