@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 
 import ItemCard from "Components/Card/Desktop/Card";
 
-import { gridAllCenter, gridColumn, gridGap } from "Styles/common";
-
 import styled from "styled-components";
 
 const DetailCard = ({data, category, year, month}) => {
@@ -36,7 +34,7 @@ const DetailCard = ({data, category, year, month}) => {
 		</S.Wrap>
 
 		<S.Container>
-			{data && <div>{data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}</div>}
+			{data && data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}
 		</S.Container>
       </>
     )
@@ -56,29 +54,7 @@ const Wrap = styled.div`
 `;
 
 const Container = styled.div`
-	width: 70%;
-	/* margin: 0 auto; */
-	/* display: flex; */
-	border: solid 1px black;
-	/* 
-	${gridColumn(4)}
-	${gridAllCenter}
-	
-	@media ${({ theme }) => theme.device.laptop} {
-		${gridColumn(3)}
-		${gridGap.laptop}
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(3)}
-		${gridGap.tablet}
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
-		${gridGap.mobile}
-	} */
-	/* flex-wrap: wrap;
-	justify-content: space-around; */
-
+	width: 60%;
 	display: grid;
 	justify-items: center;
 	margin: 30px auto;
