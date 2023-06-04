@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Skeleton } from '@mui/material';
-
 import styled from 'styled-components';
 import { basicSetting } from 'Styles/common';
 
@@ -213,7 +212,16 @@ const Map = styled.div`
 `;
 
 const S = {
+	Cover,
+	Wrapper,
+	Upper,
+	Blank,
+	Pic,
+	Info,
+	Section,
+	Title,
+	Content,
+	Map,
 	SkeletonProfile,
 	SkeletonContainer,
-	Section,
 };

@@ -30,6 +30,7 @@ const MessageDetail = ({ chat }) => {
 			inline: 'nearest',
 		});
 	}, [chat]);
+
 	return (
 		<div>
 			<div>

@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
 
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
+import SearchBar from 'Components/SearchBar/SearchBar';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
-import Chart from './components/chart';
-import RecentSoldOut from './components/recentSoldout';
+import Chart from '../components/chart';
+import RecentSoldOut from '../components/recentSoldout';
 
 import styled from 'styled-components';
 import dayjs from 'dayjs';

@@ -27,7 +27,7 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 			console.log(err);
 		}
 	};
-	console.log(chat)
+
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>
