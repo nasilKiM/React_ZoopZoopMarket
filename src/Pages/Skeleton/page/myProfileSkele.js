@@ -1,9 +1,9 @@
+import BarSkeleton from '../component/barSkeleton';
+import ProfileSkelton from '../component/profileSkeleton';
+
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
-
-import BarSkeleton from '../component/barSkeleton';
-import ProfileSkelton from '../component/profileSkeleton';
 
 const MyProfileSkeleton = () => {
 	return (
@@ -89,10 +89,11 @@ const Info = styled.div`
 
 const ImgWrap = styled.div`
 	position: relative;
+	margin-right: 20px;
+
 	@media screen and (max-width: 600px) {
 		margin-bottom: 20px;
 	}
-	margin-right: 20px;
 `;
 
 const ProfileImg = styled.div`
@@ -148,11 +149,12 @@ const InfoContent = styled.div`
 	width: 200px;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	& > span {
+	> span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
+
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 120px;
 	}

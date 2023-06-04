@@ -3,14 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import ChatApis from 'Apis/chatApis';
 
 import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
+import { useSocket } from 'Context/socket';
 
 import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
-
-import { useSocket } from 'Context/socket';
-
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 
 const DetailContent = ({ state, item, itemAllInfo }) => {
 	const today = dayjs();
@@ -22,8 +25,8 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		diff.toFixed() == 0
 			? '오늘'
 			: diff < 4
-				? `${diff.toFixed()}일전`
-				: cleanDate;
+			? `${diff.toFixed()}일전`
+			: cleanDate;
 
 	const navigate = useNavigate();
 	const so = useSocket();
@@ -45,10 +48,11 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			};
 
 			so?.emit('sendMessage', data);
-			const saveMsgRes = await ChatApis.saveMsg({
+			ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
 				message,
 			});
+
 			navigate('/chat');
 		} catch (err) {
 			navigate('/chat');
@@ -60,68 +64,93 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		<>
 			{!state
 				? item && (
-					<S.BuyerWrapper isDesktop={isDesktop}>
-						<div>{item.title}</div>
-						<div>
-							{item.ProductsTags.map(item => (
-								<span>#{item.Tag.tag}</span>
-							))}
-							<div>|</div> {date}
-						</div>
-						<div>{item.price.toLocaleString('ko-KR')}원</div>
-						<div style={{ whiteSpace: 'pre-wrap' }}>
-							{item.description.replaceAll('\r,\n', '<br />')}
-						</div>
-						<div>
-							{item.status == '판매중' && (
-								<div onClick={onClickChatStartBtn}>채팅하기</div>
-							)}
-							{item.status == '판매중' && (
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
-							)}
-						</div>
-						{item.status == '판매완료' && (
-							<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
-						)}
-					</S.BuyerWrapper>
-				)
-				: item && (
-					<S.SellerWrapper isDesktop={isDesktop}>
-						<div>
+						<S.BuyerWrapper isDesktop={isDesktop}>
 							<div>{item.title}</div>
-						</div>
-						<div>
-							{item.ProductsTags.map(item => (
-								<span>#{item.Tag.tag}</span>
-							))}
-							<div>|</div> {date}
-						</div>
-						<div>{item.price.toLocaleString('ko-KR')}원</div>
-						<div style={{ whiteSpace: 'pre-wrap' }}>
-							{item.description.replaceAll('\r,\n', '<br />')}
-						</div>
-					</S.SellerWrapper>
-				)}
+							<div>
+								{item.ProductsTags.map(item => (
+									<span
+										key={Math.random()}
+										onClick={() => {
+											navigate(`/search_list/${item.Tag.tag}`);
+										}}
+									>
+										#{item.Tag.tag}
+									</span>
+								))}
+								<div>|</div> {date}
+							</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
+							<div>
+								{item.status == '판매중' && (
+									<div onClick={onClickChatStartBtn}>채팅하기</div>
+								)}
+								{item.status == '판매중' && (
+									<div>
+										<HeartBtn like={item.liked} idx={item.idx} />
+									</div>
+								)}
+							</div>
+							{item.status == '판매완료' && (
+								<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+							)}
+						</S.BuyerWrapper>
+				  )
+				: item && (
+						<S.SellerWrapper isDesktop={isDesktop}>
+							<div>
+								<div>{item.title}</div>
+							</div>
+							<div>
+								{item.ProductsTags.map(item => (
+									<span
+										key={Math.random()}
+										onClick={() => {
+											navigate(`/search_list/${item.Tag.tag}`);
+										}}
+									>
+										#{item.Tag.tag}
+									</span>
+								))}
+								<div>|</div> {date}
+							</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
+						</S.SellerWrapper>
+				  )}
 		</>
 	);
 };
 
 export default DetailContent;
+
 const BuyerWrapper = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	margin: 25px 10px;
-	& > div {
+
+	> div {
 		margin: 20px 0;
 	}
-	& > div:nth-of-type(1) {
+
+	> div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	& > div:nth-of-type(2) {
-		display: flex;
-		align-items: center;
+
+	> div:nth-of-type(2) {
+		${flexAlignCenter}
 		gap: 5px;
 		span {
 			padding: 5px;
@@ -132,11 +161,13 @@ const BuyerWrapper = styled.div`
 			padding: 0px 5px;
 		}
 	}
-	& > div:nth-of-type(3) {
+
+	> div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	& > div:nth-of-type(4) {
+
+	> div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
 		padding-top: 20px;
@@ -144,11 +175,12 @@ const BuyerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	& > div:nth-of-type(5) {
-		${flexAllCenter}
-		justify-content: space-between;
+
+	> div:nth-of-type(5) {
+		${flexSpaceBetween}
 		margin: 40px 0;
-		& > div:first-child {
+
+		> div:first-child {
 			background-color: ${({ theme }) => theme.color.gray[200]};
 			font-weight: ${({ theme }) => theme.fontWeight.bold};
 			color: ${({ theme }) => theme.color.black};
@@ -160,7 +192,8 @@ const BuyerWrapper = styled.div`
 				color: ${({ theme }) => theme.color.white};
 			}
 		}
-		& > div:last-child {
+
+		> div:last-child {
 			width: 40px;
 			height: 40px;
 		}
@@ -179,20 +212,24 @@ const solidOut = styled.div`
 const SellerWrapper = styled.div`
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	margin: 25px 10px;
-	& > div {
+
+	> div {
 		margin: 20px 0;
 	}
-	& > div:nth-of-type(1) {
+
+	> div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
 	}
-	& > div:nth-of-type(3) {
+
+	> div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	& > div:nth-of-type(4) {
+
+	> div:nth-of-type(4) {
 		padding-top: 20px;
 		min-height: 180px;
 		font-size: ${({ theme }) => theme.fontSize.base};
@@ -200,7 +237,8 @@ const SellerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	& > div:nth-of-type(2) {
+
+	> div:nth-of-type(2) {
 		display: flex;
 		align-items: center;
 		gap: 5px;

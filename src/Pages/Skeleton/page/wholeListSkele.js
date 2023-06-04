@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const WholeListSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 	return (
 		<S.Wrapper>
 			<S.SkeletonContainer>
@@ -21,6 +22,7 @@ const SkeletonContainer = styled.div`
 	display: grid;
 	width: 100%;
 	margin-top: 20px;
+
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(2, minmax(160px, 1fr));
 		height: 315px;
@@ -48,6 +50,7 @@ const Wrapper = styled.div`
 	min-width: 350px;
 	max-width: 1200px;
 	margin: 0 auto;
+
 	@media (max-width: 700px) {
 		width: 95%;
 	}

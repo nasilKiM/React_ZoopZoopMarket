@@ -1,13 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
-import WebHeader from './Header/Desktop';
+import WebHeader from './Header';
 import BasicFooter from './Footer';
 import RegisterBtn from 'Components/Buttons/RegisterBtn/RegisterBtn';
 import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 import RecentProduct from 'Components/RecentCard';
 
 import { useSocket } from 'Context/socket';
-
 import styled from 'styled-components';
 
 const LayOut = () => {

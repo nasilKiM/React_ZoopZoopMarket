@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLikedBtn } from 'Hooks/Queries/get-product-mutation';
 
