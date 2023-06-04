@@ -67,8 +67,8 @@ const AccountBookDetailInfo = ({
 							{data && (
 								<div>
 									<S.Amount>
-										{data.amount.totalSaleAmount -
-											data.amount.totalPurchaseAmount}
+										{parseInt(data.amount.totalSaleAmount -
+											data.amount.totalPurchaseAmount).toLocaleString('ko-KR')}
 									</S.Amount>
 									원
 								</div>

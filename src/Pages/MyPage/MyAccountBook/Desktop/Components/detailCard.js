@@ -1,4 +1,6 @@
-import PayListCard from "Components/Card/Desktop/payListCard";
+import ItemCard from "Components/Card/Desktop/Card";
+
+import { flexJustifyCenter, gridAllCenter, gridColumn, gridGap } from "Styles/common";
 import styled from "styled-components";
 
 const DetailCard = ({data, year, month}) => {
@@ -20,7 +22,7 @@ const DetailCard = ({data, year, month}) => {
                             'ko-KR',
                           )}
                     </S.Amount>}
-                    원
+                     원
                   </div>
 						</S.Flex>
 						<S.Flex>
@@ -33,20 +35,22 @@ const DetailCard = ({data, year, month}) => {
 														'ko-KR',
 										)}
 								</S.Amount>}
-								원
+								 원
 							</div>
 						</S.Flex>
 						<S.Flex2>
 							<div>당월 수익</div>
-							{data && <div><S.Amount>{data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount}</S.Amount>원</div>}
+							{data && <div><S.Amount>{parseInt(data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount).toLocaleString('ko-KR')}</S.Amount> 원</div>}
 						</S.Flex2>
 					</div>
 				</S.PreviewWrap>
-			<S.Wrap>
-				<S.DetailTitle>세부내역</S.DetailTitle>
-				{data && <div>{data.payList.map(item => <PayListCard item={item} />)}</div>}
-			</S.Wrap>
-		</S.Wrapper>	
+		</S.Wrapper>
+		<S.Wrap2>
+			<S.DetailTitle>세부내역</S.DetailTitle>
+		</S.Wrap2>	
+		<S.Container>
+			{data && <div>{data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}</div>}
+		</S.Container>
       </>
     )
 };
@@ -79,8 +83,7 @@ const PreviewWrap = styled.div`
 	padding: 30px 20px 20px;
 	box-shadow: 0px 0px 20px #e0e0e0;
 	& > div:nth-child(1) {
-		display: flex;
-		justify-content: center;
+		${flexJustifyCenter}
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
@@ -118,8 +121,48 @@ const Date = styled.div`
 	min-width: min-content;
 `;
 
+const Wrap2 = styled.div`
+	margin: 0 auto;
+	width: 60%;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
+`;
+
+const Container = styled.div`
+	/* width: 100%;
+	${gridColumn(4)}
+	${gridAllCenter}
+	
+	@media ${({ theme }) => theme.device.laptop} {
+		${gridColumn(3)}
+		${gridGap.laptop}
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+		${gridGap.mobile}
+	} */
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+`;
+
+const Txt = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	margin-left: 30px;
+`;
+
 const S = {
-	Wrapper,
+  Wrapper,
   Wrap,
   PreviewWrap,
   Flex,
@@ -127,4 +170,7 @@ const S = {
   Amount,
   DetailTitle,
   Date,
+  Container,
+  Wrap2,
+  Txt,
 }

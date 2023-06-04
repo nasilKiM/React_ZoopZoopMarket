@@ -8,14 +8,3 @@ export const useLikedBtn = () => {
 export const useSoldOutMutation = () => {
 	return useMutation(data => ProductApi.soldOut(data.prod_idx, data.token));
 };
-
-const client = useQueryClient();
-
-const { mutate } = useMutation(
-    () => ProductApi.deleteRecentList(item.item.Product.idx),
-    {
-        onSuccess: () => {
-            client.invalidateQueries(['recent']);
-        },
-    },
-);

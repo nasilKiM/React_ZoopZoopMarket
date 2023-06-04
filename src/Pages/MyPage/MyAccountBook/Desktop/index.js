@@ -61,11 +61,6 @@ const Wrapper = styled.div`
 	width: 100%;
 `;
 
-const DetailTitle = styled.div`
-	margin: 50px 0;
-`;
-
 const S = {
 	Wrapper,
-	DetailTitle,
 };
