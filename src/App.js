@@ -10,6 +10,7 @@ import { RecoilRoot } from 'recoil';
 import SocketProvider from 'Context/socket';
 import { ThemeProvider } from 'styled-components';
 
+import LoadingPage from 'Components/Loading/Loading';
 import router from './Routes/routing';
 
 import GlobalStyles from 'Styles/global';
@@ -19,7 +20,7 @@ function App() {
 	const queryClient = new QueryClient();
 
 	return (
-		<Suspense>
+		<Suspense fallback={<LoadingPage />}>
 			<ErrorBoundary
 				fallback={<div>에러발생!!</div>}
 				onError={error => {

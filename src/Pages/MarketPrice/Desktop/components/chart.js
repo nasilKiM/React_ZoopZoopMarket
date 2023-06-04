@@ -78,7 +78,18 @@ export default Chart;
 
 const Wrapper = styled.div`
 	margin: 0 auto;
-	padding-left: 5px;
+	padding-right: 20px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+
+	@media screen and (max-width: 767px) {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+	@media screen and (min-width: 768px) and (max-width: 1000px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+	@media screen and (min-width: 1001px) and (max-width: 1499px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
+	}
 `;
 
 const S = {
