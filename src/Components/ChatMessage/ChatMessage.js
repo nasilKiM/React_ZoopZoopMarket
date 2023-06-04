@@ -27,12 +27,12 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 			console.log(err);
 		}
 	};
-
+	console.log(chat)
 	return (
 		<>
 			<S.ChatContent onClick={onClickChat}>
 				<div>
-					<div>{chat.User.nick_name}</div>
+					<div>{chat.lastMessageUser.nick_name}</div>
 					<div>
 						<div>{chat.lastMessage}</div>
 					</div>

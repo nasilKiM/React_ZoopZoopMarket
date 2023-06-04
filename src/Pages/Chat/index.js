@@ -7,7 +7,8 @@ import ChatDetail from './ChatDetail/ChatDetail';
 import { useGetAllChatList, useGetChatList } from 'Hooks/Queries/get-chat-query';
 
 import styled from 'styled-components';
-import { flexAlignCenter } from 'Styles/common';
+
+import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
@@ -108,9 +109,6 @@ const ChatContainer = styled.div`
 `;
 
 const ChatLeftContainer = styled.div`
-	display: inline-block;
-	justify-content: center;
-	align-items: center;
 	width: 50%;
 	height: 100%;
 	min-height: 500px;
@@ -118,10 +116,8 @@ const ChatLeftContainer = styled.div`
 `;
 
 const ChatRightContainer = styled.div`
-	display: inline-flex;
+	${flexAllCenter}
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	width: 50%;
 	height: 100%;
 	min-height: 500px;
