@@ -67,7 +67,7 @@ const RegisterPage = () => {
 		if (e.keyCode === 13) {
 			clearErrors('tag');
 			e.preventDefault();
-			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			const newTag = e.target.value.trim();
 			const check = tags.filter(tag => tag === newTag);
 			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
@@ -223,7 +223,6 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
-					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
