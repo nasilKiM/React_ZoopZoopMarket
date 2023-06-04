@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
+
 import { flexAllCenter } from 'Styles/common';
 
 const SoldoutCard = ({ index }) => {

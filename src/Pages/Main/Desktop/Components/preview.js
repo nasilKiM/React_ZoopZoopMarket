@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import ProductApi from 'Apis/productApi';
 
-import ItemCard from 'Components/Card/Desktop/Card';
+import ItemCard from 'Components/Card/Card';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';

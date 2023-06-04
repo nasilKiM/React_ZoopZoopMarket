@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import ItemCard from 'Components/Card/Desktop/Card';
+import ItemCard from 'Components/Card/Card';
 
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
 
@@ -61,7 +61,12 @@ const MyItemPage = () => {
 							<S.Container>
 								{data.pages.map(page => {
 									return page.data.products.map(item => (
-										<ItemCard index={item.idx} products={item} isMine={true} isDone={false}/>
+										<ItemCard
+											index={item.idx}
+											products={item}
+											isMine={true}
+											isDone={false}
+										/>
 									));
 								})}
 							</S.Container>

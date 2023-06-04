@@ -1,4 +1,4 @@
-import ItemCard from 'Components/Card/Desktop/Card';
+import ItemCard from 'Components/Card/Card';
 import Profile from 'Components/Profile/Desktop/profile';
 import ReviewMessage from 'Components/Review/Review';
 

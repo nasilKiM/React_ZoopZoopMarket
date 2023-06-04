@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import ItemCard from 'Components/Card/Desktop/Card';
+import ItemCard from 'Components/Card/Card';
 
 import styled from 'styled-components';
 
@@ -33,7 +33,11 @@ const MyInterestPage = () => {
 						<S.Container>
 							{data.pages.map(page =>
 								page.data.LikeList.map(list => (
-									<ItemCard index={list.Product.idx} products={list.Product} isDone={false}/>
+									<ItemCard
+										index={list.Product.idx}
+										products={list.Product}
+										isDone={false}
+									/>
 								)),
 							)}
 						</S.Container>

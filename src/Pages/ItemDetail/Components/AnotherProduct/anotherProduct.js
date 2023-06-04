@@ -1,4 +1,4 @@
-import ItemCard from 'Components/Card/Desktop/Card';
+import ItemCard from 'Components/Card/Card';
 
 import styled from 'styled-components';
 

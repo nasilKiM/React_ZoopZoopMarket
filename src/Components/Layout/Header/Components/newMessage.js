@@ -31,8 +31,8 @@ const NewMessage = ({ popupMsg, setPopupMsg }) => {
 	}, [popupMsg]);
 
 	const handleClickPopupMsg = () => {
-		navigate('/chat')
-	}
+		navigate('/chat');
+	};
 
 	return (
 		<S.Wrapper onClick={handleClickPopupMsg}>

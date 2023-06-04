@@ -8,6 +8,7 @@ import SoldoutCard from './CardSoldout';
 import ProductApi from 'Apis/productApi';
 
 import styled from 'styled-components';
+
 import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
 
 const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
@@ -46,7 +47,9 @@ const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
 			<S.Wrapper>
 				<S.Container>
 					<S.Heart>
-						{!isMine && !isDone && <HeartBtn like={products.liked} idx={products.idx} />}
+						{!isMine && !isDone && (
+							<HeartBtn like={products.liked} idx={products.idx} />
+						)}
 					</S.Heart>
 					<div onClick={onClickCard}>
 						<S.ItemImg src={products.img_url} />

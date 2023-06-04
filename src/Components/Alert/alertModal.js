@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const AlertModal = ({ content, props, setModal }) => {
 	const navigate = useNavigate();

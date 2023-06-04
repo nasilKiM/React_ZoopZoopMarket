@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 
 import UploadFiles from './Components/uploadFiles';
-import FindAddress from 'Components/Address/Desktop/address';
+import FindAddress from 'Components/Address/address';
 import KaMap from 'Components/Map/Map';
 import AlertModal from 'Components/Alert/alertModal';
 import CategorySelector from './Components/categorySelector';

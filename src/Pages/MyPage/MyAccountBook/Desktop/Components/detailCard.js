@@ -1,43 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import ItemCard from "Components/Card/Desktop/Card";
+import ItemCard from 'Components/Card/Card';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const DetailCard = ({data, category, year, month}) => {
+const DetailCard = ({ data, category, year, month }) => {
 	let priceArr = [];
 	let sum = 0;
 	const [amount, setAmount] = useState(sum);
 
 	useEffect(() => {
-		for(let i = 0; i < data.payList.length; i++) {
-			priceArr.push(data.payList[i].Product.price)
-		} 
-		for(let i = 0; i < priceArr.length; i++) {
+		for (let i = 0; i < data.payList.length; i++) {
+			priceArr.push(data.payList[i].Product.price);
+		}
+		for (let i = 0; i < priceArr.length; i++) {
 			sum += priceArr[i];
 			setAmount(sum);
 		}
 	}, [year, month, category]);
 
-    return (
-      <>
-		<S.Wrap>
-			<S.PreviewWrap>
-				<div><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</div>
-				<div>
-					<S.Flex>
-						<div>{category === "seller" ? "판매" : "구매"}</div>
-						<div>{(amount).toLocaleString('ko-KR')}원</div>
-					</S.Flex>
-				</div>
-			</S.PreviewWrap>
-		</S.Wrap>
+	return (
+		<>
+			<S.Wrap>
+				<S.PreviewWrap>
+					<div>
+						<S.Amount>
+							{year}년 {month}월
+						</S.Amount>
+						의 거래 내역이에요 !
+					</div>
+					<div>
+						<S.Flex>
+							<div>{category === 'seller' ? '판매' : '구매'}</div>
+							<div>{amount.toLocaleString('ko-KR')}원</div>
+						</S.Flex>
+					</div>
+				</S.PreviewWrap>
+			</S.Wrap>
 
-		<S.Container>
-			{data && data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}
-		</S.Container>
-      </>
-    )
+			<S.Container>
+				{data &&
+					data.payList.map(item => (
+						<ItemCard index={item.idx} products={item.Product} isDone={true} />
+					))}
+			</S.Container>
+		</>
+	);
 };
 
 export default DetailCard;
@@ -129,16 +137,14 @@ const Amount = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
-const SpecificDate = styled.span`
-
-`
+const SpecificDate = styled.span``;
 
 const S = {
-  Wrap,
-  Container,
-  PreviewWrap,
-  Flex,
-  Flex2,
-  Amount,
-  SpecificDate
-}
+	Wrap,
+	Container,
+	PreviewWrap,
+	Flex,
+	Flex2,
+	Amount,
+	SpecificDate,
+};

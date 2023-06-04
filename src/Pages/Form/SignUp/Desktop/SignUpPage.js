@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
-import FindAddress from 'Components/Address/Desktop/address';
+import FindAddress from 'Components/Address/address';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';

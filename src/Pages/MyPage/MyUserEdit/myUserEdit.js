@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
-import FindAddress from 'Components/Address/Desktop/address';
+import FindAddress from 'Components/Address/address';
 import AlertModal from 'Components/Alert/alertModal';
 import CustomButton from 'Components/Buttons/button';
 
