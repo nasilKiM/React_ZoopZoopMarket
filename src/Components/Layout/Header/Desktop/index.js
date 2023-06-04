@@ -60,11 +60,6 @@ const WebHeader = ({ so }) => {
 		setShowOptions(false);
 	};
 
-	const myPage = () => {
-		navigate('/mypage');
-		setShowOptions(false);
-	};
-
 	const toggleMenu = () => {
 		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
 	};
@@ -203,10 +198,10 @@ const WebHeader = ({ so }) => {
 							{showOptions && (
 								<S.MenuOptionWrapper onClick={() => setShowOptions(false)}>
 									<S.Menu>
-										<MenuOption to={'/mypage/item'}>마이페이지</MenuOption>
+										<S.MenuOption to={'/mypage/item'}>마이페이지</S.MenuOption>
 									</S.Menu>
 									<S.Menu>
-										<MenuOption onClick={logout}>로그아웃</MenuOption>
+										<S.MenuOption onClick={logout}>로그아웃</S.MenuOption>
 									</S.Menu>
 								</S.MenuOptionWrapper>
 							)}
