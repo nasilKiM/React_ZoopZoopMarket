@@ -20,11 +20,12 @@ const RegisterPage = () => {
 	const [images, setImages] = useState([]);
 	const [modal, setModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
-
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
-	const { idx } = useParams();
+	const [addressMessage, setAddressMessage] = useState();
+	const [showModal, setShowModal] = useState(false);
 
+	const { idx } = useParams();
 	const queryClient = useQueryClient();
 
 	const {
@@ -33,7 +34,6 @@ const RegisterPage = () => {
 		setError,
 		clearErrors,
 		setValue,
-		getValues,
 		formState: { errors },
 	} = useForm();
 
@@ -67,7 +67,7 @@ const RegisterPage = () => {
 		if (e.keyCode === 13) {
 			clearErrors('tag');
 			e.preventDefault();
-			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			const newTag = e.target.value.trim();
 			const check = tags.filter(tag => tag === newTag);
 			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
@@ -97,13 +97,23 @@ const RegisterPage = () => {
 		return ProductApi.editPost(data);
 	});
 
+	useEffect(() => {
+		setAddressMessage('');
+	}, [searchResult]);
+
+	useEffect(() => {
+		clearErrors('tag');
+	}, [tags]);
+
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			return setError(
-				'tag',
-				{ message: '1개이상 꼭 입력해주세요.' },
-				{ shouldFocus: true },
-			);
+			window.scrollTo(200, 200);
+			return setError('tag', { message: '1개이상 꼭 입력해주세요.' });
+		}
+
+		if (!searchResult) {
+			window.scrollTo(500, 500);
+			return setAddressMessage('거래장소를 입력해주세요');
 		}
 
 		try {
@@ -118,9 +128,10 @@ const RegisterPage = () => {
 			});
 
 			if (!idx) {
-				if (data.mainImg.length === 0) {
+				console.log(data.mainImg);
+				if (data.mainImg.length == 0) {
 					window.scrollTo(0, 0);
-					return alert('이미지를 등록해주세요.');
+					return setShowModal(true);
 				}
 				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
@@ -141,6 +152,7 @@ const RegisterPage = () => {
 					}
 				});
 				formData.append('img_url', imgUrls.join());
+				// buttonRef.current.disabled = true;
 				mutationEdit.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
@@ -224,6 +236,7 @@ const RegisterPage = () => {
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
 					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
+					{addressMessage && <Error>{addressMessage}</Error>}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
@@ -248,13 +261,17 @@ const RegisterPage = () => {
 			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
+				{showModal && (
+					<AlertModal
+						content={'이미지를 등록해주세요'}
+						setModal={setShowModal}
+					/>
+				)}
 			</S.Container>
 			{modal && (
 				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />
 			)}
-			{regiModal && (
-				<AlertModal content={'물품수정이 완료되었습니다.'} props={'/main'} />
-			)}
+			{regiModal && <AlertModal content={'물품수정이 완료되었습니다.'} />}
 		</S.Wrapper>
 	);
 };
