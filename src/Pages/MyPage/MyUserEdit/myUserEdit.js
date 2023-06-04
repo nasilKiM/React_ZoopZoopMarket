@@ -22,12 +22,7 @@ import {
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	// const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
-	// 	pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
-	// });
-
 	const { data } = useUserInfo();
-
 	const [address, setAddress] = useState();
 	const [phoneMessage, setPhoneMessage] = useState();
 	const [nickMessage, setNickMessage] = useState('');

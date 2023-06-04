@@ -58,7 +58,6 @@ const RegisterPage = () => {
 	};
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		if (!idx) return;
 		productIdx();
 	}, [idx]);
@@ -128,7 +127,6 @@ const RegisterPage = () => {
 			});
 
 			if (!idx) {
-				console.log(data.mainImg);
 				if (data.mainImg.length == 0) {
 					window.scrollTo(0, 0);
 					return setShowModal(true);
@@ -152,7 +150,6 @@ const RegisterPage = () => {
 					}
 				});
 				formData.append('img_url', imgUrls.join());
-				// buttonRef.current.disabled = true;
 				mutationEdit.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
@@ -235,7 +232,6 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
-					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
 					{addressMessage && <Error>{addressMessage}</Error>}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />

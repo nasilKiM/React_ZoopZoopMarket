@@ -12,7 +12,7 @@ export const useUserInfo = () => {
 		['userInfoProfile'],
 		() => userInfoProfile(),
 		{
-			pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
+			pollInterval: 0,
 		},
 		queryConfig,
 	);

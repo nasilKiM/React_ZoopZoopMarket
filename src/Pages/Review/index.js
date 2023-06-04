@@ -21,9 +21,7 @@ import PropTypes from 'prop-types';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
-	// const navigate = useNavigate();
 	const { idx } = useParams();
-
 	const title = target.title;
 	const [content, setContent] = useState('');
 	const [ondo, setOndo] = useState(3);

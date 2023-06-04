@@ -47,7 +47,6 @@ const ItemImg = styled.img`
 `;
 
 const ItemInfo = styled.div`
-	/* padding-left: 20px; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

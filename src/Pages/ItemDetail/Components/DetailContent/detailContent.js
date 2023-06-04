@@ -123,12 +123,10 @@ const BuyerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
-	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	//태그, 날짜
 	& > div:nth-of-type(2) {
 		display: flex;
 		align-items: center;
@@ -142,12 +140,10 @@ const BuyerWrapper = styled.div`
 			padding: 0px 5px;
 		}
 	}
-	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	//본문내용
 	& > div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
@@ -156,7 +152,6 @@ const BuyerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	// 카테고리
 	& > div:nth-of-type(5) {
 		${flexAllCenter}
 		justify-content: space-between;
@@ -173,7 +168,6 @@ const BuyerWrapper = styled.div`
 				color: ${({ theme }) => theme.color.white};
 			}
 		}
-		//heart
 		& > div:last-child {
 			width: 40px;
 			height: 40px;
@@ -196,19 +190,16 @@ const SellerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
-	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
 	}
-	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	//본문
 	& > div:nth-of-type(4) {
 		padding-top: 20px;
 		min-height: 180px;
@@ -217,7 +208,6 @@ const SellerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	//태그
 	& > div:nth-of-type(2) {
 		display: flex;
 		align-items: center;
