@@ -127,7 +127,7 @@ const RegisterPage = () => {
 				formData.append('images', element);
 			});
 
-			if (idx == 'undefined') {
+			if (!idx) {
 				console.log(data.mainImg);
 				if (data.mainImg.length == 0) {
 					window.scrollTo(0, 0);
