@@ -1,53 +1,40 @@
+import { useEffect, useState } from "react";
+
 import ItemCard from "Components/Card/Desktop/Card";
 
-import { flexJustifyCenter, gridAllCenter, gridColumn, gridGap } from "Styles/common";
+import { gridAllCenter, gridColumn, gridGap } from "Styles/common";
+
 import styled from "styled-components";
 
-const DetailCard = ({data, year, month}) => {
+const DetailCard = ({data, category, year, month}) => {
+	let priceArr = [];
+	let sum = 0;
+	const [amount, setAmount] = useState(sum);
+
+	useEffect(() => {
+		for(let i = 0; i < data.payList.length; i++) {
+			priceArr.push(data.payList[i].Product.price)
+		} 
+		for(let i = 0; i < priceArr.length; i++) {
+			sum += priceArr[i];
+			setAmount(sum);
+		}
+	}, [year, month, category]);
+
     return (
       <>
-        <S.Wrapper>
-		      <S.PreviewWrap>
-            <S.Date>
-					  {year}년 {month}월
-				    </S.Date>
-              <div>
-                <S.Flex>
-                  <div>당월 수입</div>
-                  <div>
-                    {data && <S.Amount>
-                                        {data.amount.thisMonthSaleAmount === null
-                          ? 0
-                          : parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
-                            'ko-KR',
-                          )}
-                    </S.Amount>}
-                     원
-                  </div>
-						</S.Flex>
-						<S.Flex>
-							<div>당월 지출</div>
-							<div>
-								{data && <S.Amount>
-                                    {data.amount.thisMonthPurchaseAmount === null
-										? 0
-										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
-														'ko-KR',
-										)}
-								</S.Amount>}
-								 원
-							</div>
-						</S.Flex>
-						<S.Flex2>
-							<div>당월 수익</div>
-							{data && <div><S.Amount>{parseInt(data.amount.thisMonthSaleAmount - data.amount.thisMonthPurchaseAmount).toLocaleString('ko-KR')}</S.Amount> 원</div>}
-						</S.Flex2>
-					</div>
-				</S.PreviewWrap>
-		</S.Wrapper>
-		<S.Wrap2>
-			<S.DetailTitle>세부내역</S.DetailTitle>
-		</S.Wrap2>	
+		<S.Wrap>
+			<S.PreviewWrap>
+				<div><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</div>
+				<div>
+					<S.Flex>
+						<div>{category === "seller" ? "판매" : "구매"}</div>
+						<div>{(amount).toLocaleString('ko-KR')}원</div>
+					</S.Flex>
+				</div>
+			</S.PreviewWrap>
+		</S.Wrap>
+
 		<S.Container>
 			{data && <div>{data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}</div>}
 		</S.Container>
@@ -57,33 +44,86 @@ const DetailCard = ({data, year, month}) => {
 
 export default DetailCard;
 
-const Wrapper = styled.div`
-	width: 60%;
+const Wrap = styled.div`
 	margin: 0 auto;
-	@media screen and (max-width: 1000px) {
-		width: 80%;
+	width: 60%;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
 	}
-	@media screen and (max-width: 600px) {
-		width: 100%;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
 	}
 `;
 
-const Wrap = styled.div`
-	width: 80%;
-	height: 28vh;
-	margin: 0 auto 30px;
-	color: ${({ theme }) => theme.color.primary[300]};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
+const Container = styled.div`
+	width: 70%;
+	/* margin: 0 auto; */
+	/* display: flex; */
+	border: solid 1px black;
+	/* 
+	${gridColumn(4)}
+	${gridAllCenter}
+	
+	@media ${({ theme }) => theme.device.laptop} {
+		${gridColumn(3)}
+		${gridGap.laptop}
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+		${gridGap.mobile}
+	} */
+	/* flex-wrap: wrap;
+	justify-content: space-around; */
+
+	display: grid;
+	justify-items: center;
+	margin: 30px auto;
+
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 800px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 400px) {
+		grid-template-rows: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
+	}
+	@media screen and (max-width: 767px) {
+		grid-template-columns: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
+		row-gap: 20px;
+	}
+	@media screen and (min-width: 768px) and (max-width: 1000px) {
+		grid-template-columns: repeat(2, minmax(250px, 1fr));
+		column-gap: 20px;
+		row-gap: 30px;
+	}
+	@media screen and (min-width: 1001px) and (max-width: 1499px) {
+		grid-template-columns: repeat(3, minmax(270px, 1fr));
+		column-gap: 20px;
+		row-gap: 35px;
+	}
+	@media screen and (min-width: 1500px) {
+		grid-template-columns: repeat(4, minmax(280px, 1fr));
+		column-gap: 20px;
+		row-gap: 40px;
+	}
 `;
 
 const PreviewWrap = styled.div`
 	width: 80%;
-	height: 28vh;
+	height: 15vh;
 	margin: 0 auto 30px;
 	padding: 30px 20px 20px;
 	box-shadow: 0px 0px 20px #e0e0e0;
 	& > div:nth-child(1) {
-		${flexJustifyCenter}
+		display: flex;
+		justify-content: center;
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
@@ -113,64 +153,16 @@ const Amount = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
-const DetailTitle = styled.div`
-	margin: 50px 0 10px;
-`;
+const SpecificDate = styled.span`
 
-const Date = styled.div`
-	min-width: min-content;
-`;
-
-const Wrap2 = styled.div`
-	margin: 0 auto;
-	width: 60%;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 95%;
-	}
-`;
-
-const Container = styled.div`
-	/* width: 100%;
-	${gridColumn(4)}
-	${gridAllCenter}
-	
-	@media ${({ theme }) => theme.device.laptop} {
-		${gridColumn(3)}
-		${gridGap.laptop}
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(3)}
-		${gridGap.tablet}
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
-		${gridGap.mobile}
-	} */
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-`;
-
-const Txt = styled.div`
-	width: 100%;
-	font-size: ${({ theme }) => theme.fontSize.base};
-	font-weight: ${({ theme }) => theme.fontWeight.bold};
-	margin-left: 30px;
-`;
+`
 
 const S = {
-  Wrapper,
   Wrap,
+  Container,
   PreviewWrap,
   Flex,
   Flex2,
   Amount,
-  DetailTitle,
-  Date,
-  Container,
-  Wrap2,
-  Txt,
+  SpecificDate
 }

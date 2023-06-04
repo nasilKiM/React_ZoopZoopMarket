@@ -9,7 +9,7 @@ const AccountBookDetailInfo = ({
 	setDate,
 	data,
 	setYear,
-	setMonth
+	setMonth,
 }) => {
 
 	let saleDateArr = [];
@@ -75,8 +75,50 @@ const AccountBookDetailInfo = ({
 							)}
 						</S.Flex2>
 					</div>
-
 				</S.PreviewWrap>
+
+				<S.PreviewWrap>
+					<div>이번달 줍줍마켓과 함께한 내역이에요 !</div>
+					<div>
+						<S.Flex>
+							<div>당월 수입</div>
+							<div>
+								{data && <S.Amount>
+									{data.amount.thisMonthSaleAmount === null
+									? 0
+									: parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
+										'ko-KR',
+									)}
+								</S.Amount>}
+								원
+							</div>
+							</S.Flex>
+							<S.Flex>
+								<div>당월 지출</div>
+								<div>
+									{data && <S.Amount>
+										{data.amount.thisMonthPurchaseAmount === null
+										? 0
+										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
+										'ko-KR',
+										)}
+									</S.Amount>}
+									원
+								</div>
+							</S.Flex>
+							<S.Flex2>
+								<div>당월 수익</div>
+								<div>
+									{data &&<S.Amount>
+										{parseInt(data.amount.thisMonthSaleAmount - 
+											data.amount.thisMonthPurchaseAmount).toLocaleString('ko-KR')}
+									</S.Amount>}
+									원
+								</div>
+							</S.Flex2>
+						</div>
+				</S.PreviewWrap>
+
 				<Calendar
 					value={date}
 					onChange={setDate}
@@ -167,7 +209,6 @@ const Amount = styled.span`
 	color: ${({ theme }) => theme.color.primary[300]};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
-
 const S = {
 	Wrap,
 	PreviewWrap,

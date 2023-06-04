@@ -47,6 +47,7 @@ const AccountBookPage = () => {
 			/>
 			{getAccountBook && <DetailCard
 				data={getAccountBook.data}
+				category={category}
 				year={year}
 				month={month}
 			/>}
@@ -57,7 +58,7 @@ const AccountBookPage = () => {
 export default AccountBookPage;
 
 const Wrapper = styled.div`
-	margin: 0 auto 300px;
+	margin: 0 auto;
 	width: 100%;
 `;
 
