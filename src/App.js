@@ -17,6 +17,7 @@ import { theme } from 'Styles/theme';
 
 function App() {
 	const queryClient = new QueryClient();
+
 	return (
 		<Suspense>
 			<ErrorBoundary

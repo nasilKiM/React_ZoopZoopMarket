@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
@@ -14,6 +15,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
 	const [showChatDetail, setShowChatDetail] = useState(true);
+	const isTablet = useMediaQuery({ maxWidth: 700 });
 
 	const { data: getChatList } = useGetChatList(idx);
 	const { data: getAllChatList } = useGetAllChatList(1);
@@ -29,34 +31,55 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	}, [getAllChatList]);
 
 	const handleChatDetailToggle = () => {
-		setShowChatDetail(true);
+		console.log('클릭했음');
+		setShowChatDetail(false);
 	};
 
 	return (
 		<S.ChatContainer>
-			<S.ChatLeftContainer show={showChatDetail}>
-				<ChatList
-					chatroomList={chatroomList}
-					setChatroomIdx={setChatroomIdx}
-					idx={idx}
-					item={item}
-					setItemInfo={setItemInfo}
-				/>
-			</S.ChatLeftContainer>
-			<S.ChatRightContainer show={showChatDetail}>
-				{chatroomIdx && (
-					<ChatDetail
-						chatroomIdx={chatroomIdx}
-						item={item}
-						isSeller={isSeller}
-						itemInfo={itemInfo}
-					/>
-				)}
-				{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
-			</S.ChatRightContainer>
-			<S.ToggleButton onClick={handleChatDetailToggle}>
-				{showChatDetail ? '<' : '>'}
-			</S.ToggleButton>
+			{isTablet ? (
+				<>
+					<S.ChatRightContainer>
+						{chatroomIdx && (
+							<ChatDetail
+								chatroomIdx={chatroomIdx}
+								item={item}
+								isSeller={isSeller}
+								itemInfo={itemInfo}
+							/>
+						)}
+						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
+					</S.ChatRightContainer>
+				</>
+			) : (
+				<>
+					<S.ChatLeftContainer show={showChatDetail}>
+						<ChatList
+							chatroomList={chatroomList}
+							setChatroomIdx={setChatroomIdx}
+							idx={idx}
+							item={item}
+							setItemInfo={setItemInfo}
+						/>
+					</S.ChatLeftContainer>
+					<S.ChatRightContainer show={showChatDetail}>
+						{chatroomIdx && (
+							<ChatDetail
+								chatroomIdx={chatroomIdx}
+								item={item}
+								isSeller={isSeller}
+								itemInfo={itemInfo}
+							/>
+						)}
+						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
+					</S.ChatRightContainer>
+				</>
+			)}
+			{isTablet && (
+				<S.ToggleButton onClick={handleChatDetailToggle}>
+					뒤로가기
+				</S.ToggleButton>
+			)}
 		</S.ChatContainer>
 	);
 };
@@ -93,12 +116,6 @@ const ChatLeftContainer = styled.div`
 	height: 100%;
 	min-height: 500px;
 	max-height: 1000px;
-	@media (max-width: 700px) {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		display: none;
-	}
 `;
 
 const ChatRightContainer = styled.div`
@@ -127,17 +144,16 @@ const NoChat = styled.div`
 const ToggleButton = styled.div`
 	position: absolute;
 	cursor: pointer;
-	top: 30px;
-	padding: 5px 7px;
-	border-radius: 20%;
+	top: -15px;
+	width: 100%;
+	padding: 10px 10px;
 	background-color: gray;
 	left: ${props => (props.show ? 'calc(50% - 20px)' : '5px')};
 	transform: translateY(-50%);
 	color: white;
 	border: none;
-	font-size: 20px;
-	display: none;
-	text-align: center;
+	font-size: 16px;
+	text-align: left;
 	align-items: center;
 	z-index: 98;
 	@media (max-width: 700px) {

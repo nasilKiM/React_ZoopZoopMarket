@@ -58,7 +58,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 				<S.MainImgContainer>
 					<label htmlFor="mainImg">
 						<S.MainImgSection
-							src={images[0] || imgSrc[0] || '/Assets/Images/defaultImage.png'}
+							src={images[0] || imgSrc[0] || '/Assets/Images/registerImage.png'}
 						/>
 					</label>
 					{(images[0] || imgSrc[0]) && (
@@ -76,7 +76,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									images[1] || imgSrc[1] || '/Assets/Images/defaultImage.png'
+									images[1] || imgSrc[1] || '/Assets/Images/registerImage.png'
 								}
 							/>
 						</label>
@@ -96,7 +96,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									images[2] || imgSrc[2] || '/Assets/Images/defaultImage.png'
+									images[2] || imgSrc[2] || '/Assets/Images/registerImage.png'
 								}
 							/>
 						</label>
@@ -116,7 +116,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									images[3] || imgSrc[3] || '/Assets/Images/defaultImage.png'
+									images[3] || imgSrc[3] || '/Assets/Images/registerImage.png'
 								}
 							/>
 						</label>
@@ -136,7 +136,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 						<label htmlFor="mainImg">
 							<S.SmallImgSection
 								src={
-									images[4] || imgSrc[4] || '/Assets/Images/defaultImage.png'
+									images[4] || imgSrc[4] || '/Assets/Images/registerImage.png'
 								}
 							/>
 						</label>
