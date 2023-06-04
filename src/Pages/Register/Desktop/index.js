@@ -20,11 +20,12 @@ const RegisterPage = () => {
 	const [images, setImages] = useState([]);
 	const [modal, setModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
-
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
-	const { idx } = useParams();
+	const [addressMessage, setAddressMessage] = useState();
+	const [showModal, setShowModal] = useState(false);
 
+	const { idx } = useParams();
 	const queryClient = useQueryClient();
 
 	const {
@@ -33,7 +34,6 @@ const RegisterPage = () => {
 		setError,
 		clearErrors,
 		setValue,
-		getValues,
 		formState: { errors },
 	} = useForm();
 
@@ -58,7 +58,6 @@ const RegisterPage = () => {
 	};
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		if (!idx) return;
 		productIdx();
 	}, [idx]);
@@ -97,13 +96,23 @@ const RegisterPage = () => {
 		return ProductApi.editPost(data);
 	});
 
+	useEffect(() => {
+		setAddressMessage('');
+	}, [searchResult]);
+
+	useEffect(() => {
+		clearErrors('tag');
+	}, [tags]);
+
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			return setError(
-				'tag',
-				{ message: '1개이상 꼭 입력해주세요.' },
-				{ shouldFocus: true },
-			);
+			window.scrollTo(200, 200);
+			return setError('tag', { message: '1개이상 꼭 입력해주세요.' });
+		}
+
+		if (!searchResult) {
+			window.scrollTo(500, 500);
+			return setAddressMessage('거래장소를 입력해주세요');
 		}
 
 		try {
@@ -118,9 +127,9 @@ const RegisterPage = () => {
 			});
 
 			if (!idx) {
-				if (data.mainImg.length === 0) {
+				if (data.mainImg.length == 0) {
 					window.scrollTo(0, 0);
-					return alert('이미지를 등록해주세요.');
+					return setShowModal(true);
 				}
 				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
@@ -223,6 +232,7 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
+					{addressMessage && <Error>{addressMessage}</Error>}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
@@ -247,13 +257,17 @@ const RegisterPage = () => {
 			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
+				{showModal && (
+					<AlertModal
+						content={'이미지를 등록해주세요'}
+						setModal={setShowModal}
+					/>
+				)}
 			</S.Container>
 			{modal && (
 				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />
 			)}
-			{regiModal && (
-				<AlertModal content={'물품수정이 완료되었습니다.'} props={'/main'} />
-			)}
+			{regiModal && <AlertModal content={'물품수정이 완료되었습니다.'} />}
 		</S.Wrapper>
 	);
 };

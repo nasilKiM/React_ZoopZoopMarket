@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
+import { queryConfig } from './@config';
 
 const userInfoProfile = async () => {
 	const res = await UserApi.userInfo();
@@ -13,6 +14,7 @@ export const useUserInfo = () => {
 		{
 			pollInterval: 0,
 		},
+		queryConfig,
 	);
 
 	return { isLoading, isError, data, refetch, error, isSuccess };

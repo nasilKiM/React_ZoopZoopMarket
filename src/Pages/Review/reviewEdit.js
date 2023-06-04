@@ -13,10 +13,10 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { useParams } from 'react-router-dom';
 import { styled as mui } from '@mui/material/styles';
+import styled from 'styled-components';
 
 import PropTypes from 'prop-types';
 
-import styled from 'styled-components';
 import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewEditPage = () => {

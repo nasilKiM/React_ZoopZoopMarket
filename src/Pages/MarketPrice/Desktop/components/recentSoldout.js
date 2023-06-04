@@ -34,17 +34,17 @@ const Wrapper = styled.div`
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {
 		grid-template-columns: repeat(2, minmax(250px, 1fr));
-		column-gap: 10px;
+		column-gap: 20px;
 		row-gap: 30px;
 	}
 	@media screen and (min-width: 1001px) and (max-width: 1499px) {
 		grid-template-columns: repeat(3, minmax(270px, 1fr));
-		column-gap: 10px;
+		column-gap: 30px;
 		row-gap: 40px;
 	}
 	@media screen and (min-width: 1500px) {
 		grid-template-columns: repeat(4, minmax(280px, 1fr));
-		column-gap: 20px;
+		column-gap: 30px;
 		row-gap: 50px;
 	}
 `;

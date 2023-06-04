@@ -7,14 +7,16 @@ import { useSoldOutMutation } from 'Hooks/Queries/get-product-mutation';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
+import NotificationModal from 'Components/Alert/notificationModal';
 
-const SoldOutModal = ({ onClose, room }) => {
+const SoldOutModal = ({ onClose, room, setStatus }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 	const [buyerInfo, setBuyerInfo] = useState({
 		token: '',
 		nick_name: '',
 	});
+	const [notify, setNotify] = useState(false);
 
 	const selectBuyer = (idx, token, nick_name) => {
 		setModal(true);
@@ -30,6 +32,15 @@ const SoldOutModal = ({ onClose, room }) => {
 	const soldOut = async (prod_idx, token) => {
 		try {
 			await mutation.mutateAsync({ prod_idx, token });
+			setNotify(true);
+
+			setTimeout(() => {
+				setNotify(false);
+				setModal(false);
+				onClose();
+				setStatus(true);
+				navigate(`/item_detail/${prod_idx}`);
+			}, 500);
 		} catch (error) {
 			console.log('에러', error);
 		}
@@ -82,6 +93,11 @@ const SoldOutModal = ({ onClose, room }) => {
 			{modal && (
 				<ConfirmModal>
 					<S.Content>{buyerInfo.nick_name}에게 판매하시겠습니까? </S.Content>
+					<S.BuyerList>
+						<S.NickName>{buyerInfo.nick_name}</S.NickName>
+						<S.CheckedBuyer>V</S.CheckedBuyer>
+					</S.BuyerList>
+
 					<S.BtnContainer>
 						<S.NO onClick={onCancel}>취소</S.NO>
 						<S.OK onClick={() => onConfirm(buyerInfo.idx, buyerInfo.token)}>
@@ -89,6 +105,11 @@ const SoldOutModal = ({ onClose, room }) => {
 						</S.OK>
 					</S.BtnContainer>
 				</ConfirmModal>
+			)}
+			{notify && (
+				<NotificationModal
+					content={`${buyerInfo.nick_name}에게 판매되었습니다!`}
+				></NotificationModal>
 			)}
 		</S.Wrapper>
 	);
@@ -155,6 +176,15 @@ const CheckBuyer = styled.div`
 	margin: 0 25px;
 	border: none;
 	cursor: pointer;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	color: ${({ theme }) => theme.color.white};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	padding: 4px 5px;
+	border-radius: 5px;
+`;
+const CheckedBuyer = styled.div`
+	margin: 0 25px;
+	border: none;
 	background-color: ${({ theme }) => theme.color.primary[400]};
 	color: ${({ theme }) => theme.color.white};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -167,7 +197,7 @@ const Content = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	${flexAllCenter}
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 `;
 const BtnContainer = styled.div`
 	width: 100%;
@@ -209,6 +239,7 @@ const S = {
 	CloseBtn,
 	BuyerList,
 	CheckBuyer,
+	CheckedBuyer,
 	Text,
 	Intro,
 	NickName,

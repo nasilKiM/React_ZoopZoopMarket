@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
-
-import UserApi from 'Apis/userApi';
 
 import TokenService from 'Repository/TokenService';
 
@@ -19,14 +17,24 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const WebHeader = ({ so }) => {
+	const wrapperRef = useRef();
+	const showRef = useRef();
 	const navigate = useNavigate();
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
 	const [showOptions, setShowOptions] = useState();
+	const [isClickProfileIcon, setIsClickProfileIcon] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
 	const [popupMsg, setPopupMsg] = useState();
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
@@ -53,20 +61,25 @@ const WebHeader = ({ so }) => {
 	const word = ',';
 
 	const logout = async () => {
-		const res = await UserApi.logout();
-
 		TokenService.removeToken();
 		navigate('/');
-		setShowOptions(false);
-	};
-
-	const myPage = () => {
-		navigate('/mypage');
-		setShowOptions(false);
 	};
 
 	const toggleMenu = () => {
 		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
+	};
+
+	const handleClickOutside = e => {
+		if (showRef.current?.contains(e.target)) return;
+		if (!wrapperRef.current?.contains(e.target) && !isClickProfileIcon) {
+			setIsClickProfileIcon(false);
+		}
+	};
+
+	const handleProfileIcon = e => {
+		if (wrapperRef.current?.contains(e.target)) {
+			setIsClickProfileIcon(!isClickProfileIcon);
+		}
 	};
 
 	return (
@@ -184,33 +197,38 @@ const WebHeader = ({ so }) => {
 						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
 					<S.Icon>
-						<Link
-							onMouseOver={() => {
-								setIsHover(true);
-							}}
-							onMouseOut={() => {
-								setIsHover(false);
-							}}
-						>
+						<div>
 							<S.CategoryIcon
 								src={
 									isHover
 										? '/Assets/Images/default_Profile_edit3.png'
 										: '/Assets/Images/default_Profile_edit4.png'
 								}
-								onClick={() => setShowOptions(!showOptions)}
+								onClick={handleProfileIcon}
+								ref={wrapperRef}
+								onMouseOver={() => {
+									setIsHover(true);
+								}}
+								onMouseOut={() => {
+									setIsHover(false);
+								}}
 							/>
-							{showOptions && (
-								<S.MenuOptionWrapper onClick={() => setShowOptions(false)}>
-									<S.Menu>
-										<MenuOption to={'/mypage/item'}>마이페이지</MenuOption>
+							{isClickProfileIcon && (
+								<S.MenuOptionWrapper ref={showRef}>
+									<S.Menu
+										onClick={() => {
+											navigate('/mypage/item');
+											setIsClickProfileIcon(false);
+										}}
+									>
+										<MenuOption>마이페이지</MenuOption>
 									</S.Menu>
 									<S.Menu>
 										<MenuOption onClick={logout}>로그아웃</MenuOption>
 									</S.Menu>
 								</S.MenuOptionWrapper>
 							)}
-						</Link>
+						</div>
 						<Link to={'/chat'}>
 							<button>채팅하기</button>
 						</Link>
@@ -363,7 +381,7 @@ const MenuOptionWrapper = styled.div`
 	padding-left: 10px;
 `;
 
-const MenuOption = styled(Link)`
+const MenuOption = styled.div`
 	cursor: pointer;
 	text-decoration: none;
 	transition: background-color 0.3s;

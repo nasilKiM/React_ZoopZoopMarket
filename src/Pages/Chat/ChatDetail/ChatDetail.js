@@ -89,8 +89,8 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 
 	return (
 		<>
-			<S.ChattingTitle>
-				<div onClick={() => navigate(`/item_detail/${itemRes?.idx}`)}>
+			<S.ChattingTitle onClick={() => navigate(`/item_detail/${itemRes?.idx}`)}>
+				<div>
 					<img src={itemRes?.img_url} />
 					<div>{itemRes?.title}</div>
 				</div>
@@ -123,6 +123,9 @@ const ChattingTitle = styled.div`
 	justify-content: space-between;
 	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
+	@media (max-width: 800px) {
+		padding: 0 15px;
+	}
 	img {
 		width: 40px;
 		height: 40px;
@@ -134,7 +137,6 @@ const ChattingTitle = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		word-break: break-all;
-
 		@media (max-width: 800px) {
 			font-size: ${({ theme }) => theme.fontSize.sm};
 		}
@@ -142,13 +144,18 @@ const ChattingTitle = styled.div`
 
 	& > div:nth-of-type(1) {
 		${flexAllCenter};
-		cursor:pointer;
-		&>div {
+		cursor: pointer;
+		& > div {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			width: 150px;
+			min-width: 120px;
+			max-width: 200px;
 		}
+	}
+	& > div:nth-of-type(2) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
 `;
 

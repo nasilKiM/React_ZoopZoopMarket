@@ -40,13 +40,13 @@ const RecentProduct = () => {
 			{res.data?.productList.length <= 2 ? (
 				<TempSlider>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</TempSlider>
 			) : (
 				<StyledSlider {...sliderSetting}>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</StyledSlider>
 			)}

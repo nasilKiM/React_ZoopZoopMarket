@@ -32,7 +32,8 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 	}, [item]);
 
 	const onClickReview = () => {
-		return navigate(`/review/${payIdx}`);
+		navigate(`/review/${payIdx}`);
+		setReviewTarget(item);
 	};
 
 	const hasReview = original && original.Review !== null;
@@ -46,7 +47,11 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 					<S.ItemImg src={item.img_url} />
 					<S.ItemInfo>
 						<S.ItemTitle>{item.title}</S.ItemTitle>
-						<S.ItemPrice>{item.price.toLocaleString()}원</S.ItemPrice>
+						<S.ItemPrice>
+							{item.price == 0
+								? '무료나눔'
+								: item.price.toLocaleString() + '원'}
+						</S.ItemPrice>
 					</S.ItemInfo>
 					<S.BtnContainer>
 						<S.Btn onClick={() => onClickDetail()}>아이템 보기</S.Btn>

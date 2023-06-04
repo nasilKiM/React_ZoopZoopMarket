@@ -149,6 +149,7 @@ const Category = () => {
 					<Slider {...settings}>
 						{categories.map(category => (
 							<S.CategoryContainer
+								key={Math.random()}
 								onClick={() => {
 									navigate(`/search_list/${category.name}/0`);
 								}}
