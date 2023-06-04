@@ -2,10 +2,8 @@ import TokenService from 'Repository/TokenService';
 
 import axios from 'axios';
 
-//테스트용
 export const MockAxios = axios.create({ baseURL: 'http://localhost:3004' });
 
-// 실제 백엔드 연결용
 export const Axios = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
 	withCredentials: true,

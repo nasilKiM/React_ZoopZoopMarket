@@ -8,7 +8,6 @@ const LandingPage = () => {
 	const [hoveredIndex, setHoveredIndex] = useState(-1);
 
 	useEffect(() => {
-		// 2초 후에 컨텐츠를 보여줍니다.
 		const timer = setTimeout(() => {
 			setShowContent(true);
 		}, 1000);
@@ -129,7 +128,6 @@ const Wrapper = styled.div`
 	background-size: cover;
 `;
 
-//랜딩페이지
 const ContentWrapper = styled.div`
 	width: 100%;
 	opacity: ${({ showContent }) => (showContent ? 1 : 0)};
@@ -220,7 +218,6 @@ const Section2 = styled.section`
 `;
 
 const White = styled.div`
-	// 야구배트
 	& > div:nth-of-type(1) > img {
 		position: absolute;
 		width: 100%;
@@ -228,7 +225,6 @@ const White = styled.div`
 		bottom: 8%;
 		left: 8%;
 	}
-	// 눈알
 	& > div:nth-of-type(2) > img {
 		position: absolute;
 		width: 100%;
@@ -236,7 +232,6 @@ const White = styled.div`
 		top: 20%;
 		left: 20%;
 	}
-	// 소파
 	& > div:nth-of-type(3) > img {
 		position: absolute;
 		width: 100%;
@@ -244,7 +239,6 @@ const White = styled.div`
 		top: 10%;
 		right: 15%;
 	}
-	// 유모차
 	& > div:nth-of-type(4) > img {
 		position: absolute;
 		width: 100%;
@@ -252,7 +246,6 @@ const White = styled.div`
 		bottom: 10%;
 		left: 27%;
 	}
-	// 하이힐
 	& > div:nth-of-type(5) > img {
 		position: absolute;
 		width: 100%;
@@ -260,7 +253,6 @@ const White = styled.div`
 		bottom: 15%;
 		right: 32%;
 	}
-	// 쪼밥이
 	& > div:nth-of-type(6) > img {
 		position: absolute;
 		width: 100%;
@@ -269,7 +261,6 @@ const White = styled.div`
 		right: 8%;
 	}
 	@media (max-width: 1100px) {
-		// 야구배트
 		& > div:nth-of-type(1) > img {
 			position: absolute;
 			width: 100%;
@@ -277,7 +268,6 @@ const White = styled.div`
 			bottom: 8%;
 			left: 8%;
 		}
-		// 눈알
 		& > div:nth-of-type(2) > img {
 			position: absolute;
 			width: 100%;
@@ -285,7 +275,6 @@ const White = styled.div`
 			top: 20%;
 			left: 15%;
 		}
-		// 소파
 		& > div:nth-of-type(3) > img {
 			position: absolute;
 			width: 100%;
@@ -293,7 +282,6 @@ const White = styled.div`
 			top: 10%;
 			right: 5%;
 		}
-		// 유모차
 		& > div:nth-of-type(4) > img {
 			position: absolute;
 			width: 100%;
@@ -301,7 +289,6 @@ const White = styled.div`
 			bottom: 10%;
 			left: 27%;
 		}
-		// 하이힐
 		& > div:nth-of-type(5) > img {
 			position: absolute;
 			width: 100%;
@@ -309,7 +296,6 @@ const White = styled.div`
 			top: 35%;
 			right: 32%;
 		}
-		// 쪼밥이
 		& > div:nth-of-type(6) > img {
 			position: absolute;
 			width: 100%;
@@ -319,7 +305,6 @@ const White = styled.div`
 		}
 	}
 	@media (max-width: 768px) {
-		// 야구배트
 		& > div:nth-of-type(1) > img {
 			position: absolute;
 			width: 100%;
@@ -327,7 +312,6 @@ const White = styled.div`
 			top: 8%;
 			left: 8%;
 		}
-		// 눈알
 		& > div:nth-of-type(2) > img {
 			position: absolute;
 			width: 100%;
@@ -335,7 +319,6 @@ const White = styled.div`
 			top: 42%;
 			left: 50%;
 		}
-		// 소파
 		& > div:nth-of-type(3) > img {
 			position: absolute;
 			width: 100%;
@@ -343,7 +326,6 @@ const White = styled.div`
 			top: 10%;
 			right: 5%;
 		}
-		// 유모차
 		& > div:nth-of-type(4) > img {
 			position: absolute;
 			width: 100%;
@@ -351,7 +333,6 @@ const White = styled.div`
 			bottom: 5%;
 			left: 5%;
 		}
-		// 하이힐
 		& > div:nth-of-type(5) > img {
 			position: absolute;
 			width: 100%;
@@ -359,7 +340,6 @@ const White = styled.div`
 			top: 70%;
 			right: 32%;
 		}
-		// 쪼밥이
 		& > div:nth-of-type(6) > img {
 			position: absolute;
 			width: 100%;
@@ -369,7 +349,6 @@ const White = styled.div`
 		}
 	}
 	@media (max-width: 550px) {
-		// 야구배트
 		& > div:nth-of-type(1) > img {
 			position: absolute;
 			width: 100%;
@@ -377,7 +356,6 @@ const White = styled.div`
 			top: 8%;
 			left: 8%;
 		}
-		// 눈알
 		& > div:nth-of-type(2) > img {
 			position: absolute;
 			width: 100%;
@@ -385,7 +363,6 @@ const White = styled.div`
 			top: 32%;
 			left: 50%;
 		}
-		// 소파
 		& > div:nth-of-type(3) > img {
 			position: absolute;
 			width: 100%;
@@ -393,7 +370,6 @@ const White = styled.div`
 			top: 10%;
 			right: 5%;
 		}
-		// 유모차
 		& > div:nth-of-type(4) > img {
 			position: absolute;
 			width: 100%;
@@ -401,7 +377,6 @@ const White = styled.div`
 			bottom: 5%;
 			left: 5%;
 		}
-		// 하이힐
 		& > div:nth-of-type(5) > img {
 			position: absolute;
 			width: 100%;
@@ -409,7 +384,6 @@ const White = styled.div`
 			top: 48%;
 			right: 52%;
 		}
-		// 쪼밥이
 		& > div:nth-of-type(6) > img {
 			position: absolute;
 			width: 100%;
@@ -419,7 +393,6 @@ const White = styled.div`
 		}
 	}
 	@media (max-width: 370px) {
-		// 야구배트
 		& > div:nth-of-type(1) > img {
 			position: absolute;
 			width: 100%;
@@ -427,7 +400,6 @@ const White = styled.div`
 			top: 20%;
 			left: 8%;
 		}
-		// 눈알
 		& > div:nth-of-type(2) > img {
 			position: absolute;
 			width: 100%;
@@ -435,7 +407,6 @@ const White = styled.div`
 			top: 32%;
 			left: 50%;
 		}
-		// 소파
 		& > div:nth-of-type(3) > img {
 			position: absolute;
 			width: 100%;
@@ -443,7 +414,6 @@ const White = styled.div`
 			top: 10%;
 			right: 5%;
 		}
-		// 유모차
 		& > div:nth-of-type(4) > img {
 			position: absolute;
 			width: 100%;
@@ -451,7 +421,6 @@ const White = styled.div`
 			bottom: 5%;
 			left: 5%;
 		}
-		// 하이힐
 		& > div:nth-of-type(5) > img {
 			position: absolute;
 			width: 100%;
@@ -459,7 +428,6 @@ const White = styled.div`
 			top: 48%;
 			right: 52%;
 		}
-		// 쪼밥이
 		& > div:nth-of-type(6) > img {
 			position: absolute;
 			width: 100%;

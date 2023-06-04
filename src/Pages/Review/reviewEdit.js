@@ -58,9 +58,9 @@ const ReviewEditPage = () => {
 
 		// FormData 생성
 		const formData = new FormData();
-		formData.append('title', title); // title: string
-		formData.append('content', content); // content: string
-		formData.append('ondo', ondo + 33); // ondo: number
+		formData.append('title', title);
+		formData.append('content', content);
+		formData.append('ondo', ondo + 33);
 		[...newImg].forEach(element => {
 			formData.append('images', element);
 		});
@@ -75,12 +75,9 @@ const ReviewEditPage = () => {
 		});
 		formData.append('img_url', imgUrls.join());
 		try {
-			// Patch 요청
 			mutationEditReview.mutate(formData, {
 				onSuccess: () => {
 					queryClient.invalidateQueries(['reviewDetail']);
-					// alert('리뷰가 수정되었습니다.');
-					// navigate(`/review/detail/${idx}`);
 					setPostModal(true);
 				},
 			});

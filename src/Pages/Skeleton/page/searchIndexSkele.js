@@ -158,8 +158,6 @@ const Desktop = styled.div`
 `;
 const NoteBook16 = styled.div`
 	@media screen and (max-width: 1001px), (min-width: 1499px) {
-		//1069이하일때만 적용
-		//1330이상일때만 적용
 		display: none;
 	}
 `;

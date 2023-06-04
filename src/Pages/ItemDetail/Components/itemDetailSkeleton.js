@@ -161,7 +161,6 @@ const Blank = styled.div`
 	height: 50px;
 `;
 
-// 프로필쪽
 const SkeletonProfile = styled.div`
 	width: 100%;
 	min-width: 414px;
@@ -190,7 +189,6 @@ const Info = styled.div`
 	padding-left: 20px;
 `;
 
-// 본문쪽
 const SkeletonContainer = styled.div`
 	display: flex;
 	margin-top: 10px;
