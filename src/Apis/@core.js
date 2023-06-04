@@ -1,6 +1,7 @@
 import TokenService from 'Repository/TokenService';
 
 import axios from 'axios';
+import UserApi from './userApi';
 
 export const MockAxios = axios.create({ baseURL: 'http://localhost:3004' });
 
@@ -30,12 +31,15 @@ Axios.interceptors.response.use(
 		return response;
 	},
 	async error => {
+		if (error.response.status === 403) {
+			TokenService.removeToken();
+			await UserApi.logout();
+		}
 		const originalRequest = error.config;
-		if (error.response.status === 403 && !originalRequest._retry) {
+
+		if (error.response.status === 417 && !originalRequest._retry) {
 			originalRequest._retry = true;
-			const res = await axios.get(
-				`${process.env.REACT_APP_BACKEND_URL}/api/user/refreshToken`,
-			);
+			const res = await UserApi.refreshToken();
 			if (res.status === 200) {
 				TokenService.setToken(res.data.accessToken);
 				return Axios(originalRequest);
