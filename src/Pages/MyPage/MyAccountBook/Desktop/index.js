@@ -23,7 +23,7 @@ const AccountBookPage = () => {
 	const end = `${year}-${month}-${lastDay}`
 
 	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-
+	getAccountBook && console.log(getAccountBook.data);
 	useEffect(() => {
 		setDate(`${year}-${month}`)
 	}, [year, month]);
@@ -34,6 +34,7 @@ const AccountBookPage = () => {
 				date={date}
 				setDate={setDate}
 				data={getAccountBook.data}
+				category={category}
 				setYear={setYear}
 				setMonth={setMonth}
 			/>}
@@ -47,6 +48,7 @@ const AccountBookPage = () => {
 			/>
 			{getAccountBook && <DetailCard
 				data={getAccountBook.data}
+				category={category}
 				year={year}
 				month={month}
 			/>}
@@ -57,15 +59,10 @@ const AccountBookPage = () => {
 export default AccountBookPage;
 
 const Wrapper = styled.div`
-	margin: 0 auto 300px;
+	margin: 0 auto;
 	width: 100%;
-`;
-
-const DetailTitle = styled.div`
-	margin: 50px 0;
 `;
 
 const S = {
 	Wrapper,
-	DetailTitle,
 };

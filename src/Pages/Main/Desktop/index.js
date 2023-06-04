@@ -1,6 +1,3 @@
-//import { MockAxios } from 'Apis/@core';
-//import { useQuery } from 'react-query';
-// import { Category, Preview } from '@mui/icons-material';
 import Preview from './Components/preview';
 import Category from './Components/category';
 import BannerAd from './Components/bannerAd';
@@ -8,13 +5,6 @@ import BannerAd from './Components/bannerAd';
 import styled from 'styled-components';
 
 const DesktopMainPage = () => {
-	//mockData용 =============
-	// const { data } = useQuery(['product'], () => {
-	//    return MockAxios.get('/product').then(res => {
-	//       return res.data;
-	//    });
-	// });
-
 	return (
 		<S.Cover>
 			<S.Banner>
@@ -26,9 +16,6 @@ const DesktopMainPage = () => {
 					<Category />
 				</CategoryWrapper>
 			</S.Wrapper>
-			{/* MockData용
-         <Preview category={0} products={data}></Preview>
-		<Preview category={1} products={data}></Preview> */}
 			<S.PreviewBg>
 				<Preview category={0}></Preview>
 			</S.PreviewBg>

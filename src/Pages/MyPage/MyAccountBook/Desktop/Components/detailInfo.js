@@ -3,13 +3,15 @@ import dayjs from 'dayjs';
 
 import './styles.css';
 import styled from 'styled-components';
+import { flexAllCenter } from 'Styles/common';
 
 const AccountBookDetailInfo = ({
 	date,
 	setDate,
 	data,
+	category,
 	setYear,
-	setMonth
+	setMonth,
 }) => {
 
 	let saleDateArr = [];
@@ -18,13 +20,6 @@ const AccountBookDetailInfo = ({
 			const saleDate = item.createdAt;
 			saleDateArr.push(saleDate.split('T')[0]);
 		});
-
-	// let purchaseDateArr = [];
-	// data &&
-	// 	data.payList.map(item => {
-	// 		const saleDate = item.createdAt;
-	// 		purchaseDateArr.push(saleDate.split('T')[0]);
-	// 	});
 	
 	return (
 		<>
@@ -67,34 +62,76 @@ const AccountBookDetailInfo = ({
 							{data && (
 								<div>
 									<S.Amount>
-										{data.amount.totalSaleAmount -
-											data.amount.totalPurchaseAmount}
+										{parseInt(data.amount.totalSaleAmount -
+											data.amount.totalPurchaseAmount).toLocaleString('ko-KR')}
 									</S.Amount>
 									원
 								</div>
 							)}
 						</S.Flex2>
 					</div>
-
 				</S.PreviewWrap>
+
+				<S.PreviewWrap>
+					<div>이번달 줍줍마켓과 함께한 내역이에요 !</div>
+					<div>
+						<S.Flex>
+							<div>당월 수입</div>
+							<div>
+								{data && <S.Amount>
+									{data.amount.thisMonthSaleAmount === null
+									? 0
+									: parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
+										'ko-KR',
+									)}
+								</S.Amount>}
+								원
+							</div>
+							</S.Flex>
+							<S.Flex>
+								<div>당월 지출</div>
+								<div>
+									{data && <S.Amount>
+										{data.amount.thisMonthPurchaseAmount === null
+										? 0
+										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
+										'ko-KR',
+										)}
+									</S.Amount>}
+									원
+								</div>
+							</S.Flex>
+							<S.Flex2>
+								<div>당월 수익</div>
+								<div>
+									{data && <S.Amount>
+										{parseInt(data.amount.thisMonthSaleAmount - 
+											data.amount.thisMonthPurchaseAmount).toLocaleString('ko-KR')}
+									</S.Amount>}
+									원
+								</div>
+							</S.Flex2>
+						</div>
+				</S.PreviewWrap>
+
 				<Calendar
 					value={date}
 					onChange={setDate}
 					className="react-calendar"
-					// formatDay={(locale, date) => dayjs(date).format('D')}
+					formatDay={(locale, date) => dayjs(date).format('D')}
 					tileContent={({ date }) => {
 						if (
 							saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
 						) {
-							return <div className="sale"></div>;
+							return (
+								<S.ActionCount>
+									<S.Dot whichCategory={category === "seller"}></S.Dot>
+									{data.payList.length}건
+								</S.ActionCount>
+							)
+						} else {
+							return <S.WhiteBox>{'0'}</S.WhiteBox>
 						}
-						// if (
-						// 	purchaseDateArr.find(
-						// 		day => day === dayjs(date).format('YYYY-MM-DD'),
-						// 	)
-						// ) {
-						// 	return <div className="purchase"></div>;
-						// }
 					}}
 					onDrillDown={(e)=>{
 						console.log(e);
@@ -168,10 +205,33 @@ const Amount = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
+const ActionCount = styled.div`
+	${flexAllCenter}
+	font-size: 18px;
+`;
+
+const Dot = styled.div`
+	margin-right: 2px;
+	background-color: ${({whichCategory}) => whichCategory ? '#f87171' : 'skyblue'};
+	width: 8px;
+	height: 8px;
+	display: flex;
+	justify-content: center;
+	border-radius: 50%;
+	display: flex;
+`;
+
+const WhiteBox = styled.div`
+	color: white;
+`;
+
 const S = {
 	Wrap,
 	PreviewWrap,
 	Flex,
 	Flex2,
 	Amount,
+	ActionCount,
+	Dot,
+	WhiteBox
 };

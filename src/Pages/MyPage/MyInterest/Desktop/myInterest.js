@@ -33,7 +33,7 @@ const MyInterestPage = () => {
 						<S.Container>
 							{data.pages.map(page =>
 								page.data.LikeList.map(list => (
-									<ItemCard index={list.Product.idx} products={list.Product} />
+									<ItemCard index={list.Product.idx} products={list.Product} isDone={false}/>
 								)),
 							)}
 						</S.Container>
