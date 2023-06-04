@@ -10,6 +10,11 @@ import RecentSoldOut from '../components/recentSoldout';
 
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import {
+	basicSetting,
+	flexAlignCenter,
+	flexJustifyCenter,
+} from 'Styles/common';
 
 const DesktopMarketPrice = () => {
 	const props = 'market_price';
@@ -105,19 +110,10 @@ const DesktopMarketPrice = () => {
 export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	@media screen and (max-width: 700px) {
-		width: 95%;
-	}
-	@media screen and (max-width: 900px) {
-		width: 90%;
-	}
 `;
 const UpperPart = styled.div`
 	width: 100%;
@@ -158,20 +154,17 @@ const SubTitle = styled.div`
 `;
 const ChartContainer = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	${flexAlignCenter}
 	margin-top: 50px;
 	@media screen and (max-width: 767px) {
 		margin-top: 20px;
 	}
-	align-items: center;
 `;
 const Average = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	margin-top: 30px;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 	@media screen and (max-width: 767px) {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}

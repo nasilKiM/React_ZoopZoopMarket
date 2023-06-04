@@ -7,7 +7,7 @@ import { useSoldOutMutation } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { ModalBackground, flexAllCenter } from 'Styles/common';
 
 const SoldOutModal = ({ onClose, room, setStatus }) => {
 	const navigate = useNavigate();
@@ -118,17 +118,10 @@ const SoldOutModal = ({ onClose, room, setStatus }) => {
 export default SoldOutModal;
 
 const Wrapper = styled.div`
-	display: flex;
+	${flexAllCenter}
 	flex-direction: column;
 	z-index: 10001;
-	top: 0;
-	left: 0;
-	position: fixed;
-	width: 100%;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.7);
-	margin: 0 auto;
-	${flexAllCenter}
+	${ModalBackground}
 `;
 
 const Container = styled.div`

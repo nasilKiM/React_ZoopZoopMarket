@@ -1,3 +1,4 @@
+import { flexJustifyCenter } from 'Styles/common';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -191,13 +192,13 @@ const GoToSignup = styled.button`
 `;
 
 const Section1 = styled.section`
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 	text-align: center;
 	padding-top: 50px;
 	line-height: 1.7;
 	color: ${({ theme }) => theme.color.white};
 `;
+
 const Title = styled.div`
 	font-size: 24px;
 	span {
@@ -220,9 +221,9 @@ const Section2 = styled.section`
 `;
 
 const White = styled.div`
+	width: 100%;
 	> div:nth-of-type(1) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 200px;
 		bottom: 8%;
 		left: 8%;
@@ -230,7 +231,6 @@ const White = styled.div`
 
 	> div:nth-of-type(2) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 230px;
 		top: 20%;
 		left: 20%;
@@ -238,7 +238,6 @@ const White = styled.div`
 
 	> div:nth-of-type(3) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 550px;
 		top: 10%;
 		right: 15%;
@@ -246,7 +245,6 @@ const White = styled.div`
 
 	> div:nth-of-type(4) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 310px;
 		bottom: 10%;
 		left: 27%;
@@ -254,7 +252,6 @@ const White = styled.div`
 
 	> div:nth-of-type(5) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 200px;
 		bottom: 15%;
 		right: 32%;
@@ -262,16 +259,15 @@ const White = styled.div`
 
 	> div:nth-of-type(6) > img {
 		position: absolute;
-		width: 100%;
 		max-width: 180px;
 		bottom: 7%;
 		right: 8%;
 	}
 
 	@media (max-width: 1100px) {
+		width: 100%;
 		> div:nth-of-type(1) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 180px;
 			bottom: 8%;
 			left: 8%;
@@ -279,7 +275,6 @@ const White = styled.div`
 
 		> div:nth-of-type(2) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 230px;
 			top: 20%;
 			left: 15%;
@@ -287,7 +282,6 @@ const White = styled.div`
 
 		> div:nth-of-type(3) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 400px;
 			top: 10%;
 			right: 5%;
@@ -295,7 +289,6 @@ const White = styled.div`
 
 		> div:nth-of-type(4) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 310px;
 			bottom: 10%;
 			left: 27%;
@@ -303,7 +296,6 @@ const White = styled.div`
 
 		> div:nth-of-type(5) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 180px;
 			top: 35%;
 			right: 32%;
@@ -311,7 +303,6 @@ const White = styled.div`
 
 		> div:nth-of-type(6) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 180px;
 			bottom: 7%;
 			right: 8%;
@@ -319,9 +310,9 @@ const White = styled.div`
 	}
 
 	@media (max-width: 768px) {
+		width: 100%;
 		> div:nth-of-type(1) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 180px;
 			top: 8%;
 			left: 8%;
@@ -329,7 +320,6 @@ const White = styled.div`
 
 		> div:nth-of-type(2) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 230px;
 			top: 42%;
 			left: 50%;
@@ -337,7 +327,6 @@ const White = styled.div`
 
 		> div:nth-of-type(3) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 420px;
 			top: 10%;
 			right: 5%;
@@ -345,7 +334,6 @@ const White = styled.div`
 
 		> div:nth-of-type(4) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 250px;
 			bottom: 5%;
 			left: 5%;
@@ -353,7 +341,6 @@ const White = styled.div`
 
 		> div:nth-of-type(5) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 150px;
 			top: 70%;
 			right: 32%;
@@ -361,16 +348,15 @@ const White = styled.div`
 
 		> div:nth-of-type(6) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 150px;
 			bottom: 7%;
 			right: 5%;
 		}
 	}
 	@media (max-width: 550px) {
+		width: 100%;
 		> div:nth-of-type(1) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 120px;
 			top: 8%;
 			left: 8%;
@@ -378,7 +364,6 @@ const White = styled.div`
 
 		> div:nth-of-type(2) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 180px;
 			top: 32%;
 			left: 50%;
@@ -386,7 +371,6 @@ const White = styled.div`
 
 		> div:nth-of-type(3) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 250px;
 			top: 10%;
 			right: 5%;
@@ -394,7 +378,6 @@ const White = styled.div`
 
 		> div:nth-of-type(4) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 200px;
 			bottom: 5%;
 			left: 5%;
@@ -402,7 +385,6 @@ const White = styled.div`
 
 		> div:nth-of-type(5) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 120px;
 			top: 48%;
 			right: 52%;
@@ -410,7 +392,6 @@ const White = styled.div`
 
 		> div:nth-of-type(6) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 130px;
 			bottom: 17%;
 			right: 5%;
@@ -418,9 +399,9 @@ const White = styled.div`
 	}
 
 	@media (max-width: 370px) {
+		width: 100%;
 		> div:nth-of-type(1) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 100px;
 			top: 20%;
 			left: 8%;
@@ -428,7 +409,6 @@ const White = styled.div`
 
 		> div:nth-of-type(2) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 150px;
 			top: 32%;
 			left: 50%;
@@ -436,7 +416,6 @@ const White = styled.div`
 
 		> div:nth-of-type(3) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 250px;
 			top: 10%;
 			right: 5%;
@@ -444,7 +423,6 @@ const White = styled.div`
 
 		> div:nth-of-type(4) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 200px;
 			bottom: 5%;
 			left: 5%;
@@ -452,7 +430,6 @@ const White = styled.div`
 
 		> div:nth-of-type(5) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 120px;
 			top: 48%;
 			right: 52%;
@@ -460,7 +437,6 @@ const White = styled.div`
 
 		> div:nth-of-type(6) > img {
 			position: absolute;
-			width: 100%;
 			max-width: 120px;
 			bottom: 20%;
 			right: 5%;

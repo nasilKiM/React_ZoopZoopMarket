@@ -30,6 +30,7 @@ const Wrapper = styled.div`
 
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(2, minmax(200px, 1fr));
+		column-gap: 10px;
 		row-gap: 15px;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const ItemDetailPageSkeleton = () => {
 	return (
@@ -137,17 +138,7 @@ const Cover = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 414px;
-	max-width: 1200px;
-
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 10px;
 `;
 
@@ -162,11 +153,10 @@ const Blank = styled.div`
 `;
 
 const SkeletonProfile = styled.div`
+	display: flex;
 	width: 100%;
 	min-width: 414px;
 	max-width: 1200px;
-	display: flex;
-
 	@media (max-width: 700px) {
 		width: 95%;
 	}

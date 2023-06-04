@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import ReviewApi from 'Apis/reviewApi';
 
 import ReviewItemCard from 'Components/Card/ReviewCard';
+import { basicSetting } from 'Styles/common';
 
 import styled from 'styled-components';
 
@@ -30,10 +31,7 @@ const MyReview = () => {
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 70%;
-	max-width: 1200px;
-	min-width: 350px;
-	margin: 0 auto;
+	${basicSetting}
 `;
 
 const Title = styled.div`

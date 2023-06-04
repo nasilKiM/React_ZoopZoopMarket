@@ -9,7 +9,11 @@ import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 
 const DetailContent = ({ state, item, itemAllInfo }) => {
 	const today = dayjs();
@@ -64,7 +68,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							<div>{item.title}</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span>#{item.Tag.tag}</span>
+									<span
+										key={Math.random()}
+										onClick={() => {
+											navigate(`/search_list/${item.Tag.tag}`);
+										}}
+									>
+										#{item.Tag.tag}
+									</span>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -98,7 +109,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span>#{item.Tag.tag}</span>
+									<span
+										key={Math.random()}
+										onClick={() => {
+											navigate(`/search_list/${item.Tag.tag}`);
+										}}
+									>
+										#{item.Tag.tag}
+									</span>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -132,8 +150,7 @@ const BuyerWrapper = styled.div`
 	}
 
 	> div:nth-of-type(2) {
-		display: flex;
-		align-items: center;
+		${flexAlignCenter}
 		gap: 5px;
 		span {
 			padding: 5px;
@@ -160,8 +177,7 @@ const BuyerWrapper = styled.div`
 	}
 
 	> div:nth-of-type(5) {
-		${flexAllCenter}
-		justify-content: space-between;
+		${flexSpaceBetween}
 		margin: 40px 0;
 
 		> div:first-child {

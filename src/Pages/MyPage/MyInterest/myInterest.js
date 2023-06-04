@@ -6,7 +6,12 @@ import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
 
 import styled from 'styled-components';
 
-import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
+import {
+	basicSetting,
+	gridAllCenter,
+	gridColumn,
+	gridGap,
+} from 'Styles/common';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMyInterest();
@@ -49,14 +54,7 @@ const MyInterestPage = () => {
 export default MyInterestPage;
 
 const Wrap = styled.div`
-	margin: 0 auto;
-	width: 70%;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 95%;
-	}
+	${basicSetting}
 `;
 
 const Container = styled.div`
