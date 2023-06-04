@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const AlertModal = ({ content, props, setModal }) => {
 	const navigate = useNavigate();
@@ -13,7 +14,16 @@ const AlertModal = ({ content, props, setModal }) => {
 
 	return (
 		<S.Wrap>
-			<S.Container>
+			<S.Container
+				as={motion.form}
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{
+					duration: 0.3,
+					delay: 0.2,
+					ease: [0, 0.1, 0.2, 1.0],
+				}}
+			>
 				<S.Content>{content}</S.Content>
 				<S.BtnContainer>
 					<S.OK onClick={() => onClickAlert()}>확인</S.OK>
@@ -36,7 +46,7 @@ const Wrap = styled.div`
 	${flexAllCenter}
 `;
 
-const Container = styled.form`
+const Container = styled(motion.form)`
 	width: 350px;
 	height: 150px;
 	background-color: ${({ theme }) => theme.color.white};
