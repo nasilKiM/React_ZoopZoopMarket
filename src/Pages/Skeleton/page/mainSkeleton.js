@@ -28,20 +28,22 @@ const MainPageSkeleton = () => {
 				</S.Banner>
 				<S.SkeletonCategoryContainer>
 					<S.TitleCategoryWrapper>
-						{skeletonCategory.slice(0, maxSkeletonCategories).map(index => (
-							<S.CategoryBox key={index}>
-								<Skeleton
-									key={index}
-									animation="wave"
-									variant="circular"
-									sx={{
-										width: '100%',
-										height: '100%',
-										bgcolor: theme.color.gray[100],
-									}}
-								/>
-							</S.CategoryBox>
-						))}
+						{skeletonCategory
+							.slice(0, maxSkeletonCategories)
+							.map((_, index) => (
+								<S.CategoryBox key={index}>
+									<Skeleton
+										key={Math.random()}
+										animation="wave"
+										variant="circular"
+										sx={{
+											width: '100%',
+											height: '100%',
+											bgcolor: theme.color.gray[100],
+										}}
+									/>
+								</S.CategoryBox>
+							))}
 					</S.TitleCategoryWrapper>
 				</S.SkeletonCategoryContainer>
 			</S.Wrapper>

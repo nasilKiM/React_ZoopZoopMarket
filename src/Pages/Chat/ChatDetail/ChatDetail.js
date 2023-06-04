@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import ChatApis from 'Apis/chatApis';
 
 import MessageDetail from '../Message/Message';
-// import useGetChatLog from 'Hooks/Queries/get-chat-log';
 
 import { useSocket } from 'Context/socket';
 import styled from 'styled-components';

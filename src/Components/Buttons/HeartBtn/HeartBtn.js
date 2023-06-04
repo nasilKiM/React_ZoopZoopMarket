@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useLikedBtn } from 'Hooks/Queries/get-likedBtn';
+import { useLikedBtn } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 

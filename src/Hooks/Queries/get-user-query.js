@@ -6,7 +6,7 @@ const userInfoProfile = async () => {
 	return res.data;
 };
 
-const useUserInfo = () => {
+export const useUserInfo = () => {
 	const { isLoading, isError, data, refetch, error, isSuccess } = useQuery(
 		['userInfoProfile'],
 		() => userInfoProfile(),
@@ -17,4 +17,3 @@ const useUserInfo = () => {
 
 	return { isLoading, isError, data, refetch, error, isSuccess };
 };
-export default useUserInfo;

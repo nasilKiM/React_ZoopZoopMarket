@@ -45,7 +45,7 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			};
 
 			so?.emit('sendMessage', data);
-			const saveMsgRes = await ChatApis.saveMsg({
+			ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
 				message,
 			});

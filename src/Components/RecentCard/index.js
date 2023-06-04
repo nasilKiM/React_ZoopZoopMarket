@@ -1,4 +1,4 @@
-import useRecentProduct from 'Hooks/Queries/get-recent-product';
+import { useRecentProduct } from 'Hooks/Queries/get-product-query';
 
 import RecentCard from './recentCard';
 
@@ -40,13 +40,13 @@ const RecentProduct = () => {
 			{res.data?.productList.length <= 2 ? (
 				<TempSlider>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</TempSlider>
 			) : (
 				<StyledSlider {...sliderSetting}>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</StyledSlider>
 			)}

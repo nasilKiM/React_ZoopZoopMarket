@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Desktop/Card';
 
-import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
 
 import {
 	flexAllCenter,
@@ -61,7 +61,7 @@ const MyItemPage = () => {
 							<S.Container>
 								{data.pages.map(page => {
 									return page.data.products.map(item => (
-										<ItemCard index={item.idx} products={item} isMine={true} />
+										<ItemCard index={item.idx} products={item} isMine={true} isDone={false}/>
 									));
 								})}
 							</S.Container>

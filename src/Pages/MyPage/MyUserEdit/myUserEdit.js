@@ -10,7 +10,7 @@ import AlertModal from 'Components/Alert/alertModal';
 import CustomButton from 'Components/Buttons/button';
 
 import { FORM_TYPE } from 'Consts/FormType';
-import useUserInfo from 'Hooks/Queries/get-user-info';
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
 
 import styled from 'styled-components';
 
