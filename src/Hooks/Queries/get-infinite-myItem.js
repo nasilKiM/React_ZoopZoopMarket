@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import MyPageApi from 'Apis/myPageApi';
+import { queryConfig } from './@config';
 
 export const useInfiniteMyItem = category => {
 	const res = useInfiniteQuery(
@@ -14,6 +15,7 @@ export const useInfiniteMyItem = category => {
 				} else return undefined;
 			},
 		},
+		queryConfig,
 	);
 	return res;
 };

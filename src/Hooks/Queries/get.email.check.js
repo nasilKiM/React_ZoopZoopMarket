@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
+import { queryConfig } from './@config';
 
 const emailCheck = async email => {
 	const res = await UserApi.checkEmail(email);
@@ -19,6 +20,7 @@ const useCheckEmail = email => {
 				console.log(data.response.data.message);
 			},
 		},
+		queryConfig,
 	);
 
 	return { isLoading, isError, data, refetch, error };

@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import MyPageApi from 'Apis/myPageApi';
+import { queryConfig } from './@config';
 
 const useInfiniteMy = () => {
 	const res = useInfiniteQuery(
@@ -13,6 +14,7 @@ const useInfiniteMy = () => {
 				return nextPage > totalPage ? undefined : nextPage;
 			},
 		},
+		queryConfig,
 	);
 	return res;
 };
