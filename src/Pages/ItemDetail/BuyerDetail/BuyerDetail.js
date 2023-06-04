@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import DetailHead from '../Components/DetailHead/detailHead';
 import DetailContent from '../Components/DetailContent/detailContent';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
@@ -11,16 +9,13 @@ import { flexAllCenter } from 'Styles/common';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
+
 	const related =
 		product &&
 		product.data.relatedProduct.product.filter(
 			related => related.idx !== item.idx,
 		);
 	const itemAllInfo = product?.data;
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
 
 	return (
 		item && (
@@ -45,23 +40,26 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
 	@media (max-width: 700px) {
 		width: 95%;
 	}
-	margin: 0 auto;
-	& > div:first-child {
+
+	> div:first-child {
 		border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	}
 `;
 
 const MapContent = styled.div`
 	margin: 50px 0;
-	& > div:first-child {
+
+	> div:first-child {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		font-size: ${({ theme }) => theme.fontSize.md};
 		margin: 25px 0;
 	}
-	& > div:last-child {
+
+	> div:last-child {
 		border: 1px solid;
 		width: 100%;
 		height: 200px;

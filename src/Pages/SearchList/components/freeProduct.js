@@ -5,8 +5,9 @@ import SearchList from './searchList';
 
 import styled from 'styled-components';
 
-const FreeProduct = ({ word, data }) => {
+const FreeProduct = ({ data }) => {
 	const navigate = useNavigate();
+
 	const goWholeList = () => {
 		navigate(`${1}`, { state: data });
 	};
@@ -73,6 +74,11 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 
 	@media (max-width: 700px) {
 		width: 95%;
@@ -80,11 +86,6 @@ const Wrapper = styled.div`
 	@media (max-width: 900px) {
 		width: 90%;
 	}
-	margin: 0 auto;
-	padding-top: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
 `;
 
 const CardContainer = styled.div`
@@ -121,12 +122,6 @@ const Container = styled.div`
 	margin-top: 30px;
 `;
 
-const S = {
-	Wrapper,
-	CardContainer,
-	Container,
-};
-
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
 		display: none;
@@ -149,3 +144,13 @@ const Tablet = styled.div`
 		display: none;
 	}
 `;
+
+const S = {
+	Wrapper,
+	CardContainer,
+	Container,
+	Desktop,
+	NoteBook16,
+	NoteBook14,
+	Tablet,
+};

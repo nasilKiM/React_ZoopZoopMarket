@@ -2,19 +2,23 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 
-import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-query';
-
 import SearchList from './searchList';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
+import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-query';
 
 import styled from 'styled-components';
 
 const WholeListPage = () => {
-	const { word } = useParams();
-	const { category } = useParams();
-	const [selected, setSelected] = useState(category);
+	const { word, category } = useParams();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const navigate = useNavigate();
+
+	const { data, isSuccess } = res;
+	let categoryResult = '';
+	category == 0 ? (categoryResult = '중고템') : (categoryResult = '무료템');
+
+	const [selected, setSelected] = useState(category);
+
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
@@ -23,36 +27,28 @@ const WholeListPage = () => {
 		word == ','
 			? useInfiniteSearch(word.split(',')[0], category, '판매중')
 			: useInfiniteSearch(word.split('·')[0], category, '판매중');
+
 	let searchWord = word;
-	if (word == ',') {
-		searchWord = '전체';
-	}
+	if (word == ',') searchWord = '전체';
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		res.refetch();
 		setSelected(category);
 	}, [category]);
 
-	const { data, isSuccess } = res;
 	useEffect(() => {
 		window.scrollTo(0, 0);
+
 		if (selected == 1) {
 			navigate(`/search_list/${word}/1`);
 		} else if (selected == 0) {
 			navigate(`/search_list/${word}/0`);
-		} else {
-			navigate(`/search_list/${word}`);
-		}
+		} else navigate(`/search_list/${word}`);
 	}, [selected]);
 
-	let categoryResult = '';
-
-	category == 0 ? (categoryResult = '중고템') : (categoryResult = '무료템');
 	useEffect(() => {
-		if (!inView) {
-			return;
-		}
-
+		if (!inView) return;
 		res.fetchNextPage();
 	}, [inView]);
 

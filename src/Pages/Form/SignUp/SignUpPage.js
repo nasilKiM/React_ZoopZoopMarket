@@ -8,16 +8,16 @@ import FindAddress from 'Components/Address/address';
 import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
-
 import { FORM_TYPE } from 'Consts/FormType';
 import TokenService from 'Repository/TokenService';
+
+import styled from 'styled-components';
 
 import {
 	flexAlignCenter,
 	flexAllCenter,
 	flexJustifyCenter,
 } from 'Styles/common';
-import styled from 'styled-components';
 
 const SignUpPage = () => {
 	const [address, setAddress] = useState();
@@ -56,7 +56,6 @@ const SignUpPage = () => {
 		setError,
 		clearErrors,
 		watch,
-
 		formState: { errors },
 	} = useForm({ mode: 'onChange' });
 
@@ -64,6 +63,7 @@ const SignUpPage = () => {
 		onSuccess: () => {
 			setModal(true);
 		},
+
 		onError: err => {
 			alert(err.response.data.message);
 		},
@@ -79,6 +79,7 @@ const SignUpPage = () => {
 		} else {
 			clearErrors('phone');
 		}
+
 		const info = {
 			email: data.email,
 			pw: data.password,
@@ -86,12 +87,14 @@ const SignUpPage = () => {
 			phone: data.phone,
 			region: address,
 		};
+
 		mutate(info);
 	};
 
 	const onCheckId = async e => {
 		e.preventDefault();
 		const value = getValues('email');
+
 		try {
 			const res = await UserApi.checkEmail(value);
 			setIdMsg(res.data.message);
@@ -107,6 +110,7 @@ const SignUpPage = () => {
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
+
 		try {
 			const res = await UserApi.checkNickname(value);
 			setNickMsg(res.data.message);

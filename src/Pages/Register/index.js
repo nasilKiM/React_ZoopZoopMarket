@@ -18,12 +18,13 @@ import { flexAlignCenter } from 'Styles/common';
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const [images, setImages] = useState([]);
-	const [modal, setModal] = useState(false);
-	const [regiModal, setRegiModal] = useState(false);
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const [addressMessage, setAddressMessage] = useState();
+
+	const [modal, setModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const [regiModal, setRegiModal] = useState(false);
 
 	const { idx } = useParams();
 	const queryClient = useQueryClient();
@@ -68,6 +69,7 @@ const RegisterPage = () => {
 			e.preventDefault();
 			const newTag = e.target.value.trim();
 			const check = tags.filter(tag => tag === newTag);
+
 			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
 				e.target.value = '';
@@ -278,11 +280,12 @@ const Wrapper = styled.form`
 	width: 60%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 50px;
+
 	@media screen and (max-width: 1100px) {
 		width: 70%;
 	}
-	margin: 0 auto;
-	margin-top: 50px;
 `;
 
 const Blank = styled.div`
@@ -336,6 +339,7 @@ const InputBox = styled.input`
 	:focus {
 		outline: none;
 	}
+
 	@media (max-width: 1100px) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
@@ -355,6 +359,7 @@ const TagWrapper = styled.div`
 	padding: 0 10px;
 	margin-left: 100px;
 	margin-bottom: 50px;
+
 	@media (max-width: 1100px) {
 		margin-left: 100px;
 		margin-bottom: 20px;
@@ -396,6 +401,7 @@ const DelTag = styled.button`
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
+
 	@media (max-width: 768px) {
 		width: 15px;
 	}
@@ -468,6 +474,7 @@ const TxtArea = styled.textarea`
 	:focus {
 		outline: none;
 	}
+
 	@media (max-width: 768px) {
 		font-size: ${({ theme }) => theme.fontSize.sm};
 		height: 250px;
@@ -496,6 +503,7 @@ const RegisterBtn = styled.button`
 	:hover {
 		background-color: ${({ theme }) => theme.color.primary[400]};
 	}
+
 	@media (max-width: 768px) {
 		width: 110px;
 		height: 30px;

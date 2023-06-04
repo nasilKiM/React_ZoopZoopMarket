@@ -9,14 +9,12 @@ import styled from 'styled-components';
 const MyReview = () => {
 	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
 
-	data && console.log('->', data);
-
 	const list = data?.data.reviewList;
 	const total = data?.data.reviewList.length;
 
 	return (
-		<Wrapper>
-			<Title>구매 총 {total}건</Title>
+		<S.Wrapper>
+			<S.Title>구매 총 {total}건</S.Title>
 			{list &&
 				list.map(item => (
 					<ReviewItemCard
@@ -25,7 +23,7 @@ const MyReview = () => {
 						original={item}
 					/>
 				))}
-		</Wrapper>
+		</S.Wrapper>
 	);
 };
 
@@ -50,3 +48,8 @@ const Title = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
 `;
+
+const S = {
+	Wrapper,
+	Title,
+};

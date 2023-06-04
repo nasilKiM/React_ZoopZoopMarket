@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
 
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const NewMessage = ({ popupMsg, setPopupMsg }) => {
 	const navigate = useNavigate();

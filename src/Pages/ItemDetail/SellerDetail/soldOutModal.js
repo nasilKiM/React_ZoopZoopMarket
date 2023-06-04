@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ConfirmModal from 'Components/Alert/confirmModal';
+import NotificationModal from 'Components/Alert/notificationModal';
 import { useSoldOutMutation } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
-import NotificationModal from 'Components/Alert/notificationModal';
 
 const SoldOutModal = ({ onClose, room, setStatus }) => {
 	const navigate = useNavigate();
+
 	const [modal, setModal] = useState(false);
 	const [buyerInfo, setBuyerInfo] = useState({
 		token: '',
@@ -129,11 +130,13 @@ const Wrapper = styled.div`
 	margin: 0 auto;
 	${flexAllCenter}
 `;
+
 const Container = styled.div`
 	border-radius: 10px;
 	position: relative;
 	background-color: white;
 `;
+
 const Text = styled.div`
 	display: flex;
 	font-size: ${({ theme }) => theme.fontSize.md};
@@ -162,6 +165,7 @@ const CloseBtn = styled.button`
 		color: ${({ theme }) => theme.color.white};
 	}
 `;
+
 const BuyerList = styled.div`
 	border-radius: 10px;
 	display: flex;
@@ -169,9 +173,11 @@ const BuyerList = styled.div`
 	margin-left: 15px;
 	justify-content: space-between;
 `;
+
 const NickName = styled.div`
 	padding: 3px 5px;
 `;
+
 const CheckBuyer = styled.div`
 	margin: 0 25px;
 	border: none;
@@ -182,6 +188,7 @@ const CheckBuyer = styled.div`
 	padding: 4px 5px;
 	border-radius: 5px;
 `;
+
 const CheckedBuyer = styled.div`
 	margin: 0 25px;
 	border: none;
@@ -199,11 +206,13 @@ const Content = styled.div`
 	${flexAllCenter}
 	margin-bottom: 30px;
 `;
+
 const BtnContainer = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: center;
 `;
+
 const NO = styled.button`
 	width: 100px;
 	height: 30px;
@@ -219,6 +228,7 @@ const NO = styled.button`
 		color: ${({ theme }) => theme.color.gray[300]};
 	}
 `;
+
 const OK = styled.button`
 	width: 100px;
 	height: 30px;

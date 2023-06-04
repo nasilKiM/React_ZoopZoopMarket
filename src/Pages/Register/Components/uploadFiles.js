@@ -16,6 +16,7 @@ const UploadFiles = ({ register, images, setImages }) => {
 				const fileURL = await readFileAsync(file);
 				fileURLs.push(fileURL);
 			}
+
 			setImgSrc(fileURLs);
 		} else setImgSrc(imgSrc);
 	};
@@ -178,6 +179,7 @@ const MainImgContainer = styled.div`
 	height: 300px;
 	position: relative;
 	border: 2px solid ${({ theme }) => theme.color.primary[100]};
+
 	@media screen and (max-width: 1100px) {
 		width: 600px;
 		height: 250px;
@@ -214,6 +216,7 @@ const DelBtn = styled.div`
 		height: 32px;
 		cursor: pointer;
 	}
+
 	@media screen and (max-width: 768px) {
 		width: 20px;
 		height: 20px;
@@ -230,6 +233,7 @@ const SmallImgBox = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
 	@media screen and (max-width: 1100px) {
 		width: 600px;
 	}

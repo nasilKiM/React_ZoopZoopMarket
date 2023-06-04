@@ -15,6 +15,7 @@ const AnotherProduct = ({ product, isMine }) => {
 					{product.map(prod => {
 						return (
 							<ItemCard
+								key={Math.random()}
 								index={prod.idx}
 								products={prod}
 								isMine={isMine}
@@ -33,7 +34,7 @@ const AnotherProduct = ({ product, isMine }) => {
 export default AnotherProduct;
 
 const Wrapper = styled.div`
-	& > div:first-child {
+	> div:first-child {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		font-size: ${({ theme }) => theme.fontSize.md};
 		margin-top: 40px;

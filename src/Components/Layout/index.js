@@ -7,7 +7,6 @@ import TopBtn from 'Components/Buttons/TopBtn/TopBtn';
 import RecentProduct from 'Components/RecentCard';
 
 import { useSocket } from 'Context/socket';
-
 import styled from 'styled-components';
 
 const LayOut = () => {

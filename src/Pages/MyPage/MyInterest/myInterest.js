@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Card';
+import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
 
 import styled from 'styled-components';
-
-import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
 
 import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
 
@@ -15,9 +14,7 @@ const MyInterestPage = () => {
 	const { data, fetchNextPage, isLoading } = res;
 
 	useEffect(() => {
-		if (!inView) {
-			return;
-		}
+		if (!inView) return;
 		fetchNextPage();
 	}, [inView]);
 

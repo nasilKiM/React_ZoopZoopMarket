@@ -5,8 +5,9 @@ import SearchList from './searchList';
 
 import styled from 'styled-components';
 
-const UsedProduct = ({ word, data }) => {
+const UsedProduct = ({ data }) => {
 	const navigate = useNavigate();
+
 	const goWholeList = () => {
 		navigate(`${0}`);
 	};
@@ -69,21 +70,23 @@ const UsedProduct = ({ word, data }) => {
 	);
 };
 export default UsedProduct;
+
 const Wrapper = styled.div`
 	width: 70%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
 	@media (max-width: 700px) {
 		width: 95%;
 	}
 	@media (max-width: 900px) {
 		width: 90%;
 	}
-	margin: 0 auto;
-	padding-top: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
 `;
 
 const CardContainer = styled.div`
@@ -91,6 +94,7 @@ const CardContainer = styled.div`
 	width: 100%;
 	justify-content: center;
 	margin-top: 30px;
+
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(2, minmax(220px, 1fr));
 		row-gap: 20px;
@@ -120,12 +124,6 @@ const Container = styled.div`
 	margin-top: 30px;
 `;
 
-const S = {
-	Wrapper,
-	CardContainer,
-	Container,
-};
-
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
 		display: none;
@@ -148,3 +146,13 @@ const Tablet = styled.div`
 		display: none;
 	}
 `;
+
+const S = {
+	Wrapper,
+	CardContainer,
+	Container,
+	Desktop,
+	NoteBook16,
+	NoteBook14,
+	Tablet,
+};

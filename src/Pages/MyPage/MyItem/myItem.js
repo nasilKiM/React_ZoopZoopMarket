@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Card';
-
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
+
+import styled from 'styled-components';
 
 import {
 	flexAllCenter,
@@ -12,9 +14,6 @@ import {
 	gridGap,
 } from 'Styles/common';
 
-import styled from 'styled-components';
-import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
-
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0);
 	const res = useInfiniteMyItem(category);
@@ -22,14 +21,9 @@ const MyItemPage = () => {
 	const [ref, isView] = useInView();
 
 	useEffect(() => {
-		if (!isView) {
-			return;
-		} else if (
-			data &&
-			data.pages.length < data.pages[0].data.pagination.endPage
-		) {
-			fetchNextPage();
-		}
+		if (!isView) return;
+		if (data && data.pages.length < data.pages[0].data.pagination.endPage)
+			return fetchNextPage();
 	}, [isView]);
 
 	useEffect(() => {
@@ -127,7 +121,8 @@ const Container = styled.div`
 const CategoryZone = styled.div`
 	display: flex;
 	margin-bottom: 30px;
-	& > div:first-child {
+
+	> div:first-child {
 		border-right: solid 3px ${({ theme }) => theme.color.primary[100]};
 	}
 `;
@@ -136,10 +131,11 @@ const Category = styled.div`
 	width: 130px;
 	height: 30px;
 	${flexAllCenter}
+	color: ${({ category }) => (category ? '#FF3647' : 'black')};
+
 	:hover {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	color: ${({ category }) => (category ? '#FF3647' : 'black')};
 `;
 
 const Txt = styled.div`

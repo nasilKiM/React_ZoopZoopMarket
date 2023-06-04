@@ -7,7 +7,9 @@ import { theme } from 'Styles/theme';
 
 const MarketPriceSkeleton = () => {
 	const viewportWidth = window.innerWidth;
+
 	let variable;
+
 	if (viewportWidth < 414) {
 		variable = 400;
 	} else if (viewportWidth < 768) {
@@ -58,22 +60,24 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
 	@media (max-width: 700px) {
 		width: 95%;
 	}
 	@media (max-width: 800px) {
 		width: 90%;
 	}
-	margin: 0 auto;
-	padding-top: 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 `;
 const UpperPart = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+
 	@media screen and (max-width: 720px) {
 		align-items: center;
 		flex-direction: column;
@@ -84,22 +88,25 @@ const LeftPart = styled.div`
 	width: 60%;
 	margin-left: 20px;
 `;
+
 const Title = styled.div`
 	text-align: start;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	font-size: ${({ theme }) => theme.fontSize.md};
+	margin-top: 40px;
 	@media screen and (max-width: 720px) {
 		text-align: center;
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}
-	margin-top: 40px;
 `;
+
 const SubTitle = styled.div`
 	margin-top: 10px;
 	@media screen and (max-width: 920px) {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
 `;
+
 const ChartContainer = styled.div`
 	width: ${props => props.width * 0.6}px;
 	height: ${props => props.width * 0.6 * 0.6}px;
@@ -107,9 +114,9 @@ const ChartContainer = styled.div`
 	justify-content: center;
 	margin-top: 20px;
 `;
+
 const Average = styled.div`
 	width: 100%;
-
 	margin-top: 10px;
 	display: flex;
 	justify-content: center;
@@ -127,6 +134,7 @@ const RecentlyClosed = styled.div`
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;
+
 const S = {
 	Wrapper,
 	UpperPart,

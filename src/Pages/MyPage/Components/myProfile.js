@@ -1,20 +1,21 @@
 import { useRef, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
 import MannerMeter from 'Components/Icon/Icon';
+import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
+import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { useUserInfo } from 'Hooks/Queries/get-user-query';
-import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
-import { useMutation } from '@tanstack/react-query';
-import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 
 const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
+
 	const { data, refetch, isLoading, isSuccess } = useUserInfo();
 	const { data: myData } = useMyUserInfo();
 
@@ -139,6 +140,7 @@ const Info = styled.div`
 	margin: 70px 0px 0px 0px;
 	align-items: center;
 	display: flex;
+
 	@media screen and (max-width: 600px) {
 		width: 100%;
 		flex-direction: column;
@@ -182,6 +184,7 @@ const FontAwesomeIconImg = styled(FontAwesomeIcon)`
 
 const DetailWrapper = styled.div`
 	display: flex;
+
 	@media screen and (max-width: 600px) {
 		justify-content: center;
 	}
@@ -190,6 +193,7 @@ const DetailWrapper = styled.div`
 const Detail = styled.div`
 	margin-left: 60px;
 	line-height: 2rem;
+
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 100%;
 		margin-left: 20px;
@@ -204,6 +208,7 @@ const InfoTitle = styled.div`
 	width: 80px;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
+
 	@media ${({ theme }) => theme.device.tablet} {
 		width: 60px;
 	}
@@ -214,7 +219,8 @@ const InfoContent = styled.div`
 	min-width: max-content;
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-	& > span {
+
+	> span {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};

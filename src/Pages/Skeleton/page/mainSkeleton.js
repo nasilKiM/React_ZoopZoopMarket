@@ -10,6 +10,7 @@ const MainPageSkeleton = () => {
 	const skeletonCategory = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	let maxSkeletonCategories = skeletonCategory.length;
+
 	if (window.innerWidth <= 700) {
 		maxSkeletonCategories = 5;
 	}
@@ -98,14 +99,15 @@ const Wrapper = styled.div`
 	width: 70%;
 	min-width: 350px;
 	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 10px;
+
 	@media (max-width: 700px) {
 		width: 95%;
 	}
 	@media (max-width: 900px) {
 		width: 90%;
 	}
-	margin: 0 auto;
-	padding-top: 10px;
 `;
 
 const Banner = styled.div`

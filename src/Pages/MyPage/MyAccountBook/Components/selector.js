@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const AccountBookSelector = props => {
 	const { category, setCategory, year, setYear, month, setMonth } = props;
+
 	return (
 		<>
 			<S.SelectorsZone>
@@ -57,6 +58,7 @@ const SelectorsZone = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin: 50px auto 30px;
+
 	@media screen and (max-width: 1000px) {
 		width: 70%;
 	}
@@ -67,7 +69,8 @@ const SelectorsZone = styled.div`
 
 const RightSideSelectors = styled.div`
 	display: flex;
-	& > select:nth-child(2) {
+
+	> select:nth-child(2) {
 		margin-left: 10px;
 	}
 `;
@@ -86,9 +89,11 @@ const LargeSelect = styled.select`
 	border-radius: 0.5em;
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
 	cursor: pointer;
+
 	:hover {
 		border: solid 3px red;
 	}
+
 	@media ${({ theme }) => theme.device.laptop} {
 		width: 15vw;
 		font-size: ${({ theme }) => theme.fontSize.sm};

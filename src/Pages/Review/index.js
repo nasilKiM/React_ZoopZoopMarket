@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import ReviewApi from 'Apis/reviewApi';
 
 import AlertModal from 'Components/Alert/alertModal';
+import PropTypes from 'prop-types';
 
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
@@ -17,11 +18,10 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
 
-import PropTypes from 'prop-types';
-
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
 	const { idx } = useParams();
+
 	const title = target.title;
 	const [content, setContent] = useState('');
 	const [ondo, setOndo] = useState(3);

@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 import TokenService from 'Repository/TokenService';
-
 import NewMessage from './Components/newMessage';
-import SearchBar from 'Components/SearchBar/Desktop/SearchBar';
-
-import styled from 'styled-components';
+import SearchBar from 'Components/SearchBar/SearchBar';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,6 +12,7 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -23,7 +21,6 @@ const WebHeader = ({ so }) => {
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 	const [isHover, setIsHover] = useState(false);
-	const [showOptions, setShowOptions] = useState();
 	const [isClickProfileIcon, setIsClickProfileIcon] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState();
@@ -39,7 +36,6 @@ const WebHeader = ({ so }) => {
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
-			console.log(data);
 			setPopupMsg(data);
 		});
 	}, [so]);

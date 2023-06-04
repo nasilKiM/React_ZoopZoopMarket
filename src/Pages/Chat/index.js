@@ -3,8 +3,10 @@ import { useMediaQuery } from 'react-responsive';
 
 import ChatList from './ChatList/ChatList';
 import ChatDetail from './ChatDetail/ChatDetail';
-
-import { useGetAllChatList, useGetChatList } from 'Hooks/Queries/get-chat-query';
+import {
+	useGetAllChatList,
+	useGetChatList,
+} from 'Hooks/Queries/get-chat-query';
 
 import styled from 'styled-components';
 
@@ -97,15 +99,12 @@ const ChatContainer = styled.div`
 	border-radius: 10px;
 	border: solid lightgrey 1px;
 	margin-top: 50px;
+
 	@media (max-width: 700px) {
 		width: 100%;
 		min-width: 350px;
 		overflow: hidden;
 	}
-	/* @media (max-width: 800px) {
-		flex-direction: column;
-		border: none;
-	} */
 `;
 
 const ChatLeftContainer = styled.div`
@@ -122,6 +121,7 @@ const ChatRightContainer = styled.div`
 	height: 100%;
 	min-height: 500px;
 	max-height: 1000px;
+
 	@media (max-width: 700px) {
 		width: 100%;
 		z-index: 98;
@@ -151,6 +151,7 @@ const ToggleButton = styled.div`
 	text-align: left;
 	align-items: center;
 	z-index: 98;
+
 	@media (max-width: 700px) {
 		display: block;
 	}

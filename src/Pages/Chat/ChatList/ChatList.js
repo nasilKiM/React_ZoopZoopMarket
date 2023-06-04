@@ -16,6 +16,7 @@ const ChatList = ({ chatroomList, setChatroomIdx, idx, item, setItemInfo }) => {
 					chatroomList.map(chat => {
 						return (
 							<ChatMessage
+								key={Math.random()}
 								chat={chat}
 								setChatroomIdx={setChatroomIdx}
 								item={item}
@@ -28,6 +29,7 @@ const ChatList = ({ chatroomList, setChatroomIdx, idx, item, setItemInfo }) => {
 					chatroomList.chats.map(chat => {
 						return (
 							<ChatMessage
+								key={Math.random()}
 								chat={chat}
 								setChatroomIdx={setChatroomIdx}
 								item={item}
@@ -46,7 +48,7 @@ const LeftUpperBar = styled.div`
 	${flexAllCenter}
 	height: 11%;
 	background-color: ${({ theme }) => theme.color.primary[400]};
-	color: white;
+	color: ${({ theme }) => theme.color.white};
 	cursor: pointer;
 	border-radius: 5px 0 0 0;
 	padding: 2rem;
@@ -65,7 +67,7 @@ const ListContainer = styled.div`
 	::-webkit-scrollbar-thumb {
 		border-radius: 10px;
 		background-color: #aaa;
-		&:hover {
+		:hover {
 			background-color: #999;
 		}
 	}

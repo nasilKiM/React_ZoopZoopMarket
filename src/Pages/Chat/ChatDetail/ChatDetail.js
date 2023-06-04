@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -8,17 +9,15 @@ import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
-import { useNavigate } from 'react-router-dom';
 
 const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
+	const navigate = useNavigate();
 
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
 	const itemSeller = isSeller ? isSeller : itemInfo?.isSeller;
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadChatLog = async () => {
@@ -29,6 +28,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 				console.log(err);
 			}
 		};
+
 		loadChatLog();
 		setChat(loadChatLog?.data);
 	}, [chatroomIdx]);
@@ -43,6 +43,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 				console.log(err);
 			}
 		});
+
 		return () => {
 			so?.emit('leave', { room_idx: chatroomIdx });
 		};
@@ -51,6 +52,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const onClickSendMsgBtn = async e => {
 		e.preventDefault();
 		if (!inputMsg.current.value.trim()) return;
+
 		const message = {
 			title: itemRes?.title,
 			createdAt: itemRes?.createdAt,
@@ -60,7 +62,9 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			message: inputMsg.current.value,
 			isSeller: itemSeller,
 		};
+
 		so?.emit('sendMessage', message);
+
 		try {
 			const res = await ChatApis.saveMsg({
 				room_idx: message.room_idx,
@@ -69,17 +73,20 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 		} catch (err) {
 			console.log(err);
 		}
+
 		try {
 			const res = await ChatApis.loadChatLog(message.room_idx);
 			setChat(res.data);
 		} catch (err) {
 			console.log(err);
 		}
+
 		inputMsg.current.value = '';
 	};
 
 	const pressEnter = e => {
 		if (e.nativeEvent.isComposing) return;
+
 		if (e.key === 'Enter' && e.shiftKey) {
 			return;
 		} else if (e.key === 'Enter') {
@@ -133,7 +140,7 @@ const ChattingTitle = styled.div`
 		object-fit: cover;
 		margin-right: 15px;
 	}
-	& > div {
+	> div {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		word-break: break-all;
@@ -142,10 +149,10 @@ const ChattingTitle = styled.div`
 		}
 	}
 
-	& > div:nth-of-type(1) {
+	> div:nth-of-type(1) {
 		${flexAllCenter};
 		cursor: pointer;
-		& > div {
+		> div {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -153,7 +160,7 @@ const ChattingTitle = styled.div`
 			max-width: 200px;
 		}
 	}
-	& > div:nth-of-type(2) {
+	> div:nth-of-type(2) {
 		font-size: ${({ theme }) => theme.fontSize.sm};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
@@ -165,6 +172,7 @@ const ChattingContent = styled.div`
 	flex: 8 0;
 	background-color: ${({ theme }) => theme.color.gray[100]};
 	overflow-y: scroll;
+
 	::-webkit-scrollbar {
 		width: 8px;
 		background-color: #f5f5f5;
@@ -173,7 +181,7 @@ const ChattingContent = styled.div`
 	::-webkit-scrollbar-thumb {
 		border-radius: 10px;
 		background-color: #aaa;
-		&:hover {
+		:hover {
 			background-color: #999;
 		}
 	}
@@ -191,7 +199,8 @@ const ChattingForm = styled.form`
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	background-color: lightgray;
+	background-color: ${({ theme }) => theme.color.primary[200]};
+
 	textarea {
 		flex: 8 0;
 		height: 100%;
@@ -203,6 +212,7 @@ const ChattingForm = styled.form`
 		white-space: pre-wrap;
 		word-break: break-all;
 	}
+
 	div {
 		display: inline-flex;
 		width: 100%;
@@ -219,7 +229,7 @@ const SubmitButton = styled.button`
 	height: 100%;
 	border: none;
 	background-color: ${({ theme }) => theme.color.primary[400]};
-	color: white;
+	color: ${({ theme }) => theme.color.white};
 `;
 
 const S = {

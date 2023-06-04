@@ -1,5 +1,5 @@
 import ItemCard from 'Components/Card/Card';
-import Profile from 'Components/Profile/Desktop/profile';
+import Profile from 'Components/Profile/profile';
 import ReviewMessage from 'Components/Review/Review';
 
 import styled from 'styled-components';

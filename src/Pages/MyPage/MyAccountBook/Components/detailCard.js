@@ -105,13 +105,15 @@ const PreviewWrap = styled.div`
 	margin: 0 auto 30px;
 	padding: 30px 20px 20px;
 	box-shadow: 0px 0px 20px #e0e0e0;
-	& > div:nth-child(1) {
+
+	> div:nth-child(1) {
 		display: flex;
 		justify-content: center;
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	& > div:nth-child(2) {
+
+	> div:nth-child(2) {
 		margin: 0 auto;
 	}
 `;
@@ -137,8 +139,6 @@ const Amount = styled.span`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
-const SpecificDate = styled.span``;
-
 const S = {
 	Wrap,
 	Container,
@@ -146,5 +146,4 @@ const S = {
 	Flex,
 	Flex2,
 	Amount,
-	SpecificDate,
 };

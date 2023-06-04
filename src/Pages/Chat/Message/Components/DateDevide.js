@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 	color: white;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	${flexAllCenter}
-	&>div {
+	> div {
 		color: black;
 	}
 `;

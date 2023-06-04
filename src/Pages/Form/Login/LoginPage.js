@@ -9,12 +9,11 @@ import Input from 'Components/Input/input';
 import CustomButton from 'Components/Buttons/button';
 import AlertModal from 'Components/Alert/alertModal';
 import NotificationModal from 'Components/Alert/notificationModal';
-
-import styled from 'styled-components';
-import { useSocket } from 'Context/socket';
-
 import TokenService from 'Repository/TokenService';
 import { FORM_TYPE } from 'Consts/FormType';
+
+import { useSocket } from 'Context/socket';
+import styled from 'styled-components';
 
 import { flexAllCenter, flexJustifyCenter } from 'Styles/common';
 
@@ -44,24 +43,29 @@ const LoginPage = () => {
 				setModal(false);
 				navigate('/main');
 			}, 2000);
+
 			TokenService.setToken(res.data.tokenForHeader);
 			so?.emit('connect-user', { token: TokenService.getToken() });
 		},
+
 		onError: err => {
 			alert(
 				`${err.response.data.message.info} 아이디와 비밀번호를 확인해주세요.`,
 			);
 		},
 	});
+
 	const onSubmit = data => {
 		const loginInfo = {
 			email: data.email,
 			pw: data.password,
 		};
+
 		mutate(loginInfo);
 	};
 
 	const full = !errors.email && !errors.password;
+
 	return (
 		<>
 			<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
@@ -93,10 +97,7 @@ const LoginPage = () => {
 							/>
 						)}
 						{loginModal && (
-							<AlertModal
-								content={'이미 로그인 중입니다. 메인으로 이동합니다.'}
-								props={'/main'}
-							/>
+							<AlertModal content={'이미 로그인 중입니다.'} props={'/main'} />
 						)}
 						<S.SingUp>아직 줍줍 회원이 아니신가요?</S.SingUp>
 						<S.SignUpBtn

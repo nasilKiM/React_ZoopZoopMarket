@@ -1,4 +1,4 @@
-import Profile from 'Components/Profile/Desktop/profile';
+import Profile from 'Components/Profile/profile';
 
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -8,6 +8,7 @@ import { flexAllCenter } from 'Styles/common';
 const YourMessage = ({ msg }) => {
 	const createdAt = dayjs(msg.createdAt);
 	const AMPM = createdAt.hour() >= 12 ? '오후' : '오전';
+
 	return (
 		<S.Wrapper>
 			<div>
@@ -29,11 +30,13 @@ const Wrapper = styled.div`
 	${flexAllCenter}
 	justify-content: left;
 	margin: 5px 0;
-	& > div:first-child {
+
+	> div:first-child {
 		width: 45px;
 		height: 45px;
 	}
-	& > div:nth-child(2) {
+
+	> div:nth-child(2) {
 		word-break: break-all;
 		font-size: ${({ theme }) => theme.fontSize.xs};
 		background-color: ${({ theme }) => theme.color.primary[100]};
@@ -42,10 +45,11 @@ const Wrapper = styled.div`
 		padding: 7px 15px;
 		border-radius: 10px;
 	}
-	& > div:nth-child(3) {
+
+	> div:nth-child(3) {
 		margin-left: 5px;
 		font-size: ${({ theme }) => theme.fontSize.es};
-		& > span {
+		> span {
 			margin: 0 1px;
 		}
 	}
