@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ConfirmModal from 'Components/Alert/confirmModal';
-import { useSoldOutMutation } from 'Hooks/Queries/get-soldOut';
+import { useSoldOutMutation } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 

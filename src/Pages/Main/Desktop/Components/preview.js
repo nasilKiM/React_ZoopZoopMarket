@@ -87,9 +87,6 @@ const Preview = ({ category }) => {
 						{products?.map(item => (
 							<ItemCard key={item.idx} products={item} index={item.idx} />
 						))}
-
-						{/* <ItemCard key={item} products={item} index={item.idx} /> */}
-						{/* <ItemCardMock key={item} products={item} index={index} /> */}
 					</Slider>
 				</S.SliderWrapper>
 			)}
