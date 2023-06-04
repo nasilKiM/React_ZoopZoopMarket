@@ -4,23 +4,79 @@ import dayjs from 'dayjs';
 import './styles.css';
 import styled from 'styled-components';
 import { flexAllCenter } from 'Styles/common';
+import { useEffect, useState } from 'react';
 
 const AccountBookDetailInfo = ({
 	date,
 	setDate,
 	data,
 	category,
+	year,
 	setYear,
+	month,
 	setMonth,
 }) => {
 
 	let saleDateArr = [];
-	data &&
-		data.payList.map(item => {
-			const saleDate = item.createdAt;
-			saleDateArr.push(saleDate.split('T')[0]);
-		});
+	const [saleDate, setSaleDateArr] = useState([]);
+	const temp = [];
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		data &&
+			data.payList.map(item => {
+				const saleDate = item.createdAt; // 판매일자
+				saleDateArr.push(saleDate.split('T')[0]);
+			});
+		
+		setSaleDateArr(saleDateArr);
+	}, [year, month]);
 	
+	// data && console.log('///saleDate', saleDate); // ['2023-06-03', '2023-06-03', '2023-06-03', '2023-06-04']
+
+	let uniqueChars = [...new Set(saleDate)];
+	console.log('///중복요소 제거', uniqueChars); // ['2023-06-03', '2023-06-04'] // ['2023-06-03'] ['2023-06-04']
+
+	// const getElCount = (arr) => arr.reduce((ac, v) => ([{ ...ac, [v]: (ac[v] || 0) + 1 }]), {});
+	// const activeDateCount = getElCount(saleDate);
+
+	const getElCount = (arr) => {
+		let result = {};
+		for(const el of arr) {
+			result[el] = (result[el] || 0) + 1;
+		}
+		return result;
+	}
+	const activeDateCount = getElCount(saleDate);
+	console.log('일자별 거래건수', activeDateCount); // {2023-06-03: 3, 2023-06-04: 1}
+	console.log('인덱스별 값', activeDateCount["2023-06-03"]) // 3
+	const third = ["2023-06-03"];
+	const fourth = ["2023-06-04"];
+
+	let arr1 = [];
+	
+	for(let i = 0; i < data.payList.length; i ++) {
+		
+	}
+	data && data.payList.map((item) => {
+		for(let i = 0; i<uniqueChars.length; i++) {
+			if(item.createdAt.split('T')[0] === uniqueChars[i]) {
+				// setCount((prev) => prev + 1);
+				arr1.push(1);
+				console.log(item.createdAt.split('T')[0]);
+				console.log(uniqueChars[0]);
+				console.log('과연', count);
+			} else {
+				// setCount(0);
+				console.log('안될때')
+				return;
+			}
+		}
+	})
+	console.log(arr1);
+
+	console.log(count);
+
 	return (
 		<>
 			<S.Wrap>
@@ -120,16 +176,60 @@ const AccountBookDetailInfo = ({
 					className="react-calendar"
 					formatDay={(locale, date) => dayjs(date).format('D')}
 					tileContent={({ date }) => {
+						const theDate = dayjs(date).format('YYYY-MM-DD');
+						temp.push(theDate);
+						// console.log('으아아아', temp); //["2023-05-29", ... , "2023-07-02"]
+
+						// data.payList.map((item) => 
+						// 	console.log(item)
+						// )
+						// console.log(data.payList); // [{idx:2, ...}, {idx:5, ...}, ...]
+
+						// data.payList.map((item) => {
+						// 	let temp = item.createdAt.split('T')[0];
+						// 	console.log(temp);
+						// 	if (
+						// 		[temp].find(day => day === dayjs(date).format('YYYY-MM-DD'))
+						// 	) {
+						// 		// setCount((prev) => prev + 1);
+						// 		return (
+						// 			<div>{count}</div>
+						// 		)
+						// 	}
+						// 	// console.log(item.createdAt);
+						// 	// if(item.createdAt.includes)
+						// })
+						
+						// if (
+						// 	// saleDate.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+						// 	// third.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+						// 	data.payList.map((item) => {
+						// 		let date = item.createdAt.split('T')[0];
+						// 		// [date].find(day => day === dayjs(date).format('YYYY-MM-DD'))
+						// 		temp.find(day => day === date);
+						// 	})
+						// ) {
+						// 	count + 1;
+						// 	return (
+						// 		<S.ActionCount>
+						// 			<S.Dot whichCategory={category === "seller"}></S.Dot>
+						// 			{/* {data.payList.length}건 */}
+						// 			{/* {activeDateCount["2023-06-03"]}건 */}
+						// 			{count}
+						// 		</S.ActionCount>
+						// 	)
+						// }
 						if (
-							saleDateArr.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+							fourth.find(day => day === dayjs(date).format('YYYY-MM-DD'))
 						) {
 							return (
 								<S.ActionCount>
 									<S.Dot whichCategory={category === "seller"}></S.Dot>
-									{data.payList.length}건
+									?건
 								</S.ActionCount>
 							)
-						} else {
+						}
+						else {
 							return <S.WhiteBox>{'0'}</S.WhiteBox>
 						}
 					}}

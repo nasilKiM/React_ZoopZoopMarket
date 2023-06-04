@@ -35,7 +35,9 @@ const AccountBookPage = () => {
 				setDate={setDate}
 				data={getAccountBook.data}
 				category={category}
+				year={year}
 				setYear={setYear}
+				month={month}
 				setMonth={setMonth}
 			/>}
 			<AccountBookSelector
