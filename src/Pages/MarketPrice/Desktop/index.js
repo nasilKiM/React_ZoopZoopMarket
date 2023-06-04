@@ -161,6 +161,9 @@ const ChartContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-top: 50px;
+	@media screen and (max-width: 767px) {
+		margin-top: 20px;
+	}
 	align-items: center;
 `;
 const Average = styled.div`
@@ -169,10 +172,16 @@ const Average = styled.div`
 	margin-top: 30px;
 	display: flex;
 	justify-content: center;
+	@media screen and (max-width: 767px) {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
 `;
 
 const RecentlyClosed = styled.div`
 	margin-top: 40px;
+	@media screen and (max-width: 767px) {
+		margin-top: 20px;
+	}
 	font-size: ${({ theme }) => theme.fontSize.md};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
