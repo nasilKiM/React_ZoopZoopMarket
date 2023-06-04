@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useNavigate } from 'react-router-dom';
 
-import UserApi from 'Apis/userApi';
-
 import TokenService from 'Repository/TokenService';
 
 import NewMessage from './Components/newMessage';
@@ -53,15 +51,8 @@ const WebHeader = ({ so }) => {
 	const word = ',';
 
 	const logout = async () => {
-		const res = await UserApi.logout();
-
 		TokenService.removeToken();
 		navigate('/');
-		setShowOptions(false);
-	};
-
-	const myPage = () => {
-		navigate('/mypage');
 		setShowOptions(false);
 	};
 

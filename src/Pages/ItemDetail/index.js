@@ -10,12 +10,18 @@ import ItemDetailPageSkeleton from './Components/itemDetailSkeleton';
 
 const ItemDetailPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
+	const [status, setStatus] = useState(false);
+
 	const { idx } = useParams();
-	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
-		onError: err => {
-			console.log(err);
+	const { data, refetch } = useQuery(
+		['product', idx, status],
+		() => ProductApi.detail(idx),
+		{
+			onError: err => {
+				console.log(err);
+			},
 		},
-	});
+	);
 
 	const client = useQueryClient();
 
@@ -30,7 +36,7 @@ const ItemDetailPage = () => {
 	}, []);
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
+		refetch();
 	}, []);
 
 	const isSeller = data && data.data.isSeller;
@@ -50,7 +56,12 @@ const ItemDetailPage = () => {
 					{!isSeller ? (
 						<BuyerDetailPage state={isSeller} product={data} />
 					) : (
-						<SellerDetailPage state={isSeller} product={data} idx={idx} />
+						<SellerDetailPage
+							state={isSeller}
+							product={data}
+							idx={idx}
+							setStatus={setStatus}
+						/>
 					)}
 				</>
 			)}

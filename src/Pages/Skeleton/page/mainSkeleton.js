@@ -31,6 +31,7 @@ const MainPageSkeleton = () => {
 						{skeletonCategory.slice(0, maxSkeletonCategories).map(index => (
 							<S.CategoryBox key={index}>
 								<Skeleton
+									key={index}
 									animation="wave"
 									variant="circular"
 									sx={{
@@ -47,10 +48,10 @@ const MainPageSkeleton = () => {
 			<S.PreviewBg>
 				<S.SkeletonContainer>
 					{skeletonArray.map(index => (
-						<S.SkeletonBox>
+						<S.SkeletonBox key={index * 2}>
 							<Skeleton
 								animation="wave"
-								key={index}
+								key={index * 2}
 								variant="rounded"
 								sx={{
 									width: '100%',
@@ -69,7 +70,7 @@ const MainPageSkeleton = () => {
 						<S.SkeletonBox>
 							<Skeleton
 								animation="wave"
-								key={index}
+								key={index * 2}
 								variant="rounded"
 								sx={{
 									width: '100%',
