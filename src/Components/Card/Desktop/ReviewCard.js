@@ -32,7 +32,8 @@ const ReviewItemCard = ({ payIdx, item, original }) => {
 	}, [item]);
 
 	const onClickReview = () => {
-		return navigate(`/review/${payIdx}`);
+		navigate(`/review/${payIdx}`);
+		setReviewTarget(item);
 	};
 
 	const hasReview = original && original.Review !== null;

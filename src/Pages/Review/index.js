@@ -108,7 +108,7 @@ const ReviewPage = () => {
 					<S.TargetContent>
 						<S.TargetTitle>{target.title}</S.TargetTitle>
 						<S.TargetPrice>
-							{target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원
+							{/* {target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원 */}
 						</S.TargetPrice>
 					</S.TargetContent>
 				</S.Target>
