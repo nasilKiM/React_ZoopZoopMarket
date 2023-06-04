@@ -63,6 +63,9 @@ const ChatContent = styled.div`
 	}
 	& > div:last-child {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		${flexAllCenter}
+		flex-direction: column;
+		align-items: flex-end;
 		& > div {
 			margin: 10px 0;
 		}
@@ -76,7 +79,7 @@ const NewMessage = styled.div`
 	background-color: ${({ theme }) => theme.color.primary[200]};
 	border-radius: 10px;
 	padding: 5px;
-	${flexAllCenter}
+	text-align: center;
 `;
 
 const S = {
