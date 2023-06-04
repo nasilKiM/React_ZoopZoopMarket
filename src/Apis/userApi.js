@@ -31,9 +31,9 @@ const UserApi = {
 		});
 	},
 
-	refreshToken() {
-		return Axios.get(PATH + '/refreshToken');
-	},
+	// refreshToken() {
+	// 	return Axios.get(PATH + '/refreshToken');
+	// },
 
 	userInfo() {
 		return Axios.get(PATH + '/info');
