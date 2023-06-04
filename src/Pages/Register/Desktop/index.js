@@ -242,7 +242,7 @@ const RegisterPage = () => {
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>
-				<S.Title style={{ width: '100px' }}>본문 내용</S.Title>
+				<S.Title>본문 내용</S.Title>
 				<S.InputContainer>
 					{errors.content && (
 						<S.Error role="alert" style={{ left: '20px', top: '-10px' }}>
