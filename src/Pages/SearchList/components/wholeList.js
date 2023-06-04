@@ -10,6 +10,14 @@ import styled from 'styled-components';
 
 const WholeListPage = () => {
 	const { word, category } = useParams();
+
+	const res =
+		word == ','
+			? useInfiniteSearch(word.split(',')[0], category, '판매중')
+			: useInfiniteSearch(word.split('·')[0], category, '판매중');
+	let searchWord = word;
+	if (word == ',') searchWord = '전체';
+
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const navigate = useNavigate();
 
@@ -22,14 +30,6 @@ const WholeListPage = () => {
 	const onSelectBoxClick = option => {
 		setSelected(option);
 	};
-
-	const res =
-		word == ','
-			? useInfiniteSearch(word.split(',')[0], category, '판매중')
-			: useInfiniteSearch(word.split('·')[0], category, '판매중');
-
-	let searchWord = word;
-	if (word == ',') searchWord = '전체';
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
