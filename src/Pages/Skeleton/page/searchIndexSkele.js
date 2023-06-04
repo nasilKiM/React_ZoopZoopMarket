@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const IndexSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4, 5, 6, 7, 8];
+
 	return (
 		<S.Wrapper>
 			<S.Container>
@@ -88,6 +89,7 @@ const SkeletonContainer = styled.div`
 	width: 100%;
 	margin-top: 30px;
 	place-items: center;
+
 	@media screen and (max-width: 767px) {
 		grid-template-columns: repeat(1, minmax(280px, 1fr));
 		row-gap: 10px;
@@ -143,14 +145,6 @@ const Category = styled.div`
 	margin-bottom: 10px;
 `;
 
-const S = {
-	Wrapper,
-	Container,
-	ResultText,
-	Category,
-	SkeletonContainer,
-};
-
 const Desktop = styled.div`
 	@media screen and (max-width: 1500px) {
 		display: none;
@@ -173,3 +167,15 @@ const Tablet = styled.div`
 		display: none;
 	}
 `;
+
+const S = {
+	Wrapper,
+	Container,
+	ResultText,
+	Category,
+	SkeletonContainer,
+	Desktop,
+	NoteBook16,
+	NoteBook14,
+	Tablet,
+};

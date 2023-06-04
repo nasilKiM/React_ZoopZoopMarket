@@ -5,9 +5,9 @@ import ProductApi from 'Apis/productApi';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
-import styled from 'styled-components';
 
 const RecentCard = item => {
 	const navigate = useNavigate();
@@ -27,7 +27,7 @@ const RecentCard = item => {
 	);
 
 	const deleteBtn = () => {
-		mutate();
+		return mutate();
 	};
 
 	return (

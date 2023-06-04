@@ -13,7 +13,7 @@ import ChattingPage from 'Pages/Chat';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
 
 const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 	const [item, setItem] = useState();
@@ -29,9 +29,8 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 		if (product) {
 			setItem(product.data.searchProduct);
 		}
-		return () => {
-			setItem();
-		};
+
+		return () => setItem();
 	}, [idx]);
 
 	const related =
@@ -115,13 +114,7 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 export default SellerDetailPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 `;
 
 const EditBar = styled.div`
@@ -129,8 +122,8 @@ const EditBar = styled.div`
 	${flexAllCenter}
 	justify-content: space-between;
 	padding-top: 20px;
-	//판매완료변경
-	& > div {
+
+	> div {
 		padding: 15px 20px;
 		background-color: #d9d9d9;
 		border-radius: 10px;
@@ -140,11 +133,12 @@ const EditBar = styled.div`
 			color: ${({ theme }) => theme.color.white};
 		}
 	}
-	& > ul {
+
+	> ul {
 		${flexAllCenter}
 		cursor: pointer;
 		gap: 10px;
-		& > div {
+		> div {
 			padding: 15px 20px;
 			background-color: #d9d9d9;
 			border-radius: 10px;
@@ -158,7 +152,7 @@ const EditBar = styled.div`
 
 const DetailAndChatBar = styled.div`
 	${flexAllCenter}
-	&>div {
+	> div {
 		${flexAllCenter}
 		border-top: 2px solid ${({ theme }) => theme.color.gray[200]};
 		border-bottom: 2px solid ${({ theme }) => theme.color.gray[200]};
@@ -169,7 +163,8 @@ const DetailAndChatBar = styled.div`
 		width: 100%;
 		cursor: pointer;
 	}
-	& > div:first-child {
+
+	> div:first-child {
 		border-right: 2px solid ${({ theme }) => theme.color.gray[200]};
 	}
 `;

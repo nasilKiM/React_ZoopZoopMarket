@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+
 import UserApi from 'Apis/userApi';
+
 import { queryConfig } from './@config';
 
 const userInfoProfile = async () => {
