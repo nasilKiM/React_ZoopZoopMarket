@@ -22,8 +22,8 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		diff.toFixed() == 0
 			? '오늘'
 			: diff < 4
-				? `${diff.toFixed()}일전`
-				: cleanDate;
+			? `${diff.toFixed()}일전`
+			: cleanDate;
 
 	const navigate = useNavigate();
 	const so = useSocket();
@@ -60,50 +60,58 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 		<>
 			{!state
 				? item && (
-					<S.BuyerWrapper isDesktop={isDesktop}>
-						<div>{item.title}</div>
-						<div>
-							{item.ProductsTags.map(item => (
-								<span>#{item.Tag.tag}</span>
-							))}
-							<div>|</div> {date}
-						</div>
-						<div>{item.price.toLocaleString('ko-KR')}원</div>
-						<div style={{ whiteSpace: 'pre-wrap' }}>
-							{item.description.replaceAll('\r,\n', '<br />')}
-						</div>
-						<div>
-							{item.status == '판매중' && (
-								<div onClick={onClickChatStartBtn}>채팅하기</div>
-							)}
-							{item.status == '판매중' && (
-								<div>
-									<HeartBtn like={item.liked} idx={item.idx} />
-								</div>
-							)}
-						</div>
-						{item.status == '판매완료' && (
-							<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
-						)}
-					</S.BuyerWrapper>
-				)
-				: item && (
-					<S.SellerWrapper isDesktop={isDesktop}>
-						<div>
+						<S.BuyerWrapper isDesktop={isDesktop}>
 							<div>{item.title}</div>
-						</div>
-						<div>
-							{item.ProductsTags.map(item => (
-								<span>#{item.Tag.tag}</span>
-							))}
-							<div>|</div> {date}
-						</div>
-						<div>{item.price.toLocaleString('ko-KR')}원</div>
-						<div style={{ whiteSpace: 'pre-wrap' }}>
-							{item.description.replaceAll('\r,\n', '<br />')}
-						</div>
-					</S.SellerWrapper>
-				)}
+							<div>
+								{item.ProductsTags.map(item => (
+									<span>#{item.Tag.tag}</span>
+								))}
+								<div>|</div> {date}
+							</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
+							<div>
+								{item.status == '판매중' && (
+									<div onClick={onClickChatStartBtn}>채팅하기</div>
+								)}
+								{item.status == '판매중' && (
+									<div>
+										<HeartBtn like={item.liked} idx={item.idx} />
+									</div>
+								)}
+							</div>
+							{item.status == '판매완료' && (
+								<S.solidOut>판매가 완료된 아이템입니다.</S.solidOut>
+							)}
+						</S.BuyerWrapper>
+				  )
+				: item && (
+						<S.SellerWrapper isDesktop={isDesktop}>
+							<div>
+								<div>{item.title}</div>
+							</div>
+							<div>
+								{item.ProductsTags.map(item => (
+									<span>#{item.Tag.tag}</span>
+								))}
+								<div>|</div> {date}
+							</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
+							<div style={{ whiteSpace: 'pre-wrap' }}>
+								{item.description.replaceAll('\r,\n', '<br />')}
+							</div>
+						</S.SellerWrapper>
+				  )}
 		</>
 	);
 };
