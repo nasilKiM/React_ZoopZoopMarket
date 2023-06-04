@@ -15,6 +15,7 @@ import {
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import { basicSetting } from 'Styles/common';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -248,16 +249,7 @@ const WebHeader = ({ so }) => {
 export default WebHeader;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-
+	${basicSetting}
 	font-family: 'Nanum_extraBold';
 	display: flex;
 	align-items: center;

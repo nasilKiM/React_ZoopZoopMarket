@@ -7,7 +7,7 @@ import KaMap from 'Components/Map/Map';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
 
 const BuyerDetailPage = ({ state, product }) => {
 	const item = product && product.data.searchProduct;
@@ -42,13 +42,7 @@ const BuyerDetailPage = ({ state, product }) => {
 export default BuyerDetailPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 	& > div:first-child {
 		border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	}

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import ProductApi from 'Apis/productApi';
 
 import SearchList from 'Pages/SearchList/Desktop/components/searchList';
+import { gridAllCenter } from 'Styles/common';
 
 import styled from 'styled-components';
 
@@ -24,8 +25,7 @@ export default RecentSoldOut;
 
 const Wrapper = styled.div`
 	width: 100%;
-	display: grid;
-	justify-items: center;
+	${gridAllCenter}
 	margin-bottom: 30px;
 
 	@media screen and (max-width: 767px) {

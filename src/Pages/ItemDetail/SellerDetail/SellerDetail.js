@@ -13,7 +13,7 @@ import ChattingPage from 'Pages/Chat';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
 
 const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 	const [item, setItem] = useState();
@@ -115,13 +115,7 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 export default SellerDetailPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 `;
 
 const EditBar = styled.div`

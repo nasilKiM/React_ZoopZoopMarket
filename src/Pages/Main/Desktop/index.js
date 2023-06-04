@@ -3,6 +3,7 @@ import Category from './Components/category';
 import BannerAd from './Components/bannerAd';
 
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const DesktopMainPage = () => {
 	return (
@@ -38,16 +39,7 @@ const Banner = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 360px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 10px;
 `;
 
@@ -69,16 +61,7 @@ const PreviewBg = styled.div`
 	padding: 30px 0;
 	margin-bottom: 50px;
 	> * {
-		width: 70%;
-		min-width: 350px;
-		max-width: 1200px;
-		@media (max-width: 700px) {
-			width: 95%;
-		}
-		@media (max-width: 800px) {
-			width: 90%;
-		}
-		margin: 0 auto;
+		${basicSetting}
 		padding-top: 10px;
 	}
 `;

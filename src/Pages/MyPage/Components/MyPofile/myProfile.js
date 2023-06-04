@@ -11,6 +11,7 @@ import { useUserInfo } from 'Hooks/Queries/get-user-query';
 import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
 import { useMutation } from '@tanstack/react-query';
 import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
+import { flexAlignCenter, flexJustifyCenter } from 'Styles/common';
 
 const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
@@ -129,16 +130,14 @@ const Wrapper = styled.div`
 	width: 100%;
 	padding-bottom: 30px;
 	margin: 0 auto;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 `;
 
 const Info = styled.div`
 	min-width: 350px;
 	max-width: 1200px;
 	margin: 70px 0px 0px 0px;
-	align-items: center;
-	display: flex;
+	${flexAlignCenter}
 	@media screen and (max-width: 600px) {
 		width: 100%;
 		flex-direction: column;

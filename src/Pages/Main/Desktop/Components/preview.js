@@ -10,7 +10,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 
-import { flexAlignCenter } from 'Styles/common';
+import { basicSetting, flexSpaceBetween } from 'Styles/common';
 
 const Preview = ({ category }) => {
 	const { data } = useQuery(['mainList'], () => ProductApi.mainList());
@@ -97,16 +97,8 @@ const Preview = ({ category }) => {
 export default Preview;
 
 const Wrapper = styled.div`
+	${basicSetting}
 	width: 100%;
-	max-width: 1200px;
-	min-width: 350px;
-	@media (max-width: 700px) {
-		width: 100%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-	margin: 0 auto;
 	padding-top: 50px;
 `;
 
@@ -124,8 +116,7 @@ const CategoryBox = styled.div`
 `;
 
 const SpaceBetween = styled.div`
-	${flexAlignCenter}
-	justify-content: space-between;
+	${flexSpaceBetween}
 	padding-right: 10px;
 `;
 

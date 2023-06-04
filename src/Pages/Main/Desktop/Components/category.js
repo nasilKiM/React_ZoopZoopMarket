@@ -171,8 +171,6 @@ const Category = () => {
 export default Category;
 
 const CategoryWrapper = styled.div`
-	justify-content: center;
-	align-items: center;
 	text-align: center;
 	position: relative;
 	/* overflow: hidden; */
