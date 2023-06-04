@@ -2,8 +2,9 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const PayListCard = ({item}) => {
+const PayListCard = ({ item }) => {
 	const { title, price, img_url } = item.Product;
+	item && console.log(item);
 	return (
 		<S.Wrapper>
 			{item && (
@@ -24,18 +25,18 @@ const PayListCard = ({item}) => {
 export default PayListCard;
 
 const Wrapper = styled.div`
-	width: 1000px;
-	height: 100%;
+	width: 100%;
+	margin: 0 auto;
 `;
 
 const Container = styled.div`
-	width: 1000px;
+	width: 100%;
 	height: 500px;
-	min-width: 400px;
 	max-height: 200px;
 	border-radius: 5px;
 	cursor: pointer;
 	box-shadow: rgba(100, 111, 124, 0.2) 0px 2px 5px;
+	margin: 0 auto;
 `;
 
 const ItemImg = styled.img`
@@ -46,7 +47,6 @@ const ItemImg = styled.img`
 `;
 
 const ItemInfo = styled.div`
-	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

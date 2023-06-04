@@ -99,14 +99,21 @@ const categories = [
 		keyword: '기타,인형,스티커,나눔,문구',
 	},
 ];
+
+const NextArrow = ({ onClick }) => (
+	<S.NextArrowWrapper onClick={onClick}>
+		<span>&lt;</span> <span> &gt;</span>
+	</S.NextArrowWrapper>
+);
+
 const Category = () => {
 	const settings = {
 		dots: false,
-		arrows: true,
 		infinite: true,
-		speed: 0,
-		slidesToShow: 8,
-		slidesToScroll: 1,
+		speed: 500,
+		swipe: false,
+		slidesToShow: 9,
+		slidesToScroll: 2,
 		responsive: [
 			{
 				breakpoint: 968,
@@ -130,6 +137,7 @@ const Category = () => {
 				},
 			},
 		],
+		nextArrow: <NextArrow />,
 	};
 
 	const CategorySlider = () => {
@@ -141,6 +149,7 @@ const Category = () => {
 					<Slider {...settings}>
 						{categories.map(category => (
 							<S.CategoryContainer
+								key={Math.random()}
 								onClick={() => {
 									navigate(`/search_list/${category.name}/0`);
 								}}
@@ -166,7 +175,7 @@ const CategoryWrapper = styled.div`
 	align-items: center;
 	text-align: center;
 	position: relative;
-	overflow: hidden;
+	/* overflow: hidden; */
 `;
 
 const CategoryContainer = styled.div`
@@ -205,10 +214,23 @@ const ItemName = styled.div`
 	text-align: center;
 `;
 
+const NextArrowWrapper = styled.div`
+	margin-top: 20px;
+	span {
+		color: ${({ theme }) => theme.color.gray[300]};
+		padding: 5px 10px;
+		:hover {
+			background-color: ${({ theme }) => theme.color.gray[100]};
+			border-radius: 50%;
+		}
+	}
+`;
+
 const S = {
 	CategoryWrapper,
 	CategoryContainer,
 	CategoryItem,
 	CategoryIcon,
 	ItemName,
+	NextArrowWrapper,
 };

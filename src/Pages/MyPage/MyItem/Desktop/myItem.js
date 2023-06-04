@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-myItem';
+import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Desktop/Card';
 
-import { useInView } from 'react-intersection-observer';
+import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
 
-import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
+import {
+	flexAllCenter,
+	gridAllCenter,
+	gridColumn,
+	gridGap,
+} from 'Styles/common';
+
 import styled from 'styled-components';
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0);
 	const res = useInfiniteMyItem(category);
-	const { data, fetchNextPage, refetch } = res;
+	const { data, fetchNextPage, refetch, isLoading, isSuccess } = res;
 	const [ref, isView] = useInView();
 
 	useEffect(() => {
@@ -38,32 +45,35 @@ const MyItemPage = () => {
 	};
 
 	return (
-		data && (
-			<S.Div>
-				<S.CategoryZone>
-					<S.Category category={category === 0} onClick={onClickSaleCategory}>
-						중고 물품
-					</S.Category>
-					<S.Category category={category === 1} onClick={onClickFreeCategory}>
-						무료 나눔
-					</S.Category>
-				</S.CategoryZone>
-				<S.Wrapper>
-					{data.pages[0].data.products.length > 0 ? (
-						<S.Container>
-							{data.pages.map(page => {
-								return page.data.products.map(item => (
-									<ItemCard index={item.idx} products={item} isMine={true} />
-								));
-							})}
-						</S.Container>
-					) : (
-						<S.Txt>등록된 아이템이 없습니다.</S.Txt>
-					)}
-					<div ref={ref}></div>
-				</S.Wrapper>
-			</S.Div>
-		)
+		<>
+			{isSuccess && (
+				<S.Div>
+					<S.CategoryZone>
+						<S.Category category={category === 0} onClick={onClickSaleCategory}>
+							중고 물품
+						</S.Category>
+						<S.Category category={category === 1} onClick={onClickFreeCategory}>
+							무료 나눔
+						</S.Category>
+					</S.CategoryZone>
+					<S.Wrapper>
+						{data.pages[0].data.products.length > 0 ? (
+							<S.Container>
+								{data.pages.map(page => {
+									return page.data.products.map(item => (
+										<ItemCard index={item.idx} products={item} isMine={true} isDone={false}/>
+									));
+								})}
+							</S.Container>
+						) : (
+							<S.Txt>등록된 아이템이 없습니다.</S.Txt>
+						)}
+						<div ref={ref}></div>
+					</S.Wrapper>
+				</S.Div>
+			)}
+			{isLoading && <WholeListSkeleton />}
+		</>
 	);
 };
 
@@ -82,30 +92,30 @@ const Div = styled.div`
 const Wrapper = styled.div`
 	width: 100%;
 	margin: 0 auto;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 95%;
+	}
 `;
 
 const Container = styled.div`
 	width: 100%;
-	${gridColumn(3)}
+	${gridColumn(4)}
 	${gridAllCenter}
-	@media ${({ theme }) => theme.device.pc} {
-		min-width: 200px; // pc -> laptop 사이즈 줄어들떼 카드 최소 사이즈 적용 안되는 이슈 있음
-		${gridAllCenter}
-	}
+	
 	@media ${({ theme }) => theme.device.laptop} {
 		${gridColumn(3)}
-		min-width: 200px;
-		${gridAllCenter}
+		${gridGap.tablet}
 	}
 	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(2)}
-		min-width: 200px;
-		${gridAllCenter}
+		${gridColumn(3)}
+		${gridGap.tablet}
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(1)}
-		min-width: 200px;
-		${gridAllCenter}
+		${gridColumn(2)}
+		${gridGap.mobile}
 	}
 `;
 

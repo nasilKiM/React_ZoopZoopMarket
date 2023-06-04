@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
+
 import ProductApi from 'Apis/productApi';
 import { queryConfig } from './@config';
-import { useQuery } from '@tanstack/react-query';
 
 export const getMainList = () => {
 	const {
@@ -18,4 +19,19 @@ export const getMainList = () => {
 	}
 
 	return { mainList };
+};
+
+const recentPrd = async () => {
+	const res = await ProductApi.getRecent();
+	return res.data;
+};
+
+export const useRecentProduct = () => {
+	const { isLoading, isError, data, refetch, error } = useQuery(
+		['recent'],
+		() => recentPrd(),
+		queryConfig,
+	);
+
+	return { isLoading, isError, data, refetch, error };
 };

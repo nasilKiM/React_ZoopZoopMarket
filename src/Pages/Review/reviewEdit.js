@@ -2,20 +2,22 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
-import PropTypes from 'prop-types';
 
-import { styled as mui } from '@mui/material/styles';
+import { useRecoilValue } from 'recoil';
+import { reviewAtom } from 'Atoms/review.atom';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { reviewAtom } from 'Atoms/review.atom';
-
+import { useParams } from 'react-router-dom';
+import { styled as mui } from '@mui/material/styles';
 import styled from 'styled-components';
+
+import PropTypes from 'prop-types';
+
+import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewEditPage = () => {
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -26,7 +28,6 @@ const ReviewEditPage = () => {
 
 	const target = useRecoilValue(reviewAtom);
 	const { idx } = useParams();
-	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
 	target && console.log(target);
@@ -37,6 +38,7 @@ const ReviewEditPage = () => {
 	const [images, setImages] = useState([]);
 	const [newImg, setNewImg] = useState([]);
 	const [show, setShow] = useState(true);
+	const [postModal, setPostModal] = useState(false);
 
 	const hasOriginalImg = target?.Review.img_url !== 'null';
 	const hasNewImg = target?.Review.ReviewImages.length > 0;
@@ -56,9 +58,9 @@ const ReviewEditPage = () => {
 
 		// FormData 생성
 		const formData = new FormData();
-		formData.append('title', title); // title: string
-		formData.append('content', content); // content: string
-		formData.append('ondo', ondo + 33); // ondo: number
+		formData.append('title', title);
+		formData.append('content', content);
+		formData.append('ondo', ondo + 33);
 		[...newImg].forEach(element => {
 			formData.append('images', element);
 		});
@@ -73,12 +75,10 @@ const ReviewEditPage = () => {
 		});
 		formData.append('img_url', imgUrls.join());
 		try {
-			// Patch 요청
 			mutationEditReview.mutate(formData, {
 				onSuccess: () => {
 					queryClient.invalidateQueries(['reviewDetail']);
-					alert('리뷰가 수정되었습니다.');
-					navigate(`/review/detail/${idx}`);
+					setPostModal(true);
 				},
 			});
 		} catch (error) {
@@ -182,6 +182,12 @@ const ReviewEditPage = () => {
 					<S.Container>
 						<S.RegisterBtn type="submit">저장하기</S.RegisterBtn>
 					</S.Container>
+					{postModal && (
+						<AlertModal
+							content={'리뷰가 수정되었습니다.'}
+							props={`/review/detail/${idx}`}
+						/>
+					)}
 				</form>
 				<S.ReviewTitle>유의사항</S.ReviewTitle>
 				<li>

@@ -1,14 +1,3 @@
-import {
-	flexAlignCenter,
-	flexAllCenter,
-	flexSpaceBetween,
-} from 'Styles/common';
-import styled from 'styled-components';
-
-import FindAddress from 'Components/Address/Desktop/address';
-import AlertModal from 'Components/Alert/alertModal';
-import CustomButton from 'Components/Buttons/button';
-
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -16,17 +5,24 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
+import FindAddress from 'Components/Address/Desktop/address';
+import AlertModal from 'Components/Alert/alertModal';
+import CustomButton from 'Components/Buttons/button';
+
 import { FORM_TYPE } from 'Consts/FormType';
-import useUserInfo from 'Hooks/Queries/get-user-info';
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
+
+import styled from 'styled-components';
+
+import {
+	flexAlignCenter,
+	flexAllCenter,
+	flexSpaceBetween,
+} from 'Styles/common';
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	// const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
-	// 	pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
-	// });
-
 	const { data } = useUserInfo();
-
 	const [address, setAddress] = useState();
 	const [phoneMessage, setPhoneMessage] = useState();
 	const [nickMessage, setNickMessage] = useState('');

@@ -7,14 +7,15 @@ import MannerMeter from 'Components/Icon/Icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import useUserInfo from 'Hooks/Queries/get-user-info';
-import useMyUserInfo from 'Hooks/Queries/get-mypage-mainPage';
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
+import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
 import { useMutation } from '@tanstack/react-query';
+import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
 
 const MyProfile = () => {
 	const [profileImg, setProfileImg] = useState();
 	const photoInput = useRef();
-	const { data, refetch, isLoading } = useUserInfo();
+	const { data, refetch, isLoading, isSuccess } = useUserInfo();
 	const { data: myData } = useMyUserInfo();
 
 	const { mutate } = useMutation(
@@ -44,9 +45,9 @@ const MyProfile = () => {
 
 	return (
 		<>
-			{!isLoading && (
+			{isSuccess && (
 				<S.Wrapper>
-					{data && myData && (
+					{myData && (
 						<S.Info>
 							<S.ImgWrap>
 								<S.Img
@@ -59,11 +60,7 @@ const MyProfile = () => {
 									}
 								/>
 								<S.ProfileImg>
-									<S.FontAwesomeIconImg
-										icon={faCamera}
-										style={{ color: '#ffffff', fontSize: '15px' }}
-										onClick={handleClick}
-									/>
+									<S.FontAwesomeIconImg icon={faCamera} onClick={handleClick} />
 									<input
 										type="file"
 										accept="image/jpg, image/jpeg, image/png"
@@ -121,6 +118,7 @@ const MyProfile = () => {
 					)}
 				</S.Wrapper>
 			)}
+			{isLoading && <MyProfileSkeleton />}
 		</>
 	);
 };
@@ -172,9 +170,10 @@ const ProfileImg = styled.div`
 `;
 
 const FontAwesomeIconImg = styled(FontAwesomeIcon)`
-	font-size: 30px;
+	color: #ffffff;
+	font-size: 15px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 20px;
+		font-size: 12px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		font-size: 8px;

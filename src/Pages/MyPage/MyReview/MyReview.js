@@ -1,10 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
+
 import ReviewApi from 'Apis/reviewApi';
+
 import ReviewItemCard from 'Components/Card/Desktop/ReviewCard';
+
 import styled from 'styled-components';
 
 const MyReview = () => {
 	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
+
+	data && console.log('->', data);
 
 	const list = data?.data.reviewList;
 	const total = data?.data.reviewList.length;

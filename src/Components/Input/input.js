@@ -1,5 +1,6 @@
-import * as S from './input.style';
 import { forwardRef } from 'react';
+
+import * as S from './input.style';
 
 const Input = forwardRef(
 	({ variant, shape, status = 'default', ...rest }, ref) => {

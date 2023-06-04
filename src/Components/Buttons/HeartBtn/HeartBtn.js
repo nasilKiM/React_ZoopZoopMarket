@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import ProductApi from 'Apis/productApi';
+import { useLikedBtn } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 
 const HeartBtn = ({ like, idx }) => {
 	const [liked, setLiked] = useState(like);
 
-	const toggleLiked = async index => {
-		try {
-			const response = await ProductApi.likedBtn(index);
-			if (response.status === 200) {
-				setLiked(prev => !prev);
-			}
-		} catch (error) {
-			console.log('에러', error);
-		}
+	const mutation = useLikedBtn();
+
+	const toggleLiked = index => {
+		mutation.mutateAsync(index);
 	};
+
+	useEffect(() => {
+		if (mutation.isSuccess) {
+			setLiked(prev => !prev);
+		}
+	}, [mutation.isSuccess]);
 
 	return (
 		<S.Button

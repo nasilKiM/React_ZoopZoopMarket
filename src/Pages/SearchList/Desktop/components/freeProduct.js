@@ -18,7 +18,9 @@ const FreeProduct = ({ word, data }) => {
 					{data &&
 						data.data.product
 							.slice(0, 8)
-							.map(pageItems => <SearchList products={pageItems} />)}
+							.map((pageItems, index) => (
+								<SearchList key={index} products={pageItems} />
+							))}
 				</S.CardContainer>
 			</Desktop>
 			<NoteBook16>
@@ -26,7 +28,9 @@ const FreeProduct = ({ word, data }) => {
 					{data &&
 						data.data.product
 							.slice(0, 6)
-							.map(pageItems => <SearchList products={pageItems} />)}
+							.map((pageItems, index) => (
+								<SearchList key={index} products={pageItems} />
+							))}
 				</S.CardContainer>
 			</NoteBook16>
 			<NoteBook14>
@@ -34,7 +38,9 @@ const FreeProduct = ({ word, data }) => {
 					{data &&
 						data.data.product
 							.slice(0, 4)
-							.map(pageItems => <SearchList products={pageItems} />)}
+							.map((pageItems, index) => (
+								<SearchList key={index} products={pageItems} />
+							))}
 				</S.CardContainer>
 			</NoteBook14>
 			<Tablet>
@@ -42,7 +48,9 @@ const FreeProduct = ({ word, data }) => {
 					{data &&
 						data.data.product
 							.slice(0, 2)
-							.map(pageItems => <SearchList products={pageItems} />)}
+							.map((pageItems, index) => (
+								<SearchList key={index} products={pageItems} />
+							))}
 				</S.CardContainer>
 			</Tablet>
 			<S.Container>
@@ -85,7 +93,7 @@ const CardContainer = styled.div`
 	justify-content: center;
 	margin-top: 30px;
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(1, minmax(220px, 1fr));
+		grid-template-columns: repeat(2, minmax(220px, 1fr));
 		row-gap: 20px;
 		width: 220px;
 	}

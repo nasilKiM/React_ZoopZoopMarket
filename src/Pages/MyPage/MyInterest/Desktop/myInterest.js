@@ -1,12 +1,16 @@
-import styled from 'styled-components';
-import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
-import useInfiniteMy from 'Hooks/Queries/get.infinity.interest';
-import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import ItemCard from 'Components/Card/Desktop/Card';
 
+import styled from 'styled-components';
+
+import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
+
+import { gridAllCenter, gridColumn, gridGap } from 'Styles/common';
+
 const MyInterestPage = () => {
-	const res = useInfiniteMy();
+	const res = useInfiniteMyInterest();
 	const [ref, inView] = useInView({ threshold: 0.5 });
 	const { data, fetchNextPage, isLoading } = res;
 
@@ -29,7 +33,7 @@ const MyInterestPage = () => {
 						<S.Container>
 							{data.pages.map(page =>
 								page.data.LikeList.map(list => (
-									<ItemCard index={list.Product.idx} products={list.Product} />
+									<ItemCard index={list.Product.idx} products={list.Product} isDone={false}/>
 								)),
 							)}
 						</S.Container>
@@ -56,20 +60,20 @@ const Wrap = styled.div`
 
 const Container = styled.div`
 	width: 100%;
-	${gridColumn(3)}
+	${gridColumn(4)}
 	${gridAllCenter}
 	
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
-		${gridGap.mobile}
-	}
-	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(2)}
-		${gridGap.tablet}
-	}
 	@media ${({ theme }) => theme.device.laptop} {
 		${gridColumn(3)}
 		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		${gridColumn(3)}
+		${gridGap.tablet}
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		${gridColumn(2)}
+		${gridGap.mobile}
 	}
 `;
 

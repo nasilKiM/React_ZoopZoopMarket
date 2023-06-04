@@ -1,5 +1,5 @@
-import { theme } from 'Styles/theme';
 import { useEffect, useState } from 'react';
+
 import {
 	CartesianGrid,
 	Legend,
@@ -9,6 +9,9 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts';
+import styled from 'styled-components';
+
+import { theme } from 'Styles/theme';
 
 const Chart = ({ data, average }) => {
 	const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
@@ -49,24 +52,46 @@ const Chart = ({ data, average }) => {
 	}
 
 	return (
-		<LineChart width={chartWidth} height={chartHeight} data={data}>
-			<CartesianGrid strokeDasharray="3 3" />
-			<XAxis dataKey="date" />
-			<YAxis
-				tickFormatter={value => value.toLocaleString()}
-				domain={[0, maxDomain]}
-				width={100}
-			/>
-			<Tooltip formatter={value => `${value}${unitOfMoney}`} />
-			<Legend />
-			<Line
-				type="monotone"
-				dataKey="avgPrice"
-				stroke={theme.color.primary[300]}
-				activeDot={{ r: 7 }}
-			/>
-		</LineChart>
+		<S.Wrapper>
+			<LineChart width={chartWidth} height={chartHeight} data={data}>
+				<CartesianGrid strokeDasharray="3 3" />
+				<XAxis dataKey="date" />
+				<YAxis
+					tickFormatter={value => value.toLocaleString()}
+					domain={[0, maxDomain]}
+					width={60}
+				/>
+				<Tooltip formatter={value => `${value}${unitOfMoney}`} />
+				<Legend />
+				<Line
+					type="monotone"
+					dataKey="avgPrice"
+					stroke={theme.color.primary[300]}
+					activeDot={{ r: 7 }}
+				/>
+			</LineChart>
+		</S.Wrapper>
 	);
 };
 
 export default Chart;
+
+const Wrapper = styled.div`
+	margin: 0 auto;
+	padding-right: 20px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+
+	@media screen and (max-width: 767px) {
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+	@media screen and (min-width: 768px) and (max-width: 1000px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+	@media screen and (min-width: 1001px) and (max-width: 1499px) {
+		font-size: ${({ theme }) => theme.fontSize.base};
+	}
+`;
+
+const S = {
+	Wrapper,
+};

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 
-import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-search';
+import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-query';
 
-import SearchList from './components/searchList';
+import SearchList from './searchList';
 import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
 
 import styled from 'styled-components';
@@ -33,7 +33,7 @@ const WholeListPage = () => {
 		setSelected(category);
 	}, [category]);
 
-	const { data, isLoading, isSuccess } = res;
+	const { data, isSuccess } = res;
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		if (selected == 1) {
@@ -107,7 +107,7 @@ const WholeListPage = () => {
 						)}
 				</S.Container>
 			)}
-			{isLoading && <WholeListSkeleton />}
+			{!isSuccess && <WholeListSkeleton />}
 			<S.refDiv ref={ref}></S.refDiv>
 		</S.Wrapper>
 	);
@@ -158,8 +158,8 @@ const ResultText = styled.div`
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	min-width: 350px;
 	max-width: 1200px;
-	margin: 0 auto;
-	margin-top: 30px;
+	margin: 30px auto;
+
 	@media (max-width: 700px) {
 		width: 95%;
 	}
@@ -185,12 +185,12 @@ const Container = styled.div`
 		width: 90%;
 	}
 	@media screen and (max-width: 400px) {
-		grid-template-rows: repeat(2, minmax(160px, 1fr));
-		margin: 0;
+		grid-template-rows: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
 	}
 	@media screen and (max-width: 767px) {
-		grid-template-columns: repeat(2, minmax(210px, 1fr));
-		column-gap: 20px;
+		grid-template-columns: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
 		row-gap: 20px;
 	}
 	@media screen and (min-width: 768px) and (max-width: 1000px) {

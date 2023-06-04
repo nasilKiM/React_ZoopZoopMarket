@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSocket } from 'Context/socket';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -9,10 +7,12 @@ import HeartBtn from 'Components/Buttons/HeartBtn/HeartBtn';
 import dayjs from 'dayjs';
 import { isDesktop } from 'react-device-detect';
 
+import { useSocket } from 'Context/socket';
+
 import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
-const DetailContent = ({ state, item }) => {
+const DetailContent = ({ state, item, itemAllInfo }) => {
 	const today = dayjs();
 	const created = item && dayjs(item.createdAt);
 	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
@@ -25,17 +25,27 @@ const DetailContent = ({ state, item }) => {
 			? `${diff.toFixed()}일전`
 			: cleanDate;
 
-	const [chatRoom, setChatRoom] = useState();
 	const navigate = useNavigate();
-
 	const so = useSocket();
+
 	const onClickChatStartBtn = async () => {
 		try {
 			const setChatRoomRes = await ChatApis.setChatRoom(item.idx);
 
 			const message = '채팅방을 시작합니다';
 
-			const saveMsgRes = await ChatApis.saveMsg({
+			const data = {
+				title: item?.title,
+				createdAt: item?.createdAt,
+				prod_idx: item?.idx,
+				room_idx: setChatRoomRes.data.idx,
+				nickName: item?.User.nick_name,
+				message,
+				isSeller: itemAllInfo?.isSeller,
+			};
+
+			so?.emit('sendMessage', data);
+			ChatApis.saveMsg({
 				room_idx: setChatRoomRes.data.idx,
 				message,
 			});
@@ -58,7 +68,11 @@ const DetailContent = ({ state, item }) => {
 								))}
 								<div>|</div> {date}
 							</div>
-							<div>{item.price.toLocaleString('ko-KR')}원</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
 							<div style={{ whiteSpace: 'pre-wrap' }}>
 								{item.description.replaceAll('\r,\n', '<br />')}
 							</div>
@@ -88,7 +102,11 @@ const DetailContent = ({ state, item }) => {
 								))}
 								<div>|</div> {date}
 							</div>
-							<div>{item.price.toLocaleString('ko-KR')}원</div>
+							<div>
+								{item.price == 0
+									? '무료나눔'
+									: item.price.toLocaleString('ko-KR') + '원'}
+							</div>
 							<div style={{ whiteSpace: 'pre-wrap' }}>
 								{item.description.replaceAll('\r,\n', '<br />')}
 							</div>
@@ -105,12 +123,10 @@ const BuyerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
-	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
-	//태그, 날짜
 	& > div:nth-of-type(2) {
 		display: flex;
 		align-items: center;
@@ -124,12 +140,10 @@ const BuyerWrapper = styled.div`
 			padding: 0px 5px;
 		}
 	}
-	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	//본문내용
 	& > div:nth-of-type(4) {
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.regular};
@@ -138,7 +152,6 @@ const BuyerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	// 카테고리
 	& > div:nth-of-type(5) {
 		${flexAllCenter}
 		justify-content: space-between;
@@ -155,7 +168,6 @@ const BuyerWrapper = styled.div`
 				color: ${({ theme }) => theme.color.white};
 			}
 		}
-		//heart
 		& > div:last-child {
 			width: 40px;
 			height: 40px;
@@ -178,19 +190,16 @@ const SellerWrapper = styled.div`
 	& > div {
 		margin: 20px 0;
 	}
-	//제목
 	& > div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 		${flexAllCenter}
 		justify-content: space-between;
 	}
-	//가격
 	& > div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
-	//본문
 	& > div:nth-of-type(4) {
 		padding-top: 20px;
 		min-height: 180px;
@@ -199,7 +208,6 @@ const SellerWrapper = styled.div`
 		line-height: 30px;
 		border-top: 2px dashed ${({ theme }) => theme.color.gray[100]};
 	}
-	//태그
 	& > div:nth-of-type(2) {
 		display: flex;
 		align-items: center;

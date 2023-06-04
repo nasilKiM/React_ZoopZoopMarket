@@ -1,6 +1,6 @@
 import ProductApi from 'Apis/productApi';
-import dayjs from 'dayjs';
 
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
@@ -38,7 +38,7 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 					</div>
 				</div>
 				<div>
-					{!chat.isRead && <div>New!</div>}
+					{!chat.isRead && <S.NewMessage>New!</S.NewMessage>}
 					<div>{date}</div>
 				</div>
 			</S.ChatContent>
@@ -57,11 +57,15 @@ const ChatContent = styled.div`
 	cursor: pointer;
 	& > div:first-child {
 		& > div {
+			font-size: ${({ theme }) => theme.fontSize.sm};
 			margin: 10px 0;
 		}
 	}
 	& > div:last-child {
 		font-size: ${({ theme }) => theme.fontSize.xs};
+		${flexAllCenter}
+		flex-direction: column;
+		align-items: flex-end;
 		& > div {
 			margin: 10px 0;
 		}
@@ -71,29 +75,14 @@ const ChatContent = styled.div`
 	}
 `;
 
-const ChatContentUpper = styled.div`
-	width: 100%;
-	min-width: 300px;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	font-size: ${({ theme }) => theme.fontSize.xs};
-`;
-
-const NickName = styled.span`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-`;
-
-const ChatContentdown = styled.div`
-	font-size: ${({ theme }) => theme.fontSize.sm};
-	text-align: right;
+const NewMessage = styled.div`
+	background-color: ${({ theme }) => theme.color.primary[200]};
+	border-radius: 10px;
+	padding: 5px;
+	text-align: center;
 `;
 
 const S = {
 	ChatContent,
-	ChatContentUpper,
-	NickName,
-	ChatContentdown,
+	NewMessage,
 };

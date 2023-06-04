@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import {
 	faFaceDizzy,
 	faFaceMeh,
 	faFaceSmileWink,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const MannerMeter = ({ ondo }) => {
 	const [state, setState] = useState(false);
@@ -86,7 +88,6 @@ const Wrapper = styled.div`
 	& > div {
 		margin-right: 10px;
 	}
-	/* position: relative; */
 `;
 
 const Icon = styled.div`

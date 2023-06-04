@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ProductApi from 'Apis/productApi';
 
@@ -6,9 +7,8 @@ import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 
 const NewMessage = ({ popupMsg, setPopupMsg }) => {
+	const navigate = useNavigate();
 	const [itemInfo, setItemInfo] = useState();
-
-	useEffect(() => {}, [popupMsg]);
 
 	useEffect(() => {
 		const ProductInfo = async () => {
@@ -23,19 +23,25 @@ const NewMessage = ({ popupMsg, setPopupMsg }) => {
 		ProductInfo();
 		const timer = setTimeout(() => {
 			setPopupMsg(false);
-		}, 3000);
+		}, 5000);
 
 		return () => {
 			clearTimeout(timer);
 		};
 	}, [popupMsg]);
 
+	const handleClickPopupMsg = () => {
+		navigate('/chat')
+	}
+
 	return (
-		<S.Wrapper>
-			<img src={itemInfo?.searchProduct.img_url} />
+		<S.Wrapper onClick={handleClickPopupMsg}>
 			<div>
-				<div>{itemInfo?.searchProduct.title}</div>
-				<div>{popupMsg?.message}</div>
+				<img src={itemInfo?.searchProduct.img_url} />
+			</div>
+			<div>
+				<div>상품명 : {itemInfo?.searchProduct.title}</div>
+				<div>{popupMsg.nickName} 님의 새로운 메세지</div>
 			</div>
 		</S.Wrapper>
 	);
@@ -51,13 +57,21 @@ const Wrapper = styled.div`
 	top: 200px;
 	z-index: 999;
 	width: 500px;
-	height: 200px;
+	height: 150px;
+	border-radius: 20px;
 	& > div:last-child {
 		& > div {
 			margin: 20px;
 			margin-right: 50px;
 		}
 	}
+	& > div:first-child {
+		& > img {
+			width: 100px;
+			height: 100px;
+		}
+	}
+	cursor: pointer;
 `;
 
 const S = {

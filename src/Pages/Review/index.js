@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
-import PropTypes from 'prop-types';
+
+import AlertModal from 'Components/Alert/alertModal';
 
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
@@ -14,15 +15,13 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-
 import styled from 'styled-components';
-import AlertModal from 'Components/Alert/alertModal';
+
+import PropTypes from 'prop-types';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
-	const navigate = useNavigate();
 	const { idx } = useParams();
-
 	const title = target.title;
 	const [content, setContent] = useState('');
 	const [ondo, setOndo] = useState(3);
@@ -52,11 +51,9 @@ const ReviewPage = () => {
 		}
 
 		try {
-			await mutationPostReview.mutate(formData, {
+			mutationPostReview.mutate(formData, {
 				onSuccess: () => {
 					setPostModal(true);
-					//alert('리뷰가 등록되었습니다.');
-					//navigate('/mypage/review');
 				},
 			});
 		} catch (error) {
@@ -109,7 +106,7 @@ const ReviewPage = () => {
 					<S.TargetContent>
 						<S.TargetTitle>{target.title}</S.TargetTitle>
 						<S.TargetPrice>
-							{target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원
+							{/* {target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원 */}
 						</S.TargetPrice>
 					</S.TargetContent>
 				</S.Target>
@@ -153,7 +150,6 @@ const ReviewPage = () => {
 						<AlertModal
 							content={'리뷰가 등록되었습니다.'}
 							props={'/mypage/review'}
-							// setModal={setPostModal}
 						/>
 					)}
 				</form>

@@ -6,6 +6,7 @@ import AlertModal from 'Components/Alert/alertModal';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 import styled from 'styled-components';
 
 const SearchBar = ({ props, setIsModalOpen }) => {
@@ -41,6 +42,7 @@ const SearchBar = ({ props, setIsModalOpen }) => {
 	return (
 		<S.Wrap onSubmit={onSearch}>
 			<S.SearchInput
+				autoFocus
 				placeholder="검색어를 입력해주세요"
 				name="searchKey"
 				ref={searchInputRef}

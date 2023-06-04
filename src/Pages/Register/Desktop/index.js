@@ -9,21 +9,23 @@ import UploadFiles from './Components/uploadFiles';
 import FindAddress from 'Components/Address/Desktop/address';
 import KaMap from 'Components/Map/Map';
 import AlertModal from 'Components/Alert/alertModal';
-import Category from './Components/category';
+import CategorySelector from './Components/categorySelector';
+
+import styled from 'styled-components';
 
 import { flexAlignCenter } from 'Styles/common';
-import styled from 'styled-components';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const [images, setImages] = useState([]);
 	const [modal, setModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
-
 	const [price, setPrice] = useState('');
 	const [tags, setTags] = useState([]);
-	const { idx } = useParams();
+	const [addressMessage, setAddressMessage] = useState();
+	const [showModal, setShowModal] = useState(false);
 
+	const { idx } = useParams();
 	const queryClient = useQueryClient();
 
 	const {
@@ -32,7 +34,6 @@ const RegisterPage = () => {
 		setError,
 		clearErrors,
 		setValue,
-		getValues,
 		formState: { errors },
 	} = useForm();
 
@@ -57,7 +58,6 @@ const RegisterPage = () => {
 	};
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
 		if (!idx) return;
 		productIdx();
 	}, [idx]);
@@ -66,7 +66,7 @@ const RegisterPage = () => {
 		if (e.keyCode === 13) {
 			clearErrors('tag');
 			e.preventDefault();
-			const newTag = e.target.value.trim(); //공백있으면 trim으로 제거.
+			const newTag = e.target.value.trim();
 			const check = tags.filter(tag => tag === newTag);
 			if (newTag && check.length === 0) {
 				setTags([...tags, newTag]);
@@ -96,13 +96,23 @@ const RegisterPage = () => {
 		return ProductApi.editPost(data);
 	});
 
+	useEffect(() => {
+		setAddressMessage('');
+	}, [searchResult]);
+
+	useEffect(() => {
+		clearErrors('tag');
+	}, [tags]);
+
 	const onSubmit = data => {
 		if (tags.length === 0) {
-			return setError(
-				'tag',
-				{ message: '1개이상 꼭 입력해주세요.' },
-				{ shouldFocus: true },
-			);
+			window.scrollTo(200, 200);
+			return setError('tag', { message: '1개이상 꼭 입력해주세요.' });
+		}
+
+		if (!searchResult) {
+			window.scrollTo(500, 500);
+			return setAddressMessage('거래장소를 입력해주세요');
 		}
 
 		try {
@@ -117,9 +127,9 @@ const RegisterPage = () => {
 			});
 
 			if (!idx) {
-				if (data.mainImg.length === 0) {
+				if (data.mainImg.length == 0) {
 					window.scrollTo(0, 0);
-					return alert('이미지를 등록해주세요.');
+					return setShowModal(true);
 				}
 				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
@@ -202,9 +212,11 @@ const RegisterPage = () => {
 						onKeyDown={handleKeyDown}
 					></S.InputBox>
 					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
+					<S.SelectorWrapper>
+						<CategorySelector setTags={setTags} tags={tags}></CategorySelector>
+					</S.SelectorWrapper>
 				</S.InputContainer>
 			</S.Line>
-			<Category setTags={setTags} tags={tags}></Category>
 			<S.TagWrapper>
 				{tags &&
 					tags.map((tag, index) => (
@@ -220,13 +232,13 @@ const RegisterPage = () => {
 					<S.Title>거래장소</S.Title>
 					<S.Address>{searchResult}</S.Address>
 					<FindAddress setter={setSearchResult} />
-					{/*마이페이지-유저정보수정 닉네임 에러처리방식사용하기 */}
+					{addressMessage && <Error>{addressMessage}</Error>}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
 			<S.Line>
 				<S.Mark>*</S.Mark>
-				<S.Title style={{ width: '100px' }}>본문 내용</S.Title>
+				<S.Title>본문 내용</S.Title>
 				<S.InputContainer>
 					{errors.content && (
 						<S.Error role="alert" style={{ left: '20px', top: '-10px' }}>
@@ -245,13 +257,17 @@ const RegisterPage = () => {
 			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
+				{showModal && (
+					<AlertModal
+						content={'이미지를 등록해주세요'}
+						setModal={setShowModal}
+					/>
+				)}
 			</S.Container>
 			{modal && (
 				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />
 			)}
-			{regiModal && (
-				<AlertModal content={'물품수정이 완료되었습니다.'} props={'/main'} />
-			)}
+			{regiModal && <AlertModal content={'물품수정이 완료되었습니다.'} />}
 		</S.Wrapper>
 	);
 };
@@ -326,6 +342,10 @@ const InputBox = styled.input`
 	@media screen and (max-width: 768px) {
 		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
+`;
+
+const SelectorWrapper = styled.div`
+	width: 100%;
 `;
 
 const TagWrapper = styled.div`
@@ -491,6 +511,7 @@ const S = {
 	Title,
 	InputContainer,
 	InputBox,
+	SelectorWrapper,
 	TagWrapper,
 	TagBox,
 	TagContent,

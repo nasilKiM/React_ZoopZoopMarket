@@ -1,5 +1,3 @@
-// form type 설정
-
 export const FORM_TYPE = {
 	EMAIL: {
 		required: 'email을 입력해주세요',
@@ -36,7 +34,7 @@ export const FORM_TYPE = {
 		maxLength: { value: 10, message: '닉네임은 최대 10자입니다' },
 		pattern: {
 			value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,
-			message: '공백없이 한글, 영어, 숫자 형태의 닉네임을 입력해 주세요'
+			message: '공백없이 한글, 영어, 숫자 형태의 닉네임을 입력해 주세요',
 		},
-	}
+	},
 };

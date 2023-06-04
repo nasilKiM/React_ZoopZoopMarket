@@ -1,48 +1,43 @@
 import { useEffect, useState } from 'react';
 
-import { getAccountBook } from 'Hooks/Queries/get-mypage-accountBook';
-
 import AccountBookSelector from './Components/selector';
 import AccountBookDetailInfo from './Components/detailInfo';
 import DetailCard from './Components/detailCard';
 
-import dayjs from 'dayjs';
+import { useGetAccountBook } from 'Hooks/Queries/get-mypage-query';
 
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 const AccountBookPage = () => {
 	const [category, setCategory] = useState('seller');
 	const now = dayjs();
-	const [date, setDate] = useState(now);
-	const [year, setYear] = useState(now.get('year'));
-	const [month, setMonth] = useState(now.get('month'));
-	const thisMonth = now.get('month');
+	const [date, setDate] = useState(now.format('YYYY-MM'));
+	const [year, setYear] = useState(now.year());
+	const [month, setMonth] = useState(now.format('MM'));
+  
+	const firstDay = dayjs(`${year}-${month}-01`);
+	const lastDay = firstDay.daysInMonth().toString();
 
+	const start = `${year}-${month}-01`
+	const end = `${year}-${month}-${lastDay}`
+
+	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
+	getAccountBook && console.log(getAccountBook.data);
 	useEffect(() => {
-		setDate(`${year}-${month}-01`);
-	}, [month]);
-
-	const specificMonth = new Date(year, month, 0);
-	const lastDay = specificMonth.getDate();
-
-	const res = getAccountBook({
-		page: 1,
-		category,
-		start: `${year}-${month}-01`,
-		end: `${year}-${month}-${lastDay}`,
-	});
+		setDate(`${year}-${month}`)
+	}, [year, month]);
 
 	return (
 		<S.Wrapper>
-			<AccountBookDetailInfo
-				category={category}
+			{getAccountBook && <AccountBookDetailInfo
 				date={date}
 				setDate={setDate}
-				year={year}
-				month={month}
-				thisMonth={thisMonth}
-				data={res.data}
-			/>
+				data={getAccountBook.data}
+				category={category}
+				setYear={setYear}
+				setMonth={setMonth}
+			/>}
 			<AccountBookSelector
 				category={category}
 				setCategory={setCategory}
@@ -51,11 +46,12 @@ const AccountBookPage = () => {
 				month={month}
 				setMonth={setMonth}
 			/>
-			<DetailCard
-				data={res.data}
+			{getAccountBook && <DetailCard
+				data={getAccountBook.data}
+				category={category}
 				year={year}
 				month={month}
-			/>
+			/>}
 		</S.Wrapper>
 	);
 };
@@ -63,16 +59,10 @@ const AccountBookPage = () => {
 export default AccountBookPage;
 
 const Wrapper = styled.div`
-	margin: 0 auto 300px;
-	width: 60vw;
-	height: 100%;
-`;
-
-const DetailTitle = styled.div`
-	margin: 50px 0;
+	margin: 0 auto;
+	width: 100%;
 `;
 
 const S = {
 	Wrapper,
-	DetailTitle
 };

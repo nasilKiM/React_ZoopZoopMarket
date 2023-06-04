@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const AccountBookSelector = props => {
 	const { category, setCategory, year, setYear, month, setMonth } = props;
-
 	return (
 		<>
 			<S.SelectorsZone>
@@ -23,8 +22,8 @@ const AccountBookSelector = props => {
 						onChange={({ target: { value } }) => setYear(String(value))}
 					>
 						<option value="2023">2023 년</option>
-						<option value="2022">2022 년</option>
-						<option value="2021">2021 년</option>
+						<option value="2024">2024 년</option>
+						<option value="2025">2025 년</option>
 					</S.LargeSelect>
 					<S.LargeSelect
 						name="month"
@@ -32,7 +31,6 @@ const AccountBookSelector = props => {
 						value={month}
 						onChange={({ target: { value } }) => setMonth(String(value))}
 					>
-						<option value="none">=== 선택 ===</option>
 						<option value="01">1 월</option>
 						<option value="02">2 월</option>
 						<option value="03">3 월</option>
@@ -55,19 +53,23 @@ const AccountBookSelector = props => {
 export default AccountBookSelector;
 
 const SelectorsZone = styled.div`
-	width: 80%;
+	width: 48%;
 	display: flex;
 	justify-content: space-between;
 	margin: 50px auto 30px;
-	form {
-		&:nth-child(1) {
-			margin-right: 15px;
-		}
+	@media screen and (max-width: 1000px) {
+		width: 70%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 80%;
 	}
 `;
 
 const RightSideSelectors = styled.div`
 	display: flex;
+	& > select:nth-child(2) {
+		margin-left: 10px;
+	}
 `;
 
 const LargeSelect = styled.select`
@@ -76,7 +78,6 @@ const LargeSelect = styled.select`
 	appearance: none;
 	width: 100px;
 	height: 40px;
-	margin-left: 10px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.regular};
 	text-align: center;

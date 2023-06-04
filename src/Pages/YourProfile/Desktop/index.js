@@ -1,6 +1,7 @@
 import ItemCard from 'Components/Card/Desktop/Card';
 import Profile from 'Components/Profile/Desktop/profile';
 import ReviewMessage from 'Components/Review/Review';
+
 import styled from 'styled-components';
 
 const YourProfile = () => {
@@ -14,7 +15,6 @@ const YourProfile = () => {
 					<S.Info>
 						<S.Name>이름 자리</S.Name>
 						<S.Temperature>37°C</S.Temperature>
-						{/* <Icon style={{ width: '50px', height: '50px', color: 'black' }} /> */}
 					</S.Info>
 					<S.Info>
 						내 지역
@@ -53,7 +53,6 @@ const Wrapper = styled.div`
 
 const ProfileSection = styled.div`
 	width: 700px;
-	/* border: 1px solid red; */
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
