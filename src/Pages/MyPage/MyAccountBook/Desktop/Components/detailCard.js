@@ -7,7 +7,7 @@ import styled from "styled-components";
 const DetailCard = ({data, category, year, month}) => {
 	let priceArr = [];
 	let sum = 0;
-	const [amount, setAmount] = useState(sum);
+	const [amount, setAmount] = useState('0');
 
 	useEffect(() => {
 		for(let i = 0; i < data.payList.length; i++) {
