@@ -4,7 +4,7 @@ import UserApi from 'Apis/userApi';
 
 import MyMessage from './Components/MyChat';
 import YourMessage from './Components/YourChat';
-import DateDivide from './Components/DateDevide';
+import DateDivide from './Components/DateDivide';
 
 import dayjs from 'dayjs';
 
