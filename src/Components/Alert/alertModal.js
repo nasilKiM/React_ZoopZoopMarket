@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+
+import { flexAllCenter } from 'Styles/common';
 
 const AlertModal = ({ content, props, setModal }) => {
 	const navigate = useNavigate();
 
 	const onClickAlert = () => {
+		if (!props) return setModal(() => false);
 		if (!setModal) return navigate(`${props}`);
 		setModal(() => false);
 	};

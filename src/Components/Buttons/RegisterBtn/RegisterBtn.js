@@ -12,11 +12,7 @@ const RegisterBtn = () => {
 
 	return (
 		<S.Wrap onClick={onClick}>
-			<S.Button
-				as={motion.button}
-				whileHover={{ scale: 1.2, rotate: 90 }}
-				whileTap={{ scale: 0.8, rotate: -90, borderRadius: '100%' }}
-			/>
+			<S.Button as={motion.button} />
 		</S.Wrap>
 	);
 };

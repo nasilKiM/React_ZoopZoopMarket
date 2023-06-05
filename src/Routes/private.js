@@ -8,4 +8,5 @@ const PrivateRoute = ({ children }) => {
 
 	return access_token ? children : <Navigate to={`/`} />;
 };
+
 export default PrivateRoute;

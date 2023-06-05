@@ -1,6 +1,6 @@
 import ProductImg from './ProductImg/productImg';
 import MannerMeter from 'Components/Icon/Icon';
-import Profile from 'Components/Profile/Desktop/profile';
+import Profile from 'Components/Profile/profile';
 
 import styled from 'styled-components';
 
@@ -38,10 +38,11 @@ const Wrapper = styled.div`
 	width: 100%;
 	padding-top: 20px;
 
-	& > * {
+	> * {
 		margin-bottom: 20px 0;
 	}
-	& > div:first-child {
+	
+	> div:first-child {
 		border: 1px solid ${({ theme }) => theme.color.gray[200]};
 		height: 400px;
 		${flexAllCenter}
@@ -57,14 +58,15 @@ const ProductWrapper = styled.div`
 
 const UserProfile = styled.div`
 	${flexAllCenter}
-	& > ul {
+	
+	> ul {
 		margin-left: 20px;
-		& > li:first-child {
+		> li:first-child {
 			font-size: ${({ theme }) => theme.fontSize.md};
 			font-weight: ${({ theme }) => theme.fontWeight.bold};
 			margin-bottom: 5px;
 		}
-		& > li {
+		> li {
 			margin: 10px 0;
 		}
 	}
@@ -72,7 +74,8 @@ const UserProfile = styled.div`
 
 const UserProfileDetail = styled.div`
 	text-align: right;
-	& > ul > * {
+	
+	> ul > * {
 		margin: 10px 10px;
 		font-size: ${({ theme }) => theme.fontSize.base};
 	}

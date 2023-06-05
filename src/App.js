@@ -6,19 +6,21 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import ApiCustomError from 'Apis/@error';
 
-import { RecoilRoot } from 'recoil';
+import LoadingPage from 'Components/Loading/Loading';
 import SocketProvider from 'Context/socket';
-import { ThemeProvider } from 'styled-components';
-
 import router from './Routes/routing';
+
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from 'Styles/global';
 import { theme } from 'Styles/theme';
 
 function App() {
 	const queryClient = new QueryClient();
+
 	return (
-		<Suspense>
+		<Suspense fallback={<LoadingPage />}>
 			<ErrorBoundary
 				fallback={<div>에러발생!!</div>}
 				onError={error => {

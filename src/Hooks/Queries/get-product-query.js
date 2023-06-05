@@ -31,9 +31,7 @@ export const useRecentProduct = () => {
 	const { isLoading, isError, data, refetch, error } = useQuery(
 		['recent'],
 		() => recentPrd(),
-		{
-			onSuccess: data => {},
-		},
+		queryConfig,
 	);
 
 	return { isLoading, isError, data, refetch, error };

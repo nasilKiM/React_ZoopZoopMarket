@@ -1,6 +1,7 @@
-import { flexAllCenter } from 'Styles/common';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const ConfirmModal = ({ children }) => {
 	return (

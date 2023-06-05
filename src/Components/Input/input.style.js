@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 const variantCSS = {
 	primaryBottom: css`
 		border: none;
