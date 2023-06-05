@@ -1,9 +1,8 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-
 import { Navigation } from 'swiper';
+import 'swiper/css/navigation';
+import 'swiper/css';
 import styled from 'styled-components';
 
 const ProductImg = ({ main, sub }) => {
@@ -17,14 +16,14 @@ const ProductImg = ({ main, sub }) => {
 					loop={true}
 				>
 					<SwiperSlide>
-						<ImgSection
+						<S.ImgSection
 							src={main}
 							onClick={() => window.open(`${main}`, '_blank')}
 						/>
 					</SwiperSlide>
 					{sub.map(img => (
 						<SwiperSlide>
-							<ImgSection
+							<S.ImgSection
 								src={img.img_url}
 								onClick={() => window.open(`${img.img_url}`, '_blank')}
 							/>
@@ -45,3 +44,7 @@ const ImgSection = styled.img`
 	background: gray;
 	margin: 0 auto;
 `;
+
+const S = {
+	ImgSection,
+};

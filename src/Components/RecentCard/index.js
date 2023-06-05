@@ -7,9 +7,9 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
-import styled from 'styled-components';
 
 const RecentProduct = () => {
 	const res = useRecentProduct();
@@ -40,13 +40,13 @@ const RecentProduct = () => {
 			{res.data?.productList.length <= 2 ? (
 				<TempSlider>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</TempSlider>
 			) : (
 				<StyledSlider {...sliderSetting}>
 					{res.data?.productList.map(item => (
-						<RecentCard item={item} />
+						<RecentCard item={item} key={Math.random()} />
 					))}
 				</StyledSlider>
 			)}

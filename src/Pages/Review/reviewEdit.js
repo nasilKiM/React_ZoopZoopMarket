@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
+
+import AlertModal from 'Components/Alert/alertModal';
+import PropTypes from 'prop-types';
 
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
@@ -11,32 +15,26 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-import { useParams } from 'react-router-dom';
 import { styled as mui } from '@mui/material/styles';
-
-import PropTypes from 'prop-types';
-
 import styled from 'styled-components';
-import AlertModal from 'Components/Alert/alertModal';
 
 const ReviewEditPage = () => {
+	const { idx } = useParams();
+	const queryClient = useQueryClient();
+	const target = useRecoilValue(reviewAtom);
+
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
 		},
 	}));
 
-	const target = useRecoilValue(reviewAtom);
-	const { idx } = useParams();
-	const queryClient = useQueryClient();
-
-	target && console.log(target);
-
 	const title = target && target.Review.title;
 	const [content, setContent] = useState(target.Review.content);
 	const [ondo, setOndo] = useState(target.Review.ondo - 33);
 	const [images, setImages] = useState([]);
 	const [newImg, setNewImg] = useState([]);
+
 	const [show, setShow] = useState(true);
 	const [postModal, setPostModal] = useState(false);
 
@@ -56,7 +54,6 @@ const ReviewEditPage = () => {
 	const handleSubmit = async e => {
 		e.preventDefault();
 
-		// FormData 생성
 		const formData = new FormData();
 		formData.append('title', title);
 		formData.append('content', content);
@@ -66,6 +63,7 @@ const ReviewEditPage = () => {
 		});
 
 		const imgUrls = [];
+
 		images.forEach((element, index) => {
 			if (index === 0) {
 				formData.append('main_url', element);
@@ -73,7 +71,9 @@ const ReviewEditPage = () => {
 				imgUrls.push(element);
 			}
 		});
+
 		formData.append('img_url', imgUrls.join());
+
 		try {
 			mutationEditReview.mutate(formData, {
 				onSuccess: () => {
@@ -133,8 +133,7 @@ const ReviewEditPage = () => {
 						<S.TargetPrice>
 							{target.Product.price == 0
 								? '무료나눔'
-								: target.Product.price.toLocaleString()}
-							원
+								: target.Product.price.toLocaleString() + '원'}
 						</S.TargetPrice>
 					</S.TargetContent>
 				</S.Target>

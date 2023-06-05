@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import ToggleBar from 'Components/Toggle/Toggle';
-import MyProfile from './Components/MyPofile/myProfile';
+import MyProfile from './Components/myProfile';
 
 import styled from 'styled-components';
 

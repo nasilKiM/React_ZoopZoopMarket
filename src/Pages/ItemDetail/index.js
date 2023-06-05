@@ -10,14 +10,19 @@ import ItemDetailPageSkeleton from './Components/itemDetailSkeleton';
 
 const ItemDetailPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
-	const { idx } = useParams();
-	const { data } = useQuery(['product', idx], () => ProductApi.detail(idx), {
-		onError: err => {
-			console.log(err);
-		},
-	});
+	const [status, setStatus] = useState(false);
 
+	const { idx } = useParams();
 	const client = useQueryClient();
+	const { data, refetch } = useQuery(
+		['product', idx, status],
+		() => ProductApi.detail(idx),
+		{
+			onError: err => {
+				console.log(err);
+			},
+		},
+	);
 
 	const { mutate } = useMutation(() => ProductApi.addRecent(idx), {
 		onSuccess: () => {
@@ -27,19 +32,13 @@ const ItemDetailPage = () => {
 
 	useEffect(() => {
 		mutate(data?.data.searchProduct.idx);
-	}, []);
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
-	const isSeller = data && data.data.isSeller;
-
-	useEffect(() => {
+		refetch();
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 500);
 	}, []);
+
+	const isSeller = data && data.data.isSeller;
 
 	return (
 		<>
@@ -50,7 +49,12 @@ const ItemDetailPage = () => {
 					{!isSeller ? (
 						<BuyerDetailPage state={isSeller} product={data} />
 					) : (
-						<SellerDetailPage state={isSeller} product={data} idx={idx} />
+						<SellerDetailPage
+							state={isSeller}
+							product={data}
+							idx={idx}
+							setStatus={setStatus}
+						/>
 					)}
 				</>
 			)}
