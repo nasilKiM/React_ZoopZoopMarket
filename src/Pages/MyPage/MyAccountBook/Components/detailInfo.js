@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAlignCenter, flexAllCenter } from 'Styles/common';
 import './styles.css';
 
 const AccountBookDetailInfo = ({
@@ -165,15 +165,7 @@ const AccountBookDetailInfo = ({
 export default AccountBookDetailInfo;
 
 const Wrap = styled.div`
-	width: 60%;
-	margin: 0 auto;
-
-	@media screen and (max-width: 1000px) {
-		width: 80%;
-	}
-	@media screen and (max-width: 600px) {
-		width: 100%;
-	}
+	${basicSetting}
 `;
 
 const PreviewWrap = styled.div`
@@ -184,8 +176,7 @@ const PreviewWrap = styled.div`
 	box-shadow: 0px 0px 20px #e0e0e0;
 
 	> div:nth-child(1) {
-		display: flex;
-		justify-content: center;
+		${flexAlignCenter}
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}

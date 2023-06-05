@@ -13,24 +13,32 @@ import {
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { basicSetting } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
 	const showRef = useRef();
+	const hamburgerRef = useRef();
+	const hamburgerShowRef = useRef();
+
 	const navigate = useNavigate();
+
 	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
+
 	const [isHover, setIsHover] = useState(false);
 	const [isClickProfileIcon, setIsClickProfileIcon] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [MenuIsOpen, setMenuIsOpen] = useState();
+	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
+	const [isClickHamburgerIcon, setIsClickHamburgerIcon] = useState(false);
 
 	useEffect(() => {
-		document.addEventListener('mousedown', handleClickOutside);
+		document.addEventListener('mousedown', handleClickOutside1);
+		document.addEventListener('mousedown', handleClickOutside2);
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
+			document.removeEventListener('mousedown', handleClickOutside1);
+			document.removeEventListener('mousedown', handleClickOutside2);
 		};
 	}, []);
 
@@ -63,13 +71,19 @@ const WebHeader = ({ so }) => {
 	};
 
 	const toggleMenu = () => {
-		setMenuIsOpen(MenuIsOpen => !MenuIsOpen);
+		setMenuIsOpen(!MenuIsOpen);
 	};
 
-	const handleClickOutside = e => {
-		if (showRef.current?.contains(e.target)) return;
-		if (!wrapperRef.current?.contains(e.target) && !isClickProfileIcon) {
+	const handleClickOutside1 = e => {
+		if (wrapperRef.current?.contains(e.target)) return;
+		if (!isClickProfileIcon && !showRef.current?.contains(e.target)) {
 			setIsClickProfileIcon(false);
+		}
+	};
+	const handleClickOutside2 = e => {
+		if (hamburgerRef.current?.contains(e.target)) return;
+		if (!MenuIsOpen && !hamburgerShowRef.current?.contains(e.target)) {
+			setMenuIsOpen(false);
 		}
 	};
 
@@ -88,7 +102,7 @@ const WebHeader = ({ so }) => {
 				<S.Container isMobile={isTablet}>
 					{isTablet ? (
 						<>
-							<div onClick={() => toggleMenu()}>
+							<div onClick={toggleMenu}>
 								{MenuIsOpen ? (
 									<>
 										<FontAwesomeIcon
@@ -96,35 +110,35 @@ const WebHeader = ({ so }) => {
 											color="gray"
 											cursor="pointer"
 											fontSize="35px"
+											ref={hamburgerRef}
 										/>
-										<div disabled={!MenuIsOpen}>
-											<S.MenuOpen>
-												<S.Menu
-													key={1}
-													onClick={() => {
-														return navigate(`/search_list/${word}/0`);
-													}}
-												>
-													중고 거래
-												</S.Menu>
-												<S.Menu
-													key={0}
-													onClick={() => {
-														return navigate(`/search_list/${word}/1`);
-													}}
-												>
-													무료 나눔
-												</S.Menu>
 
-												<S.Menu
-													onClick={() => {
-														return navigate(`/market_price`);
-													}}
-												>
-													실시간 시세
-												</S.Menu>
-											</S.MenuOpen>
-										</div>
+										<S.MenuOpen ref={hamburgerShowRef}>
+											<S.Menu
+												key={1}
+												onClick={() => {
+													return navigate(`/search_list/${word}/0`);
+												}}
+											>
+												중고 거래
+											</S.Menu>
+											<S.Menu
+												key={0}
+												onClick={() => {
+													return navigate(`/search_list/${word}/1`);
+												}}
+											>
+												무료 나눔
+											</S.Menu>
+
+											<S.Menu
+												onClick={() => {
+													return navigate(`/market_price`);
+												}}
+											>
+												실시간 시세
+											</S.Menu>
+										</S.MenuOpen>
 									</>
 								) : (
 									<FontAwesomeIcon
@@ -246,10 +260,8 @@ export default WebHeader;
 
 const Wrapper = styled.div`
 	${basicSetting}
+	${flexAllCenter}
 	font-family: 'Nanum_extraBold';
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	padding-bottom: 5px;
 `;
 
@@ -352,6 +364,7 @@ const CategoryIcon = styled.img`
 	@media (max-width: 700px) {
 		width: 35px;
 	}
+	cursor: pointer;
 `;
 
 const MenuOptionWrapper = styled.div`

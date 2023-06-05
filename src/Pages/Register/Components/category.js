@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
+import { flexAlignCenter } from 'Styles/common';
 
 const categories = [
 	{
@@ -163,9 +164,8 @@ const CategoryContainer = styled.div`
 `;
 
 const CategoryItem = styled.div`
-	display: flex;
+	${flexAlignCenter}
 	flex-direction: column;
-	align-items: center;
 	text-align: center;
 	font-size: ${({ theme }) => theme.fontSize.xs};
 	color: #555;

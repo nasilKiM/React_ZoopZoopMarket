@@ -4,6 +4,7 @@ import { PropsBtn } from 'Components/Buttons/style';
 import SearchList from './searchList';
 
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const FreeProduct = ({ data }) => {
 	const navigate = useNavigate();
@@ -71,21 +72,11 @@ const FreeProduct = ({ data }) => {
 export default FreeProduct;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 10px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
 `;
 
 const CardContainer = styled.div`

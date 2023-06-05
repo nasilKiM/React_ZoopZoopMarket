@@ -3,10 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 
 import SearchList from './searchList';
-import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkeleton';
 import { useInfiniteSearch } from 'Hooks/Queries/get-infinite-query';
 
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const WholeListPage = () => {
 	const { word, category } = useParams();
@@ -124,17 +125,8 @@ const SelectContainer = styled.div`
 `;
 
 const BoxContainer = styled.div`
-	width: 70%;
 	display: flex;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
+	${basicSetting}
 `;
 
 const SelectBox = styled.div`

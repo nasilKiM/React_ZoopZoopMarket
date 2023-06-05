@@ -1,3 +1,4 @@
+import { flexAllCenter } from 'Styles/common';
 import React, { useState } from 'react';
 
 import styled from 'styled-components';
@@ -99,9 +100,7 @@ const CategorySelector = ({ setTags, tags }) => {
 export default CategorySelector;
 
 const CategoryWrapper = styled.div`
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+	${flexAllCenter}
 `;
 
 const Selector = styled.select`
