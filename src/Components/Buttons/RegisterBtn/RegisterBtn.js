@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -11,7 +12,12 @@ const RegisterBtn = () => {
 
 	return (
 		<S.Wrap onClick={onClick}>
-			<S.Button />
+			<S.Button
+				as={motion.button}
+				whileHover={{ scale: 1.2 }}
+				whileTap={{ scale: 0.8, rotate: -180 }}
+				transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+			/>
 		</S.Wrap>
 	);
 };
@@ -34,7 +40,7 @@ const Wrap = styled.div`
 	z-index: 105;
 `;
 
-const Button = styled.button`
+const Button = styled(motion.button)`
 	height: 100%;
 	width: 100%;
 	cursor: pointer;

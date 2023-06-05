@@ -10,10 +10,12 @@ import ProductApi from 'Apis/productApi';
 import styled from 'styled-components';
 
 import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
+	const queryClient = useQueryClient();
 
 	const onClickCard = () => {
 		if (products.idx === undefined) {
@@ -29,10 +31,19 @@ const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
 		navigate(`/register/${products.idx}`);
 	};
 
+	const mutationDeletePost = useMutation(() => {
+		return ProductApi.deletePost(products.idx);
+	});
+
 	const onClickDelete = async () => {
 		try {
-			await ProductApi.deletePost(products.idx);
-			setModal(false);
+			await mutationDeletePost.mutateAsync(products.idx, {
+				onSuccess: () => {
+					queryClient.invalidateQueries(['MY_ITEMS']);
+					setModal(false);
+					navigate('/mypage/item');
+				},
+			});
 		} catch {
 			console.log('삭제 실패');
 		}
