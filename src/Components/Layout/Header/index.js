@@ -31,7 +31,6 @@ const WebHeader = ({ so }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
-	const [isClickHamburgerIcon, setIsClickHamburgerIcon] = useState(false);
 
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside1);
