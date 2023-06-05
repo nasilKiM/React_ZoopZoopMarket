@@ -13,7 +13,7 @@ import ChattingPage from 'Pages/Chat';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
 import ConfirmModal from 'Components/Alert/confirmModal';
 
 const SellerDetailPage = ({ state, product, idx, setStatus }) => {
