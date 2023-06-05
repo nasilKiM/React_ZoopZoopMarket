@@ -58,7 +58,7 @@ const Wrapper = styled.div`
 	justify-content: space-around;
 	position: absolute;
 	top: 200px;
-	z-index: 999;
+	z-index: 99;
 	width: 500px;
 	height: 150px;
 	border-radius: 20px;

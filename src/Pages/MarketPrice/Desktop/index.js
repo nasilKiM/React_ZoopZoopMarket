@@ -4,14 +4,19 @@ import { useParams } from 'react-router-dom';
 import ProductApi from 'Apis/productApi';
 
 import SearchBar from 'Components/SearchBar/SearchBar';
-import Chart from './components/chart';
-import RecentSoldOut from './components/recentSoldout';
 import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkeleton';
+import Chart from '../components/chart';
+import RecentSoldOut from '../components/recentSoldout';
 
-import dayjs from 'dayjs';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
+import {
+	basicSetting,
+	flexAlignCenter,
+	flexJustifyCenter,
+} from 'Styles/common';
 
-const MarketPricePage = () => {
+const DesktopMarketPrice = () => {
 	const props = 'market_price';
 	const { word } = useParams();
 	const today = dayjs().format('YYYY-MM-DD');
@@ -102,29 +107,18 @@ const MarketPricePage = () => {
 	);
 };
 
-export default MarketPricePage;
+export default DesktopMarketPrice;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	@media screen and (max-width: 700px) {
-		width: 95%;
-	}
-	@media screen and (max-width: 900px) {
-		width: 90%;
-	}
 `;
 const UpperPart = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-
 	@media screen and (max-width: 720px) {
 		align-items: center;
 		flex-direction: column;
@@ -134,7 +128,6 @@ const UpperPart = styled.div`
 const LeftPart = styled.div`
 	width: 60%;
 	margin-left: 20px;
-
 	@media screen and (max-width: 720px) {
 		width: 100%;
 	}
@@ -143,45 +136,35 @@ const Title = styled.div`
 	text-align: start;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	font-size: ${({ theme }) => theme.fontSize.md};
-	margin-top: 30px;
-	margin-bottom: 20px;
-
 	@media screen and (max-width: 720px) {
 		text-align: center;
 		font-size: ${({ theme }) => theme.fontSize.base};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 	}
+	margin-top: 30px;
+	margin-bottom: 20px;
 `;
-
 const SubTitle = styled.div`
 	margin-top: 15px;
 	font-size: ${({ theme }) => theme.fontSize.base};
-
 	@media screen and (max-width: 920px) {
 		font-size: ${({ theme }) => theme.fontSize.sm};
 		color: ${({ theme }) => theme.color.gray[300]};
 	}
 `;
-
 const ChartContainer = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: center;
+	${flexAlignCenter}
 	margin-top: 50px;
-	align-items: center;
-
 	@media screen and (max-width: 767px) {
 		margin-top: 20px;
 	}
 `;
-
 const Average = styled.div`
 	width: 100%;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	margin-top: 30px;
-	display: flex;
-	justify-content: center;
-
+	${flexJustifyCenter}
 	@media screen and (max-width: 767px) {
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
@@ -189,12 +172,11 @@ const Average = styled.div`
 
 const RecentlyClosed = styled.div`
 	margin-top: 40px;
-	font-size: ${({ theme }) => theme.fontSize.md};
-	font-weight: ${({ theme }) => theme.fontWeight.bolder};
-
 	@media screen and (max-width: 767px) {
 		margin-top: 20px;
 	}
+	font-size: ${({ theme }) => theme.fontSize.md};
+	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
 
 const ItemList = styled.div`
@@ -212,14 +194,12 @@ const SearchBarContainer = styled.div`
 	width: 250px;
 	margin-top: 45px;
 	margin-right: 10px;
-
 	@media screen and (max-width: 720px) {
 		width: 220px;
 		margin: 0 auto;
 		margin-top: 25px;
 	}
 `;
-
 const S = {
 	Wrapper,
 	UpperPart,

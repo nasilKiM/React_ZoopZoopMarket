@@ -73,7 +73,7 @@ export default ReviewItemCard;
 const Wrapper = styled.div`
 	${flexSpaceBetween}
 	margin-top: 20px;
-	max-width: 800px;
+	width: 100%;
 `;
 
 const Container = styled.div`
@@ -97,9 +97,9 @@ const ItemImg = styled.img`
 
 const ItemInfo = styled.div`
 	padding-left: 30px;
-	display: flex;
+	${flexAlignCenter}
 	flex-direction: column;
-	justify-content: center;
+
 	@media (max-width: 680px) {
 		padding-left: 15px;
 	}

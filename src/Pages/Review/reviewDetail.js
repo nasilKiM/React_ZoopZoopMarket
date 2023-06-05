@@ -17,7 +17,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
 
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAlignCenter, flexAllCenter } from 'Styles/common';
 
 const ReviewDetail = () => {
 	const navigate = useNavigate();
@@ -189,10 +189,7 @@ const ReviewDetail = () => {
 export default ReviewDetail;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 20px;
 	display: flex;
 	flex-direction: column;
