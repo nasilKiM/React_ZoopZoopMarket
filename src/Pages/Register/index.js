@@ -264,12 +264,7 @@ const RegisterPage = () => {
 			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
-				{showModal && (
-					<AlertModal
-						content={'이미지를 등록해주세요'}
-						setModal={setShowModal}
-					/>
-				)}
+				{showModal && <AlertModal content={'이미지를 등록해주세요'} />}
 			</S.Container>
 			{modal && (
 				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />

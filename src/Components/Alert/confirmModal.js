@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
@@ -5,7 +6,18 @@ import { flexAllCenter } from 'Styles/common';
 const ConfirmModal = ({ children }) => {
 	return (
 		<S.Wrap>
-			<S.Container>{children}</S.Container>
+			<S.Container
+				as={motion.div}
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{
+					duration: 0.3,
+					delay: 0.2,
+					ease: [0, 0.1, 0.2, 1.0],
+				}}
+			>
+				{children}
+			</S.Container>
 		</S.Wrap>
 	);
 };
@@ -23,7 +35,7 @@ const Wrap = styled.div`
 	${flexAllCenter}
 `;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
 	width: 350px;
 	height: 180px;
 	background-color: ${({ theme }) => theme.color.white};
