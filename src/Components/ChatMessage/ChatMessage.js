@@ -1,4 +1,5 @@
 import ProductApi from 'Apis/productApi';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -7,6 +8,8 @@ import { flexAllCenter } from 'Styles/common';
 
 let date;
 const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
+	const { showBoundary } = useErrorBoundary();
+
 	const now = dayjs();
 	const timeStamp = dayjs(chat.lastMessageCreatedAt);
 	if (now.diff(timeStamp, 'day') === 0) {
@@ -17,14 +20,15 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 	} else {
 		date = timeStamp.format('YYYY.MM.DD');
 	}
+
 	const onClickChat = async () => {
 		setChatroomIdx(chat.idx);
 		if (item) return;
 		try {
 			const res = await ProductApi.detail(chat.product.idx);
 			setItemInfo(res.data);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 

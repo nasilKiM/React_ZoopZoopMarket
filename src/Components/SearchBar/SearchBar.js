@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import AlertModal from 'Components/Alert/alertModal';
 
@@ -13,6 +14,7 @@ const SearchBar = ({ props, setIsModalOpen }) => {
 	const location = useLocation();
 	const pathOption = location.pathname.split('/')[1];
 	const [modal, setModal] = useState(false);
+	const { showBoundary } = useErrorBoundary();
 
 	const onSearch = async e => {
 		e.preventDefault();
@@ -24,8 +26,8 @@ const SearchBar = ({ props, setIsModalOpen }) => {
 			let searchWord = e.target.searchKey.value;
 			navigate(`/${props}/${searchWord}`);
 			setIsModalOpen(false);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 

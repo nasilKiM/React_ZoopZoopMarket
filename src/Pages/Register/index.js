@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ProductApi from 'Apis/productApi';
 
@@ -25,6 +26,8 @@ const RegisterPage = () => {
 	const [modal, setModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
+
+	const { showBoundary } = useErrorBoundary();
 
 	const { idx } = useParams();
 	const queryClient = useQueryClient();
@@ -53,8 +56,8 @@ const RegisterPage = () => {
 				res.data.searchProduct.img_url,
 				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
 			]);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
@@ -159,8 +162,8 @@ const RegisterPage = () => {
 					},
 				});
 			}
-		} catch (err) {
-			return console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 

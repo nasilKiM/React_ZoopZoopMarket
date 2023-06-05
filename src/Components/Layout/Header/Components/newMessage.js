@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ProductApi from 'Apis/productApi';
 
@@ -10,14 +11,15 @@ import { flexAllCenter } from 'Styles/common';
 const NewMessage = ({ popupMsg, setPopupMsg }) => {
 	const navigate = useNavigate();
 	const [itemInfo, setItemInfo] = useState();
+	const { showBoundary } = useErrorBoundary();
 
 	useEffect(() => {
 		const ProductInfo = async () => {
 			try {
 				const res = await ProductApi.detail(popupMsg?.prod_idx);
 				setItemInfo(res.data);
-			} catch (err) {
-				console.log(err);
+			} catch (error) {
+				showBoundary(error);
 			}
 		};
 

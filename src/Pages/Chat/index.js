@@ -33,53 +33,42 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	}, [getAllChatList]);
 
 	const handleChatDetailToggle = () => {
-		console.log('클릭했음');
 		setShowChatDetail(false);
+	};
+
+	const handleChatList = () => {
+		setShowChatDetail(true);
 	};
 
 	return (
 		<S.ChatContainer>
-			{isTablet ? (
-				<>
-					<S.ChatRightContainer>
-						{chatroomIdx && (
-							<ChatDetail
-								chatroomIdx={chatroomIdx}
-								item={item}
-								isSeller={isSeller}
-								itemInfo={itemInfo}
-							/>
-						)}
-						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
-					</S.ChatRightContainer>
-				</>
-			) : (
-				<>
-					<S.ChatLeftContainer show={showChatDetail}>
-						<ChatList
-							chatroomList={chatroomList}
-							setChatroomIdx={setChatroomIdx}
-							idx={idx}
+			<>
+				<S.ChatLeftContainer show={isTablet ? !showChatDetail : true}>
+					<ChatList
+						onClick={handleChatList}
+						chatroomList={chatroomList}
+						setChatroomIdx={setChatroomIdx}
+						idx={idx}
+						item={item}
+						setItemInfo={setItemInfo}
+					/>
+				</S.ChatLeftContainer>
+				<S.ChatRightContainer show={isTablet ? showChatDetail : true}>
+					{chatroomIdx && (
+						<ChatDetail
+							chatroomIdx={chatroomIdx}
 							item={item}
-							setItemInfo={setItemInfo}
+							isSeller={isSeller}
+							itemInfo={itemInfo}
 						/>
-					</S.ChatLeftContainer>
-					<S.ChatRightContainer show={showChatDetail}>
-						{chatroomIdx && (
-							<ChatDetail
-								chatroomIdx={chatroomIdx}
-								item={item}
-								isSeller={isSeller}
-								itemInfo={itemInfo}
-							/>
-						)}
-						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
-					</S.ChatRightContainer>
-				</>
-			)}
-			{isTablet && (
+					)}
+					{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
+				</S.ChatRightContainer>
+			</>
+
+			{isTablet && showChatDetail && (
 				<S.ToggleButton onClick={handleChatDetailToggle}>
-					뒤로가기
+					&lt; 목록보기
 				</S.ToggleButton>
 			)}
 		</S.ChatContainer>
@@ -108,19 +97,21 @@ const ChatContainer = styled.div`
 `;
 
 const ChatLeftContainer = styled.div`
-	width: 50%;
 	height: 100%;
+	flex: 1;
 	min-height: 500px;
 	max-height: 1000px;
+	${props => (props.show ? '' : 'display: none')};
 `;
 
 const ChatRightContainer = styled.div`
 	${flexAllCenter}
 	flex-direction: column;
-	width: 50%;
+	flex: 1;
 	height: 100%;
 	min-height: 500px;
 	max-height: 1000px;
+	${props => (props.show ? '' : 'display: none')};
 
 	@media (max-width: 700px) {
 		width: 100%;
@@ -139,18 +130,24 @@ const NoChat = styled.div`
 const ToggleButton = styled.div`
 	position: absolute;
 	cursor: pointer;
-	top: -15px;
-	width: 100%;
-	padding: 10px 10px;
-	background-color: gray;
+	top: -25px;
+	width: 110px;
+	padding: 10px 15px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
 	left: ${props => (props.show ? 'calc(50% - 20px)' : '5px')};
 	transform: translateY(-50%);
-	color: white;
 	border: none;
-	font-size: 16px;
+	border-radius: 10px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	text-align: left;
 	align-items: center;
 	z-index: 98;
+	:hover {
+		color: ${({ theme }) => theme.color.primary[400]};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		background-color: ${({ theme }) => theme.color.primary[100]};
+	}
 
 	@media (max-width: 700px) {
 		display: block;
