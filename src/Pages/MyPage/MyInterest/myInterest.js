@@ -7,6 +7,7 @@ import { useInfiniteMyInterest } from 'Hooks/Queries/get-infinite-query';
 import styled from 'styled-components';
 
 import { basicSetting, gridAllCenter, gridColumn } from 'Styles/common';
+import LoadingPage from 'Components/Loading/Loading';
 
 const MyInterestPage = () => {
 	const res = useInfiniteMyInterest();
@@ -21,7 +22,7 @@ const MyInterestPage = () => {
 	return (
 		<>
 			{isLoading ? (
-				<div>로딩</div>
+				<LoadingPage />
 			) : (
 				<S.Wrap>
 					{data.pages[0].data.LikeList.length <= 0 ? (
