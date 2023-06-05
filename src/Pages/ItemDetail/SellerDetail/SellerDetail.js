@@ -8,7 +8,7 @@ import ChatApis from 'Apis/chatApis';
 import DetailContent from '../Components/DetailContent/detailContent';
 import DetailHead from '../Components/DetailHead/detailHead';
 import AnotherProduct from '../Components/AnotherProduct/anotherProduct';
-import SoldOutModal from './soldOutModal';
+import SoldOutModal from './components/soldOutModal';
 import ChattingPage from 'Pages/Chat';
 
 import styled from 'styled-components';
