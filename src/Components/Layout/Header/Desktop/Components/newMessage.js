@@ -31,19 +31,19 @@ const NewMessage = ({ popupMsg, setPopupMsg }) => {
 	}, [popupMsg]);
 
 	const handleClickPopupMsg = () => {
-		navigate('/chat')
-	}
+		navigate('/chat');
+	};
 
 	return (
-				<S.Wrapper onClick={handleClickPopupMsg}>
-					<div>
-						<img src={itemInfo?.searchProduct.img_url} />
-					</div>
-					<div>
-						<div>상품명 : {itemInfo?.searchProduct.title}</div>
-						<div>{popupMsg.nickName} 님의 새로운 메세지</div>
-					</div>
-				</S.Wrapper>
+		<S.Wrapper onClick={handleClickPopupMsg}>
+			<div>
+				<img src={itemInfo?.searchProduct.img_url} />
+			</div>
+			<div>
+				<div>상품명 : {itemInfo?.searchProduct.title}</div>
+				<div>{popupMsg.nickName} 님의 새로운 메세지</div>
+			</div>
+		</S.Wrapper>
 	);
 };
 
