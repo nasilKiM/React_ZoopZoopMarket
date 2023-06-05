@@ -132,6 +132,7 @@ const ChattingTitle = styled.div`
 	justify-content: space-between;
 	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	@media (max-width: 800px) {
 		padding: 0 15px;
 	}

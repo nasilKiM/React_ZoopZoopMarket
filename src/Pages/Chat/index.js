@@ -122,9 +122,13 @@ const ChatRightContainer = styled.div`
 
 const NoChat = styled.div`
 	width: 100%;
-	background-color: white;
-	border: 1px solid gray;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ToggleButton = styled.div`
