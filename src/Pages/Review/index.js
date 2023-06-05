@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import ReviewApi from 'Apis/reviewApi';
 
 import AlertModal from 'Components/Alert/alertModal';
+import PropTypes from 'prop-types';
 
 import { useRecoilValue } from 'recoil';
 import { reviewAtom } from 'Atoms/review.atom';
@@ -16,12 +17,10 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
-
-import PropTypes from 'prop-types';
+import { basicSetting } from 'Styles/common';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
-	// const navigate = useNavigate();
 	const { idx } = useParams();
 
 	const title = target.title;
@@ -108,7 +107,7 @@ const ReviewPage = () => {
 					<S.TargetContent>
 						<S.TargetTitle>{target.title}</S.TargetTitle>
 						<S.TargetPrice>
-							{target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원
+							{/* {target.price == 0 ? '무료나눔' : target.price.toLocaleString()}원 */}
 						</S.TargetPrice>
 					</S.TargetContent>
 				</S.Target>
@@ -171,10 +170,7 @@ const ReviewPage = () => {
 export default ReviewPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 20px;
 	display: flex;
 	flex-direction: column;

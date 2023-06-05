@@ -1,5 +1,6 @@
-import { flexAllCenter } from 'Styles/common';
 import styled from 'styled-components';
+
+import { flexAllCenter } from 'Styles/common';
 
 const ConfirmModal = ({ children }) => {
 	return (

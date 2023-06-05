@@ -2,21 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
 
-import ReviewItemCard from 'Components/Card/Desktop/ReviewCard';
+import ReviewItemCard from 'Components/Card/ReviewCard';
+import { basicSetting } from 'Styles/common';
 
 import styled from 'styled-components';
 
 const MyReview = () => {
 	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
 
-	data && console.log('->', data);
-
 	const list = data?.data.reviewList;
 	const total = data?.data.reviewList.length;
 
 	return (
-		<Wrapper>
-			<Title>구매 총 {total}건</Title>
+		<S.Wrapper>
+			<S.Title>구매 총 {total}건</S.Title>
 			{list &&
 				list.map(item => (
 					<ReviewItemCard
@@ -25,17 +24,14 @@ const MyReview = () => {
 						original={item}
 					/>
 				))}
-		</Wrapper>
+		</S.Wrapper>
 	);
 };
 
 export default MyReview;
 
 const Wrapper = styled.div`
-	width: 70%;
-	max-width: 1200px;
-	min-width: 350px;
-	margin: 0 auto;
+	${basicSetting}
 `;
 
 const Title = styled.div`
@@ -50,3 +46,8 @@ const Title = styled.div`
 		font-size: ${({ theme }) => theme.fontSize.xs};
 	}
 `;
+
+const S = {
+	Wrapper,
+	Title,
+};

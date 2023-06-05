@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Skeleton } from '@mui/material';
-
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const ItemDetailPageSkeleton = () => {
 	return (
@@ -138,16 +138,7 @@ const Cover = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 414px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 10px;
 `;
 
@@ -161,12 +152,11 @@ const Blank = styled.div`
 	height: 50px;
 `;
 
-// 프로필쪽
 const SkeletonProfile = styled.div`
+	display: flex;
 	width: 100%;
 	min-width: 414px;
 	max-width: 1200px;
-	display: flex;
 	@media (max-width: 700px) {
 		width: 95%;
 	}
@@ -190,7 +180,6 @@ const Info = styled.div`
 	padding-left: 20px;
 `;
 
-// 본문쪽
 const SkeletonContainer = styled.div`
 	display: flex;
 	margin-top: 10px;
@@ -223,7 +212,16 @@ const Map = styled.div`
 `;
 
 const S = {
+	Cover,
+	Wrapper,
+	Upper,
+	Blank,
+	Pic,
+	Info,
+	Section,
+	Title,
+	Content,
+	Map,
 	SkeletonProfile,
 	SkeletonContainer,
-	Section,
 };

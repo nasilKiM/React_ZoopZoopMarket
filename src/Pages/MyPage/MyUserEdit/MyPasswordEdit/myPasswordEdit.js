@@ -35,8 +35,8 @@ const MyPasswordEdit = () => {
 		},
 		onError: err => {
 			alert(err.response.data.message);
-		}
-	})
+		},
+	});
 
 	const onSubmit = async data => {
 		const info = {
@@ -125,8 +125,7 @@ const Form = styled.form`
 	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
-	display: flex;
-	align-items: center;
+	${flexAlignCenter}
 	flex-direction: column;
 	padding: 50px;
 	@media ${({ theme }) => theme.device.tablet} {

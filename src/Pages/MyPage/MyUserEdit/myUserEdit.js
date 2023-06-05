@@ -5,12 +5,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import UserApi from 'Apis/userApi';
 
-import FindAddress from 'Components/Address/Desktop/address';
+import FindAddress from 'Components/Address/address';
 import AlertModal from 'Components/Alert/alertModal';
 import CustomButton from 'Components/Buttons/button';
-
+import { useUserInfo } from 'Hooks/Queries/get-user-query';
 import { FORM_TYPE } from 'Consts/FormType';
-import useUserInfo from 'Hooks/Queries/get-user-info';
 
 import styled from 'styled-components';
 
@@ -22,9 +21,7 @@ import {
 
 const MyUserEdit = ({ userInfo }) => {
 	const navigate = useNavigate();
-	// const { data } = useQuery(['userInfo'], () => UserApi.userInfo(), {
-	// 	pollInterval: 0, // usequery polling disabled 관련 옵션 찾아보기
-	// });
+	const queryClient = useQueryClient();
 
 	const { data } = useUserInfo();
 
@@ -33,8 +30,6 @@ const MyUserEdit = ({ userInfo }) => {
 	const [nickMessage, setNickMessage] = useState('');
 	const [modal, setModal] = useState(false);
 	const [change, setChange] = useState(false);
-
-	const queryClient = useQueryClient();
 
 	const {
 		register,
@@ -52,6 +47,7 @@ const MyUserEdit = ({ userInfo }) => {
 
 	const onSubmit = async data => {
 		const phoneRegExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+
 		if (!phoneRegExp.test(data.phone)) {
 			setPhoneMessage('핸드폰 번호 양식이 일치하지 않습니다.');
 			return setError('phone', {
@@ -87,6 +83,7 @@ const MyUserEdit = ({ userInfo }) => {
 	const onCheckNick = async e => {
 		e.preventDefault();
 		const value = getValues('nick');
+
 		try {
 			const res = await UserApi.checkNickname(value);
 			setNickMessage(res.data.message);
@@ -206,8 +203,7 @@ const Form = styled.form`
 	max-width: 800px;
 	border: 1px solid ${({ theme }) => theme.color.gray[200]};
 	border-radius: 10px;
-	display: flex;
-	align-items: center;
+	${flexAlignCenter}
 	flex-direction: column;
 	padding: 50px;
 	@media ${({ theme }) => theme.device.tablet} {
