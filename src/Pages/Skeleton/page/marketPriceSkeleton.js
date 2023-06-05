@@ -2,6 +2,11 @@ import BarSkeleton from '../component/barSkeleton';
 
 import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
+import {
+	basicSetting,
+	flexAlignCenter,
+	flexJustifyCenter,
+} from 'Styles/common';
 
 import { theme } from 'Styles/theme';
 
@@ -57,21 +62,10 @@ const MarketPriceSkeleton = () => {
 export default MarketPriceSkeleton;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting};
 	padding-top: 10px;
-	display: flex;
+	${flexAlignCenter};
 	flex-direction: column;
-	align-items: center;
-
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
 `;
 const UpperPart = styled.div`
 	width: 100%;
@@ -110,16 +104,14 @@ const SubTitle = styled.div`
 const ChartContainer = styled.div`
 	width: ${props => props.width * 0.6}px;
 	height: ${props => props.width * 0.6 * 0.6}px;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 	margin-top: 20px;
 `;
 
 const Average = styled.div`
 	width: 100%;
 	margin-top: 10px;
-	display: flex;
-	justify-content: center;
+	${flexJustifyCenter}
 `;
 
 const ItemList = styled.div`

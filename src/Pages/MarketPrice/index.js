@@ -6,7 +6,7 @@ import ProductApi from 'Apis/productApi';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import Chart from './components/chart';
 import RecentSoldOut from './components/recentSoldout';
-import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkele';
+import MarketPriceSkeleton from 'Pages/Skeleton/page/marketPriceSkeleton';
 
 import dayjs from 'dayjs';
 import styled from 'styled-components';

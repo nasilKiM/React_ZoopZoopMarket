@@ -6,9 +6,10 @@ import ProductApi from 'Apis/productApi';
 
 import FreeProduct from './components/freeProduct';
 import UsedProduct from './components/usedProduct';
-import IndexSkeleton from 'Pages/Skeleton/page/searchIndexSkele';
+import IndexSkeleton from 'Pages/Skeleton/page/searchIndexSkeleton';
 
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const SearchListPage = () => {
 	const { word } = useParams();
@@ -117,18 +118,8 @@ const SelectContainer = styled.div`
 `;
 
 const BoxContainer = styled.div`
-	width: 70%;
 	display: flex;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
-
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
+	${basicSetting}
 `;
 
 const SelectBox = styled.div`
@@ -142,14 +133,7 @@ const SelectBox = styled.div`
 `;
 
 const ResultContainer = styled.div`
-	margin: 0 auto;
-	width: 70%;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 800px) {
-		width: 90%;
-	}
+	${basicSetting}
 `;
 
 const ResultText = styled.div`

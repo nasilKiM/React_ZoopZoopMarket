@@ -1,3 +1,4 @@
+import { flexAlignCenter, flexAllCenter } from 'Styles/common';
 import { useState } from 'react';
 
 import styled from 'styled-components';
@@ -168,9 +169,7 @@ const Wrapper = styled.div`
 `;
 
 const ImgContainer = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${flexAllCenter}
 	flex-direction: column;
 `;
 
@@ -208,9 +207,7 @@ const DelBtn = styled.div`
 	position: absolute;
 	color: ${({ theme }) => theme.color.white};
 	font-size: ${({ theme }) => theme.fontSize.lg};
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${flexAllCenter}
 	:hover {
 		width: 32px;
 		height: 32px;
@@ -230,8 +227,7 @@ const DelBtn = styled.div`
 
 const SmallImgBox = styled.div`
 	width: 700px;
-	display: flex;
-	align-items: center;
+	${flexAlignCenter}
 	justify-content: space-between;
 
 	@media screen and (max-width: 1100px) {
@@ -267,9 +263,7 @@ const SmallImgSection = styled.img`
 
 const Count = styled.span`
 	margin: 20px 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexAllCenter}
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	@media (max-width: 768px) {
 		font-size: ${({ theme }) => theme.fontSize.sm};

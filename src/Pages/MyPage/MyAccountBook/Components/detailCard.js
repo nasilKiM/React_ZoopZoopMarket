@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import ItemCard from 'Components/Card/Card';
 
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const DetailCard = ({ data, category, year, month }) => {
 	let priceArr = [];
@@ -51,14 +52,7 @@ const DetailCard = ({ data, category, year, month }) => {
 export default DetailCard;
 
 const Wrap = styled.div`
-	margin: 0 auto;
-	width: 60%;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 95%;
-	}
+	${basicSetting}
 `;
 
 const Container = styled.div`

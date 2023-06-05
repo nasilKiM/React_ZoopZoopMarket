@@ -13,7 +13,7 @@ import CategorySelector from './Components/categorySelector';
 
 import styled from 'styled-components';
 
-import { flexAlignCenter } from 'Styles/common';
+import { basicSetting, flexAlignCenter } from 'Styles/common';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -277,15 +277,7 @@ const RegisterPage = () => {
 export default RegisterPage;
 
 const Wrapper = styled.form`
-	width: 60%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
-	margin-top: 50px;
-
-	@media screen and (max-width: 1100px) {
-		width: 70%;
-	}
+	${basicSetting}
 `;
 
 const Blank = styled.div`
@@ -295,8 +287,7 @@ const Blank = styled.div`
 
 const Line = styled.div`
 	width: 100%;
-	display: flex;
-	align-items: center;
+	${flexAlignCenter}
 	padding: 0 10px 30px 10px;
 	position: relative;
 	margin: 0 auto;
@@ -418,9 +409,8 @@ const AddressWrapper = styled.div`
 
 const AddressTitleContainer = styled.div`
 	width: 100%;
-	display: flex;
+	${flexAlignCenter}
 	margin-bottom: 10px;
-	align-items: center;
 	justify-content: space-between;
 `;
 
@@ -454,9 +444,8 @@ const Error = styled.div`
 
 const ContentBox = styled.div`
 	width: 100%;
-	display: flex;
+	${flexAlignCenter}
 	flex-direction: column;
-	align-items: center;
 	padding: 0 10px 30px 10px;
 	position: relative;
 	margin: 0 auto;

@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import UserApi from 'Apis/userApi';
 
 import MannerMeter from 'Components/Icon/Icon';
-import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkele';
+import MyProfileSkeleton from 'Pages/Skeleton/page/myProfileSkeleton';
 import { useUserInfo } from 'Hooks/Queries/get-user-query';
 import { useMyUserInfo } from 'Hooks/Queries/get-mypage-query';
 

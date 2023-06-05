@@ -17,6 +17,7 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
+import { basicSetting } from 'Styles/common';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
@@ -169,10 +170,7 @@ const ReviewPage = () => {
 export default ReviewPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 20px;
 	display: flex;
 	flex-direction: column;

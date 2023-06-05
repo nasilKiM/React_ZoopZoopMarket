@@ -152,7 +152,7 @@ const ChattingTitle = styled.div`
 	> div:nth-of-type(1) {
 		${flexAllCenter};
 		cursor: pointer;
-		> div {
+		& > div {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;

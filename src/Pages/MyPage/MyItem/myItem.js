@@ -2,12 +2,18 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import ItemCard from 'Components/Card/Card';
-import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkele';
+import WholeListSkeleton from 'Pages/Skeleton/page/wholeListSkeleton';
 import { useInfiniteMyItem } from 'Hooks/Queries/get-infinite-query';
 
 import styled from 'styled-components';
 
-import { flexAllCenter, gridAllCenter, gridColumn } from 'Styles/common';
+import {
+	basicSetting,
+	flexAllCenter,
+	gridAllCenter,
+	gridColumn,
+	gridGap,
+} from 'Styles/common';
 
 const MyItemPage = () => {
 	const [category, setCategory] = useState(0);
@@ -74,13 +80,7 @@ const MyItemPage = () => {
 export default MyItemPage;
 
 const Div = styled.div`
-	margin: 0 auto;
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 95%;
-	}
+	${basicSetting}
 `;
 
 const Wrapper = styled.div`

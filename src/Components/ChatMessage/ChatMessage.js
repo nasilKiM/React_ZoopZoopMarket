@@ -34,7 +34,7 @@ const ChatMessage = ({ chat, setChatroomIdx, item, setItemInfo }) => {
 				<div>
 					<div>{chat.lastMessageUser.nick_name}</div>
 					<div>
-						<div>{chat.lastMessage}</div>
+						<S.LastMessage>{chat.lastMessage}</S.LastMessage>
 					</div>
 				</div>
 				<div>
@@ -82,7 +82,15 @@ const NewMessage = styled.div`
 	text-align: center;
 `;
 
+const LastMessage = styled.div`
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 200px;
+`
+
 const S = {
-	ChatContent,
-	NewMessage,
+   ChatContent,
+   NewMessage,
+   LastMessage,
 };
