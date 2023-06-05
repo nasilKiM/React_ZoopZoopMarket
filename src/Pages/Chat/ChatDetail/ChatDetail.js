@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -14,6 +15,7 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 	const [chat, setChat] = useState();
 	const inputMsg = useRef();
 	const navigate = useNavigate();
+	const { showBoundary } = useErrorBoundary();
 
 	const so = useSocket();
 	const itemRes = item ? item : itemInfo?.searchProduct;
@@ -24,8 +26,8 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			try {
 				const res = await ChatApis.loadChatLog(chatroomIdx);
 				setChat(res.data);
-			} catch (err) {
-				console.log(err);
+			} catch (error) {
+				showBoundary(error);
 			}
 		};
 
@@ -39,8 +41,8 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 			try {
 				const res = await ChatApis.loadChatLog(data.room_idx);
 				setChat(res.data);
-			} catch (err) {
-				console.log(err);
+			} catch (error) {
+				showBoundary(error);
 			}
 		});
 
@@ -70,15 +72,15 @@ const ChatDetail = ({ chatroomIdx, item, isSeller, itemInfo }) => {
 				room_idx: message.room_idx,
 				message: message.message,
 			});
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 
 		try {
 			const res = await ChatApis.loadChatLog(message.room_idx);
 			setChat(res.data);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 
 		inputMsg.current.value = '';
@@ -130,6 +132,7 @@ const ChattingTitle = styled.div`
 	justify-content: space-between;
 	padding: 2rem;
 	background-color: ${({ theme }) => theme.color.primary[100]};
+	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
 	@media (max-width: 800px) {
 		padding: 0 15px;
 	}

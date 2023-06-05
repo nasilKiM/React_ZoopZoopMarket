@@ -8,27 +8,31 @@ import RecentProduct from 'Components/RecentCard';
 
 import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from 'Error';
 
 const LayOut = () => {
 	const so = useSocket();
 
 	return (
 		<>
-			<S.Container>
-				<WebHeader so={so} />
-			</S.Container>
-			<S.ContentWrapper>
-				<Outlet />
-			</S.ContentWrapper>
-			<BasicFooter />
-			<S.FooterWrapper></S.FooterWrapper>
-			<TopBtn />
-			<S.RecentWrap>
-				<RecentProduct />
-			</S.RecentWrap>
-			<S.BtnSection>
-				<RegisterBtn />
-			</S.BtnSection>
+			<ErrorBoundary FallbackComponent={ErrorPage} onError={() => {}}>
+				<S.Container>
+					<WebHeader so={so} />
+				</S.Container>
+				<S.ContentWrapper>
+					<Outlet />
+				</S.ContentWrapper>
+				<BasicFooter />
+				<S.FooterWrapper></S.FooterWrapper>
+				<TopBtn />
+				<S.RecentWrap>
+					<RecentProduct />
+				</S.RecentWrap>
+				<S.BtnSection>
+					<RegisterBtn />
+				</S.BtnSection>
+			</ErrorBoundary>
 		</>
 	);
 };

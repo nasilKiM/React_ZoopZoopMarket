@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ReviewApi from 'Apis/reviewApi';
 
@@ -23,6 +24,8 @@ const ReviewDetail = () => {
 	const { idx } = useParams();
 
 	const [modal, setModal] = useState(false);
+
+	const { showBoundary } = useErrorBoundary();
 
 	const { data } = useQuery(['reviewDetail'], () =>
 		ReviewApi.reviewDetail(idx),
@@ -50,8 +53,8 @@ const ReviewDetail = () => {
 			await mutationDeleteReview.mutateAsync();
 			setModal(false);
 			navigate('/mypage/review');
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
