@@ -28,19 +28,12 @@ const AccountBookPage = () => {
 		page: 1,
 	});
 
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/index.js
-	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-=======
-	getAccountBook && console.log(getAccountBook.data);
-
->>>>>>> Develop/pair1:src/Pages/MyPage/MyAccountBook/index.js
 	useEffect(() => {
 		setDate(`${year}-${month}`);
 	}, [year, month]);
 
 	return (
 		<S.Wrapper>
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/index.js
 			{getAccountBook && <AccountBookDetailInfo
 				date={date}
 				setDate={setDate}
@@ -51,18 +44,6 @@ const AccountBookPage = () => {
 				month={month}
 				setMonth={setMonth}
 			/>}
-=======
-			{getAccountBook && (
-				<AccountBookDetailInfo
-					date={date}
-					setDate={setDate}
-					data={getAccountBook.data}
-					category={category}
-					setYear={setYear}
-					setMonth={setMonth}
-				/>
-			)}
->>>>>>> Develop/pair1:src/Pages/MyPage/MyAccountBook/index.js
 			<AccountBookSelector
 				category={category}
 				setCategory={setCategory}

@@ -11,24 +11,16 @@ const DetailCard = ({ data, category, year, month }) => {
 	const [amount, setAmount] = useState('0');	
 	
 	useEffect(() => {
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/Components/detailCard.js
 		setAmount(0);
 		for(let i = 0; i < data.payList.length; i++) {
 			priceArr.push(data.payList[i].Product.price)
 		} 
 		for(let i = 0; i < priceArr.length; i++) {
-=======
-		for (let i = 0; i < data.payList.length; i++) {
-			priceArr.push(data.payList[i].Product.price);
-		}
-		for (let i = 0; i < priceArr.length; i++) {
->>>>>>> Develop/pair1:src/Pages/MyPage/MyAccountBook/Components/detailCard.js
 			sum += priceArr[i];
 			setAmount(sum);
 		}
 	}, [year, month, category]);
 
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/Components/detailCard.js
     return (
       <>
 		<S.Wrap>
@@ -56,35 +48,6 @@ const DetailCard = ({ data, category, year, month }) => {
 		</S.Container>
       </>
     )
-=======
-	return (
-		<>
-			<S.Wrap>
-				<S.PreviewWrap>
-					<div>
-						<S.Amount>
-							{year}년 {month}월
-						</S.Amount>
-						의 거래 내역이에요 !
-					</div>
-					<div>
-						<S.Flex>
-							<div>{category === 'seller' ? '판매' : '구매'}</div>
-							<div>{amount.toLocaleString('ko-KR')}원</div>
-						</S.Flex>
-					</div>
-				</S.PreviewWrap>
-			</S.Wrap>
-
-			<S.Container>
-				{data &&
-					data.payList.map(item => (
-						<ItemCard index={item.idx} products={item.Product} isDone={true} />
-					))}
-			</S.Container>
-		</>
-	);
->>>>>>> Develop/pair1:src/Pages/MyPage/MyAccountBook/Components/detailCard.js
 };
 
 export default DetailCard;
@@ -171,20 +134,10 @@ const Amount = styled.span`
 `;
 
 const S = {
-<<<<<<< HEAD:src/Pages/MyPage/MyAccountBook/Desktop/Components/detailCard.js
   Wrap,
   Container,
   PreviewWrap,
   Flex,
   Flex2,
   Amount,
-}
-=======
-	Wrap,
-	Container,
-	PreviewWrap,
-	Flex,
-	Flex2,
-	Amount,
 };
->>>>>>> Develop/pair1:src/Pages/MyPage/MyAccountBook/Components/detailCard.js

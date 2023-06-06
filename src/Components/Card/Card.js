@@ -77,7 +77,7 @@ const ItemCard = ({ index, products, isMine, isRelated, isDone, createdAt }) => 
 										<span className="tag-link">#{tagObj.Tag.tag}</span>
 									</S.ItemTag>
 								))}
-							{!isMine && !isRelated && isDone && (
+							{createdAt && !isMine && !isRelated && isDone && (
 								<S.Flex>
 									<div>거래일자</div>
 									<div>{createdAt.split('T')[0]}</div>

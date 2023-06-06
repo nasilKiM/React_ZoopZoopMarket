@@ -31,15 +31,7 @@ const MyInterestPage = () => {
 						<S.Container>
 							{data.pages.map(page =>
 								page.data.LikeList.map(list => (
-<<<<<<< HEAD:src/Pages/MyPage/MyInterest/Desktop/myInterest.js
 									<ItemCard index={list.Product.idx} products={list.Product} isDone={false} createdAt={false}/>
-=======
-									<ItemCard
-										index={list.Product.idx}
-										products={list.Product}
-										isDone={false}
-									/>
->>>>>>> Develop/pair1:src/Pages/MyPage/MyInterest/myInterest.js
 								)),
 							)}
 						</S.Container>

@@ -136,7 +136,7 @@ const AccountBookDetailInfo = ({
 						return (
 							<S.ActionCount>
 								<S.Dot whichCategory={category === 'seller'}></S.Dot>
-								{data.payList.length}건
+								<S.Category whichCategory={category === 'seller'}>{category === 'seller' ? '판매' : '구매'}</S.Category>
 							</S.ActionCount>
 						);
 					} else {
@@ -148,7 +148,6 @@ const AccountBookDetailInfo = ({
 					setMonth(`0${e.activeStartDate.getMonth() + 1}`);
 					setYear(e.activeStartDate.getFullYear());
 				}}
-				// 전역 빼놓기
 				onActiveStartDateChange={e => {
 					if (e.action === 'next' || e.action === 'prev') {
 						setMonth(`0${e.activeStartDate.getMonth() + 1}`);
@@ -224,6 +223,11 @@ const Dot = styled.div`
 	display: flex;
 `;
 
+const Category = styled.div`
+	color: ${({ whichCategory }) =>
+	whichCategory ? '#f87171' : 'skyblue'};
+`;
+
 const WhiteBox = styled.div`
 	color: white;
 `;
@@ -236,5 +240,6 @@ const S = {
 	Amount,
 	ActionCount,
 	Dot,
+	Category,
 	WhiteBox,
 };
