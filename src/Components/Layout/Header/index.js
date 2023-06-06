@@ -239,9 +239,9 @@ const WebHeader = ({ so }) => {
 								</S.MenuOptionWrapper>
 							)}
 						</div>
-						<Link to={'/chat'}>
+						<S.ChatLink to={'/chat'}>
 							<button>채팅하기</button>
-						</Link>
+						</S.ChatLink>
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>
@@ -425,6 +425,12 @@ const CloseButton = styled.button`
 	font-size: 60px;
 `;
 
+const ChatLink = styled(Link)`
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
+`;
+
 const S = {
 	Wrapper,
 	Container,
@@ -440,4 +446,5 @@ const S = {
 	ModalOverlay,
 	ModalContent,
 	CloseButton,
+	ChatLink,
 };
