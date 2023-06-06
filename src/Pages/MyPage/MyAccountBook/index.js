@@ -28,24 +28,22 @@ const AccountBookPage = () => {
 		page: 1,
 	});
 
-	getAccountBook && console.log(getAccountBook.data);
-
 	useEffect(() => {
 		setDate(`${year}-${month}`);
 	}, [year, month]);
 
 	return (
 		<S.Wrapper>
-			{getAccountBook && (
-				<AccountBookDetailInfo
-					date={date}
-					setDate={setDate}
-					data={getAccountBook.data}
-					category={category}
-					setYear={setYear}
-					setMonth={setMonth}
-				/>
-			)}
+			{getAccountBook && <AccountBookDetailInfo
+				date={date}
+				setDate={setDate}
+				data={getAccountBook.data}
+				category={category}
+				year={year}
+				setYear={setYear}
+				month={month}
+				setMonth={setMonth}
+			/>}
 			<AccountBookSelector
 				category={category}
 				setCategory={setCategory}
