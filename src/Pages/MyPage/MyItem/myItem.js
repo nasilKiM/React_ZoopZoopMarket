@@ -12,7 +12,6 @@ import {
 	flexAllCenter,
 	gridAllCenter,
 	gridColumn,
-	gridGap,
 } from 'Styles/common';
 
 const MyItemPage = () => {
