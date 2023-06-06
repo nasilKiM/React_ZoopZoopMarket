@@ -24,8 +24,8 @@ const AccountBookDetailInfo = ({
 
 	return (
 		<S.Wrap>
+			<S.infoTitle>지금까지 줍줍마켓과 함께한 내역이에요 !</S.infoTitle>
 			<S.PreviewWrap>
-				<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
 				<div>
 					<S.Flex>
 						<div>총 수입총액</div>
@@ -74,8 +74,8 @@ const AccountBookDetailInfo = ({
 				</div>
 			</S.PreviewWrap>
 
+			<S.infoTitle>이번달 줍줍마켓과 함께한 내역이에요 !</S.infoTitle>
 			<S.PreviewWrap>
-				<div>이번달 줍줍마켓과 함께한 내역이에요 !</div>
 				<div>
 					<S.Flex>
 						<div>당월 수입</div>
@@ -167,6 +167,11 @@ const Wrap = styled.div`
 	${basicSetting}
 `;
 
+const infoTitle = styled.div`
+	width: 80%;
+	margin: 0 auto 10px;
+`;
+
 const PreviewWrap = styled.div`
 	width: 80%;
 	height: 28vh;
@@ -174,14 +179,17 @@ const PreviewWrap = styled.div`
 	padding: 30px 20px 20px;
 	box-shadow: 0px 0px 20px #e0e0e0;
 
-	> div:nth-child(1) {
+	> div:nth-child(2) {
 		${flexAlignCenter}
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 
-	> div:nth-child(2) {
-		margin: 0 auto;
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 100%;
 	}
 `;
 
@@ -226,14 +234,29 @@ const Dot = styled.div`
 const Category = styled.div`
 	color: ${({ whichCategory }) =>
 	whichCategory ? '#f87171' : 'skyblue'};
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 90%;
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
 `;
 
 const WhiteBox = styled.div`
 	color: white;
+	@media ${({ theme }) => theme.device.tablet} {
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 90%;
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
 `;
 
 const S = {
 	Wrap,
+	infoTitle,
 	PreviewWrap,
 	Flex,
 	Flex2,

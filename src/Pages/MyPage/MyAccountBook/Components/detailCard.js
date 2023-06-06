@@ -24,8 +24,8 @@ const DetailCard = ({ data, category, year, month }) => {
     return (
       <>
 		<S.Wrap>
+			<S.infoTitle><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</S.infoTitle>
 			<S.PreviewWrap>
-				<div><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</div>
 				<div>
 					<S.Flex>
 						<div>{category === "seller" ? "판매" : "구매"}</div>
@@ -44,6 +44,7 @@ const DetailCard = ({ data, category, year, month }) => {
 				products={item.Product} 
 				isDone={true} 
 				createdAt={item.createdAt}
+				category={category}
 			/>)}
 		</S.Container>
       </>
@@ -94,6 +95,11 @@ const Container = styled.div`
 	}
 `;
 
+const infoTitle = styled.div`
+	width: 80%;
+	margin: 0 auto 10px;
+`;
+
 const PreviewWrap = styled.div`
 	width: 80%;
 	height: 15vh;
@@ -110,6 +116,12 @@ const PreviewWrap = styled.div`
 
 	> div:nth-child(2) {
 		margin: 0 auto;
+	}
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 90%;
 	}
 `;
 
@@ -136,6 +148,7 @@ const Amount = styled.span`
 const S = {
   Wrap,
   Container,
+  infoTitle,
   PreviewWrap,
   Flex,
   Flex2,
