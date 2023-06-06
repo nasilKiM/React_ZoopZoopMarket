@@ -20,6 +20,7 @@ const AnotherProduct = ({ product, isMine }) => {
 								products={prod}
 								isMine={isMine}
 								isRelated={true}
+								createdAt={false}
 							/>
 						);
 					})}

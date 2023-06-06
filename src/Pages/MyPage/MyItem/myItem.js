@@ -55,12 +55,7 @@ const MyItemPage = () => {
 							<S.Container>
 								{data.pages.map(page => {
 									return page.data.products.map(item => (
-										<ItemCard
-											index={item.idx}
-											products={item}
-											isMine={true}
-											isDone={false}
-										/>
+										<ItemCard index={item.idx} products={item} isMine={true} isDone={false} createdAt={false}/>
 									));
 								})}
 							</S.Container>
