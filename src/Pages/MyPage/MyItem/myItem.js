@@ -24,6 +24,7 @@ const MyItemPage = () => {
 		if (!isView) return;
 		if (data && data.pages.length < data.pages[0].data.pagination.endPage)
 			return fetchNextPage();
+		return;
 	}, [isView]);
 
 	useEffect(() => {
@@ -55,7 +56,13 @@ const MyItemPage = () => {
 							<S.Container>
 								{data.pages.map(page => {
 									return page.data.products.map(item => (
-										<ItemCard index={item.idx} products={item} isMine={true} isDone={false} createdAt={false}/>
+										<ItemCard
+											index={item.idx}
+											products={item}
+											isMine={true}
+											isDone={false}
+											createdAt={false}
+										/>
 									));
 								})}
 							</S.Container>

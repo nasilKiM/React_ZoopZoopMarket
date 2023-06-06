@@ -81,6 +81,7 @@ const MannerMeter = ({ ondo }) => {
 export default MannerMeter;
 
 const Wrapper = styled.div`
+	cursor: pointer;
 	position: relative;
 	${flexAllCenter};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};

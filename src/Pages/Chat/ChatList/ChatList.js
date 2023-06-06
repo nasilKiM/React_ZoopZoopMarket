@@ -4,13 +4,20 @@ import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
 
-const ChatList = ({ chatroomList, setChatroomIdx, idx, item, setItemInfo }) => {
+const ChatList = ({
+	onClick,
+	chatroomList,
+	setChatroomIdx,
+	idx,
+	item,
+	setItemInfo,
+}) => {
 	return (
 		<>
 			<S.LeftUpperBar>
 				<span>채팅목록</span>
 			</S.LeftUpperBar>
-			<S.ListContainer>
+			<S.ListContainer onClick={onClick}>
 				{idx &&
 					chatroomList &&
 					chatroomList.map(chat => {

@@ -8,32 +8,49 @@ import RecentProduct from 'Components/RecentCard';
 
 import { useSocket } from 'Context/socket';
 import styled from 'styled-components';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from 'Error';
+import MobileNavigation from './Footer/MobileFooter/bottomNavigate';
 
 const LayOut = () => {
 	const so = useSocket();
 
 	return (
-		<>
-			<S.Container>
-				<WebHeader so={so} />
-			</S.Container>
-			<S.ContentWrapper>
-				<Outlet />
-			</S.ContentWrapper>
-			<BasicFooter />
-			<S.FooterWrapper></S.FooterWrapper>
-			<TopBtn />
-			<S.RecentWrap>
-				<RecentProduct />
-			</S.RecentWrap>
-			<S.BtnSection>
-				<RegisterBtn />
-			</S.BtnSection>
-		</>
+		<Div>
+			<ErrorBoundary FallbackComponent={ErrorPage} onError={() => {}}>
+				<S.Container>
+					<WebHeader so={so} />
+				</S.Container>
+				<S.ContentWrapper>
+					<Outlet />
+				</S.ContentWrapper>
+
+				<S.FooterWrap>
+					<BasicFooter />
+				</S.FooterWrap>
+
+				<S.MobileWrap>
+					<MobileNavigation />
+				</S.MobileWrap>
+
+				<S.FooterWrapper></S.FooterWrapper>
+				<TopBtn />
+				<S.RecentWrap>
+					<RecentProduct />
+				</S.RecentWrap>
+				<S.BtnSection>
+					<RegisterBtn />
+				</S.BtnSection>
+			</ErrorBoundary>
+		</Div>
 	);
 };
 
 export default LayOut;
+
+const Div = styled.div`
+	position: relative;
+`;
 
 const Container = styled.div`
 	height: 12vh;
@@ -43,6 +60,25 @@ const Container = styled.div`
 	background-color: white;
 	z-index: 10000;
 	border-bottom: 1px solid ${({ theme }) => theme.color.gray[200]};
+`;
+
+const FooterWrap = styled.div`
+	bottom: 0;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
+`;
+
+const MobileWrap = styled.div`
+	display: none;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: block;
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: 9999999;
+	}
 `;
 
 const ContentWrapper = styled.div`
@@ -66,6 +102,9 @@ const RecentWrap = styled.div`
 const BtnSection = styled.div`
 	width: 50px;
 	height: 50px;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
 `;
 
 const S = {
@@ -74,4 +113,6 @@ const S = {
 	FooterWrapper,
 	RecentWrap,
 	BtnSection,
+	FooterWrap,
+	MobileWrap,
 };

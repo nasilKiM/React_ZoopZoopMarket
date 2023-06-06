@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ProductApi from 'Apis/productApi';
 
@@ -19,12 +20,15 @@ const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const [images, setImages] = useState([]);
 	const [price, setPrice] = useState('');
+	const [formattedPrice, setFormattedPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const [addressMessage, setAddressMessage] = useState();
 
 	const [modal, setModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
+
+	const { showBoundary } = useErrorBoundary();
 
 	const { idx } = useParams();
 	const queryClient = useQueryClient();
@@ -43,6 +47,7 @@ const RegisterPage = () => {
 			const res = await ProductApi.detail(idx);
 			setValue('price', res.data.searchProduct.price);
 			setPrice(res.data.searchProduct.price);
+			setFormattedPrice(res.data.searchProduct.price.toLocaleString());
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
@@ -53,8 +58,8 @@ const RegisterPage = () => {
 				res.data.searchProduct.img_url,
 				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
 			]);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
@@ -87,7 +92,8 @@ const RegisterPage = () => {
 		const num = parseInt(value.replace(/[^0-9]/g, ''), 10);
 		const priceValue = isNaN(num) ? 0 : num;
 		const formattedPrice = priceValue.toLocaleString();
-		setPrice(formattedPrice);
+		setPrice(priceValue);
+		setFormattedPrice(formattedPrice);
 	};
 
 	const mutationPost = useMutation(data => {
@@ -120,6 +126,7 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
+			formData.append('price', price);
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
@@ -133,7 +140,6 @@ const RegisterPage = () => {
 					window.scrollTo(0, 0);
 					return setShowModal(true);
 				}
-				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
@@ -141,7 +147,6 @@ const RegisterPage = () => {
 					},
 				});
 			} else {
-				formData.append('price', Number(data.price));
 				formData.append('idx', idx);
 				const imgUrls = [];
 				images.forEach((element, index) => {
@@ -159,8 +164,8 @@ const RegisterPage = () => {
 					},
 				});
 			}
-		} catch (err) {
-			return console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
@@ -198,7 +203,7 @@ const RegisterPage = () => {
 								message: '숫자만 입력해주세요',
 							},
 						})}
-						value={price.toLocaleString('ko-KR')}
+						value={formattedPrice}
 						type="text"
 						onChange={handlePriceChange}
 					></S.InputBox>
@@ -267,7 +272,7 @@ const RegisterPage = () => {
 			{regiModal && (
 				<AlertModal
 					content={'물품수정이 완료되었습니다.'}
-					props={'/mypage/item'}
+					props={`/item_detail/${idx}`}
 				/>
 			)}
 		</S.Wrapper>
