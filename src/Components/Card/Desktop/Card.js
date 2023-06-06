@@ -10,7 +10,7 @@ import ProductApi from 'Apis/productApi';
 import styled from 'styled-components';
 import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
 
-const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
+const ItemCard = ({ index, products, isMine, isRelated, isDone, createdAt }) => {
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 
@@ -63,6 +63,12 @@ const ItemCard = ({ index, products, isMine, isRelated, isDone }) => {
 										<span className="tag-link">#{tagObj.Tag.tag}</span>
 									</S.ItemTag>
 								))}
+							{!isMine && !isRelated && isDone && (
+								<S.Flex>
+									<div>거래일자</div>
+									<div>{createdAt.split('T')[0]}</div>
+								</S.Flex>
+							)}
 						</S.ItemInfo>
 					</div>
 					{isMine && !isRelated && !isDone && (
@@ -282,6 +288,13 @@ const OK = styled.button`
 	}
 `;
 
+const Flex = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+`;
+
 const S = {
 	Wrapper,
 	Container,
@@ -297,4 +310,5 @@ const S = {
 	BtnContainer,
 	NO,
 	OK,
+	Flex
 };

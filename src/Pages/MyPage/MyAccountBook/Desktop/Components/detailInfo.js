@@ -19,8 +19,8 @@ const AccountBookDetailInfo = ({
 
 	let saleDateArr = [];
 	const [saleDate, setSaleDateArr] = useState([]);
-	const temp = [];
-	const [count, setCount] = useState(0);
+	// const temp = [];
+	// const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		data &&
@@ -28,55 +28,17 @@ const AccountBookDetailInfo = ({
 				const saleDate = item.createdAt; // 판매일자
 				saleDateArr.push(saleDate.split('T')[0]);
 			});
-		
 		setSaleDateArr(saleDateArr);
-	}, [year, month]);
-	
-	// data && console.log('///saleDate', saleDate); // ['2023-06-03', '2023-06-03', '2023-06-03', '2023-06-04']
+	}, [category, year, month]);
+	console.log(saleDate);
 
-	let uniqueChars = [...new Set(saleDate)];
-	console.log('///중복요소 제거', uniqueChars); // ['2023-06-03', '2023-06-04'] // ['2023-06-03'] ['2023-06-04']
+	// 달력에 일자별 거래건수 표시하는 기능 추가하였으나 실패 (추후 수정시 필요한 코드)
+	// let uniqueChars = [...new Set(saleDate)]; // uniqueChars ['2023-06-03', '2023-06-04']
 
 	// const getElCount = (arr) => arr.reduce((ac, v) => ([{ ...ac, [v]: (ac[v] || 0) + 1 }]), {});
 	// const activeDateCount = getElCount(saleDate);
 
-	const getElCount = (arr) => {
-		let result = {};
-		for(const el of arr) {
-			result[el] = (result[el] || 0) + 1;
-		}
-		return result;
-	}
-	const activeDateCount = getElCount(saleDate);
-	console.log('일자별 거래건수', activeDateCount); // {2023-06-03: 3, 2023-06-04: 1}
-	console.log('인덱스별 값', activeDateCount["2023-06-03"]) // 3
-	const third = ["2023-06-03"];
-	const fourth = ["2023-06-04"];
-
-	let arr1 = [];
-	
-	for(let i = 0; i < data.payList.length; i ++) {
-		
-	}
-	data && data.payList.map((item) => {
-		for(let i = 0; i<uniqueChars.length; i++) {
-			if(item.createdAt.split('T')[0] === uniqueChars[i]) {
-				// setCount((prev) => prev + 1);
-				arr1.push(1);
-				console.log(item.createdAt.split('T')[0]);
-				console.log(uniqueChars[0]);
-				console.log('과연', count);
-			} else {
-				// setCount(0);
-				console.log('안될때')
-				return;
-			}
-		}
-	})
-	console.log(arr1);
-
-	console.log(count);
-
+	// const activeDateCount = getElCount(saleDate);  // activeDateCount {2023-06-03: 3, 2023-06-04: 1}
 	return (
 		<>
 			<S.Wrap>
@@ -176,56 +138,13 @@ const AccountBookDetailInfo = ({
 					className="react-calendar"
 					formatDay={(locale, date) => dayjs(date).format('D')}
 					tileContent={({ date }) => {
-						const theDate = dayjs(date).format('YYYY-MM-DD');
-						temp.push(theDate);
-						// console.log('으아아아', temp); //["2023-05-29", ... , "2023-07-02"]
-
-						// data.payList.map((item) => 
-						// 	console.log(item)
-						// )
-						// console.log(data.payList); // [{idx:2, ...}, {idx:5, ...}, ...]
-
-						// data.payList.map((item) => {
-						// 	let temp = item.createdAt.split('T')[0];
-						// 	console.log(temp);
-						// 	if (
-						// 		[temp].find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						// 	) {
-						// 		// setCount((prev) => prev + 1);
-						// 		return (
-						// 			<div>{count}</div>
-						// 		)
-						// 	}
-						// 	// console.log(item.createdAt);
-						// 	// if(item.createdAt.includes)
-						// })
-						
-						// if (
-						// 	// saleDate.find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						// 	// third.find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						// 	data.payList.map((item) => {
-						// 		let date = item.createdAt.split('T')[0];
-						// 		// [date].find(day => day === dayjs(date).format('YYYY-MM-DD'))
-						// 		temp.find(day => day === date);
-						// 	})
-						// ) {
-						// 	count + 1;
-						// 	return (
-						// 		<S.ActionCount>
-						// 			<S.Dot whichCategory={category === "seller"}></S.Dot>
-						// 			{/* {data.payList.length}건 */}
-						// 			{/* {activeDateCount["2023-06-03"]}건 */}
-						// 			{count}
-						// 		</S.ActionCount>
-						// 	)
-						// }
 						if (
-							fourth.find(day => day === dayjs(date).format('YYYY-MM-DD'))
+							saleDate.find(day => day === dayjs(date).format('YYYY-MM-DD'))
 						) {
 							return (
 								<S.ActionCount>
 									<S.Dot whichCategory={category === "seller"}></S.Dot>
-									?건
+									{category === "seller" ? "판매" : "구매"}
 								</S.ActionCount>
 							)
 						}
@@ -238,7 +157,6 @@ const AccountBookDetailInfo = ({
 						setMonth(`0${e.activeStartDate.getMonth()+1}`)
 						setYear(e.activeStartDate.getFullYear())
 					}}
-					// 전역 빼놓기
 					onActiveStartDateChange={(e)=>{
 						if(e.action==='next' || e.action==='prev'){
 							setMonth(`0${e.activeStartDate.getMonth()+1}`)

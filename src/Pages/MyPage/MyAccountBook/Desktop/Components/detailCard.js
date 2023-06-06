@@ -7,9 +7,10 @@ import styled from "styled-components";
 const DetailCard = ({data, category, year, month}) => {
 	let priceArr = [];
 	let sum = 0;
-	const [amount, setAmount] = useState('0');
-
+	const [amount, setAmount] = useState('0');	
+	
 	useEffect(() => {
+		setAmount(0);
 		for(let i = 0; i < data.payList.length; i++) {
 			priceArr.push(data.payList[i].Product.price)
 		} 
@@ -27,14 +28,22 @@ const DetailCard = ({data, category, year, month}) => {
 				<div>
 					<S.Flex>
 						<div>{category === "seller" ? "판매" : "구매"}</div>
-						<div>{(amount).toLocaleString('ko-KR')}원</div>
+						<S.Flex2>
+							<div>{data.payList.length}건</div>
+							<div>{(amount).toLocaleString('ko-KR')}원</div>
+						</S.Flex2>
 					</S.Flex>
 				</div>
 			</S.PreviewWrap>
 		</S.Wrap>
 
 		<S.Container>
-			{data && data.payList.map(item => <ItemCard index={item.idx} products={item.Product} isDone={true}/>)}
+			{data && data.payList.map(item => <ItemCard 
+				index={item.idx} 
+				products={item.Product} 
+				isDone={true} 
+				createdAt={item.createdAt}
+			/>)}
 		</S.Container>
       </>
     )
@@ -117,21 +126,16 @@ const Flex = styled.div`
 
 const Flex2 = styled.div`
 	display: flex;
-	margin: 1.3rem auto 1.3rem;
-	width: 50%;
-	justify-content: space-between;
-	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
-	padding-top: 1rem;
+	width: max-content;
+	& div:nth-child(1) {
+		margin-right: 20px;
+	} 
 `;
 
 const Amount = styled.span`
 	color: ${({ theme }) => theme.color.primary[300]};
 	font-weight: ${({ theme }) => theme.fontWeight.bolder};
 `;
-
-const SpecificDate = styled.span`
-
-`
 
 const S = {
   Wrap,
@@ -140,5 +144,4 @@ const S = {
   Flex,
   Flex2,
   Amount,
-  SpecificDate
 }

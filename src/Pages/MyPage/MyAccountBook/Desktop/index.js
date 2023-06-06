@@ -23,7 +23,6 @@ const AccountBookPage = () => {
 	const end = `${year}-${month}-${lastDay}`
 
 	const { data: getAccountBook} = useGetAccountBook({category, start, end, page: 1});
-	getAccountBook && console.log(getAccountBook.data);
 	useEffect(() => {
 		setDate(`${year}-${month}`)
 	}, [year, month]);

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const SearchList = ({ products }) => {
 	return (
 		<S.Wrapper className="searchListxxxx">
-			<ItemCard index={products.idx} products={products} />
+			<ItemCard index={products.idx} products={products} createdAt={false}/>
 		</S.Wrapper>
 	);
 };
