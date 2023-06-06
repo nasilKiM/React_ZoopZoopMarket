@@ -117,6 +117,12 @@ const PreviewWrap = styled.div`
 	> div:nth-child(2) {
 		margin: 0 auto;
 	}
+	@media ${({ theme }) => theme.device.tablet} {
+		width: 90%
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 90%;
+	}
 `;
 
 const Flex = styled.div`
