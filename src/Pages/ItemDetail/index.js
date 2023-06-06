@@ -13,6 +13,7 @@ const ItemDetailPage = () => {
 	const [status, setStatus] = useState(false);
 
 	const { idx } = useParams();
+	const client = useQueryClient();
 	const { data, refetch } = useQuery(
 		['product', idx, status],
 		() => ProductApi.detail(idx),
@@ -23,8 +24,6 @@ const ItemDetailPage = () => {
 		},
 	);
 
-	const client = useQueryClient();
-
 	const { mutate } = useMutation(() => ProductApi.addRecent(idx), {
 		onSuccess: () => {
 			client.invalidateQueries(['recent']);
@@ -33,19 +32,13 @@ const ItemDetailPage = () => {
 
 	useEffect(() => {
 		mutate(data?.data.searchProduct.idx);
-	}, []);
-
-	useEffect(() => {
 		refetch();
-	}, []);
-
-	const isSeller = data && data.data.isSeller;
-
-	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 500);
 	}, []);
+
+	const isSeller = data && data.data.isSeller;
 
 	return (
 		<>

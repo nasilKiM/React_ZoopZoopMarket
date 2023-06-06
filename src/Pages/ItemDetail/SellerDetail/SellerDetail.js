@@ -13,12 +13,14 @@ import ChattingPage from 'Pages/Chat';
 
 import styled from 'styled-components';
 
-import { flexAllCenter } from 'Styles/common';
+import { basicSetting, flexAllCenter } from 'Styles/common';
+import ConfirmModal from 'Components/Alert/confirmModal';
 
 const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 	const [item, setItem] = useState();
 	const [detailState, setDetailState] = useState('상세정보');
 	const [isOpenModal, setIsOpenModal] = useState(false);
+	const [modal, setModal] = useState(false);
 
 	const isSeller = product?.data.isSeller;
 	const itemAllInfo = product?.data;
@@ -29,9 +31,8 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 		if (product) {
 			setItem(product.data.searchProduct);
 		}
-		return () => {
-			setItem();
-		};
+
+		return () => setItem();
 	}, [idx]);
 
 	const related =
@@ -51,11 +52,14 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 	const deletePost = async () => {
 		try {
 			await mutationDeletePost.mutateAsync();
-			alert('물품이 삭제되었습니다.');
 			navigate('/main');
 		} catch {
 			console.log('삭제 실패');
 		}
+	};
+
+	const onClickModal = () => {
+		setModal(true);
 	};
 
 	const onClickSoldOut = () => {
@@ -87,11 +91,21 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 					{item.status == '판매중' && (
 						<ul>
 							<div onClick={() => navigate(`/register/${item.idx}`)}>수정</div>
-							<div onClick={deletePost}>삭제</div>
+							<div onClick={onClickModal}>삭제</div>
+							{/* <AlertModal content={'물품이 삭제되었습니다.'} props={'/main'} /> */}
 						</ul>
 					)}
 					{item.status == '판매완료' && <div>판매가 완료된 아이템입니다.</div>}
 				</S.EditBar>
+				{modal && (
+					<ConfirmModal>
+						<S.Content>물품을 삭제하시겠습니까?</S.Content>
+						<S.BtnContainer>
+							<S.NO onClick={() => setModal(false)}>취소</S.NO>
+							<S.OK onClick={deletePost}>삭제</S.OK>
+						</S.BtnContainer>
+					</ConfirmModal>
+				)}
 				<DetailHead item={item} />
 				<S.DetailAndChatBar>
 					<S.Detail active={detailState} onClick={onClickDetailAndChatBar}>
@@ -115,13 +129,7 @@ const SellerDetailPage = ({ state, product, idx, setStatus }) => {
 export default SellerDetailPage;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 `;
 
 const EditBar = styled.div`
@@ -129,8 +137,8 @@ const EditBar = styled.div`
 	${flexAllCenter}
 	justify-content: space-between;
 	padding-top: 20px;
-	//판매완료변경
-	& > div {
+
+	> div {
 		padding: 15px 20px;
 		background-color: #d9d9d9;
 		border-radius: 10px;
@@ -140,11 +148,12 @@ const EditBar = styled.div`
 			color: ${({ theme }) => theme.color.white};
 		}
 	}
-	& > ul {
+
+	> ul {
 		${flexAllCenter}
 		cursor: pointer;
 		gap: 10px;
-		& > div {
+		> div {
 			padding: 15px 20px;
 			background-color: #d9d9d9;
 			border-radius: 10px;
@@ -158,7 +167,7 @@ const EditBar = styled.div`
 
 const DetailAndChatBar = styled.div`
 	${flexAllCenter}
-	&>div {
+	> div {
 		${flexAllCenter}
 		border-top: 2px solid ${({ theme }) => theme.color.gray[200]};
 		border-bottom: 2px solid ${({ theme }) => theme.color.gray[200]};
@@ -169,7 +178,8 @@ const DetailAndChatBar = styled.div`
 		width: 100%;
 		cursor: pointer;
 	}
-	& > div:first-child {
+
+	> div:first-child {
 		border-right: 2px solid ${({ theme }) => theme.color.gray[200]};
 	}
 `;
@@ -188,10 +198,58 @@ const Chat = styled.div`
 		active === '채팅내역' ? `10px solid ${theme.color.gray[400]}` : 'none'};
 `;
 
+const Content = styled.div`
+	width: 100%;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	${flexAllCenter}
+	margin-bottom: 50px;
+`;
+
+const BtnContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+`;
+
+const NO = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	cursor: pointer;
+	margin-right: 20px;
+	:hover {
+		background-color: ${({ theme }) => theme.color.gray[200]};
+		color: ${({ theme }) => theme.color.gray[300]};
+	}
+`;
+
+const OK = styled.button`
+	width: 100px;
+	height: 30px;
+	border: none;
+	border-radius: 10px;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.white};
+	background-color: ${({ theme }) => theme.color.primary[300]};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+	}
+`;
+
 const S = {
 	Wrapper,
 	EditBar,
 	DetailAndChatBar,
 	Detail,
 	Chat,
+	Content,
+	BtnContainer,
+	NO,
+	OK,
 };

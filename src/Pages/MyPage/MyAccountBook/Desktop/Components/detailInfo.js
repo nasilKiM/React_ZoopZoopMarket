@@ -19,13 +19,11 @@ const AccountBookDetailInfo = ({
 
 	let saleDateArr = [];
 	const [saleDate, setSaleDateArr] = useState([]);
-	// const temp = [];
-	// const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		data &&
 			data.payList.map(item => {
-				const saleDate = item.createdAt; // 판매일자
+				const saleDate = item.createdAt;
 				saleDateArr.push(saleDate.split('T')[0]);
 			});
 		setSaleDateArr(saleDateArr);

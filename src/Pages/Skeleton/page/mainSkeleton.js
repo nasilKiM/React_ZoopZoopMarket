@@ -4,12 +4,14 @@ import { Skeleton } from '@mui/material';
 import styled from 'styled-components';
 
 import { theme } from 'Styles/theme';
+import { basicSetting, flexAlignCenter } from 'Styles/common';
 
 const MainPageSkeleton = () => {
 	const skeletonArray = [1, 2, 3, 4];
 	const skeletonCategory = [1, 2, 3, 4, 5, 6, 7, 8];
 
 	let maxSkeletonCategories = skeletonCategory.length;
+
 	if (window.innerWidth <= 700) {
 		maxSkeletonCategories = 5;
 	}
@@ -95,16 +97,7 @@ const Cover = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 10px;
 `;
 
@@ -130,8 +123,7 @@ const TitleCategoryWrapper = styled.div`
 const CategoryBox = styled.div`
 	width: 60px;
 	height: 60px;
-	display: flex;
-	align-items: center;
+	${flexAlignCenter}
 `;
 
 const PreviewBg = styled.div`
@@ -139,16 +131,7 @@ const PreviewBg = styled.div`
 	background-color: ${({ theme }) => theme.color.bg};
 	padding: 30px 0;
 	> * {
-		width: 70%;
-		min-width: 350px;
-		max-width: 1200px;
-		@media (max-width: 700px) {
-			width: 95%;
-		}
-		@media (max-width: 800px) {
-			width: 90%;
-		}
-		margin: 0 auto;
+		${basicSetting}
 		padding-top: 10px;
 	}
 `;

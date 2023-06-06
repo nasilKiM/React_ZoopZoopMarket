@@ -1,6 +1,7 @@
-import ItemCard from 'Components/Card/Desktop/Card';
-import Profile from 'Components/Profile/Desktop/profile';
+import ItemCard from 'Components/Card/Card';
+import Profile from 'Components/Profile/profile';
 import ReviewMessage from 'Components/Review/Review';
+import { basicSetting } from 'Styles/common';
 
 import styled from 'styled-components';
 
@@ -44,10 +45,7 @@ const YourProfile = () => {
 export default YourProfile;
 
 const Wrapper = styled.div`
-	width: 60%;
-	min-width: 700px;
-	max-width: 1000px;
-	margin: 0 auto;
+	${basicSetting}
 	padding: 100px 0;
 `;
 

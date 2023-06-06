@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
+
+import ConfirmModal from 'Components/Alert/confirmModal';
+import PropTypes from 'prop-types';
 
 import { styled as mui } from '@mui/material/styles';
 import Rating from '@mui/material/Rating';
@@ -12,16 +16,14 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
 
-import PropTypes from 'prop-types';
-
-import { flexAlignCenter, flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
-import ConfirmModal from 'Components/Alert/confirmModal';
+import { basicSetting, flexAlignCenter, flexAllCenter } from 'Styles/common';
 
 const ReviewDetail = () => {
-	const [modal, setModal] = useState(false);
 	const navigate = useNavigate();
 	const { idx } = useParams();
+
+	const [modal, setModal] = useState(false);
+
 	const { data } = useQuery(['reviewDetail'], () =>
 		ReviewApi.reviewDetail(idx),
 	);
@@ -30,16 +32,14 @@ const ReviewDetail = () => {
 	const myReview = data?.data;
 	const hasOriginalImg = myReview?.img_url !== 'null';
 	const hasNewImg = myReview?.ReviewImages.length > 0;
-	console.log(myReview);
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
 			color: theme.palette.action.disabled,
 		},
 	}));
-	const onClickEdit = () => {
-		return navigate(`/review/edit/${idx}`);
-	};
+
+	const onClickEdit = () => navigate(`/review/edit/${idx}`);
 
 	const mutationDeleteReview = useMutation(() => {
 		return ReviewApi.deleteReview(idx);
@@ -119,8 +119,7 @@ const ReviewDetail = () => {
 						<S.TargetPrice>
 							{purchased.price == 0
 								? '무료나눔'
-								: purchased.price.toLocaleString()}
-							원
+								: purchased.price.toLocaleString() + '원'}
 						</S.TargetPrice>
 					</S.TargetBox>
 				</S.Target>
@@ -187,10 +186,7 @@ const ReviewDetail = () => {
 export default ReviewDetail;
 
 const Wrapper = styled.div`
-	width: 70%;
-	min-width: 350px;
-	max-width: 1200px;
-	margin: 0 auto;
+	${basicSetting}
 	padding-top: 20px;
 	display: flex;
 	flex-direction: column;
@@ -211,6 +207,7 @@ const EditBar = styled.div`
 	${flexAlignCenter}
 	justify-content: end;
 	padding-top: 20px;
+
 	> button {
 		border: none;
 		${flexAllCenter}
