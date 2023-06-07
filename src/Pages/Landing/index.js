@@ -29,7 +29,7 @@ const LandingPage = () => {
 			<S.ContentWrapper showContent={showContent}>
 				<S.LandingHeader>
 					<Logo>
-						<S.LogoImage src="/Assets/web_logo_edit4_white.png" />
+						<S.LogoImage src="/Assets/web_logo_edit4.png" />
 					</Logo>
 					<div>
 						<Link to="/form/login">

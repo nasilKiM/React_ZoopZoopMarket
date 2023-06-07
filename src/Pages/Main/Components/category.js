@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useErrorBoundary } from 'react-error-boundary';
+//import { useErrorBoundary } from 'react-error-boundary';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -102,13 +102,14 @@ const categories = [
 ];
 
 const NextArrow = ({ onClick }) => {
-	const { showBoundary } = useErrorBoundary();
+	//const { showBoundary } = useErrorBoundary();
 
 	return (
 		<S.NextArrowWrapper
-			onClick={() => {
-				showBoundary(new Error('에러'));
-			}}
+			onClick={onClick}
+			// onClick={() => {
+			// 	showBoundary(new Error('에러'));
+			// }}
 		>
 			<span>&lt;</span> <span> &gt;</span>
 		</S.NextArrowWrapper>
