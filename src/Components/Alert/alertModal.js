@@ -11,7 +11,7 @@ const AlertModal = ({ content, props, setModal }) => {
 	const onClickAlert = () => {
 		if (!props) return;
 		if (!setModal) return navigate(`${props}`);
-		setModal(() => false);
+		setModal(false);
 	};
 
 	return (

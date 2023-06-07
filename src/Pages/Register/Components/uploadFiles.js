@@ -1,24 +1,29 @@
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-const UploadFiles = ({ register, images, setImages }) => {
+const UploadFiles = ({ register, images, setImages, setValue }) => {
 	const [imgSrc, setImgSrc] = useState([]);
+	const [uploaded, setUploaded] = useState([]);
 
 	const onUpload = async e => {
 		setImages([]);
 		if (e.target.files) {
 			const fileArr = e.target.files;
 			const fileURLs = [];
+			const arrForUpload = [];
 
 			for (let i = 0; i < fileArr.length && i < 5; i++) {
 				const file = fileArr[i];
 				const fileURL = await readFileAsync(file);
 				fileURLs.push(fileURL);
+				console.log(fileArr[i].name);
+				arrForUpload.push(fileArr[i]);
 			}
 
 			setImgSrc(fileURLs);
+			setUploaded(arrForUpload);
 		} else setImgSrc(imgSrc);
 	};
 
@@ -33,6 +38,8 @@ const UploadFiles = ({ register, images, setImages }) => {
 
 	const onClickDeleteNew = idx => {
 		const newFileURLs = imgSrc.filter(url => url !== imgSrc[idx]);
+		const newArr = uploaded.filter(img => img.name !== uploaded[idx].name);
+		setUploaded(newArr);
 		setImgSrc(newFileURLs);
 	};
 
@@ -40,6 +47,12 @@ const UploadFiles = ({ register, images, setImages }) => {
 		const newFileURLs = images.filter(url => url !== images[idx]);
 		setImages(newFileURLs);
 	};
+
+	console.log(images);
+
+	useEffect(() => {
+		setValue('mainImg', uploaded);
+	}, [uploaded]);
 
 	return (
 		<S.Wrapper>
@@ -65,9 +78,10 @@ const UploadFiles = ({ register, images, setImages }) => {
 					</label>
 					{(images[0] || imgSrc[0]) && (
 						<S.DelBtn
-							onClick={() =>
-								images.length !== 0 ? onClickDeleteOld(0) : onClickDeleteNew(0)
-							}
+							onClick={e => {
+								register('mainImg').onChange(e);
+								images.length !== 0 ? onClickDeleteOld(0) : onClickDeleteNew(0);
+							}}
 						>
 							-
 						</S.DelBtn>
@@ -84,11 +98,12 @@ const UploadFiles = ({ register, images, setImages }) => {
 						</label>
 						{(images[1] || imgSrc[1]) && (
 							<S.DelBtn
-								onClick={() =>
+								onClick={e => {
+									register('mainImg').onChange(e);
 									images.length !== 0
 										? onClickDeleteOld(1)
-										: onClickDeleteNew(1)
-								}
+										: onClickDeleteNew(1);
+								}}
 							>
 								-
 							</S.DelBtn>
@@ -104,11 +119,12 @@ const UploadFiles = ({ register, images, setImages }) => {
 						</label>
 						{(images[2] || imgSrc[2]) && (
 							<S.DelBtn
-								onClick={() =>
+								onClick={e => {
+									register('mainImg').onChange(e);
 									images.length !== 0
 										? onClickDeleteOld(2)
-										: onClickDeleteNew(2)
-								}
+										: onClickDeleteNew(2);
+								}}
 							>
 								-
 							</S.DelBtn>
@@ -124,11 +140,12 @@ const UploadFiles = ({ register, images, setImages }) => {
 						</label>
 						{(images[3] || imgSrc[3]) && (
 							<S.DelBtn
-								onClick={() =>
+								onClick={e => {
+									register('mainImg').onChange(e);
 									images.length !== 0
 										? onClickDeleteOld(3)
-										: onClickDeleteNew(3)
-								}
+										: onClickDeleteNew(3);
+								}}
 							>
 								-
 							</S.DelBtn>
@@ -144,11 +161,12 @@ const UploadFiles = ({ register, images, setImages }) => {
 						</label>
 						{(images[4] || imgSrc[4]) && (
 							<S.DelBtn
-								onClick={() =>
+								onClick={e => {
+									register('mainImg').onChange(e);
 									images.length !== 0
 										? onClickDeleteOld(4)
-										: onClickDeleteNew(4)
-								}
+										: onClickDeleteNew(4);
+								}}
 							>
 								-
 							</S.DelBtn>
