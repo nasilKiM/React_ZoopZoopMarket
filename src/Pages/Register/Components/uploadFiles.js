@@ -18,7 +18,6 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 				const file = fileArr[i];
 				const fileURL = await readFileAsync(file);
 				fileURLs.push(fileURL);
-				console.log(fileArr[i].name);
 				arrForUpload.push(fileArr[i]);
 			}
 
@@ -47,8 +46,6 @@ const UploadFiles = ({ register, images, setImages, setValue }) => {
 		const newFileURLs = images.filter(url => url !== images[idx]);
 		setImages(newFileURLs);
 	};
-
-	console.log(images);
 
 	useEffect(() => {
 		setValue('mainImg', uploaded);
