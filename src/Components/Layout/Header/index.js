@@ -276,17 +276,17 @@ const Container = styled.div`
 const MenuOpen = styled.div`
 	width: 145px;
 	height: 130px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	background-color: ${({ theme }) => theme.color.white};
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	top: 100px;
+	top: 80px;
 	gap: 10px;
 	padding-top: 25px;
 	padding-left: 20px;
 	transition: 0.4s ease;
 	border-radius: 0 0 5px 5px;
-	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.2);
 `;
 
 const Menu = styled.div`
@@ -368,10 +368,10 @@ const CategoryIcon = styled.img`
 
 const MenuOptionWrapper = styled.div`
 	position: absolute;
-	top: 90%;
+	top: 80%;
 	height: 70px;
 	transform: translateX(-20%);
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	background-color: ${({ theme }) => theme.color.white};
 	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	text-align: center;
@@ -386,10 +386,6 @@ const MenuOption = styled.div`
 	transition: background-color 0.3s;
 	margin: 5px;
 	display: block;
-
-	&:hover {
-		background-color: lightgray;
-	}
 `;
 
 const ModalOverlay = styled.div`

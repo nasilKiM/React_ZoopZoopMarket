@@ -150,15 +150,26 @@ const BuyerWrapper = styled.div`
 	> div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		@media (max-width: 700px) {
+			font-size: ${({ theme }) => theme.fontSize.md};
+		}
 	}
 
 	> div:nth-of-type(2) {
 		${flexAlignCenter}
 		gap: 5px;
+
+		:hover {
+			cursor: pointer;
+		}
+
 		span {
 			padding: 5px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.color.gray[100]};
+			@media (max-width: 700px) {
+				font-size: ${({ theme }) => theme.fontSize.sm};
+			}
 		}
 		div:nth-of-type(1) {
 			padding: 0px 5px;
@@ -168,6 +179,9 @@ const BuyerWrapper = styled.div`
 	> div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		@media (max-width: 700px) {
+			font-size: ${({ theme }) => theme.fontSize.base};
+		}
 	}
 
 	> div:nth-of-type(4) {
