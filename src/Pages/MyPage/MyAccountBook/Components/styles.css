@@ -26,6 +26,7 @@
 	font-size: 1rem;
 	text-align: center;
 	margin: 0 auto 10px;
+	color: black;
 	& > span {
 		font-size: 24px;
 		font-weight: 600;
@@ -153,6 +154,7 @@
 	font-size: 1.2rem;
 	border: none;
 	background-color: white;
+	color: black;
 }
 
 .react-calendar__tile:enabled:hover,
