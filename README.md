@@ -20,6 +20,8 @@ https://zoopzoop-market.vercel.app/
 
 <캡쳐화면>
 
+<br>
+
 ## 🌳 프로젝트 폴더 구조
 
     * src
@@ -148,10 +150,11 @@ https://zoopzoop-market.vercel.app/
         * App.js
         * index.js
 
+<br>
+
+
 ## 👪 팀원
 
-
-### Backend
 
 | 구현서 | 김나실 | 박선영 | 이주람 | 이재훈 | 장영승 |
 | :----: | :----: | :----: | :----: | :----: | :----: |
@@ -168,12 +171,14 @@ https://zoopzoop-market.vercel.app/
     > 라이브러리 : styled-component / styled-reset / husky / eslint / prettier / react-fontawesome / react-query
     > 협업도구 : Git + GitHub + Notion
     
+<br>
 
-
-## Browser Support
+## 🌐 Browser Support
 ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/main/src/chrome/chrome_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/main/src/safari/safari_48x48.png) | ![Edge](https://raw.githubusercontent.com/alrra/browser-logos/main/src/edge/edge_48x48.png) |
 --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | 
+
+<br>
 
 
 ## 협업방식
