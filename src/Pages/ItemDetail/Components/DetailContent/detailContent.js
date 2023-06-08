@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useErrorBoundary } from 'react-error-boundary';
 
 import ChatApis from 'Apis/chatApis';
 
@@ -17,8 +16,6 @@ import {
 } from 'Styles/common';
 
 const DetailContent = ({ state, item, itemAllInfo }) => {
-	const { showBoundary } = useErrorBoundary();
-
 	const today = dayjs();
 	const created = item && dayjs(item.createdAt);
 	const cleanDate = item && dayjs(item.createdAt).format('YYYY년 MM월 DD일');
@@ -59,7 +56,6 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			navigate('/chat');
 		} catch (error) {
 			navigate('/chat');
-			showBoundary(error);
 		}
 	};
 

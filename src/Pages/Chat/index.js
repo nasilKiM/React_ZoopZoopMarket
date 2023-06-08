@@ -20,7 +20,6 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	const [itemInfo, setItemInfo] = useState();
 	const [showChatDetail, setShowChatDetail] = useState(true);
 	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
-	console.log(showChatIcon);
 	const isTablet = useMediaQuery({ maxWidth: 700 });
 
 	const { data: getChatList } = useGetChatList(idx);

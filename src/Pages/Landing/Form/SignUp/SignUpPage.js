@@ -34,7 +34,6 @@ const SignUpPage = () => {
 		const result = confirm(
 			'페이지 이동 시 입력하신 내용이 저장되지 않을 수 있습니다.',
 		);
-		console.log('===>', result);
 		if (result === true) {
 			navigate('/');
 		}
