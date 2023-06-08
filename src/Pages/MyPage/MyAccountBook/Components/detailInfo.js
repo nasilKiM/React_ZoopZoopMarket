@@ -135,7 +135,6 @@ const AccountBookDetailInfo = ({
 					) {
 						return (
 							<S.ActionCount>
-								<S.Dot whichCategory={category === 'seller'}></S.Dot>
 								<S.Category whichCategory={category === 'seller'}>{category === 'seller' ? '판매' : '구매'}</S.Category>
 							</S.ActionCount>
 						);
@@ -185,11 +184,13 @@ const PreviewWrap = styled.div`
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
+	min-width: 360px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100%;
+	@media (max-width: 900px) {
+		width: 90%;
 	}
 `;
 
@@ -198,6 +199,12 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Flex2 = styled.div`
@@ -207,6 +214,12 @@ const Flex2 = styled.div`
 	justify-content: space-between;
 	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
 	padding-top: 1rem;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Amount = styled.span`
@@ -219,37 +232,26 @@ const ActionCount = styled.div`
 	font-size: 18px;
 `;
 
-const Dot = styled.div`
-	margin-right: 2px;
-	background-color: ${({ whichCategory }) =>
-		whichCategory ? '#f87171' : 'skyblue'};
-	width: 8px;
-	height: 8px;
-	display: flex;
-	justify-content: center;
-	border-radius: 50%;
-	display: flex;
-`;
-
 const Category = styled.div`
 	color: ${({ whichCategory }) =>
 	whichCategory ? '#f87171' : 'skyblue'};
-	@media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({theme}) => theme.fontSize.sm};
+	@media (max-width: 700px) {
+		width: max-content;
+		font-size: ${({theme}) => theme.fontSize.micro};
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 90%;
+	@media (max-width: 900px) {
+		width: max-content;
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
 `;
 
 const WhiteBox = styled.div`
 	color: white;
-	@media ${({ theme }) => theme.device.tablet} {
+	@media (max-width: 700px) {
+		width: 90%;
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 90%;
+	@media (max-width: 900px) {
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
 `;
@@ -262,7 +264,6 @@ const S = {
 	Flex2,
 	Amount,
 	ActionCount,
-	Dot,
 	Category,
 	WhiteBox,
 };

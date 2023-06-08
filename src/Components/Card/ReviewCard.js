@@ -130,7 +130,11 @@ const ItemPrice = styled.span`
 	font-size: ${({ theme }) => theme.fontSize.sm};
 	color: ${({ theme }) => theme.color.gray[300]};
 	@media (max-width: 680px) {
+		width: 120px;
 		font-size: ${({ theme }) => theme.fontSize.es};
+	}
+	@media (max-width: 560px) {
+		width: 100px;
 	}
 `;
 

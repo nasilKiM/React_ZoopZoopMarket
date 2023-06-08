@@ -117,10 +117,10 @@ const PreviewWrap = styled.div`
 	> div:nth-child(2) {
 		margin: 0 auto;
 	}
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%
+	@media (max-width: 700px) {
+		width: 95%;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
+	@media (max-width: 900px) {
 		width: 90%;
 	}
 `;
@@ -130,6 +130,12 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Flex2 = styled.div`

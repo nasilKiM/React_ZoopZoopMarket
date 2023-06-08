@@ -21,7 +21,6 @@
 		"dayjs": "^1.11.7",
 		"framer-motion": "^10.12.16",
 		"husky": "^8.0.3",
-		"moment": "^2.29.4",
 		"react": "^18.2.0",
 		"react-beforeunload": "^2.5.3",
 		"react-calendar": "^4.2.1",
