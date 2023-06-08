@@ -119,7 +119,6 @@ const WebHeader = ({ so }) => {
 
 										<S.MenuOpen ref={hamburgerShowRef}>
 											<S.Menu
-												to={`/search_list/${word}/0`}
 												key={1}
 												onClick={() => {
 													navigate(`/search_list/${word}/0`);

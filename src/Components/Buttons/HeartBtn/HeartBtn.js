@@ -4,10 +4,11 @@ import { useLikedBtn } from 'Hooks/Queries/get-product-mutation';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useQueryClient } from '@tanstack/react-query';
 
 const HeartBtn = ({ like, idx }) => {
 	const [liked, setLiked] = useState(like);
-
+	const queryClient = useQueryClient();
 	const mutation = useLikedBtn();
 
 	const toggleLiked = index => {
@@ -17,6 +18,7 @@ const HeartBtn = ({ like, idx }) => {
 	useEffect(() => {
 		if (mutation.isSuccess) {
 			setLiked(prev => !prev);
+			queryClient.invalidateQueries(['mainList']);
 		}
 	}, [mutation.isSuccess]);
 

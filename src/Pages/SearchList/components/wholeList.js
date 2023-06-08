@@ -28,25 +28,19 @@ const WholeListPage = () => {
 
 	const [selected, setSelected] = useState(category);
 
-	const onSelectBoxClick = option => {
-		setSelected(option);
-	};
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		res.refetch();
 		setSelected(category);
 	}, [category]);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-
+	const onSearchClick = selected => {
 		if (selected == 1) {
 			navigate(`/search_list/${word}/1`);
 		} else if (selected == 0) {
 			navigate(`/search_list/${word}/0`);
 		} else navigate(`/search_list/${word}`);
-	}, [selected]);
+	};
 
 	useEffect(() => {
 		if (!inView) return;
@@ -60,20 +54,26 @@ const WholeListPage = () => {
 					{word.split(',').length <= 2 && word !== ',' && (
 						<S.SelectBox
 							isSelected={selected === 2}
-							onClick={() => onSelectBoxClick(2)}
+							onClick={() => {
+								onSearchClick(2);
+							}}
 						>
 							통합
 						</S.SelectBox>
 					)}
 					<S.SelectBox
 						isSelected={selected == 0}
-						onClick={() => onSelectBoxClick(0)}
+						onClick={() => {
+							onSearchClick(0);
+						}}
 					>
 						중고
 					</S.SelectBox>
 					<S.SelectBox
 						isSelected={selected == 1}
-						onClick={() => onSelectBoxClick(1)}
+						onClick={() => {
+							onSearchClick(1);
+						}}
 					>
 						무료
 					</S.SelectBox>
