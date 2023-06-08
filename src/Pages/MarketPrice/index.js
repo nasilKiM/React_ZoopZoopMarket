@@ -81,7 +81,7 @@ const DesktopMarketPrice = () => {
 							</S.Title>
 						</S.LeftPart>
 						<S.SearchBarContainer>
-							<SearchBar props={props} />
+							<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 						</S.SearchBarContainer>
 					</S.UpperPart>
 					<S.ChartContainer>
