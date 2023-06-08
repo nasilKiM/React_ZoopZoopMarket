@@ -196,7 +196,7 @@ const WebHeader = ({ so }) => {
 						</>
 					)}
 					{isTablet ? (
-						<Link>
+						<div>
 							<S.FontIcons
 								icon={faMagnifyingGlass}
 								color="gray"
@@ -209,7 +209,7 @@ const WebHeader = ({ so }) => {
 									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 								</Modal>
 							)}
-						</Link>
+						</div>
 					) : (
 						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
@@ -256,7 +256,7 @@ const WebHeader = ({ so }) => {
 								)}
 							</div>
 							<button>채팅하기</button>
-						</Link>
+						</S.ChatLink>
 					</S.Icon>
 					<S.SearchMobile onClick={logout}>로그아웃</S.SearchMobile>
 				</S.Container>
