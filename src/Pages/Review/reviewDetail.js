@@ -33,7 +33,7 @@ const ReviewDetail = () => {
 
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
-	const hasOriginalImg = myReview?.img_url !== 'null';
+	const hasOriginalImg = myReview?.img_url !== null;
 	const hasNewImg = myReview?.ReviewImages.length > 0;
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -161,7 +161,7 @@ const ReviewDetail = () => {
 				<S.TxtArea style={{ whiteSpace: 'pre-wrap' }}>
 					{myReview.content.replaceAll('\r,\n', '<br />')}
 				</S.TxtArea>
-				{hasOriginalImg && (
+				{hasOriginalImg && !hasNewImg && (
 					<S.ReviewImg
 						src={myReview.img_url}
 						onClick={() => window.open(`${myReview.img_url}`, '_blank')}
