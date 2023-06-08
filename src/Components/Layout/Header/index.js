@@ -38,6 +38,7 @@ const WebHeader = ({ so }) => {
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside1);
 		document.addEventListener('mousedown', handleClickOutside2);
+
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside1);
 			document.removeEventListener('mousedown', handleClickOutside2);
@@ -118,9 +119,10 @@ const WebHeader = ({ so }) => {
 
 										<S.MenuOpen ref={hamburgerShowRef}>
 											<S.Menu
+												to={`/search_list/${word}/0`}
 												key={1}
 												onClick={() => {
-													return navigate(`/search_list/${word}/0`);
+													navigate(`/search_list/${word}/0`);
 												}}
 											>
 												중고 거래
@@ -168,7 +170,8 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={1}
 									onClick={() => {
-										return navigate(`/search_list/${word}/0`);
+										navigate(`/search_list/,/0`);
+										navigate(-1);
 									}}
 								>
 									중고 거래
@@ -253,7 +256,7 @@ const WebHeader = ({ so }) => {
 								)}
 							</div>
 							<button>채팅하기</button>
-						</S.ChatLink>
+						</Link>
 					</S.Icon>
 					<S.SearchMobile onClick={logout}>로그아웃</S.SearchMobile>
 				</S.Container>
@@ -473,6 +476,7 @@ const SearchMobile = styled.button`
 		margin-left: 15px;
 	}
 `;
+
 const S = {
 	Wrapper,
 	Container,

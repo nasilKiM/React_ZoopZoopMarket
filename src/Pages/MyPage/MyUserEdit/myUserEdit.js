@@ -19,7 +19,7 @@ import {
 	flexSpaceBetween,
 } from 'Styles/common';
 
-const MyUserEdit = ({ userInfo }) => {
+const MyUserEdit = () => {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
@@ -101,6 +101,10 @@ const MyUserEdit = ({ userInfo }) => {
 		}
 	}, [data]);
 
+	useEffect(() => {
+		setChange(prev => !prev);
+	}, [address]);
+
 	const onClickPasswordChange = () => {
 		navigate('/mypage/user_password_edit');
 	};
@@ -164,7 +168,7 @@ const MyUserEdit = ({ userInfo }) => {
 						<S.Title>주소</S.Title>
 						<S.Box>
 							<S.addressDiv>{address}</S.addressDiv>
-							<FindAddress setter={setAddress} region={userInfo?.region} />
+							<FindAddress setter={setAddress} />
 						</S.Box>
 					</S.Container>
 					<S.Button
