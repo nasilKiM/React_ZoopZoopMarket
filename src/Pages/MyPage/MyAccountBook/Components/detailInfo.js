@@ -135,7 +135,7 @@ const AccountBookDetailInfo = ({
 					) {
 						return (
 							<S.ActionCount>
-								<S.Dot whichCategory={category === 'seller'}></S.Dot>
+								{/* <S.Dot whichCategory={category === 'seller'}></S.Dot> */}
 								<S.Category whichCategory={category === 'seller'}>{category === 'seller' ? '판매' : '구매'}</S.Category>
 							</S.ActionCount>
 						);
