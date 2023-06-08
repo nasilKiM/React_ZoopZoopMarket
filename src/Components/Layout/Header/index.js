@@ -35,6 +35,7 @@ const WebHeader = ({ so }) => {
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside1);
 		document.addEventListener('mousedown', handleClickOutside2);
+
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside1);
 			document.removeEventListener('mousedown', handleClickOutside2);
@@ -114,9 +115,10 @@ const WebHeader = ({ so }) => {
 
 										<S.MenuOpen ref={hamburgerShowRef}>
 											<S.Menu
+												to={`/search_list/${word}/0`}
 												key={1}
 												onClick={() => {
-													return navigate(`/search_list/${word}/0`);
+													navigate(`/search_list/${word}/0`);
 												}}
 											>
 												중고 거래
@@ -164,7 +166,8 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={1}
 									onClick={() => {
-										return navigate(`/search_list/${word}/0`);
+										navigate(`/search_list/,/0`);
+										navigate(-1);
 									}}
 								>
 									중고 거래
@@ -189,7 +192,7 @@ const WebHeader = ({ so }) => {
 						</>
 					)}
 					{isTablet ? (
-						<Link>
+						<div>
 							<FontAwesomeIcon
 								icon={faMagnifyingGlass}
 								color="gray"
@@ -202,7 +205,7 @@ const WebHeader = ({ so }) => {
 									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 								</Modal>
 							)}
-						</Link>
+						</div>
 					) : (
 						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
@@ -239,9 +242,9 @@ const WebHeader = ({ so }) => {
 								</S.MenuOptionWrapper>
 							)}
 						</div>
-						<S.ChatLink to={'/chat'}>
+						<Link to={'/chat'}>
 							<button>채팅하기</button>
-						</S.ChatLink>
+						</Link>
 					</S.Icon>
 				</S.Container>
 			</S.Wrapper>
@@ -421,12 +424,6 @@ const CloseButton = styled.button`
 	font-size: 60px;
 `;
 
-const ChatLink = styled(Link)`
-	@media ${({ theme }) => theme.device.mobile} {
-		display: none;
-	}
-`;
-
 const S = {
 	Wrapper,
 	Container,
@@ -442,5 +439,4 @@ const S = {
 	ModalOverlay,
 	ModalContent,
 	CloseButton,
-	ChatLink,
 };

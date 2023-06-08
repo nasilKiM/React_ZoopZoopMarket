@@ -41,8 +41,13 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 	};
 
 	return (
-		<S.ChatContainer>
-			<>
+		<>
+			{isTablet && showChatDetail && (
+				<S.ToggleButton onClick={handleChatDetailToggle}>
+					&lt; 목록보기
+				</S.ToggleButton>
+			)}
+			<S.ChatContainer>
 				<S.ChatLeftContainer show={isTablet ? !showChatDetail : true}>
 					<ChatList
 						onClick={handleChatList}
@@ -53,6 +58,7 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 						setItemInfo={setItemInfo}
 					/>
 				</S.ChatLeftContainer>
+
 				<S.ChatRightContainer show={isTablet ? showChatDetail : true}>
 					{chatroomIdx && (
 						<ChatDetail
@@ -64,20 +70,15 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 					)}
 					{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
 				</S.ChatRightContainer>
-			</>
-
-			{isTablet && showChatDetail && (
-				<S.ToggleButton onClick={handleChatDetailToggle}>
-					&lt; 목록보기
-				</S.ToggleButton>
-			)}
-		</S.ChatContainer>
+			</S.ChatContainer>
+		</>
 	);
 };
 
 export default ChattingPage;
 
 const ChatContainer = styled.div`
+	position: relative;
 	${flexAlignCenter}
 	width: 70%;
 	height: 75vh;
@@ -87,7 +88,7 @@ const ChatContainer = styled.div`
 	margin: 0 auto;
 	border-radius: 10px;
 	border: solid lightgrey 1px;
-	margin-top: 50px;
+	margin-top: 20px;
 
 	@media (max-width: 700px) {
 		width: 100%;
@@ -123,34 +124,29 @@ const ChatRightContainer = styled.div`
 const NoChat = styled.div`
 	width: 100%;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flexAllCenter}
 	text-align: center;
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ToggleButton = styled.div`
-	position: absolute;
 	cursor: pointer;
-	top: -25px;
+	margin-top: 20px;
 	width: 110px;
 	padding: 10px 15px;
 	background-color: ${({ theme }) => theme.color.gray[100]};
-	left: ${props => (props.show ? 'calc(50% - 20px)' : '5px')};
-	transform: translateY(-50%);
-	border: none;
+	left: 25px;
 	border-radius: 10px;
 	font-size: ${({ theme }) => theme.fontSize.base};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	text-align: left;
 	align-items: center;
-	z-index: 98;
+	z-index: 99999;
 	:hover {
 		color: ${({ theme }) => theme.color.primary[400]};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
-		background-color: ${({ theme }) => theme.color.primary[100]};
+		background-color: ${({ theme }) => theme.color.white};
 	}
 
 	@media (max-width: 700px) {
