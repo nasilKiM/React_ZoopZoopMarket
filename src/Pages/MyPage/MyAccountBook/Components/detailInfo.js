@@ -200,6 +200,12 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Flex2 = styled.div`
@@ -209,6 +215,12 @@ const Flex2 = styled.div`
 	justify-content: space-between;
 	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
 	padding-top: 1rem;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Amount = styled.span`
