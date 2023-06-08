@@ -1,6 +1,8 @@
 .react-calendar {
 	width: 70%;
 	height: 450px;
+	min-width: 350px;
+	max-width: 1200px;
 	background: #ffffff;
 	border: 1px solid #ffffff;
 	font-family: Arial, Helvetica, sans-serif;
