@@ -167,9 +167,7 @@ https://zoopzoop-market.vercel.app/
 
 ## 🛠️ 사용 기술 스택
 
-    > FrontEnd : HTML / JavaScript / React
-    > 라이브러리 : styled-component / styled-reset / husky / eslint / prettier / react-fontawesome / react-query
-    > 협업도구 : Git + GitHub + Notion
+   ![image](https://github.com/Frontend-TEAM1/ZoopzoopMarket/assets/113501460/8c909055-0901-4738-9b00-f859b3324e94)
     
 <br>
 
