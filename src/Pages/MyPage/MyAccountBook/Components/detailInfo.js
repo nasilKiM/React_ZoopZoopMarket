@@ -135,7 +135,9 @@ const AccountBookDetailInfo = ({
 					) {
 						return (
 							<S.ActionCount>
-								<S.Category whichCategory={category === 'seller'}>{category === 'seller' ? '판매' : '구매'}</S.Category>
+								<S.Category whichCategory={category === 'seller'}>
+									{category === 'seller' ? '판매' : '구매'}
+								</S.Category>
 							</S.ActionCount>
 						);
 					} else {
@@ -143,7 +145,6 @@ const AccountBookDetailInfo = ({
 					}
 				}}
 				onDrillDown={e => {
-					console.log(e);
 					setMonth(`0${e.activeStartDate.getMonth() + 1}`);
 					setYear(e.activeStartDate.getFullYear());
 				}}
@@ -151,7 +152,6 @@ const AccountBookDetailInfo = ({
 					if (e.action === 'next' || e.action === 'prev') {
 						setMonth(`0${e.activeStartDate.getMonth() + 1}`);
 					} else if (e.action === 'next2' || e.action === 'prev2') {
-						console.log(e);
 						setYear(e.activeStartDate.getFullYear());
 					}
 				}}
@@ -233,15 +233,14 @@ const ActionCount = styled.div`
 `;
 
 const Category = styled.div`
-	color: ${({ whichCategory }) =>
-	whichCategory ? '#f87171' : 'skyblue'};
+	color: ${({ whichCategory }) => (whichCategory ? '#f87171' : 'skyblue')};
 	@media (max-width: 700px) {
 		width: max-content;
-		font-size: ${({theme}) => theme.fontSize.micro};
+		font-size: ${({ theme }) => theme.fontSize.micro};
 	}
 	@media (max-width: 900px) {
 		width: max-content;
-		font-size: ${({theme}) => theme.fontSize.sm};
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 
@@ -249,10 +248,10 @@ const WhiteBox = styled.div`
 	color: white;
 	@media (max-width: 700px) {
 		width: 90%;
-		font-size: ${({theme}) => theme.fontSize.sm};
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 	@media (max-width: 900px) {
-		font-size: ${({theme}) => theme.fontSize.sm};
+		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
 `;
 

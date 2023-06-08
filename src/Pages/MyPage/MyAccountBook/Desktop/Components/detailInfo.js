@@ -16,7 +16,6 @@ const AccountBookDetailInfo = ({
 	month,
 	setMonth,
 }) => {
-
 	let saleDateArr = [];
 	const [saleDate, setSaleDateArr] = useState([]);
 
@@ -28,7 +27,6 @@ const AccountBookDetailInfo = ({
 			});
 		setSaleDateArr(saleDateArr);
 	}, [category, year, month]);
-	console.log(saleDate);
 
 	// 달력에 일자별 거래건수 표시하는 기능 추가하였으나 실패 (추후 수정시 필요한 코드)
 	// let uniqueChars = [...new Set(saleDate)]; // uniqueChars ['2023-06-03', '2023-06-04']
@@ -78,8 +76,10 @@ const AccountBookDetailInfo = ({
 							{data && (
 								<div>
 									<S.Amount>
-										{parseInt(data.amount.totalSaleAmount -
-											data.amount.totalPurchaseAmount).toLocaleString('ko-KR')}
+										{parseInt(
+											data.amount.totalSaleAmount -
+												data.amount.totalPurchaseAmount,
+										).toLocaleString('ko-KR')}
 									</S.Amount>
 									원
 								</div>
@@ -94,40 +94,48 @@ const AccountBookDetailInfo = ({
 						<S.Flex>
 							<div>당월 수입</div>
 							<div>
-								{data && <S.Amount>
-									{data.amount.thisMonthSaleAmount === null
-									? 0
-									: parseInt(data.amount.thisMonthSaleAmount).toLocaleString(
-										'ko-KR',
-									)}
-								</S.Amount>}
+								{data && (
+									<S.Amount>
+										{data.amount.thisMonthSaleAmount === null
+											? 0
+											: parseInt(
+													data.amount.thisMonthSaleAmount,
+											  ).toLocaleString('ko-KR')}
+									</S.Amount>
+								)}
 								원
 							</div>
-							</S.Flex>
-							<S.Flex>
-								<div>당월 지출</div>
-								<div>
-									{data && <S.Amount>
+						</S.Flex>
+						<S.Flex>
+							<div>당월 지출</div>
+							<div>
+								{data && (
+									<S.Amount>
 										{data.amount.thisMonthPurchaseAmount === null
-										? 0
-										: parseInt(data.amount.thisMonthPurchaseAmount).toLocaleString(
-										'ko-KR',
-										)}
-									</S.Amount>}
-									원
-								</div>
-							</S.Flex>
-							<S.Flex2>
-								<div>당월 수익</div>
-								<div>
-									{data && <S.Amount>
-										{parseInt(data.amount.thisMonthSaleAmount - 
-											data.amount.thisMonthPurchaseAmount).toLocaleString('ko-KR')}
-									</S.Amount>}
-									원
-								</div>
-							</S.Flex2>
-						</div>
+											? 0
+											: parseInt(
+													data.amount.thisMonthPurchaseAmount,
+											  ).toLocaleString('ko-KR')}
+									</S.Amount>
+								)}
+								원
+							</div>
+						</S.Flex>
+						<S.Flex2>
+							<div>당월 수익</div>
+							<div>
+								{data && (
+									<S.Amount>
+										{parseInt(
+											data.amount.thisMonthSaleAmount -
+												data.amount.thisMonthPurchaseAmount,
+										).toLocaleString('ko-KR')}
+									</S.Amount>
+								)}
+								원
+							</div>
+						</S.Flex2>
+					</div>
 				</S.PreviewWrap>
 
 				<Calendar
@@ -141,27 +149,23 @@ const AccountBookDetailInfo = ({
 						) {
 							return (
 								<S.ActionCount>
-									<S.Dot whichCategory={category === "seller"}></S.Dot>
-									{category === "seller" ? "판매" : "구매"}
+									<S.Dot whichCategory={category === 'seller'}></S.Dot>
+									{category === 'seller' ? '판매' : '구매'}
 								</S.ActionCount>
-							)
-						}
-						else {
-							return <S.WhiteBox>{'0'}</S.WhiteBox>
+							);
+						} else {
+							return <S.WhiteBox>{'0'}</S.WhiteBox>;
 						}
 					}}
-					onDrillDown={(e)=>{
-						console.log(e);
-						setMonth(`0${e.activeStartDate.getMonth()+1}`)
-						setYear(e.activeStartDate.getFullYear())
+					onDrillDown={e => {
+						setMonth(`0${e.activeStartDate.getMonth() + 1}`);
+						setYear(e.activeStartDate.getFullYear());
 					}}
-					onActiveStartDateChange={(e)=>{
-						if(e.action==='next' || e.action==='prev'){
-							setMonth(`0${e.activeStartDate.getMonth()+1}`)
-						} 
-						else if(e.action==='next2' || e.action==='prev2') {
-							console.log(e);
-							setYear(e.activeStartDate.getFullYear())
+					onActiveStartDateChange={e => {
+						if (e.action === 'next' || e.action === 'prev') {
+							setMonth(`0${e.activeStartDate.getMonth() + 1}`);
+						} else if (e.action === 'next2' || e.action === 'prev2') {
+							setYear(e.activeStartDate.getFullYear());
 						}
 					}}
 				/>
@@ -228,7 +232,8 @@ const ActionCount = styled.div`
 
 const Dot = styled.div`
 	margin-right: 2px;
-	background-color: ${({whichCategory}) => whichCategory ? '#f87171' : 'skyblue'};
+	background-color: ${({ whichCategory }) =>
+		whichCategory ? '#f87171' : 'skyblue'};
 	width: 8px;
 	height: 8px;
 	display: flex;
@@ -249,5 +254,5 @@ const S = {
 	Amount,
 	ActionCount,
 	Dot,
-	WhiteBox
+	WhiteBox,
 };
