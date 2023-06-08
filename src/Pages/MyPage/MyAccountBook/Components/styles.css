@@ -1,6 +1,6 @@
 .react-calendar {
 	width: 70%;
-	height: 450px;
+	height: 400px;
 	min-width: 360px;
 	max-width: 1200px;
 	background: #ffffff;
@@ -25,7 +25,7 @@
 	height: 30px;
 	font-size: 1rem;
 	text-align: center;
-	margin-bottom: 10px;
+	margin: 0 auto 10px;
 	& > span {
 		font-size: 24px;
 		font-weight: 600;
@@ -41,21 +41,45 @@
 .react-calendar__navigation__prev2-button {
 	margin-right: 30px;
 	cursor: pointer;
+	@media screen and (max-width: 1000px) {
+		margin: 0;
+	}
+	@media screen and (max-width: 600px) {
+		margin: 0;
+	}
 }
 
 .react-calendar__navigation__next2-button {
 	margin-left: 30px;
 	cursor: pointer;
+	@media screen and (max-width: 1000px) {
+		margin: 0;
+	}
+	@media screen and (max-width: 600px) {
+		margin: 0;
+	}
 }
 
 .react-calendar__navigation__prev-button {
 	margin-right: 20px;
 	cursor: pointer;
+	@media screen and (max-width: 1000px) {
+		margin: 0;
+	}
+	@media screen and (max-width: 600px) {
+		margin: 0;
+	}
 }
 
 .react-calendar__navigation__next-button {
 	margin-left: 20px;
 	cursor: pointer;
+	@media screen and (max-width: 1000px) {
+		margin: 0;
+	}
+	@media screen and (max-width: 600px) {
+		margin: 0;
+	}
 }
 
 .react-calendar__month-view__weekdays__weekday abbr{
@@ -90,13 +114,16 @@
 }
 
 .react-calendar__month-view {
+	margin: 0 auto;
 	padding: 12px 32px;
 	font-size: 1.3rem;
 	@media screen and (max-width: 1000px) {
 		width: 90%;
+		padding: 0;
 	}
 	@media screen and (max-width: 600px) {
 		width: 95%;
+		padding: 0;
 	}
 }
 
