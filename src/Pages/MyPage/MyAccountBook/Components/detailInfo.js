@@ -135,7 +135,6 @@ const AccountBookDetailInfo = ({
 					) {
 						return (
 							<S.ActionCount>
-								{/* <S.Dot whichCategory={category === 'seller'}></S.Dot> */}
 								<S.Category whichCategory={category === 'seller'}>{category === 'seller' ? '판매' : '구매'}</S.Category>
 							</S.ActionCount>
 						);
@@ -233,18 +232,6 @@ const ActionCount = styled.div`
 	font-size: 18px;
 `;
 
-const Dot = styled.div`
-	margin-right: 2px;
-	background-color: ${({ whichCategory }) =>
-		whichCategory ? '#f87171' : 'skyblue'};
-	width: 8px;
-	height: 8px;
-	display: flex;
-	justify-content: center;
-	border-radius: 50%;
-	display: flex;
-`;
-
 const Category = styled.div`
 	color: ${({ whichCategory }) =>
 	whichCategory ? '#f87171' : 'skyblue'};
@@ -277,7 +264,6 @@ const S = {
 	Flex2,
 	Amount,
 	ActionCount,
-	Dot,
 	Category,
 	WhiteBox,
 };
