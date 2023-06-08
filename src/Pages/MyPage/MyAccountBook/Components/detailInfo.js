@@ -185,11 +185,13 @@ const PreviewWrap = styled.div`
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 
-	@media ${({ theme }) => theme.device.tablet} {
-		width: 90%;
+	min-width: 360px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 100%;
+	@media (max-width: 900px) {
+		width: 90%;
 	}
 `;
 
@@ -234,22 +236,37 @@ const Dot = styled.div`
 const Category = styled.div`
 	color: ${({ whichCategory }) =>
 	whichCategory ? '#f87171' : 'skyblue'};
-	@media ${({ theme }) => theme.device.tablet} {
+	@media (max-width: 700px) {
+		width: 90%;
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
+	@media (max-width: 900px) {
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
+	/* @media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		width: 90%;
 		font-size: ${({theme}) => theme.fontSize.sm};
-	}
+	} */
 `;
 
 const WhiteBox = styled.div`
 	color: white;
-	@media ${({ theme }) => theme.device.tablet} {
+	/* @media ${({ theme }) => theme.device.tablet} {
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		width: 90%;
+		font-size: ${({theme}) => theme.fontSize.sm};
+	} */
+
+	@media (max-width: 700px) {
+		width: 90%;
+		font-size: ${({theme}) => theme.fontSize.sm};
+	}
+	@media (max-width: 900px) {
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
 `;
