@@ -143,20 +143,7 @@ https://zoopzoop-market.vercel.app/
 ## 👪 팀원
 
 | 구현서 | 김나실 | 박선영 | 이주람 | 이재훈 | 장영승 |
-| :----: | :----: | :----: | :----: | :----: | :----: |
-
-| <img src="https://avatars.githubusercontent.com/u/117560047?v=4" width="90px"/>
-| <img src="https://avatars.githubusercontent.com/u/117559842?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/117560052?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/113501460?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/91282032?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/50819030?v=4" width="90px" /> |
-| [HyunseoKoo](https://github.com/HyunseoKoo)
-| [nasilKiM](https://github.com/nasilKiM)
-| [seonyeong719](https://github.com/seonyeong719)
-| [JuramLee](https://github.com/JuramLee)
-| [JaeHoonKOR](https://github.com/JaeHoonKOR)
-| [YoungSeungJang](https://github.com/YoungSeungJang) |
+| :----: | :----: | :----: | :----: | :----: | :----: ||<img src="https://avatars.githubusercontent.com/u/117560047?v=4" width="90px"/>|<img src="https://avatars.githubusercontent.com/u/117559842?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/117560052?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/113501460?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/91282032?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/50819030?v=4" width="90px" />||[HyunseoKoo](https://github.com/HyunseoKoo)|[nasilKiM](https://github.com/nasilKiM)|[seonyeong719](https://github.com/seonyeong719)|[JuramLee](https://github.com/JuramLee)|[JaeHoonKOR](https://github.com/JaeHoonKOR)|[YoungSeungJang](https://github.com/YoungSeungJang) |
 
 ## 🛠️ 사용 기술 스택
 
