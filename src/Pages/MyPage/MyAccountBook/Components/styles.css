@@ -1,7 +1,7 @@
 .react-calendar {
 	width: 70%;
 	height: 450px;
-	min-width: 350px;
+	min-width: 360px;
 	max-width: 1200px;
 	background: #ffffff;
 	border: 1px solid #ffffff;
@@ -16,7 +16,7 @@
 		width: 90%;
 	}
 	@media screen and (max-width: 600px) {
-		width: 90%;
+		width: 95%;
 	}
 }
 
@@ -91,10 +91,11 @@
 	color: black;
 }
 .react-calendar__tile {
-	height: 60px;
+	height: 3em;
 	font-size: 1.2rem;
 	border: none;
 	background-color: white;
+	min-width: max-content;
 }
 
 .react-calendar__tile:enabled:hover,

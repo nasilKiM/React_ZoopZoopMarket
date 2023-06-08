@@ -249,31 +249,17 @@ const Category = styled.div`
 	color: ${({ whichCategory }) =>
 	whichCategory ? '#f87171' : 'skyblue'};
 	@media (max-width: 700px) {
-		width: 90%;
-		font-size: ${({theme}) => theme.fontSize.sm};
+		width: max-content;
+		font-size: ${({theme}) => theme.fontSize.micro};
 	}
 	@media (max-width: 900px) {
+		width: max-content;
 		font-size: ${({theme}) => theme.fontSize.sm};
 	}
-	/* @media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({theme}) => theme.fontSize.sm};
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 90%;
-		font-size: ${({theme}) => theme.fontSize.sm};
-	} */
 `;
 
 const WhiteBox = styled.div`
 	color: white;
-	/* @media ${({ theme }) => theme.device.tablet} {
-		font-size: ${({theme}) => theme.fontSize.sm};
-	}
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 90%;
-		font-size: ${({theme}) => theme.fontSize.sm};
-	} */
-
 	@media (max-width: 700px) {
 		width: 90%;
 		font-size: ${({theme}) => theme.fontSize.sm};
