@@ -147,6 +147,10 @@ const RegisterPage = () => {
 					},
 				});
 			} else {
+				if (images.length == 0) {
+					window.scrollTo(0, 0);
+					return setShowModal(true);
+				}
 				formData.append('idx', idx);
 				const imgUrls = [];
 				images.forEach((element, index) => {
@@ -171,7 +175,12 @@ const RegisterPage = () => {
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles register={register} images={images} setImages={setImages} />
+			<UploadFiles
+				register={register}
+				images={images}
+				setImages={setImages}
+				setValue={setValue}
+			/>
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>

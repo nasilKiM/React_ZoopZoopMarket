@@ -42,7 +42,7 @@ const LoginPage = () => {
 			setTimeout(() => {
 				setModal(false);
 				navigate('/main');
-			}, 2000);
+			}, 1000);
 
 			TokenService.setToken(res.data.tokenForHeader);
 			so?.emit('connect-user', { token: TokenService.getToken() });
