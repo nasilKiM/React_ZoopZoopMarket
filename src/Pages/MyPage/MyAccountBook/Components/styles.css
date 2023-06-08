@@ -1,6 +1,8 @@
 .react-calendar {
 	width: 70%;
 	height: 450px;
+	min-width: 360px;
+	max-width: 1200px;
 	background: #ffffff;
 	border: 1px solid #ffffff;
 	font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +16,7 @@
 		width: 90%;
 	}
 	@media screen and (max-width: 600px) {
-		width: 90%;
+		width: 95%;
 	}
 }
 
@@ -27,6 +29,12 @@
 	& > span {
 		font-size: 24px;
 		font-weight: 600;
+	}
+	@media screen and (max-width: 1000px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 95%;
 	}
 }
 
@@ -52,6 +60,12 @@
 
 .react-calendar__month-view__weekdays__weekday abbr{
 	text-decoration: none;
+	@media screen and (max-width: 1000px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 95%;
+	}
  }
  
 .react-calendar__month-view__weekdays__weekday--current {
@@ -78,18 +92,37 @@
 .react-calendar__month-view {
 	padding: 12px 32px;
 	font-size: 1.3rem;
+	@media screen and (max-width: 1000px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 95%;
+	}
 }
 
 .react-calendar__month-view__weekdays__weekday {
 	padding: 20px;
 	text-align: center;
+	@media screen and (max-width: 1000px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 95%;
+	}
 }
 
 .react-calendar__month-view__days__day--weekend {
 	color: black;
+	@media screen and (max-width: 1000px) {
+		width: 90%;
+	}
+	@media screen and (max-width: 600px) {
+		width: 95%;
+	}
 }
+
 .react-calendar__tile {
-	height: 60px;
+	height: 3em;
 	font-size: 1.2rem;
 	border: none;
 	background-color: white;
