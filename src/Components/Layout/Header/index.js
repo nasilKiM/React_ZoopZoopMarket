@@ -9,11 +9,14 @@ import SearchBar from 'Components/SearchBar/SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
+	faComment,
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { basicSetting, flexAllCenter } from 'Styles/common';
+import { useRecoilState } from 'recoil';
+import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -31,7 +34,7 @@ const WebHeader = ({ so }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
-
+	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside1);
 		document.addEventListener('mousedown', handleClickOutside2);
@@ -45,6 +48,7 @@ const WebHeader = ({ so }) => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
+			setShowChatIcon(true);
 		});
 	}, [so]);
 	const Modal = ({ isOpen, onClose, children }) => {
@@ -104,7 +108,7 @@ const WebHeader = ({ so }) => {
 							<div onClick={toggleMenu}>
 								{MenuIsOpen ? (
 									<>
-										<FontAwesomeIcon
+										<S.FontIcons
 											icon={faXmark}
 											color="gray"
 											cursor="pointer"
@@ -140,7 +144,7 @@ const WebHeader = ({ so }) => {
 										</S.MenuOpen>
 									</>
 								) : (
-									<FontAwesomeIcon
+									<S.FontIcons
 										icon={faBars}
 										color="gray"
 										cursor="pointer"
@@ -190,7 +194,7 @@ const WebHeader = ({ so }) => {
 					)}
 					{isTablet ? (
 						<Link>
-							<FontAwesomeIcon
+							<S.FontIcons
 								icon={faMagnifyingGlass}
 								color="gray"
 								cursor="pointer"
@@ -240,9 +244,18 @@ const WebHeader = ({ so }) => {
 							)}
 						</div>
 						<S.ChatLink to={'/chat'}>
+							<div>
+								{showChatIcon && (
+									<FontAwesomeIcon
+										icon={faComment}
+										style={{ color: '#FF3647' }}
+									/>
+								)}
+							</div>
 							<button>채팅하기</button>
 						</S.ChatLink>
 					</S.Icon>
+					<S.SearchMobile onClick={logout}>로그아웃</S.SearchMobile>
 				</S.Container>
 			</S.Wrapper>
 
@@ -317,6 +330,9 @@ const Logo = styled.img`
 	@media (max-width: 700px) {
 		padding-right: 10px;
 	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 135px;
+	}
 `;
 
 const MenuList = styled.div`
@@ -360,10 +376,13 @@ const Icon = styled.div`
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
+	cursor: pointer;
 	@media (max-width: 700px) {
 		width: 35px;
 	}
-	cursor: pointer;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
 `;
 
 const MenuOptionWrapper = styled.div`
@@ -425,8 +444,35 @@ const ChatLink = styled(Link)`
 	@media ${({ theme }) => theme.device.mobile} {
 		display: none;
 	}
+	position: relative;
+	& > div {
+		position: absolute;
+		right: -5px;
+		top: -5px;
+	}
 `;
 
+const FontIcons = styled(FontAwesomeIcon)`
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 22px;
+	}
+`;
+
+const SearchMobile = styled.button`
+	display: none;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: block;
+		border: none;
+		padding: 7px 3px;
+		width: 90px;
+		border-radius: 10px;
+		font-size: ${({ theme }) => theme.fontSize.xs};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		color: ${({ theme }) => theme.color.white};
+		background-color: ${({ theme }) => theme.color.primary[300]};
+		margin-left: 15px;
+	}
+`;
 const S = {
 	Wrapper,
 	Container,
@@ -443,4 +489,6 @@ const S = {
 	ModalContent,
 	CloseButton,
 	ChatLink,
+	FontIcons,
+	SearchMobile,
 };

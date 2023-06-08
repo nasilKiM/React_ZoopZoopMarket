@@ -11,12 +11,16 @@ import {
 import styled from 'styled-components';
 
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { useRecoilState } from 'recoil';
+import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
 	const [showChatDetail, setShowChatDetail] = useState(true);
+	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
+	console.log(showChatIcon);
 	const isTablet = useMediaQuery({ maxWidth: 700 });
 
 	const { data: getChatList } = useGetChatList(idx);
@@ -31,6 +35,10 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 		if (idx) return;
 		setChatroomList(getAllChatList?.data);
 	}, [getAllChatList]);
+
+	useEffect(() => {
+		setShowChatIcon(false);
+	}, []);
 
 	const handleChatDetailToggle = () => {
 		setShowChatDetail(false);
