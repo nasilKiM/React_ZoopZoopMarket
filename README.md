@@ -1,16 +1,26 @@
 ## 👀 프로젝트 소개
+<div align="center">
+<img width="20%" src="https://github.com/Frontend-TEAM1/ZoopzoopMarket/assets/117559842/17ed16f5-694b-41c0-a38b-100d6bddaed0"/>
+<br/>
+<br/>
+<br/>
 
-줍줍마켓은 중고 거래 커머스 플랫폼입니다.
-손쉽게 중고템 및 무료템을 검색하고 사고싶은 물건의 구매할 수 있고
-내가 가진 아이템의 판매도 간편합니다.
-실시간 채팅을 통한 거래가 가능하며, 거래내역을 바탕으로 투명한 시세 검색이 가능합니다.
-마이페이지에서 가계부를 활용해 나의 거래내역을 확인하고 내가 구매한 아이템의 리뷰를 통한 판매자 신뢰도 평가도 가능합니다☺️
-
+   **줍줍마켓** 은 중고 거래 커머스 플랫폼입니다.<br/>
+손쉽게 중고템 및 무료템을 검색하고 사고싶은 물건의 구매할 수 있고<br/>
+내가 가진 아이템의 판매도 간편합니다.<br/>
+실시간 채팅을 통한 거래가 가능하며, 거래내역을 바탕으로 투명한 시세 검색이 가능합니다.<br/>
+마이페이지에서 가계부를 활용해 나의 거래내역을 확인하고<br/> 내가 구매한 아이템의 리뷰를 통한 판매자 신뢰도 평가도 가능합니다☺️
+<br/>
+<br/>
 https://zoopzoop-market.vercel.app/
+</div> 
+<br/>
 
 ## 🖥️ 서비스 화면
 
 <캡쳐화면>
+
+<br>
 
 ## 🌳 프로젝트 폴더 구조
 
@@ -140,31 +150,39 @@ https://zoopzoop-market.vercel.app/
         * App.js
         * index.js
 
+<br>
+
+
 ## 👪 팀원
+
 
 | 구현서 | 김나실 | 박선영 | 이주람 | 이재훈 | 장영승 |
 | :----: | :----: | :----: | :----: | :----: | :----: |
+|<img src="https://avatars.githubusercontent.com/u/117560047?v=4" width="90px"/>|<img src="https://avatars.githubusercontent.com/u/117559842?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/117560052?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/113501460?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/91282032?v=4" width="90px" />|<img src="https://avatars.githubusercontent.com/u/50819030?v=4" width="90px" />|
+|[HyunseoKoo](https://github.com/HyunseoKoo)|[nasilKiM](https://github.com/nasilKiM)|[seonyeong719](https://github.com/seonyeong719)|[JuramLee](https://github.com/JuramLee)|[JaeHoonKOR](https://github.com/JaeHoonKOR)|[YoungSeungJang](https://github.com/YoungSeungJang)|
 
-| <img src="https://avatars.githubusercontent.com/u/117560047?v=4" width="90px"/>
-| <img src="https://avatars.githubusercontent.com/u/117559842?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/117560052?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/113501460?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/91282032?v=4" width="90px" />
-| <img src="https://avatars.githubusercontent.com/u/50819030?v=4" width="90px" /> |
-| [HyunseoKoo](https://github.com/HyunseoKoo)
-| [nasilKiM](https://github.com/nasilKiM)
-| [seonyeong719](https://github.com/seonyeong719)
-| [JuramLee](https://github.com/JuramLee)
-| [JaeHoonKOR](https://github.com/JaeHoonKOR)
-| [YoungSeungJang](https://github.com/YoungSeungJang) |
+<br>
+
+
 
 ## 🛠️ 사용 기술 스택
 
     > FrontEnd : HTML / JavaScript / React
     > 라이브러리 : styled-component / styled-reset / husky / eslint / prettier / react-fontawesome / react-query
     > 협업도구 : Git + GitHub + Notion
+    
+<br>
+
+## 🌐 Browser Support
+![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/main/src/chrome/chrome_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/main/src/safari/safari_48x48.png) | ![Edge](https://raw.githubusercontent.com/alrra/browser-logos/main/src/edge/edge_48x48.png) |
+--- | --- | --- |
+Latest ✔ | Latest ✔ | Latest ✔ | 
+
+<br>
+
 
 ## 협업방식
 
-Notion을 통한 Daily 스크럼 + 스프린트 회의 + 칸반보드
+Notion을 통한 Daily 스크럼 + 스프린트 회의 + 칸반보드<br/>
+<br/>
 ❣️Notion 주소 : https://www.notion.so/ZOOP-ZOOP-c505857b1d7a430e958a79533c3f391e?pvs=4
