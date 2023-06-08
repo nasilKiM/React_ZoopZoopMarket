@@ -44,8 +44,10 @@ const LandingPage = () => {
 
 				<S.Section1>
 					<S.Title>
-						원하는 상품은 ? <span>줍줍마켓 ! </span>
-						<br /> 물건을 팔때도 ? <span>줍줍마켓 ! </span>
+						<div>원하는 상품은 ? 줍줍마켓! 물건을 팔때도 ? 줍줍마켓!</div>
+
+						{/* 원하는 상품은 ? <span>줍줍마켓 ! </span>
+						<br /> 물건을 팔때도 ? <span>줍줍마켓 ! </span> */}
 					</S.Title>
 				</S.Section1>
 				<S.Section2>
@@ -124,7 +126,9 @@ const Wrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
-	background-image: url(https://static.wixstatic.com/media/9feeef_e187accd020c4b0499a3caaa86102c34f000.jpg/v1/fill/w_1020,h_725,al_c,q_85,usm_0.33_1.00_0.00,enc_auto/9feeef_e187accd020c4b0499a3caaa86102c34f000.jpg);
+	background: linear-gradient(to bottom, #ffd1d1, #ff9494, #f87474);
+
+	/* background-image: url(https://static.wixstatic.com/media/9feeef_e187accd020c4b0499a3caaa86102c34f000.jpg/v1/fill/w_1020,h_725,al_c,q_85,usm_0.33_1.00_0.00,enc_auto/9feeef_e187accd020c4b0499a3caaa86102c34f000.jpg); */
 	background-repeat: no-repeat;
 	background-size: cover;
 `;
@@ -200,7 +204,7 @@ const Section1 = styled.section`
 `;
 
 const Title = styled.div`
-	font-size: 24px;
+	font-size: 74px;
 	span {
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 		:hover {
