@@ -71,14 +71,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							<div>{item.title}</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span
+									<S.Tag
 										key={Math.random()}
 										onClick={() => {
 											navigate(`/search_list/${item.Tag.tag}`);
 										}}
 									>
 										#{item.Tag.tag}
-									</span>
+									</S.Tag>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -112,14 +112,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span
+									<S.Tag
 										key={Math.random()}
 										onClick={() => {
 											navigate(`/search_list/${item.Tag.tag}`);
 										}}
 									>
 										#{item.Tag.tag}
-									</span>
+									</S.Tag>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -269,9 +269,16 @@ const SellerWrapper = styled.div`
 		}
 	}
 `;
-
+const Tag = styled.span`
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		color: ${({ theme }) => theme.color.hover};
+		border: 1px solid black;
+	}
+`;
 const S = {
 	BuyerWrapper,
 	solidOut,
 	SellerWrapper,
+	Tag,
 };
