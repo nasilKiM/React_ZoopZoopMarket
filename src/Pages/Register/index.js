@@ -82,6 +82,8 @@ const RegisterPage = () => {
 		}
 	};
 
+	const handleTagInput = () => {};
+
 	const handleDelete = deleteTag => e => {
 		e.preventDefault();
 		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
@@ -227,10 +229,15 @@ const RegisterPage = () => {
 				<S.Mark>*</S.Mark>
 				<S.Title>태그</S.Title>
 				<S.InputContainer>
-					<S.InputBox
-						placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
-						onKeyDown={handleKeyDown}
-					></S.InputBox>
+					<S.TagInput>
+						<S.InputBox
+							placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
+							onKeyDown={handleKeyDown}
+						></S.InputBox>
+						<button onClick={handleTagInput} type="button">
+							등록
+						</button>
+					</S.TagInput>
 					{errors.tag && <S.Error role="alert">{errors.tag.message}</S.Error>}
 					<S.SelectorWrapper>
 						<CategorySelector setTags={setTags} tags={tags}></CategorySelector>
@@ -382,6 +389,19 @@ const TagWrapper = styled.div`
 		margin-left: 95px;
 		margin-bottom: 20px;
 		margin-top: -15px;
+	}
+`;
+
+const TagInput = styled.div`
+	display: flex;
+	button {
+		width: 50px;
+		border-radius: 5px;
+		border: none;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		:hover {
+			background-color: ${({ theme }) => theme.color.primary[100]};
+		}
 	}
 `;
 
@@ -550,6 +570,7 @@ const S = {
 	Title,
 	InputContainer,
 	InputBox,
+	TagInput,
 	SelectorWrapper,
 	TagWrapper,
 	TagBox,
