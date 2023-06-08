@@ -163,7 +163,7 @@ const ImgWrap = styled.div`
 
 const ProfileImg = styled.div`
 	background-color: ${({ theme }) => theme.color.primary[400]};
-	padding: 12px;
+	padding: 10px;
 	border-radius: 50%;
 	position: absolute;
 	bottom: 0;
@@ -175,10 +175,10 @@ const FontAwesomeIconImg = styled(FontAwesomeIcon)`
 	color: #ffffff;
 	font-size: 15px;
 	@media ${({ theme }) => theme.device.tablet} {
-		font-size: 12px;
+		font-size: 13px;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 8px;
+		font-size: 12px;
 	}
 `;
 
