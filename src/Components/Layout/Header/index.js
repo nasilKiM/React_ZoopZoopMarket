@@ -206,7 +206,10 @@ const WebHeader = ({ so }) => {
 							/>
 							{isModalOpen && (
 								<Modal>
-									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
+									<SearchMobileBar
+										props={props}
+										setIsModalOpen={setIsModalOpen}
+									/>
 								</Modal>
 							)}
 						</div>
@@ -427,20 +430,27 @@ const ModalContent = styled.div`
 	border-radius: 4px;
 	padding: 20px;
 	display: flex;
-	min-width: 400px;
+	width: 400px;
 	top: 80px;
 	position: absolute;
 	align-items: center;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 300px;
+	}
 `;
 
 const CloseButton = styled.button`
 	position: absolute;
-	right: 10px;
+	right: 30px;
 	background: none;
 	border: none;
 	color: white;
 	cursor: pointer;
 	font-size: 60px;
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 30px;
+		right: -15px;
+	}
 `;
 
 const ChatLink = styled(Link)`
@@ -476,6 +486,8 @@ const SearchMobile = styled.button`
 		margin-left: 15px;
 	}
 `;
+
+const SearchMobileBar = styled(SearchBar)``;
 
 const S = {
 	Wrapper,
