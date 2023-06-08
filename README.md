@@ -143,7 +143,7 @@
 
 ## 👪 팀원
 
-| 빈태찬 | 윤동영 | 이주홍 | 김태기 | 김도은 | 이하늘 |
+| 구현서 | 김나실 | 박선영 | 이주람 | 이재훈 | 장영승 |
 |:--:|:--:|:--:|:--:|:--:|:--:|
 | <img src="https://avatars.githubusercontent.com/u/77373566?v=4" width="90px"/> | <img src="https://avatars.githubusercontent.com/u/119868766?v=4" width="90px" /> | <img src="https://avatars.githubusercontent.com/u/61799492?v=4" width="90px" /> | <img src="https://avatars.githubusercontent.com/u/103398790?v=4" width="90px" /> | <img src="https://avatars.githubusercontent.com/u/112946860?v=4" width="90px" /> | <img src="https://avatars.githubusercontent.com/u/110607164?v=4" width="90px" /> |
 | [beenbin](https://github.com/showme0241) | [JacobYoon97](https://github.com/JacobYoon97) | [LEE JUHONG](https://github.com/dlwnghd) | [taeginote](https://github.com/taeginote) | [Doeunnkimm](https://github.com/Doeunnkimm) | [twosky0202](https://github.com/twosky0202) |
