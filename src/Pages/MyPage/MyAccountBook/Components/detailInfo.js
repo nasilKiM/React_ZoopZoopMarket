@@ -24,11 +24,11 @@ const AccountBookDetailInfo = ({
 
 	return (
 		<S.Wrap>
+			<S.infoTitle>지금까지 줍줍마켓과 함께한 내역이에요 !</S.infoTitle>
 			<S.PreviewWrap>
-				<div>지금까지 줍줍마켓과 함께한 내역이에요 !</div>
 				<div>
 					<S.Flex>
-						<div>총 수입총액</div>
+						<div>수입총액</div>
 						<div>
 							{data && (
 								<S.Amount>
@@ -43,7 +43,7 @@ const AccountBookDetailInfo = ({
 						</div>
 					</S.Flex>
 					<S.Flex>
-						<div>총 지출총액</div>
+						<div>지출총액</div>
 						<div>
 							{data && (
 								<S.Amount>
@@ -74,11 +74,11 @@ const AccountBookDetailInfo = ({
 				</div>
 			</S.PreviewWrap>
 
+			<S.infoTitle>이번달 줍줍마켓과 함께한 내역이에요 !</S.infoTitle>
 			<S.PreviewWrap>
-				<div>이번달 줍줍마켓과 함께한 내역이에요 !</div>
 				<div>
 					<S.Flex>
-						<div>당월 수입</div>
+						<div>이번달 수입</div>
 						<div>
 							{data && (
 								<S.Amount>
@@ -93,7 +93,7 @@ const AccountBookDetailInfo = ({
 						</div>
 					</S.Flex>
 					<S.Flex>
-						<div>당월 지출</div>
+						<div>이번달 지출</div>
 						<div>
 							{data && (
 								<S.Amount>
@@ -108,7 +108,7 @@ const AccountBookDetailInfo = ({
 						</div>
 					</S.Flex>
 					<S.Flex2>
-						<div>당월 수익</div>
+						<div>총 수익</div>
 						<div>
 							{data && (
 								<S.Amount>
@@ -135,8 +135,9 @@ const AccountBookDetailInfo = ({
 					) {
 						return (
 							<S.ActionCount>
-								<S.Dot whichCategory={category === 'seller'}></S.Dot>
-								{data.payList.length}건
+								<S.Category whichCategory={category === 'seller'}>
+									{category === 'seller' ? '판매' : '구매'}
+								</S.Category>
 							</S.ActionCount>
 						);
 					} else {
@@ -144,16 +145,13 @@ const AccountBookDetailInfo = ({
 					}
 				}}
 				onDrillDown={e => {
-					console.log(e);
 					setMonth(`0${e.activeStartDate.getMonth() + 1}`);
 					setYear(e.activeStartDate.getFullYear());
 				}}
-				// 전역 빼놓기
 				onActiveStartDateChange={e => {
 					if (e.action === 'next' || e.action === 'prev') {
 						setMonth(`0${e.activeStartDate.getMonth() + 1}`);
 					} else if (e.action === 'next2' || e.action === 'prev2') {
-						console.log(e);
 						setYear(e.activeStartDate.getFullYear());
 					}
 				}}
@@ -168,6 +166,11 @@ const Wrap = styled.div`
 	${basicSetting}
 `;
 
+const infoTitle = styled.div`
+	width: 80%;
+	margin: 0 auto 10px;
+`;
+
 const PreviewWrap = styled.div`
 	width: 80%;
 	height: 28vh;
@@ -175,14 +178,19 @@ const PreviewWrap = styled.div`
 	padding: 30px 20px 20px;
 	box-shadow: 0px 0px 20px #e0e0e0;
 
-	> div:nth-child(1) {
+	> div:nth-child(2) {
 		${flexAlignCenter}
 		margin-bottom: 30px;
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
 	}
 
-	> div:nth-child(2) {
-		margin: 0 auto;
+	min-width: 360px;
+	max-width: 1200px;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
 	}
 `;
 
@@ -191,6 +199,12 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Flex2 = styled.div`
@@ -200,6 +214,12 @@ const Flex2 = styled.div`
 	justify-content: space-between;
 	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
 	padding-top: 1rem;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Amount = styled.span`
@@ -212,29 +232,37 @@ const ActionCount = styled.div`
 	font-size: 18px;
 `;
 
-const Dot = styled.div`
-	margin-right: 2px;
-	background-color: ${({ whichCategory }) =>
-		whichCategory ? '#f87171' : 'skyblue'};
-	width: 8px;
-	height: 8px;
-	display: flex;
-	justify-content: center;
-	border-radius: 50%;
-	display: flex;
+const Category = styled.div`
+	color: ${({ whichCategory }) => (whichCategory ? '#f87171' : 'skyblue')};
+	@media (max-width: 700px) {
+		width: max-content;
+		font-size: ${({ theme }) => theme.fontSize.micro};
+	}
+	@media (max-width: 900px) {
+		width: max-content;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const WhiteBox = styled.div`
 	color: white;
+	@media (max-width: 700px) {
+		width: 90%;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
+	@media (max-width: 900px) {
+		font-size: ${({ theme }) => theme.fontSize.sm};
+	}
 `;
 
 const S = {
 	Wrap,
+	infoTitle,
 	PreviewWrap,
 	Flex,
 	Flex2,
 	Amount,
 	ActionCount,
-	Dot,
+	Category,
 	WhiteBox,
 };

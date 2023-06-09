@@ -9,11 +9,14 @@ import SearchBar from 'Components/SearchBar/SearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faBars,
+	faComment,
 	faMagnifyingGlass,
 	faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { basicSetting, flexAllCenter } from 'Styles/common';
+import { useRecoilState } from 'recoil';
+import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -31,10 +34,11 @@ const WebHeader = ({ so }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
-
+	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside1);
 		document.addEventListener('mousedown', handleClickOutside2);
+
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside1);
 			document.removeEventListener('mousedown', handleClickOutside2);
@@ -45,6 +49,7 @@ const WebHeader = ({ so }) => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
 		so?.on('newMessage', data => {
 			setPopupMsg(data);
+			setShowChatIcon(true);
 		});
 	}, [so]);
 	const Modal = ({ isOpen, onClose, children }) => {
@@ -104,7 +109,7 @@ const WebHeader = ({ so }) => {
 							<div onClick={toggleMenu}>
 								{MenuIsOpen ? (
 									<>
-										<FontAwesomeIcon
+										<S.FontIcons
 											icon={faXmark}
 											color="gray"
 											cursor="pointer"
@@ -116,7 +121,7 @@ const WebHeader = ({ so }) => {
 											<S.Menu
 												key={1}
 												onClick={() => {
-													return navigate(`/search_list/${word}/0`);
+													navigate(`/search_list/${word}/0`);
 												}}
 											>
 												중고 거래
@@ -140,7 +145,7 @@ const WebHeader = ({ so }) => {
 										</S.MenuOpen>
 									</>
 								) : (
-									<FontAwesomeIcon
+									<S.FontIcons
 										icon={faBars}
 										color="gray"
 										cursor="pointer"
@@ -164,7 +169,8 @@ const WebHeader = ({ so }) => {
 								<S.Menu
 									key={1}
 									onClick={() => {
-										return navigate(`/search_list/${word}/0`);
+										navigate(`/search_list/,/0`);
+										navigate(-1);
 									}}
 								>
 									중고 거래
@@ -189,8 +195,8 @@ const WebHeader = ({ so }) => {
 						</>
 					)}
 					{isTablet ? (
-						<Link>
-							<FontAwesomeIcon
+						<div>
+							<S.FontIcons
 								icon={faMagnifyingGlass}
 								color="gray"
 								cursor="pointer"
@@ -199,10 +205,13 @@ const WebHeader = ({ so }) => {
 							/>
 							{isModalOpen && (
 								<Modal>
-									<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
+									<SearchMobileBar
+										props={props}
+										setIsModalOpen={setIsModalOpen}
+									/>
 								</Modal>
 							)}
-						</Link>
+						</div>
 					) : (
 						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
 					)}
@@ -239,10 +248,19 @@ const WebHeader = ({ so }) => {
 								</S.MenuOptionWrapper>
 							)}
 						</div>
-						<Link to={'/chat'}>
+						<S.ChatLink to={'/chat'}>
+							<div>
+								{showChatIcon && (
+									<FontAwesomeIcon
+										icon={faComment}
+										style={{ color: '#FF3647' }}
+									/>
+								)}
+							</div>
 							<button>채팅하기</button>
-						</Link>
+						</S.ChatLink>
 					</S.Icon>
+					<S.SearchMobile onClick={logout}>로그아웃</S.SearchMobile>
 				</S.Container>
 			</S.Wrapper>
 
@@ -276,17 +294,17 @@ const Container = styled.div`
 const MenuOpen = styled.div`
 	width: 145px;
 	height: 130px;
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	background-color: ${({ theme }) => theme.color.white};
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	top: 100px;
+	top: 80px;
 	gap: 10px;
 	padding-top: 25px;
 	padding-left: 20px;
 	transition: 0.4s ease;
 	border-radius: 0 0 5px 5px;
-	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.2);
 `;
 
 const Menu = styled.div`
@@ -316,6 +334,9 @@ const Logo = styled.img`
 	margin-right: 20px;
 	@media (max-width: 700px) {
 		padding-right: 10px;
+	}
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 135px;
 	}
 `;
 
@@ -360,18 +381,21 @@ const Icon = styled.div`
 const CategoryIcon = styled.img`
 	width: 40px;
 	margin-left: 15px;
+	cursor: pointer;
 	@media (max-width: 700px) {
 		width: 35px;
 	}
-	cursor: pointer;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
 `;
 
 const MenuOptionWrapper = styled.div`
 	position: absolute;
-	top: 90%;
+	top: 80%;
 	height: 70px;
 	transform: translateX(-20%);
-	background-color: ${({ theme }) => theme.color.gray[100]};
+	background-color: ${({ theme }) => theme.color.white};
 	box-shadow: 2px 4px 1px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	text-align: center;
@@ -386,10 +410,6 @@ const MenuOption = styled.div`
 	transition: background-color 0.3s;
 	margin: 5px;
 	display: block;
-
-	&:hover {
-		background-color: lightgray;
-	}
 `;
 
 const ModalOverlay = styled.div`
@@ -409,21 +429,64 @@ const ModalContent = styled.div`
 	border-radius: 4px;
 	padding: 20px;
 	display: flex;
-	min-width: 400px;
+	width: 400px;
 	top: 80px;
 	position: absolute;
 	align-items: center;
+	@media ${({ theme }) => theme.device.mobile} {
+		width: 300px;
+	}
 `;
 
 const CloseButton = styled.button`
 	position: absolute;
-	right: 10px;
+	right: 30px;
 	background: none;
 	border: none;
 	color: white;
 	cursor: pointer;
 	font-size: 60px;
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 30px;
+		right: -15px;
+	}
 `;
+
+const ChatLink = styled(Link)`
+	@media ${({ theme }) => theme.device.mobile} {
+		display: none;
+	}
+	position: relative;
+	& > div {
+		position: absolute;
+		right: -5px;
+		top: -5px;
+	}
+`;
+
+const FontIcons = styled(FontAwesomeIcon)`
+	@media ${({ theme }) => theme.device.mobile} {
+		font-size: 22px;
+	}
+`;
+
+const SearchMobile = styled.button`
+	display: none;
+	@media ${({ theme }) => theme.device.mobile} {
+		display: block;
+		border: none;
+		padding: 7px 3px;
+		width: 90px;
+		border-radius: 10px;
+		font-size: ${({ theme }) => theme.fontSize.xs};
+		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		color: ${({ theme }) => theme.color.white};
+		background-color: ${({ theme }) => theme.color.primary[300]};
+		margin-left: 15px;
+	}
+`;
+
+const SearchMobileBar = styled(SearchBar)``;
 
 const S = {
 	Wrapper,
@@ -440,4 +503,7 @@ const S = {
 	ModalOverlay,
 	ModalContent,
 	CloseButton,
+	ChatLink,
+	FontIcons,
+	SearchMobile,
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ReviewApi from 'Apis/reviewApi';
 
@@ -24,13 +25,15 @@ const ReviewDetail = () => {
 
 	const [modal, setModal] = useState(false);
 
+	const { showBoundary } = useErrorBoundary();
+
 	const { data } = useQuery(['reviewDetail'], () =>
 		ReviewApi.reviewDetail(idx),
 	);
 
 	const purchased = data?.data.PayList.Product;
 	const myReview = data?.data;
-	const hasOriginalImg = myReview?.img_url !== 'null';
+	const hasOriginalImg = myReview?.img_url !== null;
 	const hasNewImg = myReview?.ReviewImages.length > 0;
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
@@ -50,8 +53,8 @@ const ReviewDetail = () => {
 			await mutationDeleteReview.mutateAsync();
 			setModal(false);
 			navigate('/mypage/review');
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
@@ -158,7 +161,7 @@ const ReviewDetail = () => {
 				<S.TxtArea style={{ whiteSpace: 'pre-wrap' }}>
 					{myReview.content.replaceAll('\r,\n', '<br />')}
 				</S.TxtArea>
-				{hasOriginalImg && (
+				{hasOriginalImg && !hasNewImg && (
 					<S.ReviewImg
 						src={myReview.img_url}
 						onClick={() => window.open(`${myReview.img_url}`, '_blank')}

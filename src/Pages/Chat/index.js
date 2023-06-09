@@ -11,12 +11,15 @@ import {
 import styled from 'styled-components';
 
 import { flexAlignCenter, flexAllCenter } from 'Styles/common';
+import { useRecoilState } from 'recoil';
+import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 const ChattingPage = ({ idx, item, isSeller }) => {
 	const [chatroomIdx, setChatroomIdx] = useState();
 	const [chatroomList, setChatroomList] = useState();
 	const [itemInfo, setItemInfo] = useState();
 	const [showChatDetail, setShowChatDetail] = useState(true);
+	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
 	const isTablet = useMediaQuery({ maxWidth: 700 });
 
 	const { data: getChatList } = useGetChatList(idx);
@@ -32,63 +35,57 @@ const ChattingPage = ({ idx, item, isSeller }) => {
 		setChatroomList(getAllChatList?.data);
 	}, [getAllChatList]);
 
+	useEffect(() => {
+		setShowChatIcon(false);
+	}, []);
+
 	const handleChatDetailToggle = () => {
-		console.log('클릭했음');
 		setShowChatDetail(false);
 	};
 
+	const handleChatList = () => {
+		setShowChatDetail(true);
+	};
+
 	return (
-		<S.ChatContainer>
-			{isTablet ? (
-				<>
-					<S.ChatRightContainer>
-						{chatroomIdx && (
-							<ChatDetail
-								chatroomIdx={chatroomIdx}
-								item={item}
-								isSeller={isSeller}
-								itemInfo={itemInfo}
-							/>
-						)}
-						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
-					</S.ChatRightContainer>
-				</>
-			) : (
-				<>
-					<S.ChatLeftContainer show={showChatDetail}>
-						<ChatList
-							chatroomList={chatroomList}
-							setChatroomIdx={setChatroomIdx}
-							idx={idx}
-							item={item}
-							setItemInfo={setItemInfo}
-						/>
-					</S.ChatLeftContainer>
-					<S.ChatRightContainer show={showChatDetail}>
-						{chatroomIdx && (
-							<ChatDetail
-								chatroomIdx={chatroomIdx}
-								item={item}
-								isSeller={isSeller}
-								itemInfo={itemInfo}
-							/>
-						)}
-						{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
-					</S.ChatRightContainer>
-				</>
-			)}
-			{isTablet && (
+		<>
+			{isTablet && showChatDetail && (
 				<S.ToggleButton onClick={handleChatDetailToggle}>
-					뒤로가기
+					&lt; 목록보기
 				</S.ToggleButton>
 			)}
-		</S.ChatContainer>
+			<S.ChatContainer>
+				<S.ChatLeftContainer show={isTablet ? !showChatDetail : true}>
+					<ChatList
+						onClick={handleChatList}
+						chatroomList={chatroomList}
+						setChatroomIdx={setChatroomIdx}
+						idx={idx}
+						item={item}
+						setItemInfo={setItemInfo}
+					/>
+				</S.ChatLeftContainer>
+
+				<S.ChatRightContainer show={isTablet ? showChatDetail : true}>
+					{chatroomIdx && (
+						<ChatDetail
+							chatroomIdx={chatroomIdx}
+							item={item}
+							isSeller={isSeller}
+							itemInfo={itemInfo}
+						/>
+					)}
+					{!chatroomIdx && <S.NoChat>채팅을 선택해주세요.</S.NoChat>}
+				</S.ChatRightContainer>
+			</S.ChatContainer>
+		</>
 	);
 };
 
 export default ChattingPage;
 
 const ChatContainer = styled.div`
+	position: relative;
 	${flexAlignCenter}
 	width: 70%;
 	height: 75vh;
@@ -98,7 +95,7 @@ const ChatContainer = styled.div`
 	margin: 0 auto;
 	border-radius: 10px;
 	border: solid lightgrey 1px;
-	margin-top: 50px;
+	margin-top: 20px;
 
 	@media (max-width: 700px) {
 		width: 100%;
@@ -108,19 +105,21 @@ const ChatContainer = styled.div`
 `;
 
 const ChatLeftContainer = styled.div`
-	width: 50%;
 	height: 100%;
+	flex: 1;
 	min-height: 500px;
 	max-height: 1000px;
+	${props => (props.show ? '' : 'display: none')};
 `;
 
 const ChatRightContainer = styled.div`
 	${flexAllCenter}
 	flex-direction: column;
-	width: 50%;
+	flex: 1;
 	height: 100%;
 	min-height: 500px;
 	max-height: 1000px;
+	${props => (props.show ? '' : 'display: none')};
 
 	@media (max-width: 700px) {
 		width: 100%;
@@ -131,26 +130,31 @@ const ChatRightContainer = styled.div`
 
 const NoChat = styled.div`
 	width: 100%;
-	background-color: white;
-	border: 1px solid gray;
+	height: 100%;
+	${flexAllCenter}
 	text-align: center;
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	background-color: ${({ theme }) => theme.color.gray[100]};
 `;
 
 const ToggleButton = styled.div`
-	position: absolute;
 	cursor: pointer;
-	top: -15px;
-	width: 100%;
-	padding: 10px 10px;
-	background-color: gray;
-	left: ${props => (props.show ? 'calc(50% - 20px)' : '5px')};
-	transform: translateY(-50%);
-	color: white;
-	border: none;
-	font-size: 16px;
+	margin-top: 20px;
+	width: 110px;
+	padding: 10px 15px;
+	background-color: ${({ theme }) => theme.color.gray[100]};
+	left: 25px;
+	border-radius: 10px;
+	font-size: ${({ theme }) => theme.fontSize.base};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	text-align: left;
 	align-items: center;
-	z-index: 98;
+	z-index: 99999;
+	:hover {
+		color: ${({ theme }) => theme.color.primary[400]};
+		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		background-color: ${({ theme }) => theme.color.white};
+	}
 
 	@media (max-width: 700px) {
 		display: block;

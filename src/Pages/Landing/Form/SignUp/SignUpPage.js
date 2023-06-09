@@ -18,6 +18,7 @@ import {
 	flexAllCenter,
 	flexJustifyCenter,
 } from 'Styles/common';
+import { useNavigate } from 'react-router';
 
 const SignUpPage = () => {
 	const [address, setAddress] = useState();
@@ -26,6 +27,25 @@ const SignUpPage = () => {
 	const [phoneMsg, setPhoneMsg] = useState('');
 	const [modal, setModal] = useState(false);
 	const [loginModal, setLoginModal] = useState(false);
+	const navigate = useNavigate();
+
+	const preventGoBack = () => {
+		history.pushState(null, '', location.href);
+		const result = confirm(
+			'페이지 이동 시 입력하신 내용이 저장되지 않을 수 있습니다.',
+		);
+		if (result === true) {
+			navigate('/');
+		}
+	};
+
+	useEffect(() => {
+		history.pushState(null, '', location.href);
+		window.addEventListener('popstate', preventGoBack);
+		return () => {
+			window.removeEventListener('popstate', preventGoBack);
+		};
+	}, []);
 
 	const preventClose = e => {
 		e.preventDefault();

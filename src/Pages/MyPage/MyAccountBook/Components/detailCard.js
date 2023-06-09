@@ -8,45 +8,47 @@ import { basicSetting } from 'Styles/common';
 const DetailCard = ({ data, category, year, month }) => {
 	let priceArr = [];
 	let sum = 0;
-	const [amount, setAmount] = useState(sum);
-
+	const [amount, setAmount] = useState('0');	
+	
 	useEffect(() => {
-		for (let i = 0; i < data.payList.length; i++) {
-			priceArr.push(data.payList[i].Product.price);
-		}
-		for (let i = 0; i < priceArr.length; i++) {
+		setAmount(0);
+		for(let i = 0; i < data.payList.length; i++) {
+			priceArr.push(data.payList[i].Product.price)
+		} 
+		for(let i = 0; i < priceArr.length; i++) {
 			sum += priceArr[i];
 			setAmount(sum);
 		}
 	}, [year, month, category]);
 
-	return (
-		<>
-			<S.Wrap>
-				<S.PreviewWrap>
-					<div>
-						<S.Amount>
-							{year}년 {month}월
-						</S.Amount>
-						의 거래 내역이에요 !
-					</div>
-					<div>
-						<S.Flex>
-							<div>{category === 'seller' ? '판매' : '구매'}</div>
-							<div>{amount.toLocaleString('ko-KR')}원</div>
-						</S.Flex>
-					</div>
-				</S.PreviewWrap>
-			</S.Wrap>
+    return (
+      <>
+		<S.Wrap>
+			<S.infoTitle><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</S.infoTitle>
+			<S.PreviewWrap>
+				<div>
+					<S.Flex>
+						<div>{category === "seller" ? "판매" : "구매"}</div>
+						<S.Flex2>
+							<div>{data.payList.length}건</div>
+							<div>{(amount).toLocaleString('ko-KR')}원</div>
+						</S.Flex2>
+					</S.Flex>
+				</div>
+			</S.PreviewWrap>
+		</S.Wrap>
 
-			<S.Container>
-				{data &&
-					data.payList.map(item => (
-						<ItemCard index={item.idx} products={item.Product} isDone={true} />
-					))}
-			</S.Container>
-		</>
-	);
+		<S.Container>
+			{data && data.payList.map(item => <ItemCard 
+				index={item.idx} 
+				products={item.Product} 
+				isDone={true} 
+				createdAt={item.createdAt}
+				category={category}
+			/>)}
+		</S.Container>
+      </>
+    )
 };
 
 export default DetailCard;
@@ -93,6 +95,11 @@ const Container = styled.div`
 	}
 `;
 
+const infoTitle = styled.div`
+	width: 80%;
+	margin: 0 auto 10px;
+`;
+
 const PreviewWrap = styled.div`
 	width: 80%;
 	height: 15vh;
@@ -110,6 +117,12 @@ const PreviewWrap = styled.div`
 	> div:nth-child(2) {
 		margin: 0 auto;
 	}
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
+	}
 `;
 
 const Flex = styled.div`
@@ -117,15 +130,20 @@ const Flex = styled.div`
 	margin: 1.3rem auto;
 	width: 50%;
 	justify-content: space-between;
+	@media (max-width: 700px) {
+		width: 80%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
 `;
 
 const Flex2 = styled.div`
 	display: flex;
-	margin: 1.3rem auto 1.3rem;
-	width: 50%;
-	justify-content: space-between;
-	border-top: solid 2px ${({ theme }) => theme.color.gray[200]};
-	padding-top: 1rem;
+	width: max-content;
+	& div:nth-child(1) {
+		margin-right: 20px;
+	} 
 `;
 
 const Amount = styled.span`
@@ -134,10 +152,11 @@ const Amount = styled.span`
 `;
 
 const S = {
-	Wrap,
-	Container,
-	PreviewWrap,
-	Flex,
-	Flex2,
-	Amount,
+  Wrap,
+  Container,
+  infoTitle,
+  PreviewWrap,
+  Flex,
+  Flex2,
+  Amount,
 };

@@ -54,9 +54,8 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 			});
 
 			navigate('/chat');
-		} catch (err) {
+		} catch (error) {
 			navigate('/chat');
-			console.log(err);
 		}
 	};
 
@@ -68,14 +67,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							<div>{item.title}</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span
+									<S.Tag
 										key={Math.random()}
 										onClick={() => {
 											navigate(`/search_list/${item.Tag.tag}`);
 										}}
 									>
 										#{item.Tag.tag}
-									</span>
+									</S.Tag>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -109,14 +108,14 @@ const DetailContent = ({ state, item, itemAllInfo }) => {
 							</div>
 							<div>
 								{item.ProductsTags.map(item => (
-									<span
+									<S.Tag
 										key={Math.random()}
 										onClick={() => {
 											navigate(`/search_list/${item.Tag.tag}`);
 										}}
 									>
 										#{item.Tag.tag}
-									</span>
+									</S.Tag>
 								))}
 								<div>|</div> {date}
 							</div>
@@ -147,15 +146,26 @@ const BuyerWrapper = styled.div`
 	> div:nth-of-type(1) {
 		font-size: ${({ theme }) => theme.fontSize.big};
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
+		@media (max-width: 700px) {
+			font-size: ${({ theme }) => theme.fontSize.md};
+		}
 	}
 
 	> div:nth-of-type(2) {
 		${flexAlignCenter}
 		gap: 5px;
+
+		:hover {
+			cursor: pointer;
+		}
+
 		span {
 			padding: 5px;
 			border-radius: 5px;
 			background-color: ${({ theme }) => theme.color.gray[100]};
+			@media (max-width: 700px) {
+				font-size: ${({ theme }) => theme.fontSize.sm};
+			}
 		}
 		div:nth-of-type(1) {
 			padding: 0px 5px;
@@ -165,6 +175,9 @@ const BuyerWrapper = styled.div`
 	> div:nth-of-type(3) {
 		font-size: ${({ theme }) => theme.fontSize.md};
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
+		@media (max-width: 700px) {
+			font-size: ${({ theme }) => theme.fontSize.base};
+		}
 	}
 
 	> div:nth-of-type(4) {
@@ -252,9 +265,16 @@ const SellerWrapper = styled.div`
 		}
 	}
 `;
-
+const Tag = styled.span`
+	:hover {
+		background-color: ${({ theme }) => theme.color.primary[400]};
+		color: ${({ theme }) => theme.color.hover};
+		border: 1px solid black;
+	}
+`;
 const S = {
 	BuyerWrapper,
 	solidOut,
 	SellerWrapper,
+	Tag,
 };

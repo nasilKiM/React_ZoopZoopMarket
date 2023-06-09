@@ -1,24 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import UserApi from 'Apis/userApi';
 
 import MyMessage from './Components/MyChat';
 import YourMessage from './Components/YourChat';
-import DateDivide from './Components/DateDevide';
+import DateDivide from './Components/DateDivide';
 
 import dayjs from 'dayjs';
 
 const MessageDetail = ({ chat }) => {
 	const scrollRef = useRef();
 	const [myNick, setMyNick] = useState();
+	const { showBoundary } = useErrorBoundary();
 
 	useEffect(() => {
 		const myInfo = async () => {
 			try {
 				const res = await UserApi.userInfo();
 				setMyNick(res.data.nick_name);
-			} catch (err) {
-				console.log(err);
+			} catch (error) {
+				showBoundary(error);
 			}
 		};
 		myInfo();

@@ -100,11 +100,13 @@ const categories = [
 	},
 ];
 
-const NextArrow = ({ onClick }) => (
-	<S.NextArrowWrapper onClick={onClick}>
-		<span>&lt;</span> <span> &gt;</span>
-	</S.NextArrowWrapper>
-);
+const NextArrow = ({ onClick }) => {
+	return (
+		<S.NextArrowWrapper onClick={onClick}>
+			<span>&lt;</span> <span> &gt;</span>
+		</S.NextArrowWrapper>
+	);
+};
 
 const Category = () => {
 	const settings = {

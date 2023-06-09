@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 const ErrorPage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<S.Wrapper>
 			<S.ImageContainer>
@@ -13,7 +15,7 @@ const ErrorPage = () => {
 				요청해주신 페이지를 찾을 수 없습니다.
 			</S.Text>
 			<S.ButtonBox>
-				<S.GoMain to="/main">메인 페이지로 이동</S.GoMain>
+				<S.GoMain onClick={() => navigate(-1)}>이전 페이지로 이동</S.GoMain>
 			</S.ButtonBox>
 		</S.Wrapper>
 	);

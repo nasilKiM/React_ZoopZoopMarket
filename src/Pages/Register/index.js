@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useErrorBoundary } from 'react-error-boundary';
 
 import ProductApi from 'Apis/productApi';
 
@@ -19,12 +20,15 @@ const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
 	const [images, setImages] = useState([]);
 	const [price, setPrice] = useState('');
+	const [formattedPrice, setFormattedPrice] = useState('');
 	const [tags, setTags] = useState([]);
 	const [addressMessage, setAddressMessage] = useState();
 
 	const [modal, setModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [regiModal, setRegiModal] = useState(false);
+
+	const { showBoundary } = useErrorBoundary();
 
 	const { idx } = useParams();
 	const queryClient = useQueryClient();
@@ -43,6 +47,7 @@ const RegisterPage = () => {
 			const res = await ProductApi.detail(idx);
 			setValue('price', res.data.searchProduct.price);
 			setPrice(res.data.searchProduct.price);
+			setFormattedPrice(res.data.searchProduct.price.toLocaleString());
 			setTags(
 				res.data.searchProduct.ProductsTags.map(tagObj => tagObj.Tag.tag),
 			);
@@ -53,8 +58,8 @@ const RegisterPage = () => {
 				res.data.searchProduct.img_url,
 				...res.data.searchProduct.ProductImages.map(subImg => subImg.img_url),
 			]);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
@@ -77,6 +82,8 @@ const RegisterPage = () => {
 		}
 	};
 
+	const handleTagInput = () => {};
+
 	const handleDelete = deleteTag => e => {
 		e.preventDefault();
 		setTags(prevTags => prevTags.filter(tag => tag !== deleteTag));
@@ -87,7 +94,8 @@ const RegisterPage = () => {
 		const num = parseInt(value.replace(/[^0-9]/g, ''), 10);
 		const priceValue = isNaN(num) ? 0 : num;
 		const formattedPrice = priceValue.toLocaleString();
-		setPrice(formattedPrice);
+		setPrice(priceValue);
+		setFormattedPrice(formattedPrice);
 	};
 
 	const mutationPost = useMutation(data => {
@@ -120,6 +128,7 @@ const RegisterPage = () => {
 		try {
 			const formData = new FormData();
 			formData.append('title', data.title);
+			formData.append('price', price);
 			formData.append('category', Number(data.price) === 0 ? 1 : 0);
 			formData.append('description', data.content);
 			formData.append('region', searchResult);
@@ -133,7 +142,6 @@ const RegisterPage = () => {
 					window.scrollTo(0, 0);
 					return setShowModal(true);
 				}
-				formData.append('price', Number(data.price.replace(/,/g, '')));
 				mutationPost.mutate(formData, {
 					onSuccess: () => {
 						queryClient.invalidateQueries(['mainList']);
@@ -141,7 +149,10 @@ const RegisterPage = () => {
 					},
 				});
 			} else {
-				formData.append('price', Number(data.price));
+				if (images.length == 0) {
+					window.scrollTo(0, 0);
+					return setShowModal(true);
+				}
 				formData.append('idx', idx);
 				const imgUrls = [];
 				images.forEach((element, index) => {
@@ -159,14 +170,19 @@ const RegisterPage = () => {
 					},
 				});
 			}
-		} catch (err) {
-			return console.log(err);
+		} catch (error) {
+			showBoundary(error);
 		}
 	};
 
 	return (
 		<S.Wrapper onSubmit={handleSubmit(onSubmit)}>
-			<UploadFiles register={register} images={images} setImages={setImages} />
+			<UploadFiles
+				register={register}
+				images={images}
+				setImages={setImages}
+				setValue={setValue}
+			/>
 			<S.Blank></S.Blank>
 			<S.Line>
 				<S.Mark>*</S.Mark>
@@ -182,7 +198,9 @@ const RegisterPage = () => {
 							if (e.key == 'Enter') e.preventDefault();
 						}}
 					></S.InputBox>
-					{errors.title && <Error role="alert">{errors.title.message}</Error>}
+					{errors.title && (
+						<S.Error role="alert">{errors.title.message}</S.Error>
+					)}
 				</S.InputContainer>
 			</S.Line>
 			<S.Line>
@@ -198,22 +216,29 @@ const RegisterPage = () => {
 								message: '숫자만 입력해주세요',
 							},
 						})}
-						value={price.toLocaleString('ko-KR')}
+						value={formattedPrice}
 						type="text"
 						onChange={handlePriceChange}
 					></S.InputBox>
-					{errors.price && <Error role="alert">{errors.price.message}</Error>}
+					{errors.price && (
+						<S.Error role="alert">{errors.price.message}</S.Error>
+					)}
 				</S.InputContainer>
 			</S.Line>
 			<S.Line>
 				<S.Mark>*</S.Mark>
 				<S.Title>태그</S.Title>
 				<S.InputContainer>
-					<S.InputBox
-						placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
-						onKeyDown={handleKeyDown}
-					></S.InputBox>
-					{errors.tag && <Error role="alert">{errors.tag.message}</Error>}
+					<S.TagInput>
+						<S.InputBox
+							placeholder="이곳에 입력 후 엔터를 치면 태그가 등록됩니다."
+							onKeyDown={handleKeyDown}
+						></S.InputBox>
+						<button onClick={handleTagInput} type="button">
+							등록
+						</button>
+					</S.TagInput>
+					{errors.tag && <S.Error role="alert">{errors.tag.message}</S.Error>}
 					<S.SelectorWrapper>
 						<CategorySelector setTags={setTags} tags={tags}></CategorySelector>
 					</S.SelectorWrapper>
@@ -232,9 +257,13 @@ const RegisterPage = () => {
 				<S.AddressTitleContainer>
 					<S.Mark>*</S.Mark>
 					<S.Title>거래장소</S.Title>
-					<S.Address>{searchResult}</S.Address>
+					<S.Address>
+						{searchResult}
+						{addressMessage && (
+							<S.AddressError>{addressMessage}</S.AddressError>
+						)}
+					</S.Address>
 					<FindAddress setter={setSearchResult} />
-					{addressMessage && <Error>{addressMessage}</Error>}
 				</S.AddressTitleContainer>
 				<KaMap address={searchResult} />
 			</S.AddressWrapper>
@@ -259,17 +288,17 @@ const RegisterPage = () => {
 			</S.ContentBox>
 			<S.Container>
 				<S.RegisterBtn>등록하기</S.RegisterBtn>
-				{showModal && (
-					<AlertModal
-						content={'이미지를 등록해주세요'}
-						setModal={setShowModal}
-					/>
-				)}
+				{showModal && <AlertModal content={'이미지를 등록해주세요'} />}
 			</S.Container>
 			{modal && (
 				<AlertModal content={'물품등록이 완료되었습니다.'} props={'/main'} />
 			)}
-			{regiModal && <AlertModal content={'물품수정이 완료되었습니다.'} />}
+			{regiModal && (
+				<AlertModal
+					content={'물품수정이 완료되었습니다.'}
+					props={`/item_detail/${idx}`}
+				/>
+			)}
 		</S.Wrapper>
 	);
 };
@@ -363,6 +392,19 @@ const TagWrapper = styled.div`
 	}
 `;
 
+const TagInput = styled.div`
+	display: flex;
+	button {
+		width: 50px;
+		border-radius: 5px;
+		border: none;
+		font-size: ${({ theme }) => theme.fontSize.sm};
+		:hover {
+			background-color: ${({ theme }) => theme.color.primary[100]};
+		}
+	}
+`;
+
 const TagBox = styled.span`
 	display: flex;
 	max-width: 150px;
@@ -418,6 +460,7 @@ const Address = styled.div`
 	width: 100%;
 	padding: 10px;
 	font-size: ${({ theme }) => theme.fontSize.md};
+	position: relative;
 	@media (max-width: 768px) {
 		font-size: ${({ theme }) => theme.fontSize.sm};
 	}
@@ -432,6 +475,25 @@ const Error = styled.div`
 	position: absolute;
 	right: 50px;
 	top: 10px;
+	@media (max-width: 1100px) {
+		right: 50px;
+		top: 10px;
+	}
+	@media (max-width: 768px) {
+		left: -20px;
+		top: 40px;
+	}
+`;
+
+const AddressError = styled.div`
+	font-size: ${({ theme }) => theme.fontSize.xs};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	color: ${({ theme }) => theme.color.error};
+	margin-left: 30px;
+	margin-top: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
 	@media (max-width: 1100px) {
 		right: 50px;
 		top: 10px;
@@ -508,6 +570,7 @@ const S = {
 	Title,
 	InputContainer,
 	InputBox,
+	TagInput,
 	SelectorWrapper,
 	TagWrapper,
 	TagBox,
@@ -517,6 +580,7 @@ const S = {
 	AddressTitleContainer,
 	Address,
 	Error,
+	AddressError,
 	ContentBox,
 	TxtArea,
 	Container,

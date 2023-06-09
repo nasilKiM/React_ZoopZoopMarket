@@ -78,11 +78,11 @@ const Wrapper = styled.div`
 	grid-template-columns: repeat(5, 1fr);
 	position: fixed;
 	top: 12vh;
-	justify-content: center;
 	left: 50%;
 	transform: translateX(-50%);
 	@media ${({ theme }) => theme.device.tablet} {
 		min-width: 500px;
+		place-items: center;
 	}
 	@media ${({ theme }) => theme.device.mobile} {
 		min-width: 100%;

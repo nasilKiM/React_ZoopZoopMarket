@@ -12,7 +12,6 @@ import {
 	flexAllCenter,
 	gridAllCenter,
 	gridColumn,
-	gridGap,
 } from 'Styles/common';
 
 const MyItemPage = () => {
@@ -23,8 +22,8 @@ const MyItemPage = () => {
 
 	useEffect(() => {
 		if (!isView) return;
-		if (data && data.pages.length < data.pages[0].data.pagination.endPage)
-			return fetchNextPage();
+		if (data?.pages.length < data.pages[0].data.pagination.endPage)
+			fetchNextPage();
 	}, [isView]);
 
 	useEffect(() => {
@@ -61,6 +60,7 @@ const MyItemPage = () => {
 											products={item}
 											isMine={true}
 											isDone={false}
+											createdAt={false}
 										/>
 									));
 								})}
@@ -99,17 +99,35 @@ const Container = styled.div`
 	${gridColumn(4)}
 	${gridAllCenter}
 	
-	@media ${({ theme }) => theme.device.laptop} {
-		${gridColumn(3)}
-		${gridGap.tablet}
+	@media (max-width: 700px) {
+		width: 95%;
 	}
-	@media ${({ theme }) => theme.device.tablet} {
-		${gridColumn(3)}
-		${gridGap.tablet}
+	@media (max-width: 800px) {
+		width: 90%;
 	}
-	@media ${({ theme }) => theme.device.mobile} {
-		${gridColumn(2)}
-		${gridGap.mobile}
+	@media screen and (max-width: 400px) {
+		grid-template-rows: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
+	}
+	@media screen and (max-width: 767px) {
+		grid-template-columns: repeat(2, minmax(180px, 1fr));
+		column-gap: 10px;
+		row-gap: 20px;
+	}
+	@media screen and (min-width: 768px) and (max-width: 1000px) {
+		grid-template-columns: repeat(2, minmax(250px, 1fr));
+		column-gap: 20px;
+		row-gap: 30px;
+	}
+	@media screen and (min-width: 1001px) and (max-width: 1499px) {
+		grid-template-columns: repeat(3, minmax(270px, 1fr));
+		column-gap: 20px;
+		row-gap: 35px;
+	}
+	@media screen and (min-width: 1500px) {
+		grid-template-columns: repeat(4, minmax(280px, 1fr));
+		column-gap: 20px;
+		row-gap: 40px;
 	}
 `;
 
