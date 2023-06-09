@@ -44,6 +44,7 @@ const Wrapper = styled.div`
 		margin-left: 5px;
 		padding: 7px 15px;
 		border-radius: 10px;
+		max-width: 250px;
 	}
 
 	> div:nth-child(3) {
