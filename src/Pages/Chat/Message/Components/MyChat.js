@@ -43,6 +43,7 @@ const Wrapper = styled.div`
 		padding: 7px 15px;
 		border-radius: 10px;
 		line-height: 25px;
+		max-width: 300px;
 	}
 	white-space: pre-wrap;
 `;
