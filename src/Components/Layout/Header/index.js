@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { useMediaQuery } from 'react-responsive';
 
 import TokenService from 'Repository/TokenService';
 import NewMessage from './Components/newMessage';
-import SearchBar from 'Components/SearchBar/SearchBar';
+import SearchIconModal from './Components/searchIconModal';
+import useMouseDownEvent from 'Hooks/Headers/use-mousedown-event';
+import MenuList from './Components/menuList';
+
+import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faBars,
-	faComment,
-	faMagnifyingGlass,
-	faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faComment, faXmark } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { basicSetting, flexAllCenter } from 'Styles/common';
-import { useRecoilState } from 'recoil';
-import { chatIcon } from 'Atoms/showChatIcon.atom';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -26,24 +24,24 @@ const WebHeader = ({ so }) => {
 
 	const navigate = useNavigate();
 
-	const props = 'search_list';
 	const isTablet = useMediaQuery({ maxWidth: 1050 });
 
 	const [isHover, setIsHover] = useState(false);
 	const [isClickProfileIcon, setIsClickProfileIcon] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
 	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
-	useEffect(() => {
-		document.addEventListener('mousedown', handleClickOutside1);
-		document.addEventListener('mousedown', handleClickOutside2);
 
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside1);
-			document.removeEventListener('mousedown', handleClickOutside2);
-		};
-	}, []);
+	useMouseDownEvent({
+		showRef,
+		MenuIsOpen,
+		hamburgerRef,
+		hamburgerShowRef,
+		wrapperRef,
+		isClickProfileIcon,
+		setMenuIsOpen,
+		setIsClickProfileIcon,
+	});
 
 	useEffect(() => {
 		so?.emit('connect-user', { token: TokenService.getToken() });
@@ -52,20 +50,6 @@ const WebHeader = ({ so }) => {
 			setShowChatIcon(true);
 		});
 	}, [so]);
-	const Modal = ({ isOpen, onClose, children }) => {
-		return (
-			<>
-				{isOpen && (
-					<S.ModalOverlay>
-						<S.ModalContent>
-							<S.CloseButton onClick={onClose}>&times;</S.CloseButton>
-							{children}
-						</S.ModalContent>
-					</S.ModalOverlay>
-				)}
-			</>
-		);
-	};
 
 	const word = ',';
 
@@ -78,24 +62,13 @@ const WebHeader = ({ so }) => {
 		setMenuIsOpen(!MenuIsOpen);
 	};
 
-	const handleClickOutside1 = e => {
-		if (wrapperRef.current?.contains(e.target)) return;
-		if (!isClickProfileIcon && !showRef.current?.contains(e.target)) {
-			setIsClickProfileIcon(false);
-		}
-	};
-	const handleClickOutside2 = e => {
-		if (hamburgerRef.current?.contains(e.target)) return;
-		if (!MenuIsOpen && !hamburgerShowRef.current?.contains(e.target)) {
-			setMenuIsOpen(false);
-		}
-	};
-
 	const handleProfileIcon = e => {
 		if (wrapperRef.current?.contains(e.target)) {
 			setIsClickProfileIcon(!isClickProfileIcon);
 		}
 	};
+
+	console.log('searchIconModal', SearchIconModal);
 
 	return (
 		<>
@@ -118,30 +91,7 @@ const WebHeader = ({ so }) => {
 										/>
 
 										<S.MenuOpen ref={hamburgerShowRef}>
-											<S.Menu
-												key={1}
-												onClick={() => {
-													navigate(`/search_list/${word}/0`);
-												}}
-											>
-												중고 거래
-											</S.Menu>
-											<S.Menu
-												key={0}
-												onClick={() => {
-													return navigate(`/search_list/${word}/1`);
-												}}
-											>
-												무료 나눔
-											</S.Menu>
-
-											<S.Menu
-												onClick={() => {
-													return navigate(`/market_price`);
-												}}
-											>
-												실시간 시세
-											</S.Menu>
+											<MenuList />
 										</S.MenuOpen>
 									</>
 								) : (
@@ -165,56 +115,12 @@ const WebHeader = ({ so }) => {
 								<S.Logo src="/Assets/web_logo_edit4.png"></S.Logo>
 							</Link>
 
-							<S.MenuList>
-								<S.Menu
-									key={1}
-									onClick={() => {
-										navigate(`/search_list/,/0`);
-										navigate(-1);
-									}}
-								>
-									중고 거래
-								</S.Menu>
-								<S.Menu
-									key={0}
-									onClick={() => {
-										return navigate(`/search_list/${word}/1`);
-									}}
-								>
-									무료 나눔
-								</S.Menu>
-
-								<S.Menu
-									onClick={() => {
-										return navigate(`/market_price`);
-									}}
-								>
-									실시간 시세
-								</S.Menu>
-							</S.MenuList>
+							<S.MenuListWrapper>
+								<MenuList />
+							</S.MenuListWrapper>
 						</>
 					)}
-					{isTablet ? (
-						<div>
-							<S.FontIcons
-								icon={faMagnifyingGlass}
-								color="gray"
-								cursor="pointer"
-								fontSize="30px"
-								onClick={() => setIsModalOpen(!isModalOpen)}
-							/>
-							{isModalOpen && (
-								<Modal>
-									<SearchMobileBar
-										props={props}
-										setIsModalOpen={setIsModalOpen}
-									/>
-								</Modal>
-							)}
-						</div>
-					) : (
-						<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
-					)}
+					<SearchIconModal isTablet={isTablet} />
 					<S.Icon>
 						<div>
 							<S.CategoryIcon
@@ -263,12 +169,6 @@ const WebHeader = ({ so }) => {
 					<S.SearchMobile onClick={logout}>로그아웃</S.SearchMobile>
 				</S.Container>
 			</S.Wrapper>
-
-			{isModalOpen && (
-				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-					<SearchBar props={props} setIsModalOpen={setIsModalOpen} />
-				</Modal>
-			)}
 		</>
 	);
 };
@@ -340,7 +240,7 @@ const Logo = styled.img`
 	}
 `;
 
-const MenuList = styled.div`
+const MenuListWrapper = styled.div`
 	display: flex;
 	padding-left: 55px;
 `;
@@ -412,46 +312,6 @@ const MenuOption = styled.div`
 	display: block;
 `;
 
-const ModalOverlay = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	z-index: 9999;
-	display: flex;
-	justify-content: center;
-`;
-
-const ModalContent = styled.div`
-	background-color: transparent;
-	border-radius: 4px;
-	padding: 20px;
-	display: flex;
-	width: 400px;
-	top: 80px;
-	position: absolute;
-	align-items: center;
-	@media ${({ theme }) => theme.device.mobile} {
-		width: 300px;
-	}
-`;
-
-const CloseButton = styled.button`
-	position: absolute;
-	right: 30px;
-	background: none;
-	border: none;
-	color: white;
-	cursor: pointer;
-	font-size: 60px;
-	@media ${({ theme }) => theme.device.mobile} {
-		font-size: 30px;
-		right: -15px;
-	}
-`;
-
 const ChatLink = styled(Link)`
 	@media ${({ theme }) => theme.device.mobile} {
 		display: none;
@@ -486,8 +346,6 @@ const SearchMobile = styled.button`
 	}
 `;
 
-const SearchMobileBar = styled(SearchBar)``;
-
 const S = {
 	Wrapper,
 	Container,
@@ -495,14 +353,11 @@ const S = {
 	Menu,
 	TabletDiv,
 	Logo,
-	MenuList,
+	MenuListWrapper,
 	Icon,
 	CategoryIcon,
 	MenuOptionWrapper,
 	MenuOption,
-	ModalOverlay,
-	ModalContent,
-	CloseButton,
 	ChatLink,
 	FontIcons,
 	SearchMobile,

@@ -268,8 +268,7 @@ const SellerWrapper = styled.div`
 const Tag = styled.span`
 	:hover {
 		background-color: ${({ theme }) => theme.color.primary[400]};
-		color: ${({ theme }) => theme.color.hover};
-		border: 1px solid black;
+		outline: 1px solid ${({ theme }) => theme.color.gray[300]};
 	}
 `;
 const S = {
