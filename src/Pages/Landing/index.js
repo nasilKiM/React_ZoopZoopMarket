@@ -44,10 +44,8 @@ const LandingPage = () => {
 
 				<S.Section1>
 					<S.Title>
-						<div>원하는 상품은 ? 줍줍마켓! 물건을 팔때도 ? 줍줍마켓!</div>
-
-						{/* 원하는 상품은 ? <span>줍줍마켓 ! </span>
-						<br /> 물건을 팔때도 ? <span>줍줍마켓 ! </span> */}
+						원하는 상품은 ? <span>줍줍마켓 ! </span>
+						<br /> 물건을 팔때도 ? <span>줍줍마켓 ! </span>
 					</S.Title>
 				</S.Section1>
 				<S.Section2>
@@ -165,7 +163,7 @@ const LogoImage = styled.img`
 
 const GoToLogin = styled.button`
 	cursor: pointer;
-	background-color: ${({ theme }) => theme.color.gray[300]};
+	background-color: ${({ theme }) => theme.color.primary[200]};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: white;
 	padding: 10px 20px;
@@ -181,7 +179,7 @@ const GoToLogin = styled.button`
 
 const GoToSignup = styled.button`
 	cursor: pointer;
-	background-color: ${({ theme }) => theme.color.gray[300]};
+	background-color: ${({ theme }) => theme.color.primary[300]};
 	font-weight: ${({ theme }) => theme.fontWeight.bold};
 	color: ${({ theme }) => theme.color.white};
 	padding: 10px 20px;
@@ -204,7 +202,7 @@ const Section1 = styled.section`
 `;
 
 const Title = styled.div`
-	font-size: 74px;
+	font-size: 70px;
 	span {
 		font-weight: ${({ theme }) => theme.fontWeight.bolder};
 		:hover {

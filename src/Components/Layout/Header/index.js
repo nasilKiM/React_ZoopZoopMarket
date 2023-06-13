@@ -51,8 +51,6 @@ const WebHeader = ({ so }) => {
 		});
 	}, [so]);
 
-	const word = ',';
-
 	const logout = async () => {
 		TokenService.removeToken();
 		navigate('/');
@@ -67,8 +65,6 @@ const WebHeader = ({ so }) => {
 			setIsClickProfileIcon(!isClickProfileIcon);
 		}
 	};
-
-	console.log('searchIconModal', SearchIconModal);
 
 	return (
 		<>

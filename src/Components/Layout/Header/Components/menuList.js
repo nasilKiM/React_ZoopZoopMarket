@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const MenuList = () => {
 	const navigate = useNavigate();
+	const word = ',';
 
 	return (
 		<>

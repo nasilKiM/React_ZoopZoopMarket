@@ -24,7 +24,6 @@ const Modal = ({ isOpen, onClose, children }) => {
 const SearchIconModal = ({ isTablet }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const props = 'search_list';
-	console.log('isTablet', isTablet);
 
 	return (
 		<>
