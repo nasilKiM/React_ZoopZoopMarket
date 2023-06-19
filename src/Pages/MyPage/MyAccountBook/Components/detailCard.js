@@ -8,47 +8,54 @@ import { basicSetting } from 'Styles/common';
 const DetailCard = ({ data, category, year, month }) => {
 	let priceArr = [];
 	let sum = 0;
-	const [amount, setAmount] = useState('0');	
-	
+	const [amount, setAmount] = useState('0');
+
 	useEffect(() => {
 		setAmount(0);
-		for(let i = 0; i < data.payList.length; i++) {
-			priceArr.push(data.payList[i].Product.price)
-		} 
-		for(let i = 0; i < priceArr.length; i++) {
+		for (let i = 0; i < data.payList.length; i++) {
+			priceArr.push(data.payList[i].Product.price);
+		}
+		for (let i = 0; i < priceArr.length; i++) {
 			sum += priceArr[i];
 			setAmount(sum);
 		}
 	}, [year, month, category]);
 
-    return (
-      <>
-		<S.Wrap>
-			<S.infoTitle><S.Amount>{year}년 {month}월</S.Amount>의 거래 내역이에요 !</S.infoTitle>
-			<S.PreviewWrap>
-				<div>
-					<S.Flex>
-						<div>{category === "seller" ? "판매" : "구매"}</div>
-						<S.Flex2>
-							<div>{data.payList.length}건</div>
-							<div>{(amount).toLocaleString('ko-KR')}원</div>
-						</S.Flex2>
-					</S.Flex>
-				</div>
-			</S.PreviewWrap>
-		</S.Wrap>
+	return (
+		<>
+			<S.Wrap>
+				<S.infoTitle>
+					<S.Amount>
+						{year}년 {month}월
+					</S.Amount>
+					의 거래 내역이에요 !
+				</S.infoTitle>
+				<S.PreviewWrap>
+					<div>
+						<S.Flex>
+							<div>{category === 'seller' ? '판매' : '구매'}</div>
+							<S.Flex2>
+								<div>{data.payList.length}건</div>
+								<div>{amount.toLocaleString('ko-KR')}원</div>
+							</S.Flex2>
+						</S.Flex>
+					</div>
+				</S.PreviewWrap>
+			</S.Wrap>
 
-		<S.Container>
-			{data && data.payList.map(item => <ItemCard 
-				index={item.idx} 
-				products={item.Product} 
-				isDone={true} 
-				createdAt={item.createdAt}
-				category={category}
-			/>)}
-		</S.Container>
-      </>
-    )
+			<S.Container>
+				{data &&
+					data.payList.map(item => (
+						<ItemCard
+							index={item.idx}
+							products={item.Product}
+							options={{ isDone: true, createdAt: item.createdAt }}
+							category={category}
+						/>
+					))}
+			</S.Container>
+		</>
+	);
 };
 
 export default DetailCard;
@@ -143,7 +150,7 @@ const Flex2 = styled.div`
 	width: max-content;
 	& div:nth-child(1) {
 		margin-right: 20px;
-	} 
+	}
 `;
 
 const Amount = styled.span`
@@ -152,11 +159,11 @@ const Amount = styled.span`
 `;
 
 const S = {
-  Wrap,
-  Container,
-  infoTitle,
-  PreviewWrap,
-  Flex,
-  Flex2,
-  Amount,
+	Wrap,
+	Container,
+	infoTitle,
+	PreviewWrap,
+	Flex,
+	Flex2,
+	Amount,
 };

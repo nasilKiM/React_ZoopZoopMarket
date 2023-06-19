@@ -18,9 +18,7 @@ const AnotherProduct = ({ product, isMine }) => {
 								key={Math.random()}
 								index={prod.idx}
 								products={prod}
-								isMine={isMine}
-								isRelated={true}
-								createdAt={false}
+								options={{ isMine: isMine, isRelated: true }}
 							/>
 						);
 					})}

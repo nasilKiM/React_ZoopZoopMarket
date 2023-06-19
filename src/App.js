@@ -12,6 +12,7 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyles from 'Styles/global';
 import { theme } from 'Styles/theme';
+import AuthProvider from 'Context/auth';
 
 function App() {
 	const queryClient = new QueryClient();
@@ -23,8 +24,10 @@ function App() {
 					<ReactQueryDevtools initialIsOpen={false} />
 					<ThemeProvider theme={theme}>
 						<SocketProvider>
-							<GlobalStyles />
-							<RouterProvider router={router} />
+							<AuthProvider>
+								<GlobalStyles />
+								<RouterProvider router={router} />
+							</AuthProvider>
 						</SocketProvider>
 					</ThemeProvider>
 				</QueryClientProvider>

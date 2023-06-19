@@ -6,22 +6,11 @@ import BannerAd from './Components/bannerAd';
 import MainPageSkeleton from '../Skeleton/page/mainSkeleton';
 
 import styled from 'styled-components';
+import usePreventGoingBack from 'Hooks/Prevent/use-prevent-goback';
 
 const MainPage = () => {
 	const [isLoading, setIsLoading] = useState(true);
-
-	const preventGoBack = () => {
-		history.pushState(null, '', location.href);
-	};
-
-	useEffect(() => {
-		history.pushState(null, '', location.href);
-		window.addEventListener('popstate', preventGoBack);
-
-		return () => {
-			window.removeEventListener('popstate', preventGoBack);
-		};
-	}, []);
+	usePreventGoingBack();
 
 	useEffect(() => {
 		setTimeout(() => {

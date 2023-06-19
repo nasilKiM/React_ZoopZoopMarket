@@ -1,11 +1,11 @@
+import { useAuth } from 'Context/auth';
 import { Navigate } from 'react-router-dom';
 
-import TokenService from 'Repository/TokenService';
 
 const PrivateRoute = ({ children }) => {
-	const access_token = TokenService.getToken();
+	const {accessToken} = useAuth();
 
-	return access_token ? children : <Navigate to={`/`} />;
+	return accessToken ? children : <Navigate to={`/`} />;
 };
 
 export default PrivateRoute;

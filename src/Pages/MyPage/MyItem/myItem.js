@@ -58,9 +58,7 @@ const MyItemPage = () => {
 										<ItemCard
 											index={item.idx}
 											products={item}
-											isMine={true}
-											isDone={false}
-											createdAt={false}
+											options={{ isMine: true }}
 										/>
 									));
 								})}

@@ -78,14 +78,14 @@ const Preview = ({ category }) => {
 			{products?.length <= 3 ? (
 				<S.TempSlider>
 					{products?.map(item => (
-						<ItemCard key={item.idx} products={item} index={item.idx} createdAt={false}/>
+						<ItemCard key={item.idx} products={item} index={item.idx} />
 					))}
 				</S.TempSlider>
 			) : (
 				<S.SliderWrapper>
 					<Slider {...sliderSettings}>
 						{products?.map(item => (
-							<ItemCard key={item.idx} products={item} index={item.idx} createdAt={false}/>
+							<ItemCard key={item.idx} products={item} index={item.idx} />
 						))}
 					</Slider>
 				</S.SliderWrapper>

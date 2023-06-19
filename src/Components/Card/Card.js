@@ -12,7 +12,12 @@ import styled from 'styled-components';
 import { flexAllCenter, flexSpaceBetween } from 'Styles/common';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const ItemCard = ({ index, products, isMine, isRelated, isDone, createdAt, category }) => {
+const ItemCard = ({ index, products, options, category }) => {
+	const isMine = options?.isMine || false;
+	const isRelated = options?.isRelated || false;
+	const isDone = options?.isDone || false;
+	const createdAt = options?.createdAt || false;
+
 	const navigate = useNavigate();
 	const [modal, setModal] = useState(false);
 	const queryClient = useQueryClient();
@@ -324,5 +329,5 @@ const S = {
 	BtnContainer,
 	NO,
 	OK,
-	Flex
+	Flex,
 };

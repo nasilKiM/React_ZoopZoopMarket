@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faComment, faXmark } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { basicSetting, flexAllCenter } from 'Styles/common';
+import { useAuth } from 'Context/auth';
 
 const WebHeader = ({ so }) => {
 	const wrapperRef = useRef();
@@ -31,6 +32,8 @@ const WebHeader = ({ so }) => {
 	const [MenuIsOpen, setMenuIsOpen] = useState(false);
 	const [popupMsg, setPopupMsg] = useState();
 	const [showChatIcon, setShowChatIcon] = useRecoilState(chatIcon);
+
+	const { logout } = useAuth();
 
 	useMouseDownEvent({
 		showRef,
@@ -50,11 +53,6 @@ const WebHeader = ({ so }) => {
 			setShowChatIcon(true);
 		});
 	}, [so]);
-
-	const logout = async () => {
-		TokenService.removeToken();
-		navigate('/');
-	};
 
 	const toggleMenu = () => {
 		setMenuIsOpen(!MenuIsOpen);

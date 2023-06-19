@@ -19,6 +19,7 @@ import {
 	flexJustifyCenter,
 } from 'Styles/common';
 import { useNavigate } from 'react-router';
+import usePreventGoingBack from 'Hooks/Prevent/use-prevent-goback';
 
 const SignUpPage = () => {
 	const [address, setAddress] = useState();
@@ -29,8 +30,7 @@ const SignUpPage = () => {
 	const [loginModal, setLoginModal] = useState(false);
 	const navigate = useNavigate();
 
-	const preventGoBack = () => {
-		history.pushState(null, '', location.href);
+	const goBackCallback = () => {
 		const result = confirm(
 			'페이지 이동 시 입력하신 내용이 저장되지 않을 수 있습니다.',
 		);
@@ -39,13 +39,7 @@ const SignUpPage = () => {
 		}
 	};
 
-	useEffect(() => {
-		history.pushState(null, '', location.href);
-		window.addEventListener('popstate', preventGoBack);
-		return () => {
-			window.removeEventListener('popstate', preventGoBack);
-		};
-	}, []);
+	usePreventGoingBack(goBackCallback);
 
 	const preventClose = e => {
 		e.preventDefault();
