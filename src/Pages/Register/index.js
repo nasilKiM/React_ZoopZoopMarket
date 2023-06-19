@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useErrorBoundary } from 'react-error-boundary';
+import { useNavigate } from 'react-router';
 
 import ProductApi from 'Apis/productApi';
 
@@ -15,6 +16,7 @@ import CategorySelector from './Components/categorySelector';
 import styled from 'styled-components';
 
 import { basicSetting, flexAlignCenter } from 'Styles/common';
+import usePreventGoingBack from 'Hooks/Prevent/use-prevent-goback';
 
 const RegisterPage = () => {
 	const [searchResult, setSearchResult] = useState('');
@@ -32,6 +34,7 @@ const RegisterPage = () => {
 
 	const { idx } = useParams();
 	const queryClient = useQueryClient();
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -41,6 +44,15 @@ const RegisterPage = () => {
 		setValue,
 		formState: { errors },
 	} = useForm();
+
+	const goBackCallback = () => {
+		const result = confirm('입력하신 내용이 저장되지 않을 수 있습니다.');
+		if (result === true) {
+			navigate('/main');
+		}
+	};
+
+	usePreventGoingBack(goBackCallback);
 
 	const productIdx = async () => {
 		try {

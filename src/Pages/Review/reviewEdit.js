@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
@@ -17,6 +18,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import { styled as mui } from '@mui/material/styles';
 import styled from 'styled-components';
+import usePreventGoingBack from 'Hooks/Prevent/use-prevent-goback';
 
 const ReviewEditPage = () => {
 	const { idx } = useParams();
@@ -37,9 +39,19 @@ const ReviewEditPage = () => {
 
 	const [show, setShow] = useState(true);
 	const [postModal, setPostModal] = useState(false);
+	const navigate = useNavigate();
 
 	const hasOriginalImg = target?.Review.img_url !== 'null';
 	const hasNewImg = target?.Review.ReviewImages.length > 0;
+
+	const goBackCallback = () => {
+		const result = confirm('작성하신 리뷰가 저장되지 않을 수 있습니다.');
+		if (result === true) {
+			navigate('/mypage/review');
+		}
+	};
+
+	usePreventGoingBack(goBackCallback);
 
 	useEffect(() => {
 		const imgArr = [];

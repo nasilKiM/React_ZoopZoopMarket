@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useMutation } from '@tanstack/react-query';
 
 import ReviewApi from 'Apis/reviewApi';
@@ -18,6 +19,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import styled from 'styled-components';
 import { basicSetting } from 'Styles/common';
+import usePreventGoingBack from 'Hooks/Prevent/use-prevent-goback';
 
 const ReviewPage = () => {
 	const target = useRecoilValue(reviewAtom);
@@ -28,6 +30,7 @@ const ReviewPage = () => {
 	const [ondo, setOndo] = useState(3);
 	const [images, setImages] = useState([]);
 	const [postModal, setPostModal] = useState(false);
+	const navigate = useNavigate();
 
 	const StyledRating = mui(Rating)(({ theme }) => ({
 		'& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -38,6 +41,15 @@ const ReviewPage = () => {
 	const mutationPostReview = useMutation(data => {
 		return ReviewApi.postReview(data, idx);
 	});
+
+	const goBackCallback = () => {
+		const result = confirm('작성하신 리뷰가 저장되지 않을 수 있습니다.');
+		if (result === true) {
+			navigate('/mypage/review');
+		}
+	};
+
+	usePreventGoingBack(goBackCallback);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
