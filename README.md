@@ -18,137 +18,151 @@ https://zoopzoop-market.vercel.app/
 
 ## 🖥️ 서비스 화면
 
-<캡쳐화면>
+![image](https://github.com/nasilKiM/ZoopzoopMarket/assets/117559842/a296a0ee-be13-4107-b715-89b95b30e296)
+
 
 <br>
 
 ## 🌳 프로젝트 폴더 구조
 
-    * src
-    	ㄴ@Socket
-            ㄴsocket.js
-        ㄴapis
-            ㄴ@core.js
-            ㄴchatApis.js
-            ㄴmyPageApi.js
-            ㄴproductApi.js
-            ㄴreviewApi.js
-            ㄴuserApi.js
-        ㄴAtoms
-    	ㄴreview.atom.js
-        ㄴComponents
-        ㄴAddress : 카카오맵을 통한 주소 설정
-        ㄴAlert : alert, confirm, notification 모달 설정
-        ㄴButtons : 공통 버튼 스타일 설정
-    	ㄴCompletedBtn : 판매완료변경 버튼
-    	ㄴEditBtns : 수정, 삭제 버튼
-    	ㄴHeartBtn : 관심상품 설정/해제 버튼
-    	ㄴMoreBtn : 상품 전체보기 버튼
-    	ㄴRegisterBtn : 상품 등록 버튼
-    	ㄴTopBtn : 페이지 상단으로 보내는 버튼
-        ㄴCard : 아이템, 판매완료, 리뷰카드 설정
-        ㄴChatMessage : 채팅메세 설정
-        ㄴIcon : 유저 온도 설정
-        ㄴInput : 입력창 설
-        ㄴLayout : 공통 Header + Footer 설정
-        ㄴLoading : 스켈레톤 설정 페이지 외 로딩설정
-            ㄴMap : 카카오맵 지도 설정
-            ㄴProfile : 유저 프로필 설정
-            ㄴRecentCard : 최근 본 상품 설
-            ㄴReview : 상대방 프로필 내 리뷰 설정(*작업전)
-            ㄴScrollToTop : 전체페이지 상단으로 보내는 로직 설정
-            ㄴSearchBar : 검색 입력 창 설정
-            ㄴToggle : 마이페이지 내 메뉴 설정
-    ㄴConsts
-            ㄴFormType.js : Form 타입 공통 설정
-            ㄴQueryKey : 쿼리  설정
-    ㄴHooks/queries
-            ㄴ@config.js : query config 공통설정
-            ㄴget-chat-query.js : 채팅에 불러올 데이터 (useQuery) 설정
-            ㄴget-infinite-query.js : (마이페이지, 검색결과) 무한스크롤 (useQuery) 설정
-            ㄴget-mypage-mutation.js : 마이페이지에 불러올 데이터 (useMutation) 설정
-            ㄴget-mypage-query.js : 마이페이지에 불러올 데이터 (useQuery) 설정
-            ㄴget-product-mutation.js : 관심상품, 판매완료 시 불러올 데이터 (useMutation) 설정
-            ㄴget-product-query.js : 상품 관련 페이지에 불러올 데이터 (useQuery) 설정
-            ㄴnow-user-query.js : 유저 관련 페이지에 불러올 데이터 (useQuery) 설정
-        ㄴPages
-            ㄴChat : 채팅 관련 페이지
-                ㄴChatDetail : 채팅 상세 페이지
-                ㄴChatList : 채팅 목록(대화상대)
-                ㄴMessage : 메세지 관련
-                    ㄴComponents
-                    	ㄴDateDivide.js
-                    	ㄴMyChat.js
-                    	ㄴYourChat.js
-                    ㄴMessage.js
-            ㄴItemDetail : 아이템 상세 페이지
-                ㄴComponents
-                    	ㄴAnotherProduct : 연관상품 관련
-                    	ㄴDetailContent : 상세페이지 내 내용
-                    	ㄴDetailHead : 상세페이지 이미지, 프로필영역
-                ㄴBuyerDetail : 구매자용 페이지
-                ㄴSellerDetail : 판매자용 페이지
-            ㄴLanding : 랜딩페이지(첫화면)
-    	ㄴForm
-    		ㄴLogin : 로그인 페이지
-    		ㄴSignUp : 회원가입 페이지
-            ㄴMain : 로그인 이후 메인 페이지
-                ㄴComponents
-                    ㄴbannerAd.js : 배너광고 이미지 영역
-                    ㄴcategory.js : 카테고리 검색 영역
-                    ㄴpreview.js : 중고템, 무료템 슬라이더 영역
-                ㄴChatList : 채팅 목록(대화상대)
-            ㄴMarketPrice : 시세 페이지
-                ㄴComponents
-                    ㄴmyProfile.js : 그래프 차 영역
-                    ㄴrecentSoldout.js : 최근거래 종료품목
-            ㄴMyPage : 마이페이지
-                ㄴComponents
-                    ㄴmyProfile.js : 마이페이지 내 프로필 영역
-                ㄴMyAccountBook : 마이페이지 내 가계부 영역
-                    ㄴComponents
-                    	ㄴdetailCard.js : 선택한 연/월 거래내역 표시 영역
-                    	ㄴdetailInfo.js : 총 수입/지출내역 및 당월 수입/지출내역
-                    	ㄴmock.js
-                    	ㄴselector.js : 기간(연/월) 설정
-                ㄴMyInterest : 마이페이지 내 관심템 영역
-                ㄴMyItem : 마이페이지 내 아이템 영역
-                ㄴMyReview : 마이페이지 구매 물품 리뷰 영역
-                ㄴMyUserEdit : 마이페이지 내 정보 수정 영역
-                    ㄴMyPasswordEdit : 내 정보 수정 - 비밀번호 수정 영역
-            ㄴRegister : 아이템 등록/수정 페이지
-                ㄴComponents
-                    	ㄴcategorySelector : 카테고리 태그 등록 영역
-                    	ㄴuploadFiles : 이미지 등록 영역
-            ㄴReview : 리뷰 등록/수정 페이지
-            ㄴSearchList : 검색결과를 불러오는 페이지
-                    ㄴComponents
-                    	ㄴfreeProduct.js : 무료템 리스트 불러오는 페이지
-                    	ㄴsearchList.js : 검색결과 불러오는 페이지
-                    	ㄴusedProduct.js : 중고템 리스트 불러오는 페이지
-                    	ㄴwholeList.js : 전체, 무료템, 중고템 리스트 불러오는 페이지
-            ㄴSkeleton : 스켈레톤 UI 처리 해둔 페이지 모음
-                    ㄴcomponents
-                    	ㄴbarSkeleton.js
-                    	ㄴcardSkeleton.js
-                    	ㄴprofileSkeleton.js
-                    ㄴpage
-                    	ㄴmainSkeleton.js : 메인페이지 스켈레톤
-                    	ㄴmarketPriceSkele.js : 시세페이지 스켈레톤
-                    	ㄴmyProfileSkele.js : 프로필 영역 스켈레톤
-                    	ㄴsearchIndexSkele.js : 검색결과페이지 스켈레톤
-                    	ㄴwholeListSkele.js : 전체, 무료템, 중고템 리스트 스켈레톤
-            ㄴYourProfile : 상대방 프로필 페이지 (*작업중)
-        ㄴRepository
-            ㄴTokenService.js : 로그인 토큰 설정
-        ㄴRoutes
-            ㄴprivate.js : 로그인 토큰이 없으면 랜딩페이지로 보내는 라우팅 설정
-            ㄴrouting.js : 전체 라우팅 설정
-        ㄴstyles : 공통 스타일 설정
-
-        -------------------------------------------
-        * App.js
-        * index.js
+```
+📦 src
+├─ @Socket
+│  └─ socket.js
+├─ Apis
+│  ├─ @core.js
+│  ├─ chatApis.js
+│  ├─ myPageApi.js
+│  ├─ productApi.js
+│  ├─ reviewApi.js
+│  └─ userApi.js
+├─ Atoms
+│  └─ review.atom.js
+├─ Components
+│  ├─ Address : 카카오맵을 통한 주소 설정
+│  ├─ Alert : alert, confirm, notification 모달 설정
+│  ├─ Buttons : 공통 버튼 스타일 설
+│  │  └─ CompletedBtn : 판매완료변경 버튼
+│  │     ├─ EditBtns : 수정, 삭제 버튼
+│  │     ├─ HeartBtn : 관심상품 설정/해제 버튼
+│  │     ├─ MoreBtn : 상품 전체보기 버튼
+│  │     ├─ RegisterBtn : 상품 등록 버튼
+│  │     └─ TopBtn : 페이지 상단으로 보내는 버튼
+│  ├─ Card : 아이템, 판매완료, 리뷰카드 설정
+│  ├─ ChatMessage : 채팅메세 설정
+│  ├─ Icon : 유저 온도 설정
+│  ├─ Input : 입력창 설
+│  ├─ Layout : 공통 Header + Footer 설정
+│  ├─ Loading : 스켈레톤 설정 페이지 외 로딩설정
+│  ├─ Map : 카카오맵 지도 설정
+│  ├─ Profile : 유저 프로필 설정
+│  ├─ RecentCard : 최근 본 상품 설정
+│  ├─ Review : 상대방 프로필 내 리뷰 설정
+│  ├─ ScrollToTop : 전체페이지 상단으로 보내는 로직 설정
+│  ├─ SearchBar : 검색 입력 창 설정
+│  └─ Toggle : 마이페이지 내 메뉴 설정
+Const
+│  ├─ FormType.js : Form 타입 공통 설정
+│  └─ QueryKey : 쿼리 키 설정
+├─ Context
+│  └─ socket.js : socket 설정 context
+├─ Error
+│  └─ index.js : 에러 페이지
+├─ Hooks
+│  └─ Queries
+│     ├─ @config.js : query config 공통설정
+│     ├─ get-chat-query.js : 채팅에 불러올 데이터 (useQuery) 설정
+│     ├─ get-infinite-query.js : (마이페이지, 검색결과) 무한스크롤 (useQuery) 설정
+│     ├─ get-mypage-mutation.js : 마이페이지에 불러올 데이터 (useMutation) 설정
+│     ├─ get-mypage-query.js : 마이페이지에 불러올 데이터 (useQuery) 설정
+│     ├─ get-product-mutation.js : 관심상품, 판매완료 시 불러올 데이터 (useMutation) 설정
+│     ├─ get-product-query.js : 상품 관련 페이지에 불러올 데이터 (useQuery) 설정
+│     └─ now-user-query.js : 유저 관련 페이지에 불러올 데이터 (useQuery) 설정
+├─ Pages
+│  ├─ Chat : 채팅 관련 페이지
+│  │  ├─ ChatDetail : 채팅 상세 페이지
+│  │  ├─ ChatList : 채팅 목록(대화상대)
+│  │  ├─ Message : 메세지 관련
+│  │  │  ├─ Components
+│  │  │  │  ├─ DateDivide.js
+│  │  │  │  ├─ MyChat.js
+│  │  │  │  └─ YourChat.js
+│  │  │  └─ Message.js
+│  │  └─ index.js
+│  ├─ ItemDetail : 아이템 상세 페이지
+│  │  ├─ Components
+│  │  │  ├─ AnotherProduct : 연관상품 관련
+│  │  │  ├─ DetailContent : 상세페이지 내 내용
+│  │  │  └─ DetailHead : 상세페이지 이미지, 프로필영역
+│  │  ├─ BuyerDetail : 구매자용 페이지
+│  │  └─ SellerDetail : 판매자용 페이지
+│  ├─ Landing : 랜딩페이지(첫화면)
+│  │  └─ Form
+│  │     ├─ Login : 로그인 페이지
+│  │     └─ SignUp : 회원가입 페이지
+Main : 로그인 이후 메인 페이지
+│  │  ├─ Components
+│  │  │  ├─ bannerAd.js : 배너광고 이미지 영역
+│  │  │  ├─ category.js : 카테고리 검색 영역
+│  │  │  └─ preview.js : 중고템, 무료템 슬라이더 영역
+│  │  └─ index.js
+MarketPrice : 시세 페이지
+│  │  └─ Components
+│  │     ├─ myProfile.js : 그래프 차 영역
+│  │     └─ recentSoldout.js : 최근거래 종료품목
+MyPage : 마이페이지
+│  │  ├─ Components
+│  │  │  └─ myProfile.js : 마이페이지 내 프로필 영역
+│  │  ├─ MyAccountBook : 마이페이지 내 가계부 영역
+│  │  │  └─ Components
+│  │  │     ├─ detailCard.js : 선택한 연/월 거래내역 표시 영역
+│  │  │     ├─ detailInfo.js : 총 수입/지출내역 및 당월 수입/지출내역
+│  │  │     ├─ mock.js
+│  │  │     └─ selector.js : 기간(연/월) 설정
+│  │  ├─ MyInterest : 마이페이지 내 관심템 영역
+│  │  ├─ MyItem : 마이페이지 내 아이템 영역
+│  │  ├─ MyReview : 마이페이지 구매 물품 리뷰 영역
+│  │  └─ MyUserEdit : 마이페이지 내 정보 수정 영역
+│  │     └─ MyPasswordEdit : 내 정보 수정 - 비밀번호 수정 영역
+│  ├─ Register : 아이템 등록/수정 페이지
+│  │  └─ Components
+│  │     ├─ categorySelector : 카테고리 태그 등록 영역
+│  │     └─ uploadFiles : 이미지 등록 영역
+Review : 리뷰 등록/수정 페이지
+│  │  ├─ index.js : 리뷰 등록
+│  │  ├─ reviewDetail.js : 리뷰 상세
+│  │  └─ reviewEdit.js : 리뷰
+SearchList : 검색결과를 불러오는 페이지
+│  │  └─ Components
+│  │     ├─ freeProduct.js : 무료템 리스트 불러오는 페이지
+│  │     ├─ searchList.js : 검색결과 불러오는 페이지
+│  │     ├─ usedProduct.js : 중고템 리스트 불러오는 페이지
+│  │     └─ wholeList.js : 전체, 무료템, 중고템 리스트 불러오는 페이지
+Skeleton : 스켈레톤 UI 처리 해둔 페이지 모음
+│  │  ├─ components
+│  │  │  ├─ barSkeleton.js
+│  │  │  ├─ cardSkeleton.js
+│  │  │  └─ profileSkeleton.js
+│  │  ├─ page
+│  │  │  ├─ mainSkeleton.js : 메인페이지 스켈레톤
+│  │  │  ├─ marketPriceSkele.js : 시세페이지 스켈레톤
+│  │  │  ├─ myProfileSkele.js : 프로필 영역 스켈레톤
+│  │  │  ├─ searchIndexSkele.js : 검색결과페이지 스켈레톤
+│  │  │  └─ wholeListSkele.js : 전체, 무료템, 중고템 리스트 스켈레톤
+│  │  └─ YourProfile : 상대방 프로필 페이지 (*작업중)
+Repository
+│  │  └─ TokenService.js : 로그인 토큰 설정
+Routes
+│  │  ├─ private.js : 로그인 토큰이 없으면 랜딩페이지로 보내는 라우팅 설정
+│  │  └─ routing.js : 전체 라우팅 설정
+│  └─ styles : 공통 스타일 설정
+│     ├─ common.js : 공통 스타일
+│     ├─ global.js : 전역 스타일
+│     └─ theme.js : 테마 
+├─ App
+└─ index.js
+```
+©generated by [Project Tree Generator](https://woochanleee.github.io/project-tree-generator)
 
 <br>
 
