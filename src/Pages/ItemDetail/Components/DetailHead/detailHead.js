@@ -1,18 +1,25 @@
 import ProductImg from './ProductImg/productImg';
 import MannerMeter from 'Components/Icon/Icon';
 import Profile from 'Components/Profile/profile';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 import { flexAllCenter } from 'Styles/common';
 
 const DetailHead = ({ item }) => {
+	const navigate = useNavigate();
+
 	return (
 		item && (
 			<S.Wrapper>
 				<ProductImg main={item.img_url} sub={item.ProductImages} />
 				<S.ProductWrapper>
-					<S.UserProfile>
+					<S.UserProfile
+						onClick={() => {
+							navigate(`/profile`);
+						}}
+					>
 						<S.ProfileWrapper>
 							<Profile userProfileUrl={item.User.profile_url} />
 						</S.ProfileWrapper>
@@ -41,7 +48,7 @@ const Wrapper = styled.div`
 	> * {
 		margin-bottom: 20px 0;
 	}
-	
+
 	> div:first-child {
 		border: 1px solid ${({ theme }) => theme.color.gray[200]};
 		height: 400px;
@@ -58,7 +65,11 @@ const ProductWrapper = styled.div`
 
 const UserProfile = styled.div`
 	${flexAllCenter}
-	
+
+	:hover {
+		cursor: pointer;
+	}
+
 	> ul {
 		margin-left: 20px;
 		> li:first-child {
@@ -74,7 +85,7 @@ const UserProfile = styled.div`
 
 const UserProfileDetail = styled.div`
 	text-align: right;
-	
+
 	> ul > * {
 		margin: 10px 10px;
 		font-size: ${({ theme }) => theme.fontSize.base};

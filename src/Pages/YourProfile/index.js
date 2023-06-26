@@ -1,12 +1,18 @@
+import { useQuery } from '@tanstack/react-query';
+import ReviewApi from 'Apis/reviewApi';
 import ItemCard from 'Components/Card/Card';
+// import ReviewItemCard from 'Components/Card/ReviewCard';
 import Profile from 'Components/Profile/profile';
 import ReviewMessage from 'Components/Review/Review';
-import { basicSetting } from 'Styles/common';
 
 import styled from 'styled-components';
 
 const YourProfile = () => {
 	const MOCK = new Array(4).fill(0);
+	const { data } = useQuery(['reviews'], () => ReviewApi.reviewList());
+
+	const list = data?.data.reviewList;
+	const total = data?.data.reviewList.length;
 
 	return (
 		<S.Wrapper>
@@ -37,6 +43,16 @@ const YourProfile = () => {
 				<ReviewMessage />
 				<ReviewMessage />
 				<ReviewMessage />
+
+				{/* <S.Title>구매 총 {total}건</S.Title>
+				{list &&
+					list.map(item => (
+						<ReviewItemCard
+							payIdx={item.idx}
+							item={item.Product}
+							original={item}
+						/>
+					))} */}
 			</S.Section>
 		</S.Wrapper>
 	);
@@ -45,13 +61,21 @@ const YourProfile = () => {
 export default YourProfile;
 
 const Wrapper = styled.div`
-	${basicSetting}
-	padding: 100px 0;
+	width: 70%;
+	min-width: 360px;
+	max-width: 1200px;
+	padding-top: 10px;
+	border: 1px solid blue;
+	@media (max-width: 700px) {
+		width: 95%;
+	}
+	@media (max-width: 900px) {
+		width: 90%;
+	}
+	margin: 0 auto;
 `;
 
 const ProfileSection = styled.div`
-	width: 700px;
-	margin: 0 auto;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -98,10 +122,9 @@ const Btn = styled.button`
 
 const Section = styled.div`
 	border: 1px solid red;
-	width: 700px;
+	max-width: 700px;
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
 	padding-top: 50px;
 	> span {
 		font-weight: ${({ theme }) => theme.fontWeight.bold};
@@ -115,6 +138,19 @@ const Section = styled.div`
 	}
 `;
 
+const Title = styled.div`
+	width: 100%;
+	padding: 15px;
+	margin-top: 20px;
+	font-size: ${({ theme }) => theme.fontSize.sm};
+	font-weight: ${({ theme }) => theme.fontWeight.bold};
+	background-color: ${({ theme }) => theme.color.gray[200]};
+	@media ${({ theme }) => theme.device.mobile} {
+		padding: 10px;
+		font-size: ${({ theme }) => theme.fontSize.xs};
+	}
+`;
+
 const S = {
 	Wrapper,
 	ProfileSection,
@@ -125,4 +161,5 @@ const S = {
 	Dong,
 	Btn,
 	Section,
+	Title,
 };
