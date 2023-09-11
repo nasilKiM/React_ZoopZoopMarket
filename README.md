@@ -18,8 +18,9 @@ https://zoopzoop-market.vercel.app/
 
 ## 🖥️ 서비스 화면
 
-![image](https://github.com/nasilKiM/ZoopzoopMarket/assets/117559842/a296a0ee-be13-4107-b715-89b95b30e296)
-
+<div align="center">
+  <img src="https://github.com/Frontend-TEAM1/ZoopzoopMarket/assets/113501460/9807b36f-48b6-4dcc-bea4-98d7de36422d"  width="50%"/>
+</div>
 
 <br>
 
